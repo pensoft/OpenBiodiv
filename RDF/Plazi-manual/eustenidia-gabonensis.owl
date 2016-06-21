@@ -1,0 +1,303 @@
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix cnt: <http://www.w3.org/2011/content#> .
+@prefix dwc: <http://rs.tdwg.org/dwc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sdd: <http://tdwg.org/sdd#> .
+@prefix sdo: <http://schema.org/> .
+@prefix spm: <http://rs.tdwg.org/ontology/voc/SpeciesProfileModel> .
+@prefix trt: <http://plazi.org/vocab/treatment#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix bibo: <http://purl.org/ontology/bibo/> .
+@prefix cito: <http://purl.org/spar/cito/> .
+@prefix mods: <http://www.loc.gov/mods/v3> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dwcFP: <http://filteredpush.org/ontologies/oa/dwcFP#> .
+@prefix fabio: <http://purl.org/spar/fabio/> .
+@base <http://www.w3.org/2002/07/owl#> .
+
+[ rdf:type owl:Ontology
+] .
+
+
+#################################################################
+#
+#    Annotation properties
+#
+#################################################################
+
+
+###  http://plazi.org/vocab/treatment#definesTaxonConcept
+
+trt:definesTaxonConcept rdf:type owl:AnnotationProperty .
+
+
+
+###  http://plazi.org/vocab/treatment#publishedIn
+
+trt:publishedIn rdf:type owl:AnnotationProperty .
+
+
+
+###  http://purl.org/dc/elements/1.1/creator
+
+dc:creator rdf:type owl:AnnotationProperty .
+
+
+
+###  http://purl.org/dc/elements/1.1/date
+
+dc:date rdf:type owl:AnnotationProperty .
+
+
+
+###  http://purl.org/dc/elements/1.1/title
+
+dc:title rdf:type owl:AnnotationProperty .
+
+
+
+###  http://purl.org/ontology/bibo/endPage
+
+bibo:endPage rdf:type owl:AnnotationProperty .
+
+
+
+###  http://purl.org/ontology/bibo/journal
+
+bibo:journal rdf:type owl:AnnotationProperty .
+
+
+
+###  http://purl.org/ontology/bibo/numero
+
+bibo:numero rdf:type owl:AnnotationProperty .
+
+
+
+###  http://purl.org/ontology/bibo/startPage
+
+bibo:startPage rdf:type owl:AnnotationProperty .
+
+
+
+###  http://purl.org/ontology/bibo/volume
+
+bibo:volume rdf:type owl:AnnotationProperty .
+
+
+
+###  http://rs.tdwg.org/dwc/terms/LSID-ZBK
+
+dwc:LSID-ZBK rdf:type owl:AnnotationProperty .
+
+
+
+###  http://rs.tdwg.org/dwc/terms/authority
+
+dwc:authority rdf:type owl:AnnotationProperty .
+
+
+
+###  http://rs.tdwg.org/dwc/terms/authorityName
+
+dwc:authorityName rdf:type owl:AnnotationProperty .
+
+
+
+###  http://rs.tdwg.org/dwc/terms/authorityYear
+
+dwc:authorityYear rdf:type owl:AnnotationProperty .
+
+
+
+###  http://rs.tdwg.org/dwc/terms/class
+
+dwc:class rdf:type owl:AnnotationProperty .
+
+
+
+###  http://rs.tdwg.org/dwc/terms/family
+
+dwc:family rdf:type owl:AnnotationProperty .
+
+
+
+###  http://rs.tdwg.org/dwc/terms/genus
+
+dwc:genus rdf:type owl:AnnotationProperty .
+
+
+
+###  http://rs.tdwg.org/dwc/terms/higherTaxonomySource
+
+dwc:higherTaxonomySource rdf:type owl:AnnotationProperty .
+
+
+
+###  http://rs.tdwg.org/dwc/terms/kingdom
+
+dwc:kingdom rdf:type owl:AnnotationProperty .
+
+
+
+###  http://rs.tdwg.org/dwc/terms/order
+
+dwc:order rdf:type owl:AnnotationProperty .
+
+
+
+###  http://rs.tdwg.org/dwc/terms/phylum
+
+dwc:phylum rdf:type owl:AnnotationProperty .
+
+
+
+###  http://rs.tdwg.org/dwc/terms/rank
+
+dwc:rank rdf:type owl:AnnotationProperty .
+
+
+
+###  http://rs.tdwg.org/dwc/terms/species
+
+dwc:species rdf:type owl:AnnotationProperty .
+
+
+
+###  http://rs.tdwg.org/ontology/voc/SpeciesProfileModelhasContent
+
+spm:hasContent rdf:type owl:AnnotationProperty .
+
+
+
+###  http://rs.tdwg.org/ontology/voc/SpeciesProfileModelhasInformation
+
+spm:hasInformation rdf:type owl:AnnotationProperty .
+
+
+
+
+
+#################################################################
+#
+#    Classes
+#
+#################################################################
+
+
+###  fabio:JournalArticle
+
+<fabio:JournalArticle> rdf:type owl:Class .
+
+
+
+###  http://filteredpush.org/ontologies/oa/dwcFP#TaxonConcept
+
+dwcFP:TaxonConcept rdf:type owl:Class .
+
+
+
+###  http://plazi.org/vocab/treatment#Treatment
+
+trt:Treatment rdf:type owl:Class .
+
+
+
+###  spm:InfoItem
+
+<spm:InfoItem> rdf:type owl:Class .
+
+
+
+
+
+#################################################################
+#
+#    Individuals
+#
+#################################################################
+
+
+###  http://dx.doi.org/10.1080/03946975.2012.738493
+
+<http://dx.doi.org/10.1080/03946975.2012.738493> rdf:type owl:NamedIndividual ,
+                                                          <fabio:JournalArticle> ;
+                                                 
+                                                 dc:creator "Pace, Roberto" ;
+                                                 
+                                                 dc:date "2012" ;
+                                                 
+                                                 dc:title "Aleocharinae from Gabon (Coleoptera: Staphylinidae)" ;
+                                                 
+                                                 bibo:endPage "172" ;
+                                                 
+                                                 bibo:journal "Tropical Zoology" ;
+                                                 
+                                                 bibo:numero "4" ;
+                                                 
+                                                 bibo:startPage "158" ;
+                                                 
+                                                 bibo:volume "25" .
+
+
+
+###  http://treatment.plazi.org/id/9F2D2EA9BB89DCF08005AE737C6DFD74
+
+<http://treatment.plazi.org/id/9F2D2EA9BB89DCF08005AE737C6DFD74> rdf:type owl:NamedIndividual ,
+                                                                          trt:Treatment ;
+                                                                 
+                                                                 trt:definesTaxonConcept <http://zoobank.org/NomenclaturalActs/D79CB55C4170432595C3EC40EC335241> ;
+                                                                 
+                                                                 trt:publishedIn <http://dx.doi.org/10.1080/03946975.2012.738493> ;
+                                                                 
+                                                                 spm:hasInformation <http://treatment.plazi.org/id/9F2D2EA9BB89DCF08005AE737C6DFD74#section_1> .
+
+
+
+###  http://treatment.plazi.org/id/9F2D2EA9BB89DCF08005AE737C6DFD74#section_1
+
+<http://treatment.plazi.org/id/9F2D2EA9BB89DCF08005AE737C6DFD74#section_1> rdf:type owl:NamedIndividual ,
+                                                                                    <spm:InfoItem> ;
+                                                                           
+                                                                           spm:hasContent " This treatment is a stub. You can help Plazi making the full treatment available." .
+
+
+
+###  http://zoobank.org/NomenclaturalActs/D79CB55C4170432595C3EC40EC335241
+
+<http://zoobank.org/NomenclaturalActs/D79CB55C4170432595C3EC40EC335241> rdf:type owl:NamedIndividual ,
+                                                                                 dwcFP:TaxonConcept ;
+                                                                        
+                                                                        dwc:LSID-ZBK "urn:lsid:zoobank.org:act:D79CB55C4170432595C3EC40EC335241" ;
+                                                                        
+                                                                        dwc:authority "Pace, 1984" ;
+                                                                        
+                                                                        dwc:authorityName "Pace" ;
+                                                                        
+                                                                        dwc:authorityYear "1984" ;
+                                                                        
+                                                                        dwc:class "Insecta" ;
+                                                                        
+                                                                        dwc:family "Staphylinidae" ;
+                                                                        
+                                                                        dwc:genus "Eustenidia" ;
+                                                                        
+                                                                        dwc:higherTaxonomySource "GBIF" ;
+                                                                        
+                                                                        dwc:kingdom "Animalia" ;
+                                                                        
+                                                                        dwc:order "Coleoptera" ;
+                                                                        
+                                                                        dwc:phylum "Arthropoda" ;
+                                                                        
+                                                                        dwc:rank "species" ;
+                                                                        
+                                                                        dwc:species "gabonensis" .
+
+
+
+
+###  Generated by the OWL API (version 4.2.3.20160319-0906) https://github.com/owlcs/owlapi
+
