@@ -1,0 +1,350 @@
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix cnt: <http://www.w3.org/2011/content#> .
+@prefix dwc: <http://rs.tdwg.org/dwc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sdd: <http://tdwg.org/sdd#> .
+@prefix sdo: <http://schema.org/> .
+@prefix spm: <http://rs.tdwg.org/ontology/voc/SpeciesProfileModel> .
+@prefix trt: <http://plazi.org/vocab/treatment#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix bibo: <http://purl.org/ontology/bibo/> .
+@prefix cito: <http://purl.org/spar/cito/> .
+@prefix mods: <http://www.loc.gov/mods/v3> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dwcFP: <http://filteredpush.org/ontologies/oa/dwcFP#> .
+@prefix fabio: <http://purl.org/spar/fabio/> .
+@base <http://www.w3.org/2002/07/owl#> .
+
+[ rdf:type owl:Ontology
+] .
+
+
+#################################################################
+#
+#    Annotation properties
+#
+#################################################################
+
+
+###  http://plazi.org/vocab/treatment#definesTaxonConcept
+
+trt:definesTaxonConcept rdf:type owl:AnnotationProperty .
+
+
+
+###  http://plazi.org/vocab/treatment#publishedIn
+
+trt:publishedIn rdf:type owl:AnnotationProperty .
+
+
+
+###  http://purl.org/dc/elements/1.1/creator
+
+dc:creator rdf:type owl:AnnotationProperty .
+
+
+
+###  http://purl.org/dc/elements/1.1/date
+
+dc:date rdf:type owl:AnnotationProperty .
+
+
+
+###  http://purl.org/dc/elements/1.1/title
+
+dc:title rdf:type owl:AnnotationProperty .
+
+
+
+###  http://purl.org/ontology/bibo/endPage
+
+bibo:endPage rdf:type owl:AnnotationProperty .
+
+
+
+###  http://purl.org/ontology/bibo/issue
+
+bibo:issue rdf:type owl:AnnotationProperty .
+
+
+
+###  http://purl.org/ontology/bibo/journal
+
+bibo:journal rdf:type owl:AnnotationProperty .
+
+
+
+###  http://purl.org/ontology/bibo/startPage
+
+bibo:startPage rdf:type owl:AnnotationProperty .
+
+
+
+###  http://purl.org/ontology/bibo/volume
+
+bibo:volume rdf:type owl:AnnotationProperty .
+
+
+
+###  http://purl.org/spar/cito/cites
+
+cito:cites rdf:type owl:AnnotationProperty .
+
+
+
+###  http://rs.tdwg.org/dwc/terms/authority
+
+dwc:authority rdf:type owl:AnnotationProperty .
+
+
+
+###  http://rs.tdwg.org/dwc/terms/authorityName
+
+dwc:authorityName rdf:type owl:AnnotationProperty .
+
+
+
+###  http://rs.tdwg.org/dwc/terms/authorityYear
+
+dwc:authorityYear rdf:type owl:AnnotationProperty .
+
+
+
+###  http://rs.tdwg.org/dwc/terms/box
+
+dwc:box rdf:type owl:AnnotationProperty .
+
+
+
+###  http://rs.tdwg.org/dwc/terms/class
+
+dwc:class rdf:type owl:AnnotationProperty .
+
+
+
+###  http://rs.tdwg.org/dwc/terms/family
+
+dwc:family rdf:type owl:AnnotationProperty .
+
+
+
+###  http://rs.tdwg.org/dwc/terms/genus
+
+dwc:genus rdf:type owl:AnnotationProperty .
+
+
+
+###  http://rs.tdwg.org/dwc/terms/kingdom
+
+dwc:kingdom rdf:type owl:AnnotationProperty .
+
+
+
+###  http://rs.tdwg.org/dwc/terms/order
+
+dwc:order rdf:type owl:AnnotationProperty .
+
+
+
+###  http://rs.tdwg.org/dwc/terms/pageId
+
+dwc:pageId rdf:type owl:AnnotationProperty .
+
+
+
+###  http://rs.tdwg.org/dwc/terms/pageNumber
+
+dwc:pageNumber rdf:type owl:AnnotationProperty .
+
+
+
+###  http://rs.tdwg.org/dwc/terms/phylum
+
+dwc:phylum rdf:type owl:AnnotationProperty .
+
+
+
+###  http://rs.tdwg.org/dwc/terms/rank
+
+dwc:rank rdf:type owl:AnnotationProperty .
+
+
+
+###  http://rs.tdwg.org/dwc/terms/species
+
+dwc:species rdf:type owl:AnnotationProperty .
+
+
+
+###  http://rs.tdwg.org/ontology/voc/SpeciesProfileModelhasContent
+
+spm:hasContent rdf:type owl:AnnotationProperty .
+
+
+
+###  http://rs.tdwg.org/ontology/voc/SpeciesProfileModelhasInformation
+
+spm:hasInformation rdf:type owl:AnnotationProperty .
+
+
+
+
+
+#################################################################
+#
+#    Classes
+#
+#################################################################
+
+
+###  fabio:JournalArticle
+
+<fabio:JournalArticle> rdf:type owl:Class .
+
+
+
+###  http://filteredpush.org/ontologies/oa/dwcFP#TaxonConcept
+
+dwcFP:TaxonConcept rdf:type owl:Class .
+
+
+
+###  http://plazi.org/vocab/treatment#Treatment
+
+trt:Treatment rdf:type owl:Class .
+
+
+
+###  spm:InfoItem
+
+<spm:InfoItem> rdf:type owl:Class .
+
+
+
+
+
+#################################################################
+#
+#    Individuals
+#
+#################################################################
+
+
+###  http://dx.doi.org/http://dx.doi.org/10.11646/zootaxa.3974.2.4
+
+<http://dx.doi.org/http://dx.doi.org/10.11646/zootaxa.3974.2.4> rdf:type owl:NamedIndividual ,
+                                                                         <fabio:JournalArticle> ;
+                                                                
+                                                                dc:creator "Matov, Alexej Yu." ,
+                                                                           "Volynkin, Anton V." ;
+                                                                
+                                                                dc:date "2015" ;
+                                                                
+                                                                dc:title "A review of the genus Pulcheria Alphéraky, 1887 with description of a new species from southeastern Kazakhstan (Lepidoptera, Noctuidae)" ;
+                                                                
+                                                                bibo:endPage "202" ;
+                                                                
+                                                                bibo:issue "2" ;
+                                                                
+                                                                bibo:journal "Zootaxa" ;
+                                                                
+                                                                bibo:startPage "196" ;
+                                                                
+                                                                bibo:volume "3974" .
+
+
+
+###  http://taxon-concept.plazi.org/id/03B74278D172FF81809B0A284AB4CCBE
+
+<http://taxon-concept.plazi.org/id/03B74278D172FF81809B0A284AB4CCBE> rdf:type owl:NamedIndividual ,
+                                                                              dwcFP:TaxonConcept ;
+                                                                     
+                                                                     dwc:authority "Alpheraky, 1887" ;
+                                                                     
+                                                                     dwc:authorityName "Alpheraky" ;
+                                                                     
+                                                                     dwc:authorityYear "1887" ;
+                                                                     
+                                                                     dwc:box "[151,610,871,898]" ;
+                                                                     
+                                                                     dwc:class "Insecta" ;
+                                                                     
+                                                                     dwc:family "Noctuidae" ;
+                                                                     
+                                                                     dwc:genus "Pulcheria" ;
+                                                                     
+                                                                     dwc:kingdom "Animalia" ;
+                                                                     
+                                                                     dwc:order "Lepidoptera" ;
+                                                                     
+                                                                     dwc:pageId "1" ;
+                                                                     
+                                                                     dwc:pageNumber "197" ;
+                                                                     
+                                                                     dwc:phylum "Arthropoda" ;
+                                                                     
+                                                                     dwc:rank "species" ;
+                                                                     
+                                                                     dwc:species "catomelas" .
+
+
+
+###  http://treatment.plazi.org/id/03B74278D172FF81809B0A284AB4CCBE
+
+<http://treatment.plazi.org/id/03B74278D172FF81809B0A284AB4CCBE> rdf:type owl:NamedIndividual ,
+                                                                          trt:Treatment ;
+                                                                 
+                                                                 trt:definesTaxonConcept <http://taxon-concept.plazi.org/id/03B74278D172FF81809B0A284AB4CCBE> ;
+                                                                 
+                                                                 trt:publishedIn <http://dx.doi.org/http://dx.doi.org/10.11646/zootaxa.3974.2.4> ;
+                                                                 
+                                                                 cito:cites " Pulcheria catomelas  Alphéraky, 1887  " ;
+                                                                 
+                                                                 spm:hasInformation <http://treatment.plazi.org/id/03B74278D172FF81809B0A284AB4CCBE#section_1> ,
+                                                                                    <http://treatment.plazi.org/id/03B74278D172FF81809B0A284AB4CCBE#section_2> ,
+                                                                                    <http://treatment.plazi.org/id/03B74278D172FF81809B0A284AB4CCBE#section_3> ,
+                                                                                    <http://treatment.plazi.org/id/03B74278D172FF81809B0A284AB4CCBE#section_4> .
+
+
+
+###  http://treatment.plazi.org/id/03B74278D172FF81809B0A284AB4CCBE#section_1
+
+<http://treatment.plazi.org/id/03B74278D172FF81809B0A284AB4CCBE#section_1> rdf:type owl:NamedIndividual ,
+                                                                                    <spm:InfoItem> ;
+                                                                           
+                                                                           spm:hasContent "   Pulcheria catomelas Alphéraky, 1887, Stettiner Entomologische Zeitung  48: 170( Typelocality: \"Turkestan\")." .
+
+
+
+###  http://treatment.plazi.org/id/03B74278D172FF81809B0A284AB4CCBE#section_2
+
+<http://treatment.plazi.org/id/03B74278D172FF81809B0A284AB4CCBE#section_2> rdf:type owl:NamedIndividual ,
+                                                                                    <spm:InfoItem> ;
+                                                                           
+                                                                           spm:hasContent "   Typematerial examined.  Lectotype( Figs 1, 9) (hereby designated in order to stabilize nomenclature): male, handwritten pink label \"  Pulcheria Catomelas\" / handwritten white label with a black frame \"Kashgar\" / handwritten grey label \"  1.vi.[ 18] 86, Myn'-gol\" (in Russian) / printed white label \"Coll. Gr. Prince Nikolaj Mikhajlovich\" (in Russian). Slide 0342 Matov (Coll. ZISP);  paralectotype( Figs 3, 21): female, handwritten pink label \"  Pulcheria CatomelasAlph.♀ Origin.\" / handwritten white label with a black frame \"Kashgar\" / printed white label \"Coll. Gr. Prince Nikolaj Mikhajlovich\" (in Russian). Slide 0344 Matov (Coll. ZISP).  Other material examined:  5males, Kashgar, Coll. Gr. Prince Nikolaj Mikhajlovich (coll. ZISP);  2males, Chotan, vi. 1890, leg. Conradt, Coll. Gr. Prince Nikolaj Mikhajlovich (coll. ZISP);  1male, Lob-nor, v. 1905, leg. Rueckbeil, Coll. Gr. Prince Nikolaj Mikhajlovich (coll. ZISP);  1male, Myn'-gol, vii. 1886, ex coll. Erschov (coll. ZISP);  1male, MNR [ Mongolia], Bajan-Khongor aimak, 40 kmS of Shine-Dzhinst, oasis Ekhijn-Gol,  27.vi. 1981, leg. A. Lvovskij, slide 4077L. Ronkay (coll. ZISP);  3males, Ili-Gebiet, coll. Tancré (coll. ZSM);  1male, Aksu, ex coll. Tancré / Coll. L. Osthelder (coll. ZSM);  1female, Asia centr., Ost-Turkestan, Kisil-Jart, Rückbeil, August (coll. ZMHU);  1female, Thianshan, Aksutal / Coll. J. v. Sterneck / No. / 8401e. coll. Staudgr. (coll. NHMW);  1male, Ost-Turkestan (Aksu), Rückbeil, An. vi. 1900(coll. ZMHU);  1male, Asia centr., Lob-Noor (Tscharlik) Rückbeil ji. 1907(coll. ZMHU);  2males, Kaschgaria / Kashgar. /  Pulcheria CatomelasAlph.(coll. ZMHU);  1male, Kaschgar [ 18] 86Grum. / Myn’-Gol,  7.vi.[ 19] 86/  PulcheriaAlph. CatomelasAlph.(coll. ZMHU);  1male, Aksu / collectio Dr. Schawerda (coll. NHMW);  5males, China, Xinjiang, W Taklimakan desert, Yarkan He riv. valley, tugay forest, h- 1140 m, N 39’’ 21.953’, E078’’ 11.639’,  9–12.vi. 2013, Floriani leg. (coll. PGM). Slides ZSM 4429, AV 1345Volynkin, RL 4077L. Ronkay, 0351 Matov (males)." .
+
+
+
+###  http://treatment.plazi.org/id/03B74278D172FF81809B0A284AB4CCBE#section_3
+
+<http://treatment.plazi.org/id/03B74278D172FF81809B0A284AB4CCBE#section_3> rdf:type owl:NamedIndividual ,
+                                                                                    <spm:InfoItem> ;
+                                                                           
+                                                                           spm:hasContent "  Diagnosis. Wingspan 33–35 mmin males and 36 mmin females.  P. catomelasis easily separated from the other two  Pulcheriaspecies by the pale ochreous brown ground colour of its body and forewing and the blackish ground colour of hindwing. In the male genitalia, the penicular lobes pointed, the distal part of valva is much narrower and corona is much shorter than those of the other two species, the clasper is wider, the harpe much broader, the vesica has broader subbasal diverticulum. In addition, male of  P. catomelasdiffers from the other two  Pulcheriaspecies by the shape of 1st sternite ( Fig. 18) and 8th sternite and tergite ( Fig. 15). In the female genitalia, the ostium bursae stronger sclerotised than that of the other species, anterior part of the ductus bursae is broader, the corpus bursae is much shorter and broader anteriorly." .
+
+
+
+###  http://treatment.plazi.org/id/03B74278D172FF81809B0A284AB4CCBE#section_4
+
+<http://treatment.plazi.org/id/03B74278D172FF81809B0A284AB4CCBE#section_4> rdf:type owl:NamedIndividual ,
+                                                                                    <spm:InfoItem> ;
+                                                                           
+                                                                           spm:hasContent "  Distribution. Tien Shan mountain system ( Kazakhstan, Kyrgyzstanand China, Xinjiang) and southwestern Mongolia( Varga 1982)." .
+
+
+
+
+###  Generated by the OWL API (version 4.2.3.20160319-0906) https://github.com/owlcs/owlapi
+

@@ -1,0 +1,62 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix dwc: <http://rs.tdwg.org/dwc/terms/> .
+@prefix cnt: <http://www.w3.org/2011/content#> .
+@prefix spm: <http://rs.tdwg.org/ontology/voc/SpeciesProfileModel> .
+@prefix bibo: <http://purl.org/ontology/bibo/> .
+@prefix sdo: <http://schema.org/> .
+@prefix trt: <http://plazi.org/vocab/treatment#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix fabio: <http://purl.org/spar/fabio/> .
+@prefix cito: <http://purl.org/spar/cito/> .
+@prefix sdd: <http://tdwg.org/sdd#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dwcFP: <http://filteredpush.org/ontologies/oa/dwcFP#> .
+
+<http://dx.doi.org/http://dx.doi.org/10.3897/zookeys.245.3416>
+    dc:creator "Bousquet, Yves" ;
+    dc:date "2012" ;
+    dc:title "Catalogue of Geadephaga (Coleoptera, Adephaga) of America, north of Mexico" ;
+    bibo:endPage "1722" ;
+    bibo:journal "ZooKeys" ;
+    bibo:startPage "1" ;
+    bibo:volume "245" ;
+    a <fabio:JournalArticle> .
+
+<http://taxon-concept.plazi.org/id/B0081DC4856386502A399A70AE43B9D8>
+    <http://digir.net/schema/conceptual/darwin/2003/1.0authority> "Linnaeus, 1758" ;
+    <http://digir.net/schema/conceptual/darwin/2003/1.0authorityName> "Linnaeus" ;
+    <http://digir.net/schema/conceptual/darwin/2003/1.0authorityYear> "1758" ;
+    <http://digir.net/schema/conceptual/darwin/2003/1.0class> "Insecta" ;
+    <http://digir.net/schema/conceptual/darwin/2003/1.0family> "Carabidae" ;
+    <http://digir.net/schema/conceptual/darwin/2003/1.0genus> "Leistus" ;
+    <http://digir.net/schema/conceptual/darwin/2003/1.0higherTaxonomySource> "CoL" ;
+    <http://digir.net/schema/conceptual/darwin/2003/1.0kingdom> "Animalia" ;
+    <http://digir.net/schema/conceptual/darwin/2003/1.0lsidName> "Leistus ferrugineus" ;
+    <http://digir.net/schema/conceptual/darwin/2003/1.0order> "Coleoptera" ;
+    <http://digir.net/schema/conceptual/darwin/2003/1.0pageId> "128" ;
+    <http://digir.net/schema/conceptual/darwin/2003/1.0pageNumber> "129" ;
+    <http://digir.net/schema/conceptual/darwin/2003/1.0phylum> "Arthropoda" ;
+    <http://digir.net/schema/conceptual/darwin/2003/1.0rank> "species" ;
+    <http://digir.net/schema/conceptual/darwin/2003/1.0species> "ferrugineus" ;
+    a dwcFP:TaxonConcept .
+
+<http://treatment.plazi.org/id/B0081DC4856386502A399A70AE43B9D8>
+    trt:definesTaxonConcept <http://taxon-concept.plazi.org/id/B0081DC4856386502A399A70AE43B9D8> ;
+    trt:publishedIn <http://dx.doi.org/http://dx.doi.org/10.3897/zookeys.245.3416> ;
+    cito:cites "Carabus ferrugineus" ;
+    spm:hasInformation <http://treatment.plazi.org/id/B0081DC4856386502A399A70AE43B9D8#section_1>, <http://treatment.plazi.org/id/B0081DC4856386502A399A70AE43B9D8#section_2>, <http://treatment.plazi.org/id/B0081DC4856386502A399A70AE43B9D8#section_3> ;
+    a trt:Treatment .
+
+<http://treatment.plazi.org/id/B0081DC4856386502A399A70AE43B9D8#section_1>
+    spm:hasContent "  Carabus ferrugineusLinnaeus, 1758: 415. Type locality: \"Europa\"(original citation). One possible syntype in LSL (Lindroth 1957b: 331)." ;
+    a <spm:InfoItem> .
+
+<http://treatment.plazi.org/id/B0081DC4856386502A399A70AE43B9D8#section_2>
+    spm:hasContent " Distribution. This European species is adventive in North America where it is known only from near Saint John's, Newfoundland (Larson 1978: 307). The first inventoried specimen collected on this continent was caught in 1977." ;
+    a <spm:InfoItem> .
+
+<http://treatment.plazi.org/id/B0081DC4856386502A399A70AE43B9D8#section_3>
+    spm:hasContent " Records. CAN: NF - Adventive" ;
+    a <spm:InfoItem> .
+

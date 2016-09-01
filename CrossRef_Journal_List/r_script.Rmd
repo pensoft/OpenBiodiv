@@ -1,0 +1,186 @@
+---
+title: "Import the CrossRef journal database into GraphDB"
+author: "Viktor Senderov"
+date: "June 24, 2016"
+output: html_document
+---
+
+library("rdf4jr")
+rdf4j_server_options = create_rdf4j_server_options(server_url = "http://213.191.204.69:7777/graphdb", authentication = "basic_http", userpwd = "obkms:1obkms")
+testthat::expect_output(get_protocol_version(rdf4j_server_options), "[0-9]")
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(RCurl)
+library(uuid)
+
+graphDbOptions = list(
+  protocol = "https://",
+  server = "rdf.s4.ontotext.com/4937448214/OBKMS" ,
+  userpwd = "vsenderov:1obkms" ,
+  api_key = "s4i0k6o7v6l0" ,
+  secret = "9k03ah49e3da607"
+)
+
+# acceptable values 
+# protocol = "http://", or "https://"
+# authentication = "http" or "api"
+create_rdf4j_server_options = function (protocol = "http://", server, authentication = "http", userpwd, api_key, secret) {
+  if (authentication == "http") {
+  return ( list(
+    protocol = protocol,
+    server = server,
+    authentication = authentication,
+    userpwd = userpwd
+  ) )  
+  }
+  else {
+    return ( list (
+      protocol = protocol,
+      server = server,
+      authentication = "api",
+      api_key = api_key ,
+      secret = secret
+    ))
+  }
+}
+```
+
+## CrossRef Journal Dabase
+
+CrossRef provides a journal database at <http://www.crossref.org/titleList/> .
+
+This script downloads the database, process it, and imports into GraphDB:
+
+```{r echo=TRUE}
+crjdataUrl = "http://ftp.crossref.org/titlelist/titleFile.csv"
+```
+
+## Download and process the database into a dataframe
+
+```{r echo=TRUE}
+crjData.csv = getURL( url = crjdataUrl )
+save(file = "crjData.csv", crjData.csv)
+remove(crjData.csv)
+journals = read.csv( textConnection( crjData.csv ) )
+```
+
+## Functions
+
+A set of helper functions to access GraphDB. They all require the GraphDB configurtion in the beginning to be set.
+
+```{r echo = TRUE}
+getRdfProtocol = function( options = graphDbOptions , auth = "basic") {
+  endpoint = "/protocol"
+  if ( auth == "basic" ) {
+    getURL( paste(options$protocol, options$server, endpoint, sep = ""), verbose = TRUE, userpwd = graphDbOptions$userpwd, httpauth = 1L)
+  }
+  else { #API-KEY Authentication
+     getURL( paste(options$protocol, options$api_key, ":", options$secret, "@", options$server, endpoint, sep = ""), verbose = TRUE, userpwd = graphDbOptions$userpwd, httpauth = 1L)
+  }
+}
+
+getRdfRepos = function( options = graphDbOptions ) {
+  endpoint = "/repositories"
+  r = getURL( paste(options$server, endpoint, sep = ""), verbose = TRUE, userpwd = graphDbOptions$userpwd, httpauth = 1L, httpheader = c(Accept = "application/sparql-results+xml, */*;q=0.5"))
+  cols = c("uri", "id", "title", "readable", "writable")
+  d = xmlTreeParse(r, asText = TRUE, useInternalNodes = TRUE)
+  
+  ns = getNodeSet(d, "//x:results/x:result/x:binding[@name = 'uri']/x:uri", "x")
+  uri = sapply (ns, xmlValue)
+  
+  ns = getNodeSet(d, "//x:results/x:result/x:binding[@name = 'id']/x:literal", "x")
+  id = sapply (ns, xmlValue)
+  
+  ns = getNodeSet(d, "//x:results/x:result/x:binding[@name = 'title']/x:literal", "x")
+  title = sapply (ns, xmlValue)
+  
+  ns = getNodeSet(d, "//x:results/x:result/x:binding[@name = 'title']/x:literal", "x")
+  title = sapply (ns, xmlValue)
+  
+  ns = getNodeSet(d, "//x:results/x:result/x:binding[@name = 'readable']/x:literal", "x")
+  readable = sapply (ns, xmlValue)
+  
+  ns = getNodeSet(d, "//x:results/x:result/x:binding[@name = 'writable']/x:literal", "x")
+  writable = sapply (ns, xmlValue)
+  
+  data.frame(uri, id, title, readable, writable)
+}
+
+getRdfQuery = function ( options = graphDbOptions, repoId, query, auth = "basic", accept = "application/sparql-results+xml, */*;q=0.5", queryLn = "sparql", infer = "true", varbindings = "", timeout = "0" ) {
+  endpoint = paste( options$server, "/repositories/", repoId, sep = "") 
+  r = getURL( paste( endpoint, "?query=", URLencode(query), "&queryLn=",queryLn, sep = "") , verbose = TRUE, userpwd = graphDbOptions$userpwd, httpauth = 1L, httpheader = c(Accept = accept))
+}
+
+# POSTs a query to rdf4j endpoint
+# accept accepts the following values:
+# XML
+# queryLn
+# SPARQL
+# SERQL
+postRdfQuery = function ( options = RDF4J_OPTIONS, repoId, query, accept = "XML", queryLn = "SPARQL", infer = "true", varbindings, timeout = "0" ) {
+  # need to construct a POST query
+  # curl -u obkms:1obkms -X POST --header "Accept:application/sparql-results+xml" --data   "query=SELECT%20(COUNT(*)%20as%20?count)%0AFROM%20%3Chttp://www.ontotext.com/implicit%3E%0AWHERE%20%7B%0A%20%20%20?s%20?p%20?o%20.%0A%7D" http://213.191.204.69:7777/graphdb/repositories/OBKMS
+  
+  # many issues here, see http://stackoverflow.com/questions/5797688/post-request-using-rcurl ,  more specifically comments by Duncan
+
+  url  = paste(options$protocol, options$server, "/repositories/", repoId, sep = "")
+  httpheader = c(Accept = "application/sparql-results+xml")
+  curl = getCurlHandle()
+  # Note the header that extends across two lines with the second line
+  # prefixed with white space.
+  curlSetOpt( .opts = list(httpheader = c(Accept = "text/csv, */*;q=0.5") ,
+  verbose = TRUE), userpwd = options$userpwd, httpauth = 1L,
+  curl = curl)
+  postForm( url,
+            query = query, curl = curl,  style = "POST")
+  
+}
+```
+
+```{r echo = TRUE}
+graphDbExec = function ( query, returnFormat = "text/csv", update = FALSE ) {
+  # config : change this if you change your database
+  endpoint = "http://213.191.204.69:7777/graphdb/sparql"
+  updateEndpoint = "http://213.191.204.69:7777/graphdb/update"
+  userpwd = "obkms:1obkms"
+  
+  # exec
+  if (update) endpoint = updateEndpoint
+  r = getURL(url = paste(endpoint, URLencode(query), sep = "?query="), userpwd = userpwd, httpheader = c(Accept=returnFormat), verbose = TRUE , httpauth= 1L)
+}
+```
+
+The following function creates nodes for each of the subjects found in the database.
+
+```{r echo=TRUE}
+createSubjects = function ( subjects ) {
+  sapply ( subjects, function ( s ) {
+    # `s` contains a single subject string
+    # for example, s = "Peace"
+    # this is a how a subject needs to be expressed as triples
+    # ```
+    # @prefix fabio: <http://purl.org/spar/fabio/>
+    # @prefix dc: <http://purl.org/dc/elements/1.1/>
+    # <http://id.pensoft.net/subjects/Peace a fabio:SubjectDiscipline ;
+    #                                   dc:title "Peace" .
+    # ```
+    
+    # first, need to create an identifier for the discipline
+    uuid= UUIDgenerate()
+    query = 'PREFIX fabio: <http://purl.org/spar/fabio/>
+             PREFIX dc: <http://purl.org/dc/elements/1.1/>
+             INSERT DATA {
+               <http://id.pensoft.net/subjects/someid> a fabio:SubjectDiscipline ;
+                                                          dc:title "sometitle" .
+             }'
+    query = gsub("someid", uuid, query)
+    query = gsub("sometitle", as.character(s), query)
+    
+    # next, need to execute the query
+    r = graphDbExec(query)
+    r = getURL(url = paste(endpoint, URLencode(query), sep = "?query="), userpwd = "obkms:1obkms", httpheader = c(Accept="text/csv"), verbose = TRUE , httpauth= 1L)
+  })
+}
+```

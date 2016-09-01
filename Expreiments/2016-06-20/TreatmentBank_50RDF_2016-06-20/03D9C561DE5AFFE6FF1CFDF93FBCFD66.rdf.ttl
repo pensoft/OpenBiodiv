@@ -1,0 +1,52 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix dwc: <http://rs.tdwg.org/dwc/terms/> .
+@prefix cnt: <http://www.w3.org/2011/content#> .
+@prefix spm: <http://rs.tdwg.org/ontology/voc/SpeciesProfileModel> .
+@prefix bibo: <http://purl.org/ontology/bibo/> .
+@prefix sdo: <http://schema.org/> .
+@prefix trt: <http://plazi.org/vocab/treatment#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix fabio: <http://purl.org/spar/fabio/> .
+@prefix cito: <http://purl.org/spar/cito/> .
+@prefix sdd: <http://tdwg.org/sdd#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dwcFP: <http://filteredpush.org/ontologies/oa/dwcFP#> .
+
+<http://publication.plazi.org/id/FFE0BD19DE59FFE5FF8BFFE43E5FFF99>
+    dc:creator "Nilsson, Anders N." ;
+    dc:date "2007" ;
+    dc:title "Some necessary corrections of the spelling of species-group names within the family Dytiscidae (Coleoptera)" ;
+    bibo:endPage "54" ;
+    bibo:journal "Zootaxa" ;
+    bibo:startPage "49" ;
+    bibo:volume "1615" ;
+    a <fabio:JournalArticle> .
+
+<http://taxon-concept.plazi.org/id/03D9C561DE5AFFE6FF1CFDF93FBCFD66>
+    dwc:authority "Garcia, 2002" ;
+    dwc:authorityName "Garcia" ;
+    dwc:authorityYear "2002" ;
+    dwc:box "[151,607,541,567]" ;
+    dwc:class "Insecta" ;
+    dwc:family "Dytiscidae" ;
+    dwc:genus "Andonectes" ;
+    dwc:kingdom "Animalia" ;
+    dwc:order "Coleoptera" ;
+    dwc:pageId "3" ;
+    dwc:pageNumber "52" ;
+    dwc:phylum "Arthropoda" ;
+    dwc:rank "species" ;
+    dwc:species "intermedius" ;
+    a dwcFP:TaxonConcept .
+
+<http://treatment.plazi.org/id/03D9C561DE5AFFE6FF1CFDF93FBCFD66>
+    trt:definesTaxonConcept <http://taxon-concept.plazi.org/id/03D9C561DE5AFFE6FF1CFDF93FBCFD66> ;
+    trt:publishedIn <http://publication.plazi.org/id/FFE0BD19DE59FFE5FF8BFFE43E5FFF99> ;
+    spm:hasInformation <http://treatment.plazi.org/id/03D9C561DE5AFFE6FF1CFDF93FBCFD66#section_1> ;
+    a trt:Treatment .
+
+<http://treatment.plazi.org/id/03D9C561DE5AFFE6FF1CFDF93FBCFD66#section_1>
+    spm:hasContent " Stated etymology: \"el termino de intermedio deriva de la situación geográfica del biotopo en que habita la especie\". Comment: Asthe genus name  Andonectesis masculine, the inflection has to be corrected. The latin '  intermedius' means intermediate." ;
+    a <spm:InfoItem> .
+
