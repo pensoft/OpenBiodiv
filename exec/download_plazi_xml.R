@@ -42,7 +42,8 @@ descriptions = xpathSApply(doc, descriptionXPath, xmlValue)
 #' (a) subsample the descriptions vector
 #' (b) download each thing from the subsample, but the replace
 #' the "xml" string in the address with "rdf"
-n = length(descriptions)
+#n = length(descriptions)
+n = 50
 ss = sample(1:length(descriptions), n)
 rdf = sapply(descriptions[ss], function( ds ) {
   gsub("xml", "rdf", ds)
@@ -51,7 +52,7 @@ rdf = sapply(descriptions[ss], function( ds ) {
 #' next steps
 #' 
 writeLines(rdf, con = file("rdf.txt"))
-wget...
+# wget...
 
 #' Since the description is an incomplete HTML document
 #' (HTML code chunk), we use the

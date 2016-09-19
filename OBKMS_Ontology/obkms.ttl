@@ -62,6 +62,32 @@ obkms:TaxonConcept rdf:type owl:Class ;
                    rdfs:label "Taxon Concept"@en ;
                    rdfs:comment "A taxon concept as defined in Franz et al (2008): http://doi.org/10.1201/9781420008562.ch5"@en .
 
+
+###  http://id.pensoft.net/obkms/PaperType
+
+obkms:PaperTypes    a fabio:TermDictionary ;
+                    rdfs:label "Paper Types" ;
+                    rdfs:comment "A list of paper (article) types published in Pensoft's journals"@en ;
+                    fabio:hasDiscipline dbpedia:Bibliography .
+                    
+
+obkms:SingleTaxonTreatment a fabio:SubjectTerm ;
+                    rdfs:label "Single Taxon Treatment"@en; 
+                    rdfs:comment "A type of paper with only one taxonomic treatment"@en ;
+                    skos:inScheme obkms:PaperTypes .
+
+obkms:TaxonClassification   a fabio:TermDictionary ;
+                            rdfs:label "Taxonomic classification"@en ;
+                            rdfs:comment "A list of taxon names borrowed for GBIF for classification of papers."@en ;
+                            fabio:hasDiscipline dbpedia:Taxonomy .
+
+obkms:ChronologicalClassification   a fabio:TermDictionary ;
+                                    rdfs:label "Chronological Classification"@en ;
+                                    rdfs:comment "A vocabulary of chronological eras that can be used in Pensoft's journals"@en ; 
+                                    fabio:hasDiscipline dbpedia:Paleontology
+
+             
+
 #################################################################
 #    Object Properties
 #################################################################
