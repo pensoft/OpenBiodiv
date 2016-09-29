@@ -1,0 +1,71 @@
+---
+title: "`Taxpub to RDF Converter"
+author: "Viktor Senderov"
+date: "`r Sys.Date()`"
+---
+
+## Initialize
+
+```
+library(xml2)
+library(rdf4jr)
+
+taxpub_file = "../../TaxPub2RDF/Standard_Model_Conversions/10.3897-BDJ.4.e10095.xml"
+obkms_opts = create_server_options(protocol = "http://", server_add = "213.191.204.69:7777/graphdb", authentication = "basic_http", userpwd = "obkms:1obkms")
+repo = "OBKMS"
+```
+Test GraphDB connectivity:
+```
+get_protocol_version(options)
+get_repositories( obkms_opts )
+```
+
+Read in the XML file:
+```
+taxpub_xml = read_xml(taxpub_file)
+```
+Now, we will write different functions to extract different features of the XML.
+
+We need a helper function to get or create an node (id) for the network given a preferred label (`skos:prefLabel`):
+```
+get_or_create_node_by_label = function( options, label ) {
+  prefixes = "PREFIX skos: <http://www.w3.org/2004/02/skos/core#>"
+  query = 
+    "SELECT ?id
+    WHERE {
+      ?id skos:prefLabel %label .
+    }"
+  query = paste(prefixes, gsub("%label", paste('\"', label, '\"', sep = ""), query), sep = "\n")
+  res = POST_query( options, repo, query, "CSV" )
+  if ( dim ( res )[1] == 0 ) {
+    return ( paste( "http://id.pensoft.net/", uuid::UUIDgenerate() , sep = "") )
+  }
+  else {
+    return ( as.character( res[1, 1]))
+  }
+  
+}
+```
+
+We write a function that returns RDF about the publisher. RDF will be returned as strings in Turtle Syntax.
+```
+get_publisher_rdf = function(taxpub_xml) {
+  publisher_name = xml_text(xml_find_all(taxpub_xml, "/article/front/journal-meta/publisher/publisher-name")[[1]])
+  publisher_id = get_or_create_node_by_label( obkms_opts, publisher_name) 
+  if (publisher_id == null) publisher_id = mint_new_pensoft_id()
+  
+  journal_name = xml_text(xml_find_all(taxpub_xml, "/article/front/journal-meta/journal-id")[[1]])
+  journal_id = get_or_create_node_by_label( obkms_opts, journal_name)
+  
+  
+  rdf = "
+  prefix fabio: <fdfsdsfsdfs> .
+  %journal_id a fabio:Journal"
+  return(rdf)
+}
+```
+
+# this is in semi pseudo code
+extract_journal_metadata = function(y_document) {
+  journal_name = get_xml_value("/article/front/journal-meta/journal-id")
+}

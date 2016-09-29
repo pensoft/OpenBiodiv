@@ -1,0 +1,294 @@
+## NAMESPACES
+# identifers issued by Pensoft
+@prefix : <http://id.pensoft.net/>  .
+
+# the OBKMS Ontlogy
+@prefix obkms: <http://pensoft.net/ontology/> .
+
+# Simple Knowledge Organization System (upper level ontology)
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+# Dublin Core terms (upper level ontlogy)
+@prefix dcterms: <http://purl.org/dc/terms/> .
+
+# following ontologies are part of SPAR (for the publishing domain)
+@prefix pro: <http://purl.org/spar/pro/> .
+@prefix fabio: <http://purl.org/spar/fabio> .
+@prefix frbr: <http://purl.org/spar/frbr> .
+
+# following ontologies useful for describing people and agents
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+
+# biological things
+# the tc: ontology may have some problems
+@prefix tc: <http://rs.tdwg.org/ontology/voc/TaxonConcept#> .
+@prefix dwc: <http://rs.tdwg.org/dwc/terms/> .
+@prefix dsw: <http://purl.org/dsw/> .
+@prefix blocal: <http://bioimages.vanderbilt.edu/rdf/local#> .
+@prefix dwciri: <http://rs.tdwg.org/dwc/iri/> .
+
+
+## PUBLISHER INFORMATION
+# We start by extracting publisher information from the XML.
+# The following XPath's might be of help:
+# publisher name @ /article/front/journal-meta/publisher/publisher-name
+# journal name @ /article/front/journal-meta/journal-id
+# We use the examples given at SPAR.
+# skos:prefLabel is subclass of rdfs:label .
+# We use skos:prefLabel's as keys in our database.
+
+:pensoft-publishers a foaf:Agent ; 					
+	skos:prefLabel "Pensoft Publishers" ;			
+	pro:holdsRoleInTime :pensoft-publishers-bdj-role .
+	
+:pensoft-publishers-bdj-role a pro:RoleInTime ;
+	pro:withRole pro:publisher ;
+	pro:relatesToDocument :bdj .
+	# Here :bdj is a journal, not a document, but this is OK!! Silvio confirmed it.
+	
+## JOURNAL INFORMATION/ METADATA
+# Here, we also use SPAR. We also give the publisher as a string.
+# Finally, after SPAR, we use the frbr:hasPart relationship to denote
+# the relationship between the published article and the journal.
+
+:bdj a fabio:Journal ;
+	skos:prefLabel "Biodiversity Data Journal" ;	
+	skos:altLabel "BDJ" ; 
+	fabio:issn "1314-2836" ;
+	fabio:eIssn "1314-2828" ;
+	dcterms:publisher "Pensoft Publishers" ;
+	frbr:hasPart <http://dx.doi.org/10.3897/BDJ.4.e10095> .
+	
+## AUTHORS
+# In ARPHA/PJS emails are keys. We use vcard to give the full information
+# about the author. For completeness, we also use foaf for the name.
+# Here's a comparison of vcard and foaf:
+# http://www.ibiblio.org/hhalpin/homepage/notes/vcardtable.html
+# For seniority and corresponding author we use SCORO (also part of SPAR)
+
+:christo-deltshev a foaf:Person ;
+	skos:prefLabel "deltshev@gmail.com" ;
+	vcard:fn "Christo Deltshev" ;
+	foaf:fullName "Christo Deltschev" ;
+	vcard:given-name "Christo" ;
+	vcard:family-name "Deltshev" ;
+	vcard:email "deltshev@gmail.com" ;
+	pro:holdsRoleInTime :christo-deltshev-author .
+
+:christo-deltshev-author a pro:RoleInTime ;
+	pro:withRole pro:author ,
+				scoro:senior-author ;
+				scoro:corresponding-author ;
+	pro:relatesToDocument <http://dx.doi.org/10.3897/BDJ.4.e10095> .
+	
+## PUBLICATION INFORMATION/ METADAT
+# For publication metadata, we again base ourselves in SPAR.
+# In particular, for the subject classifications, for example
+# /article/front/article-meta/article-categories/subj-group
+# we create fabio:TermDictionary vocabularies. They are defined
+# in the OBKMS Ontology. Then these vocabularies are populated
+# on the fly via fabio:SubjectTerm's.
+
+# For the taxon classification in particular , I have decided
+# to issue local identifiers to taxonomic names and then
+# try to link them up to GBIF's terms.
+
+:aranaee  					a fabio:SubjectTerm ;
+                            skos:prefLabel "Araneae" ;
+                            skos:inScheme obkms:TaxonClassification ;
+							owl:sameAs <http://www.gbif.org/species/1496> .
+# NOTE: owl:sameAs statements may actually be stored in a separate file.
+							
+ :gnaphosidae				a fabio:SubjectTerm ;
+                            skos:prefLabel "Gnaphosidae" ;
+                            skos:inScheme obkms:TaxonClassification ;
+							owl:sameAs <http://www.gbif.org/species/7370> .
+									
+# Similar approach for geological eras, but instead try to link up to dbpedia.
+:cenozoic					a fabio:SubjectTerm ;
+							skos:prefLabel "Cenozoic" ;
+							skos:inScheme obkms:ChronologicalClassification ;
+							owl:sameAs dbpedia:Cenozoic .
+							
+# For subject classification (academic area), found at
+# /article/front/article-meta/article-categories/subj-group,
+# we instead choose to use the relation 'has discipline'
+# and the object an instance of class fabio:SubjectDiscipline,
+# which we define on the fly and try to link to dbpedia.
+
+:systematics				a fabio:SubjectDiscipline ;
+							skos:prefLabel "Cenozoic" ;
+							owl:sameAs dbpedia:Cenozoic .
+
+# After subject terms and everything else has been defined, we can express
+# full article metadata information:
+ <http://dx.doi.org/10.3897/BDJ.4.e10095> fabio:JournalArticle ;
+					prism:doi "10.3897/zookeys.454.7269" ;
+					fabio:hasSubjectTerm obkms:SingleTaxonTreatment ,
+										 :aranaee  ,
+										 :gnaphosidae ;
+					fabio:hasDiscipline	:systematics ;
+					dcterms:creator :georgi-deltshev ;
+					fabio:hasPublicationYear "2016"^^xsd:gYear ;
+					dcterms:title "A new spider species, Heser stoevi sp. nov., from Turkmenistan (Araneae Gnaphosidae)"@en-us ;
+					frbr:partOf :bdj .
+
+# To describe the structure of the document, we use po:contains:
+<http://dx.doi.org/doi:10.3897/zookeys.454.7269>
+					po:contains :treatment .
+
+# Again, the same with subsections of the treatment. Here the important
+# thing is that the treatment and taxon concept are linked via
+# frbr:realizationOf .					
+:treatment a trt:Treatment ;
+		po:contains :nomenclature-section ;
+		po:contains :materials-section ;
+		po:contains :description-section ;
+		po:contains :diagnosis-section ;
+		po:contains :distribution ;	
+		frbr:realizationOf :haser-stoevi-sec-deltshev-2016 .
+		
+:nomenclature-section a trt:Nomenclature ;
+		frbr:realizationOf :act-sp-n-heser-stoevi .
+		
+:act-sp-n-heser a trt:NomenclaturalAct ;
+				trt:taxonStatus trt:NewSpecies ;
+				dwc:genus "Heser" ;
+				dwc:species "stoevi" ;
+				zoobankId "urn:lsid:zoobank.org:act:E4D7D5A0-D649-4F5E-9360-D0488D73EEE8" ;
+				dwc:scientificNameAuthorship "Deltshev" ;
+				dwciri:scientificName :heser-stoevi-deltshev .
+		
+# For citations, similar.
+:materials-section a trt:Materials ;
+		po:contains :material-citation-1 .
+
+# Terry's idea:		
+:material-citation-1 a cito:CitationAct ;
+		cito:hasCitingEntity :treatment ;
+		cito:hasCitedEntity :material1 ;
+		cito:hasCitationCharacterization cito:citesAsEvidence .
+
+# From here on, to describe the biological data, we use DwC-SW.
+# First, we describe the actual specimen (dsw:Token).
+# Here's where the type status is attached, as well as the 
+# darwin core triple. Note that the dwc:occurrenceID is not attached
+# here.
+:material1 a dsw:Token ;
+		dwc:typeStatus obkms:Holotype ;
+		dsw:isBasisForId :identification1 ;
+		dwc:institutionID "NMNHS" ;
+		dwc:collectionID "Archnida" ;
+		dsw:evidenceFor :occurrence1 .
+
+# This is the actual occurrence, for which the token is the evidence
+# (see DwC-SW documentation).	
+:occurrence1 a dsw:Occurrence ;
+		dwc:occurrenceID <http://id.pensoft.net/BDJ_6153_1> ;
+		dsw:atEvent :event1;
+		dsw:occurrenceOf :organism1 ;
+		dsw:eventOf :event1 ;
+		dsw:recordedBy :p-stoev ;
+		dsw:hasEvidence :material1 .
+		
+:p-stoev a dsw:Agent ;
+		vcard:fullName "P. Stoev" .
+		
+# This is the metadata of the collection event. Location info is separate.		
+:event1 a dwc:Event ;
+		dsw:locatedAt :location1 ;
+		dwc:eventDate "05/25/2015" ;
+		dwc:habitat "under stones" ;
+		dwc:samplingProtocol "hand collecting" 
+
+# Location info.		
+:location1 a dwc:Location ;
+		dwc:continent dbpedia:Asia ;
+		dwc:continent "Asia" ;
+		dwc:country dbpedia:Turkmenistan ;
+		dwc:country "Turkmenistan" ;
+		dwc:stateProvince dbpedia:Lebap ;
+		dwc:stateProvince "Lebap" ;
+		dwc:country "Koytendag District" ;
+		dwc:locality "v. Hojeypil, around the Dinosaurs tracks Site" ;
+		dwc:verbatimElevation "1150" ;
+		dwc:decimalLatitude "37 56.443" ;
+		dwc:decimalLongitude "66 37.597" ;	
+
+# This is the crucial part. This is the taxonomic concept (or taxon) that is linked 
+# to our treatment. It is also linked to the occurrence information via the 
+# identification. The tc: prefix seems proper to use for taxon concept information
+# but the ontology under this web-address is unresolvable, and is not maintained.
+# We may move these things into the obkms:Ontology, but for compatibility
+# with http://bioimages.vanderbilt.edu I have chosen this prefix.
+# For a taxon concept, we have the rank, we have a link to a name,
+# we have the secundum part both as a tc:accordingTo to an object
+# and as a string blocal:secundumSignature. We also have the higher taxonomic
+# classification and a link back to the treatment via FRBR.
+:haser-stoevi-sec-deltshev-2016 a tc:TaxonConcept ;
+		dwc:rank "species" ;
+		dwc:scientificName :haser-stoevi-deltschev ;		
+		dwciri:accordingTo <http://dx.doi.org/10.3897/BDJ.4.e10095> ;
+		dwc:accordingTo "Deltschev 2016" ;
+		dwc:class "Insecta" ;
+		dwc:order "Araneae" ;
+		dwc:family "Gnaphosidae" ;
+		dwc:genus "Haser" ;	
+		frbr:realization :treatment .
+
+# NOTE: I have not found a suitable class for scientific names.
+# Also, probably we need to accomotate nomenclature acts in this
+# somehow. I suggest to use an approach similar to the
+# pro:holdsRoleInTime. For example we could have 
+# tc obkms:hasNomenclaturalAct :act and then
+# link the act to the name and provide act metadata.
+# But I also believe that we should provide a direct
+# link from the tc to the name, as not all taxonomic concepts
+# are defined in biological publications which have nomenclatural acts.
+:haser-stoevi-deltschev a nomen:ScientificName ;
+						dwc:rank "species" ;
+						dwc:genus "Haser" ;
+						dwc:species "stoevi" ;
+						dwc:scientificNameAuthorship "Deltshev" ;
+						dwc:scientificName "Heser stoevi Deltschev" .
+
+# Identification: provides who linkage from the tokens to the TC's.
+# also has the secundum, as we want to tell how we identified the tokens
+# (with which publication). We also have the person who did the identification
+# with dwciri:identifiedBy. In the end I have also provided a link to
+# a scientific name object and not only to the string (optional, as we are
+# linked to the taxon which is linked to the name. We assume that the identification
+# is carried out by one of the authors of the publication.
+:identification1 a dwc:Identification ;
+		dwciri:toTaxon :haser-stoevi-sec-deltschev-2016 ;
+		dwciri:identifiedBy :christo-deltshev ;
+		dsw:identifies :organism1 ;
+		dsw:idBasedOn :token1;
+		blocal:secundumSignature "Deltschev 2016" ;
+		dcterms:description "Determination of Haser stoevi sec. Deltschev 2016"@en ;
+		dwc:scientificName "Heser stoevi" ;
+		dwc:family "Tayassuidae" ;
+		dwc:taxonRank "species" ;
+		dwc:scientificNameAuthorship "Deltshev" ;			
+		dwc:dateIdentified "2015"^^xsd:date ;
+		tc:hasName :haser-stoevi-deltschev-2016 .
+		
+:christo-deltschev a dsw:Agent .
+
+# Organism is a helper class which links the other classes together. You can 
+# attach pictures to it.
+# NOTE: figures from the paper ought to be RDF-ized as belonging to the
+# this organism via dsw:hasDerivative. This is a little bit trick as one
+# needs to a little bit of text mining/ AI to figure out to which organism
+# to attach the picture.
+:organism1 a dwc:Organism ;
+		rdf:type owl:NamedIndividual ,
+        dcterms:PhysicalResource ,
+        dwc:Organism ;
+		dsw:hasDerivative :token1;
+        dsw:hasIdentification :identification1;
+        dsw:hasOccurrence :occurrence1 .
+
+		
+	
