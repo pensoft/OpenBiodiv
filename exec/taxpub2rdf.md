@@ -1,24 +1,31 @@
 ---
-title: "Taxpub to RDF Converter"
+title: "TaxPub XML to Turtle RDF Converter"
 author: "Viktor Senderov"
-date: "`r Sys.Date()`"
+date: "2016-10-06"
 ---
 
 # Specification
 
+## Making the scripts
+
+```
+knitr::knit('exec/taxpub2rdf.Rmd', output = 'exec/taxpub2rdf.R', tangle = TRUE)
+```
+
 ## Summary
+
 `taxpub2rdf` is a command-line tool, written in the [R programming language](https://cran.r-project.org/), which RDF-izes, i.e. converts to [Resource Description Framework](https://www.w3.org/RDF/) (RDF) taxonomic papers, encoded in the [TaxPub XML schema](http://htmlpreview.github.io/?https://github.com/tcatapano/TaxPub/blob/master/documentation/tp-taxon-treatment.html). It is designed to be used together with the [Open Biodiversity Knowledge Management System](http://openbkms.blogspot.com) (OBKMS) graph database, as before it generates new identifiers for things in the network, it tries to look them up in OBKMS.
 
 ## Usage and requirements
 
 `taxpub2rdf` requires two parameter-sets for successful operation:
 
-1. Access details for OBKMS, which are stored as a Yaml file, except for the username-password combination, which is stored in the environment variable OBKMS_SECRET.
+1. Access details for OBKMS, which are stored as a Yaml file, except for the username-password combination, which is stored in the environment variable OBKMS_PASSWORD.
 2. A set of input XML files in the TaxPub format.
 
 E.g.:
 
-`Rscript taxpub2rdf.R config.yml paper1.xml paper2.xml ...`
+`Rscript taxpub2rdf config.yml paper1.xml paper2.xml ...`
 
 The first argument is the Yaml configuration file. The next n arguments are the TaxPub XML files, that will be RDF-ized. The output will be n Turtle files with the same filenames but the `.ttl` extension.
 
@@ -29,41 +36,17 @@ The first argument is the Yaml configuration file. The next n arguments are the 
 
 The script relies on the `xml2` library for XML processing and on the `rdf4jr` library for communication with the GraphDB server:
 
-```{r , purl=TRUE}
+```
 library(xml2)
 library(rdf4jr)
 ```
 
-Read in the command-line arguments:
+Processing the command-line arguments:
 
-```{r , purl=TRUE}
-command_line_args = commandArgs(trailingOnly = TRUE)
 ```
-
-We have to have at least two command line arguments:
-
-```{r , purl=TRUE}
-stopifnot( length( command_line_args ) >= 2 )
-```
-
-The first argument is the Yaml configuration file, while the rest n - 1 arguments are the TaxPub's to be processed.
-
-```{r , purl=TRUE}
-configuration_file = command_line_args[ 1 ]
-taxpubs = command_line_args[ 2:length( command_line_args ) ]
-obkms_options = yaml::yaml.load_file( configuration_file )
-```
-
-Get the username-password from the environment:
-
-```{r , purl=TRUE}
-obkms_options$userpwd = Sys.getenv("OBKMS_SECRET")
-```
-
-Test GraphDB connectivity:
-```
-get_protocol_version( obkms_options )
-get_repositories( obkms_options )
+options = commandArgs(trailingOnly = TRUE)
+cat( options )
+stop("options")
 ```
 
 ```
@@ -72,6 +55,11 @@ obkms_opts = create_server_options(protocol = "http://", server_add = "213.191.2
 repo = "OBKMS"
 ```
 
+Test GraphDB connectivity:
+```
+get_protocol_version(obkms_opts)
+get_repositories( obkms_opts )
+```
 
 Read in the XML file:
 ```
