@@ -1,12 +1,25 @@
 ---
-title: "Taxpub to RDF Converter"
+title: "TaxPub XML to Turtle RDF Converter"
 author: "Viktor Senderov"
 date: "`r Sys.Date()`"
 ---
 
 # Specification
 
+## Making the scripts
+
+To create the script:
+```
+knitr::knit('exec/taxpub2rdf.Rmd', output = 'exec/taxpub2rdf.R', tangle = TRUE)
+```
+
+To create the documentation:
+```
+knitr::knit('exec/taxpub2rdf.Rmd', output = 'exec/taxpub2rdf.R', tangle = TRUE)
+```
+
 ## Summary
+
 `taxpub2rdf` is a command-line tool, written in the [R programming language](https://cran.r-project.org/), which RDF-izes, i.e. converts to [Resource Description Framework](https://www.w3.org/RDF/) (RDF) taxonomic papers, encoded in the [TaxPub XML schema](http://htmlpreview.github.io/?https://github.com/tcatapano/TaxPub/blob/master/documentation/tp-taxon-treatment.html). It is designed to be used together with the [Open Biodiversity Knowledge Management System](http://openbkms.blogspot.com) (OBKMS) graph database, as before it generates new identifiers for things in the network, it tries to look them up in OBKMS.
 
 ## Usage and requirements
@@ -16,12 +29,17 @@ date: "`r Sys.Date()`"
 1. Access details for OBKMS, which are stored as a Yaml file, except for the username-password combination, which is stored in the environment variable OBKMS_SECRET.
 2. A set of input XML files in the TaxPub format.
 
-E.g.:
-
-`Rscript taxpub2rdf.R config.yml paper1.xml paper2.xml ...`
+General syntax:
+```
+Rscript taxpub2rdf.R config.yml paper1.xml paper2.xml ...
+```
 
 The first argument is the Yaml configuration file. The next n arguments are the TaxPub XML files, that will be RDF-ized. The output will be n Turtle files with the same filenames but the `.ttl` extension.
 
+Example usage:
+```
+Rscript exec/taxpub2rdf.R etc/config.yml Standard_Model_Conversions/10.3897-BDJ.4.e10095.xml
+```
 
 # Design and Implementation
 
@@ -29,75 +47,54 @@ The first argument is the Yaml configuration file. The next n arguments are the 
 
 The script relies on the `xml2` library for XML processing and on the `rdf4jr` library for communication with the GraphDB server:
 
-```{r , purl=TRUE}
+```{r , purl=TRUE, eval = FALSE}
 library(xml2)
-library(rdf4jr)
+library(rdf4jr)]
+source(R/query.R)
 ```
 
 Read in the command-line arguments:
 
-```{r , purl=TRUE}
+```{r , purl=TRUE, eval = FALSE}
 command_line_args = commandArgs(trailingOnly = TRUE)
 ```
 
 We have to have at least two command line arguments:
 
-```{r , purl=TRUE}
+```{r , purl=TRUE, eval = FALSE}
 stopifnot( length( command_line_args ) >= 2 )
 ```
 
 The first argument is the Yaml configuration file, while the rest n - 1 arguments are the TaxPub's to be processed.
 
-```{r , purl=TRUE}
+```{r , purl=TRUE, eval = FALSE}
 configuration_file = command_line_args[ 1 ]
 taxpubs = command_line_args[ 2:length( command_line_args ) ]
 obkms_options = yaml::yaml.load_file( configuration_file )
 ```
 
-Get the username-password from the environment:
+Get the username-password or API key from the environment:
 
-```{r , purl=TRUE}
+```{r , purl=TRUE, eval = FALSE}
 obkms_options$userpwd = Sys.getenv("OBKMS_SECRET")
 ```
 
 Test GraphDB connectivity:
+```{r, purl = TRUE, eval = FALSE}
+stopifnot( get_protocol_version( obkms_options ) != 6 )
 ```
-get_protocol_version( obkms_options )
-get_repositories( obkms_options )
-```
-
-```
-taxpub_file = "../../TaxPub2RDF/Standard_Model_Conversions/10.3897-BDJ.4.e10095.xml"
-obkms_opts = create_server_options(protocol = "http://", server_add = "213.191.204.69:7777/graphdb", authentication = "basic_http", userpwd = "obkms:1obkms")
-repo = "OBKMS"
-```
-
 
 Read in the XML file:
 ```
-taxpub_xml = read_xml(taxpub_file)
+### currently only one file accepted
+taxpub_xml = read_xml(taxpubs)
 ```
+
 Now, we will write different functions to extract different features of the XML.
 
-We need a helper function to get or create an node (id) for the network given a preferred label (`skos:prefLabel`):
+:
 ```
-get_or_create_node_by_label = function( options, label ) {
-  prefixes = "PREFIX skos: <http://www.w3.org/2004/02/skos/core#>"
-  query = 
-    "SELECT ?id
-    WHERE {
-      ?id skos:prefLabel %label .
-    }"
-  query = paste(prefixes, gsub("%label", paste('\"', label, '\"', sep = ""), query), sep = "\n")
-  res = POST_query( options, repo, query, "CSV" )
-  if ( dim ( res )[1] == 0 ) {
-    return ( paste( "http://id.pensoft.net/", uuid::UUIDgenerate() , sep = "") )
-  }
-  else {
-    return ( as.character( res[1, 1]))
-  }
-  
-}
+
 ```
 
 We write a function that returns RDF about the publisher. RDF will be returned as strings in Turtle Syntax.
