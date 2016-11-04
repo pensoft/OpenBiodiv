@@ -21,21 +21,28 @@
 #' \dontrun{}
 #' @export
 
-get_nodeid = function( obkms_access_options, label ) {
+get_nodeid = function( label = "" ) {
 
-  prefixes = "PREFIX skos: <http://www.w3.org/2004/02/skos/core#>"
-  query =
-    "SELECT ?id
+  all_prefixes = yaml::yaml.load_file( obkms.env$db_prefix )
+
+  options = obkms.env$rdf4j_options
+
+  query.template =
+    "PREFIX skos: %skosns
+    SELECT ?id
     WHERE {
       ?id skos:prefLabel %label .
     }"
-  query = paste(prefixes, gsub("%label", paste('\"', label, '\"', sep = ""), query), sep = "\n")
-  res = rdf4jr::POST_query( obkms_access_options, obkms_access_options$repository, query, "CSV" )
-  if ( dim ( res )[1] == 0 ) {
-    return ( paste( "http://id.pensoft.net/", uuid::UUIDgenerate() , sep = "") )
-  }
-  else {
-    return ( as.character( res[1, 1]))
-  }
 
+  if ( is.character( label) && label != "" ) {
+      query.template = gsub( "%label", paste( '\"', label, '\"', sep = "" ), query.template )
+      query = gsub( "%skosns", all_prefixes['skos'], query.template )
+      res = rdf4jr::POST_query( options , options$repository, query, "CSV" )
+      # check for non-emptiness
+      if (!( is.data.frame( res ) && nrow ( res ) == 0 )) {
+        return ( as.character( res$id ) )
+      }
+  }
+  # we couldn't match label or label was FALSE, generate a new node
+  return ( paste( "http://id.pensoft.net/", uuid::UUIDgenerate() , sep = "") )
 }

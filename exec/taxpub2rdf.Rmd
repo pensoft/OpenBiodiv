@@ -69,14 +69,17 @@ The first argument is the Yaml configuration file, while the rest n - 1 argument
 
 ```{r , purl=TRUE, eval = FALSE}
 configuration_file = command_line_args[ 1 ]
+configuration_file = "/media/viktor/www2/main/vsenderov.backup/SRC/TaxPub2RDF/etc/config.yml"
 taxpubs = command_line_args[ 2:length( command_line_args ) ]
-obkms_options = yaml::yaml.load_file( configuration_file )
+options = yaml::yaml.load_file( configuration_file )
+#taxpubs = c("/media/viktor/www2/main/vsenderov.backup/SRC/TaxPub2RDF/Standard_Model_Conversions/10.3897-BDJ.4.e10095.xml")
 ```
 
 Get the username-password or API key from the environment:
 
 ```{r , purl=TRUE, eval = FALSE}
-obkms_options$userpwd = Sys.getenv("OBKMS_SECRET")
+options$userpwd = Sys.getenv("OBKMS_SECRET")
+options = c( options, obkms::create_options() )
 ```
 
 Test GraphDB connectivity:
@@ -92,7 +95,6 @@ taxpub_xml = read_xml(taxpubs)
 
 Now, we will write different functions to extract different features of the XML.
 
-:
 ```
 
 ```

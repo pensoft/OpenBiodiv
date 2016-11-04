@@ -1,4 +1,5 @@
 digraph OBKMS {
+
 	subgraph cluster0 {
 
 		label = "Publisher Info";
@@ -16,6 +17,8 @@ digraph OBKMS {
 		publisher1 -> literal1 [label="skos:prefLabel"];
 		publisher1 -> role1 [label="pro:holdsRoleInTime"];
 
+		
+		pro_Publisher [label="pro:publisher"];
 		
 		
 		
@@ -43,6 +46,7 @@ digraph OBKMS {
 		journal1 -> literal6 [label ="dcterms:publisher"];
 
 		
+		role1 -> pro_Publisher [label="pro:withRole"];
 
 	}
 
@@ -83,6 +87,20 @@ digraph OBKMS {
 		subject_term1 -> term_dictionary1 [label="skos:inScheme"];
 
 		term_dictionary1 -> l9 [label="rdfs:label"];
+
+		treatment1 [label="a trt:Treatment"];
+		nomenclature1 [label="a trt:Nomenclature"];
+		materials1 [label="a trt:Materials"];
+		description1 [label="a trt:Description"];
+		diagnosis1 [label="a trt:Diagnosis"];
+		distribution1 [label="a trt:Distribution"];
+
+		article1 -> treatment1 [label="po:contains"];
+		treatment1 -> nomenclature1 [label="po:contains"];
+		treatment1 -> materials1 [label="po:contains"];
+		treatment1 -> description1 [label="po:contains"];
+		treatment1 -> diagnosis1 [label="po:contains"];
+		treatment1 -> distribution1 [label="po:contains"];
 		
 
 	}
@@ -99,12 +117,7 @@ digraph OBKMS {
 
 
 
-		pro_Publisher [label="pro:publisher"];
-		pro_author [label="pro:author"];
-		scoro_senior_author [label="scoro:senior-author"];
-		scoro_corresponding_author [label="scoro:corresponding-author"];
 
-		role1 -> pro_Publisher [label="pro:withRole"];
 		discipline1 -> dbpedia_discipline [label="owl:sameAs"];
 
 
@@ -135,6 +148,7 @@ digraph OBKMS {
 		person1 -> l12 [label="vcard:given-name"];
 		person1 -> l13 [label="vcard:family-name"];
 		person1 -> l10 [label="vcard:email"];
+		person1 -> l11 [label="skos:altLabel"];
 
 		person1 -> role2 [label="pro:holdsRoleInTime"];
 
@@ -144,6 +158,10 @@ digraph OBKMS {
 		role2 -> scoro_senior_author [label="pro:withRole"];
 		role2 -> scoro_corresponding_author [label="pro:withRole"];
 
+		pro_author [label="pro:author"];
+		scoro_senior_author [label="scoro:senior-author"];
+		scoro_corresponding_author [label="scoro:corresponding-author"];
+
 	}
 
 	subgraph cluster5 {
@@ -152,19 +170,7 @@ digraph OBKMS {
 		style=filled;
 		color=lightgrey;
 
-		treatment1 [label="a trt:Treatment"];
-		nomenclature1 [label="a trt:Nomenclature"];
-		materials1 [label="a trt:Materials"];
-		description1 [label="a trt:Description"];
-		diagnosis1 [label="a trt:Diagnosis"];
-		distribution1 [label="a trt:Distribution"];
-
-		article1 -> treatment1 [label="po:contains"];
-		treatment1 -> nomenclature1 [label="po:contains"];
-		treatment1 -> materials1 [label="po:contains"];
-		treatment1 -> description1 [label="po:contains"];
-		treatment1 -> diagnosis1 [label="po:contains"];
-		treatment1 -> distribution1 [label="po:contains"];
+		
 	}
 
 	subgraph cluster6 {
@@ -178,9 +184,9 @@ digraph OBKMS {
 
 		l6_1 [label="e.g. \"Heser\""];
 		l6_2 [label="e.g. \"stoevi\""];
-		l6_3 [label="e.g. \"Deltshev, 2016\""];
+		l6_3 [label="e.g. \"Deltshev 2016\""];
 		lsid1 [label= "e.g. \"urn:lsid:zoobank.org:act:E4D7D5A0-D649-4F5E-9360-D0488D73EEE8\""];
-		l6_4 [label ="e.g. \"Heser stoevi Deltshev, 2016\""];
+		l6_4 [label ="e.g. \"Heser stoevi Deltshev 2016\""];
 
 		scname1 [label="a nomen:'scientific name'"];
 		scname2 [label="another nomen:'scientific name'"];
@@ -196,5 +202,74 @@ digraph OBKMS {
 		scname1 -> l6_4 [label="skos:prefLabel"];
 		scname1 -> zoobank_act [label="owl:sameAs"];
 	}
+
+	subgraph cluster7 {
+
+		label = "TAXON CONCEPT";
+		node [style=filled,color=white];
+		style=filled;
+		color=lightgrey;
+
+		l7_1 [label = "e.g. \"species\""];
+		l7_2 [label = "e.g. \"stoevi, Heser, Gnaphosidae, Araneae, Insecta\""];
+		l7_6 [label = "e.g. \"Heser stoevi Deltshev 2016 sec Deltshev 2016\""];
+		l7_7 [label = "e.g. \"Heser stoevi sec Deltshev 2016\""];
+		l7_8 [label = "e.g. \"Deltshev 2016\""];
+	
+	
+		
+
+		taxon1 [label="a dwc:Taxon (Taxon Concept)"];
+		
+		token1 [label = "a dsw:Token (Material)"];
+	
+		scname3 [label="a nomen:'scientific name'"];
+
+		treatment1 -> taxon1 [label="frbr:realizationOf"];
+		taxon1 -> treatment1 [label="frbr:realization"];
+
+	
+		taxon1 -> l7_1 [label = "dwc:rank"];
+		taxon1 -> l7_2 [label = "dwc:species, dwc:genus, dwc:family, dwc:order, dwc:class"];
+		taxon1 -> scname3 [label="dwciri:scientificName"];
+		taxon1 -> article1 [label="dwciri:accordingTo"];
+		taxon1 -> l7_8 [label="dwc:accordingTo"];
+		taxon1 -> l7_6 [label = "skos:prefLabel"];
+		taxon1 -> l7_7 [label = "skos:altLabel"];
+	}
+
+
+
+	subgraph cluster8 {
+
+		label = "Occurrences";
+		node [style=filled,color=white];
+		style=filled;
+		color=lightgrey;
+
+		l8_8 [label = "e.g. \"Deltshev 2016\""];
+		person2 [label="a foaf:Person"];
+		l7_10 [label = "e.g. \"Christo Deltshev\""];
+		l7_11 [label = "e.g. \"Determination of Heser stoevi sec. Deltshev 2016\""];
+		l7_12 [label = "e.g. 2015"];
+		org1 [label = "a dwc:Organism"];
+
+		taxon1 -> id1 [label="dsw:'taxon of ID'"];			
+		id1 [label = "a dwc:Identification"];
+
+		id1 -> l8_8 [label="dwc:accordingTo"];
+		id1 -> taxon1 [label="dwciri:toTaxon"];
+		id1 -> person2 [label="dwciri:identifiedBy"];
+		id1 -> l7_10 [label = "dwc:identifiedBy"];
+		id1 -> article1 [label="dwciri:accordingTo"];
+		id1 -> l8_8 [label="dwc:accordingTo"];
+		id1 -> org1 [label = "dsw:identifies"];
+		id1 -> token1 [label = "dsw:idBasedOn"];
+		id1 -> l7_11 [label = "dcterms:description"];
+		id1 -> l7_12 [label = "dwc:dateIndetified"];
+
+	}
+
+
 }
 	
