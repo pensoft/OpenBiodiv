@@ -31,31 +31,32 @@ prefix_ttl = function( reqd_prefixes, prefix_db = paste0( path.package ("obkms")
   return ( ttl )
 }
 
-#' Try to minimize a URI to a qname using a list of prefixes
+#' Minimizes a URI to a Qname.
 #'
-#' @param uri        the full URI
-#' @param prefixes   the needed prefixes
+#' @param uri        the full URI to minimize
 #' @export
 
-qname = function( uri, prefix_db = paste0( path.package ("obkms") ,"/prefix_db.yml" ) ) {
-  # first strip angle brackets if there are
+qname = function( uri ) {
+  # first strip angle brackets if there are any
   uri = strip_angle ( uri )
   # the idea is to try each of the prefixes
-  all_prefixes = yaml::yaml.load_file( prefix_db )
+  stopifnot( exists( 'obkms', mode = 'environment' ) )
 
-  r = sapply( all_prefixes , function ( p ) {
-    grepl( paste0( "^", p ) , uri )
+  stripped_prefixes = sapply ( obkms$prefixes, strip_angle )
+
+  r = sapply( stripped_prefixes , function ( p ) {
+    grepl( paste0( "^",  p  ) , uri )
   } )
   # if found
   if ( sum( r ) > 0) {
-    p = all_prefixes[r]
-    n = names(all_prefixes)[r]
+    p = stripped_prefixes[r]
+    n = names(stripped_prefixes)[r]
     uri = gsub( paste0("^", p), paste0( n, ":" ), uri )
-    return( list(prefix = n, uri = uri) )
   }
-  else
-    return ( list( prefix = NULL, uri = uri))
+
+return (uri)
 }
+
 
 #' A function to strip the angle brackets
 strip_angle = function ( uri ) {
@@ -64,6 +65,14 @@ strip_angle = function ( uri ) {
   }
   else
     return (uri)
+}
+
+#' Semantic quote. Function to quote literals for use in RDF
+#' @param literal the string that needs to be quoted
+#' @param postfixes everything that needs to be concatendated at the end of the
+#' string (e.g. things like @en, or xsd:date)
+squote = function ( literal, postfixes = "" ) {
+  paste0 ("\"", literal, "\"", postfixes)
 }
 
 #' a function to start an rdf couplet

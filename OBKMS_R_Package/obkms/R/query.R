@@ -23,9 +23,8 @@
 
 get_nodeid = function( label = "" ) {
 
-  all_prefixes = yaml::yaml.load_file( obkms.env$db_prefix )
-
-  options = obkms.env$rdf4j_options
+  stopifnot( exists( "obkms", mode = "environment" ) )
+ # attach(obkms, warn.conflicts = FALSE)
 
   query.template =
     "PREFIX skos: %skosns
@@ -36,13 +35,20 @@ get_nodeid = function( label = "" ) {
 
   if ( is.character( label) && label != "" ) {
       query.template = gsub( "%label", paste( '\"', label, '\"', sep = "" ), query.template )
-      query = gsub( "%skosns", all_prefixes['skos'], query.template )
-      res = rdf4jr::POST_query( options , options$repository, query, "CSV" )
+      query = gsub( "%skosns", obkms$prefixes$skos, query.template )
+      res = rdf4jr::POST_query( obkms$server_access_options , obkms$server_access_options$repository, query, "CSV" )
       # check for non-emptiness
       if (!( is.data.frame( res ) && nrow ( res ) == 0 )) {
         return ( as.character( res$id ) )
       }
   }
   # we couldn't match label or label was FALSE, generate a new node
+  #detach ( obkms )
   return ( paste( "http://id.pensoft.net/", uuid::UUIDgenerate() , sep = "") )
+}
+
+#' Submits a set of triples (quads) in matrix form to OBKMS
+
+put_triples = function ( triples ) {
+
 }

@@ -44,46 +44,47 @@ taxpub2rdf = function( xml_filename, obkms_access_options ) {
 }
 
 
-#' A function to extract the publisher information
-extract_publisher = function( taxpub_xml, obkms_opts, prefix = FALSE ) {
-  # Predicates
-  pref_label = "skos:prefLabel"
-  a = "rdf:type"
-  agent = "foaf:Agent"
+#' A function to extract the publisher information from XML
+#'
 
+extract_publisher_info = function( xml ) {
   # Xpath
-  publisher_name_xpath = "/article/front/journal-meta/publisher/publisher-name"
+  x = list()
+  x[['publisher_name']] = "/article/front/journal-meta/publisher/publisher-name"
+  x[['journal_title']] = "/article/front/journal-meta/journal-title-group/journal-title"
 
-  # Prefixes
-  prefixes = c("pensoft", "skos", "foaf", "pro", "rdf")
+  # Entities and literals
+  local = list()
+  literals = list()
+  literals[['publisher_name']] =  xml2::xml_text( xml2::xml_find_all(
+                                            xml, x$publisher_name)[[1]])
+  literals[['journal_title']] =  xml2::xml_text( xml2::xml_find_all(
+                                            xml, x$journal_title)[[1]])
 
-  # Entities
-  publisher.label = xml2::xml_text(xml2::xml_find_all(taxpub_xml, publisher_name_xpath)[[1]])
-  publisher.node = get_nodeid( obkms_opts, pub_label )
-
-  publisher_role.node = get_nodeid ( )
-  # try to convert to Qname
-  pqname = qname( publisher_id )
-  if ( !is.null( pqname$prefix ) ) {
-    publisher_id = pqname$uri
-    prefixes = c( prefixes, pqname$prefix )
-  }
+ # literals[['publisher_name']] = XML::xmlValue ( XML::getNodeSet( xml , x$publisher_name )[[1]] )
+#  literals[['journal_title']] = XML::xmlValue ( XML::getNodeSet( xml , x$journal_title )[[1]] )
+  local[['publisher']] = qname ( get_nodeid( literals$publisher_name ) )
+  local[['publisher_role']] = qname( get_nodeid () )
+  local[['journal']] = qname ( get_nodeid( literals$journal_title))
 
   # Triples
-
+  stopifnot( exists( 'entities', obkms ))
+  #attach(obkms, warn.conflicts = FALSE)
   triples = matrix (nrow = 0, ncol = 4, dimnames =  list(c(), c("graph", "subject", "predicate", "object")))
-  triples = rbind( triples, c( "", publisher_id, a, agent ) )
-  triples = rbind( triples, c( "", publisher_id, pref_label, publisher_name ) )
+  triples = rbind( triples,
+                   c( "", local$publisher, obkms$entities$a, obkms$entities$agent ) )
+  triples = rbind( triples,
+                   c( "", local$publisher, obkms$entities$pref_label, squote ( literals$publisher_name ) ) )
+  triples = rbind( triples,
+                   c( "", local$publisher, obkms$entities$holds_role_in_time, local$publisher_role ) )
+  triples = rbind( triples,
+                   c( "", local$publisher_role, obkms$entities$with_role, obkms$entities$publisher ) )
+  triples = rbind( triples,
+                   c( "", local$publisher_role, obkms$entities$relates_to_document, local$journal ) )
+  triples = rbind( triples,
+                   c( "", local$journal, obkms$entities$relates_to_document, squote ( literals$journal_title ) ) )
+  #detach(obkms)
 
-
-
-  # RDF
-  rdf = c()
-  rdf = c(rdf, begin_couplet ( publisher_id, "a", "foaf:Agent" ))
-  rdf = c(rdf, add_po( "skos:prefLabel", publisher_name, literal = TRUE))
-  rdf = c(rdf, add_po( "pro:holdsRoleInTime", ))
-  rdf = c(rdf, end_couplet())
-  rdf = do.call( paste0, as.list( rdf ) )
 
   # journal_name = xml_text(xml_find_all(taxpub_xml, "/article/front/journal-meta/journal-id")[[1]])
   # journal_id = get_or_create_node_by_label( obkms_opts, journal_name)
@@ -92,6 +93,6 @@ extract_publisher = function( taxpub_xml, obkms_opts, prefix = FALSE ) {
   # rdf = "
   # prefix fabio: <fdfsdsfsdfs> .
   # %journal_id a fabio:Journal"
-  return(rdf)
+  return( triples )
 }
 
