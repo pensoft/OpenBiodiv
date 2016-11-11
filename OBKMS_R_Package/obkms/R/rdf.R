@@ -71,7 +71,9 @@ strip_angle = function ( uri ) {
 #' @param literal the string that needs to be quoted
 #' @param postfixes everything that needs to be concatendated at the end of the
 #' string (e.g. things like @en, or xsd:date)
+#' @export
 squote = function ( literal, postfixes = "" ) {
+  if ( is.null ( literal ) ) return ( NULL )
   paste0 ("\"", literal, "\"", postfixes)
 }
 

@@ -21,7 +21,7 @@
 init_env = function ( server_access_options,
                       prefix_db = paste0( path.package ( 'obkms' ) , "/", "prefix_db.yml" ),
                       entities_db =  paste0( path.package ( 'obkms' ) , "/", "semantic_entities_db.yml" ),
-                      xpath_taxpub_db = paste0( path.package ( 'obkms' ) , "/", "xpath_taxpub_db.yml" ),
+                      literals_db_xpath = paste0( path.package ( 'obkms' ) , "/", "literals_db_xpath.yml" ),
                       xml_source = "file",
                       xml_type = "taxpub" ) {
 
@@ -36,7 +36,7 @@ init_env = function ( server_access_options,
   obkms$entities = yaml::yaml.load_file ( entities_db )
 
   obkms$config = list()
-  obkms$config['xpath_taxpub_db'] = xpath_taxpub_db
+  obkms$config['literals_db_xpath'] = literals_db_xpath
   obkms$config['prefix_db'] = prefix_db
   obkms$config['entities_db'] = entities_db
 

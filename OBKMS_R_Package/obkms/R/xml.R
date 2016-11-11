@@ -35,130 +35,94 @@ xml2rdf = function( resource_locator, resource_type = "FILE",
 
   # load XML
   if ( resource_type == "FILE" ){
-    xml = xml2::read_xml( resource )
+    xml = xml2::read_xml( resource_locator )
   }
 
   # load xpath
   if ( resource_format == "TAXPUB" ) {
     # load xpath for taxpub XML format
-    x = yaml::yaml.load_file( obkms$config$xpath_taxpub_db )
+    xlit = yaml::yaml.load_file( obkms$config$literals_db_xpath )
   }
 
-  # entities, triples and literals
-  triples = list()
-  local = list()
-  literals = list()
-
-  # find all the literals
-  literals[['publisher_name']] =
-    xml2::xml_text( xml2::xml_find_all( xml, x$publisher_name ) [[1]] )
-  literals[['journal_title']] =
-    xml2::xml_text( xml2::xml_find_all( xml, x$journal_title ) [[1]] )
-  literals[['abbrev_journal_title']] =
-    xml2::xml_text( xml2::xml_find_all( xml, x$abbrev_journal_title ) [[1]] )
-  literals[['issn']] =
-    xml2::xml_text( xml2::xml_find_all( xml, x$issn ) [[1]] )
-  literals[['eissn']] =
-    xml2::xml_text( xml2::xml_find_all( xml, x$eissn ) [[1]] )
-  literals[['doi']] =
-    xml2::xml_text( xml2::xml_find_all( xml, x$doi ) [[1]] )
-
   # first, metadata
+  triples = list()
   #triples[['metadata']] = data.frame(extract_publisher_info( xml ), stringsAsFactors = FALSE)
+  triples[['metadata']] = extract_metadata( xml, xlit )
 
   # before we serialize, we need the contaxt (graph name)
-  doi = xml2::xml_text( xml2::xml_find_all( xml, x$doi ) [[1]] )
+  doi = xml2::xml_text( xml2::xml_find_all( xml, xlit$doi ) [[1]] )
   context = get_context_of ( doi )
   turtle = prepend_prefixes()
-  turtle = c(turtle, triples2turtle ( context, triples$publisher ) )
+  turtle = c(turtle, triples2turtle ( context, triples$metadata ) )
 
   return ( do.call(paste, as.list(turtle )))
 }
 #
 #
-#
-#' A function to extract the publisher information from XML
-#' @export
-extract_publisher_info = function( xml ) {
-  # Xpath
-  x = list()
-  x[['publisher_name']] = "/article/front/journal-meta/publisher/publisher-name"
-  x[['journal_title']] = "/article/front/journal-meta/journal-title-group/journal-title"
-  x[['abbrev_journal_title']] = "/article/front/journal-meta/journal-title-group/abbrev-journal-title"
-  x[['issn']] = "/article/front/journal-meta/issn[@pub-type='ppub']"
-  x[['eissn']] = "/article/front/journal-meta/issn[@pub-type='epub']"
-  x[['doi']] = "/article/front/article-meta/article-id[@pub-id-type='doi']"
+#' Extract metadata from an XML2 object
+#' @param xml \emph{XML2} object
+#' @param xlit \emph{list} of XPATH locations of literals entities
+extract_metadata = function( xml, xlit ) {
+  # all the entity generating functions can return NULL
+  # in this case the triple constructing function will return an empty triple
+  # literals
+  literals = as.list( find_literals( xml, xlit ) )
 
-  # Entities and literals
+  # local entities
   local = list()
-  literals = list()
-  literals[['publisher_name']] =
-    xml2::xml_text( xml2::xml_find_all( xml, x$publisher_name ) [[1]] )
-  literals[['journal_title']] =
-    xml2::xml_text( xml2::xml_find_all( xml, x$journal_title ) [[1]] )
-  literals[['abbrev_journal_title']] =
-    xml2::xml_text( xml2::xml_find_all( xml, x$abbrev_journal_title ) [[1]] )
-  literals[['issn']] =
-    xml2::xml_text( xml2::xml_find_all( xml, x$issn ) [[1]] )
-  literals[['eissn']] =
-    xml2::xml_text( xml2::xml_find_all( xml, x$eissn ) [[1]] )
-  literals[['doi']] =
-    xml2::xml_text( xml2::xml_find_all( xml, x$doi ) [[1]] )
-
-# literals[['publisher_name']] = XML::xmlValue ( XML::getNodeSet( xml , x$publisher_name )[[1]] )
-#  literals[['journal_title']] = XML::xmlValue ( XML::getNodeSet( xml , x$journal_title )[[1]] )
   local[['publisher']] = qname ( get_nodeid( literals$publisher_name ) )
   local[['publisher_role']] = qname( get_nodeid () )
   local[['journal']] = qname ( get_nodeid( literals$journal_title))
   local[['article']] = qname ( get_nodeid ( literals$doi ) )
 
-  # Triples
-  stopifnot( exists( 'entities', obkms ))
-  #attach(obkms, warn.conflicts = FALSE)
-  triples = matrix (nrow = 0, ncol = 3, dimnames =  list(c(), c("subject", "predicate", "object")))
-  triples = rbind( triples,
-                   c( local$publisher, obkms$entities$a, obkms$entities$agent ) )
-  triples = rbind( triples,
-                   c( local$publisher, obkms$entities$pref_label, squote ( literals$publisher_name ) ) )
-  triples = rbind( triples,
-                   c( local$publisher, obkms$entities$holds_role_in_time, local$publisher_role ) )
-  triples = rbind( triples,
-                   c( local$publisher_role, obkms$entities$a, obkms$entities$role_in_time ) )
-  triples = rbind( triples,
-                   c( local$publisher_role, obkms$entities$with_role, obkms$entities$publisher ) )
-  triples = rbind( triples,
-                   c( local$publisher_role, obkms$entities$relates_to_document, local$journal ) )
-  triples = rbind( triples,
-                   c( local$journal, obkms$entities$a, obkms$entities$journal ) )
-  triples = rbind( triples,
-                   c( local$journal, obkms$entities$pref_label, squote ( literals$journal_title ) ) )
-  triples = rbind( triples,
-                   c( local$journal, obkms$entities$alt_label, squote ( literals$abbrev_journal_title ) ) )
-  triples = rbind( triples,
-                   c( local$journal, obkms$entities$issn, squote ( literals$issn ) ) )
-  triples = rbind( triples,
-                   c( local$journal, obkms$entities$eissn, squote ( literals$eissn ) ) )
-  triples = rbind( triples,
-                   c( local$journal, obkms$entities$dcpublisher, squote ( literals$publisher_name ) ) )
-  triples = rbind( triples,
-                   c( local$journal, obkms$entities$frbr_haspart, local$article ) )
-  triples = rbind( triples,
-                   c( local$article, obkms$entities$a, obkms$entities$journal_article ) )
-  triples = rbind( triples,
-                   c( local$article, obkms$entities$pref_label, squote( literals$doi ) ) )
-  triples = rbind( triples,
-                   c( local$article, obkms$entities$prism_doi, squote( literals$doi ) ) )
+  # triples
+  attach(obkms, warn.conflicts = FALSE)
+  triples = matrix (nrow= 0, ncol = 3, byrow = TRUE,
+                    dimnames =  list(c(), c("subject", "predicate", "object")))
+  triples = rbind(triples,
+    triple( local$publisher,      entities$a,                   entities$agent ),
+    triple( local$publisher,      entities$pref_label,          squote ( literals$publisher_name ) ) ,
+    triple( local$publisher,      entities$holds_role_in_time,  local$publisher_role ),
+    triple( local$publisher_role, entities$a,                   entities$role_in_time ),
+    triple( local$publisher_role, entities$with_role,           entities$publisher ),
+    triple( local$publisher_role, entities$relates_to_document, local$journal ),
+    triple( local$journal,        entities$a,                   entities$journal ),
+    triple( local$journal,        entities$pref_label,          squote ( literals$journal_title ) ),
+    triple( local$journal,        entities$alt_label,           squote ( literals$abbrev_journal_title ) ),
+    triple( local$journal,        entities$issn,                squote ( literals$issn ) ),
+    triple( local$journal,        entities$eissn,               squote ( literals$eissn ) ),
+    triple( local$journal,        entities$dcpublisher,         squote ( literals$publisher_name ) ),
+    triple( local$journal,        entities$frbr_haspart,        local$article ),
+    triple( local$article,        entities$a,                   entities$journal_article ),
+    triple( local$article,        entities$pref_label,          squote( literals$doi ) ),
+    triple( local$article,        entities$prism_doi,           squote( literals$doi ) ),
+    triple( local$article,        entities$has_publication_year, squote( literals$pub_date, "^^xsd:gYear" ) ) )
+       #TODO fabio:hasSubjectTerm
+       #TODO fabio:hasDiscipline
+       #TODO dcterms:creator
+  detach(obkms)
 
-  #detach(obkms)
-
-
-  # journal_name = xml_text(xml_find_all(taxpub_xml, "/article/front/journal-meta/journal-id")[[1]])
-  # journal_id = get_or_create_node_by_label( obkms_opts, journal_name)
-  #
-  #
-  # rdf = "
-  # prefix fabio: <fdfsdsfsdfs> .
-  # %journal_id a fabio:Journal"
-  return( triples )
+  return( as.data.frame( triples ) )
 }
 
+#' Find literals
+
+find_literals = function( xml, x  ) {
+  r =
+    sapply( names(x), function( l ) {
+      ns = xml2::xml_find_all( xml, x[[l]] )
+      # ns is a list
+      if ( length( ns ) == 0) return ( NULL )
+      else return ( xml2::xml_text( ns[[1]] ) )
+    })
+}
+
+#' Ensure correctness of a triple
+#' @param S \emph{character} subject
+#' @param P \emph{character} predicate
+#' @param O \emph{character} object
+#' @return NULL, if one of the values is missing, a character of length 3 otherwise
+triple = function(S, P, O) {
+  if ( is.null(S) || is.null(P) || is.null(O) ) return ( NULL )
+  return( c(S, P, O) )
+}
