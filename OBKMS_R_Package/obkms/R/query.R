@@ -47,8 +47,39 @@ get_nodeid = function( label = "" ) {
   return ( paste( "http://id.pensoft.net/", uuid::UUIDgenerate() , sep = "") )
 }
 
-#' Submits a set of triples (quads) in matrix form to OBKMS
+#' Gets the graph name of an article of it exists
+#' @param doi the DOI of the article the context of which we are looking for
+#' @export
+get_context_of = function ( doi ) {
+  stopifnot( exists( "obkms", mode = "environment" ) )
+  query.template =
+    "PREFIX skos: %skosns
+    SELECT ?g
+    WHERE {
+      GRAPH ?g {
+        ?id skos:prefLabel %label .
+      }
+    }"
+    if ( is.character( doi ) && doi != "" ) {
+      query.template = gsub( "%label", paste( '\"', doi, '\"', sep = "" ), query.template )
+      query = gsub( "%skosns", obkms$prefixes$skos, query.template )
+      res = rdf4jr::POST_query( obkms$server_access_options , obkms$server_access_options$repository, query, "CSV" )
+      # check for non-emptiness
+      if (!( is.data.frame( res ) && nrow ( res ) == 0 )) {
+        return ( as.character( res$g ) )
+      }
+  }
+  # we couldn't match label or label was FALSE, generate a new node
+  #detach ( obkms )
+  return ( paste( "http://id.pensoft.net/", uuid::UUIDgenerate() , sep = "") )
+}
 
-put_triples = function ( triples ) {
 
+#' Submits RDF string (in Turtle syntax) to OBKMS
+#' @param rdf the RDF string
+#' @export
+
+submit_turtle = function ( rdf ) {
+  res = rdf4jr::add_data( obkms$server_access_options,
+                          obkms$server_access_options$repository, do.call(paste, as.list(rdf) ))
 }

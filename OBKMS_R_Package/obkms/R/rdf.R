@@ -93,3 +93,94 @@ add_po = function ( predicate, obj, literal = FALSE) {
     paste( " ;\n ", predicate,  obj)
   }
 }
+
+#' Use the prefix database to create Turtle statements
+#' @param t the syntax
+#' @export
+prepend_prefixes = function ( t = c("turtle") ) {
+  stopifnot( exists( 'obkms', mode = 'environment' ) )
+
+  if ( t == "turtle" )
+  sapply ( obkms$prefixes, function( p ) {
+    name = names(obkms$prefixes)[obkms$prefixes == p]
+    paste0("@prefix " , name, ": ", p, " .\n")
+  } )
+  else if (t == "sparql") {
+    #type is SPARQL
+    sapply ( obkms$prefixes, function( p ) {
+      name = names(obkms$prefixes)[obkms$prefixes == p]
+      paste0("PREFIX " , name, ": ", p, " \n")
+    } )
+  }
+}
+
+#' Converts a matrix of triple to Turtle statements, given a context.
+#'
+#' Uses the Trig syntax.
+#'
+#' @export
+
+triples2turtle = function ( context, triples ) {
+  turtle = c( paste( context, "{\n" ) )
+  # for each unique subject
+  next_object = FALSE
+  for ( s in unique( triples$subject ) ) {
+    couplet = write_couplet ( s, triples )
+    if (next_object == FALSE) {
+      turtle = c( turtle, couplet )
+      next_object = TRUE
+    }
+    else{
+      turtle = c( turtle, ". \n", couplet)
+    }
+
+  }
+  turtle = c( turtle, ". }")
+  return (turtle)
+}
+
+#' Writes a single couplet for the given subejct
+write_couplet = function( subject, triples ) {
+  turtle = c( subject, " " )
+  # subset the triples with only this subject
+  triples = triples[triples$subject == subject, ]
+  # find the unique predicates
+  next_object = FALSE
+  for (p in unique( triples$predicate ) ) {
+    predicate_stanza = write_predicate_stanza ( p, triples )
+    if (next_object == FALSE) {
+      turtle = c(turtle, predicate_stanza )
+      next_object = TRUE
+    }
+    else{
+      turtle = c(turtle, ";\n\t", predicate_stanza )
+    }
+
+  }
+  return ( turtle )
+}
+
+#' Writes the predicate-object stanza after a subject has been written
+
+write_predicate_stanza = function( predicate, triples ){
+  turtle = c(predicate, " ")
+  # subset only for this predicate
+  triples = triples[triples$predicate == predicate, ]
+  next_object = FALSE
+  for ( o in unique (triples$object) ) {
+    end_stanza = write_end_stanza( o, triples )
+    if (next_object == FALSE) {
+      turtle = c(turtle, end_stanza)
+      next_object = TRUE
+    }
+    else {
+      turtle = c(turtle, ",", end_stanza)
+    }
+  }
+  return ( turtle )
+}
+
+write_end_stanza = function ( object, triples ) {
+  turtle = c(object)
+  return (turtle)
+}
