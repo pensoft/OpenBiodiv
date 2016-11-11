@@ -141,6 +141,30 @@ triples2turtle = function ( context, triples ) {
   return (turtle)
 }
 
+#' works with lists of triples instead of data frames
+#' @export
+triples2turtle2 = function ( context, triples ) {
+  turtle = c( paste( context, "{\n" ) )
+  # for each unique subject
+  next_object = FALSE
+  subjects = sapply( triples, function (t) {
+    t[[1]]
+  })
+  for ( s in unique( subjects ) ) {
+    couplet = write_couplet2 ( s, triples )
+    if (next_object == FALSE) {
+      turtle = c( turtle, couplet )
+      next_object = TRUE
+    }
+    else{
+      turtle = c( turtle, ". \n", couplet)
+    }
+
+  }
+  turtle = c( turtle, ". }")
+  return (turtle)
+}
+
 #' Writes a single couplet for the given subejct
 write_couplet = function( subject, triples ) {
   turtle = c( subject, " " )
@@ -162,6 +186,34 @@ write_couplet = function( subject, triples ) {
   return ( turtle )
 }
 
+#' Writes a single couplet for the given subejct
+#' with triples in a list
+write_couplet2 = function( subject, triples ) {
+  turtle = c( subject, " " )
+  # subset the triples with only this subject
+  triples = lapply( triples, function (t) {
+    if ( t[[1]] == subject ) return (t)
+  })
+  triples = triples[!sapply(triples,is.null)]
+  # find the unique predicates
+  predicates = sapply( triples, function (t) {
+    t[[2]]
+  })
+  next_object = FALSE
+  for (p in unique( predicates ) ) {
+    predicate_stanza = write_predicate_stanza2 ( p, triples )
+    if (next_object == FALSE) {
+      turtle = c(turtle, predicate_stanza )
+      next_object = TRUE
+    }
+    else{
+      turtle = c(turtle, ";\n\t", predicate_stanza )
+    }
+
+  }
+  return ( turtle )
+}
+
 #' Writes the predicate-object stanza after a subject has been written
 
 write_predicate_stanza = function( predicate, triples ){
@@ -169,8 +221,32 @@ write_predicate_stanza = function( predicate, triples ){
   # subset only for this predicate
   triples = triples[triples$predicate == predicate, ]
   next_object = FALSE
+  # TODO We don't really care about non-uniqueness of objects!!!
   for ( o in unique (triples$object) ) {
     end_stanza = write_end_stanza( o, triples )
+    if (next_object == FALSE) {
+      turtle = c(turtle, end_stanza)
+      next_object = TRUE
+    }
+    else {
+      turtle = c(turtle, ",", end_stanza)
+    }
+  }
+  return ( turtle )
+}
+
+#' takes care of the predicates, but with the triple structure a list
+write_predicate_stanza2 = function( predicate, triples ){
+  turtle = c(predicate, " ")
+  # subset only for this predicate
+  triples = lapply( triples, function (t) {
+    if (t[[2]] == predicate) return (t)
+  })
+  triples = triples[!sapply(triples,is.null)]
+  # We don't care about non-uniqueness of objects!!
+  next_object = FALSE
+  for ( t in triples ) {
+    end_stanza = write_end_stanza2( t[[3]], triples )
     if (next_object == FALSE) {
       turtle = c(turtle, end_stanza)
       next_object = TRUE
@@ -185,4 +261,16 @@ write_predicate_stanza = function( predicate, triples ){
 write_end_stanza = function ( object, triples ) {
   turtle = c(object)
   return (turtle)
+}
+
+#' does it with lists
+write_end_stanza2 = function ( object, triples ) {
+  if (is.character( object )) {
+    turtle = c(object)
+    return (turtle)
+  }
+  else {
+    # object is a triples list
+    turtle = c( " [ ", write_couplet2( "", object ), " ] " )
+  }
 }

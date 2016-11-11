@@ -2,16 +2,11 @@
 % Please edit documentation in R/xml.R
 \name{extract_metadata}
 \alias{extract_metadata}
-\title{Extract metadata from an XML2 object}
+\title{Extract info from the front-matter}
 \usage{
-extract_metadata(xml, x)
-}
-\arguments{
-\item{xml}{\emph{XML2} object}
-
-\item{x}{\emph{list} of XPATH locations of different entities}
+extract_metadata(xml, xlit)
 }
 \description{
-Extract metadata from an XML2 object
+Extract info from the front-matter
 }
 
