@@ -99,7 +99,7 @@ add_po = function ( predicate, obj, literal = FALSE) {
 #' Use the prefix database to create Turtle statements
 #' @param t the syntax
 #' @export
-prepend_prefixes = function ( t = c("turtle") ) {
+turtle_prepend_prefixes = function ( t = c("turtle") ) {
   stopifnot( exists( 'obkms', mode = 'environment' ) )
 
   if ( t == "turtle" )
@@ -150,6 +150,7 @@ triples2turtle2 = function ( context, triples ) {
   subjects = sapply( triples, function (t) {
     t[[1]]
   })
+  subjects = subjects[!sapply(subjects,is.null)]
   for ( s in unique( subjects ) ) {
     couplet = write_couplet2 ( s, triples )
     if (next_object == FALSE) {
@@ -192,7 +193,9 @@ write_couplet2 = function( subject, triples ) {
   turtle = c( subject, " " )
   # subset the triples with only this subject
   triples = lapply( triples, function (t) {
-    if ( t[[1]] == subject ) return (t)
+    if ( !is.null(t) && t[[1]] == subject )
+      return (t)
+
   })
   triples = triples[!sapply(triples,is.null)]
   # find the unique predicates

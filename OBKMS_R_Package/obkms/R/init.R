@@ -42,6 +42,9 @@ init_env = function ( server_access_options,
 
   obkms$xml_source = xml_source
   obkms$xml_type = xml_type
+
+  # options to be used with the xml2::read_xml funciton
+  obkms$xml_options = c()
 }
 
 #' Loads a package database from a yaml file

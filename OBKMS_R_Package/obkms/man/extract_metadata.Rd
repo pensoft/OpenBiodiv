@@ -2,11 +2,11 @@
 % Please edit documentation in R/xml.R
 \name{extract_metadata}
 \alias{extract_metadata}
-\title{Extract info from the front-matter}
+\title{Extract info from the front-matter, data frame based}
 \usage{
 extract_metadata(xml, xlit)
 }
 \description{
-Extract info from the front-matter
+Extract info from the front-matter, data frame based
 }
 
