@@ -246,10 +246,13 @@ write_predicate_stanza2 = function( predicate, triples ){
     if (t[[2]] == predicate) return (t)
   })
   triples = triples[!sapply(triples,is.null)]
-  # We don't care about non-uniqueness of objects!!
+  # We fucking do care about uniqueness of objects!!!!!!!
+  objects = lapply( triples, function (t) {
+    t[[3]]
+  })
   next_object = FALSE
-  for ( t in triples ) {
-    end_stanza = write_end_stanza2( t[[3]], triples )
+  for ( o in unique(objects) ) {
+    end_stanza = write_end_stanza2( o, triples )
     if (next_object == FALSE) {
       turtle = c(turtle, end_stanza)
       next_object = TRUE

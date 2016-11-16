@@ -44,7 +44,8 @@ xml2rdf = function( resource_locator, resource_type = "FILE",
   serialization = c()
   if (serialization_format == "TURTLE") {
     serialization = turtle_prepend_prefixes()
-    serialization = c ( serialization, triples2turtle2 ( context, triples ) )
+    serialization = c ( serialization, triples2turtle2 ( context, triples$article ), "\n" )
+    serialization = c( serialization, triples2turtle2( "pensoft:Nomenclature", triples$nomenclature))
   }
   # return the return string as a string
   return ( do.call(paste, as.list( serialization )))
@@ -59,7 +60,8 @@ xml2rdf = function( resource_locator, resource_type = "FILE",
 #' Top level extractor
 #' @param xml \emph{XML2} object
 #' @param xlit \emph{list} of XPATH locations of literals entities
-#' @return \emph{list} of triples
+#' @return \emph{list} of named triples lists, the name corresponds to the
+#' context
 #' @export
 extract_information = function( xml, xlit ) {
   # all the entity generating functions can return NULL
@@ -108,7 +110,8 @@ extract_information = function( xml, xlit ) {
                                             triple("", entities$next_item,
                                                 list( triple( "", entities$item_content, local$abstract))))),
     triple( local$title,         entities$a,                      entities$doco_title),
-    triple( local$title,         entities$has_content,            squote(literals$article_title, "@en-us"   )) )
+    triple( local$title,         entities$has_content,            squote(literals$article_title, "@en-us"   )),
+    triple( local$abstract,    entities$a,               entities$sro_abstract))
   # look for taxa in the title
   title_ns = xml2::xml_find_all( xml, xlit$article_title)
   tnus = extract_tnu ( title_ns )
@@ -123,7 +126,22 @@ extract_information = function( xml, xlit ) {
     triples[[i + 1]] = triple( new_tnu, entities$dwciri_scientific_name, t)
     i = i + 1
   }
-  triples = c(triples, tnus$rdf)
+  # look for taxa in the abstract
+  abstract_nodeset = xml2::xml_find_all ( xml, xlit$article_abstract )
+  abstract_tnus = extract_tnu ( abstract_nodeset )
+  i = length( triples )
+  i = i + 1
+  for ( t in abstract_tnus$tnu ) {
+    new_tnu = qname ( get_nodeid() )
+    triples[[i + 1]] = triple( local$abstract, entities$realization_of, new_tnu)
+    i = i + 1
+    triples[[i + 1]] = triple( new_tnu, entities$a, entities$tnu)
+    i = i + 1
+    triples[[i + 1]] = triple( new_tnu, entities$dwciri_scientific_name, t)
+    i = i + 1
+  }
+  # prep return values
+  triples = list(article = triples, nomenclature = c(tnus$rdf, abstract_tnus$rdf))
   detach( obkms )
   return(  triples )
 }
