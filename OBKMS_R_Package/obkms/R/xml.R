@@ -37,9 +37,10 @@ xml2rdf = function( resource_locator, resource_type = "FILE",
   if ( resource_format == "TAXPUB" ) {
     # load xpath for taxpub XML format
     xlit = yaml::yaml.load_file( obkms$config$literals_db_xpath )
+    xnonlit = yaml::yaml.load_file( obkms$config$non_literals_db_xpath )
   }
   # construct list of triples lists
-  triples = extract_information( xml, xlit )
+  triples = extract_information( xml, xlit, xnonlit )
   # serialize
   serialization = c()
   if (serialization_format == "TURTLE") {
@@ -63,12 +64,12 @@ xml2rdf = function( resource_locator, resource_type = "FILE",
 #' @return \emph{list} of named triples lists, the name corresponds to the
 #' context
 #' @export
-extract_information = function( xml, xlit ) {
+extract_information = function( xml, xlit, xnonlit ) {
   # all the entity generating functions can return NULL
   # in this case the triple constructing function will return an empty triple
-  # literals
+  # Literals
   literals = as.list( find_literals( xml, xlit ) )
-  # local entities
+  # Entities
   local = list()
   local[['article']] = qname ( get_nodeid ( literals$doi ) )
   local[['front_matter']] = qname ( get_nodeid(  ) )
@@ -77,7 +78,10 @@ extract_information = function( xml, xlit ) {
   local[['publisher']] = qname ( get_nodeid( literals$publisher_name ) )
   local[['publisher_role']] = qname( get_nodeid () )
   local[['journal']] = qname ( get_nodeid( literals$journal_title))
-  # triples
+  # Triples
+  # we have several contexts: article related triples
+  # and nomenclature_triples
+  nomenclature_triples = list()
   attach(obkms, warn.conflicts = FALSE)
   triples = list(
     triple( local$publisher,      entities$a,                   entities$agent ),
@@ -112,45 +116,84 @@ extract_information = function( xml, xlit ) {
     triple( local$title,         entities$a,                      entities$doco_title),
     triple( local$title,         entities$has_content,            squote(literals$article_title, "@en-us"   )),
     triple( local$abstract,    entities$a,               entities$sro_abstract))
-  # look for taxa in the title
-  title_ns = xml2::xml_find_all( xml, xlit$article_title)
-  tnus = extract_tnu ( title_ns )
-  i = length( triples )
-  i = i + 1
-  for ( t in tnus$tnu ) {
-    new_tnu = qname ( get_nodeid() )
-    triples[[i + 1]] = triple( local$title, entities$realization_of, new_tnu)
-    i = i + 1
-    triples[[i + 1]] = triple( new_tnu, entities$a, entities$tnu)
-    i = i + 1
-    triples[[i + 1]] = triple( new_tnu, entities$dwciri_scientific_name, t)
-    i = i + 1
-  }
+  # Process taxa in different parts of the manuscript
+  # look for taxa in the title and attach them
+  title_nodeset = xml2::xml_find_all( xml, xlit$article_title )
+  new_triples =
+              construct_tnu_triples( title_nodeset , local$title)
+  triples = c( triples, new_triples$article)
+  nomenclature_triples = c(nomenclature_triples, new_triples$nomenclature)
+
   # look for taxa in the abstract
-  abstract_nodeset = xml2::xml_find_all ( xml, xlit$article_abstract )
-  abstract_tnus = extract_tnu ( abstract_nodeset )
-  i = length( triples )
-  i = i + 1
-  for ( t in abstract_tnus$tnu ) {
-    new_tnu = qname ( get_nodeid() )
-    triples[[i + 1]] = triple( local$abstract, entities$realization_of, new_tnu)
-    i = i + 1
-    triples[[i + 1]] = triple( new_tnu, entities$a, entities$tnu)
-    i = i + 1
-    triples[[i + 1]] = triple( new_tnu, entities$dwciri_scientific_name, t)
-    i = i + 1
+  abstract_nodeset = xml2::xml_find_all( xml, xlit$article_abstract )
+  new_triples =
+    construct_tnu_triples( abstract_nodeset , local$abstract )
+  triples = c( triples, new_triples$article)
+  nomenclature_triples = c(nomenclature_triples, new_triples$nomenclature)
+  #look for taxa in figures
+  # this includes figs in captions
+  #a figure is something tagged by <fig></fig>
+  #it may or may not be wrapped in a figure group
+  #xpath expressions must be stored in another group (non-literal)
+  #non-literals ideally already have an id in the XML
+  #start with free standing figs
+  #local_figs is a list of the new fig entitites
+  #fig_tnus are the Taxon Name Usages (taxa and rdf) per fig
+  local[['figures']] = list()
+    free_standing_figs_ns = xml2::xml_find_all( xml, xnonlit$free_standing_figs)
+  j = 1
+  for ( figure_node in free_standing_figs_ns ) {
+    id = xml2::xml_text( xml2::xml_find_all ( figure_node, xnonlit$rel_figid ) )
+    local$figures[[j]] = qname( get_nodeid( "", id ) )
+    triples = c(triples,
+               list( triple ( local$article, entities$contains, local$figures[[j]] )))
+    triples = c(triples,
+                   list(  triple( local$figures[[j]], entities$a, entities$figure) ))
+    new_triples =
+                construct_tnu_triples( figure_node, local$figures[[j]] )
+    triples = c( triples, new_triples$article)
+    nomenclature_triples = c(nomenclature_triples, new_triples$nomenclature)
   }
+  # look for taxa in plates captions
+  # ...
+
   # prep return values
-  triples = list(article = triples, nomenclature = c(tnus$rdf, abstract_tnus$rdf))
+  triples = list(article = triples, nomenclature = nomenclature_triples)
   detach( obkms )
   return(  triples )
 }
 
+#' Extract TNU's from a XML nodeset, and construct triples, attaching them
+#' to a given semantic entity
+#' @param xml the XML document
+#' @param nodeset_xpath where in the XML do we look for TNU's
+#' @param attachment_entity the node it to which we ought to attach the new
+
+#' TNU's triples
+#' @return \emph{list} of triples
+construct_tnu_triples = function ( working_nodeset, attachment_entity) {
+  new_tnus = extract_tnu ( working_nodeset )
+  triples = list()
+  i = 1
+  for ( t in new_tnus$tnu ) {
+    new_tnu = qname ( get_nodeid() )
+    triples[[i ]] = triple( attachment_entity, entities$realization_of, new_tnu)
+    i = i + 1
+    triples[[i ]] = triple( new_tnu, entities$a, entities$tnu)
+    i = i + 1
+    triples[[i ]] = triple( new_tnu, entities$dwciri_scientific_name, t)
+    i = i + 1
+  }
+  return( list( article = triples, nomenclature = new_tnus$rdf ) )
+}
+
 #' Extract taxonomic name usages from an XML nodeset
+#' It also looks into descendant nodes thanks to the // in Xpath
+#' Actually we want to submit nomenclature right away to OBKMS
+#' so as not have duplicates.
 #' @param nodeset \emph{xml_nodeset} to check for TNU's
 #' @return \emph{list} of scientific name id's and triples with information
 #' @export
-
 extract_tnu = function ( xml_ns ) {
   ret_value = list() # triples and names
   # look for the TNU tag
@@ -196,6 +239,7 @@ extract_tnu = function ( xml_ns ) {
                    triple(scientific_name, entities[[rank]], squote( literal_scientific_name ) )
       i = i + 1
     }
+    # now triple
   }
   detach(obkms)
   return ( list( tnu = tnu, rdf = triples ) )
@@ -221,6 +265,7 @@ find_literals = function( xml, x  ) {
 #' @return NULL, if one of the values is missing, a character of length 3 otherwise
 #' unless blank is TRUE, then S = ""
 triple = function(S, P, O, blank = FALSE) {
+  # this has not been tested yet, probably needs a list around the return anyway
   if ( blank == TRUE ) {
     S = c("")
     if ( is.null(P) || is.null(O) ) return ( NULL )

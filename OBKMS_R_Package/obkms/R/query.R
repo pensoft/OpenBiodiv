@@ -9,19 +9,23 @@
 # OBKMS Query Functions
 #
 
-#' Given a label, tries to get the GUID of the node that has that label
+#' Given a label, tries to get the GUID of the node that has that label in OBKMS
 #'
 #' We need a helper function to get or create an node (id) for the network given a preferred label (`skos:prefLabel`)
 #'
 
 #' @param options           a list returned by \code{create_server_options}.
-#' @param repo_id           a
+#' @param explicit_node_id  when we already know the node id (for example from the XML)
 #'
 #' @examples
 #' \dontrun{}
 #' @export
 
-get_nodeid = function( label = "" ) {
+get_nodeid = function( label = "", explicit_node_id = "") {
+
+  if ( is.character(explicit_node_id) && explicit_node_id != "" ) {
+    return ( paste( "http://id.pensoft.net/", explicit_node_id , sep = "") )
+  }
 
   stopifnot( exists( "obkms", mode = "environment" ) )
  # attach(obkms, warn.conflicts = FALSE)
