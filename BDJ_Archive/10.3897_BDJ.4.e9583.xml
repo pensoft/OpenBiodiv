@@ -1,0 +1,883 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//TaxonX//DTD Taxonomic Treatment Publishing DTD v0 20100105//EN" "tax-treatment-NS0.dtd">
+<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tp="http://www.plazi.org/taxpub" article-type="research-article">
+  <front>
+    <journal-meta>
+      <journal-id journal-id-type="pmc">Biodiversity Data Journal</journal-id>
+      <journal-id journal-id-type="publisher-id">Biodiversity Data Journal</journal-id>
+      <journal-title-group>
+        <journal-title xml:lang="en">Biodiversity Data Journal</journal-title>
+        <abbrev-journal-title xml:lang="en">BDJ</abbrev-journal-title>
+      </journal-title-group>
+      <issn pub-type="ppub">1314-2836</issn>
+      <issn pub-type="epub">1314-2828</issn>
+      <publisher>
+        <publisher-name>Pensoft Publishers</publisher-name>
+      </publisher>
+    </journal-meta>
+    <article-meta>
+      <article-id pub-id-type="publisher-id">Biodiversity Data Journal</article-id>
+      <article-id pub-id-type="doi">10.3897/BDJ.4.e9583</article-id>
+      <article-id pub-id-type="other">5955</article-id>
+      <article-categories>
+        <subj-group subj-group-type="heading">
+          <subject>Software Description</subject>
+        </subj-group>
+        <subj-group subj-group-type="Taxon classification">
+          <subject>Animalia</subject>
+        </subj-group>
+        <subj-group subj-group-type="Subject classification">
+          <subject>Systematics</subject>
+        </subj-group>
+      </article-categories>
+      <title-group>
+        <article-title>Makelabels: a Bash script for generating data matrix codes for collection management</article-title>
+      </title-group>
+      <contrib-group content-type="authors">
+        <contrib contrib-type="author" corresp="yes">
+          <name name-style="western">
+            <surname>Dellinger</surname>
+            <given-names>Theresa A.</given-names>
+          </name>
+          <email xlink:type="simple">tdelling@vt.edu</email>
+          <xref ref-type="aff" rid="A1">‡</xref>
+        </contrib>
+        <contrib contrib-type="author" corresp="no">
+          <name name-style="western">
+            <surname>Wong</surname>
+            <given-names>Victoria</given-names>
+          </name>
+          <xref ref-type="aff" rid="A1">‡</xref>
+        </contrib>
+        <contrib contrib-type="author" corresp="no">
+          <name name-style="western">
+            <surname>Marek</surname>
+            <given-names>Paul E.</given-names>
+          </name>
+          <xref ref-type="aff" rid="A1">‡</xref>
+        </contrib>
+      </contrib-group>
+      <aff id="A1">
+        <label>‡</label>
+        <addr-line>Virginia Tech, Blacksburg, United States of America</addr-line>
+      </aff>
+      <author-notes>
+        <fn fn-type="corresp">
+          <p>Corresponding author: Theresa A. Dellinger (<email xlink:type="simple">tdelling@vt.edu</email>).</p>
+        </fn>
+        <fn fn-type="edited-by">
+          <p>Academic editor: Viktor Senderov</p>
+        </fn>
+      </author-notes>
+      <pub-date pub-type="collection">
+        <year>2016</year>
+      </pub-date>
+      <pub-date pub-type="epub">
+        <day>01</day>
+        <month>08</month>
+        <year>2016</year>
+      </pub-date>
+      <issue>4</issue>
+      <elocation-id>e9583</elocation-id>
+      <history>
+        <date date-type="received">
+          <day>16</day>
+          <month>06</month>
+          <year>2016</year>
+        </date>
+        <date date-type="accepted">
+          <day>29</day>
+          <month>07</month>
+          <year>2016</year>
+        </date>
+      </history>
+      <permissions>
+        <copyright-statement>Theresa A. Dellinger, Victoria Wong, Paul E. Marek</copyright-statement>
+        <license license-type="creative-commons-attribution" xlink:href="http://creativecommons.org/licenses/by/4.0" xlink:type="simple">
+          <license-p>This is an open access article distributed under the terms of the Creative Commons Attribution License 4.0 (CC-BY), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.</license-p>
+        </license>
+      </permissions>
+      <abstract>
+        <label>Abstract</label>
+        <sec sec-type="background">
+          <title>Background</title>
+          <p>Digitization of natural history collections allows easy access and reuse of the invaluable biodiversity data held within a collection by providing access to specimen level data through the Internet. Each digitized specimen in a database requires a unique catalog number to distinguish it from the many other biologically unique specimens within the collection. However, there are few open source barcode generators available, and of these even fewer platforms exist to enable the mass production of barcode labels required by natural history collections. We developed a low-cost, open source solution to generating data matrix barcodes with unique catalog numbers for use in the Virginia Tech Insect Collection.</p>
+        </sec>
+        <sec sec-type="new information">
+          <title>New information</title>
+          <p>Here we describe the <italic>makelabels</italic> script, which uses the open source Unix packages <italic>libdmtx</italic> and <italic>ImageMagick</italic> to generate unique specimen labels containing both a human-readable catalog number and a machine-readable data matrix barcode. The mass production of labels and use of both types of catalog symbology provides flexibility in specimen management and increased efficiency in digitization and specimen processing workflows.</p>
+        </sec>
+      </abstract>
+      <kwd-group>
+        <label>Keywords</label>
+        <kwd>collections management</kwd>
+        <kwd>curation</kwd>
+        <kwd>data matrix barcode</kwd>
+        <kwd>digitization</kwd>
+        <kwd>entomology collection</kwd>
+        <kwd>natural history collection</kwd>
+        <kwd>open source</kwd>
+      </kwd-group>
+      <funding-group>
+        <award-group>
+          <funding-source>
+            <named-content content-type="project_title">CSBR: Natural History: Mission Critical Improvements to Virginia Tech's Insect Collection</named-content>
+            <named-content content-type="project_identifier">1458045</named-content>
+            <named-content content-type="project_funder_id">501100000314</named-content>
+            <named-content content-type="project_funder_name">ABBEY AWARDS</named-content>
+            <named-content content-type="project_funder_doi">http://doi.org/10.13039/501100000314</named-content>
+          </funding-source>
+        </award-group>
+      </funding-group>
+      <counts>
+        <fig-count count="2"/>
+        <table-count count="0"/>
+        <ref-count count="27"/>
+      </counts>
+    </article-meta>
+  </front>
+  <body>
+    <sec sec-type="Introduction">
+      <title>Introduction</title>
+      <p>Natural history collections (NHCs) are invaluable repositories of biological information documenting the biodiversity of our planet (<xref ref-type="bibr" rid="B3308692">Winker 2004</xref>). Increasingly, NHCs have proven useful in providing evidence of climate change, pollution, species decline, habitat loss, and threats to agriculture and public health (e.g.: <xref ref-type="bibr" rid="B3308489">Colla et al. 2012</xref>, <xref ref-type="bibr" rid="B3308531">Graham et al. 2004</xref>, <xref ref-type="bibr" rid="B3308552">Lavoie 2013</xref>, <xref ref-type="bibr" rid="B3308571">Lister 2011</xref>, <xref ref-type="bibr" rid="B3308601">Page et al. 2015</xref>, <xref ref-type="bibr" rid="B3308622">Pyke and Ehrlich 2010</xref>, <xref ref-type="bibr" rid="B3308652">Suarez and Tsutsui 2004</xref>, <xref ref-type="bibr" rid="B3308692">Winker 2004</xref>).</p>
+      <p>One force driving the acceleration of interest in NHCs is enhanced accessibility. In the past, using a biological collection has been limited to: physically visiting a museum’s holdings; requesting a loan of material; or less often, obtaining a spreadsheet or email detailing the label data associated with a specimen. These traditional means of access created an unintentional bottleneck where only a limited number of people were privy to the specimens and their associated data. Even if a museum had developed a catalog, frequently the included information was not very extensive and often limited to a species list that lacked specimen-level data. In contrast, digitization of a NHC serves specimen photographs, a database of associated label data (collection localities, coordinates, dates of collection, habitat notes, etc.), and georeferenced distribution maps online—where these data can be read, retrieved, and reused by anyone with an Internet connection. Complementary data such as field journal entries made by collectors or audio recordings of species’ songs can be added to the entry for a specimen. This approach places a wealth of previously inaccessible “dark” information into the hands of all interested parties (<xref ref-type="bibr" rid="B3308601">Page et al. 2015</xref>). Natural history collections and their data are on the forefront of biological research, and we are just now glimpsing the power and capabilities of this multidimensional source of biological data (<xref ref-type="bibr" rid="B3308479">Baird 2010</xref>, <xref ref-type="bibr" rid="B3308642">Scoble 2010</xref>, <xref ref-type="bibr" rid="B3308652">Suarez and Tsutsui 2004</xref>, <xref ref-type="bibr" rid="B3308672">Vollmar et al. 2010</xref>).</p>
+      <p>Researchers are using these digitized databases to answer a wide range of important questions addressing: ecological processes and the biodiversity of species (e.g., <xref ref-type="bibr" rid="B3308581">Nelson et al. 2012</xref>, <xref ref-type="bibr" rid="B3308591">Newbold 2010</xref>, <xref ref-type="bibr" rid="B3308682">Ward 2012</xref>), pollinator decline (<xref ref-type="bibr" rid="B3308489">Colla et al. 2012</xref>,) threats to agriculture (<xref ref-type="bibr" rid="B3308632">Sánchez-Cordero and Martínez-Meyer 2000</xref>), phenological changes due to climate change (<xref ref-type="bibr" rid="B3308520">Fenberg et al. 2016</xref>), and risk assessment of invasive species (<xref ref-type="bibr" rid="B3308612">Peterson and Vieglais 2001</xref>). Interagency working groups have prioritized resources for building support for these data sources, such as the Network Integrated Biocollections Alliance, Interagency Working Group on Scientific Collections, and National Science Foundation (Collections in Support of Biological Research, Advancing Digitization of Biodiversity Collections, and Postdoctoral Research Fellowships using Biological Collections). Moreover, to address the growing need for digitized NHC data directly relevant to human health, a renewed focus to establish a vector-specific database of specimen data, infectious disease agents, and patient samples has been proposed to combat emerging infectious diseases across the globe (<xref ref-type="bibr" rid="B3308510">DiEuliis et al. 2016</xref>).</p>
+      <p>A useful model of the digitization process has been described by <xref ref-type="bibr" rid="B3308581">Nelson et al. (2012)</xref>. In brief, each specimen is photographed with its physical labels, the resulting image is processed and uploaded to a relational database, information associated with that specimen is entered into the database, and the locality information for the specimen is georeferenced as well. To avoid confusion among individuals, each specimen must be labeled with a unique catalog number that is used to access its records in the database. Unique identifiers are critical to managing and understanding biological variation because two individuals possess distinct properties, and can be genetically distinct, phenotypically unique, and potentially even separate morphologically cryptic species. Unique identifiers are essential to preserve identity, handle biological variation, and for repeatable science. A lack of unique identifiers is most noticeable, for example, when published species identifications are called into question and specific material is unable to be tracked unequivocally to material deposited in a NHC for re-identification (<xref ref-type="bibr" rid="B3308662">Turney et al. 2015</xref>). A unique identifier is often printed as an alphanumeric code on the specimen label, although the identifier may also be a two-dimensional barcode that can be scanned by an optical reader to ensure transcription fidelity (<xref ref-type="bibr" rid="B3310431">iDigBio. 2016</xref>). A data matrix barcode offers the benefit of storing large amounts of information in a relatively small graphic, an important feature when label size is constrained by storage space.</p>
+      <p>The Virginia Tech Insect Collection (VTEC) has begun digitizing its specimen data online to serve a wider audience. A member of the Symbiota Collections of Arthopods Network (SCAN, <xref ref-type="bibr" rid="B3308542">Gries et al. 2014</xref>), VTEC’s data are in the public domain (Creative Commons CCZero) to allow unimpeded reuse of the data (VPI-VTEC in SCAN). Dating to 1888, VTEC holds nearly a half-million specimens largely collected from the mid-Atlantic and with a strong focus on the biodiverse Appalachian region. The collection is the official repository for specimens in the state of Virginia and represents a rich insect diversity, including pollinators and many native species whose populations are in decline due to habitat loss. Appalachia is a topographically complex and ancient region with an exceptional repository of high species richness and relative rarity of taxa (<xref ref-type="bibr" rid="B3310476">Stein et al. 2000</xref>). Many species in the region are short-range endemics with a critically imperiled G1 conservation status as ranked by NatureServe (<xref ref-type="bibr" rid="B3366460">Master et al. 2012</xref>), representing irreplaceable biodiversity with strong conservation value to the state and nation. The specimen data found in VTEC encompasses much of this unique biodiversity and is an underutilized resource that could benefit research, extension, and teaching at the state, regional, and national stages.</p>
+      <p>However, like many NHCs, VTEC faces limited funding that impacts basic curation and management of the collection. In the interest of conserving funding as much as possible, and to share an open source resource with other collections, we wrote our own script to generate labels with unique specimen identifiers as a low-cost alternative to commercially available software or costly pre-printed labels. The VTEC uses 9-digit locally unique identifiers printed on labels and 36-digit universally unique identifiers (UUIDs) automatically assigned and stored in SCAN for specimen management. Here we describe a script we developed using open source libraries and a graphics package for creating specimen labels with a unique alphanumeric reference number that is also encoded in a data matrix barcode.</p>
+    </sec>
+    <sec sec-type="Project description">
+      <title>Project description</title>
+      <sec sec-type="Design description">
+        <title>Design description</title>
+        <p>We developed a Bash shell script, <italic>makelabels</italic>, which uses readily-available open source software packages to create labels for specimens in the VTEC. Each label consists of a locally unique number and a corresponding data matrix barcode for each specimen (Fig. <xref ref-type="fig" rid="F3310410">1</xref>). This reference number uses a “VTEC” prefix to denote the collection’s name and a 9-digit number for the specimen’s database catalog. The data matrix barcode returns the VTEC specimen number when scanned with an optical reader. We chose a data matrix barcode instead of a quick response (QR) code or one-dimensional universal product code (UPC) symbology because it is functional at a much smaller size, retains error correction (data can be retrieved even if a cell is damaged or missing), and stores up to 2,335 alphanumeric characters. Two-dimensional size is important to us because labels are pinned beneath specimens and reduction of an individual specimen footprint saves a considerable amount of space in the collection drawers.</p>
+        <p>We used runnable programs from the two open source packages, <italic>libdmtx</italic> 0.7.4 (<xref ref-type="bibr" rid="B3310467">Laughton 2016</xref>) and <italic>ImageMagick</italic> 6.9.3-6 (<xref ref-type="bibr" rid="B3310458">ImageMagick Studio, LLC. 2016</xref>). The <italic>dmtxwrite</italic> program from the <italic>libdmtx</italic> distribution was used to generate one data matrix barcode at a time, and the <italic>ImageMagick</italic> commands <italic>convert</italic> and <italic>composite</italic> were used to merge and assemble barcode images into a printable page. The <italic>ImageMagick</italic> commands also produced the alphanumeric VTEC reference number and a grid to facilitate cutting the labels.</p>
+        <p>When executed, <italic>makelabels</italic> first creates a blank image to contain a page of labels and adds the lines that make up the grid. The program <italic>libdmtx</italic> generates each barcode into a temporary file and then <italic>makelabels</italic> merges the barcode and the alphanumeric VTEC number into the page image using the <italic>ImageMagick</italic> composite command. Using individual commands and intermediate files with <italic>makelabels</italic> allows for easy modification of the label appearance as needed and is scalable to use UUIDs longer than our 13-alphanumeric text.</p>
+        <p>Including both the symbology of the barcode and the alphanumeric code on a label allows for maximum flexibility as the label can be read by a person or an optical reader. The resulting labels are easily read by a number of free barcode scanner applications available for iOS and Android operating systems, eliminating the need to purchase a commercial optical reader.</p>
+        <p>A README.txt file accompanies the Bash script online at Github and describes the process of using <italic>makelabels</italic>. The printable page is encoded as a PNG file with letter-sized dimensions (8.5 X 11 inches or 216 X 279.4 mm). While printing preferences vary according to institution and conservation protocol, we use an Epson Stylus C88 inkjet printer with black DURABrite pigment-based ink (Epson America, Inc., Long Beach, CA). We print the labels on cotton archival 32 lb. paper using the photo quality mode of the printer to maintain anti-aliasing and resolution. Labels are cut by hand, according to the grid marks on the printed label page.</p>
+      </sec>
+      <sec sec-type="Funding">
+        <title>Funding</title>
+        <p>This project is supported by a NSF Collections in Support Biological Research (CSBR) award, DBI #<ext-link ext-link-type="uri" xlink:href="http://nsf.gov/awardsearch/showAward?AWD_ID=1458045&amp;HistoricalAwards=false">1458045</ext-link>.</p>
+      </sec>
+    </sec>
+    <sec sec-type="Web location (URIs)">
+      <title>Web location (URIs)</title>
+      <p>Download page: <ext-link ext-link-type="uri" xlink:href="https://zenodo.org/record/58868#.V5oL_5MrJBw">https://zenodo.org/record/58868#.V5oL_5MrJBw</ext-link></p>
+    </sec>
+    <sec sec-type="Technical specification">
+      <title>Technical specification</title>
+      <p>Programming language: Bash shell script</p>
+      <p>Operational system: OS/X and Linux</p>
+      <p>Interface language: English</p>
+    </sec>
+    <sec sec-type="Repository">
+      <title>Repository</title>
+      <p>Type: Git</p>
+      <p>Browse URI: <ext-link ext-link-type="uri" xlink:href="https://github.com/apheloria/makelabels">https://github.com/apheloria/makelabels</ext-link></p>
+      <p>Location: DOI: <ext-link ext-link-type="uri" xlink:href="http://doi.org/10.﻿5281/zenodo.58868">10.﻿5281/zenodo.58868</ext-link></p>
+    </sec>
+    <sec sec-type="Usage rights">
+      <title>Usage rights</title>
+      <sec sec-type="Use license">
+        <title>Use license</title>
+        <p>Creative Commons Public Domain Waiver (CC-Zero)</p>
+      </sec>
+    </sec>
+    <sec sec-type="Additional information">
+      <title>Additional information</title>
+      <sec sec-type="Use and customization">
+        <title>Use and customization</title>
+        <p>The script is fully documented and includes configuration parameters in README.txt. As written, a user can edit the script to change the overall size of the cell, which includes the alphanumeric VTEC code, the data matrix barcode, and the placement of the VTEC code and data matrix barcode within the cell. Font style and size can also be changed as needed. The complete path for a font is needed if the code is run in Linux.</p>
+        <p>Although the <italic>makelabels</italic> script is recommended for use on a Unix operating system, a Windows system may be used with a Unix-like command-line interface such as <italic>Cygwin</italic> (<xref ref-type="bibr" rid="B3366269">Red Hat, Inc. 2016</xref>) to provide functionality for the script. Alternatively, one could run Linux under Windows using a machine emulator such as the <italic>VirtualBox</italic> (<xref ref-type="bibr" rid="B3366278">Oracle Corporation 2016</xref>) platform package.</p>
+        <p>Care should be taken when adjusting some of the configuration parameters. For example, the resolution is set to work with <italic>ImageMagick</italic> commands. Cell X and Y margins are defined in pixels to avoid handling problems with some printers, but changing the resolution will alter the pixel description and the overall appearance of the labels.</p>
+        <p>When initiating the software, the user can specify the beginning and ending sequence numbers to be printed on the labels. If no end number is provided, the code will stop after generating a total of 26 labels (start number plus 25 additional labels). A printer name can be specified as well for immediate printing. Otherwise, labels will be generated and saved as PNG files (<italic>e.g.</italic>, page1.png, page2.png, …). Because the user specifies the beginning and ending number for each batch of labels, the user must keep track of which labels have been created previously to avoid duplicates.</p>
+        <p>The disadvantage of <italic>makelabels</italic> is that the file operations are assembled into a Bash script that is relatively inefficient and slow when compared to compiled programs. Now that the steps to use <italic>dmtxwrite</italic> and the commands in <italic>ImageMagick</italic> are known, a compiled program could be written using the <italic>libdmtx</italic> library to create a page of labels in memory and without using intermediate files in each run.</p>
+        <p>While we chose to write labels encoding only the unique VTEC specimen number, the <italic>makelabels</italic> script can be modified to include more information, such as a URL to a database containing a specimen record, and up to 2,335 alphanumeric numbers (approximately two-thirds of a page of text in 12-point font). Additionally, some barcode scanning applications will scan, track, and automatically export coded information into a file. This would obviate the need to manually enter each unique code into a database to pull the associated information for that item.</p>
+      </sec>
+      <sec sec-type="Broader applications">
+        <title>Broader applications</title>
+        <p>The concept of a natural history collection has expanded over time from whole, preserved specimens to include other biological collections, such as living stocks and cultures, and preserved tissues. Our labels can be used with these types of collections, and also as part of collection management in geology, paleontology, archeology, and related fields. For our purposes, the data matrix barcoded labels created by <italic>makelabels</italic> are an integral part of digitizing the VTEC collection (Fig. <xref ref-type="fig" rid="F3310399">2</xref>). However, these scannable labels can be used within a lab to quickly identify the contents of storage units, such as unit trays, and larger organizational units such as cabinets. We plan to label our Cornell insect drawers, which house individual specimens, using the same process but with larger data matrix barcodes positioned on the front of the drawer.</p>
+      </sec>
+    </sec>
+  </body>
+  <back>
+    <ack>
+      <title>Acknowledgements</title>
+      <p>We thank an anonymous software engineer for assistance in developing the <italic>makelabels</italic> script and reviewing the manuscript, and Patricia Shorter for her assistance with proofing different barcode symbologies, the preliminary generation of data matrix barcodes for this project, and testing the final codes with barcode readers. We greatly appreciate the helpful suggestions of two reviewers that improved an earlier version of this paper.</p>
+    </ack>
+    <ref-list>
+      <title>References</title>
+      <ref id="B3308479">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Baird</surname>
+              <given-names>Roger Charles</given-names>
+            </name>
+          </person-group>
+          <year>2010</year>
+          <article-title>Leveraging the fullest potential of scientific collections through digitisation.</article-title>
+          <source>Biodiversity Informatics</source>
+          <volume>7</volume>
+          <issue>2</issue>
+          <fpage>130</fpage>
+          <lpage>136</lpage>
+          <uri>https://doi.org/10.17161/bi.v7i2.3987</uri>
+          <pub-id pub-id-type="doi">10.17161/bi.v7i2.3987</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B3308489">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Colla</surname>
+              <given-names>Sheila R.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Gadallah</surname>
+              <given-names>Fawziah</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Richardson</surname>
+              <given-names>Leif</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Wagner</surname>
+              <given-names>David</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Gall</surname>
+              <given-names>Lawrence</given-names>
+            </name>
+          </person-group>
+          <year>2012</year>
+          <article-title>Assessing declines of North American bumble bees (<tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Bombus</tp:taxon-name-part></tp:taxon-name> spp.) using museum specimens</article-title>
+          <source>Biodiversity and Conservation</source>
+          <volume>21</volume>
+          <issue>14</issue>
+          <fpage>3585</fpage>
+          <lpage>3595</lpage>
+          <uri>https://doi.org/10.1007/s10531-012-0383-2</uri>
+          <pub-id pub-id-type="doi">10.1007/s10531-012-0383-2</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B3308510">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>DiEuliis</surname>
+              <given-names>Diane</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Johnson</surname>
+              <given-names>Kirk R.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Morse</surname>
+              <given-names>Stephen S.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Schindel</surname>
+              <given-names>David E.</given-names>
+            </name>
+          </person-group>
+          <year>2016</year>
+          <article-title>Opinion: Specimen collections should have a much bigger role in infectious disease research and response</article-title>
+          <source>Proceedings of the National Academy of Sciences</source>
+          <volume>113</volume>
+          <issue>1</issue>
+          <fpage>4</fpage>
+          <lpage>7</lpage>
+          <uri>https://doi.org/10.1073/pnas.1522680112</uri>
+          <pub-id pub-id-type="doi">10.1073/pnas.1522680112</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B3308520">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Fenberg</surname>
+              <given-names>Phillip B.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Self</surname>
+              <given-names>Angela</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Stewart</surname>
+              <given-names>John R.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Wilson</surname>
+              <given-names>Rebecca J.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Brooks</surname>
+              <given-names>Stephen J.</given-names>
+            </name>
+          </person-group>
+          <year>2016</year>
+          <article-title>Exploring the universal ecological responses to climate change in a univoltine butterfly</article-title>
+          <source>Journal of Animal Ecology</source>
+          <volume>85</volume>
+          <issue>3</issue>
+          <fpage>739</fpage>
+          <lpage>748</lpage>
+          <uri>https://doi.org/10.1111/1365-2656.12492</uri>
+          <pub-id pub-id-type="doi">10.1111/1365-2656.12492</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B3308531">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Graham</surname>
+              <given-names>C</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Ferrier</surname>
+              <given-names>S</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Huettman</surname>
+              <given-names>F</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Moritz</surname>
+              <given-names>C</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Peterson</surname>
+              <given-names>A</given-names>
+            </name>
+          </person-group>
+          <year>2004</year>
+          <article-title>New developments in museum-based informatics and applications in biodiversity analysis</article-title>
+          <source>Trends in Ecology &amp; Evolution</source>
+          <volume>19</volume>
+          <issue>9</issue>
+          <fpage>497</fpage>
+          <lpage>503</lpage>
+          <uri>https://doi.org/10.1016/j.tree.2004.07.006</uri>
+          <pub-id pub-id-type="doi">10.1016/j.tree.2004.07.006</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B3308542">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Gries</surname>
+              <given-names>Corinna</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Gilbert</surname>
+              <given-names>Edward</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Franz</surname>
+              <given-names>Nico</given-names>
+            </name>
+          </person-group>
+          <year>2014</year>
+          <article-title>Symbiota – A virtual platform for creating voucher-based biodiversity information communities</article-title>
+          <source>Biodiversity Data Journal</source>
+          <volume>2</volume>
+          <fpage>e1114</fpage>
+          <uri>https://doi.org/10.3897/bdj.2.e1114</uri>
+          <pub-id pub-id-type="doi">10.3897/bdj.2.e1114</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B3310431">
+        <element-citation publication-type="website">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>iDigBio.</surname>
+            </name>
+          </person-group>
+          <article-title>Specimen barcode and labeling guide.</article-title>
+          <uri>https://www.idigbio.org/wiki/index.php/Specimen_Barcode_and_Labeling_Guide</uri>
+          <date-in-citation content-type="access-date">2016-03-07T00:00:00+02:00</date-in-citation>
+        </element-citation>
+      </ref>
+      <ref id="B3310458">
+        <element-citation publication-type="website">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>ImageMagick Studio</surname>
+              <given-names>LLC.</given-names>
+            </name>
+          </person-group>
+          <article-title>Image﻿Magick.</article-title>
+          <uri>http://www.imagemagick.org/script/index.php</uri>
+          <date-in-citation content-type="access-date">2016-03-07T00:00:00+02:00</date-in-citation>
+        </element-citation>
+      </ref>
+      <ref id="B3310467">
+        <element-citation publication-type="website">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Laughton</surname>
+              <given-names>M.</given-names>
+            </name>
+          </person-group>
+          <article-title>libdmtx open source data matrix software.</article-title>
+          <uri>http://libdmtx.sourceforge.net/</uri>
+          <date-in-citation content-type="access-date">2016-03-07T00:00:00+02:00</date-in-citation>
+        </element-citation>
+      </ref>
+      <ref id="B3308552">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Lavoie</surname>
+              <given-names>Claude</given-names>
+            </name>
+          </person-group>
+          <year>2013</year>
+          <article-title>Biological collections in an ever changing world: Herbaria as tools for biogeographical and environmental studies</article-title>
+          <source>Perspectives in Plant Ecology, Evolution and Systematics</source>
+          <volume>15</volume>
+          <issue>1</issue>
+          <fpage>68</fpage>
+          <lpage>76</lpage>
+          <uri>https://doi.org/10.1016/j.ppees.2012.10.002</uri>
+          <pub-id pub-id-type="doi">10.1016/j.ppees.2012.10.002</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B3308571">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Lister</surname>
+              <given-names>Adrian M.</given-names>
+            </name>
+          </person-group>
+          <year>2011</year>
+          <article-title>Natural history collections as sources of long-term datasets</article-title>
+          <source>Trends in Ecology &amp; Evolution</source>
+          <volume>26</volume>
+          <issue>4</issue>
+          <fpage>153</fpage>
+          <lpage>154</lpage>
+          <uri>https://doi.org/10.1016/j.tree.2010.12.009</uri>
+          <pub-id pub-id-type="doi">10.1016/j.tree.2010.12.009</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B3366460">
+        <element-citation publication-type="website">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Master</surname>
+              <given-names>L. L.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Faber-Langendoen</surname>
+              <given-names>D.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Bittman</surname>
+              <given-names>R.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Hammerson</surname>
+              <given-names>G. A.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Heidel</surname>
+              <given-names>B.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Ramsay</surname>
+              <given-names>L.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Snow</surname>
+              <given-names>K.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Teucher</surname>
+              <given-names>A.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Tomaino</surname>
+              <given-names>A.</given-names>
+            </name>
+          </person-group>
+          <article-title>NatureServe Conservation Status Assessments: Factors for Evaluating Species and Ecosystems Risk</article-title>
+          <uri>http://www.natureserve.org/sites/default/files/publications/files/natureserveconservationstatusfactors_apr12.pdf</uri>
+          <date-in-citation content-type="access-date">2016-07-27T00:00:00+03:00</date-in-citation>
+        </element-citation>
+      </ref>
+      <ref id="B3308581">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Nelson</surname>
+              <given-names>Gil</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Paul</surname>
+              <given-names>Deborah</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Riccardi</surname>
+              <given-names>Greg</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Mast</surname>
+              <given-names>Austin</given-names>
+            </name>
+          </person-group>
+          <year>2012</year>
+          <article-title>Five task clusters that enable efficient and effective digitization of biological collections</article-title>
+          <source>ZooKeys</source>
+          <volume>209</volume>
+          <fpage>19</fpage>
+          <lpage>45</lpage>
+          <uri>https://doi.org/10.3897/zookeys.209.3135</uri>
+          <pub-id pub-id-type="doi">10.3897/zookeys.209.3135</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B3308591">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Newbold</surname>
+              <given-names>T.</given-names>
+            </name>
+          </person-group>
+          <year>2010</year>
+          <article-title>Applications and limitations of museum data for conservation and ecology, with particular attention to species distribution models</article-title>
+          <source>Progress in Physical Geography</source>
+          <volume>34</volume>
+          <issue>1</issue>
+          <fpage>3</fpage>
+          <lpage>22</lpage>
+          <uri>https://doi.org/10.1177/0309133309355630</uri>
+          <pub-id pub-id-type="doi">10.1177/0309133309355630</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B3366278">
+        <element-citation publication-type="website">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Corporation</surname>
+              <given-names>Oracle</given-names>
+            </name>
+          </person-group>
+          <article-title>Oracle VM VirtualBox User Manual</article-title>
+          <uri>https://www.virtualbox.org/manual/UserManual.html</uri>
+          <date-in-citation content-type="access-date">2016-07-26T00:00:00+03:00</date-in-citation>
+        </element-citation>
+      </ref>
+      <ref id="B3308601">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Page</surname>
+              <given-names>Lawrence M.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>MacFadden</surname>
+              <given-names>Bruce J.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Fortes</surname>
+              <given-names>Jose A.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Soltis</surname>
+              <given-names>Pamela S.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Riccardi</surname>
+              <given-names>Greg</given-names>
+            </name>
+          </person-group>
+          <year>2015</year>
+          <article-title>Digitization of Biodiversity Collections Reveals Biggest Data on Biodiversity</article-title>
+          <source>BioScience</source>
+          <volume>65</volume>
+          <issue>9</issue>
+          <fpage>841</fpage>
+          <lpage>842</lpage>
+          <uri>https://doi.org/10.1093/biosci/biv104</uri>
+          <pub-id pub-id-type="doi">10.1093/biosci/biv104</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B3308612">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Peterson</surname>
+              <given-names>A. T.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Vieglais</surname>
+              <given-names>David A.</given-names>
+            </name>
+          </person-group>
+          <year>2001</year>
+          <article-title>Predicting Species Invasions Using Ecological Niche Modeling: New Approaches from Bioinformatics Attack a Pressing Problem</article-title>
+          <source>BioScience</source>
+          <volume>51</volume>
+          <issue>5</issue>
+          <fpage>363</fpage>
+          <lpage>371</lpage>
+          <uri>https://doi.org/10.1641/0006-3568(2001)051[0363:psiuen]2.0.co;2</uri>
+          <pub-id pub-id-type="doi">10.1641/0006-3568(2001)051[0363:psiuen]2.0.co;2</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B3308622">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Pyke</surname>
+              <given-names>Graham H.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Ehrlich</surname>
+              <given-names>Paul R.</given-names>
+            </name>
+          </person-group>
+          <year>2010</year>
+          <article-title>Biological collections and ecological/environmental research: a review, some observations and a look to the future</article-title>
+          <source>Biological Reviews</source>
+          <volume>85</volume>
+          <issue>2</issue>
+          <fpage>247</fpage>
+          <lpage>266</lpage>
+          <uri>https://doi.org/10.1111/j.1469-185x.2009.00098.x</uri>
+          <pub-id pub-id-type="doi">10.1111/j.1469-185x.2009.00098.x</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B3366269">
+        <element-citation publication-type="website">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Red Hat</surname>
+              <given-names>Inc.</given-names>
+            </name>
+          </person-group>
+          <article-title>Cygwin.</article-title>
+          <uri>https://cygwin.com</uri>
+          <date-in-citation content-type="access-date">2016-07-26T00:00:00+03:00</date-in-citation>
+        </element-citation>
+      </ref>
+      <ref id="B3308632">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Sánchez-Cordero</surname>
+              <given-names>V.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Martínez-Meyer</surname>
+              <given-names>E.</given-names>
+            </name>
+          </person-group>
+          <year>2000</year>
+          <article-title>Museum specimen data predict crop damage by tropical rodents</article-title>
+          <source>Proceedings of the National Academy of Sciences</source>
+          <volume>97</volume>
+          <issue>13</issue>
+          <fpage>7074</fpage>
+          <lpage>7077</lpage>
+          <uri>https://doi.org/10.1073/pnas.110489897</uri>
+          <pub-id pub-id-type="doi">10.1073/pnas.110489897</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B3308642">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Scoble</surname>
+              <given-names>Malcolm</given-names>
+            </name>
+          </person-group>
+          <year>2010</year>
+          <article-title>Rationale and Value of Natural History Collections Digitisation</article-title>
+          <source>Biodiversity Informatics</source>
+          <volume>7</volume>
+          <issue>2</issue>
+          <fpage>77</fpage>
+          <lpage>80</lpage>
+          <uri>https://doi.org/10.17161/bi.v7i2.3994</uri>
+          <pub-id pub-id-type="doi">10.17161/bi.v7i2.3994</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B3310476">
+        <element-citation publication-type="chapter">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Stein</surname>
+              <given-names>B. A</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Kutner</surname>
+              <given-names>L. S.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Adams</surname>
+              <given-names>J. S.</given-names>
+            </name>
+          </person-group>
+          <year>2000</year>
+          <chapter-title>Biodiversity: Our precious heritage</chapter-title>
+          <person-group person-group-type="editor">
+            <name name-style="western">
+              <surname>Stein</surname>
+              <given-names>B. A.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Kutner</surname>
+              <given-names>L. S.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Adams</surname>
+              <given-names>J. S.</given-names>
+            </name>
+          </person-group>
+          <source>Precious Heritage: the status of biodiversity in the United States.</source>
+          <publisher-name>Oxford University Press</publisher-name>
+          <publisher-loc>New York</publisher-loc>
+          <size units="page">399</size>
+          <isbn>9780195125191</isbn>
+        </element-citation>
+      </ref>
+      <ref id="B3308652">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Suarez</surname>
+              <given-names>ANDREW V.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Tsutsui</surname>
+              <given-names>NEIL D.</given-names>
+            </name>
+          </person-group>
+          <year>2004</year>
+          <article-title>The Value of Museum Collections for Research and Society</article-title>
+          <source>BioScience</source>
+          <volume>54</volume>
+          <issue>1</issue>
+          <fpage>66</fpage>
+          <lpage>74</lpage>
+          <uri>https://doi.org/10.1641/0006-3568(2004)054[0066:tvomcf]2.0.co;2</uri>
+          <pub-id pub-id-type="doi">10.1641/0006-3568(2004)054[0066:tvomcf]2.0.co;2</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B3308662">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Turney</surname>
+              <given-names>Shaun</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Cameron</surname>
+              <given-names>Elyssa R.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Cloutier</surname>
+              <given-names>Christopher A.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Buddle</surname>
+              <given-names>Christopher M.</given-names>
+            </name>
+          </person-group>
+          <year>2015</year>
+          <article-title>Non-repeatable science: assessing the frequency of voucher specimen deposition reveals that most arthropod research cannot be verified</article-title>
+          <source>PeerJ</source>
+          <volume>3</volume>
+          <fpage>e1168</fpage>
+          <uri>https://doi.org/10.7717/peerj.1168</uri>
+          <pub-id pub-id-type="doi">10.7717/peerj.1168</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B3308672">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Vollmar</surname>
+              <given-names>Ana</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Macklin</surname>
+              <given-names>James Alexander</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Ford</surname>
+              <given-names>Linda</given-names>
+            </name>
+          </person-group>
+          <year>2010</year>
+          <article-title>Natural History Specimen Digitization: Challenges and Concerns</article-title>
+          <source>Biodiversity Informatics</source>
+          <volume>7</volume>
+          <issue>2</issue>
+          <fpage>93</fpage>
+          <lpage>112</lpage>
+          <uri>https://doi.org/10.17161/bi.v7i2.3992</uri>
+          <pub-id pub-id-type="doi">10.17161/bi.v7i2.3992</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B3308682">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Ward</surname>
+              <given-names>Darren F.</given-names>
+            </name>
+          </person-group>
+          <year>2012</year>
+          <article-title>More Than Just Records: Analysing Natural History Collections for Biodiversity Planning</article-title>
+          <source>PLoS ONE</source>
+          <volume>7</volume>
+          <issue>11</issue>
+          <fpage>e50346</fpage>
+          <uri>https://doi.org/10.1371/journal.pone.0050346</uri>
+          <pub-id pub-id-type="doi">10.1371/journal.pone.0050346</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B3308692">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Winker</surname>
+              <given-names>KEVIN</given-names>
+            </name>
+          </person-group>
+          <year>2004</year>
+          <article-title>Natural History Museums in a Postbiodiversity Era</article-title>
+          <source>BioScience</source>
+          <volume>54</volume>
+          <issue>5</issue>
+          <fpage>455</fpage>
+          <lpage>459</lpage>
+          <uri>https://doi.org/10.1641/0006-3568(2004)054[0455:nhmiap]2.0.co;2</uri>
+          <pub-id pub-id-type="doi">10.1641/0006-3568(2004)054[0455:nhmiap]2.0.co;2</pub-id>
+        </element-citation>
+      </ref>
+    </ref-list>
+  </back>
+  <floats-group>
+    <fig id="F3310410" position="float" orientation="portrait">
+      <label>Figure 1.</label>
+      <caption>
+        <p>Labels generated by the <italic>makelabels</italic> script, including the unique accession number and the data matrix code returning the unique number when scanned.</p>
+      </caption>
+      <graphic xlink:href="biodiversity_data_journal-4-e9583-g001.png" position="float" id="oo_92092.png" orientation="portrait" xlink:type="simple"/>
+    </fig>
+    <fig id="F3310399" position="float" orientation="portrait">
+      <label>Figure 2.</label>
+      <caption>
+        <p>Photo of two-spotted bumble bee, <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Bombus</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">bimaculatus</tp:taxon-name-part></tp:taxon-name></italic>, with data matrix barcode label, as prepared for the digitization project in the Virginia Tech Insect Collection (VTEC).</p>
+      </caption>
+      <graphic xlink:href="biodiversity_data_journal-4-e9583-g002.jpg" position="float" id="oo_92091.jpg" orientation="portrait" xlink:type="simple"/>
+    </fig>
+  </floats-group>
+</article>

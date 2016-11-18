@@ -77,6 +77,26 @@ taxpubs = c("/media/viktor/www2/main/vsenderov.backup/SRC/TaxPub2RDF/Standard_Mo
             "/media/viktor/www2/main/vsenderov.backup/SRC/TaxPub2RDF/Standard_Model_Conversions/bdj4701.xml")
 ```
 
+Download BDJ articles
+http://bdj.pensoft.net/lib/journal_archive.php?journal=bdj&date=26%2F3%2F2015
+[3:01:12 PM] Teodor Georgiev: returned all articles after date
+http://bdj.pensoft.net/lib/journal_archive.php?journal=bdj&date=26%2F3%2F2015
+where {date} is a urlencoded date in format day/month/year 
+(e.g. 26/3/2014)
+[3:01:26 PM] vsenderov: got it
+[3:01:27 PM] Teodor Georgiev: 
+If date is not specified - all articles from the specified journal are 
+returned.
+```{r}
+bdj_archive = "/media/viktor/www2/main/vsenderov.backup/SRC/TaxPub2RDF/BDJ_Archive"
+taxpubs = list.files(bdj_archive)
+for ( taxpub_file in taxpubs ) {
+  ttl = xml2rdf(taxpub_file)
+  ttl_name = gsub( ".xml", ".ttl", taxpub_file)
+  
+}
+```
+
 Get the username-password or API key from the environment:
 
 ```{r , purl=TRUE, eval = FALSE}

@@ -2,14 +2,14 @@
 % Please edit documentation in R/query.R
 \name{get_nodeid}
 \alias{get_nodeid}
-\title{Given a label, tries to get the GUID of the node that has that label}
+\title{Given a label, tries to get the GUID of the node that has that label in OBKMS}
 \usage{
-get_nodeid(label = "")
+get_nodeid(label = "", explicit_node_id = "")
 }
 \arguments{
-\item{options}{a list returned by \code{create_server_options}.}
+\item{explicit_node_id}{when we already know the node id (for example from the XML)}
 
-\item{repo_id}{a}
+\item{options}{a list returned by \code{create_server_options}.}
 }
 \description{
 We need a helper function to get or create an node (id) for the network given a preferred label (`skos:prefLabel`)

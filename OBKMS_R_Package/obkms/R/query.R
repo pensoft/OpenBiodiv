@@ -22,7 +22,9 @@
 #' @export
 
 get_nodeid = function( label = "", explicit_node_id = "") {
-
+  label = gsub("[\t]+", " ", label)
+  label = gsub("[\n]+", " ", label)
+  label = gsub("[ ]+", " ", label)
   if ( is.character(explicit_node_id) && explicit_node_id != "" ) {
     return ( paste( "http://id.pensoft.net/", explicit_node_id , sep = "") )
   }
@@ -86,4 +88,63 @@ get_context_of = function ( doi ) {
 submit_turtle = function ( rdf ) {
   res = rdf4jr::add_data( obkms$server_access_options,
                           obkms$server_access_options$repository, do.call(paste, as.list(rdf) ))
+}
+
+#' Deletes a named graph named context
+#' @param context graph name
+#' @return status of query
+#' @export
+clear_context = function ( context ) {
+  query.template = "DROP GRAPH %context"
+  query = gsub( "%context", context, query.template )
+  res = rdf4jr::update_repository( obkms$server_access_options , obkms$server_access_options$repository, query )
+  return ( res )
+}
+
+#' Remove the default graph
+#' @return status of query
+clear_default_graph = function() {
+  query = "DROP DEFAULT"
+  res = rdf4jr::update_repository( obkms$server_access_options , obkms$server_access_options$repository, query )
+  return ( res )
+}
+
+#' Remove named graphs
+#' @return status of query
+clear_named_graph = function() {
+  query = "DROP NAMED"
+  res = rdf4jr::update_repository( obkms$server_access_options , obkms$server_access_options$repository, query )
+  return ( res )
+}
+
+#' Remove all graphs
+#' @return status of query
+#' @export
+clear_all = function() {
+  query = "DROP ALL"
+  res = rdf4jr::update_repository( obkms$server_access_options , obkms$server_access_options$repository, query )
+  return ( res )
+}
+
+#' How many statements do we have
+#' @param graph from which graph
+#' @return number of triples in the graph
+#' @export
+count_triples = function ( graph ="" ) {
+  if ( graph == "" ) {
+    query.template = "SELECT (COUNT(*) as ?count)
+WHERE {
+   ?s ?p ?o .
+}"
+  }
+  else{
+    query.template = "SELECT (COUNT(*) as ?count)
+FROM %graph
+WHERE {
+   ?s ?p ?o .
+}"
+  }
+  query = gsub( "%graph", graph, query.template )
+  res = rdf4jr::POST_query( obkms$server_access_options , obkms$server_access_options$repository, query, "CSV" )
+  return ( res )
 }

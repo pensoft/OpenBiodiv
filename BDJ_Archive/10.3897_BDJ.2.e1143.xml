@@ -1,0 +1,950 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//TaxonX//DTD Taxonomic Treatment Publishing DTD v0 20100105//EN" "tax-treatment-NS0.dtd">
+<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tp="http://www.plazi.org/taxpub" article-type="research-article">
+  <front>
+    <journal-meta>
+      <journal-id journal-id-type="pmc">Biodiversity Data Journal</journal-id>
+      <journal-id journal-id-type="publisher-id">Biodiversity Data Journal</journal-id>
+      <journal-title-group>
+        <journal-title xml:lang="en">Biodiversity Data Journal</journal-title>
+        <abbrev-journal-title xml:lang="en">BDJ</abbrev-journal-title>
+      </journal-title-group>
+      <issn pub-type="ppub">1314-2836</issn>
+      <issn pub-type="epub">1314-2828</issn>
+      <publisher>
+        <publisher-name>Pensoft Publishers</publisher-name>
+      </publisher>
+    </journal-meta>
+    <article-meta>
+      <article-id pub-id-type="publisher-id">Biodiversity Data Journal</article-id>
+      <article-id pub-id-type="doi">10.3897/BDJ.2.e1143</article-id>
+      <article-id pub-id-type="other">3163</article-id>
+      <article-categories>
+        <subj-group subj-group-type="heading">
+          <subject>General research article</subject>
+        </subj-group>
+        <subj-group subj-group-type="Taxon classification">
+          <subject>Angiospermae</subject>
+          <subject>Plantae</subject>
+        </subj-group>
+        <subj-group subj-group-type="Subject classification">
+          <subject>Bioinformatics</subject>
+          <subject>Imaging and Multimedia</subject>
+          <subject>Data Management</subject>
+        </subj-group>
+        <subj-group subj-group-type="Geographical classification">
+          <subject>North America</subject>
+        </subj-group>
+      </article-categories>
+      <title-group>
+        <article-title>Usage patterns of blue flower color representation by Encyclopedia of Life content providers</article-title>
+      </title-group>
+      <contrib-group content-type="authors">
+        <contrib contrib-type="author" corresp="no">
+          <name name-style="western">
+            <surname>Wright</surname>
+            <given-names>Chantal-Marie</given-names>
+            <prefix>Mrs</prefix>
+          </name>
+          <xref ref-type="aff" rid="A1">†</xref>
+        </contrib>
+        <contrib contrib-type="author" corresp="yes">
+          <name name-style="western">
+            <surname>Seltmann</surname>
+            <given-names>Katja C</given-names>
+            <prefix>Mrs</prefix>
+          </name>
+          <email xlink:type="simple">enicospilus@gmail.com</email>
+          <xref ref-type="aff" rid="A1">†</xref>
+        </contrib>
+      </contrib-group>
+      <aff id="A1">
+        <label>†</label>
+        <addr-line>American Museum of Natural History, New York, United States of America</addr-line>
+      </aff>
+      <author-notes>
+        <fn fn-type="corresp">
+          <p>Corresponding author: Katja C Seltmann (<email xlink:type="simple">enicospilus@gmail.com</email>).</p>
+        </fn>
+        <fn fn-type="edited-by">
+          <p>Academic editor: Anne Thessen.</p>
+        </fn>
+      </author-notes>
+      <pub-date pub-type="collection">
+        <year>2014</year>
+      </pub-date>
+      <pub-date pub-type="epub">
+        <day>11</day>
+        <month>08</month>
+        <year>2014</year>
+      </pub-date>
+      <issue>2</issue>
+      <elocation-id>e1143</elocation-id>
+      <history>
+        <date date-type="received">
+          <day>09</day>
+          <month>06</month>
+          <year>2014</year>
+        </date>
+        <date date-type="accepted">
+          <day>07</day>
+          <month>08</month>
+          <year>2014</year>
+        </date>
+      </history>
+      <permissions>
+        <copyright-statement>Chantal-Marie Wright, Katja C Seltmann</copyright-statement>
+        <license license-type="creative-commons-attribution" xlink:href="http://creativecommons.org/licenses/by/4.0" xlink:type="simple">
+          <license-p>This is an open access article distributed under the terms of the Creative Commons Attribution License 4.0 (CC-BY), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.</license-p>
+        </license>
+      </permissions>
+      <abstract>
+        <label>Abstract</label>
+        <p>Encyclopedia of Life (EOL) is a resource for community-driven biodiversity data, focusing on species information and images. Research into blue flowers to compare color ('blueness') at different elevations revealed that data content providers describe flowers as blue for any color hue in the range from blue to magenta. We propose methods for standardizing color values and color searching within EOL by means of an expanded color vocabulary and improved access to image metadata, in order to improve the research capacity of this valuable resource.</p>
+      </abstract>
+      <kwd-group>
+        <label>Keywords</label>
+        <kwd>Encyclopedia of Life</kwd>
+        <kwd>TraitBank</kwd>
+        <kwd>color models and analysis</kwd>
+        <kwd>user phenotype annotation</kwd>
+        <kwd>Phenotypic Quality Ontology</kwd>
+      </kwd-group>
+      <funding-group>
+        <award-group>
+          <funding-source>EOL Rubenstein Fellows Program (CRDF #EOL-33066-13/G33066) Tri-Trophic Thematic Collections Network (National Science Foundation grant ADBC#1115144)</funding-source>
+        </award-group>
+      </funding-group>
+      <counts>
+        <fig-count count="7"/>
+        <table-count count="2"/>
+        <ref-count count="15"/>
+      </counts>
+    </article-meta>
+  </front>
+  <body>
+    <sec sec-type="Introduction">
+      <title>Introduction</title>
+      <p>The stated mission of Encyclopedia of Life (<xref ref-type="bibr" rid="B637732">Parr et al. 2014b</xref>) is "To increase awareness and understanding of living nature through an Encyclopedia of Life that gathers, generates, and shares knowledge in an open, freely accessible and trusted digital resource" (<ext-link ext-link-type="uri" xlink:href="http://EOL.org/about">http://EOL.org/about</ext-link>). In addition to data uploaded directly to EOL by Curators (<ext-link ext-link-type="uri" xlink:href="http://eol.org/info/curators">http://eol.org/info/curators</ext-link>), content is aggregated from a large number of websites known as Content Partners (<ext-link ext-link-type="uri" xlink:href="http://eol.org/content_partners">http://eol.org/content_partners</ext-link>). These partners include expert-driven scientific databases and museum collections, as well as collectively edited websites such as Wikipedia.</p>
+      <p>Several prior studies noted the prevalence of blue flowers in high elevation areas (<xref ref-type="bibr" rid="B578723">Weevers 1952</xref>, <xref ref-type="bibr" rid="B578661">Brunet 2009</xref>). These studies focus on specific geographic areas and are not worldwide or continental in scope. To address the question of whether blue flowers are an adaption prevalent at high elevations, aggregated data from worldwide resources is needed. This study annotated the 'blueness' of blue flowers at all elevations in North America from photographs available from the EOL. Only images of flowers known to be blue in color were sampled, as we were concerned with the amount of blue present in a flower at different elevations, and not the distribution of all flower colors. During the investigation it became apparent that searching for the color "blue" resulted in flower images with a range of color hues. We then compared the color representation of each retrieved image using three different color models including the Red, Green and Blue (RBG; <xref ref-type="bibr" rid="B578600">Adobe Systems Inc. 2012</xref>); Hue, Saturation, and Value (HSV; <xref ref-type="bibr" rid="B674021">Smith 1978</xref>); and Phenotypic Quality Ontology (PATO; <xref ref-type="bibr" rid="B674052">Gkoutos et al. 2005</xref>) class representation.</p>
+    </sec>
+    <sec sec-type="Material and methods">
+      <title>Material and methods</title>
+      <p>
+        <italic>Data Acquisition</italic>
+      </p>
+      <p>Images used in the analysis were retrieved from the Encyclopedia of Life (EOL; <xref ref-type="bibr" rid="B637732">Parr et al. 2014b</xref>). The image search was conducted through the EOL portal search interface with "no filter" selected to obtain the broadest search criteria possible. The search term entered each time was "blue flower." An initial list of North American species was determined from the image search, and non-plant results were discarded. The native range of the species was determined using the US Agricultural Department PLANTS Database (<xref ref-type="bibr" rid="B674063">USDA, NRCS, National Plant Data Team 2014</xref>). After a complete list of EOL available native North American species was compiled, the images from each species were collected. We randomly sampled up to 10 images for each species from the entire set of retrieved images for that species. In addition, the first image from each locality was selected; if there were less than 10 localities, a second picture from each locality was acquired. Priority was given to non-cultivated localities over botanical and personal gardens. After selection, average RGB values were calculated for each image using Adobe Photoshop CS6 Extended program (<xref ref-type="bibr" rid="B578600">Adobe Systems Inc. 2012</xref>). Photoshop was selected as the program of choice based on its wide availability and ease of use, as well as its ability to average color across pixels. To this end, the petal(s), or representative area, of the flower were selected and copied (Fig. <xref ref-type="fig" rid="F578739">1</xref>) and opened in a new image window (Fig. <xref ref-type="fig" rid="F578741">2</xref>). The selected petal areas were then condensed using the "Image Size" tool to a size of 1×1 pixel. This had the effect of 'averaging' the color of the petals. The "Eyedropper" tool was used on this single pixel to display the RGB values of the pixel with the color picker tool (Fig. <xref ref-type="fig" rid="F578743">3</xref>) and the corresponding RGB values were recorded. If the flower had several petals that were different in color, a sample from each petal was selected, copied and pasted in a row on a blank new image; this row of samples was then selected and re-sized for averaging.</p>
+      <p>
+        <italic>Data Analysis</italic>
+      </p>
+      <p>Data analysis and graphing were performed using R statistical software (<xref ref-type="bibr" rid="B644527">R 2010</xref> – Version 2.13.1; Suppl. materials <xref ref-type="supplementary-material" rid="S578747">1</xref>, <xref ref-type="supplementary-material" rid="S637672">4</xref>). We defined color hue labels for the principle colors of interest in this study (i.e. red, magenta, purple, blue, cyan, green, yellow, and orange) as follows. Pure blue (RGB: 0,0,255), red (RGB: 255,0,0) and green (RGB: 0,255,0) are defined by the absence of other RGB values and 255 for the respective color. Magenta (RGB: 255,0,255), cyan (RGB: 0,255,255), and yellow (RGB: 255,255,0) follow an extended PATO definition (Suppl. material <xref ref-type="supplementary-material" rid="S637674">6</xref>). Orange is an intermediate value between yellow and red, based on the PATO definition of orange as an intermediate color (RGB: 255,165,0). Purple (RGB: 128,0,128) is an intermediate color whose hue, after conversion to HSV, is equivalent to magenta (300°) at varying levels of saturation or addition of other hues. Since our concern in this publication is the principle hue value, purple and magenta are considered synonymous.</p>
+      <p>Color values were converted from Red, Green, Blue color model (RGB) to Hue, Saturation, and Value color model (HSV). Conversion was accomplished using the rgbtohsv library in the R package <italic>grDevices</italic> version 2.13.1 (<xref ref-type="bibr" rid="B644527">R 2010</xref>). The HSV cylindrical-coordinate representation of color is flattened for analysis by including only the recovered Hue values. Saturation and Value are excluded as Value (i.e. brightness) may be dependent on the computer monitor brightness (<xref ref-type="bibr" rid="B578689">Hung and Tsai 2008</xref>) and Saturation (addition of black and white) is outside of the scope of this article, as it would add additional complexity to the analysis. Additionally, in order to render results in a linear, rather than 360 degree (i.e. color wheel) representation, and since the majority of the Hue values from the data cluster around blue, all Hue degree values were mapped onto a bipolar linear range of values from -60 to 40, centered near true blue, creating a bipolar range of hues. The equation for converting H<sub>degree</sub> to H<sub>bipolar</sub> is represented in Fig. <xref ref-type="fig" rid="F644670">4</xref>.</p>
+      <p>The basic color hue representations discussed above are outlined in Table <xref ref-type="table" rid="T606177">1</xref>.</p>
+      <p>Phenotypic Quality Ontology Uniform Resource Identifiers (URI) are mapped to each hue value. The modifications to existing PATO definitions necessary to fully describe image hues were formally proposed for inclusion in the PATO ontology via the Open Biomedical Ontology SourceForge request account (<ext-link ext-link-type="uri" xlink:href="https://sourceforge.net/p/obo/phenotypic-quality-pato-requests">https://sourceforge.net/p/obo/phenotypic-quality-pato-requests</ext-link>). Additionally, terminology was proposed to represent intermediate color value ranges, and Encyclopedia of Life URI are assigned to these terms at the present time. Each proposed color term corresponds to a range of values between primary hues as in the example of Fig. <xref ref-type="fig" rid="F644672">5</xref>.</p>
+      <p>The range, or intermediate values, between primary Hues (i.e. red, magenta, purple, blue, cyan, green, yellow, and orange) can be represented in H<sub>degree</sub>, H<sub>bipolar</sub> or using natural language terms. The representations for the hue range values are outlined in Table <xref ref-type="table" rid="T674077">2</xref>.</p>
+    </sec>
+    <sec sec-type="Results">
+      <title>Results</title>
+      <p>Searching for "blue flowers" from the EOL search interface resulted in 1165 images representing unique specimens, and 182 unique species. 33 species recovered have a common name that contains the word "blue". The reminder of the 149 species were retrieved because the word "blue" occurred somewhere in the description. Based on the analysis described above, records returned using the color name "blue" presented a spectrum of flower colors spanning all angles of the color wheel (Fig. <xref ref-type="fig" rid="F578737">6</xref>).</p>
+      <p>Fig. <xref ref-type="fig" rid="F578745">7</xref> graphically represents the results on the bipolar linear scale. Each point on the scatterplot indicates the hue value H<sub>bipolar</sub> of one of the sampled images, with the Y-axis being the hue value and the X-axis the unique image number. The colored lines running horizontally across the scatterplot represent the position of pure hues of green, cyan, blue, magenta, and red drawn at their respective values. To the right, the histogram shows the number of species whose median hue value falls within each bin. The color of each bar on the histogram represents the midpoint hue value of the range of hues from each respective bin. The scatterplot in Figure 7 illustrates that the majority of images retrieved by searching for "blue" have hue values that fall between blue and magenta. The majority of the species have a median hue value between 0 and 20, again indicating that most of the flowers from the search results for "blue" are actually blue to magenta in hue value. The median converted HSV value for all images is 251°, corresponding to a H<sub>bipolar</sub> value of 9.68, and a transitional hue value between blue and magenta (Fig. <xref ref-type="fig" rid="F578737">6</xref>). The outlier hue values below pure green (-26.67) on the graph result from either a white flower described in the search results as "blue" or a flower that includes complementary colors that when averaged resulted in gray.</p>
+    </sec>
+    <sec sec-type="Discussion">
+      <title>Discussion</title>
+      <p>The Encyclopedia of Life (EOL) collects images from individual users and from online "Content Partners". These Content Partners are varied, ranging from museums and government divisions such as US Fish and Wildlife Service (<ext-link ext-link-type="uri" xlink:href="http://www.fws.gov/">http://www.fws.gov</ext-link>), to open-access, community driven websites like Flickr (<ext-link ext-link-type="uri" xlink:href="http://www.flickr.com">http://www.flickr.com</ext-link>). We surmised from this investigation that, at the present time, researching phenotype data utilizing the present EOL interface is difficult. This is not an observation unknown to EOL, as demonstrated by the recent inclusion of the TraitBank software (<xref ref-type="bibr" rid="B637720">Parr et al. 2014a</xref>) as a novel means of including controlled vocabularies in searching. For this specific study, each species of flower that was returned in a search result had to be evaluated independently for color. We found that many species were included in the EOL search results because the words "blue" and "flower" both appeared somewhere within the free text descriptive blocks, and did not always represent an accurate account of the flower phenotype as appearing in the associated images. The search function on EOL does not work by searching assigned keywords or tags on images; rather, it searches the entire descriptive content, although filters can be applied to show only search results for taxa, articles, or image descriptions. However, if sorting by image when searching for "blue flower," images are only found if the associated species has the words "blue" and "flower" somewhere in the file name or image description; since not all images have a description or even a descriptive filename, only 218 images result from a filtered search. We suggest further development of controlled vocabulary tagging, utilizing Phenotypic Quality Ontology (PATO; <xref ref-type="bibr" rid="B674052">Gkoutos et al. 2005</xref>), to augment image descriptions as a method of informing content descriptions. Tags directly associated with images would produce the added benefit of creating specimen level content for EOL.</p>
+      <p>The ability to control and standardize imaging techniques in as large a resource as EOL is challenging, and this study expected to find variation in flower color within a single species, based on image quality or intraspecific variation. We suggest that the study of color based on EOL images would benefit from the ability to easily access original images that contain color profile information embedded within the image metadata. Color profile information, found in the Exchangeable image file format (Exif), may improve the accuracy of color analysis, as it contains information about the image and camera settings when the photograph was taken (<xref ref-type="bibr" rid="B760234">Ricker 2004</xref>). Additionally, access to original images reduces the possibility of modifications and enhancements that photographers add during post-processing, which may additionally bias the results. EOL does provide links to the provider of the image, where the original image may be stored. However, there is no way to know the quality of the image from the provider without leaving the EOL website.</p>
+      <p>A final suggestion for stimulating scientific research utilizing EOL is to encourage data providers to include geo-coordinates for images, as each image is a representation of an individual occurrence of a species. These could be provided either manually or through Exif metadata. For this study, USDA PLANTS was used to acquire the native range of species whose native ranges could not be found in the taxon information available on EOL. However, general species ranges are often vague and typically do not include enough detail concerning specific environmental conditions of the specimen for ecological inference.</p>
+      <p>A new feature on EOL, released near the end of this project, is the TraitBank. TraitBank is a "searchable comprehensive, open digital repository for organism traits, measurements, interactions and other facts for all taxa across the tree of life" (<ext-link ext-link-type="uri" xlink:href="http://eol.org/traitbank">http://eol.org/traitbank</ext-link>). This novel search tool offers selected search criteria for a number of phenotype attributes. Flower color is one of the searchable traits, with "blue" on EOL being defined sensu PATO. The color annotation originates from the USDA PLANTS database characteristics list, which compiles data "from the scientific literature, gray literature, agency documents, and the knowledge of plant specialists" (<ext-link ext-link-type="uri" xlink:href="http://www.fws.gov/">http://www.fws.gov</ext-link>, 2013). At the present time, only 8 color options exist on USDA PLANTS (blue, brown, green, orange, purple, red, white and yellow). USDA PLANTS do not define these colors, while EOL appends the PATO definitions. These definitions, while helpful, are still limited. Photoshop displays RGB values using a scale of 0-255. 8-bit images (such as a .jpg file) have 256 possible brightness values, and Photoshop continues to use this standard today. The PATO ontology bases its definitions on color wavelength. Unfortunately, there is no easy or accurate conversion between colors as defined by PATO and color in a Hue, Saturation and Value (HSV) representation as there is no unique mapping between wavelength and RGB. Additionally, some RGB values may be a representation of multiple wavelengths (<xref ref-type="bibr" rid="B578618">Berns et al. 2000</xref>). Furthermore, only 72 species result from the search for blue flower color using TraitBank, where our search conducted using the general search and narrowing to flower taxa (in North America) resulted in 151 species, which have been called "blue" by at least one source. The number of TraitBank annotated species is lower than our search result at the present time; however, this will likely improve as annotated data is ingested from varied content providers.</p>
+      <p>Data from this study indicates that the majority of the images sampled have hue values that fall above blue towards magenta, into what might be called "purple" hue rather than "blue" hue. The ability to tag images with a structured vocabulary that includes suggestions of intermediate ranges like "purplish" or "blueish-purple" to differentiate among the colors that fall between magenta and blue rather than magenta and red would be helpful in clarifying color descriptions. We suggest the adoption of a Color Naming System (CNS) terminology with HSV or RGB intermediate values. Assigning natural language terms to discrete ranges of hue values could be used to convert the results from an automatic color picker tool to terms more easily understood by image describers. Further support for the adoption of an expanded color naming system exists in the literature. Berk et al. (1982) demonstrated users annotating colors using RGB, Hue, Saturation and Lightness (HSL) and the Color Naming System (CNS), based on the color lexicon used by the Inter-Society Color Council (ISCC – <xref ref-type="bibr" rid="B578632">Berk et al. 1982</xref>). The users of the CNS system were significantly more accurate in specifying color than users identifying color with the RGB and HSL numerical systems. The ISCC lexicon is in turn based on the Munsell system (<xref ref-type="bibr" rid="B578709">Simon 1997</xref>) and the HSL system, another common cylindrical-coordinate representation of points in an RGB color model similar to HSV.</p>
+      <p>As a further result of this investigation, the image hue value annotations, in the form of a EOL or PATO URI, were returned to EOL TraitBank based on our analysis. Stable URIs associated with ontology classes make it plausible to share phenotype information captured in publication intelligently through the Web (<xref ref-type="bibr" rid="B714151">Seltmann et al. 2012</xref>). However, to successfully capture the scope of color annotation that is possible, we proposed extending the PATO definitions of color terms to include hue values and color terms representing intermediate ranges of color. The proposed modifications to PATO definitions of color are necessary to describe image hue and were formally proposed for inclusion in the PATO ontology via the Open Biomedical Ontology SourceForge request account (<ext-link ext-link-type="uri" xlink:href="https://sourceforge.net/p/obo/phenotypic-quality-pato-requests">https://sourceforge.net/p/obo/phenotypic-quality-pato-requests</ext-link>). In this request colors not commonly occurring in common language, such as magenta and cyan, are not included; however, these would fit in a future update following the same model we propose. In the interim, EOL has provided stable identifiers for inclusion in our dataset.</p>
+      <sec sec-type="Conclusion">
+        <title>Conclusion</title>
+        <p>In conclusion, this study revealed that searching for "blue" flowers on EOL returned images that when analyzed represented color values that range from blue to magenta. The PATO terms presently available for use by EOL include violet, blue, cyan, green, purple, light blue, dark blue, and saturated blue in the range of blue descriptors. Studies have shown that humans may be able to best represent color in textual descriptions that include more nuanced variation (i.e. greenish-blue, bluish-purple) than is currently available through PATO. We propose to extend PATO (Suppl. material <xref ref-type="supplementary-material" rid="S637674">6</xref>), and available color hue descriptors, to include relative values for blue and other colors. A greater palette for color annotation would aid image description, and supply a richer ontology for color for tagging and assigning phenotype traits, which would make color research using EOL’s resources more refined for scientific research. These tags and traits should also be applied to images directly to aid phenotype research, as species can display a range of traits, and many traits are not yet summarized to their extent in the scientific literature.</p>
+      </sec>
+    </sec>
+  </body>
+  <back>
+    <ack>
+      <title>Acknowledgements</title>
+      <p>The authors would like to acknowledge Dr. Yon Visell for his insightful discussions on color model calculations. This study was made possible by funding and support from The Encyclopedia of Life, EOL Rubenstein Fellows Program and the David M. Rubenstein Grant (CRDF #EOL-33066-13/G33066), Smithsonian Institution. Support was also provided by CRDF Global. Materials and infrastructure support were provided by Tri-Trophic Thematic Collections Network (National Science Foundation grant ADBC#1115144) and the American Museum of Natural History.</p>
+    </ack>
+    <sec sec-type="Author contributions">
+      <title>Author contributions</title>
+      <p>Conceived and designed the experiments: KCS CMW. Performed the experiments: CMW KCS. Analyzed the data: KCS CMW. Contributed reagents/materials/analysis tools: CMW KCS. Wrote the paper: KCS CMW.</p>
+    </sec>
+    <ref-list>
+      <title>References</title>
+      <ref id="B578600">
+        <element-citation publication-type="software">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Inc.</surname>
+              <given-names>Adobe Systems</given-names>
+            </name>
+          </person-group>
+          <year>2012</year>
+          <article-title>Adobe Photoshop CS6 Extended</article-title>
+          <date-in-citation content-type="released">2012-05-07T00:00:00+03:00</date-in-citation>
+          <comment content-type="Version">Version 13.0 x64</comment>
+        </element-citation>
+      </ref>
+      <ref id="B578632">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Berk</surname>
+              <given-names>Toby</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Kaufman</surname>
+              <given-names>Arie</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Brownston</surname>
+              <given-names>Lee</given-names>
+            </name>
+          </person-group>
+          <year>1982</year>
+          <article-title>A human factors study of color notation systems for computer graphics</article-title>
+          <source>Communications of the ACM</source>
+          <volume>25</volume>
+          <issue>8</issue>
+          <fpage>547</fpage>
+          <lpage>550</lpage>
+          <pub-id pub-id-type="doi">10.1145/358589.358606</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B578618">
+        <element-citation publication-type="chapter">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Berns</surname>
+              <given-names>R. S.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Billmeyer</surname>
+              <given-names>F. W.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Saltzman</surname>
+              <given-names>M.</given-names>
+            </name>
+          </person-group>
+          <year>2000</year>
+          <chapter-title>Measuring color</chapter-title>
+          <source>Billmeyer and Saltzman principles of color technology</source>
+          <publisher-name>John Wiley</publisher-name>
+          <publisher-loc>New York</publisher-loc>
+          <size units="page">75-105</size>
+        </element-citation>
+      </ref>
+      <ref id="B578661">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Brunet</surname>
+              <given-names>J</given-names>
+            </name>
+          </person-group>
+          <year>2009</year>
+          <article-title>Pollinators of the Rocky Mountain columbine: temporal variation, functional groups and associations with floral traits</article-title>
+          <source>Annals of Botany</source>
+          <volume>103</volume>
+          <issue>9</issue>
+          <fpage>1567</fpage>
+          <lpage>1578</lpage>
+          <pub-id pub-id-type="doi">10.1093/aob/mcp096</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B674052">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Gkoutos</surname>
+              <given-names>Georgios V</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Green</surname>
+              <given-names>Eain CJ</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Mallon</surname>
+              <given-names>Ann-Marie</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Hancock</surname>
+              <given-names>John M</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Davidson</surname>
+              <given-names>Duncan</given-names>
+            </name>
+          </person-group>
+          <year>2005</year>
+          <article-title>Using ontologies to describe mouse phenotypes.</article-title>
+          <source>Genome Biology</source>
+          <volume>6</volume>
+          <issue>1</issue>
+          <fpage>R8</fpage>
+          <pub-id pub-id-type="doi">10.1186/gb-2004-6-1-r8</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B578689">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Hung</surname>
+              <given-names>Chihli</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Tsai</surname>
+              <given-names>Fong</given-names>
+            </name>
+          </person-group>
+          <year>2008</year>
+          <article-title>Automatically Annotating Images with Keywords: A Review of Image Annotation Systems</article-title>
+          <source>Recent Patents on Computer Science</source>
+          <volume>1</volume>
+          <issue>1</issue>
+          <fpage>55</fpage>
+          <lpage>68</lpage>
+          <pub-id pub-id-type="doi">10.2174/2213275910801010055</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B637720">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Parr</surname>
+              <given-names>C.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Wilson</surname>
+              <given-names>N.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Schulz</surname>
+              <given-names>K.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Leary</surname>
+              <given-names>P.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Rice</surname>
+              <given-names>J.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Hammock</surname>
+              <given-names>J. 2014</given-names>
+            </name>
+          </person-group>
+          <year>2014</year>
+          <article-title>TraitBank: Practical semantics for organism attribute data (in prep)</article-title>
+          <source>Semantic Web Journal</source>
+          <volume>0</volume>
+          <fpage>0</fpage>
+        </element-citation>
+      </ref>
+      <ref id="B637732">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Parr</surname>
+              <given-names>C.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Wilson</surname>
+              <given-names>N.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Leary</surname>
+              <given-names>P.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Schulz</surname>
+              <given-names>K.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Lans</surname>
+              <given-names>K.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Walley</surname>
+              <given-names>L.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Hammock</surname>
+              <given-names>J.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Goddard</surname>
+              <given-names>A.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Rice</surname>
+              <given-names>J.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Studer</surname>
+              <given-names>M.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Holmes</surname>
+              <given-names>J.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Corrigan</surname>
+              <given-names>R. 2014</given-names>
+            </name>
+          </person-group>
+          <year>2014</year>
+          <article-title>The Encyclopedia of Life v2: Providing Global Access to Knowledge About Life on Earth. (submitted)</article-title>
+          <source>Biodiversity Data Journal</source>
+          <volume>e1079</volume>
+          <fpage>0</fpage>
+          <pub-id pub-id-type="doi">10.3897/BDJ.2.e1079</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B644527">
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>R</surname>
+              <given-names>Development Core Team</given-names>
+            </name>
+          </person-group>
+          <year>2010</year>
+          <source>R: A Language and Environment for Statistical Computing</source>
+          <publisher-name>R Foundation for Statistical Computing</publisher-name>
+          <publisher-loc>Vienna, Austria</publisher-loc>
+          <size units="page">0</size>
+          <uri>http://www.R-project.org</uri>
+          <isbn>3-900051-07-0</isbn>
+        </element-citation>
+      </ref>
+      <ref id="B760234">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Ricker</surname>
+              <given-names>M. D.</given-names>
+            </name>
+          </person-group>
+          <year>2004</year>
+          <article-title>Pixels, bits, and GUIs: The fundamentals of digital imagery and their application by plant pathologists</article-title>
+          <source>Plant disease</source>
+          <volume>88</volume>
+          <issue>3</issue>
+          <fpage>228</fpage>
+          <lpage>241</lpage>
+          <pub-id pub-id-type="doi">10.1094/PDIS.2004.88.3.228</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B714151">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Seltmann</surname>
+              <given-names>KC</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Yoder</surname>
+              <given-names>MY</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Miko</surname>
+              <given-names>I</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Forshage</surname>
+              <given-names>M</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Bertone</surname>
+              <given-names>MA</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Agosti</surname>
+              <given-names>D</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Austin</surname>
+              <given-names>AD</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Balhoff</surname>
+              <given-names>JP</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Borowiec</surname>
+              <given-names>ML</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Brady</surname>
+              <given-names>SG</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Broad</surname>
+              <given-names>GR</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Brothers</surname>
+              <given-names>DJ</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Burks</surname>
+              <given-names>RA</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Buffington</surname>
+              <given-names>ML</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Campbell</surname>
+              <given-names>HM</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Dew</surname>
+              <given-names>KJ</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Ernst</surname>
+              <given-names>AF</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Fernandez-Triana</surname>
+              <given-names>JL</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Gates</surname>
+              <given-names>MW</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Gibson</surname>
+              <given-names>GAP</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Jennings</surname>
+              <given-names>JT</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Johnson</surname>
+              <given-names>NF</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Karlsson</surname>
+              <given-names>D</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Kawada</surname>
+              <given-names>R</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Krogmann</surname>
+              <given-names>L</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Kula</surname>
+              <given-names>RR</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Mullins</surname>
+              <given-names>PL</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Ohl</surname>
+              <given-names>M</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Rasmussen</surname>
+              <given-names>C</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Ronquist</surname>
+              <given-names>F</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Schulmeister</surname>
+              <given-names>S</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Sharkey</surname>
+              <given-names>MJ</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Talamas</surname>
+              <given-names>E</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Tucker</surname>
+              <given-names>E</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Vilhelmsen</surname>
+              <given-names>L</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Ward</surname>
+              <given-names>PS</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Wharton</surname>
+              <given-names>RA</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Deans</surname>
+              <given-names>AR</given-names>
+            </name>
+          </person-group>
+          <year>2012</year>
+          <article-title>A hymenopterists' guide to the <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="order">Hymenoptera</tp:taxon-name-part></tp:taxon-name> Anatomy Ontology: utility, clarification, and future directions.</article-title>
+          <source>Journal of <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="order">Hymenoptera</tp:taxon-name-part></tp:taxon-name> Research</source>
+          <volume>27</volume>
+          <fpage>67</fpage>
+          <lpage>88</lpage>
+          <pub-id pub-id-type="doi">10.3897/jhr.27.2961</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B578709">
+        <element-citation publication-type="chapter">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Simon</surname>
+              <given-names>F</given-names>
+            </name>
+          </person-group>
+          <year>1997</year>
+          <chapter-title>Color Order</chapter-title>
+          <person-group person-group-type="editor">
+            <name name-style="western">
+              <surname>Colorists</surname>
+              <given-names>American Association of Textile  Chemists and</given-names>
+            </name>
+          </person-group>
+          <source>Color technology in the textile industry</source>
+          <size units="page">179-180</size>
+        </element-citation>
+      </ref>
+      <ref id="B674021">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Smith</surname>
+              <given-names>Alvy Ray</given-names>
+            </name>
+          </person-group>
+          <year>1978</year>
+          <article-title>Color gamut transform pairs</article-title>
+          <source>ACM SIGGRAPH Computer Graphics</source>
+          <volume>12</volume>
+          <issue>3</issue>
+          <fpage>12</fpage>
+          <lpage>19</lpage>
+          <pub-id pub-id-type="doi">10.1145/965139.807361</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B674063">
+        <element-citation publication-type="chapter">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>USDA</surname>
+              <given-names>NRCS, National Plant Data Team</given-names>
+            </name>
+          </person-group>
+          <year>2014</year>
+          <chapter-title>The PLANTS Database</chapter-title>
+          <source>[website]</source>
+          <publisher-loc>Greensboro, NC 27401-4901 USA</publisher-loc>
+          <uri>http://plants.usda.gov</uri>
+        </element-citation>
+      </ref>
+      <ref id="B578723">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Weevers</surname>
+              <given-names>T</given-names>
+            </name>
+          </person-group>
+          <year>1952</year>
+          <article-title>Flower colours and their frequency</article-title>
+          <source>Acta Botanica Neerlandica</source>
+          <volume>1</volume>
+          <fpage>81</fpage>
+          <lpage>92</lpage>
+          <pub-id pub-id-type="doi">10.1111/j.1438-8677.1952.tb00002.x</pub-id>
+        </element-citation>
+      </ref>
+    </ref-list>
+  </back>
+  <floats-group>
+    <fig id="F578739" position="float" orientation="portrait">
+      <label>Figure 1.</label>
+      <caption>
+        <p>Representative area of petal selected (<italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Gentiana</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">nivalis</tp:taxon-name-part></tp:taxon-name></italic>).</p>
+      </caption>
+      <graphic xlink:href="biodiversity_data_journal-2-e1143-g001.jpg" position="float" id="oo_5977.jpg" orientation="portrait" xlink:type="simple"/>
+    </fig>
+    <fig id="F578741" position="float" orientation="portrait">
+      <label>Figure 2.</label>
+      <caption>
+        <p>Selected area of petal copied and opened in new window.</p>
+      </caption>
+      <graphic xlink:href="biodiversity_data_journal-2-e1143-g002.jpg" position="float" id="oo_5978.jpg" orientation="portrait" xlink:type="simple"/>
+    </fig>
+    <fig id="F578743" position="float" orientation="portrait">
+      <label>Figure 3.</label>
+      <caption>
+        <p>Selected area has been resized to 1 pixel; color picker tool shows the RGB values of the pixel.</p>
+      </caption>
+      <graphic xlink:href="biodiversity_data_journal-2-e1143-g003.jpg" position="float" id="oo_5979.jpg" orientation="portrait" xlink:type="simple"/>
+    </fig>
+    <fig id="F644670" position="float" orientation="portrait">
+      <label>Figure 4.</label>
+      <caption>
+        <p>Equation for converting hue values in units degree to hue values as bipolar percent, where blue is near zero.</p>
+      </caption>
+      <graphic xlink:href="biodiversity_data_journal-2-e1143-g004.jpg" position="float" id="oo_7754.jpg" orientation="portrait" xlink:type="simple"/>
+    </fig>
+    <fig id="F644672" position="float" orientation="portrait">
+      <label>Figure 5.</label>
+      <caption>
+        <p>Example of both Hdegree and Hbipolar for proposed hue ranges.</p>
+      </caption>
+      <graphic xlink:href="biodiversity_data_journal-2-e1143-g005.jpg" position="float" id="oo_7823.jpg" orientation="portrait" xlink:type="simple"/>
+    </fig>
+    <fig id="F578737" position="float" orientation="portrait">
+      <label>Figure 6.</label>
+      <caption>
+        <p>Graphical representation of color Hue values on the color wheel, with modified PATO definitions.</p>
+      </caption>
+      <graphic xlink:href="biodiversity_data_journal-2-e1143-g006.jpg" position="float" id="oo_6848.jpg" orientation="portrait" xlink:type="simple"/>
+    </fig>
+    <fig id="F578745" position="float" orientation="portrait">
+      <label>Figure 7.</label>
+      <caption>
+        <p>Distribution of hue values returned from "blue flowers" during EOL searching.</p>
+      </caption>
+      <graphic xlink:href="biodiversity_data_journal-2-e1143-g007.jpg" position="float" id="oo_7569.jpg" orientation="portrait" xlink:type="simple"/>
+    </fig>
+    <table-wrap id="T606177" position="float" orientation="portrait">
+      <label>Table 1.</label>
+      <caption>
+        <p>Values for the principle colors of interest as represented in RGB, HSV, H<sub>bipolar</sub> color models and PATO URI.</p>
+      </caption>
+      <table rules="all" border="0">
+        <tbody>
+          <tr>
+            <th rowspan="1" colspan="1">Color label</th>
+            <th rowspan="1" colspan="1">RGB</th>
+            <th rowspan="1" colspan="1">HSV (H<sub>degree</sub>, S%, V%)</th>
+            <th rowspan="1" colspan="1">H<sub>bipolar</sub></th>
+            <th rowspan="1" colspan="1">PATO Identifier</th>
+          </tr>
+          <tr>
+            <td rowspan="1" colspan="1">red</td>
+            <td rowspan="1" colspan="1">255,0,0</td>
+            <td rowspan="1" colspan="1">0°,100%,100%</td>
+            <td rowspan="1" colspan="1">40/-60</td>
+            <td rowspan="1" colspan="1">
+              <ext-link ext-link-type="uri" xlink:href="http://purl.obolibrary.org/obo/PATO_0000322">http://purl.obolibrary.org/obo/PATO_0000322</ext-link>
+            </td>
+          </tr>
+          <tr>
+            <td rowspan="1" colspan="1">magenta</td>
+            <td rowspan="1" colspan="1">255,0,255</td>
+            <td rowspan="1" colspan="1">300°,100%,100%</td>
+            <td rowspan="1" colspan="1">20</td>
+            <td rowspan="1" colspan="1">
+              <ext-link ext-link-type="uri" xlink:href="http://purl.obolibrary.org/obo/PATO_0000321">http://purl.obolibrary.org/obo/PATO_0000321</ext-link>
+            </td>
+          </tr>
+          <tr>
+            <td rowspan="1" colspan="1">purple</td>
+            <td rowspan="1" colspan="1">128,0,128</td>
+            <td rowspan="1" colspan="1">300°,100%,50%</td>
+            <td rowspan="1" colspan="1">20</td>
+            <td rowspan="1" colspan="1">
+              <ext-link ext-link-type="uri" xlink:href="http://purl.obolibrary.org/obo/PATO_0000951">http://purl.obolibrary.org/obo/PATO_0000951</ext-link>
+            </td>
+          </tr>
+          <tr>
+            <td rowspan="1" colspan="1">blue</td>
+            <td rowspan="1" colspan="1">0,0,255</td>
+            <td rowspan="1" colspan="1">240°,100%,100%</td>
+            <td rowspan="1" colspan="1">7</td>
+            <td rowspan="1" colspan="1">
+              <ext-link ext-link-type="uri" xlink:href="http://purl.obolibrary.org/obo/PATO_0000318">http://purl.obolibrary.org/obo/PATO_0000318</ext-link>
+            </td>
+          </tr>
+          <tr>
+            <td rowspan="1" colspan="1">cyan</td>
+            <td rowspan="1" colspan="1">0,255,255</td>
+            <td rowspan="1" colspan="1">180°100%,100%</td>
+            <td rowspan="1" colspan="1">-10</td>
+            <td rowspan="1" colspan="1">
+              <ext-link ext-link-type="uri" xlink:href="http://purl.obolibrary.org/obo/PATO_0000319">http://purl.obolibrary.org/obo/PATO_0000319</ext-link>
+            </td>
+          </tr>
+          <tr>
+            <td rowspan="1" colspan="1">green</td>
+            <td rowspan="1" colspan="1">0,255,0</td>
+            <td rowspan="1" colspan="1">120°,100%,100%</td>
+            <td rowspan="1" colspan="1">-30</td>
+            <td rowspan="1" colspan="1">
+              <ext-link ext-link-type="uri" xlink:href="http://purl.obolibrary.org/obo/PATO_0000320">http://purl.obolibrary.org/obo/PATO_0000320</ext-link>
+            </td>
+          </tr>
+          <tr>
+            <td rowspan="1" colspan="1">yellow</td>
+            <td rowspan="1" colspan="1">255,255,0</td>
+            <td rowspan="1" colspan="1">60°,100%,100%</td>
+            <td rowspan="1" colspan="1">-43</td>
+            <td rowspan="1" colspan="1">
+              <ext-link ext-link-type="uri" xlink:href="http://purl.obolibrary.org/obo/PATO_0000324">http://purl.obolibrary.org/obo/PATO_0000324</ext-link>
+            </td>
+          </tr>
+          <tr>
+            <td rowspan="1" colspan="1">orange</td>
+            <td rowspan="1" colspan="1">255,128,0</td>
+            <td rowspan="1" colspan="1">30°,100%,100%</td>
+            <td rowspan="1" colspan="1">-52</td>
+            <td rowspan="1" colspan="1">
+              <ext-link ext-link-type="uri" xlink:href="http://purl.obolibrary.org/obo/PATO_0000953">http://purl.obolibrary.org/obo/PATO_0000953</ext-link>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </table-wrap>
+    <table-wrap id="T674077" position="float" orientation="portrait">
+      <label>Table 2.</label>
+      <caption>
+        <p>Range hue values for proposed intermediate colors as represented in RGB, HSV, Hbipolar color models, and PATO or EOL URI.</p>
+      </caption>
+      <table rules="all" border="0">
+        <tbody>
+          <tr>
+            <th rowspan="1" colspan="1">Color</th>
+            <th rowspan="1" colspan="1">H<sub>degree</sub> Range</th>
+            <th rowspan="1" colspan="1">H<sub>bipolar</sub> Range</th>
+            <th rowspan="1" colspan="1">EOL or PATO Identifier</th>
+          </tr>
+          <tr>
+            <td rowspan="1" colspan="1">greenish-yellow</td>
+            <td rowspan="1" colspan="1">60°,120°</td>
+            <td rowspan="1" colspan="1">-43,-27</td>
+            <td rowspan="1" colspan="1">
+              <ext-link ext-link-type="uri" xlink:href="http://purl.obolibrary.org/obo/PATO_0001941">http://purl.obolibrary.org/obo/PATO_0001941</ext-link>
+            </td>
+          </tr>
+          <tr>
+            <td rowspan="1" colspan="1">yellowish-orange</td>
+            <td rowspan="1" colspan="1">30°,60°</td>
+            <td rowspan="1" colspan="1">-51,-43</td>
+            <td rowspan="1" colspan="1">
+              <ext-link ext-link-type="uri" xlink:href="http://purl.obolibrary.org/obo/PATO_0001944">http://purl.obolibrary.org/obo/PATO_0001944</ext-link>
+            </td>
+          </tr>
+          <tr>
+            <td rowspan="1" colspan="1">orangish-red</td>
+            <td rowspan="1" colspan="1">0°,30°</td>
+            <td rowspan="1" colspan="1">-60(0),-51</td>
+            <td rowspan="1" colspan="1">
+              <ext-link ext-link-type="uri" xlink:href="http://eol.org/schema/terms/orangish-red">http://eol.org/schema/terms/orangish-red</ext-link>
+            </td>
+          </tr>
+          <tr>
+            <td rowspan="1" colspan="1">reddish-purple</td>
+            <td rowspan="1" colspan="1">300°,360°</td>
+            <td rowspan="1" colspan="1">23,-60(0)</td>
+            <td rowspan="1" colspan="1">
+              <ext-link ext-link-type="uri" xlink:href="http://eol.org/schema/terms/reddish-purple">http://eol.org/schema/terms/reddish-purple</ext-link>
+            </td>
+          </tr>
+          <tr>
+            <td rowspan="1" colspan="1">purplish-blue</td>
+            <td rowspan="1" colspan="1">240°,300°</td>
+            <td rowspan="1" colspan="1">7,23</td>
+            <td rowspan="1" colspan="1">
+              <ext-link ext-link-type="uri" xlink:href="http://eol.org/schema/terms/purplish-blue">http://eol.org/schema/terms/purplish-blue</ext-link>
+            </td>
+          </tr>
+          <tr>
+            <td rowspan="1" colspan="1">bluish-green</td>
+            <td rowspan="1" colspan="1">120°,240°</td>
+            <td rowspan="1" colspan="1">-27,7</td>
+            <td rowspan="1" colspan="1">
+              <ext-link ext-link-type="uri" xlink:href="http://eol.org/schema/terms/bluish-green">http://eol.org/schema/terms/bluish-green</ext-link>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </table-wrap>
+    <supplementary-material id="S578747" orientation="portrait" position="float" xlink:type="simple">
+      <label>Supplementary material 1</label>
+      <caption>
+        <p>Final scripts and graph methods</p>
+      </caption>
+      <p>Data type: R Analysis</p>
+      <p>Brief description: Final scripts and graph methods for figures represented in this study.</p>
+      <p>File: oo_7570.R</p>
+      <media xlink:href="biodiversity_data_journal-2-e1143-s001.r" mimetype="R file" mime-subtype="R" position="float" orientation="portrait" xlink:type="simple"/>
+      <attrib specific-use="authors">Katja C. Seltmann</attrib>
+    </supplementary-material>
+    <supplementary-material id="S578748" orientation="portrait" position="float" xlink:type="simple">
+      <label>Supplementary material 2</label>
+      <caption>
+        <p>Image information and data</p>
+      </caption>
+      <p>Data type: Excel</p>
+      <p>Brief description: Master Excel file with metadata about the image. Also includes metadata about the specific imaged specimen, or generalized species metadata when specimen data is not available.</p>
+      <p>File: oo_8663.xlsx</p>
+      <media xlink:href="biodiversity_data_journal-2-e1143-s002.xlsx" mimetype="Microsoft Excel Document" mime-subtype="xlsx" position="float" orientation="portrait" xlink:type="simple"/>
+      <attrib specific-use="authors">Chantal-Marie Wright, Katja C. Seltmann</attrib>
+    </supplementary-material>
+    <supplementary-material id="S578749" orientation="portrait" position="float" xlink:type="simple">
+      <label>Supplementary material 3</label>
+      <caption>
+        <p>Data field definitions</p>
+      </caption>
+      <p>Data type: text</p>
+      <p>Brief description: Data field definitions for the master Excel file (Document 2).</p>
+      <p>File: oo_8664.docx</p>
+      <media xlink:href="biodiversity_data_journal-2-e1143-s003.docx" mimetype="Microsoft Word Document" mime-subtype="docx" position="float" orientation="portrait" xlink:type="simple"/>
+      <attrib specific-use="authors">Chantal-Marie Wright</attrib>
+    </supplementary-material>
+    <supplementary-material id="S637672" orientation="portrait" position="float" xlink:type="simple">
+      <label>Supplementary material 4</label>
+      <caption>
+        <p>Tab delimited text file</p>
+      </caption>
+      <p>Data type: Image analysis</p>
+      <p>Brief description: Tab delimited text file used in R scripts.</p>
+      <p>File: oo_6696.tsv</p>
+      <media xlink:href="biodiversity_data_journal-2-e1143-s004.tsv" mimetype="tsv file" mime-subtype="tsv" position="float" orientation="portrait" xlink:type="simple"/>
+      <attrib specific-use="authors">Katja C. Seltmann</attrib>
+    </supplementary-material>
+    <supplementary-material id="S637673" orientation="portrait" position="float" xlink:type="simple">
+      <label>Supplementary material 5</label>
+      <caption>
+        <p>RGB values recovered from point analysis of images</p>
+      </caption>
+      <p>Data type: RGB values</p>
+      <p>Brief description: RGB values recovered from point analysis of images. Used in R scripts to convert to HSV.</p>
+      <p>File: oo_8666.tsv</p>
+      <media xlink:href="biodiversity_data_journal-2-e1143-s005.tsv" mimetype="tsv file" mime-subtype="tsv" position="float" orientation="portrait" xlink:type="simple"/>
+      <attrib specific-use="authors">Katja C. Seltmann</attrib>
+    </supplementary-material>
+    <supplementary-material id="S637674" orientation="portrait" position="float" xlink:type="simple">
+      <label>Supplementary material 6</label>
+      <caption>
+        <p>Color Terms and URI</p>
+      </caption>
+      <p>Data type: URI</p>
+      <p>Brief description: URIs and definitions of hues as defined by PATO ontology or defined by authors. These terms were proposed for inclusion in PATO, or edits to existing definitions in PATO. Where PATO URIs were not available eol identifiers were included.</p>
+      <p>File: oo_8667.xls</p>
+      <media xlink:href="biodiversity_data_journal-2-e1143-s006.xls" mimetype="Microsoft Excel Document" mime-subtype="xls" position="float" orientation="portrait" xlink:type="simple"/>
+      <attrib specific-use="authors">Katja C. Seltmann and Chantal-Marie Wright</attrib>
+    </supplementary-material>
+  </floats-group>
+</article>

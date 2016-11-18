@@ -192,7 +192,9 @@ write_couplet = function( subject, triples ) {
 write_couplet2 = function( subject, triples ) {
   turtle = c( subject, " " )
   # subset the triples with only this subject
+
   triples = lapply( triples, function (t) {
+
     if ( !is.null(t) && t[[1]] == subject )
       return (t)
 

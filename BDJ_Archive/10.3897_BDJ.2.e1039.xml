@@ -1,0 +1,1269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//TaxPub//DTD Taxonomic Treatment Publishing DTD v0.5 20110606//EN" "https://raw.github.com/tcatapano/TaxPub/v0.5-beta/tax-treatment-NS0.dtd">
+<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tp="http://www.plazi.org/taxpub" article-type="research-article">
+<front>
+    <journal-meta>
+      <journal-id journal-id-type="pmc">Biodiversity Data Journal</journal-id>
+      <journal-id journal-id-type="publisher-id">Biodiversity Data Journal</journal-id>
+      <journal-title-group>
+        <journal-title xml:lang="en">Biodiversity Data Journal</journal-title>
+        <abbrev-journal-title xml:lang="en">BDJ</abbrev-journal-title>
+      </journal-title-group>
+      <issn pub-type="ppub">1314-2836</issn>
+      <issn pub-type="epub">1314-2828</issn>
+      <publisher>
+        <publisher-name>Pensoft Publishers</publisher-name>
+      </publisher>
+    </journal-meta>
+    <article-meta>
+      <article-id pub-id-type="publisher-id">Biodiversity Data Journal</article-id>
+      <article-id pub-id-type="doi">10.3897/BDJ.2.e1039</article-id>
+      <article-id pub-id-type="other">2475</article-id>
+      <article-categories>
+        <subj-group subj-group-type="Subject classification">
+          <subject>Bioinformatics</subject>
+        </subj-group>
+      </article-categories>
+      <title-group>
+        <article-title>Linking multiple biodiversity informatics platforms with Darwin Core Archives</article-title>
+      </title-group>
+      <contrib-group content-type="authors">
+        <contrib contrib-type="author" corresp="yes">
+          <name name-style="western">
+            <surname>Baker</surname>
+            <given-names>Ed</given-names>
+            <prefix>Mr</prefix>
+          </name>
+          <email xlink:type="simple">edwbaker@gmail.com</email>
+          <xref ref-type="aff" rid="A1">1</xref>
+        </contrib>
+        <contrib contrib-type="author" corresp="no">
+          <name name-style="western">
+            <surname>Rycroft</surname>
+            <given-names>Simon</given-names>
+            <prefix>Dr</prefix>
+          </name>
+          <email xlink:type="simple">s.rycroft@nhm.ac.uk</email>
+          <xref ref-type="aff" rid="A1">1</xref>
+        </contrib>
+        <contrib contrib-type="author" corresp="no">
+          <name name-style="western">
+            <surname>Smith</surname>
+            <given-names>Vincent S</given-names>
+            <prefix>Dr</prefix>
+          </name>
+          <email xlink:type="simple">vince@vsmith.info</email>
+          <xref ref-type="aff" rid="A1">1</xref>
+        </contrib>
+      </contrib-group>
+      <contrib-group content-type="editors">
+        <contrib contrib-type="editor">
+          <name name-style="western">
+            <surname>Roberts</surname>
+            <given-names>David</given-names>
+            <prefix>Mr</prefix>
+          </name>
+          <email xlink:type="simple">dmr@nomencurator.org</email>
+          <role>Copy editor</role>
+          <xref ref-type="aff" rid="A2">2</xref>
+        </contrib>
+      </contrib-group>
+      <aff id="A1">
+        <label>1</label>
+        <addr-line>Natural History Museum, London, United Kingdom</addr-line>
+      </aff>
+      <aff id="A2">
+        <label>2</label>
+        <addr-line>The Natural History Museum, London, United Kingdom</addr-line>
+      </aff>
+      <author-notes>
+        <fn fn-type="corresp">
+          <p>Corresponding author: Ed Baker (<email xlink:type="simple">edwbaker@gmail.com</email>).</p>
+        </fn>
+        <fn fn-type="edited-by">
+          <p>Academic editor: Lyubomir Penev</p>
+        </fn>
+      </author-notes>
+      <pub-date pub-type="collection">
+        <year>2014</year>
+      </pub-date>
+      <pub-date pub-type="epub">
+        <day>08</day>
+        <month>01</month>
+        <year>2014</year>
+      </pub-date>
+      <issue>2</issue>
+      <elocation-id>e1039</elocation-id>
+      <history>
+        <date date-type="received">
+          <day>13</day>
+          <month>12</month>
+          <year>2013</year>
+        </date>
+        <date date-type="accepted">
+          <day>07</day>
+          <month>01</month>
+          <year>2014</year>
+        </date>
+      </history>
+      <permissions>
+        <copyright-statement>Ed Baker, Simon Rycroft, Vincent S Smith</copyright-statement>
+        <license license-type="creative-commons-attribution" xlink:href="http://creativecommons.org/licenses/by/4.0" xlink:type="simple">
+          <license-p>This is an open access article distributed under the terms of the Creative Commons Attribution License 4.0 (CC-BY), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.</license-p>
+        </license>
+      </permissions>
+      <abstract>
+        <label>Abstract</label>
+        <p>We describe an implementation of the Darwin Core Archive (DwC-A) standard that allows for the exchange of biodiversity information contained within the <ext-link ext-link-type="uri" xlink:href="http://scratchpads.eu/">Scratchpads</ext-link> virtual research environment with external collaborators. Using this single archive file Scratchpad users can expose taxonomies, specimen records, species descriptions and a range of other data to a variety of third-party aggregators and tools (currently <ext-link ext-link-type="uri" xlink:href="http://eol.org/">Encyclopedia of Life</ext-link>, <ext-link ext-link-type="uri" xlink:href="http://www.emonocot.org/">eMonocot Portal</ext-link>, <ext-link ext-link-type="uri" xlink:href="http://cartodb.com/">CartoDB</ext-link>, and the <ext-link ext-link-type="uri" xlink:href="http://wp5.e-taxonomy.eu">Common Data Model</ext-link>) for secondary use. This paper describes our technical approach to dynamically building and validating Darwin Core Archives for the 600+ Scratchpad user communities, which can be used to serve the diverse data needs of all of our content partners.</p>
+      </abstract>
+      <kwd-group>
+        <label>Keywords</label>
+        <kwd>Darwin Core</kwd>
+        <kwd>Darwin Core Archive</kwd>
+        <kwd>Scratchpads</kwd>
+        <kwd>biodiversity informatics</kwd>
+        <kwd>virtual research environment</kwd>
+        <kwd>taxonomy</kwd>
+        <kwd>biodiversity</kwd>
+      </kwd-group>
+      <funding-group>
+        <award-group>
+          <funding-source>This project was funded, and uses infrastructure developed by the European Union funded ViBRANT project (Contract no. RI-261532) and the Natural Environment Research Council funded eMonocot project (Grant numbers 279981, 279984 &amp; 27997).</funding-source>
+        </award-group>
+      </funding-group>
+      <counts>
+        <fig-count count="3"/>
+        <table-count count="8"/>
+        <ref-count count="3"/>
+      </counts>
+    </article-meta>
+  </front>
+  <body>
+    <sec sec-type="Introduction">
+      <title>Introduction</title>
+      <p>Biodiversity data are frequently published in esoteric formats or described using non-standard terminology, lacking sufficient contextual information to facilitate reuse, or a technical mechanism to facilitate data exchange. The <ext-link ext-link-type="uri" xlink:href="http://www.gbif.org/informatics/standards-and-tools/publishing-data/data-standards/darwin-core-archives/">Darwin Core Archive</ext-link> (DwC-A) format which is based on the Darwin Core standard (<xref ref-type="bibr" rid="B252448">Wieczorek et al. 2012</xref>), helps to address this problem. DwC-A's have become the <italic>lingua franca</italic> of the biodiversity science community, acting as a bridging language to facilitate the exchange of biodiversity data between systems storing and managing biodiversity data. This standardisation, which supports methods of data citation, not only encourages data sharing through appropriate reward mechanisms, but also supports the integration of data from multiple sources. This enables more complex scientific questions to be addressed from multiple data sources, without manual processing of the data structure, format or contextual metadata. This community-level harmonization and interoperability has the potential to prevent community projects from becoming data silos. Shared data-exchange standards like DwC-A make it possible to aggregate data in community ‘staging posts’, merging them in various combinations, perform meta-analyses and submitting them to public repositories.</p>
+      <p>Scratchpads (<xref ref-type="bibr" rid="B252431">Smith et al. 2011</xref>) are an example of an online tool for communities to collect, curate and publish biodiversity data. With over 7,000 active users in 600 different research communities, generating data on more than 180,000 taxa, Scratchpad data are potentially of great use to many biodiversity data aggregators and services such as the <ext-link ext-link-type="uri" xlink:href="http://eol.org/">Encyclopedia of Life</ext-link> (EoL) and the <ext-link ext-link-type="uri" xlink:href="http://www.gbif.org/">Global Biodiversity Informatics Facility</ext-link> (GBIF). These staging posts allow communities to build and curate biodiversity data sets of any size for their own purpose, while contributing to larger efforts or making use of tools that support the DwC-A format. As part of the EU funded ViBRANT project we have used the DwC-A format to facilitate data exchange across a variety of projects and tools constructed by the 17 partners within the ViBRANT consortium. Similarly the NERC funded eMonocot project has a requirement to aggregate data from communities of monocot specialists working within their Scratchpads. These data need to be aggregated within a central <ext-link ext-link-type="uri" xlink:href="http://www.emonocot.org/">eMonocot portal</ext-link> that integrates the data with other sources and provide cross-cutting views of the data.</p>
+      <p>This paper describes our technical solution to implement a single DwC-A format to exchange data with a variety of external systems. This contrasts with previous methods of data reuse using DwC-A that have typically been developed for a single common dataset and intended for reuse by a single partner (e.g. <xref ref-type="bibr" rid="B252465">Remsen et al. 2012</xref>). Our approach in the Scratchpads reduces the code base and processing power required to ensure that all of our external partners can be served from a single DwC-A file. However, our implementation has been complicated by the varied requirements of our collaborators and the multiple ways in which some Scratchpad communities have recorded data within their Scratchpads. In particular, it has exposed variation in the way DwC-A files can be written and interpreted, and in the testing procedures of some third party projects that only validate portions of DwC-A files relevant to their specific project activities or constraints. In an effort to overcome these problems, we describe our attempts to accommodate the variation in the interpretation of DwC-A files and a new DwC-A validator, which works across the diversity of data compiled by many Scratchpad communities.</p>
+    </sec>
+    <sec sec-type="Project description">
+      <title>Project description</title>
+      <sec sec-type="Funding">
+        <title>Funding</title>
+        <p>This project was funded, and uses infrastructure developed by the European Union funded ViBRANT project (Contract no. RI-261532) and the Natural Environment Research Council funded eMonocot project (Grant numbers 279981, 279984 &amp; 27997).</p>
+      </sec>
+    </sec>
+    <sec sec-type="Web location (URIs)">
+      <title>Web location (URIs)</title>
+      <p>Download page: <ext-link ext-link-type="uri" xlink:href="https://git.scratchpads.eu/v/scratchpads-2.0.git/tree/HEAD:/sites/all/modules/custom/dwca_export">https://git.scratchpads.eu/v/scratchpads-2.0.git/tree/HEAD:/sites/all/modules/custom/dwca_export</ext-link></p>
+      <p>Bug database: <ext-link ext-link-type="uri" xlink:href="http://support.scratchpads.eu/projects/eol/issues">http://support.scratchpads.eu/projects/eol/issues</ext-link></p>
+      <p>Vendor: <ext-link ext-link-type="uri" xlink:href="http://scratchpads.eu">http://scratchpads.eu</ext-link></p>
+    </sec>
+    <sec sec-type="Technical specification">
+      <title>Technical specification</title>
+      <p>Platform: Scratchpads/Drupal</p>
+      <p>Programming language: PHP</p>
+      <p>Language: English</p>
+      <p>Service endpoint: [scratchpads.url]/dwca.zip</p>
+    </sec>
+    <sec sec-type="Repository">
+      <title>Repository</title>
+      <p>Type (Git, SVN, CVS, Arch, BK): Git</p>
+      <p>Browse uri (CVS, SVN, BK): <ext-link ext-link-type="uri" xlink:href="https://git.scratchpads.eu/v/scratchpads-2.0.git/tree/HEAD:/sites/all/modules/custom/dwca_export">https://git.scratchpads.eu/v/scratchpads-2.0.git/tree/HEAD:/sites/all/modules/custom/dwca_export</ext-link></p>
+    </sec>
+    <sec sec-type="Usage rights">
+      <title>Usage rights</title>
+      <sec sec-type="Use license">
+        <title>Use license</title>
+        <p>Other</p>
+      </sec>
+      <sec sec-type="IP rights notes">
+        <title>IP rights notes</title>
+        <p>The code for this project is licensed under the GNU General Public License, version 2.</p>
+      </sec>
+    </sec>
+    <sec sec-type="Implementation">
+      <title>Implementation</title>
+      <sec sec-type="Implements specification">
+        <title>Implements specification</title>
+        <p>The <ext-link ext-link-type="uri" xlink:href="http://www-old.gbif.org/informatics/standards-and-tools/publishing-data/data-standards/darwin-core-archives">Darwin Core Archive standard</ext-link> is a human and machine readable system for exchanging information on biological diversity. It consists of a central data file (e.g. a taxonomy) and any number of extensions (e.g. specimens, images) that point to the central file (a star schema, see <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.6084/m9.figshare.749699">Baker, 2013</ext-link> &amp; Fig. <xref ref-type="fig" rid="F366444">1</xref>). As the data in Scratchpads are predominately about taxa (images of taxa, descriptions of taxa, specimens of taxa,...) we have chosen to use the Scratchpad's taxonomic classification as our central file. The extensions that we use cover descriptions of taxa using the Species Profile Model, the distribution of taxa, images and other media, associated literature references, specimens, vernacular names, the users of the site and comments made on site content. The content of the files may be described using Darwin Core terms, or terms from other schemas. These data files are all plain text (UTF-8) files.</p>
+        <p>In addition to the data files each archive has a meta.xml file that defines what the fields are in each data file, how rows and fields are terminated in each file, and what type of data are contained in each file (rowType). Of particular interest to our implementation is the fact that for a particular file in the archive the meta.xml can define multiple meanings by using different rowTypes. For example this allows us to treat descriptions.txt as both TDWG Descriptions (as defined at <ext-link ext-link-type="uri" xlink:href="http://rs.gbif.org/terms/1.0/Description">http://rs.gbif.org/terms/1.0/Description</ext-link>) and EoL Media items (as defined at <ext-link ext-link-type="uri" xlink:href="http://eol.org/schema/media/Document">http://eol.org/schema/media/Document</ext-link>). More information on this implementation is in the description.txt section below.</p>
+        <p>The Drupal module we have written, dwca_export (Fig. <xref ref-type="fig" rid="F495615">2</xref>), provides new default Drupal views (see <ext-link ext-link-type="uri" xlink:href="http://drupal.org/project/views">Views</ext-link>) that match the structures we have specified in our meta.xml file. The <ext-link ext-link-type="uri" xlink:href="https://drupal.org/project/views_data_export">Views data export</ext-link> module provides the functionality to export these views as comma-separated values text files. This module also provides the functionality to create these text files in a batch operation (appending several rows at a time to the output file to reduce memory usage) from the command line. This batch operation reduces the memory required to produce the archive, as early implementations of this module for large exports required 1GB of memory, which is a large amount of resource in a shared hosting environment. In most cases one view is used to produce one text file in the DwC-A. The exception is the description.txt which uses one view for each Species Profile Model (SPM) field. A list of the SPM fields we use is at <ext-link ext-link-type="uri" xlink:href="https://git.scratchpads.eu/v/scratchpads.git/blob/695831817b318a4eef42a31de1e61bd6f67145a7:/sites/all/modules/spm/EOL_SPM.xml">https://git.scratchpads.eu/v/scratchpads.git/blob/695831817b318a4eef42a31de1e61bd6f67145a7:/sites/all/modules/spm/EOL_SPM.xml</ext-link>. The output of these views is concatenated in a later stage of the archive creation process.</p>
+        <p>To conserve server resources the DwC-As are generated as a background process, triggered by a change being made to the content of the site. It is also possible for the Scratchpad administration team to rebuild the archives on demand using Drush via the command line (see Drush section below).</p>
+      </sec>
+      <sec sec-type="Audience">
+        <title>Audience</title>
+        <p>The functionality provided by this module can be enabled by the maintainer on any Scratchpad site through the Tools page found at Admin &gt; Structure. Once enabled, the archive file will become available at [scratchpads.url]/dwca.zip after it has been created by the system.</p>
+        <p>This module is for Scratchpad maintainers who wish to share the content of their site with third party aggregators.</p>
+      </sec>
+    </sec>
+    <sec sec-type="Additional information">
+      <title>Additional information</title>
+      <sec sec-type="Biological Classifications (classification.txt)">
+        <title>Biological Classifications (classification.txt)</title>
+        <p>The classification.txt file forms the core of our star schema and is consistent between all third party users.</p>
+        <p>Scratchpads as a system are designed to facilitate classifications conforming to any (or no) code of nomenclature. While we change the Scratchpad interface to match the terminology of a particular code on a per-classification basis, Darwin Core standardises the terminology used for the taxonomic and nomenclatural status of a taxon (<ext-link ext-link-type="uri" xlink:href="http://rs.gbif.org/vocabulary/gbif/taxonomic_status.xml">http://rs.gbif.org/vocabulary/gbif/taxonomic_status.xml</ext-link>, <ext-link ext-link-type="uri" xlink:href="http://rs.gbif.org/vocabulary/gbif/nomenclatural_status.xml">http://rs.gbif.org/vocabulary/gbif/nomenclatural_status.xml</ext-link>). It is therefore necessary for us to map from the ontologies we use (derived from ITIS, the <ext-link ext-link-type="uri" xlink:href="http://www.itis.gov/">Integrated Taxonomic Information System</ext-link>) to the DwC standards. This mapping is shown in Table <xref ref-type="table" rid="T290881">2</xref>.</p>
+        <p>The field used are shown in Table <xref ref-type="table" rid="T290880">1</xref>.</p>
+      </sec>
+      <sec sec-type="Taxon Descriptions (description.txt)">
+        <title>Taxon Descriptions (description.txt)</title>
+        <p>Descriptions used for describing the identification and biology of taxa in Scratchpads are defined using the TDWG <ext-link ext-link-type="uri" xlink:href="http://wiki.tdwg.org/twiki/bin/view/SPM/WebHome">Species Profile Model</ext-link>. A precise definition of the fields that we support is available from the relevant part of the <ext-link ext-link-type="uri" xlink:href="https://git.scratchpads.eu/v/scratchpads.git/blob/HEAD:/sites/all/modules/spm/EOL_SPM.xml">Scratchpads Git repository</ext-link> and match the fields used by EoL in the <ext-link ext-link-type="uri" xlink:href="http://www.lifedesks.org/">Lifedesks</ext-link> project.</p>
+        <p>In Scratchpads it is possible to create one or more taxon description nodes for every taxon. These nodes allow entry of text into any of the fields described above. In a DwC-A each of these fields is considered a record in itself (Fig. <xref ref-type="fig" rid="F290877">3</xref>). For this reason the universally unique identifier of a Taxon Description (the Scratchpad node identifier) is not enough to uniquely identify each row in the descriptions.txt file. To address this we append the hash (#) character and the field name to the end of the node UUID to create an additional identifier column for projects such as eMonocot which need it.</p>
+        <p>The way that the eMonocot Portal and EoL handle textual descriptions of taxa and narratives on taxon biology is very different and our implementation needs to accommodate both. The eMonocot portal ingests these data using the <ext-link ext-link-type="uri" xlink:href="http://rs.gbif.org/terms/1.0/Description">GBIF Taxon Description extension to DwC-A</ext-link> whereas EoL expects them to be treated as media items associated with a taxon using their own media extension (<ext-link ext-link-type="uri" xlink:href="http://eol.org/schema/media/Document">http://eol.org/schema/media/Document</ext-link>). In order to fulfil our aim of creating a single archive for all consumers we need to provide different definitions of the descriptions file in the meta.xml. For this reason in the meta.xml we define two different rowTypes for the same file (Table <xref ref-type="table" rid="T290882">3</xref>) – this allows the consumer to choose the definition they prefer without the Scratchpads having to create separate Darwin Core Archives.</p>
+      </sec>
+      <sec sec-type="Content Authors (eol_agents.txt)">
+        <title>Content Authors (eol_agents.txt)</title>
+        <p>The EoL agents file is a non-standard (not conforming to the star schema) extension to DwC-A that records information about people who have contributed to the other content in the archive (e.g. authors of textual content, the photographer of images). As this rowType is only understood by EoL the presence of this file in the archive does not cause problems for other consumers of the DwC-A. The structure of this file is described in Table <xref ref-type="table" rid="T290884">4</xref>.</p>
+      </sec>
+      <sec sec-type="Comments on content (comment.txt – for eMonocot use)">
+        <title>Comments on content (comment.txt – for eMonocot use)</title>
+        <p>For the eMonocot project there is a need for comments on data in the portal and comment replies in the Scratchpad to be synchronised across both platforms. This synchronisation was implemented using the DwC-A, ensuring that this one export mechanism could serve all of the project's needs. This extension to the archive does not conform to the star schema as it does not link directly to the central classification.txt. Despite this the rowType is, at present, only understood by eMonocot, and is ignored by other projects reading the archive. The data model used is a subset of the Open Annotation Data Model (<ext-link ext-link-type="uri" xlink:href="http://www.w3.org/ns/oa#Annotationt">http://www.w3.org/ns/oa#Annotationt</ext-link>). The structure of this file is described in Table <xref ref-type="table" rid="T290885">5</xref>.</p>
+      </sec>
+      <sec sec-type="references.txt">
+        <title>references.txt</title>
+        <p>This file contains information from the Scratchpad site's bibliography. The structure of the file is described in Table <xref ref-type="table" rid="T358599">6</xref>.</p>
+      </sec>
+      <sec sec-type="specimen.txt">
+        <title>specimen.txt</title>
+        <p>This table contains the museum/herbarium specimens and observation records present within a Scratchpad. At present Scratchpads use DwC 1.2.1 as the internal specimen/observation standard. This is currently being upgraded to DwC 1.4. Table <xref ref-type="table" rid="T358600">7</xref>.</p>
+      </sec>
+      <sec sec-type="vernacular_names.txt">
+        <title>vernacular_names.txt</title>
+        <p>The vernacular names extension records common names, their language, where in the world they are used and any remarks (Table <xref ref-type="table" rid="T290883">8</xref>).</p>
+      </sec>
+      <sec sec-type="eMonocot modifications to the DwC-A">
+        <title>eMonocot modifications to the DwC-A</title>
+        <p>The eMonocot project makes extensive use of its own unique identifiers derived from the World Checklist of Monocots (WCM). A separate Scratchpads/Drupal module, emonocot_dwca, handles the replacement of the Scratchpads UUID with the eMonocot/WCM identifier. In addition, the licences for taxon descriptive content from eMonocot sites are derived through a link to a publication in the Scratchpad bibliography. A licence field on that publication is used to assign a licence to all the descriptive content that has been copied from that resource. This function is not present in standard Scratchpads, and the emonocot_dwca module ensures that the correct licence is applied to content when it is exported in the DwC-A.</p>
+      </sec>
+      <sec sec-type="Usage of Drush (for use by Scratchpad Team or server administrator)">
+        <title>Usage of Drush (for use by Scratchpad Team or server administrator)</title>
+        <p>One additional Drush command is provided by the module dwca_rebuild. This function needs to be called twice to build an archive. The first time it is called it creates a number of processes run via the POSIX nohup command (POSIX, the Portable Operating System Interface, is a set of standards for Unix-like operatinng systems) to prevent problems with timeouts when connected to a server via SSH. These processes run through the individual views used to create the DwC-A files and output their contents to text files. The second time it is run the various description views are aggregated into a single file, and this, along with the other exported text files are then zipped to create the archive.</p>
+        <p>This feature is used by the Scratchpads Team (or the server administrator where the site is not hosted by the Scratchpad project) and is not available to Scratchpads users.</p>
+        <sec sec-type="Example usage">
+            <title>Example usage</title>
+            <p>From within a site directory: drush dwca_rebuild</p>
+            <p>Using an alias: drush @cypriioideae.e-monocot.org dwca_rebuild</p>
+        </sec>
+      </sec>
+      <sec sec-type="Module requirements">
+        <title>Module requirements</title>
+        <p>This module has dependencies on a number of standard Drupal contributed modules (<ext-link ext-link-type="uri" xlink:href="http://drupal.org/project/views">Views</ext-link>, <ext-link ext-link-type="uri" xlink:href="http://drupal.org/project/views_data_export">Views Data Export</ext-link>) and also the <ext-link ext-link-type="uri" xlink:href="https://git.scratchpads.eu/v/scratchpads-2.0.git/tree/HEAD:/sites/all/modules/custom/darwincore">Darwin Core</ext-link> module developed for the Scratchpads project. While the module may run correctly on a non-Scratchpad Drupal installation this is not a supported use. The module can be enabled on a Scratchpad site through the Structure &gt; Tools interface, which will automatically enable all dependencies.</p>
+      </sec>
+      <sec sec-type="DwC-A Validator">
+        <title>DwC-A Validator</title>
+        <p>A number of tools exist that can perform validation on a DwC-A file, for example the tools developed by EoL and GBIF. While these tools are useful they are insufficient for complete verification of an archive. The <ext-link ext-link-type="uri" xlink:href="http://services.eol.org/dwc_validator/">EoL validator</ext-link> is specifically designed to interpret content destined for the Encyclopedia of Life project, and as such, only reports errors when, for example, licences incompatible with EoL's terms and conditions are used, although in this case there is no requirement for using an EoL licence in the definition of a DwC-A. The EoL validator also reports errors when an image is listed multiple times in the media extension, a situation that may arise when a photograph on a Scratchpad site contains two identifiable species. In contrast the <ext-link ext-link-type="uri" xlink:href="http://tools.gbif.org/dwca-validator/">GBIF validator</ext-link> checks for basic compliance with the schema (testing structure rather than content), and no validator is available for the eMonocot project.</p>
+        <p>In order to provide a consistent and correct DwC-A from a Scratchpad to any of our content partners the decision was made to create <ext-link ext-link-type="uri" xlink:href="https://github.com/edwbaker/dwca_validator/">our own validator</ext-link>. This validator checks the structure of the archive, ensuring that all files and columns specified in the meta.xml are present in the zip file. Where columns should contain structured content (e.g. a URL, ISSN, ISBN) the content in each row is checked for conformity using regular expression matching. A <ext-link ext-link-type="uri" xlink:href="https://github.com/edwbaker/dwca_validator/wiki/List-of-checks-performed-by-the-validator">complete list of checks </ext-link>currently performed is available on the validator wiki.</p>
+        <p>Checking the structure of the file allows us to check for errors such as column transposition during any future development to the dwca_export module. The precise checking of data in each row also allows us to check the data in the Scratchpad. This gives us the potential to add a feature that warns users of potential errors in the content present within their Scratchpad. For example, running the validator against a number of sites identified several occasions where ISSNs had incorrectly been entered into the ISBN field. At present the validator is run as a stand-alone tool – future work will provide Scratchpad maintainers with a list of identified errors with links to edit content flagged by the validator.</p>
+      </sec>
+      <sec sec-type="Usage of archives">
+        <title>Usage of archives</title>
+        <p>Once the module is enabled the Darwin Core Archive is available for use by our content partners in ViBRANT and eMonocot as well as by anybody else who has an interest in the data. Users of the data must abide by the licence (generally Creative Commons) that the site maintainer has specified. It should be noted that individual rows of data are likely to have different licences.</p>
+      </sec>
+      <sec sec-type="Content of archives">
+        <title>Content of archives</title>
+        <p>By default all of the content in the site that is available to the public via the standard web interface is available in the archive. Content creators can hide content from both the Scratchpad website and the Darwin Core Archive by marking that content as 'Unpublished'. It should be noted that due to the caching of web pages and the archives being created by a cron task that content may take a few hours to disappear from both the website and the archive.</p>
+        <p>At present only content types specified by the Scratchpad team (Specimens, Taxonomy, References, Images, etc.) can be mapped into the Darwin Core Archive. In the future we plan to provide an interface to allow custom content types created by site maintainers to be mapped into the archive.</p>
+      </sec>
+    </sec>
+  </body>
+  <back>
+    <ack>
+      <title>Acknowledgements</title>
+      <p>We would like to thank our partners in the eMonocot and ViBRANT projects who have helped to develop and consume the DwC-As that we create: Ben Clark (University of Oxford) and the eMonocot Content Team (Royal Botanic Gardens Kew), Andrew Hill and the team at (Vizzuality/ViBRANT), Lorna Morris and colleagues (Berlin Botanic Garden/ViBRANT).</p>
+      <p>In addition we would like to thank Cyndy Parr, Jen Hammock, Patrick Leary and the rest of the Encyclopedia of Life team for their help in resolving incompatibilities between the DwC-A standard and the EoL implementation.</p>
+    </ack>
+    <sec sec-type="Author contributions">
+      <title>Author contributions</title>
+      <p>The dwca_export Scratchpads/Drupal module was developed by Ed Baker and Simon Rycroft from a prototype by Lorna Morris and Andreas Kohlbecker.</p>
+      <p>The emonocot_dwca Scratchpads/Drupal module was developed by Ed Baker.</p>
+      <p>The validator tool was written by Ed Baker.</p>
+      <p>Vince Smith fielded the considerable correspondence between the eMonocot, Encyclopedia of Life and Scratchpad teams in pursuit of constructing a single archive that could satisfy the diverse needs these different projects.</p>
+      <p>Vince Smith and Ed Baker wrote the manuscript.</p>
+    </sec>
+    <ref-list>
+      <title>References</title>
+      <ref id="B252465">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Remsen</surname>
+              <given-names>David</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Knapp</surname>
+              <given-names>Sandra</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Georgiev</surname>
+              <given-names>Teodor</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Stoev</surname>
+              <given-names>Pavel</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Penev</surname>
+              <given-names>Lyubomir</given-names>
+            </name>
+          </person-group>
+          <year>2012</year>
+          <article-title>From text to structured data: Converting a word-processed floristic checklist into Darwin Core Archive format</article-title>
+          <source>PhytoKeys</source>
+          <volume>9</volume>
+          <fpage>1</fpage>
+          <uri>http://www.pensoft.net/journals/phytokeys/article/2770/abstract/from-text-to-structured-data-converting-a-word-processed-floristic-checklist-into-darwin-core-archive-format</uri>
+          <pub-id pub-id-type="doi">10.3897/phytokeys.9.2770</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B252431">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Smith</surname>
+              <given-names>Vincent</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Rycroft</surname>
+              <given-names>Simon</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Brake</surname>
+              <given-names>Irina</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Scott</surname>
+              <given-names>Ben</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Baker</surname>
+              <given-names>Ed</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Livermore</surname>
+              <given-names>Laurence</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Blagoderov</surname>
+              <given-names>Vladimir</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Roberts</surname>
+              <given-names>David</given-names>
+            </name>
+          </person-group>
+          <year>2011</year>
+          <article-title>Scratchpads 2.0: a Virtual Research Environment supporting scholarly collaboration, communication and data publication in biodiversity science</article-title>
+          <source>ZooKeys</source>
+          <volume>150</volume>
+          <fpage>53</fpage>
+          <uri>http://www.pensoft.net/journals/zookeys/article/2193/abstract/scratchpads-20-a-virtual-research-environment-supporting-scholarly-collaboration-communication-and-data-publication-in-b</uri>
+          <pub-id pub-id-type="doi">10.3897/zookeys.150.2193</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B252448">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Wieczorek</surname>
+              <given-names>John</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Bloom</surname>
+              <given-names>David</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Guralnick</surname>
+              <given-names>Robert</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Blum</surname>
+              <given-names>Stan</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Döring</surname>
+              <given-names>Markus</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Giovanni</surname>
+              <given-names>Renato</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Robertson</surname>
+              <given-names>Tim</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Vieglais</surname>
+              <given-names>David</given-names>
+            </name>
+          </person-group>
+          <year>2012</year>
+          <article-title>Darwin Core: An Evolving Community-Developed Biodiversity Data Standard</article-title>
+          <source>PLoS ONE</source>
+          <volume>7</volume>
+          <issue>1</issue>
+          <elocation-id>e29715</elocation-id>
+          <uri>http://dx.plos.org/10.1371/journal.pone.0029715</uri>
+          <pub-id pub-id-type="doi">10.1371/journal.pone.0029715</pub-id>
+        </element-citation>
+      </ref>
+    </ref-list>
+    <app-group>
+      <title>Supplementary files</title>
+      <app>
+        <title>Sample Darwin Core Archive from eMonocot Scratchpad</title>
+        <supplementary-material id="S495612" orientation="portrait" position="float" xlink:type="simple">
+          <caption>
+            <p><bold>Authors:</bold> eMonocot <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="subfamilia">Cypripedioideae</tp:taxon-name-part></tp:taxon-name></p>
+            <p><bold>Data type:</bold> darwin core archive</p>
+            <p>Darwin Core Archive created from the eMonocot <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="subfamilia">Cypripedioidea</tp:taxon-name-part></tp:taxon-name> Scratchpad on 06/01/2014.</p>
+            <p><bold>File:</bold> oo_5522.zip</p>
+          </caption>
+          <media xlink:href="biodiversity_data_journal-2-e1039-s001.zip" mimetype="Archive file" mime-subtype="zip" position="float" orientation="portrait" xlink:type="simple"/>
+        </supplementary-material>
+      </app>
+    </app-group>
+  </back>
+  <floats-group>
+    <fig id="F366444" position="float" orientation="portrait">
+      <label>Figure 1.</label>
+      <caption>
+        <p>The star schema showing the relation of Darwin Core Archive extension files to the core file.</p>
+      </caption>
+      <graphic xlink:href="biodiversity_data_journal-2-e1039-g001.jpg" position="float" orientation="portrait" xlink:type="simple"/>
+    </fig>
+    <fig id="F495615" position="float" orientation="portrait">
+      <label>Figure 2.</label>
+      <caption>
+        <p>Data flow from Scratchpad to Darwin Core Archive. The dwca_export module (orange) defines a number of custom Drupal Views (queries) that collect the data required for archive generation from the Scratchpad (blue) and combines them with the meta.xml which describes the information in the archive. For eMonocot Scratchpads the emonocot_dwca module (green) provides an intermediary function replacing the Scratchpads internal unique identifiers with those used throughout the eMonocot project (see eMonocot modifications section).</p>
+      </caption>
+      <graphic xlink:href="biodiversity_data_journal-2-e1039-g002.jpg" position="float" orientation="portrait" xlink:type="simple"/>
+    </fig>
+    <fig id="F290877" position="float" orientation="portrait">
+      <label>Figure 3.</label>
+      <caption>
+        <p>A single Taxon Description node on a Scratchpad corresponds to one or more rows in the description.txt file.</p>
+      </caption>
+      <graphic xlink:href="biodiversity_data_journal-2-e1039-g003.jpg" position="float" orientation="portrait" xlink:type="simple"/>
+    </fig>
+    <table-wrap id="T290880" position="float" orientation="portrait">
+      <label>Table 1.</label>
+      <caption>
+        <p>The fields used in our classification.txt – the core of our DwC-A star schema.</p>
+      </caption>
+      <table border="1">
+        <tr>
+          <th rowspan="1" colspan="1">Field</th>
+          <th rowspan="1" colspan="1">Description</th>
+          <th rowspan="1" colspan="1">Term</th>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">Taxon ID</td>
+          <td rowspan="1" colspan="1">A universally unique identifier (UUID) of this name (World Checklist of Monocots [WCM] identifier for eMonocot Scratchpads)</td>
+          <td rowspan="1" colspan="1"/>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">Taxon Name</td>
+          <td rowspan="1" colspan="1">The taxon name – made by concatenating the unit names and unit indicators (the Scratchpads stores all parts of the scientific name, and indicators such as sp. &amp; spp. in separate fields)</td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://rs.tdwg.org/dwc/terms/scientificName">http://rs.tdwg.org/dwc/terms/scientificName</ext-link>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">Taxonomic Status</td>
+          <td rowspan="1" colspan="1">See Table <xref ref-type="table" rid="T290881">2</xref></td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://rs.tdwg.org/dwc/terms/taxonomicStatus">http://rs.tdwg.org/dwc/terms/taxonomicStatus</ext-link>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">Taxonomic Rank</td>
+          <td rowspan="1" colspan="1">e.g. species, genus, family</td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://rs.tdwg.org/dwc/terms/taxonRank">http://rs.tdwg.org/dwc/terms/taxonRank</ext-link>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">Taxon Author(s)</td>
+          <td rowspan="1" colspan="1">Plain text names of the author(s) of this taxon</td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://rs.tdwg.org/dwc/terms/scientificNameAuthorship">http://rs.tdwg.org/dwc/terms/scientificNameAuthorship</ext-link>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">Reference</td>
+          <td rowspan="1" colspan="1">Citation of the reference containing the description of this taxon</td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://rs.tdwg.org/dwc/terms/namePublishedIn">http://rs.tdwg.org/dwc/terms/namePublishedIn</ext-link>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">Reference ID</td>
+          <td rowspan="1" colspan="1">URL to the reference containing the description of this taxon within the Scratchpad</td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://rs.tdwg.org/dwc/terms/namePublishedInID">http://rs.tdwg.org/dwc/terms/namePublishedInID</ext-link>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">Taxonomic Parent</td>
+          <td rowspan="1" colspan="1">The parent of this name in the classification, if this name is accepted.</td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://rs.tdwg.org/dwc/terms/parentNameUsageID">http://rs.tdwg.org/dwc/terms/parentNameUsageID</ext-link>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">Nomenclatural Status</td>
+          <td rowspan="1" colspan="1">See Table <xref ref-type="table" rid="T290881">2</xref></td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://rs.tdwg.org/dwc/terms/nomenclaturalStatus">http://rs.tdwg.org/dwc/terms/nomenclaturalStatus</ext-link>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">Accepted Name</td>
+          <td rowspan="1" colspan="1">The UUID of the associated accepted name, if this name is not accepted</td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://rs.tdwg.org/dwc/terms/acceptedNameUsageID">http://rs.tdwg.org/dwc/terms/acceptedNameUsageID</ext-link>
+          </td>
+        </tr>
+      </table>
+    </table-wrap>
+    <table-wrap id="T290881" position="float" orientation="portrait">
+      <label>Table 2.</label>
+      <caption>
+        <p>Mapping from the Scratchpads taxonomy model to the GBIF Darwin Core taxonomy model</p>
+      </caption>
+      <table border="1">
+        <tr>
+          <th rowspan="1" colspan="1">Scratchpads: Usage</th>
+          <th rowspan="1" colspan="1">Scratchpads: Unacceptability Reason</th>
+          <th rowspan="1" colspan="1">DwC: taxonomicStatus</th>
+          <th rowspan="1" colspan="1">DwC: nomenclaturalStatus</th>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">accepted/valid</td>
+          <td rowspan="1" colspan="1"/>
+          <td rowspan="1" colspan="1">accepted</td>
+          <td rowspan="1" colspan="1"/>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">valid</td>
+          <td rowspan="1" colspan="1"/>
+          <td rowspan="1" colspan="1">valid</td>
+          <td rowspan="1" colspan="1"/>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">not accepted / invalid</td>
+          <td rowspan="1" colspan="1">-None-</td>
+          <td rowspan="1" colspan="1"/>
+          <td rowspan="1" colspan="1"/>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">not accepted / invalid</td>
+          <td rowspan="1" colspan="1">synonym</td>
+          <td rowspan="1" colspan="1">synonym</td>
+          <td rowspan="1" colspan="1"/>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">not accepted / invalid</td>
+          <td rowspan="1" colspan="1">homotypic (nomenclatural) synonym</td>
+          <td rowspan="1" colspan="1">homotypicSynonym</td>
+          <td rowspan="1" colspan="1"/>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">not accepted / invalid</td>
+          <td rowspan="1" colspan="1">heterotypic (taxonomic) synonym</td>
+          <td rowspan="1" colspan="1">heterotypicSynonym</td>
+          <td rowspan="1" colspan="1"/>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">not accepted / invalid</td>
+          <td rowspan="1" colspan="1">homonym (illegitimate)</td>
+          <td rowspan="1" colspan="1">heterotypicSynonym</td>
+          <td rowspan="1" colspan="1">illegitimum</td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">not accepted / invalid</td>
+          <td rowspan="1" colspan="1">superfluous renaming (illegitimate)</td>
+          <td rowspan="1" colspan="1">homotypicSyonym</td>
+          <td rowspan="1" colspan="1">superfluum</td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">not accepted / invalid</td>
+          <td rowspan="1" colspan="1">rejected name</td>
+          <td rowspan="1" colspan="1">synonym</td>
+          <td rowspan="1" colspan="1">rejiciendum</td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">not accepted / invalid</td>
+          <td rowspan="1" colspan="1">invalidly published, nomen nudum</td>
+          <td rowspan="1" colspan="1">synonym</td>
+          <td rowspan="1" colspan="1">nudum</td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">not accepted / invalid</td>
+          <td rowspan="1" colspan="1">invalidly published, other</td>
+          <td rowspan="1" colspan="1">synonym</td>
+          <td rowspan="1" colspan="1">invalidum</td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">not accepted / invalid</td>
+          <td rowspan="1" colspan="1">misapplied</td>
+          <td rowspan="1" colspan="1">misapplied</td>
+          <td rowspan="1" colspan="1"/>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">not accepted / invalid</td>
+          <td rowspan="1" colspan="1">pro parte</td>
+          <td rowspan="1" colspan="1">proParteSynonym</td>
+          <td rowspan="1" colspan="1"/>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">not accepted / invalid</td>
+          <td rowspan="1" colspan="1">horticultural</td>
+          <td rowspan="1" colspan="1"/>
+          <td rowspan="1" colspan="1"/>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">not accepted / invalid</td>
+          <td rowspan="1" colspan="1">database artifact</td>
+          <td rowspan="1" colspan="1"/>
+          <td rowspan="1" colspan="1"/>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">not accepted / invalid</td>
+          <td rowspan="1" colspan="1">orthographic Variant (misspelling)</td>
+          <td rowspan="1" colspan="1">synonym</td>
+          <td rowspan="1" colspan="1">orthographia</td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">not accepted / invalid</td>
+          <td rowspan="1" colspan="1">other</td>
+          <td rowspan="1" colspan="1"/>
+          <td rowspan="1" colspan="1"/>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">not accepted / invalid</td>
+          <td rowspan="1" colspan="1">junior synonym</td>
+          <td rowspan="1" colspan="1"/>
+          <td rowspan="1" colspan="1"/>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">not accepted / invalid</td>
+          <td rowspan="1" colspan="1">objective synonym</td>
+          <td rowspan="1" colspan="1"/>
+          <td rowspan="1" colspan="1"/>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">not accepted / invalid</td>
+          <td rowspan="1" colspan="1">subjective synonym</td>
+          <td rowspan="1" colspan="1"/>
+          <td rowspan="1" colspan="1"/>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">not accepted / invalid</td>
+          <td rowspan="1" colspan="1">original name/combination</td>
+          <td rowspan="1" colspan="1"/>
+          <td rowspan="1" colspan="1"/>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">not accepted / invalid</td>
+          <td rowspan="1" colspan="1">subsequent name/combination</td>
+          <td rowspan="1" colspan="1"/>
+          <td rowspan="1" colspan="1">combinatio</td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">not accepted / invalid</td>
+          <td rowspan="1" colspan="1">junior homonym</td>
+          <td rowspan="1" colspan="1">synonym</td>
+          <td rowspan="1" colspan="1">illegitimum</td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">not accepted / invalid</td>
+          <td rowspan="1" colspan="1">homonym &amp; junior synonym</td>
+          <td rowspan="1" colspan="1">synonym</td>
+          <td rowspan="1" colspan="1"/>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">not accepted / invalid</td>
+          <td rowspan="1" colspan="1">unavailable, database artifact</td>
+          <td rowspan="1" colspan="1"/>
+          <td rowspan="1" colspan="1"/>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">not accepted / invalid</td>
+          <td rowspan="1" colspan="1">unavailable, literature misspelling</td>
+          <td rowspan="1" colspan="1">synonym</td>
+          <td rowspan="1" colspan="1">orthographia</td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">not accepted / invalid</td>
+          <td rowspan="1" colspan="1">unavailable, incorrect original spelling</td>
+          <td rowspan="1" colspan="1"/>
+          <td rowspan="1" colspan="1">negatum</td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">not accepted / invalid</td>
+          <td rowspan="1" colspan="1">unavailable, suppressed by ruling</td>
+          <td rowspan="1" colspan="1"/>
+          <td rowspan="1" colspan="1">oppressa</td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">not accepted / invalid</td>
+          <td rowspan="1" colspan="1">unavailable, nomen nudum</td>
+          <td rowspan="1" colspan="1">synonym</td>
+          <td rowspan="1" colspan="1">nudum</td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">not accepted / invalid</td>
+          <td rowspan="1" colspan="1">unavailable, other</td>
+          <td rowspan="1" colspan="1"/>
+          <td rowspan="1" colspan="1"/>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">not accepted / invalid</td>
+          <td rowspan="1" colspan="1">unjustified emendation</td>
+          <td rowspan="1" colspan="1"/>
+          <td rowspan="1" colspan="1"/>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">not accepted / invalid</td>
+          <td rowspan="1" colspan="1">unnecessary replacement</td>
+          <td rowspan="1" colspan="1">synonym</td>
+          <td rowspan="1" colspan="1">superfluum</td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">not accepted / invalid</td>
+          <td rowspan="1" colspan="1">nomen oblitum</td>
+          <td rowspan="1" colspan="1"/>
+          <td rowspan="1" colspan="1"/>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">not accepted / invalid</td>
+          <td rowspan="1" colspan="1">misapplied</td>
+          <td rowspan="1" colspan="1"/>
+          <td rowspan="1" colspan="1"/>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">not accepted / invalid</td>
+          <td rowspan="1" colspan="1">pro parte</td>
+          <td rowspan="1" colspan="1">proParteSynonym</td>
+          <td rowspan="1" colspan="1"/>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">not accepted / invalid</td>
+          <td rowspan="1" colspan="1">nomen dubium</td>
+          <td rowspan="1" colspan="1">synonym</td>
+          <td rowspan="1" colspan="1">dubium</td>
+        </tr>
+      </table>
+    </table-wrap>
+    <table-wrap id="T290882" position="float" orientation="portrait">
+      <label>Table 3.</label>
+      <caption>
+        <p>Mapping schema of Scratchpads textual descriptions of taxa to the GBIF (as used by eMonocot) and EoL extensions in the Darwin Core Archive.</p>
+      </caption>
+      <table border="1">
+        <tr>
+          <th rowspan="1" colspan="1">Field</th>
+          <th rowspan="1" colspan="1">Description</th>
+          <th rowspan="1" colspan="1">GBIF term</th>
+          <th rowspan="1" colspan="1">EoL term</th>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">Taxon ID</td>
+          <td rowspan="1" colspan="1">The Scratchpads universally unique identifier for the taxonomic name (WCM identifier for eMonocot Scratchpads)</td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://rs.tdwg.org/dwc/terms/taxonID">http://rs.tdwg.org/dwc/terms/taxonID</ext-link>
+          </td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://rs.tdwg.org/dwc/terms/taxonID">http://rs.tdwg.org/dwc/terms/taxonID</ext-link>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">Type</td>
+          <td rowspan="1" colspan="1">The type of the textual description: "general", "ecology", "behaviour", etc.</td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://purl.org/dc/terms/type">http://purl.org/dc/terms/type</ext-link>
+          </td>
+          <td rowspan="1" colspan="1"/>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">Text</td>
+          <td rowspan="1" colspan="1">The textual description. E.g. if Type is "general" this field will contain a general description of the taxon</td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://purl.org/dc/terms/description">http://purl.org/dc/terms/description</ext-link>
+          </td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://purl.org/dc/terms/description">http://purl.org/dc/terms/description</ext-link>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">Rights</td>
+          <td rowspan="1" colspan="1">Textual description of the rights associated with this content, e.g. "All Rights Reserved"</td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://purl.org/dc/terms/rights">http://purl.org/dc/terms/rights</ext-link>
+          </td>
+          <td rowspan="1" colspan="1"/>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">AccessURI</td>
+          <td rowspan="1" colspan="1">The URL of the Scratchpad node containing this description</td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://purl.org/dc/terms/references">http://purl.org/dc/terms/references</ext-link>
+          </td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://rs.tdwg.org/ac/terms/furtherInformationUR">http://rs.tdwg.org/ac/terms/furtherInformationUR</ext-link>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">Source</td>
+          <td rowspan="1" colspan="1">Scratchpad URL of the bibliographic reference this description is from (only applies to eMonocot sites)</td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://purl.org/dc/terms/source">http://purl.org/dc/terms/source</ext-link>
+          </td>
+          <td rowspan="1" colspan="1"/>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">Copyright Owner</td>
+          <td rowspan="1" colspan="1">The copyright owner of the description</td>
+          <td rowspan="1" colspan="1"/>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://ns.adobe.com/xap/1.0/rights/Owner">http://ns.adobe.com/xap/1.0/rights/Owner</ext-link>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">Language</td>
+          <td rowspan="1" colspan="1">The language of the description</td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://purl.org/dc/terms/language">http://purl.org/dc/terms/language</ext-link>
+          </td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://purl.org/dc/terms/language">http://purl.org/dc/terms/language</ext-link>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">CV Term</td>
+          <td rowspan="1" colspan="1">Image keywords</td>
+          <td rowspan="1" colspan="1"/>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://iptc.org/std/Iptc4xmpExt/1.0/xmlns/CVterm">http://iptc.org/std/Iptc4xmpExt/1.0/xmlns/CVterm</ext-link>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">Format</td>
+          <td rowspan="1" colspan="1">URL of the SPM type of the description, e.g. <ext-link ext-link-type="uri" xlink:href="http://rs.tdwg.org/ontology/voc/SPMInfoItems#GeneralDescription">http://rs.tdwg.org/ontology/voc/SPMInfoItems#GeneralDescription</ext-link></td>
+          <td rowspan="1" colspan="1"/>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://purl.org/dc/terms/format">http://purl.org/dc/terms/format</ext-link>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">Type</td>
+          <td rowspan="1" colspan="1">MIME type of the textual content, generally: text/html</td>
+          <td rowspan="1" colspan="1"/>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://purl.org/dc/terms/type">http://purl.org/dc/terms/type</ext-link>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">agentID</td>
+          <td rowspan="1" colspan="1">UUID of the author who contributed the content to the site</td>
+          <td rowspan="1" colspan="1"/>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://eol.org/schema/agent/agentID">http://eol.org/schema/agent/agentID</ext-link>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">License</td>
+          <td rowspan="1" colspan="1">URL of the license used to release the content, if any</td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://purl.org/dc/terms/license">http://purl.org/dc/terms/license</ext-link>
+          </td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://ns.adobe.com/xap/1.0/rights/UsageTerms">http://ns.adobe.com/xap/1.0/rights/UsageTerms</ext-link>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">Identifier</td>
+          <td rowspan="1" colspan="1">A unique identifier for this particular textual description. Formed by concatenating the universally unique identifier of the description node, the # character, and the field name.</td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://purl.org/dc/terms/identifier">http://purl.org/dc/terms/identifier</ext-link>
+          </td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://purl.org/dc/terms/identifier">http://purl.org/dc/terms/identifier</ext-link>
+          </td>
+        </tr>
+      </table>
+    </table-wrap>
+    <table-wrap id="T290884" position="float" orientation="portrait">
+      <label>Table 4.</label>
+      <caption>
+        <p>eol_agents</p>
+      </caption>
+      <table border="1">
+        <tr>
+          <th rowspan="1" colspan="1">Field</th>
+          <th rowspan="1" colspan="1">Description</th>
+          <th rowspan="1" colspan="1">Term</th>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">User ID</td>
+          <td rowspan="1" colspan="1">The universally unique identifier of the user</td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://purl.org/dc/terms/identifier">http://purl.org/dc/terms/identifier</ext-link>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">Family Name</td>
+          <td rowspan="1" colspan="1">The user's last/family name</td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://xmlns.com/foaf/spec/#term_familyName">http://xmlns.com/foaf/spec/#term_familyName</ext-link>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">First Names</td>
+          <td rowspan="1" colspan="1">The user's given/first names</td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://xmlns.com/foaf/spec/#term_firstName">http://xmlns.com/foaf/spec/#term_firstName</ext-link>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">Full Name</td>
+          <td rowspan="1" colspan="1">Full name of the user – concatentaion with space of above two fields</td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://xmlns.com/foaf/spec/#term_name">http://xmlns.com/foaf/spec/#term_name</ext-link>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">Organisation</td>
+          <td rowspan="1" colspan="1">The organisation the user works for, if any</td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://eol.org/schema/agent/organization">http://eol.org/schema/agent/organization</ext-link>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">Username</td>
+          <td rowspan="1" colspan="1">The user's username on this Scratchpad</td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://xmlns.com/foaf/spec/#term_accountName">http://xmlns.com/foaf/spec/#term_accountName</ext-link>
+          </td>
+        </tr>
+      </table>
+    </table-wrap>
+    <table-wrap id="T290885" position="float" orientation="portrait">
+      <label>Table 5.</label>
+      <caption>
+        <p>Structure of comments.txt – the non-standard extension for synchronising comments between a Scratchpad and the eMonocot portal</p>
+      </caption>
+      <table border="1">
+        <tr>
+          <th rowspan="1" colspan="1">Field</th>
+          <th rowspan="1" colspan="1">Description</th>
+          <th rowspan="1" colspan="1">Term</th>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">CommentID</td>
+          <td rowspan="1" colspan="1">URL of the comment</td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://purl.org/dc/terms/identifier">http://purl.org/dc/terms/identifier</ext-link>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">Target</td>
+          <td rowspan="1" colspan="1">URL of the node the comment was made on</td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://www.w3.org/ns/oa#hasTarget">http://www.w3.org/ns/oa#hasTarget</ext-link>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">Title</td>
+          <td rowspan="1" colspan="1">Title of the comment</td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://purl.org/dc/terms/title">http://purl.org/dc/terms/title</ext-link>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">Body</td>
+          <td rowspan="1" colspan="1">The comment itself</td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://www.w3.org/ns/oa#hasBody">http://www.w3.org/ns/oa#hasBody</ext-link>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">Created</td>
+          <td rowspan="1" colspan="1">Date and time the comment was created</td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://purl.org/dc/terms/created">http://purl.org/dc/terms/created</ext-link>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">Modified</td>
+          <td rowspan="1" colspan="1">Date and time the comment was last edited</td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://purl.org/dc/terms/modified">http://purl.org/dc/terms/modified</ext-link>
+          </td>
+        </tr>
+      </table>
+    </table-wrap>
+    <table-wrap id="T358599" position="float" orientation="portrait">
+      <label>Table 6.</label>
+      <caption>
+        <p>references</p>
+      </caption>
+      <table border="1">
+        <tr>
+          <th rowspan="1" colspan="1">Field</th>
+          <th rowspan="1" colspan="1">Description</th>
+          <th rowspan="1" colspan="1">GBIF / PURL Term</th>
+          <th rowspan="1" colspan="1">EoL Term</th>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">Taxon ID</td>
+          <td rowspan="1" colspan="1">UUID of taxa in the publication</td>
+          <td rowspan="1" colspan="1"/>
+          <td rowspan="1" colspan="1"/>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">Identifier</td>
+          <td rowspan="1" colspan="1">UUID of the reference in the Scratchpad site</td>
+          <td rowspan="1" colspan="1"/>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://purl.org/dc/terms/identifier">http://purl.org/dc/terms/identifier</ext-link>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">DOI</td>
+          <td rowspan="1" colspan="1">Digital Object Identifier</td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://purl.org/ontology/bibo/doi">http://purl.org/ontology/bibo/doi</ext-link>
+          </td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://purl.org/ontology/bibo/doi">http://purl.org/ontology/bibo/doi</ext-link>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">ISBN</td>
+          <td rowspan="1" colspan="1">International Standard Book Number</td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://purl.org/ontology/bibo/isbn">http://purl.org/ontology/bibo/isbn</ext-link>
+          </td>
+          <td rowspan="1" colspan="1"/>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">ISSN</td>
+          <td rowspan="1" colspan="1">International Standard Serial Number</td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://purl.org/ontology/bibo/issn">http://purl.org/ontology/bibo/issn</ext-link>
+          </td>
+          <td rowspan="1" colspan="1"/>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">Citation</td>
+          <td rowspan="1" colspan="1">Plain text citation of the work</td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://purl.org/dc/terms/bibliographicCitation">http://purl.org/dc/terms/bibliographicCitation</ext-link>
+          </td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://eol.org/schema/reference/full_reference">http://eol.org/schema/reference/full_reference</ext-link>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">Title</td>
+          <td rowspan="1" colspan="1"/>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://purl.org/dc/terms/title">http://purl.org/dc/terms/title</ext-link>
+          </td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://eol.org/schema/reference/primaryTitle">http://eol.org/schema/reference/primaryTitle</ext-link>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1"/>
+          <td rowspan="1" colspan="1"/>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://purl.org/dc/terms/creator">http://purl.org/dc/terms/creator</ext-link>
+          </td>
+          <td rowspan="1" colspan="1"/>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">Node URL</td>
+          <td rowspan="1" colspan="1"/>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://purl.org/dc/terms/identifier">http://purl.org/dc/terms/identifier</ext-link>
+          </td>
+          <td rowspan="1" colspan="1"/>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1"/>
+          <td rowspan="1" colspan="1"/>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://purl.org/dc/terms/subject">http://purl.org/dc/terms/subject</ext-link>
+          </td>
+          <td rowspan="1" colspan="1"/>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">Language</td>
+          <td rowspan="1" colspan="1"/>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://purl.org/dc/terms/language">http://purl.org/dc/terms/language</ext-link>
+          </td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://purl.org/dc/terms/language">http://purl.org/dc/terms/language</ext-link>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1"/>
+          <td rowspan="1" colspan="1">Indicates if if publication is original description of a taxon</td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://purl.org/dc/terms/type">http://purl.org/dc/terms/type</ext-link>
+          </td>
+          <td rowspan="1" colspan="1"/>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">Publication Date</td>
+          <td rowspan="1" colspan="1"/>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://purl.org/dc/terms/date">http://purl.org/dc/terms/date</ext-link>
+          </td>
+          <td rowspan="1" colspan="1"/>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">Created Date</td>
+          <td rowspan="1" colspan="1">Date the reference was added to the Scratchpad</td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://purl.org/dc/terms/created">http://purl.org/dc/terms/created</ext-link>
+          </td>
+          <td rowspan="1" colspan="1"/>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">Modified Date</td>
+          <td rowspan="1" colspan="1">Date the reference was last modified in the Scratchpad</td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://purl.org/dc/terms/modified">http://purl.org/dc/terms/modified</ext-link>
+          </td>
+          <td rowspan="1" colspan="1"/>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1"/>
+          <td rowspan="1" colspan="1"/>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://purl.org/dc/terms/relation">http://purl.org/dc/terms/relation</ext-link>
+          </td>
+          <td rowspan="1" colspan="1"/>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1"/>
+          <td rowspan="1" colspan="1"/>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://purl.org/dc/terms/source">http://purl.org/dc/terms/source</ext-link>
+          </td>
+          <td rowspan="1" colspan="1"/>
+        </tr>
+      </table>
+    </table-wrap>
+    <table-wrap id="T358600" position="float" orientation="portrait">
+      <label>Table 7.</label>
+      <caption>
+        <p>specimens.txt</p>
+      </caption>
+      <table border="1">
+        <tr>
+          <th rowspan="1" colspan="1">Field</th>
+          <th rowspan="1" colspan="1">Description</th>
+          <th rowspan="1" colspan="1">Term</th>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">Taxon ID</td>
+          <td rowspan="1" colspan="1"/>
+          <td rowspan="1" colspan="1"/>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">Type Status</td>
+          <td rowspan="1" colspan="1">e.g. Holotype</td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://rs.tdwg.org/dwc/terms/typeStatus">http://rs.tdwg.org/dwc/terms/typeStatus</ext-link>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">Institution Code</td>
+          <td rowspan="1" colspan="1">e.g. BMNH for Natural History Museum, London</td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://rs.tdwg.org/dwc/terms/institutionCode">http://rs.tdwg.org/dwc/terms/institutionCode</ext-link>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">Collection Code</td>
+          <td rowspan="1" colspan="1">e.g. E for Entomology</td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://rs.tdwg.org/dwc/terms/collectionCode">http://rs.tdwg.org/dwc/terms/collectionCode</ext-link>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">Catalogue Number</td>
+          <td rowspan="1" colspan="1">Unique specimen identifier</td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://rs.tdwg.org/dwc/terms/catalogNumber">http://rs.tdwg.org/dwc/terms/catalogNumber</ext-link>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">Latitude</td>
+          <td rowspan="1" colspan="1">Decimal latitude</td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://rs.tdwg.org/dwc/terms/decimalLatitude">http://rs.tdwg.org/dwc/terms/decimalLatitude</ext-link>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">Longitude</td>
+          <td rowspan="1" colspan="1">Decimal longitude</td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://rs.tdwg.org/dwc/terms/decimalLongitude">http://rs.tdwg.org/dwc/terms/decimalLongitude</ext-link>
+          </td>
+        </tr>
+      </table>
+    </table-wrap>
+    <table-wrap id="T290883" position="float" orientation="portrait">
+      <label>Table 8.</label>
+      <caption>
+        <p>vernacular_names.txt</p>
+      </caption>
+      <table border="1" style="height:165px; width:841px">
+        <tr>
+          <th rowspan="1" colspan="1">Field</th>
+          <th rowspan="1" colspan="1">Description</th>
+          <th rowspan="1" colspan="1">Term</th>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">Taxon ID</td>
+          <td rowspan="1" colspan="1"/>
+          <td rowspan="1" colspan="1"/>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">Vernacular Name</td>
+          <td rowspan="1" colspan="1">The vernacular (common) name</td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://rs.tdwg.org/dwc/terms/vernacularName">http://rs.tdwg.org/dwc/terms/vernacularName</ext-link>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">Language</td>
+          <td rowspan="1" colspan="1">The language of the vernacular name</td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://purl.org/dc/terms/language">http://purl.org/dc/terms/language</ext-link>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">Locality</td>
+          <td rowspan="1" colspan="1">Where is the vernacular name used</td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://rs.tdwg.org/dwc/terms/locality">http://rs.tdwg.org/dwc/terms/locality</ext-link>
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="1" colspan="1">Remarks</td>
+          <td rowspan="1" colspan="1">Other information</td>
+          <td rowspan="1" colspan="1">
+            <ext-link ext-link-type="uri" xlink:href="http://rs.tdwg.org/dwc/terms/taxonRemarks">http://rs.tdwg.org/dwc/terms/taxonRemarks</ext-link>
+          </td>
+        </tr>
+      </table>
+    </table-wrap>
+  </floats-group>
+</article>

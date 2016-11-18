@@ -4,7 +4,7 @@
 \alias{extract_information}
 \title{Top level extractor}
 \usage{
-extract_information(xml, xlit)
+extract_information(xml, xlit, xdoco)
 }
 \arguments{
 \item{xml}{\emph{XML2} object}
@@ -12,7 +12,8 @@ extract_information(xml, xlit)
 \item{xlit}{\emph{list} of XPATH locations of literals entities}
 }
 \value{
-\emph{list} of triples
+\emph{list} of named triples lists, the name corresponds to the
+context
 }
 \description{
 Top level extractor
