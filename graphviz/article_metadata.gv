@@ -1,0 +1,72 @@
+digraph G {
+
+include(`./settings.gv')
+
+journal1 [label="a fabio:Journal"];
+article1 [label="a fabio:JournalArticle"];
+
+subject_term1 [label="a fabio:SubjectTerm"];
+
+term_dictionary1 [label="a fabio:TermDictionary"];
+discipline1 [label="a fabio:SubjectDiscipline"];
+
+		
+l7 [style=dotted,label="e.g. \"10.3897/zookeys.454.7269\""];
+l8 [style=dotted,label="e.g. \"Cenozoic\""];
+l9 [style=dotted,label="e.g. \"Chronological Classificaiton\""];
+l_article10 [style=dotted,label = "e.g. 2016"];
+la11 [style=dotted,label = "e.g. \"Heser stoevi sp. nov\""];
+
+		journal1 -> article1 [label="frbr:hasPart"];
+		article1 -> l7 [label="prism:doi"];
+		article1 -> subject_term1 [label="fabio:hasSubjectTerm"];
+		article1 -> l_article10 [label="fabio:hasPublicationYear"];
+		article1 -> discipline1 [label="fabio:hasDiscipline"];
+		article1 -> la11 [label="dcterms:title"];
+		article1 -> journal1 [label="frbr:partOf"];
+
+		term_dictionary1 -> discipline1 [label="fabio:hasDiscipline"];
+
+
+		
+
+		subject_term1 -> l8 [label="skos:prefLabel"];
+		subject_term1 -> term_dictionary1 [label="skos:inScheme"];
+
+		term_dictionary1 -> l9 [label="rdfs:label"];
+
+	
+	
+
+		dbpedia_discipline [shape = box,label="e.g. dbpedia:Paleontology"];
+
+		discipline1 -> dbpedia_discipline [label="owl:sameAs"];
+
+		person1 [label="a foaf:Person"];
+
+		role2 [label="a pro:RoleInTime"];
+
+		l10[style=dotted,label="e.g. \"delchev@example.edu\""];
+		l11[style=dotted,label="e.g. \"Christo Deltshev\""];
+
+
+		article1 -> person1 [label="dcterms:creator"];
+
+		person1 -> l10 [label="skos:prefLabel"];
+		person1 -> l11 [label="vcard:fn"];
+		person1 -> l11 [label="vcard:fullName"];
+		person1 -> l10 [label="vcard:email"];
+		person1 -> l11 [label="skos:altLabel"];
+
+		person1 -> role2 [label="pro:holdsRoleInTime"];
+
+		role2 -> article1 [label="pro:relatesToDocument"];
+
+		role2 -> pro_author [label="pro:withRole"];
+		role2 -> scoro_senior_author [label="pro:withRole"];
+		role2 -> scoro_corresponding_author [label="pro:withRole"];
+
+		pro_author [shape = box,label="pro:author"];
+		scoro_senior_author [shape = box,label="scoro:senior-author"];
+		scoro_corresponding_author [shape = box,label="scoro:corresponding-author"];	
+}

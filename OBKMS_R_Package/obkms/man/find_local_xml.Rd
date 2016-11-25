@@ -10,6 +10,8 @@ find_local_xml(xml, local_entities, local_entities_xpath)
 \item{xml}{\emph{XML2} resource to look at}
 
 \item{local_entities}{\emph{list} of semantic id's of entities}
+
+\item{local_entities_xpath}{xpath}
 }
 \value{
 \emph{list} of XML nodes corresponding to the entities

@@ -5,7 +5,8 @@
 \title{Extract taxonomic name usages from an XML nodeset
 It also looks into descendant nodes thanks to the // in Xpath
 Actually we want to submit nomenclature right away to OBKMS
-so as not have duplicates.}
+so as not have duplicates.
+TODO : this function should be rewritten to use the single name case DRY}
 \usage{
 extract_scientific_names_used(xml_ns)
 }
@@ -20,5 +21,6 @@ Extract taxonomic name usages from an XML nodeset
 It also looks into descendant nodes thanks to the // in Xpath
 Actually we want to submit nomenclature right away to OBKMS
 so as not have duplicates.
+TODO : this function should be rewritten to use the single name case DRY
 }
 

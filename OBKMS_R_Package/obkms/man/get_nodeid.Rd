@@ -4,7 +4,7 @@
 \alias{get_nodeid}
 \title{Given a label, tries to get the GUID of the node that has that label in OBKMS}
 \usage{
-get_nodeid(label = "", explicit_node_id = "")
+get_nodeid(label = "", explicit_node_id = "", allow_multiple = FALSE)
 }
 \arguments{
 \item{explicit_node_id}{when we already know the node id (for example from the XML)}

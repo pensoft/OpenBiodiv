@@ -21,7 +21,7 @@
 #' \dontrun{}
 #' @export
 
-get_nodeid = function( label = "", explicit_node_id = "") {
+get_nodeid = function( label = "", explicit_node_id = "", allow_multiple = FALSE) {
   label = gsub("[\t]+", " ", label)
   label = gsub("[\n]+", " ", label)
   label = gsub("[ ]+", " ", label)
@@ -45,6 +45,8 @@ get_nodeid = function( label = "", explicit_node_id = "") {
       res = rdf4jr::POST_query( obkms$server_access_options , obkms$server_access_options$repository, query, "CSV" )
       # check for non-emptiness
       if (!( is.data.frame( res ) && nrow ( res ) == 0 )) {
+        # what TODO if ambigious?
+        stopifnot(!( allow_multiple == FALSE && length( res$id ) > 1 ))
         return ( as.character( res$id ) )
       }
   }
@@ -126,6 +128,32 @@ clear_all = function() {
   return ( res )
 }
 
+#' Delete all triples where a given node is a subject or object
+#' @param node_id id of the node to remove
+#' @return whatever the update call returns
+#' TODO how to return the number of statements
+#' @export
+delete_node_data = function ( node_id ) {
+  # as subject
+  q.t = "DELETE {
+    %node_id ?P ?O .
+}
+WHERE {
+    %node_id ?P ?O .
+}"
+  q = gsub( "%node_id", node_id, q.t )
+  r1 = rdf4jr::update_repository( obkms$server_access_options , obkms$server_access_options$repository, q )
+  q.t = "DELETE {
+    ?S ?P %node_id .
+}
+WHERE {
+    ?S ?P %node_id .
+}"
+  q = gsub( "%node_id", node_id, q.t )
+  r2 = rdf4jr::update_repository( obkms$server_access_options , obkms$server_access_options$repository, q )
+  return( c( httr::content(r1, as = "text"),  httr::content(r2, as = "text") ) )
+}
+
 #' How many statements do we have
 #' @param graph from which graph
 #' @return number of triples in the graph
@@ -145,6 +173,22 @@ WHERE {
 }"
   }
   query = gsub( "%graph", graph, query.template )
+  res = rdf4jr::POST_query( obkms$server_access_options , obkms$server_access_options$repository, query, "CSV" )
+  return ( res )
+}
+
+#' Count how many distinct names there are
+#' @return number of names
+#' @export
+count_scientific_names = function() {
+  # TODO use the entity for sceintific name instead of hardcoding it!!!
+  query = "PREFIX trt: <http://plazi.org/treatment#>
+SELECT (COUNT(*) as ?count)
+WHERE {
+  GRAPH <http://id.pensoft.net/Nomenclature> {
+   ?s ?p trt:ScientificName .
+  }
+}"
   res = rdf4jr::POST_query( obkms$server_access_options , obkms$server_access_options$repository, query, "CSV" )
   return ( res )
 }
