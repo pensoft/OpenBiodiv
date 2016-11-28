@@ -20,12 +20,21 @@
  @prefix nomen: <http://www.semanticweb.org/dmitriev/ontologies/2013/8/untitled-ontology-6#> .
  @prefix dwc: <http://rs.tdwg.org/dwc/terms/> .
  @prefix sro: <http://salt.semanticauthoring.org/ontologies/sro#> .
- pensoft:acbafdc8-3744-4082-9b66-6f2f28884777 {
- http://id.pensoft.net/74c121f3-9237-422a-a793-ef251498880b   http://id.pensoft.net/745bc9e2-baf3-4977-a692-649d3359c42c   http://id.pensoft.net/4e16211f-fc76-48f8-aaeb-fc0859121424 . 
- pensoft:ff34bbf4-1982-489f-85e2-1d4cf5f4ac0e   rdf:type   pro:RoleInTime ;
-	 pro:relatesToDocument   http://id.pensoft.net/788ce5bc-4692-4f89-90ee-db1e283b6ddf . 
- http://id.pensoft.net/788ce5bc-4692-4f89-90ee-db1e283b6ddf   http://id.pensoft.net/ffe7bd9f-6b74-4cc9-9d84-b4147c0b2681   http://id.pensoft.net/03f956dd-2d36-4f7f-935a-9a4c2b8f06ee . 
- pensoft:7517ca78-09da-4294-a206-07cdc32f9784   rdf:type   fabio:JournalArticle ;
+ @prefix deo: <http://purl.org/spar/deo/> .
+ pensoft:50bb6a21-db69-4778-a38b-52577699bd36 {
+ pensoft:cb8e5e41-ba8a-4d48-9001-1df287a64d2d   rdf:type   foaf:Agent ;
+	 skos:prefLabel   "Pensoft Publishers" ;
+	 pro:holdsRoleInTime   pensoft:867cc2b4-b00f-4026-aab7-85130e1bb908 . 
+ pensoft:867cc2b4-b00f-4026-aab7-85130e1bb908   rdf:type   pro:RoleInTime ;
+	 pro:relatesToDocument   pensoft:6239221b-0077-4811-8368-cd81ad83dcf2 . 
+ pensoft:6239221b-0077-4811-8368-cd81ad83dcf2   rdf:type   fabio:Journal ;
+	 skos:prefLabel   "Biodiversity Data Journal" ;
+	 skos:altLabel   "BDJ" ;
+	 fabio:issn   "1314-2836" ;
+	 fabio:eIssn   "1314-2828" ;
+	 dcterms:publisher   "Pensoft Publishers" ;
+	 frbr:hasPart   pensoft:536b2d8b-e1db-453c-b75b-921d68987f89 . 
+ pensoft:536b2d8b-e1db-453c-b75b-921d68987f89   rdf:type   fabio:JournalArticle ;
 	 skos:prefLabel   "10.3897/BDJ.2.e1136" ;
 	 prism:doi   "10.3897/BDJ.2.e1136" ;
 	 fabio:hasPublicationYear   "2014"^^xsd:gYear ;
@@ -35,272 +44,317 @@
 	 po:contains   pensoft:c300ae7c-a2e7-4e2d-9eca-b579937a9359 , pensoft:10eb10e8-d8a2-47d5-9d85-cfc9242dd123 ;
 	 co:firstItem    [     co:itemContent   pensoft:c300ae7c-a2e7-4e2d-9eca-b579937a9359 ;
 	 co:nextItem    [     co:itemContent   pensoft:b5e150d3-af18-41f2-9b04-402a845fcbe1  ]   ]  ;
-	 frbr:realizationOf   pensoft:74ed897b-75b2-46eb-8e8a-fbfae427cb03 , pensoft:3a2b2c3d-ae87-4859-9b8d-75423462554d , pensoft:af479339-15de-4c99-9f26-4e3d52902825 , pensoft:1a568595-f0a7-4925-828b-88b6ccfe1a11 , pensoft:f8116d9e-74cd-47e8-be51-4dd30f5701b7 . 
+	 frbr:realizationOf   pensoft:3c1a6ac8-cb1e-4757-9c0f-2d9246aabaf0 , pensoft:5aae0beb-412b-4a5c-bd76-56bbb247a432 , pensoft:054e53a4-6269-40d2-9563-9e9f0abce796 , pensoft:4484f8d9-0431-4a4d-8543-cd70f757f555 , pensoft:fa2a7ca2-cfc6-4940-81f3-d9891a146fac . 
  pensoft:c300ae7c-a2e7-4e2d-9eca-b579937a9359   rdf:type   doco:title ;
 	 c4o:hasContent   "First description of the male caste of the Himalayan endemic ant Lasius alienoflavus Bingham, 1903 (Hymenoptera: Formicidae), with re-description of the female and queen castes"@en-us ;
-	 frbr:realizationOf   pensoft:5e809c38-a7b2-4f61-9570-0c3f4a00d602 , pensoft:4af81fe9-143d-42fe-9c64-f3889f62c04f , pensoft:d9c4401f-350e-4bdf-b433-c4d2fef8e46f . 
+	 frbr:realizationOf   pensoft:4e333d6b-d856-4fb3-aee4-c252a84a8773 , pensoft:a90c42a9-d045-4295-b230-0b0a68f67c7c , pensoft:0e941747-6cf5-4eef-a073-d424560cfe91 . 
  pensoft:10eb10e8-d8a2-47d5-9d85-cfc9242dd123   rdf:type   sro:Abstract ;
-	 frbr:realizationOf   pensoft:bb561ff3-3a77-4a8e-af04-e2a286c97223 . 
+	 frbr:realizationOf   pensoft:4239c053-ce14-47d1-abcf-b1b0a8d6a085 . 
  pensoft:84036286-6aa8-43de-aba0-aff94ebb0f03   rdf:type   doco:BodyMatter ;
-	 frbr:realizationOf   pensoft:c09ed564-05ad-4004-abee-4cf15e71b00e , pensoft:7a91de03-e91e-4cfe-9c77-7df6f6cae843 , pensoft:e9834872-2698-494b-ad0f-dfbee9c8c54c , pensoft:99c9d3ee-267d-4afa-b5eb-6ced3194115b , pensoft:e0ad7e8c-39ae-44c4-9b9f-741ab947caed , pensoft:45d0da4a-48e7-4b7e-8b85-1bc182a9d775 , pensoft:66a6506f-3de4-418e-8e0e-cc874280f20b , pensoft:79256d08-17a3-4e22-ac26-617bd93edcd9 , pensoft:0b625873-1f91-4b62-a455-cc1458172b41 , pensoft:aa3cf239-f112-489e-8c95-666a1fc6a951 , pensoft:0809e5fb-296a-4e0f-85da-dbe881f60767 , pensoft:7e915c10-1b8d-419a-8048-a5cf249fc485 , pensoft:7831a84a-3b4f-4930-a742-7fe0cc34065b , pensoft:5e565289-dea9-469e-b35a-c7d396bff178 , pensoft:55651f03-b570-4373-a091-687980204a3c , pensoft:ddb8228d-d0e3-44dd-af59-d65f44e76c4b , pensoft:b4652a4f-9ced-49b8-84c7-52f62a31fcb5 , pensoft:a881d002-e0ba-49d0-a27d-933980f828c0 , pensoft:2b09f1a9-0570-4e76-9a85-61fbf16db993 , pensoft:99b835cd-96cb-4b99-9a23-f25e3dc82d99 , pensoft:64aaeed3-2b86-4659-a5df-005e9edebb12 , pensoft:a9629dea-9561-48a3-a31a-cb396bae9f64 , pensoft:fca12f56-090f-44f1-990a-5cd1af9dadd0 , pensoft:651b5fa9-c717-42bd-9a99-9cd5a4838ffd , pensoft:654da35c-485d-4b18-9afd-d0ae0cdb0ca6 , pensoft:fcfa3177-3f66-4b7e-96e3-2cea07545488 ;
+	 frbr:realizationOf   pensoft:b15d9800-2899-4483-909d-710e961fd601 , pensoft:a9561e21-8118-44c0-a883-c220c26c9d8e , pensoft:1c8b19d5-b3b0-4410-b310-ce9180c3772f , pensoft:633f4dd9-75bf-40bb-a23b-f2a02642a1f6 , pensoft:01c0e765-8b75-4c49-ae86-b25cdbd61a47 , pensoft:7b36908e-c154-4648-bc14-120a5abdc507 , pensoft:f98cf6f4-0742-4c35-b048-0f9c26995b8f , pensoft:5c316961-0dca-4a6e-8a1a-d8c692d19214 , pensoft:6b737d0e-d591-428e-8310-c3810436782c , pensoft:cec1d3c5-bc23-4256-96a6-ed47a706c7a1 , pensoft:918b0f55-c110-4396-9f4a-0d4a9063ff6c , pensoft:6f368de7-c02d-49f5-98d2-8c0eae74e577 , pensoft:c2e4b91a-1e86-4880-98d0-887c02618be8 , pensoft:87e0c458-482e-451f-b846-347e0a2400b3 , pensoft:8d36650d-33e5-47aa-a819-cff9a3c5a525 , pensoft:074d17ee-175e-411e-8ea8-dcb16b56e6f1 , pensoft:55f15ecd-e737-4c57-90fc-a1a5f7e05122 , pensoft:c59a3a9b-dff2-4f9b-b762-20e75450ea6c , pensoft:32b1f2a5-8575-4ced-af50-abd805d35bd4 , pensoft:fc3853b6-d573-41a1-8df5-06b57a80854c , pensoft:ac53637f-0137-404f-baca-8117b22ad852 , pensoft:3ff70e32-0bcf-4cdf-b903-2fc37b630edb , pensoft:681c21b2-5282-4635-8ff6-e5ed4f570e40 , pensoft:b5d5e702-3b46-4894-ab2c-89a5084c2359 , pensoft:f240acf7-b607-4cd0-985c-defaa0608b95 , pensoft:6d8da6fd-56f3-45b1-b1ca-74b204340636 ;
 	 po:contains   pensoft:83be2c52-f03d-4781-9fe1-7fa62fd74301 . 
  pensoft:2bfb5c32-6068-4824-af73-2b3445edaed5   rdf:type   doco:BackMatter ;
 	 po:contains   pensoft:5d10420f-8f04-4924-b6a3-d55eb2bc31e9 , pensoft:F707508 , pensoft:F707509 , pensoft:F707510 , pensoft:F716473 , pensoft:F716474 , pensoft:F716475 , pensoft:F716482 , pensoft:F716483 , pensoft:F716484 , pensoft:F707503 , pensoft:F716468 , pensoft:F716477 , pensoft:d8dbea25-f9eb-44b6-aa3b-44451d351dac , pensoft:B707250 , pensoft:B707270 , pensoft:B764879 , pensoft:B764838 , pensoft:B707374 , pensoft:B752005 , pensoft:B752029 , pensoft:B752039 , pensoft:B752069 , pensoft:B707384 ;
-	 frbr:realizationOf   pensoft:3ee25383-fd6b-4c4f-95a4-4648679b4640 , pensoft:1669dde3-5b54-4404-b7d5-0d159cc1da0c , pensoft:3faad69d-39dd-4f81-acb5-7aabfefd12b3 , pensoft:96accd89-6b62-41e5-a72f-2d239bb581bd , pensoft:3e2b0f7c-675a-4052-aedd-b322b5942fc6 , pensoft:dda8f29b-fcc3-4852-9d9c-8d18dff41b18 , pensoft:860e0315-8b40-4a26-82dc-829fed6d6275 , pensoft:c9eddc55-2898-4f93-bff4-39d1e940a951 , pensoft:9577f8c2-4fd9-4d01-bd7a-02b205f0deb8 , pensoft:9d57d6f1-6837-4b4e-9d57-3dd99cc68f31 , pensoft:9332c160-96e9-4da4-a05e-c89da4237967 , pensoft:d1e7888c-ec47-4440-a9cd-f03cfbadbc34 , pensoft:75e5672f-309e-4246-aab7-714e661e174e , pensoft:7938b234-d473-4e59-b564-694a50b76492 , pensoft:80f8b3f9-3aa7-4b22-a8ff-3be5acd99f46 , pensoft:e18ad816-7cc8-458f-84f4-538397f1077b , pensoft:2c29fa20-727c-4658-b8cd-61e57a9ad48b , pensoft:dd9525bb-8ca6-4d23-acbb-7e11f88ec1a0 , pensoft:5024e6c4-bb39-4161-8e33-e26d62c5d98a , pensoft:faf73851-6ac4-499e-af04-062c7f1cabb6 , pensoft:8f4b6534-a67b-46e8-919b-11478ad4cd3a , pensoft:88479846-5d81-4d2d-be73-ac4e9ef1c46a . 
+	 frbr:realizationOf   pensoft:110d81c8-4d00-49c7-8cd5-076b2f81f298 , pensoft:ca5c944d-6937-46b8-bb0e-85d91884d1d1 , pensoft:00eea843-90bf-4101-a78c-d7c28e88e0a9 , pensoft:8932fa42-786f-40b8-938f-e3c6e64de10b , pensoft:ecf2eac2-6cd8-4e7a-8ca0-acdd4d3f4878 , pensoft:b144e116-17e2-47a2-a286-337ef7bb91d3 , pensoft:dea1f111-fe87-4d96-be03-a6ad5c480ea3 , pensoft:bc6db1b3-2917-4b9c-8faf-d74100155442 , pensoft:dc22d8de-118f-4020-982f-60ca163c7ddb , pensoft:387a7211-3a53-4747-9448-c7e41805cdcc , pensoft:36cc8788-38da-4a5a-bd3e-116c989cc50b , pensoft:3790895c-dd0e-4cad-9366-684c09bc61b1 , pensoft:b1f0352b-ca0b-410e-90e0-f148eee70c5f , pensoft:89afc6db-0fc4-4483-9bd0-1e6c5dec64bd , pensoft:2c90b6a8-330b-47ca-bf41-eb22b8735f74 , pensoft:f1326003-9c0d-47c7-b8b1-b0199f536f23 , pensoft:b6d089ab-4dac-46e4-8dfe-8898483d8ed5 , pensoft:a4810117-6731-433f-a0de-85867f4eb2ec , pensoft:ef7c41c9-0019-4525-9019-2f2ae234006a , pensoft:544e2e46-9815-4d03-afc3-a1f3bed64df6 , pensoft:6ec41ed3-8aed-496f-80a4-ff0818fbf384 , pensoft:b36371e6-a6bc-4076-aaef-a099b30da8ee . 
  pensoft:5d10420f-8f04-4924-b6a3-d55eb2bc31e9   rdf:type   doco:Afterword . 
- pensoft:F707508   rdf:type   doco:Figure . 
- pensoft:F707509   rdf:type   doco:Figure . 
- pensoft:F707510   rdf:type   doco:Figure . 
- pensoft:F716473   rdf:type   doco:Figure . 
- pensoft:F716474   rdf:type   doco:Figure . 
- pensoft:F716475   rdf:type   doco:Figure . 
- pensoft:F716482   rdf:type   doco:Figure . 
- pensoft:F716483   rdf:type   doco:Figure . 
- pensoft:F716484   rdf:type   doco:Figure . 
- pensoft:F707503   rdf:type   doco:Figure , doco:Plate ;
-	 frbr:realizationOf   pensoft:d9d76e90-ed58-44bd-a5c1-c7253932c851 . 
- pensoft:F716468   rdf:type   doco:Figure , doco:Plate ;
-	 frbr:realizationOf   pensoft:7343aab3-bf39-436a-af66-cebbc6b2e540 . 
- pensoft:F716477   rdf:type   doco:Figure , doco:Plate ;
-	 frbr:realizationOf   pensoft:570b8d37-b5cd-49b7-b1bc-faecb5c72fbb . 
+ pensoft:F707508   rdf:type   doco:Figure ;
+	 po:contains   pensoft:c6873aaf-7969-4099-bba9-bb38c830a6f5 . 
+ pensoft:F707509   rdf:type   doco:Figure ;
+	 po:contains   pensoft:9762a3b9-8080-40e2-b9e1-aca3aac93cf8 . 
+ pensoft:F707510   rdf:type   doco:Figure ;
+	 po:contains   pensoft:06f5e294-1399-43f4-8469-166afd549e44 . 
+ pensoft:F716473   rdf:type   doco:Figure ;
+	 po:contains   pensoft:5eb50598-ea24-48f0-9f5e-6f6e3dd6faf4 . 
+ pensoft:F716474   rdf:type   doco:Figure ;
+	 po:contains   pensoft:d09098d0-c67d-4282-be91-d04517407985 . 
+ pensoft:F716475   rdf:type   doco:Figure ;
+	 po:contains   pensoft:fe0a4e78-e4e7-4239-aea9-e2d8c39c0cff . 
+ pensoft:F716482   rdf:type   doco:Figure ;
+	 po:contains   pensoft:174e9f82-0e89-4c9a-9f86-173599490801 . 
+ pensoft:F716483   rdf:type   doco:Figure ;
+	 po:contains   pensoft:d241d2c9-5c14-41c9-9554-e8a24081ead9 . 
+ pensoft:F716484   rdf:type   doco:Figure ;
+	 po:contains   pensoft:cd23b1ed-96e8-4e56-8338-d0a034e75f5b . 
+ pensoft:79c6342e-b759-4bd5-8163-bd79bb9d5501   rdf:type   deo:Caption ;
+	 c4o:hasContent   "Worker of Lasius alienoflavus" ;
+	 frbr:realizationOf   pensoft:b1cd82ad-09c6-4694-badd-a8dba1233d61 . 
+ pensoft:F707503   po:contains   pensoft:79c6342e-b759-4bd5-8163-bd79bb9d5501 ;
+	 rdf:type   doco:Figure , doco:Plate ;
+	 frbr:realizationOf   pensoft:477473ad-f9f1-4074-9c39-72ed9880dffc . 
+ pensoft:c6873aaf-7969-4099-bba9-bb38c830a6f5   rdf:type   deo:Caption ;
+	 c4o:hasContent   "Head, full face view" . 
+ pensoft:9762a3b9-8080-40e2-b9e1-aca3aac93cf8   rdf:type   deo:Caption ;
+	 c4o:hasContent   "Body, lateral view" . 
+ pensoft:06f5e294-1399-43f4-8469-166afd549e44   rdf:type   deo:Caption ;
+	 c4o:hasContent   "Body, dorsal view" . 
+ pensoft:52d2f416-b7fc-4b5f-aaf5-424ff1584cdf   rdf:type   deo:Caption ;
+	 c4o:hasContent   "Queen of Lasius alienoflavus" ;
+	 frbr:realizationOf   pensoft:a00597c3-e9ac-45d1-b445-4dbd07d18340 . 
+ pensoft:F716468   po:contains   pensoft:52d2f416-b7fc-4b5f-aaf5-424ff1584cdf ;
+	 rdf:type   doco:Figure , doco:Plate ;
+	 frbr:realizationOf   pensoft:db10e912-8149-492e-bd85-8d68e0ab180e . 
+ pensoft:5eb50598-ea24-48f0-9f5e-6f6e3dd6faf4   rdf:type   deo:Caption ;
+	 c4o:hasContent   "Head, full face view" . 
+ pensoft:d09098d0-c67d-4282-be91-d04517407985   rdf:type   deo:Caption ;
+	 c4o:hasContent   "Body, lateral view" . 
+ pensoft:fe0a4e78-e4e7-4239-aea9-e2d8c39c0cff   rdf:type   deo:Caption ;
+	 c4o:hasContent   "Body, dorsal view" . 
+ pensoft:25a16b73-bfa3-4cab-9edb-f71f13afc5ce   rdf:type   deo:Caption ;
+	 c4o:hasContent   "Male of Lasius alienoflavus" ;
+	 frbr:realizationOf   pensoft:0c4e8bac-20ce-4419-999f-dfddc3490de2 . 
+ pensoft:F716477   po:contains   pensoft:25a16b73-bfa3-4cab-9edb-f71f13afc5ce ;
+	 rdf:type   doco:Figure , doco:Plate ;
+	 frbr:realizationOf   pensoft:e1d86255-349d-4a24-ac3d-67e208193db5 . 
+ pensoft:174e9f82-0e89-4c9a-9f86-173599490801   rdf:type   deo:Caption ;
+	 c4o:hasContent   "Head, full face view" . 
+ pensoft:d241d2c9-5c14-41c9-9554-e8a24081ead9   rdf:type   deo:Caption ;
+	 c4o:hasContent   "Body, lateral view" . 
+ pensoft:cd23b1ed-96e8-4e56-8338-d0a034e75f5b   rdf:type   deo:Caption ;
+	 c4o:hasContent   "Body, dorsal view" . 
  pensoft:d8dbea25-f9eb-44b6-aa3b-44451d351dac   rdf:type   doco:BibliographicReferenceList ;
-	 frbr:realizationOf   pensoft:d59dd87d-12cd-4d99-a198-1fe87c94a279 , pensoft:cc2caa57-3d08-4016-99a5-17c98d456393 , pensoft:91cbd2ff-9e0d-4f4d-a9ed-26a14a255859 , pensoft:0589ec9c-9dfe-4eed-80ad-dc722c176f42 , pensoft:bf6a2192-e079-4c74-9b52-92e05b3b4378 , pensoft:7444c5dd-ac96-488c-b6c3-bf15668393b8 , pensoft:d5ab90fb-12e9-400a-91b3-389a3cdfc182 , pensoft:5b342ecc-9411-43a3-8a59-26183578f474 , pensoft:e49794eb-48e4-4458-aee2-916f2d49a0a6 , pensoft:4ea49f26-d504-4b87-85bd-9abd76b1d24c , pensoft:84aaa959-bb2e-420c-9688-85376624aa38 , pensoft:e567fbb5-d9b5-4563-8502-8dd988c56f29 , pensoft:8de82f4b-5e2e-49c5-ad56-7f6ff8e39999 , pensoft:e2e813c6-a0ef-40ce-b9c8-ddd3a5aaf525 , pensoft:86db0e4c-68b0-4676-b99d-6d9f3eca6012 , pensoft:7ca96f71-4c16-44ef-a59e-ae2681605289 , pensoft:39dbe701-ec0f-488c-97a8-9933861dc520 , pensoft:0dda2df2-4350-41f9-b480-3869445a49c4 , pensoft:d6160994-d6be-4cea-9f45-3201f44870ad , pensoft:21adfcac-d3a9-4580-8d94-c31d1d42f75f , pensoft:e5471c0f-e50a-4a02-84ef-8103f0253966 , pensoft:41d8d461-ed2c-42ae-9bbb-7899854c711a . 
+	 frbr:realizationOf   pensoft:c4979668-1546-422e-93ec-4c55dd09702c , pensoft:08c9093b-5147-48fc-98af-ed806161ba4c , pensoft:76cfd48a-4709-4a91-9d69-d0f2d93a17f4 , pensoft:99254f50-3ae4-45ef-92e1-db5d44fd1406 , pensoft:5422ae52-dbe5-4b0f-a549-45e3174182f4 , pensoft:2a8fd61a-6878-4525-87d1-2043cd04d530 , pensoft:13017cf3-21fe-4b65-abcb-541bda392b68 , pensoft:7f0780dc-176f-49f5-81d2-243cf79d10b6 , pensoft:f24f5676-b328-4e27-adb5-ddd97d6a1378 , pensoft:5c0201b2-97e3-426a-add8-91f7d8984e87 , pensoft:dd876427-424f-4d15-b7b0-614b9702c4d9 , pensoft:0af77cbc-a247-459e-b6bd-181ff316a302 , pensoft:d79e94c5-e31c-40b9-a8cf-e70589072b2d , pensoft:b4e64c6e-98ac-44e7-a8db-5b757bfb0c59 , pensoft:fc79eb65-fe9a-4958-9bf3-43dd1e72b81c , pensoft:138d9b52-7ab0-480b-aaf3-500430bdf5dd , pensoft:9d562ccf-8c54-47a5-ba27-6f9c7cedab26 , pensoft:9fd6ce99-9c54-47ed-8ef9-ed8df0b94066 , pensoft:66092efb-040c-4de7-b9fc-6f736eb166ad , pensoft:9f7e2711-0707-4bab-a16a-657abd4bc239 , pensoft:f9934be5-5656-4e52-89ba-dad7332e031d , pensoft:7e838b26-3988-4d6e-b9f5-8d9ee60ccaa3 . 
  pensoft:B707250   rdf:type   doco:Reference ;
-	 frbr:realizationOf   pensoft:2bfe0adc-f011-4b7b-b188-9ee85f5d94fa , pensoft:2eb0c01c-98f6-4a9d-a592-b0dbdb67f584 . 
+	 frbr:realizationOf   pensoft:2e73d062-5794-4c56-8bb2-49d63dc8919d , pensoft:65e3a0d9-0675-4c5e-80b1-e8a3d075ea73 . 
  pensoft:B707270   rdf:type   doco:Reference ;
-	 frbr:realizationOf   pensoft:c2d026c1-377c-457f-8cea-98efa5edadb3 , pensoft:0500308e-5c7e-4eb6-b463-c55bac1c4c69 , pensoft:3ded2216-16af-4e1c-997d-aec40853dfb0 , pensoft:d4d64275-c04a-4a20-aa10-c5c3181ffe02 . 
+	 frbr:realizationOf   pensoft:f37c9838-98f8-4c2c-a89c-17a2f86d87a4 , pensoft:dd8952c3-4ed5-40eb-ba10-b0d1e5b86bd8 , pensoft:eb944e08-18b3-490e-a0e1-e2f21c8363b9 , pensoft:62829baf-61d1-4be1-ba65-e46319c1de4e . 
  pensoft:B764879   rdf:type   doco:Reference ;
-	 frbr:realizationOf   pensoft:1ef4731f-e6a0-4eff-a58f-87bdd80066c9 . 
+	 frbr:realizationOf   pensoft:898cb6cf-eb40-438d-80e2-93824a48c787 . 
  pensoft:B764838   rdf:type   doco:Reference . 
  pensoft:B707374   rdf:type   doco:Reference ;
-	 frbr:realizationOf   pensoft:07d7444a-1075-4ca7-81d7-ba08807a98d5 , pensoft:db869acb-371c-44b8-9ada-50de8631d6b2 , pensoft:d3210234-960c-4d2a-9588-88287a0166e2 . 
+	 frbr:realizationOf   pensoft:981d8db2-b482-473f-849f-d0fb1c91c2b3 , pensoft:23665ba2-01fc-4a8c-a7a3-eed457e7114a , pensoft:eb447f37-a139-4d05-bb79-951ddb16af6b . 
  pensoft:B752005   rdf:type   doco:Reference ;
-	 frbr:realizationOf   pensoft:08e784b4-f330-47a6-a0c0-e195b61ec63f , pensoft:64c5a0c0-f070-4678-afdc-5cf4d72334de , pensoft:6a90feb3-773f-4970-8c53-36aa518eea88 , pensoft:e75ca623-3ca0-478f-97a5-460ae0dc9baa . 
+	 frbr:realizationOf   pensoft:57de95d3-d15a-4ca0-a1dc-5b9ba5d64fed , pensoft:0d176f8b-6a5d-4701-8389-128a8564a1a9 , pensoft:97b122de-4bf8-42ba-8343-aa0260c8ddc6 , pensoft:9db46947-6e3c-4316-81ea-d95778364e77 . 
  pensoft:B752029   rdf:type   doco:Reference . 
  pensoft:B752039   rdf:type   doco:Reference ;
-	 frbr:realizationOf   pensoft:d5f22582-9f15-44f3-aa68-4420a6c0201f , pensoft:da401d85-a2b4-4d9c-9573-0c0b0bf96a63 , pensoft:df56ff84-e39b-4f8b-95f9-c3568631d0b6 , pensoft:878eb748-af9d-49c6-981e-0d2f22e30193 . 
+	 frbr:realizationOf   pensoft:3afd402f-fce9-4314-8a79-e88abee9e444 , pensoft:ccc38ebd-58e1-4a69-ba6f-ca5d62505306 , pensoft:8664c788-5916-4d91-a91f-11c9f7dda2ec , pensoft:a7fc75db-683b-4fdd-82e3-a51a6024acc9 . 
  pensoft:B752069   rdf:type   doco:Reference ;
-	 frbr:realizationOf   pensoft:38cda108-a2b5-4ef5-959b-078fd28930f2 , pensoft:60c2d8d4-ae58-4f86-8204-2618e93d31f1 , pensoft:c3c42458-0afa-49b5-a601-04764e4bcb4e . 
+	 frbr:realizationOf   pensoft:91213f9a-eb29-4b36-8729-8f83030b9774 , pensoft:3e7c221e-d4c1-4f39-a157-f6eb47ba458c , pensoft:d8f6d234-f41a-4f9b-a959-d4df663d8d2c . 
  pensoft:B707384   rdf:type   doco:Reference ;
-	 frbr:realizationOf   pensoft:5f39eb89-452e-48ac-b02a-1940d070a819 . 
- pensoft:5e809c38-a7b2-4f61-9570-0c3f4a00d602   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:270a88eb-4c4e-4c54-b516-e061d2040e3e . 
- pensoft:4af81fe9-143d-42fe-9c64-f3889f62c04f   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:2308e022-ccc8-4064-ac8e-b5d6c3ecd242 . 
- pensoft:d9c4401f-350e-4bdf-b433-c4d2fef8e46f   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:86860613-2c63-48f6-8113-e81152317441 . 
- pensoft:bb561ff3-3a77-4a8e-af04-e2a286c97223   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:270a88eb-4c4e-4c54-b516-e061d2040e3e . 
- pensoft:74ed897b-75b2-46eb-8e8a-fbfae427cb03   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:270a88eb-4c4e-4c54-b516-e061d2040e3e . 
- pensoft:3a2b2c3d-ae87-4859-9b8d-75423462554d   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:2308e022-ccc8-4064-ac8e-b5d6c3ecd242 . 
- pensoft:af479339-15de-4c99-9f26-4e3d52902825   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:86860613-2c63-48f6-8113-e81152317441 . 
- pensoft:1a568595-f0a7-4925-828b-88b6ccfe1a11   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:270a88eb-4c4e-4c54-b516-e061d2040e3e . 
- pensoft:f8116d9e-74cd-47e8-be51-4dd30f5701b7   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:86860613-2c63-48f6-8113-e81152317441 . 
- pensoft:d9d76e90-ed58-44bd-a5c1-c7253932c851   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:270a88eb-4c4e-4c54-b516-e061d2040e3e . 
- pensoft:7343aab3-bf39-436a-af66-cebbc6b2e540   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:270a88eb-4c4e-4c54-b516-e061d2040e3e . 
- pensoft:570b8d37-b5cd-49b7-b1bc-faecb5c72fbb   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:270a88eb-4c4e-4c54-b516-e061d2040e3e . 
- pensoft:d59dd87d-12cd-4d99-a198-1fe87c94a279   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:2308e022-ccc8-4064-ac8e-b5d6c3ecd242 . 
- pensoft:cc2caa57-3d08-4016-99a5-17c98d456393   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:86860613-2c63-48f6-8113-e81152317441 . 
- pensoft:91cbd2ff-9e0d-4f4d-a9ed-26a14a255859   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:69cfcf78-17f7-440c-90de-412bee65c39e . 
- pensoft:0589ec9c-9dfe-4eed-80ad-dc722c176f42   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:6678508e-c7af-42a7-9558-a0b53bf7809c . 
- pensoft:bf6a2192-e079-4c74-9b52-92e05b3b4378   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:2308e022-ccc8-4064-ac8e-b5d6c3ecd242 . 
- pensoft:7444c5dd-ac96-488c-b6c3-bf15668393b8   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:86860613-2c63-48f6-8113-e81152317441 . 
- pensoft:d5ab90fb-12e9-400a-91b3-389a3cdfc182   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:2308e022-ccc8-4064-ac8e-b5d6c3ecd242 . 
- pensoft:5b342ecc-9411-43a3-8a59-26183578f474   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:b17a13cd-767a-42d6-96fc-2ddcee633e43 . 
- pensoft:e49794eb-48e4-4458-aee2-916f2d49a0a6   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:2308e022-ccc8-4064-ac8e-b5d6c3ecd242 . 
- pensoft:4ea49f26-d504-4b87-85bd-9abd76b1d24c   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:86860613-2c63-48f6-8113-e81152317441 . 
- pensoft:84aaa959-bb2e-420c-9688-85376624aa38   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:947d3202-0528-49df-ae1e-6007d574fc81 . 
- pensoft:e567fbb5-d9b5-4563-8502-8dd988c56f29   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:2308e022-ccc8-4064-ac8e-b5d6c3ecd242 . 
- pensoft:8de82f4b-5e2e-49c5-ad56-7f6ff8e39999   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:86860613-2c63-48f6-8113-e81152317441 . 
- pensoft:e2e813c6-a0ef-40ce-b9c8-ddd3a5aaf525   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:b17a13cd-767a-42d6-96fc-2ddcee633e43 . 
- pensoft:86db0e4c-68b0-4676-b99d-6d9f3eca6012   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:b17a13cd-767a-42d6-96fc-2ddcee633e43 . 
- pensoft:7ca96f71-4c16-44ef-a59e-ae2681605289   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:947d3202-0528-49df-ae1e-6007d574fc81 . 
- pensoft:39dbe701-ec0f-488c-97a8-9933861dc520   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:2308e022-ccc8-4064-ac8e-b5d6c3ecd242 . 
- pensoft:0dda2df2-4350-41f9-b480-3869445a49c4   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:86860613-2c63-48f6-8113-e81152317441 . 
- pensoft:d6160994-d6be-4cea-9f45-3201f44870ad   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:b17a13cd-767a-42d6-96fc-2ddcee633e43 . 
- pensoft:21adfcac-d3a9-4580-8d94-c31d1d42f75f   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:2308e022-ccc8-4064-ac8e-b5d6c3ecd242 . 
- pensoft:e5471c0f-e50a-4a02-84ef-8103f0253966   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:86860613-2c63-48f6-8113-e81152317441 . 
- pensoft:41d8d461-ed2c-42ae-9bbb-7899854c711a   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:b17a13cd-767a-42d6-96fc-2ddcee633e43 . 
- pensoft:2bfe0adc-f011-4b7b-b188-9ee85f5d94fa   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:2308e022-ccc8-4064-ac8e-b5d6c3ecd242 . 
- pensoft:2eb0c01c-98f6-4a9d-a592-b0dbdb67f584   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:86860613-2c63-48f6-8113-e81152317441 . 
- pensoft:c2d026c1-377c-457f-8cea-98efa5edadb3   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:69cfcf78-17f7-440c-90de-412bee65c39e . 
- pensoft:0500308e-5c7e-4eb6-b463-c55bac1c4c69   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:6678508e-c7af-42a7-9558-a0b53bf7809c . 
- pensoft:3ded2216-16af-4e1c-997d-aec40853dfb0   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:2308e022-ccc8-4064-ac8e-b5d6c3ecd242 . 
- pensoft:d4d64275-c04a-4a20-aa10-c5c3181ffe02   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:86860613-2c63-48f6-8113-e81152317441 . 
- pensoft:1ef4731f-e6a0-4eff-a58f-87bdd80066c9   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:2308e022-ccc8-4064-ac8e-b5d6c3ecd242 . 
- pensoft:07d7444a-1075-4ca7-81d7-ba08807a98d5   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:b17a13cd-767a-42d6-96fc-2ddcee633e43 . 
- pensoft:db869acb-371c-44b8-9ada-50de8631d6b2   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:2308e022-ccc8-4064-ac8e-b5d6c3ecd242 . 
- pensoft:d3210234-960c-4d2a-9588-88287a0166e2   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:86860613-2c63-48f6-8113-e81152317441 . 
- pensoft:08e784b4-f330-47a6-a0c0-e195b61ec63f   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:947d3202-0528-49df-ae1e-6007d574fc81 . 
- pensoft:64c5a0c0-f070-4678-afdc-5cf4d72334de   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:2308e022-ccc8-4064-ac8e-b5d6c3ecd242 . 
- pensoft:6a90feb3-773f-4970-8c53-36aa518eea88   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:86860613-2c63-48f6-8113-e81152317441 . 
- pensoft:e75ca623-3ca0-478f-97a5-460ae0dc9baa   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:b17a13cd-767a-42d6-96fc-2ddcee633e43 . 
- pensoft:d5f22582-9f15-44f3-aa68-4420a6c0201f   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:b17a13cd-767a-42d6-96fc-2ddcee633e43 . 
- pensoft:da401d85-a2b4-4d9c-9573-0c0b0bf96a63   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:947d3202-0528-49df-ae1e-6007d574fc81 . 
- pensoft:df56ff84-e39b-4f8b-95f9-c3568631d0b6   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:2308e022-ccc8-4064-ac8e-b5d6c3ecd242 . 
- pensoft:878eb748-af9d-49c6-981e-0d2f22e30193   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:86860613-2c63-48f6-8113-e81152317441 . 
- pensoft:38cda108-a2b5-4ef5-959b-078fd28930f2   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:b17a13cd-767a-42d6-96fc-2ddcee633e43 . 
- pensoft:60c2d8d4-ae58-4f86-8204-2618e93d31f1   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:2308e022-ccc8-4064-ac8e-b5d6c3ecd242 . 
- pensoft:c3c42458-0afa-49b5-a601-04764e4bcb4e   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:86860613-2c63-48f6-8113-e81152317441 . 
- pensoft:5f39eb89-452e-48ac-b02a-1940d070a819   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:b17a13cd-767a-42d6-96fc-2ddcee633e43 . 
- pensoft:3ee25383-fd6b-4c4f-95a4-4648679b4640   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:2308e022-ccc8-4064-ac8e-b5d6c3ecd242 . 
- pensoft:1669dde3-5b54-4404-b7d5-0d159cc1da0c   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:86860613-2c63-48f6-8113-e81152317441 . 
- pensoft:3faad69d-39dd-4f81-acb5-7aabfefd12b3   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:69cfcf78-17f7-440c-90de-412bee65c39e . 
- pensoft:96accd89-6b62-41e5-a72f-2d239bb581bd   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:6678508e-c7af-42a7-9558-a0b53bf7809c . 
- pensoft:3e2b0f7c-675a-4052-aedd-b322b5942fc6   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:2308e022-ccc8-4064-ac8e-b5d6c3ecd242 . 
- pensoft:dda8f29b-fcc3-4852-9d9c-8d18dff41b18   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:86860613-2c63-48f6-8113-e81152317441 . 
- pensoft:860e0315-8b40-4a26-82dc-829fed6d6275   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:2308e022-ccc8-4064-ac8e-b5d6c3ecd242 . 
- pensoft:c9eddc55-2898-4f93-bff4-39d1e940a951   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:b17a13cd-767a-42d6-96fc-2ddcee633e43 . 
- pensoft:9577f8c2-4fd9-4d01-bd7a-02b205f0deb8   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:2308e022-ccc8-4064-ac8e-b5d6c3ecd242 . 
- pensoft:9d57d6f1-6837-4b4e-9d57-3dd99cc68f31   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:86860613-2c63-48f6-8113-e81152317441 . 
- pensoft:9332c160-96e9-4da4-a05e-c89da4237967   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:947d3202-0528-49df-ae1e-6007d574fc81 . 
- pensoft:d1e7888c-ec47-4440-a9cd-f03cfbadbc34   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:2308e022-ccc8-4064-ac8e-b5d6c3ecd242 . 
- pensoft:75e5672f-309e-4246-aab7-714e661e174e   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:86860613-2c63-48f6-8113-e81152317441 . 
- pensoft:7938b234-d473-4e59-b564-694a50b76492   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:b17a13cd-767a-42d6-96fc-2ddcee633e43 . 
- pensoft:80f8b3f9-3aa7-4b22-a8ff-3be5acd99f46   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:b17a13cd-767a-42d6-96fc-2ddcee633e43 . 
- pensoft:e18ad816-7cc8-458f-84f4-538397f1077b   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:947d3202-0528-49df-ae1e-6007d574fc81 . 
- pensoft:2c29fa20-727c-4658-b8cd-61e57a9ad48b   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:2308e022-ccc8-4064-ac8e-b5d6c3ecd242 . 
- pensoft:dd9525bb-8ca6-4d23-acbb-7e11f88ec1a0   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:86860613-2c63-48f6-8113-e81152317441 . 
- pensoft:5024e6c4-bb39-4161-8e33-e26d62c5d98a   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:b17a13cd-767a-42d6-96fc-2ddcee633e43 . 
- pensoft:faf73851-6ac4-499e-af04-062c7f1cabb6   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:2308e022-ccc8-4064-ac8e-b5d6c3ecd242 . 
- pensoft:8f4b6534-a67b-46e8-919b-11478ad4cd3a   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:86860613-2c63-48f6-8113-e81152317441 . 
- pensoft:88479846-5d81-4d2d-be73-ac4e9ef1c46a   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:b17a13cd-767a-42d6-96fc-2ddcee633e43 . 
- pensoft:c09ed564-05ad-4004-abee-4cf15e71b00e   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:b17a13cd-767a-42d6-96fc-2ddcee633e43 . 
- pensoft:7a91de03-e91e-4cfe-9c77-7df6f6cae843   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:b17a13cd-767a-42d6-96fc-2ddcee633e43 . 
- pensoft:e9834872-2698-494b-ad0f-dfbee9c8c54c   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:166c840f-93b6-44d2-91a2-8b32a7914c18 . 
- pensoft:99c9d3ee-267d-4afa-b5eb-6ced3194115b   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:5fa13d02-8c83-4d70-927e-b38b2e4f3a0e . 
- pensoft:e0ad7e8c-39ae-44c4-9b9f-741ab947caed   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:270a88eb-4c4e-4c54-b516-e061d2040e3e . 
- pensoft:45d0da4a-48e7-4b7e-8b85-1bc182a9d775   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:4416ea02-859a-475d-9285-0042ddf84b58 . 
- pensoft:66a6506f-3de4-418e-8e0e-cc874280f20b   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:0cfcee01-57ba-4b1e-87e8-7ca68f402916 . 
- pensoft:79256d08-17a3-4e22-ac26-617bd93edcd9   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:6678508e-c7af-42a7-9558-a0b53bf7809c . 
- pensoft:0b625873-1f91-4b62-a455-cc1458172b41   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:b17a13cd-767a-42d6-96fc-2ddcee633e43 . 
- pensoft:aa3cf239-f112-489e-8c95-666a1fc6a951   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:2d1d898e-1527-4bcc-92e6-d82cab3f8701 . 
- pensoft:0809e5fb-296a-4e0f-85da-dbe881f60767   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:270a88eb-4c4e-4c54-b516-e061d2040e3e . 
- pensoft:7e915c10-1b8d-419a-8048-a5cf249fc485   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:6678508e-c7af-42a7-9558-a0b53bf7809c . 
- pensoft:7831a84a-3b4f-4930-a742-7fe0cc34065b   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:270a88eb-4c4e-4c54-b516-e061d2040e3e . 
- pensoft:5e565289-dea9-469e-b35a-c7d396bff178   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:b17a13cd-767a-42d6-96fc-2ddcee633e43 . 
- pensoft:55651f03-b570-4373-a091-687980204a3c   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:75448cd5-6fad-4276-a013-26ca98a5d486 . 
- pensoft:ddb8228d-d0e3-44dd-af59-d65f44e76c4b   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:270a88eb-4c4e-4c54-b516-e061d2040e3e . 
- pensoft:b4652a4f-9ced-49b8-84c7-52f62a31fcb5   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:75448cd5-6fad-4276-a013-26ca98a5d486 . 
- pensoft:a881d002-e0ba-49d0-a27d-933980f828c0   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:b17a13cd-767a-42d6-96fc-2ddcee633e43 . 
- pensoft:2b09f1a9-0570-4e76-9a85-61fbf16db993   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:270a88eb-4c4e-4c54-b516-e061d2040e3e . 
- pensoft:99b835cd-96cb-4b99-9a23-f25e3dc82d99   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:270a88eb-4c4e-4c54-b516-e061d2040e3e . 
- pensoft:64aaeed3-2b86-4659-a5df-005e9edebb12   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:270a88eb-4c4e-4c54-b516-e061d2040e3e . 
- pensoft:a9629dea-9561-48a3-a31a-cb396bae9f64   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:ab291169-b413-471a-8fe9-391bc3333f32 . 
- pensoft:fca12f56-090f-44f1-990a-5cd1af9dadd0   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:69cfcf78-17f7-440c-90de-412bee65c39e . 
- pensoft:651b5fa9-c717-42bd-9a99-9cd5a4838ffd   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:270a88eb-4c4e-4c54-b516-e061d2040e3e . 
- pensoft:654da35c-485d-4b18-9afd-d0ae0cdb0ca6   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:166c840f-93b6-44d2-91a2-8b32a7914c18 . 
- pensoft:fcfa3177-3f66-4b7e-96e3-2cea07545488   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:166c840f-93b6-44d2-91a2-8b32a7914c18 . 
- pensoft:83be2c52-f03d-4781-9fe1-7fa62fd74301   frbr:realizationOf   pensoft:f16825ed-31b2-466b-8bf2-8610df3c6bb5 , pensoft:3a8398a7-133e-4edc-bbd2-606f0d027e5a , pensoft:13f021ac-a03b-42d8-b700-59697fa44b60 , pensoft:af40fbc8-40da-4aa4-a5b1-bcfa7534c7d9 ;
+	 frbr:realizationOf   pensoft:82e8fa1c-b117-41bb-b7aa-814865ea2d4c . 
+ pensoft:4e333d6b-d856-4fb3-aee4-c252a84a8773   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:8c7ed219-6681-456f-a272-1a8b59737540 . 
+ pensoft:a90c42a9-d045-4295-b230-0b0a68f67c7c   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:c4de0b9c-e7be-459e-90d7-584141bb2bbc . 
+ pensoft:0e941747-6cf5-4eef-a073-d424560cfe91   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:64d2a3fe-afe3-4392-abbc-74ac5d2a21bd . 
+ pensoft:4239c053-ce14-47d1-abcf-b1b0a8d6a085   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:8c7ed219-6681-456f-a272-1a8b59737540 . 
+ pensoft:3c1a6ac8-cb1e-4757-9c0f-2d9246aabaf0   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:8c7ed219-6681-456f-a272-1a8b59737540 . 
+ pensoft:5aae0beb-412b-4a5c-bd76-56bbb247a432   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:c4de0b9c-e7be-459e-90d7-584141bb2bbc . 
+ pensoft:054e53a4-6269-40d2-9563-9e9f0abce796   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:64d2a3fe-afe3-4392-abbc-74ac5d2a21bd . 
+ pensoft:4484f8d9-0431-4a4d-8543-cd70f757f555   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:8c7ed219-6681-456f-a272-1a8b59737540 . 
+ pensoft:fa2a7ca2-cfc6-4940-81f3-d9891a146fac   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:64d2a3fe-afe3-4392-abbc-74ac5d2a21bd . 
+ pensoft:477473ad-f9f1-4074-9c39-72ed9880dffc   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:8c7ed219-6681-456f-a272-1a8b59737540 . 
+ pensoft:db10e912-8149-492e-bd85-8d68e0ab180e   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:8c7ed219-6681-456f-a272-1a8b59737540 . 
+ pensoft:e1d86255-349d-4a24-ac3d-67e208193db5   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:8c7ed219-6681-456f-a272-1a8b59737540 . 
+ pensoft:c4979668-1546-422e-93ec-4c55dd09702c   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:c4de0b9c-e7be-459e-90d7-584141bb2bbc . 
+ pensoft:08c9093b-5147-48fc-98af-ed806161ba4c   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:64d2a3fe-afe3-4392-abbc-74ac5d2a21bd . 
+ pensoft:76cfd48a-4709-4a91-9d69-d0f2d93a17f4   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:cd3a903f-8120-4805-ba6f-7c88bb4b9e8e . 
+ pensoft:99254f50-3ae4-45ef-92e1-db5d44fd1406   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:01574e04-cbc7-43de-98b1-061cb8ce701e . 
+ pensoft:5422ae52-dbe5-4b0f-a549-45e3174182f4   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:c4de0b9c-e7be-459e-90d7-584141bb2bbc . 
+ pensoft:2a8fd61a-6878-4525-87d1-2043cd04d530   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:64d2a3fe-afe3-4392-abbc-74ac5d2a21bd . 
+ pensoft:13017cf3-21fe-4b65-abcb-541bda392b68   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:c4de0b9c-e7be-459e-90d7-584141bb2bbc . 
+ pensoft:7f0780dc-176f-49f5-81d2-243cf79d10b6   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:ee3823f8-bf12-445e-bf1a-83aebc8e2fe8 . 
+ pensoft:f24f5676-b328-4e27-adb5-ddd97d6a1378   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:c4de0b9c-e7be-459e-90d7-584141bb2bbc . 
+ pensoft:5c0201b2-97e3-426a-add8-91f7d8984e87   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:64d2a3fe-afe3-4392-abbc-74ac5d2a21bd . 
+ pensoft:dd876427-424f-4d15-b7b0-614b9702c4d9   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:d22232b4-c566-4fd9-8b38-edaf8b17dc66 . 
+ pensoft:0af77cbc-a247-459e-b6bd-181ff316a302   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:c4de0b9c-e7be-459e-90d7-584141bb2bbc . 
+ pensoft:d79e94c5-e31c-40b9-a8cf-e70589072b2d   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:64d2a3fe-afe3-4392-abbc-74ac5d2a21bd . 
+ pensoft:b4e64c6e-98ac-44e7-a8db-5b757bfb0c59   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:ee3823f8-bf12-445e-bf1a-83aebc8e2fe8 . 
+ pensoft:fc79eb65-fe9a-4958-9bf3-43dd1e72b81c   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:ee3823f8-bf12-445e-bf1a-83aebc8e2fe8 . 
+ pensoft:138d9b52-7ab0-480b-aaf3-500430bdf5dd   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:d22232b4-c566-4fd9-8b38-edaf8b17dc66 . 
+ pensoft:9d562ccf-8c54-47a5-ba27-6f9c7cedab26   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:c4de0b9c-e7be-459e-90d7-584141bb2bbc . 
+ pensoft:9fd6ce99-9c54-47ed-8ef9-ed8df0b94066   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:64d2a3fe-afe3-4392-abbc-74ac5d2a21bd . 
+ pensoft:66092efb-040c-4de7-b9fc-6f736eb166ad   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:ee3823f8-bf12-445e-bf1a-83aebc8e2fe8 . 
+ pensoft:9f7e2711-0707-4bab-a16a-657abd4bc239   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:c4de0b9c-e7be-459e-90d7-584141bb2bbc . 
+ pensoft:f9934be5-5656-4e52-89ba-dad7332e031d   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:64d2a3fe-afe3-4392-abbc-74ac5d2a21bd . 
+ pensoft:7e838b26-3988-4d6e-b9f5-8d9ee60ccaa3   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:ee3823f8-bf12-445e-bf1a-83aebc8e2fe8 . 
+ pensoft:2e73d062-5794-4c56-8bb2-49d63dc8919d   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:c4de0b9c-e7be-459e-90d7-584141bb2bbc . 
+ pensoft:65e3a0d9-0675-4c5e-80b1-e8a3d075ea73   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:64d2a3fe-afe3-4392-abbc-74ac5d2a21bd . 
+ pensoft:f37c9838-98f8-4c2c-a89c-17a2f86d87a4   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:cd3a903f-8120-4805-ba6f-7c88bb4b9e8e . 
+ pensoft:dd8952c3-4ed5-40eb-ba10-b0d1e5b86bd8   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:01574e04-cbc7-43de-98b1-061cb8ce701e . 
+ pensoft:eb944e08-18b3-490e-a0e1-e2f21c8363b9   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:c4de0b9c-e7be-459e-90d7-584141bb2bbc . 
+ pensoft:62829baf-61d1-4be1-ba65-e46319c1de4e   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:64d2a3fe-afe3-4392-abbc-74ac5d2a21bd . 
+ pensoft:898cb6cf-eb40-438d-80e2-93824a48c787   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:c4de0b9c-e7be-459e-90d7-584141bb2bbc . 
+ pensoft:981d8db2-b482-473f-849f-d0fb1c91c2b3   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:ee3823f8-bf12-445e-bf1a-83aebc8e2fe8 . 
+ pensoft:23665ba2-01fc-4a8c-a7a3-eed457e7114a   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:c4de0b9c-e7be-459e-90d7-584141bb2bbc . 
+ pensoft:eb447f37-a139-4d05-bb79-951ddb16af6b   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:64d2a3fe-afe3-4392-abbc-74ac5d2a21bd . 
+ pensoft:57de95d3-d15a-4ca0-a1dc-5b9ba5d64fed   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:d22232b4-c566-4fd9-8b38-edaf8b17dc66 . 
+ pensoft:0d176f8b-6a5d-4701-8389-128a8564a1a9   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:c4de0b9c-e7be-459e-90d7-584141bb2bbc . 
+ pensoft:97b122de-4bf8-42ba-8343-aa0260c8ddc6   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:64d2a3fe-afe3-4392-abbc-74ac5d2a21bd . 
+ pensoft:9db46947-6e3c-4316-81ea-d95778364e77   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:ee3823f8-bf12-445e-bf1a-83aebc8e2fe8 . 
+ pensoft:3afd402f-fce9-4314-8a79-e88abee9e444   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:ee3823f8-bf12-445e-bf1a-83aebc8e2fe8 . 
+ pensoft:ccc38ebd-58e1-4a69-ba6f-ca5d62505306   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:d22232b4-c566-4fd9-8b38-edaf8b17dc66 . 
+ pensoft:8664c788-5916-4d91-a91f-11c9f7dda2ec   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:c4de0b9c-e7be-459e-90d7-584141bb2bbc . 
+ pensoft:a7fc75db-683b-4fdd-82e3-a51a6024acc9   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:64d2a3fe-afe3-4392-abbc-74ac5d2a21bd . 
+ pensoft:91213f9a-eb29-4b36-8729-8f83030b9774   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:ee3823f8-bf12-445e-bf1a-83aebc8e2fe8 . 
+ pensoft:3e7c221e-d4c1-4f39-a157-f6eb47ba458c   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:c4de0b9c-e7be-459e-90d7-584141bb2bbc . 
+ pensoft:d8f6d234-f41a-4f9b-a959-d4df663d8d2c   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:64d2a3fe-afe3-4392-abbc-74ac5d2a21bd . 
+ pensoft:82e8fa1c-b117-41bb-b7aa-814865ea2d4c   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:ee3823f8-bf12-445e-bf1a-83aebc8e2fe8 . 
+ pensoft:110d81c8-4d00-49c7-8cd5-076b2f81f298   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:c4de0b9c-e7be-459e-90d7-584141bb2bbc . 
+ pensoft:ca5c944d-6937-46b8-bb0e-85d91884d1d1   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:64d2a3fe-afe3-4392-abbc-74ac5d2a21bd . 
+ pensoft:00eea843-90bf-4101-a78c-d7c28e88e0a9   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:cd3a903f-8120-4805-ba6f-7c88bb4b9e8e . 
+ pensoft:8932fa42-786f-40b8-938f-e3c6e64de10b   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:01574e04-cbc7-43de-98b1-061cb8ce701e . 
+ pensoft:ecf2eac2-6cd8-4e7a-8ca0-acdd4d3f4878   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:c4de0b9c-e7be-459e-90d7-584141bb2bbc . 
+ pensoft:b144e116-17e2-47a2-a286-337ef7bb91d3   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:64d2a3fe-afe3-4392-abbc-74ac5d2a21bd . 
+ pensoft:dea1f111-fe87-4d96-be03-a6ad5c480ea3   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:c4de0b9c-e7be-459e-90d7-584141bb2bbc . 
+ pensoft:bc6db1b3-2917-4b9c-8faf-d74100155442   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:ee3823f8-bf12-445e-bf1a-83aebc8e2fe8 . 
+ pensoft:dc22d8de-118f-4020-982f-60ca163c7ddb   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:c4de0b9c-e7be-459e-90d7-584141bb2bbc . 
+ pensoft:387a7211-3a53-4747-9448-c7e41805cdcc   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:64d2a3fe-afe3-4392-abbc-74ac5d2a21bd . 
+ pensoft:36cc8788-38da-4a5a-bd3e-116c989cc50b   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:d22232b4-c566-4fd9-8b38-edaf8b17dc66 . 
+ pensoft:3790895c-dd0e-4cad-9366-684c09bc61b1   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:c4de0b9c-e7be-459e-90d7-584141bb2bbc . 
+ pensoft:b1f0352b-ca0b-410e-90e0-f148eee70c5f   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:64d2a3fe-afe3-4392-abbc-74ac5d2a21bd . 
+ pensoft:89afc6db-0fc4-4483-9bd0-1e6c5dec64bd   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:ee3823f8-bf12-445e-bf1a-83aebc8e2fe8 . 
+ pensoft:2c90b6a8-330b-47ca-bf41-eb22b8735f74   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:ee3823f8-bf12-445e-bf1a-83aebc8e2fe8 . 
+ pensoft:f1326003-9c0d-47c7-b8b1-b0199f536f23   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:d22232b4-c566-4fd9-8b38-edaf8b17dc66 . 
+ pensoft:b6d089ab-4dac-46e4-8dfe-8898483d8ed5   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:c4de0b9c-e7be-459e-90d7-584141bb2bbc . 
+ pensoft:a4810117-6731-433f-a0de-85867f4eb2ec   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:64d2a3fe-afe3-4392-abbc-74ac5d2a21bd . 
+ pensoft:ef7c41c9-0019-4525-9019-2f2ae234006a   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:ee3823f8-bf12-445e-bf1a-83aebc8e2fe8 . 
+ pensoft:544e2e46-9815-4d03-afc3-a1f3bed64df6   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:c4de0b9c-e7be-459e-90d7-584141bb2bbc . 
+ pensoft:6ec41ed3-8aed-496f-80a4-ff0818fbf384   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:64d2a3fe-afe3-4392-abbc-74ac5d2a21bd . 
+ pensoft:b36371e6-a6bc-4076-aaef-a099b30da8ee   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:ee3823f8-bf12-445e-bf1a-83aebc8e2fe8 . 
+ pensoft:b15d9800-2899-4483-909d-710e961fd601   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:ee3823f8-bf12-445e-bf1a-83aebc8e2fe8 . 
+ pensoft:a9561e21-8118-44c0-a883-c220c26c9d8e   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:ee3823f8-bf12-445e-bf1a-83aebc8e2fe8 . 
+ pensoft:1c8b19d5-b3b0-4410-b310-ce9180c3772f   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:7f00b6da-1456-4741-93ad-ba1aa60556ce . 
+ pensoft:633f4dd9-75bf-40bb-a23b-f2a02642a1f6   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:e8650409-b6d5-403e-b94f-1426b7f1a951 . 
+ pensoft:01c0e765-8b75-4c49-ae86-b25cdbd61a47   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:8c7ed219-6681-456f-a272-1a8b59737540 . 
+ pensoft:7b36908e-c154-4648-bc14-120a5abdc507   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:ab571145-e864-40b1-98e4-8497ab2c17f1 . 
+ pensoft:f98cf6f4-0742-4c35-b048-0f9c26995b8f   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:ba91164a-2018-4a1a-90d7-f9bdc8e1c898 . 
+ pensoft:5c316961-0dca-4a6e-8a1a-d8c692d19214   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:01574e04-cbc7-43de-98b1-061cb8ce701e . 
+ pensoft:6b737d0e-d591-428e-8310-c3810436782c   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:ee3823f8-bf12-445e-bf1a-83aebc8e2fe8 . 
+ pensoft:cec1d3c5-bc23-4256-96a6-ed47a706c7a1   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:abf5fd26-e52f-4c43-a541-a498bac4cdb9 . 
+ pensoft:918b0f55-c110-4396-9f4a-0d4a9063ff6c   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:8c7ed219-6681-456f-a272-1a8b59737540 . 
+ pensoft:6f368de7-c02d-49f5-98d2-8c0eae74e577   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:01574e04-cbc7-43de-98b1-061cb8ce701e . 
+ pensoft:c2e4b91a-1e86-4880-98d0-887c02618be8   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:8c7ed219-6681-456f-a272-1a8b59737540 . 
+ pensoft:87e0c458-482e-451f-b846-347e0a2400b3   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:ee3823f8-bf12-445e-bf1a-83aebc8e2fe8 . 
+ pensoft:8d36650d-33e5-47aa-a819-cff9a3c5a525   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:52d9d042-4ca9-4344-a0fa-990921e51d39 . 
+ pensoft:074d17ee-175e-411e-8ea8-dcb16b56e6f1   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:8c7ed219-6681-456f-a272-1a8b59737540 . 
+ pensoft:55f15ecd-e737-4c57-90fc-a1a5f7e05122   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:52d9d042-4ca9-4344-a0fa-990921e51d39 . 
+ pensoft:c59a3a9b-dff2-4f9b-b762-20e75450ea6c   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:ee3823f8-bf12-445e-bf1a-83aebc8e2fe8 . 
+ pensoft:32b1f2a5-8575-4ced-af50-abd805d35bd4   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:8c7ed219-6681-456f-a272-1a8b59737540 . 
+ pensoft:fc3853b6-d573-41a1-8df5-06b57a80854c   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:8c7ed219-6681-456f-a272-1a8b59737540 . 
+ pensoft:ac53637f-0137-404f-baca-8117b22ad852   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:8c7ed219-6681-456f-a272-1a8b59737540 . 
+ pensoft:3ff70e32-0bcf-4cdf-b903-2fc37b630edb   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:68caccd1-6e83-4261-9a3c-4a9657b72923 . 
+ pensoft:681c21b2-5282-4635-8ff6-e5ed4f570e40   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:cd3a903f-8120-4805-ba6f-7c88bb4b9e8e . 
+ pensoft:b5d5e702-3b46-4894-ab2c-89a5084c2359   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:8c7ed219-6681-456f-a272-1a8b59737540 . 
+ pensoft:f240acf7-b607-4cd0-985c-defaa0608b95   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:7f00b6da-1456-4741-93ad-ba1aa60556ce . 
+ pensoft:6d8da6fd-56f3-45b1-b1ca-74b204340636   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:7f00b6da-1456-4741-93ad-ba1aa60556ce . 
+ pensoft:83be2c52-f03d-4781-9fe1-7fa62fd74301   frbr:realizationOf   pensoft:e859b592-d6d7-43b4-be33-399b2950be3e , pensoft:11f2c2bb-6b7f-491d-b7e9-74d7342023f8 , pensoft:61304107-facb-4c90-bb65-d8390bd5d95f , pensoft:8f0742e0-1872-4a50-96fa-cd3947a9286d ;
 	 rdf:type   trt:Nomenclature . 
- pensoft:f16825ed-31b2-466b-8bf2-8610df3c6bb5   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:270a88eb-4c4e-4c54-b516-e061d2040e3e . 
- pensoft:3a8398a7-133e-4edc-bbd2-606f0d027e5a   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:270a88eb-4c4e-4c54-b516-e061d2040e3e . 
- pensoft:13f021ac-a03b-42d8-b700-59697fa44b60   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:ab291169-b413-471a-8fe9-391bc3333f32 . 
- pensoft:af40fbc8-40da-4aa4-a5b1-bcfa7534c7d9   rdf:type   trt:NomenclaturalAct ;
-	 trt:ValidName   pensoft:270a88eb-4c4e-4c54-b516-e061d2040e3e ;
-	 trt:NomenclaturalCitation   pensoft:270a88eb-4c4e-4c54-b516-e061d2040e3e , pensoft:ab291169-b413-471a-8fe9-391bc3333f32 . } 
+ pensoft:e859b592-d6d7-43b4-be33-399b2950be3e   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:8c7ed219-6681-456f-a272-1a8b59737540 . 
+ pensoft:11f2c2bb-6b7f-491d-b7e9-74d7342023f8   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:8c7ed219-6681-456f-a272-1a8b59737540 . 
+ pensoft:61304107-facb-4c90-bb65-d8390bd5d95f   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:68caccd1-6e83-4261-9a3c-4a9657b72923 . 
+ pensoft:b1cd82ad-09c6-4694-badd-a8dba1233d61   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:8c7ed219-6681-456f-a272-1a8b59737540 . 
+ pensoft:a00597c3-e9ac-45d1-b445-4dbd07d18340   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:8c7ed219-6681-456f-a272-1a8b59737540 . 
+ pensoft:0c4e8bac-20ce-4419-999f-dfddc3490de2   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:8c7ed219-6681-456f-a272-1a8b59737540 . 
+ pensoft:8f0742e0-1872-4a50-96fa-cd3947a9286d   rdf:type   trt:NomenclaturalAct ;
+	 trt:ValidName   pensoft:8c7ed219-6681-456f-a272-1a8b59737540 ;
+	 trt:NomenclaturalCitation   pensoft:8c7ed219-6681-456f-a272-1a8b59737540 , pensoft:68caccd1-6e83-4261-9a3c-4a9657b72923 . } 
 
 

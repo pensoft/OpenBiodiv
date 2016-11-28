@@ -20,12 +20,21 @@
  @prefix nomen: <http://www.semanticweb.org/dmitriev/ontologies/2013/8/untitled-ontology-6#> .
  @prefix dwc: <http://rs.tdwg.org/dwc/terms/> .
  @prefix sro: <http://salt.semanticauthoring.org/ontologies/sro#> .
- pensoft:85d5972b-8001-4311-8346-96d9ef02240f {
- http://id.pensoft.net/74c121f3-9237-422a-a793-ef251498880b   http://id.pensoft.net/745bc9e2-baf3-4977-a692-649d3359c42c   http://id.pensoft.net/4e16211f-fc76-48f8-aaeb-fc0859121424 . 
- pensoft:621790b1-9586-476b-8dae-a26881343761   rdf:type   pro:RoleInTime ;
-	 pro:relatesToDocument   http://id.pensoft.net/788ce5bc-4692-4f89-90ee-db1e283b6ddf . 
- http://id.pensoft.net/788ce5bc-4692-4f89-90ee-db1e283b6ddf   http://id.pensoft.net/ffe7bd9f-6b74-4cc9-9d84-b4147c0b2681   http://id.pensoft.net/03f956dd-2d36-4f7f-935a-9a4c2b8f06ee . 
- pensoft:00041dfe-2338-4f07-97a5-93520770ebbf   rdf:type   fabio:JournalArticle ;
+ @prefix deo: <http://purl.org/spar/deo/> .
+ pensoft:72ea393d-c91e-4ab7-b078-ae3c37a924a5 {
+ pensoft:cb8e5e41-ba8a-4d48-9001-1df287a64d2d   rdf:type   foaf:Agent ;
+	 skos:prefLabel   "Pensoft Publishers" ;
+	 pro:holdsRoleInTime   pensoft:5b979ff1-e28f-451b-9a4e-777fbdb6fa10 . 
+ pensoft:5b979ff1-e28f-451b-9a4e-777fbdb6fa10   rdf:type   pro:RoleInTime ;
+	 pro:relatesToDocument   pensoft:6239221b-0077-4811-8368-cd81ad83dcf2 . 
+ pensoft:6239221b-0077-4811-8368-cd81ad83dcf2   rdf:type   fabio:Journal ;
+	 skos:prefLabel   "Biodiversity Data Journal" ;
+	 skos:altLabel   "BDJ" ;
+	 fabio:issn   "1314-2836" ;
+	 fabio:eIssn   "1314-2828" ;
+	 dcterms:publisher   "Pensoft Publishers" ;
+	 frbr:hasPart   pensoft:82ae4661-b72d-47f4-a010-ac243c1eca82 . 
+ pensoft:82ae4661-b72d-47f4-a010-ac243c1eca82   rdf:type   fabio:JournalArticle ;
 	 skos:prefLabel   "10.3897/BDJ.2.e1160" ;
 	 prism:doi   "10.3897/BDJ.2.e1160" ;
 	 fabio:hasPublicationYear   "2014"^^xsd:gYear ;
@@ -35,53 +44,146 @@
 	 po:contains   pensoft:57916892-7bb7-4cce-801f-d2f2b4ed8a44 , pensoft:946919f6-0d41-4533-84c8-57e8a3072521 ;
 	 co:firstItem    [     co:itemContent   pensoft:57916892-7bb7-4cce-801f-d2f2b4ed8a44 ;
 	 co:nextItem    [     co:itemContent   pensoft:1ff74d88-0fce-44bf-af04-5655ebe71259  ]   ]  ;
-	 frbr:realizationOf   pensoft:b4e98bc6-30a7-4e6b-b30f-ff0516689d2c . 
+	 frbr:realizationOf   pensoft:42e43cfd-8b76-41ee-9eb0-685fb9066178 . 
  pensoft:57916892-7bb7-4cce-801f-d2f2b4ed8a44   rdf:type   doco:title ;
 	 c4o:hasContent   "A dataset for examining trends in publication of new Australian insects"@en-us . 
  pensoft:946919f6-0d41-4533-84c8-57e8a3072521   rdf:type   sro:Abstract . 
  pensoft:f73c0774-565b-4b7b-98cf-5fddee12b76c   rdf:type   doco:BodyMatter ;
-	 frbr:realizationOf   pensoft:211f8a37-7df3-4267-a8f9-0d8fa3117dc4 , pensoft:d83cbe6f-6b34-4be6-a47b-7a00d25dadb8 , pensoft:f4491302-1282-4c3b-bb0d-1d347ea43188 , pensoft:4a7c2e69-f110-4b7c-acfc-e5eb1f237994 , pensoft:7d0e3be7-aada-4060-a512-8d18ba1eb55c , pensoft:42276db7-e265-4f03-9534-d5276b41b252 , pensoft:63550301-0150-474e-bdf7-25cb9abea5e8 , pensoft:8c188b7e-1944-4474-9c9f-c4fe6be0a654 , pensoft:06eaa15f-c3d4-4d1d-bd40-0cb46fc37c7e , pensoft:a546b043-745f-4ea9-8a38-7b6e848369e7 . 
+	 frbr:realizationOf   pensoft:54b22075-1494-4399-af77-9ce981104071 , pensoft:4e6e6c91-09c2-4c8d-8922-a2e9a2921908 , pensoft:ce6b7710-2218-4075-843a-2aa5bd82a68f , pensoft:ab925b06-3b9d-4d3b-a333-57ccb3455b0d , pensoft:e3facf5d-fd31-4a72-a01f-9538e94e90df , pensoft:4a0a657f-2bc8-451a-9819-0786f292aa5b , pensoft:ea7170d9-3ace-46da-9e32-734ef1fa5c8e , pensoft:6da49541-10f7-41bb-b34e-402df315bbac , pensoft:f6b5db5b-9404-4d2a-9cea-98a59f6e7623 , pensoft:b9992375-2f8f-4e09-b05f-1f748a0b779a . 
  pensoft:aefd1637-51fe-441f-9542-c0203b39b3c9   rdf:type   doco:BackMatter ;
 	 po:contains   pensoft:30492bca-1185-4f63-b2ed-c45dd7f9a817 , pensoft:F723139 , pensoft:F723141 , pensoft:F723143 , pensoft:F723145 , pensoft:F723147 , pensoft:F723149 , pensoft:F723151 , pensoft:F723153 , pensoft:F723155 , pensoft:F723157 , pensoft:F723159 , pensoft:F723161 , pensoft:F723163 , pensoft:F723165 , pensoft:T723170 , pensoft:T723171 , pensoft:T723172 . 
  pensoft:30492bca-1185-4f63-b2ed-c45dd7f9a817   rdf:type   doco:Afterword . 
- pensoft:F723139   rdf:type   doco:Figure . 
- pensoft:F723141   rdf:type   doco:Figure . 
- pensoft:F723143   rdf:type   doco:Figure . 
- pensoft:F723145   rdf:type   doco:Figure . 
- pensoft:F723147   rdf:type   doco:Figure . 
- pensoft:F723149   rdf:type   doco:Figure . 
- pensoft:F723151   rdf:type   doco:Figure . 
- pensoft:F723153   rdf:type   doco:Figure . 
- pensoft:F723155   rdf:type   doco:Figure . 
- pensoft:F723157   rdf:type   doco:Figure . 
- pensoft:F723159   rdf:type   doco:Figure . 
- pensoft:F723161   rdf:type   doco:Figure . 
- pensoft:F723163   rdf:type   doco:Figure . 
- pensoft:F723165   rdf:type   doco:Figure . 
- pensoft:T723170   rdf:type   doco:Table . 
- pensoft:T723171   rdf:type   doco:Table . 
- pensoft:T723172   rdf:type   doco:Table . 
- pensoft:b4e98bc6-30a7-4e6b-b30f-ff0516689d2c   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:520e6123-12ff-448d-a3b2-84d0f5d1c873 . 
- pensoft:211f8a37-7df3-4267-a8f9-0d8fa3117dc4   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:be6a0264-ee0f-49ff-98d0-b83a270a265f . 
- pensoft:d83cbe6f-6b34-4be6-a47b-7a00d25dadb8   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:bab74bfe-2227-4772-aacd-6ac7c9b90f68 . 
- pensoft:f4491302-1282-4c3b-bb0d-1d347ea43188   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:8f853032-a46d-45b5-a711-880134196713 . 
- pensoft:4a7c2e69-f110-4b7c-acfc-e5eb1f237994   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:c6377b8d-e9a0-4f4b-9dba-107e64b54c90 . 
- pensoft:7d0e3be7-aada-4060-a512-8d18ba1eb55c   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:86448c6e-c8e6-40fe-8817-cf2368d9c8fc . 
- pensoft:42276db7-e265-4f03-9534-d5276b41b252   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:309c2b7e-2b44-49a7-b0b9-9b56760421d1 . 
- pensoft:63550301-0150-474e-bdf7-25cb9abea5e8   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:e05283a7-221d-4582-956e-5f3452d4f072 . 
- pensoft:8c188b7e-1944-4474-9c9f-c4fe6be0a654   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:563b5e4e-0a80-4a31-b438-f3f3f71f10db . 
- pensoft:06eaa15f-c3d4-4d1d-bd40-0cb46fc37c7e   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:2308e022-ccc8-4064-ac8e-b5d6c3ecd242 . 
- pensoft:a546b043-745f-4ea9-8a38-7b6e848369e7   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:5b58aaac-c805-482e-88ab-dcf8ae328287 . } 
+ pensoft:F723139   rdf:type   doco:Figure ;
+	 po:contains   pensoft:1e77c68d-4828-4afa-8c20-c4eb658e3028 . 
+ pensoft:F723141   rdf:type   doco:Figure ;
+	 po:contains   pensoft:272626f7-c617-4bcd-a94e-c715c570f09e . 
+ pensoft:F723143   rdf:type   doco:Figure ;
+	 po:contains   pensoft:e20b2bd9-4728-4d9c-99d4-29fa2f9415da . 
+ pensoft:F723145   rdf:type   doco:Figure ;
+	 po:contains   pensoft:ea919dcd-d90a-4daa-909c-38cb6ffa9bfa . 
+ pensoft:F723147   rdf:type   doco:Figure ;
+	 po:contains   pensoft:9e97eaf3-5d0e-4104-822e-2481af80fce4 . 
+ pensoft:F723149   rdf:type   doco:Figure ;
+	 po:contains   pensoft:7ef6981f-046d-40c0-8b09-ba98dc29ec48 . 
+ pensoft:F723151   rdf:type   doco:Figure ;
+	 po:contains   pensoft:75c64b30-cc9b-4e91-bd53-83c400e2ad01 . 
+ pensoft:F723153   rdf:type   doco:Figure ;
+	 po:contains   pensoft:c82fd70b-2e59-4d0b-9bf3-9a20b2d7920d . 
+ pensoft:F723155   rdf:type   doco:Figure ;
+	 po:contains   pensoft:7a668f39-c904-44d7-9beb-dec65e31b09d . 
+ pensoft:F723157   rdf:type   doco:Figure ;
+	 po:contains   pensoft:eab59b15-42ca-4d33-bd53-823905b37cf6 . 
+ pensoft:F723159   rdf:type   doco:Figure ;
+	 po:contains   pensoft:53ea6347-96bc-4cdd-b293-5b2d9d911bcb . 
+ pensoft:F723161   rdf:type   doco:Figure ;
+	 po:contains   pensoft:9b59a6ff-c891-4c53-a317-a4547200781d . 
+ pensoft:F723163   rdf:type   doco:Figure ;
+	 po:contains   pensoft:6e13d512-f81c-4716-90ed-089b85ffad85 . 
+ pensoft:F723165   rdf:type   doco:Figure ;
+	 po:contains   pensoft:32c2b28d-369e-4d95-b427-abd09677867d . 
+ pensoft:1e77c68d-4828-4afa-8c20-c4eb658e3028   rdf:type   deo:Caption ;
+	 c4o:hasContent   "New Australian insects in nai50 (1961–2010) by country of publication other than Australia, tallied by number of publications (left) and number of species and subspecies (right) (Suppl. material 2)." . 
+ pensoft:272626f7-c617-4bcd-a94e-c715c570f09e   rdf:type   deo:Caption ;
+	 c4o:hasContent   "New Australian insect names in nai50 (1961–2010) by order (Suppl. material 3)." . 
+ pensoft:e20b2bd9-4728-4d9c-99d4-29fa2f9415da   rdf:type   deo:Caption ;
+	 c4o:hasContent   "Percentage of publications by year in nai50 with single-author names, e.g. 'Smith, 1998' (Suppl. material 4)." . 
+ pensoft:ea919dcd-d90a-4daa-909c-38cb6ffa9bfa   rdf:type   deo:Caption ;
+	 c4o:hasContent   "Number of publications by year in nai50 with two-author (squares) and three-author (triangles) names, e.g. 'Smith & Jones, 1998' and 'Smith, Jones & Brown, 1998' (Suppl. material 5)." . 
+ pensoft:9e97eaf3-5d0e-4104-822e-2481af80fce4   rdf:type   deo:Caption ;
+	 c4o:hasContent   "Number of publications by year in nai50 with 'A in B' names, e.g. 'Smith in Jones & Smith, 1998' (Suppl. material 6)." . 
+ pensoft:7ef6981f-046d-40c0-8b09-ba98dc29ec48   rdf:type   deo:Caption ;
+	 c4o:hasContent   "Number of new species and subspecies names by year in nai50, showing raw data (squares) and 5-year moving average (solid line) (Suppl. material 7)." . 
+ pensoft:75c64b30-cc9b-4e91-bd53-83c400e2ad01   rdf:type   deo:Caption ;
+	 c4o:hasContent   "Number of new species and subspecies names by year in nai50 published in books (black) and journal articles (grey) (Suppl. material 8)." . 
+ pensoft:c82fd70b-2e59-4d0b-9bf3-9a20b2d7920d   rdf:type   deo:Caption ;
+	 c4o:hasContent   "Percentage of publications by year in nai50 in entomology books and journals (Suppl. material 9)." . 
+ pensoft:7a668f39-c904-44d7-9beb-dec65e31b09d   rdf:type   deo:Caption ;
+	 c4o:hasContent   "Percentage of publications by year in nai50 containing only one new species or subspecies name (Suppl. material 10)." . 
+ pensoft:eab59b15-42ca-4d33-bd53-823905b37cf6   rdf:type   deo:Caption ;
+	 c4o:hasContent   "Number of publications by year in nai50, showing raw data (squares) and 5-year moving average (solid line) (Suppl. material 11)." . 
+ pensoft:53ea6347-96bc-4cdd-b293-5b2d9d911bcb   rdf:type   deo:Caption ;
+	 c4o:hasContent   "Percentage of Australian publications by year in nai50 (Suppl. material 12)." . 
+ pensoft:9b59a6ff-c891-4c53-a317-a4547200781d   rdf:type   deo:Caption ;
+	 c4o:hasContent   "Five-year moving average of Australian publications in nai50 by year and publisher class: agency (solid line), museum (dashed line) and society (dotted line) (Suppl. material 13)." . 
+ pensoft:6e13d512-f81c-4716-90ed-089b85ffad85   rdf:type   deo:Caption ;
+	 c4o:hasContent   "Number of publications by year in nai50 in Australian Journal of Zoology (filled squares), Invertebrate Taxonomy (open squares), Invertebrate Systematics (circles) and Zootaxa (triangles) (Suppl. material 14)." . 
+ pensoft:32c2b28d-369e-4d95-b427-abd09677867d   rdf:type   deo:Caption ;
+	 c4o:hasContent   "Number of new species and subspecies names by year in nai50 in Australian Journal of Zoology (filled squares), Invertebrate Taxonomy (open squares), Invertebrate Systematics (circles) and Zootaxa (triangles) (Suppl. material 14)." . 
+ pensoft:91d297e1-159c-474f-8ffd-9f14db0e24db   rdf:type   deo:Caption ;
+	 c4o:hasContent   "Mean new names/publication by decade in nai50 with 1, 2 and 3 taxonomic authors (number of new names)." . 
+ pensoft:T723170   po:contains   pensoft:91d297e1-159c-474f-8ffd-9f14db0e24db ;
+	 rdf:type   doco:Table . 
+ pensoft:d0a52ed7-6d23-4da6-aab0-230c977178f6   rdf:type   deo:Caption ;
+	 c4o:hasContent   "Mean new names/publication by decade in nai50 for Australian, non-Australian and all publications (number of publications)." . 
+ pensoft:T723171   po:contains   pensoft:d0a52ed7-6d23-4da6-aab0-230c977178f6 ;
+	 rdf:type   doco:Table . 
+ pensoft:4066fcd8-fedb-4c1d-a881-41bf56d74e03   rdf:type   deo:Caption ;
+	 c4o:hasContent   "Number of publications and number of new names in Australia by publisher class and publisher in nai50, 1961–2010. Publisher abbreviations: AAD = Australian Antarctic Division, ABRS = Australian Biological Resources Study, CSIRO = Commonwealth Scientific and Industrial Research Organisation, QldGovt = Queensland state government, TasGovt = Tasmanian state government, AM= Australian Museum, MAGNT = Museums and Art Galleries of the Northern Territory, NMV = Museum Victoria, QM = Queensland Museum, QVMAG = Queen Victoria Museum and Art Gallery, SAM = South Australian Museum, WAM = Western Australian Museum, AustEntSoc = Australian Entomological Society, BOIC = Butterflies and Other Invertebrates Club, EntSocNSW = Entomological Society of New South Wales, EntSocQld = Entomological Society of Queensland, FieldNatsSA = Field Naturalists Society of South Australia, FieldNatsVic = Field Naturalists Club of Victoria, FieldNatsWA = Western Australian Naturalists Club, RoySocQld = Royal Society of Queensland, RoySocSA = Royal Society of Soyj Australia, RoySocTas = Royal Society of Tasmania, RoySocVic = Royal Society of Victoria, RoySocWA = Royal Society of Western Australia, RoyZooSocNSW = Royal Zoological Society of New South Wales, UniQld = University of Queensland." . 
+ pensoft:T723172   po:contains   pensoft:4066fcd8-fedb-4c1d-a881-41bf56d74e03 ;
+	 rdf:type   doco:Table . 
+ pensoft:7abf9a5c-70a7-4a1b-b46a-394736cd7945   rdf:type   deo:Caption ;
+	 c4o:hasContent   "nai50" . 
+ pensoft:S723338   po:contains   pensoft:7abf9a5c-70a7-4a1b-b46a-394736cd7945 . 
+ pensoft:cf9a009a-eebf-4204-ad65-2793c7f068db   rdf:type   deo:Caption ;
+	 c4o:hasContent   "Figure 1 data" . 
+ pensoft:S723365   po:contains   pensoft:cf9a009a-eebf-4204-ad65-2793c7f068db . 
+ pensoft:b8b1979f-16fa-42ad-b936-e8e4e9525564   rdf:type   deo:Caption ;
+	 c4o:hasContent   "Figure 2 data" . 
+ pensoft:S723366   po:contains   pensoft:b8b1979f-16fa-42ad-b936-e8e4e9525564 . 
+ pensoft:13458c76-3007-4922-80b5-5941d1150b85   rdf:type   deo:Caption ;
+	 c4o:hasContent   "Figure 3 data" . 
+ pensoft:S723367   po:contains   pensoft:13458c76-3007-4922-80b5-5941d1150b85 . 
+ pensoft:5d63d385-94f6-4304-98d4-f3eacbe4f69d   rdf:type   deo:Caption ;
+	 c4o:hasContent   "Figure 4 data" . 
+ pensoft:S723368   po:contains   pensoft:5d63d385-94f6-4304-98d4-f3eacbe4f69d . 
+ pensoft:2095b1be-5efe-4da2-8be2-d9f703462989   rdf:type   deo:Caption ;
+	 c4o:hasContent   "Figure 5 data" . 
+ pensoft:S723369   po:contains   pensoft:2095b1be-5efe-4da2-8be2-d9f703462989 . 
+ pensoft:d0f6f9a1-3bf0-416d-887c-ae11bbdb586d   rdf:type   deo:Caption ;
+	 c4o:hasContent   "Figure 6 data" . 
+ pensoft:S723370   po:contains   pensoft:d0f6f9a1-3bf0-416d-887c-ae11bbdb586d . 
+ pensoft:35a2f837-9182-4e12-b76b-18b76193060c   rdf:type   deo:Caption ;
+	 c4o:hasContent   "Figure 7 data" . 
+ pensoft:S723371   po:contains   pensoft:35a2f837-9182-4e12-b76b-18b76193060c . 
+ pensoft:470c5d8e-58e2-4572-abab-44e7555845f5   rdf:type   deo:Caption ;
+	 c4o:hasContent   "Figure 8 data" . 
+ pensoft:S723372   po:contains   pensoft:470c5d8e-58e2-4572-abab-44e7555845f5 . 
+ pensoft:f6d49e89-7071-4d2f-98c8-5924c66b51c5   rdf:type   deo:Caption ;
+	 c4o:hasContent   "Figure 9 data" . 
+ pensoft:S723373   po:contains   pensoft:f6d49e89-7071-4d2f-98c8-5924c66b51c5 . 
+ pensoft:930351e5-f1e7-47c1-b8a0-7f7ee2449f8b   rdf:type   deo:Caption ;
+	 c4o:hasContent   "Figure 10 data" . 
+ pensoft:S723374   po:contains   pensoft:930351e5-f1e7-47c1-b8a0-7f7ee2449f8b . 
+ pensoft:20c6d9a9-400b-44ad-8cef-dcbef3c42ab7   rdf:type   deo:Caption ;
+	 c4o:hasContent   "Figure 11 data" . 
+ pensoft:S723375   po:contains   pensoft:20c6d9a9-400b-44ad-8cef-dcbef3c42ab7 . 
+ pensoft:2fc4789a-f67f-43d6-b908-8404bf33d088   rdf:type   deo:Caption ;
+	 c4o:hasContent   "Figure 12 data" . 
+ pensoft:S723376   po:contains   pensoft:2fc4789a-f67f-43d6-b908-8404bf33d088 . 
+ pensoft:fcab8790-f82c-4110-bd26-516a7cb0c4ae   rdf:type   deo:Caption ;
+	 c4o:hasContent   "Figures 13, 14 data" . 
+ pensoft:S723377   po:contains   pensoft:fcab8790-f82c-4110-bd26-516a7cb0c4ae . 
+ pensoft:42e43cfd-8b76-41ee-9eb0-685fb9066178   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:c516ebf8-b9fc-4076-9c29-e3c3d9c06fe4 . 
+ pensoft:54b22075-1494-4399-af77-9ce981104071   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:3671ed8a-a855-4e93-b9c8-b26a23a3f7d6 . 
+ pensoft:4e6e6c91-09c2-4c8d-8922-a2e9a2921908   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:bc309c93-a00d-45a9-8d9d-c38ed4aa0c76 . 
+ pensoft:ce6b7710-2218-4075-843a-2aa5bd82a68f   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:7769fadf-ab4a-44a9-bf21-e3ceb1ba1e14 . 
+ pensoft:ab925b06-3b9d-4d3b-a333-57ccb3455b0d   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:a2a70fc1-2553-4db5-84a3-aff7fe6d95d2 . 
+ pensoft:e3facf5d-fd31-4a72-a01f-9538e94e90df   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:07bf9833-ac6b-4f26-a970-f743b37ad2b2 . 
+ pensoft:4a0a657f-2bc8-451a-9819-0786f292aa5b   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:f72cdd93-faa4-4e9f-96ea-e1f01da519ea . 
+ pensoft:ea7170d9-3ace-46da-9e32-734ef1fa5c8e   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:62b2c88d-7ea6-42ef-b839-22abc88ed401 . 
+ pensoft:6da49541-10f7-41bb-b34e-402df315bbac   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:e1b21d60-4fbf-49da-b3cc-226b6d062089 . 
+ pensoft:f6b5db5b-9404-4d2a-9cea-98a59f6e7623   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:c4de0b9c-e7be-459e-90d7-584141bb2bbc . 
+ pensoft:b9992375-2f8f-4e09-b05f-1f748a0b779a   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:11e3e007-c5c1-4e4f-90d9-3b4463e44b77 . } 
 
 

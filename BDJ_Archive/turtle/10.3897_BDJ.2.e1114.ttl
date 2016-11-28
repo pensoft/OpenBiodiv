@@ -20,12 +20,21 @@
  @prefix nomen: <http://www.semanticweb.org/dmitriev/ontologies/2013/8/untitled-ontology-6#> .
  @prefix dwc: <http://rs.tdwg.org/dwc/terms/> .
  @prefix sro: <http://salt.semanticauthoring.org/ontologies/sro#> .
- pensoft:4cbdc023-6f1b-4ee8-9e04-c525c77ba7c4 {
- http://id.pensoft.net/74c121f3-9237-422a-a793-ef251498880b   http://id.pensoft.net/745bc9e2-baf3-4977-a692-649d3359c42c   http://id.pensoft.net/4e16211f-fc76-48f8-aaeb-fc0859121424 . 
- pensoft:242944cd-c6dc-4efc-bfef-3a3e8c20377a   rdf:type   pro:RoleInTime ;
-	 pro:relatesToDocument   http://id.pensoft.net/788ce5bc-4692-4f89-90ee-db1e283b6ddf . 
- http://id.pensoft.net/788ce5bc-4692-4f89-90ee-db1e283b6ddf   http://id.pensoft.net/ffe7bd9f-6b74-4cc9-9d84-b4147c0b2681   http://id.pensoft.net/03f956dd-2d36-4f7f-935a-9a4c2b8f06ee . 
- pensoft:978d73a7-1863-49c1-b9e7-51649c7184c2   rdf:type   fabio:JournalArticle ;
+ @prefix deo: <http://purl.org/spar/deo/> .
+ pensoft:07e1ac51-26a8-4c6e-8516-0e681b117798 {
+ pensoft:cb8e5e41-ba8a-4d48-9001-1df287a64d2d   rdf:type   foaf:Agent ;
+	 skos:prefLabel   "Pensoft Publishers" ;
+	 pro:holdsRoleInTime   pensoft:dc209cce-f013-44cd-b9a4-c8b4a52b80f2 . 
+ pensoft:dc209cce-f013-44cd-b9a4-c8b4a52b80f2   rdf:type   pro:RoleInTime ;
+	 pro:relatesToDocument   pensoft:6239221b-0077-4811-8368-cd81ad83dcf2 . 
+ pensoft:6239221b-0077-4811-8368-cd81ad83dcf2   rdf:type   fabio:Journal ;
+	 skos:prefLabel   "Biodiversity Data Journal" ;
+	 skos:altLabel   "BDJ" ;
+	 fabio:issn   "1314-2836" ;
+	 fabio:eIssn   "1314-2828" ;
+	 dcterms:publisher   "Pensoft Publishers" ;
+	 frbr:hasPart   pensoft:4820f810-ab03-48ed-ae4c-3fb38150aa6c . 
+ pensoft:4820f810-ab03-48ed-ae4c-3fb38150aa6c   rdf:type   fabio:JournalArticle ;
 	 skos:prefLabel   "10.3897/BDJ.2.e1114" ;
 	 prism:doi   "10.3897/BDJ.2.e1114" ;
 	 fabio:hasPublicationYear   "2014"^^xsd:gYear ;
@@ -39,25 +48,54 @@
 	 c4o:hasContent   "Symbiota – A virtual platform for creating voucher-based biodiversity information communities"@en-us . 
  pensoft:2d2cc84f-f53a-4694-ae82-7916eb47284f   rdf:type   sro:Abstract . 
  pensoft:3ad1e5d3-6125-4c20-8daf-6ef8ee51e607   rdf:type   doco:BodyMatter ;
-	 frbr:realizationOf   pensoft:36e4dea4-f618-4246-b261-7cf029635033 . 
+	 frbr:realizationOf   pensoft:45ac26b6-cfec-4cee-b7d2-ac2d97913053 . 
  pensoft:d3386502-5238-4cf8-ac23-260e2cb80fed   rdf:type   doco:BackMatter ;
 	 po:contains   pensoft:31418def-5d74-42f4-b5c2-ae455a625662 , pensoft:F690768 , pensoft:F690770 , pensoft:F690772 , pensoft:F690774 , pensoft:F695097 , pensoft:F695099 , pensoft:F695101 , pensoft:F695104 , pensoft:T700377 , pensoft:966fbc78-5753-4368-ad76-3bd793cac5ce , pensoft:B690394 , pensoft:B690404 , pensoft:B690414 , pensoft:B690440 , pensoft:B690460 , pensoft:B690430 , pensoft:B690484 , pensoft:B690470 , pensoft:B690494 , pensoft:B690743 , pensoft:B695159 , pensoft:B695179 , pensoft:B695189 , pensoft:B695123 , pensoft:B695199 , pensoft:B695208 , pensoft:B700570 , pensoft:B700517 , pensoft:B700560 , pensoft:B695055 , pensoft:B695084 , pensoft:B690548 , pensoft:B690516 , pensoft:B690680 , pensoft:B695132 , pensoft:B695141 , pensoft:B695218 , pensoft:B695227 , pensoft:B690600 , pensoft:B695018 , pensoft:B690581 , pensoft:B690815 , pensoft:B690857 , pensoft:B695046 , pensoft:B690527 , pensoft:B690537 , pensoft:B695028 , pensoft:B690704 , pensoft:B690714 , pensoft:B694998 , pensoft:B690866 , pensoft:B700550 , pensoft:B690670 , pensoft:B690591 , pensoft:B690571 , pensoft:B690561 , pensoft:B700407 , pensoft:B700392 , pensoft:B700460 , pensoft:B700540 , pensoft:B695114 , pensoft:B690795 , pensoft:B690690 , pensoft:B695008 , pensoft:B690754 , pensoft:B700419 , pensoft:B690506 , pensoft:B690610 , pensoft:B695150 , pensoft:B700496 , pensoft:B700531 , pensoft:B690786 , pensoft:B710618 , pensoft:B690729 , pensoft:B690805 ;
-	 frbr:realizationOf   pensoft:2c2128d0-efa3-43f1-8df4-d8bc437efaf7 , pensoft:fa46ef20-e05e-4b54-a829-b46430243a2c . 
+	 frbr:realizationOf   pensoft:b711fe68-b85c-4cb8-aa63-02902db86b25 , pensoft:82e5d3da-7394-4eca-a1b7-bbc0186d8d8d . 
  pensoft:31418def-5d74-42f4-b5c2-ae455a625662   rdf:type   doco:Afterword . 
- pensoft:F690768   rdf:type   doco:Figure . 
- pensoft:F690770   rdf:type   doco:Figure . 
- pensoft:F690772   rdf:type   doco:Figure . 
+ pensoft:F690768   rdf:type   doco:Figure ;
+	 po:contains   pensoft:81bd8805-806b-435c-8af8-2a4b1739299b . 
+ pensoft:F690770   rdf:type   doco:Figure ;
+	 po:contains   pensoft:9593fa0d-21ef-41ed-8495-a8034a3ef4a7 . 
+ pensoft:F690772   rdf:type   doco:Figure ;
+	 po:contains   pensoft:bec31256-7f0b-450d-b749-5467ec1dd4a3 . 
  pensoft:F690774   rdf:type   doco:Figure ;
-	 frbr:realizationOf   pensoft:a1db13dd-95a2-4ffe-b4da-b3fb998d1afa . 
- pensoft:F695097   rdf:type   doco:Figure . 
- pensoft:F695099   rdf:type   doco:Figure . 
- pensoft:F695101   rdf:type   doco:Figure . 
+	 po:contains   pensoft:4b9aa538-6dac-4dfb-8393-589a27ae00c5 ;
+	 frbr:realizationOf   pensoft:e9e294f9-31ea-4269-a603-4cb3613b1790 . 
+ pensoft:F695097   rdf:type   doco:Figure ;
+	 po:contains   pensoft:28c07336-6bf3-422a-9451-55c45f163776 . 
+ pensoft:F695099   rdf:type   doco:Figure ;
+	 po:contains   pensoft:766832fc-39a1-45da-9dcf-5481bdce2e3e . 
+ pensoft:F695101   rdf:type   doco:Figure ;
+	 po:contains   pensoft:41413a6d-8b01-4bb1-abe7-9e2d12536764 . 
  pensoft:F695104   rdf:type   doco:Figure ;
-	 frbr:realizationOf   pensoft:2ad27fd3-f1c7-4c06-8db3-fcc5fd78da9c , pensoft:b7449564-faac-4428-bc70-c738f2322993 . 
- pensoft:T700377   rdf:type   doco:Table ;
-	 frbr:realizationOf   pensoft:973175cb-0077-4ae9-9e21-48c21eee2101 . 
+	 po:contains   pensoft:9726e092-4dfd-4d92-88d1-05f80b8414a3 ;
+	 frbr:realizationOf   pensoft:9d900b28-76ad-4d5a-a7f1-697ab5463565 , pensoft:364eb6c8-b559-4a58-b943-f8ae5633bc4e . 
+ pensoft:81bd8805-806b-435c-8af8-2a4b1739299b   rdf:type   deo:Caption ;
+	 c4o:hasContent   "Partial screenshot of the Search Collections panel for SEINet, showing Symbiota's ability to integrate the identities of individual member collections (with their respective logos and links to portal-configured homepages), regional portals (only four out of nine portals shown here), and multi-portal 'hubs'. All screenshots used in this paper were taken in February 2014." . 
+ pensoft:9593fa0d-21ef-41ed-8495-a8034a3ef4a7   rdf:type   deo:Caption ;
+	 c4o:hasContent   "Screenshot of the Collection Management Panel for administrators of the University of Wisconsin Lichen Collection. The Data Editor Control Panel facilitates most day-to-day tasks related to specimen digitization as well as loan activity, whereas the Administration Control Panel focuses on managing the collection's appearance in the portal." . 
+ pensoft:bec31256-7f0b-450d-b749-5467ec1dd4a3   rdf:type   deo:Caption ;
+	 c4o:hasContent   "SCAN portal homepage for the Arizona State University Hasbrouck Insect Collection, which is being managed "Live" in SCAN, with an account of the collection's holdings, contact information, and Collection Statistics as of December, 2013." . 
+ pensoft:4b9aa538-6dac-4dfb-8393-589a27ae00c5   rdf:type   deo:Caption ;
+	 c4o:hasContent   "Screenshot of the occurrence data form corresponding to the SEINet specimen ASU0023423 – Echinomastus johnsonii (Parry ex. Engelm.) E.M. Baxter (common name: Johnson's fishhook cactus – pertaining to the ASU Vascular Plant Herbarium collection. This is the primary Symbiota contributor interface through which individual specimen records are entered and edited. At the highest level, contributors can switch from the Occurrence Data tab to the Determination History, Images (see also right half), Genetic Links (e.g. to GenBank; Benson et al. 2012), and Administrative tabs. Entry personnel can zoom in on the label. Many data fields have inherent auto-completion or uniqueness/compliance checking functions, or can be expanded via the +-pencil icon for more fine-scale data entry. The Latest Identification data field section is linked to the taxonomic thesaurus, thereby ensuring correct integration of the Scientific Name with the portal-level taxonomy. Georeferencing support tools including Google Earth mapping and an embedded GEOLocate module. Under Curation, the Processing Status may be set to (e.g.) "Pending Review" to support filtering and data quality control practices among collection members." ;
+	 frbr:realizationOf   pensoft:095fd8c0-7899-4628-8eaf-30ea3a72edf2 . 
+ pensoft:28c07336-6bf3-422a-9451-55c45f163776   rdf:type   deo:Caption ;
+	 c4o:hasContent   "Screenshot of results displayed based on the search criteria ‘Grand Canyon’ which returns 378 records in 142 taxa. The Specimens panel (center tab) shown on the left presents an abbreviated summary view for each record that is expandable (not shown here). A Species List (left tab), shown on the right and Maps view (right tab, unselected), shown on bottom, are also available. A data icon in the top right corner facilitates downloading of the entire search results in Darwin Core or Symbiota CSV text file format (no permissions required). High-density occurrences of records are 'integrated' at coarser geographic scales and become resolved into separate latitude/longitude points at finer levels." . 
+ pensoft:766832fc-39a1-45da-9dcf-5481bdce2e3e   rdf:type   deo:Caption ;
+	 c4o:hasContent   "Screenshots of several stages in an exemplary sequence of using the Dynamic Key function in Symbiota. (A) Using the Dynamic Map interface, a rectangle is selected; the coordinates correspond to the bounding box are selected. Users can restrict the subsequent checklist creation process ("Build Checklist") through specification of a Taxon Filter (i.e., higher taxa down to family, listed alphabetically). (B) Using these search criteria, the module will search vouchers in Symbiota that may satisfy these conditions, and integrate the pertinent voucher list into a taxon (family/species) list with 2178 species-level matches. The Dynamic Key interface (left menu) is initially simple, including choices regarding e.g. habit. (C) In this example, selecting only two criteria from the list will (1) reduce the count of taxon matches to 6 and (2) display a remaining taxa-specific list of traits suitable for further determination, drawn from the character inheritance hierarchy of the corresponding key in Symbiota. These can either be further scrutinized with the dynamic key or determined through viewing of individual species profile pages." . 
+ pensoft:41413a6d-8b01-4bb1-abe7-9e2d12536764   rdf:type   deo:Caption ;
+	 c4o:hasContent   "Screenshot of the homepage of the SEINet-derived San Pedro Riparian National Conservation Area checklist, a 'member' checklist of the Arizona Flora biotic inventory 'family' (Makings 2006, 2014). Checklist administrator functions are available in the top right corner ("A" – Administration, "V" – Manage Linked Vouchers, "Spp" – Edit Species List). The selected screenshot shows the entire list in alphabetical order, Taxon Authors, Common Names, and Notes & Vouchers. Clicking on vouchers listed for each taxon will display specimen details including images, when available. A Google Map thumbnail can be clicked for a more expansive map view." . 
+ pensoft:9726e092-4dfd-4d92-88d1-05f80b8414a3   rdf:type   deo:Caption ;
+	 c4o:hasContent   "Screenshot of the Species Profile page of Lecanora cenisia. Ach. (Lecanoraceae) in CNALH (http://lichenportal.org/portal/taxa/index.php?taxauthid=1&taxon=53780&cl=2), with an outlink to the corresponding Encyclopedia of Life page (http://eol.org/pages/196725), common names, an assortment of accredited and clickable thumbnail images including in situ photographs and herbarium voucher scans (additional images and links are displayed when clicking links below), an Interactive Map for documented species occurrences, and taxonomic diagnosis (based on Nash et al. 2001 – also linked)." ;
+	 frbr:realizationOf   pensoft:ac2edb93-0d4d-4748-9c00-50ebb83a79cb , pensoft:9e73cd4b-7248-472f-b2b8-3c1b86150c60 . 
+ pensoft:25962152-0a1e-49b4-b139-788a91c83b06   rdf:type   deo:Caption ;
+	 c4o:hasContent   "List of Symbiota portal names and themes (in alphabetical order), URLs, and numbers of participating portal collections. Numbers generated in mid May, 2014." . 
+ pensoft:T700377   po:contains   pensoft:25962152-0a1e-49b4-b139-788a91c83b06 ;
+	 rdf:type   doco:Table ;
+	 frbr:realizationOf   pensoft:ea179bb2-75cb-4a2b-bc87-1acd5822ebae . 
  pensoft:966fbc78-5753-4368-ad76-3bd793cac5ce   rdf:type   doco:BibliographicReferenceList ;
-	 frbr:realizationOf   pensoft:436476a1-2973-4751-8f70-ea08a9f8ef92 , pensoft:a457912f-9189-4231-91b5-d27f5456abc8 . 
+	 frbr:realizationOf   pensoft:7e9bb27e-ad0d-4fc6-86f1-113943633db5 , pensoft:953b8ec7-5923-478b-a9aa-ad0178032ac3 . 
  pensoft:B690394   rdf:type   doco:Reference . 
  pensoft:B690404   rdf:type   doco:Reference . 
  pensoft:B690414   rdf:type   doco:Reference . 
@@ -75,7 +113,7 @@
  pensoft:B695199   rdf:type   doco:Reference . 
  pensoft:B695208   rdf:type   doco:Reference . 
  pensoft:B700570   rdf:type   doco:Reference ;
-	 frbr:realizationOf   pensoft:3a196f42-a0ce-49c3-975d-7bfda560d9f0 , pensoft:b8b6abfa-12a1-4041-ad30-3f3a4f971459 . 
+	 frbr:realizationOf   pensoft:6b320a2d-9a50-4d5b-8128-b757785ee98d , pensoft:994a7839-ed07-4a1c-a123-f1bd51e8ff15 . 
  pensoft:B700517   rdf:type   doco:Reference . 
  pensoft:B700560   rdf:type   doco:Reference . 
  pensoft:B695055   rdf:type   doco:Reference . 
@@ -124,27 +162,33 @@
  pensoft:B710618   rdf:type   doco:Reference . 
  pensoft:B690729   rdf:type   doco:Reference . 
  pensoft:B690805   rdf:type   doco:Reference . 
- pensoft:a1db13dd-95a2-4ffe-b4da-b3fb998d1afa   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:5de9d6c1-f936-4af1-8924-faf43925785c . 
- pensoft:2ad27fd3-f1c7-4c06-8db3-fcc5fd78da9c   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:c001b5d4-b59d-4f52-ae84-19e5dba7cabd . 
- pensoft:b7449564-faac-4428-bc70-c738f2322993   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:dab9a747-dcac-423d-89e9-65242f2b75f0 . 
- pensoft:973175cb-0077-4ae9-9e21-48c21eee2101   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:301d6a81-f4a6-4c34-b6f7-73b24fa1adc6 . 
- pensoft:436476a1-2973-4751-8f70-ea08a9f8ef92   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:e05283a7-221d-4582-956e-5f3452d4f072 . 
- pensoft:a457912f-9189-4231-91b5-d27f5456abc8   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:fc382a13-35df-49ab-bda6-a61af7dc8146 . 
- pensoft:3a196f42-a0ce-49c3-975d-7bfda560d9f0   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:e05283a7-221d-4582-956e-5f3452d4f072 . 
- pensoft:b8b6abfa-12a1-4041-ad30-3f3a4f971459   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:fc382a13-35df-49ab-bda6-a61af7dc8146 . 
- pensoft:2c2128d0-efa3-43f1-8df4-d8bc437efaf7   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:e05283a7-221d-4582-956e-5f3452d4f072 . 
- pensoft:fa46ef20-e05e-4b54-a829-b46430243a2c   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:fc382a13-35df-49ab-bda6-a61af7dc8146 . 
- pensoft:36e4dea4-f618-4246-b261-7cf029635033   rdf:type   trt:TaxonNameUsage ;
-	 dwciri:scientificName   pensoft:301d6a81-f4a6-4c34-b6f7-73b24fa1adc6 . } 
+ pensoft:e9e294f9-31ea-4269-a603-4cb3613b1790   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:2c48ee8b-7cde-4ff7-83ab-4d5ee0e2e9c7 . 
+ pensoft:9d900b28-76ad-4d5a-a7f1-697ab5463565   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:bca83019-8d4d-4037-b328-57c1d084045e . 
+ pensoft:364eb6c8-b559-4a58-b943-f8ae5633bc4e   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:3656cf59-84b2-4dd7-91f7-373b45ca6a02 . 
+ pensoft:ea179bb2-75cb-4a2b-bc87-1acd5822ebae   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:e91da9c6-0e96-4307-b3a1-588251cddfb5 . 
+ pensoft:7e9bb27e-ad0d-4fc6-86f1-113943633db5   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:62b2c88d-7ea6-42ef-b839-22abc88ed401 . 
+ pensoft:953b8ec7-5923-478b-a9aa-ad0178032ac3   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:b2d54688-184e-42ff-8486-a9dfbabd0d8c . 
+ pensoft:6b320a2d-9a50-4d5b-8128-b757785ee98d   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:62b2c88d-7ea6-42ef-b839-22abc88ed401 . 
+ pensoft:994a7839-ed07-4a1c-a123-f1bd51e8ff15   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:b2d54688-184e-42ff-8486-a9dfbabd0d8c . 
+ pensoft:b711fe68-b85c-4cb8-aa63-02902db86b25   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:62b2c88d-7ea6-42ef-b839-22abc88ed401 . 
+ pensoft:82e5d3da-7394-4eca-a1b7-bbc0186d8d8d   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:b2d54688-184e-42ff-8486-a9dfbabd0d8c . 
+ pensoft:45ac26b6-cfec-4cee-b7d2-ac2d97913053   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:e91da9c6-0e96-4307-b3a1-588251cddfb5 . 
+ pensoft:095fd8c0-7899-4628-8eaf-30ea3a72edf2   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:2c48ee8b-7cde-4ff7-83ab-4d5ee0e2e9c7 . 
+ pensoft:ac2edb93-0d4d-4748-9c00-50ebb83a79cb   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:bca83019-8d4d-4037-b328-57c1d084045e . 
+ pensoft:9e73cd4b-7248-472f-b2b8-3c1b86150c60   rdf:type   trt:TaxonNameUsage ;
+	 dwciri:scientificName   pensoft:3656cf59-84b2-4dd7-91f7-373b45ca6a02 . } 
 
 

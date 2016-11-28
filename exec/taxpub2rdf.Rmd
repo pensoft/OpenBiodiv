@@ -107,6 +107,25 @@ for ( taxpub_file in taxpubs ) {
 }
 ```
 
+TODO : error "10.3897_BDJ.3.e4162.xml"
+
+Extract ZooKeys:
+
+```{r}
+zookeys_archive = "/media/viktor/www2/main/vsenderov.backup/SRC/TaxPub2RDF/ZooKeys_Archive"
+taxpubs = list.files(zookeys_archive)
+#taxpubs = taxpubs[round(runif(n= 10, min = 1, max = length(taxpubs)))]
+for ( taxpub_file in taxpubs ) {
+  print( taxpub_file )
+  ttl = xml2rdf(paste0( zookeys_archive, "/", taxpub_file ) ) 
+  print( httr::content( rdf4jr::add_data(server_access_options, server_access_options$repository, ttl), as="text"))
+  ttl_name = gsub( ".xml", ".ttl", taxpub_file)
+  connex = file( paste0(bdj_archive, "/turtle/", ttl_name ) )
+  writeLines(ttl, con = connex )
+  close( connex )
+}
+```
+
 Get the username-password or API key from the environment:
 
 ```{r , purl=TRUE, eval = FALSE}
