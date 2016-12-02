@@ -175,27 +175,27 @@ extract_information = function( xml, xlit, xdoco ) {
     triples = c( triples, list(
 	triple( plate$id, 					entities$a,				 entities$figure ),
     triple( plate$id, 					entities$a, 			 entities$plate ) ,
-    triple( doco$back_matter[[1]]$id, 	entities$contains, 		 plate$id ) ) )
+    triple( doco$back_matter[1][[1]]$id, 	entities$contains, 		 plate$id ) ) )
     # TODO add figure-plate relationships!
   }
   # describe tables
   for ( table in doco$tables ) {
     triples = c( triples, list(
 	triple( table$id, 					entities$a, 			entities$table ),
-    triple( doco$back_matter[[1]]$id,   entities$contains,      table$id ) ) )
+    triple( doco$back_matter[1][[1]]$id,   entities$contains,      table$id ) ) )
   }
   # describe reference list
   for ( ref_list in doco$reference_list) {
     triples = c( triples, list(
 	triple( ref_list$id,                entities$a,             entities$reference_list ),
-    triple( doco$back_matter[[1]]$id,   entities$contains,      ref_list$id ) ) )
+    triple( doco$back_matter[1][[1]]$id,   entities$contains,      ref_list$id ) ) )
   }
   # describe individual references
   # TODO there is no reference class in Doco, need to extend it
   for ( reference in doco$reference) {
     triples = c( triples, list(
 	triple( reference$id,               entities$a,            entities$reference ),
-    triple( doco$back_matter[[1]]$id,    entities$contains,    reference$id ) ) )
+    triple( doco$back_matter[1][[1]]$id,    entities$contains,    reference$id ) ) )
   }
   # describe individual nomenclature sections
 
@@ -420,6 +420,11 @@ extract_single_scientific_name = function ( t ) {
   # there are two kinds: binomial and monomial
   # construct the label of the scientific name with which to query OBKMS
   label = xml2::xml_text( t , trim = TRUE)
+  # trim takes care of traling and leading spaces, but what about in the middle?
+  # the next should take care of it
+  label = gsub("[\t]+", " ", label)
+  label = gsub("[\n]+", " ", label)
+  label = gsub("[ ]+", " ", label)
   scientific_name = qname( get_nodeid( label ) )
   triples[[ i ]] = triple( scientific_name, entities$a, entities$scientific_name )
   i = i + 1
@@ -450,9 +455,14 @@ extract_single_scientific_name = function ( t ) {
   # obkms
   serialization = c()
   serialization = turtle_prepend_prefixes()
-  serialization = c( serialization, triples2turtle2( "pensoft:Nomenclature", triples))
+  ttl = triples2turtle2( "pensoft:Nomenclature", triples )
+  connex = file ("Nomenclature.ttl", open = "a")
+  writeLines(ttl, connex)
+  close(connex)
+  serialization = c( serialization, ttl )
   r = rdf4jr::add_data(server_access_options, server_access_options$repository,
                        do.call(paste, as.list( serialization )))
+
   cat(httr::content(r))
   return ( scientific_name )
 }

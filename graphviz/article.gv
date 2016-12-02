@@ -15,7 +15,7 @@ figure4[color=blue, label="a doco:Figure"];
 abstract1[color=blue, label="a doco:Abstract"];
 title1[color=blue, label="a doco:Title"];
 reference_list1[color=blue, label="a doco:BibliographicReferenceList"];
-reference1[color=red, label="a doco:Reference"]; 
+reference1[color=blue, label="a deo:Reference"]; 
 section1[color=blue, label="a doco:Section"];
 
 treatment1 [color=red,label="a trt:Treatment"];
@@ -26,7 +26,8 @@ front_matter1 -> abstract1 [label="po:contains"];
 
 article1 -> body_matter1 [label="po:contains"];
 body_matter1 -> section1 [label="po:contains"];
-treatment1 -> section1 [style=dotted, label="rdfs:subClassOf"];
+body_matter1 -> treatment1 [label="po:contains"];
+
 
 article1 -> back_matter1 [label="po:contains"];
 back_matter1 -> figure1[label="po:contains"];
@@ -36,7 +37,7 @@ figure2 -> figure4 [label="po:contains"];
 back_matter1 -> reference_list1[label="po:contains"];
 reference_list1 -> reference1 [label="po:contains"];
 
-		article1 -> treatment1 [label="po:contains"];
+		
 		
 		
 }

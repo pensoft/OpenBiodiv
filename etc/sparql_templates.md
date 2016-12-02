@@ -27,6 +27,18 @@ WHERE {
        skos:prefLabel  ?journal_name .
 }
 
+Count articles per journal:
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX fabio: <http://purl.org/spar/fabio/>
+SELECT ?journal_name (COUNT(?g) AS ?count) where
+  {
+    GRAPH ?g {
+        ?j a                  fabio:Journal ;
+           skos:prefLabel  ?journal_name .     
+  } 
+  }
+GROUP BY ?journal_name ORDER BY DESC(COUNT(*))
+
 Count the number of names in the nomenclature graph:
 
 PREFIX pensoft: <http://id.pensoft.net/>
@@ -40,7 +52,7 @@ WHERE {
 
 ## Name Related Queries
 
-Give me all the names of rank order:
+List all names (@Kiril: HOW TO IMPROVE THIS QUERI\??):
 
 PREFIX pensoft: <http://id.pensoft.net/>
 PREFIX trt: <http://plazi.org/treatment#> 
@@ -49,11 +61,24 @@ PREFIX dwc: <http://rs.tdwg.org/dwc/terms/>
 SELECT DISTINCT ?literal
 FROM pensoft:Nomenclature 
 WHERE {
+    ?name a trt:ScientificName .
+    ?name skos:prefLabel ?literal .
+}
+
+Give me all the names of rank order:
+
+PREFIX pensoft: <http://id.pensoft.net/>
+PREFIX trt: <http://plazi.org/treatment#> 
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX dwc: <http://rs.tdwg.org/dwc/terms/>
+SELECT ?name ?literal
+FROM pensoft:Nomenclature 
+WHERE {
     ?name a trt:ScientificName;
         dwc:rank ?order .
     FILTER(lcase(str(?order)) = "order" || lcase(str(?order)) = "ordo")
     ?name skos:prefLabel ?literal .
-}
+} ORDER BY ?literal
 
 Give me all names of rank kingdom:
 
@@ -70,20 +95,33 @@ WHERE {
     ?name skos:prefLabel ?literal .
 }
 
-List all names (@Kiril: HOW TO IMPROVE THIS QUERI\??):
+
+
+List all names in figures
 
 PREFIX pensoft: <http://id.pensoft.net/>
 PREFIX trt: <http://plazi.org/treatment#> 
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX dwc: <http://rs.tdwg.org/dwc/terms/>
-SELECT DISTINCT ?literal
-FROM pensoft:Nomenclature 
+PREFIX dwciri: <http://rs.tdwg.org/dwc/iri/>
+PREFIX frbr: <http://purl.org/spar/frbr/>
+PREFIX po: <http://www.essepuntato.it/2008/12/pattern#>
+PREFIX c4o: <http://purl.org/spar/c4o/>
+PREFIX doco: <http://purl.org/spar/doco/>
+SELECT ?fig ?l1 ?l2 ?tnu
 WHERE {
-    ?name a trt:ScientificName .
-    ?name skos:prefLabel ?literal .
+    ?name a                       trt:ScientificName ;
+          skos:prefLabel ?l1 .
+    ?tnu  a                       trt:TaxonNameUsage;
+          dwciri:scientificName   ?name .
+    ?fig  frbr:realizationOf      ?tnu ;
+          a                       doco:Figure ;
+          po:contains             ?caption .
+    ?caption c4o:hasContent       ?l2 .
+  
 }
 
-List all names
+List all names contained in figures, which indicate voucher specimens
 
 PREFIX pensoft: <http://id.pensoft.net/>
 PREFIX trt: <http://plazi.org/treatment#> 
@@ -104,8 +142,31 @@ WHERE {
           a                       doco:Figure ;
           po:contains             ?caption .
     ?caption c4o:hasContent       ?l2 .
-  
+    FILTER (regex(?l2, "voucher") || regex(?l2, "type"))
 }
+
+Give me the article of a given figure (beware of prefixes)
+PREFIX po: <http://www.essepuntato.it/2008/12/pattern#>
+PREFIX fabio: <http://purl.org/spar/fabio/> 
+PREFIX pensoft: <http://id.pensoft.net/>
+PREFIX doco: <http://purl.org/spar/doco/>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+SELECT *
+WHERE {
+    ?x a fabio:JournalArticle ;
+       skos:prefLabel ?l .
+    ?x po:contains pensoft:F288676 .
+    
+}
+
+Show FactForge
+
+http://ldsr.ontotext.com/sparql
+
+UNIX DEMO
+
+========================================
 
 ## PREFIX PROBLEMS @Kiril)
 
@@ -191,3 +252,66 @@ WHERE {
 }
 ```
 	
+
+### Related Names
+
+	
+PREFIX trt: <http://plazi.org/treatment#>
+INSERT {
+    ?a trt:relatedName ?b .
+    ?b trt:relatedName ?a .
+}
+WHERE {
+?a a trt:ScientificName .
+?b a trt:ScientificName .
+?c a trt:NomenclaturalAct .
+?c trt:ValidName ?a ;
+   trt:NomenclaturalCitation ?b .
+}
+	
+
+Find related names
+
+Lygistorrhina austroafricana
+
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX trt: <http://plazi.org/treatment#>
+SELECT ?label
+WHERE {
+?a a trt:ScientificName ;
+    skos:prefLabel "Xanthichthys greenei" .
+?b trt:relatedName ?a ;
+   skos:prefLabel ?label ;
+}
+
+
+Prune extra names --- THIS DOESN'T WORK!!!
+
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX trt: <http://plazi.org/treatment#> 
+PREFIX pensoft: <http://id.pensoft.net/>
+
+DELETE {
+   ?a skos:prefLabel ?l2 .
+}
+
+INSERT {
+GRAPH pensoft:Nomenclature {
+    ?a dwc:species ?sp ;
+       dwc:genus ?g .
+	?a skos:prefLabel CONCAT(?sp, " ", ) .
+}
+}
+WHERE {
+?a a trt:ScientificName ;
+   skos:prefLabel "Arotes albicinctus" ;
+   skos:prefLabel ?l1 ;
+   skos:prefLabel ?l2 ;
+}
+
+
+> find_related_names("Arotes albicinctus")
+                                                           b                                 label
+1 http://id.pensoft.net/2c5d44b3-23fa-4bb9-9102-03c6f1e3b5db                   Arotes annulicornis
+2 http://id.pensoft.net/eb9e609f-d1b5-42a0-8a6a-2e1f9072c4c0                    Arotes albicinctus
+3 http://id.pensoft.net/d5a275bf-078f-450a-a0cd-7fb003668350                                Arotes

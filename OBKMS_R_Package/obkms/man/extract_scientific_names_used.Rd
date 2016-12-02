@@ -15,6 +15,7 @@ extract_scientific_names_used(xml_ns)
 }
 \value{
 \emph{list} of scientific name id's and triples with information
+TODO BUG extracts the label when processing bodies twice!!!
 }
 \description{
 Extract taxonomic name usages from an XML nodeset

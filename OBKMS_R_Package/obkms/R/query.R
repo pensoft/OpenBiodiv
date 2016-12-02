@@ -22,6 +22,9 @@
 #' @export
 
 get_nodeid = function( label = "", explicit_node_id = "", allow_multiple = FALSE) {
+  # this trimming should probably not happen here!!!, it should happen before the function
+  # is called,
+  # i will leave them because of bug but need to be removed
   label = gsub("[\t]+", " ", label)
   label = gsub("[\n]+", " ", label)
   label = gsub("[ ]+", " ", label)
@@ -191,4 +194,27 @@ WHERE {
 }"
   res = rdf4jr::POST_query( obkms$server_access_options , obkms$server_access_options$repository, query, "CSV" )
   return ( res )
+}
+
+#' Finds all related names to a given name
+#' TODO : modify prepend_prefixes function to do both turtle and SPARQL
+#' @param sci_name_label the scientific name (label) for which to look for related names
+#' @return \emph{list} of related name-ids and their labels
+#' @export
+find_related_names = function ( sci_name_label ) {
+  sci_name = qname( get_nodeid ( sci_name_label ) )
+  q.template = "PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX trt: <http://plazi.org/treatment#>
+PREFIX pensoft: <http://id.pensoft.net/>
+PREFIX dwc: <http://rs.tdwg.org/dwc/terms/>
+SELECT ?id ?label ?rank
+WHERE {
+?id trt:relatedName %sci_name ;
+    dwc:rank        ?rank ;
+   skos:prefLabel   ?label ;
+}"
+  q = gsub( "%sci_name",  sci_name , q.template )
+  r = rdf4jr::POST_query( obkms$server_access_options , obkms$server_access_options$repository, q, "CSV" )
+  r$id = sapply( r$id, qname )
+  return( r )
 }

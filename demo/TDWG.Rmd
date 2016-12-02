@@ -1,0 +1,29 @@
+---
+title: "R Demo for TDWG Conference 2016"
+author: "Viktor Senderov"
+date: "`r Sys.Date()`"
+---
+
+
+## Summary
+
+This is the R demo for the TDWG conference. 
+
+## Demo
+
+`rdf4jr` library for communication with the GraphDB server.
+`obkms` the OBKMS library for RDF-ization and query.
+
+```{r , purl=TRUE, eval = FALSE}
+library(obkms)
+library(rdf4jr)
+example = "10.3897_BDJ.4.e8030.xml"
+demo_folder = "/media/viktor/www2/main/vsenderov.backup/SRC/TaxPub2RDF/demo/"
+configuration_file = "/media/viktor/www2/main/vsenderov.backup/SRC/TaxPub2RDF/etc/config.yml"
+sao = yaml::yaml.load_file( configuration_file )
+sao$userpwd = Sys.getenv("OBKMS_SECRET")
+init_env(sao)
+turtle = xml2rdf( paste0(demo_folder, example ) )
+writeLines (  turtle, paste0( demo_folder, "example.ttl" ) )
+find_related_names("Harmonia manillana")
+```
