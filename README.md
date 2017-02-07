@@ -1,31 +1,39 @@
-# TaxPub2RDF
+% Open Biodiversity Knowledge Management System Programmer’s and User’s Guide (The OpenBiodiv Guide)
 
-## Introduction
+# Introduction
 
-This is the project, which converts BDJ, ZooKeys, and Treatment Bank XML articles into OBKMS RDF.
+This is the Open Biodiversity Knowledge Management System (OpenBiodiv/ OBKMS) Guide. It is intended to fully describe the RDF model and other features that OpenBiodiv/ OBKMS possesses and aid users in generating OpenBiodiv/ OBKMS-compatible RDF and in creating working SPARQL queries for OpenBiodiv/ OBKMS.
+
+*Proposal*:
+
+http://riojournal.com/articles.php?id=7757
+
+## This is a literate programming document
+
+In the following sections this document will describe the OpenBiodiv/ OBKMS data model and at the same define the ontology that is used in OpenBiodiv. This feat is accomplished via *literate programming*. In a nutshell, the source code for the ontology is found within this document and is extracted with `notangle`.
+
+## Makefile
+
+In order to create the ontology, we need to run `notangle`. We also have different build instructions that we put in the `Makefile`.
+
+```
+<<Makefile>>=
+Makefile: README.md
+	notangle -RMakefile README.md > Makefile
+  
+@
+```
 
 ## Directory Structure
 
-CrossRef_Journal_List: a directory, where the Journal information from CrossRef has been downloaded.
+Needs to be filled out.
 
-exec: Contains various scripts. see Scripts_Information.md for more information.
-
-Experiments: Contains automatic conversion to RDF.
-
-External_Ontologies: a number of external ontologies that we use for our purposes.
-
-OBKMS_Ontology: the OBKMS ontology
-
-Plazi_Data: Plazi specific data files.
-
-Standard_Model_Converstions: Some articles that have been manually converted to XML to serve as a standard model for the experimental conversions.
-
-## Obtaining data for the experiments
+## Data Model
 
 ## RSS feed with the last 100 BDJ articles
 
  http://bdj.pensoft.net/rss.php
 
-## Plazi RSS feed
+
 
 

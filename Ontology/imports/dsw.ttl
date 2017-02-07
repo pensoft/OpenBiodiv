@@ -1,0 +1,580 @@
+@prefix : <http://purl.org/dsw/> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix tc: <http://rs.tdwg.org/ontology/voc/TaxonConcept#> .
+@prefix dwc: <http://rs.tdwg.org/dwc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix xsp: <http://www.owl-ontologies.com/2005/08/07/xsp.owl#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix swrl: <http://www.w3.org/2003/11/swrl#> .
+@prefix swrlb: <http://www.w3.org/2003/11/swrlb#> .
+@prefix dwciri: <http://rs.tdwg.org/dwc/iri/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dwctype: <http://rs.tdwg.org/dwc/dwctype/> .
+@prefix protege: <http://protege.stanford.edu/plugins/owl/protege#> .
+@prefix dcmitype: <http://purl.org/dc/dcmitype/> .
+@base <http://purl.org/dsw/> .
+
+<http://purl.org/dsw/> rdf:type owl:Ontology ;
+                        dc:creator "Steve Baskauf & Cam Webb" ;
+                        dc:description "Version 0.4 to 1.0 fixed reversed dsw:locates and dsw:locatedAt. Added labels. Changed comments and descriptions to conform to DC and DwC precedent.  Added subClassOf relations to RO hasEvidence and isEvidenceFor.  Specified preferred direction for inverse object property pairs." ;
+                        rdfs:comment "Darwin Semantic Web, version 1.0 . Please see https://github.com/darwin-sw/ for full details" ;
+                        dc:description "Changes from version 0.2.1 to version 0.3: removal of all functional and inverse function properties of object property terms, use of dwctype classes, deprecation of terms replaced by dwciri: terms, removal of references to TDWG Ontology." ,
+                                       "Changes from version 0.3 to 0.4 change DwC class namespace from dwctype: to dwc: to follow class proposal, removed references to TDWG TaxonConcept ontology; deprecated terms that now have equivalent terms in Darwin Core." ;
+                        owl:versionInfo "1.0" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/elements/1.1/creator
+dc:creator rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/date
+dc:date rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/description
+dc:description rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2000/01/rdf-schema#comment
+rdfs:comment rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2002/07/owl#versionInfo
+owl:versionInfo rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/ns/prov#inverse
+prov:inverse rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Datatypes
+#################################################################
+
+###  http://www.w3.org/2001/XMLSchema#date
+xsd:date rdf:type rdfs:Datatype .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://purl.obolibrary.org/obo/RO_0002472
+<http://purl.obolibrary.org/obo/RO_0002472> rdf:type owl:ObjectProperty ;
+                                            rdfs:label "is evidence for" .
+
+
+###  http://purl.obolibrary.org/obo/RO_0002558
+<http://purl.obolibrary.org/obo/RO_0002558> rdf:type owl:ObjectProperty ;
+                                            rdfs:label "has evidence" .
+
+
+###  http://purl.org/dsw/atEvent
+:atEvent rdf:type owl:ObjectProperty ;
+         owl:inverseOf :eventOf ;
+         rdfs:domain dwc:Occurrence ;
+         rdfs:range dwc:Event ;
+         dc:creator "Steve Baskauf" ;
+         dc:description "The atEvent relationship is many-to-one (many occurrences at one event)"@en ,
+                        "This property is preferred over its inverse if the link is made in only one direction."@en ;
+         rdfs:comment "Links a subject Occurrence instance to an object Event instance."@en ;
+         rdfs:isDefinedBy <http://purl.org/dsw/> ;
+         rdfs:label "At Event"@en ;
+         prov:inverse "eventOf" .
+
+
+###  http://purl.org/dsw/derivedFrom
+:derivedFrom rdf:type owl:ObjectProperty ;
+             owl:inverseOf :hasDerivative ;
+             rdf:type owl:TransitiveProperty ;
+             dc:creator "Steve Baskauf" ;
+             dc:description "Range can be IndividualOrganism or another Specimen "@en ,
+                            "This property is preferred over its inverse if the link is made in only one direction."@en ;
+             rdfs:comment "Links a subject Token instance to an object instance of another Token or an Organism."@en ;
+             rdfs:isDefinedBy <http://purl.org/dsw/> ;
+             rdfs:label "Derived From"@en ;
+             prov:inverse "hasDerivative" .
+
+
+###  http://purl.org/dsw/eventOf
+:eventOf rdf:type owl:ObjectProperty ;
+         rdfs:domain dwc:Event ;
+         rdfs:range dwc:Occurrence ;
+         dc:creator "Steve Baskauf" ;
+         dc:description "The eventOf relationship is one-to-many (one event has many occurrences)"@en ,
+                        "Use the inverse property dsw:atEvent in preference to this one if the link is made in only one direction."@en ;
+         rdfs:comment "Links a subject Event instance to an object Occurrence instance."@en ;
+         rdfs:isDefinedBy <http://purl.org/dsw/> ;
+         rdfs:label "Event Of"@en .
+
+
+###  http://purl.org/dsw/evidenceFor
+:evidenceFor rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf <http://purl.obolibrary.org/obo/RO_0002472> ;
+             owl:inverseOf :hasEvidence ;
+             rdfs:domain :Token ;
+             rdfs:range dwc:Occurrence ;
+             dc:creator "Cam Webb" ;
+             dc:description "In most cases this will act like a functional property (only possibly documenting a single occurrence), but some images may document several occurrences, so the formal specification of functional property is omitted."@en ,
+                            "This property is preferred over its inverse if the link is made in only one direction."@en ;
+             rdfs:comment "Links a subject Token instance to an object Occurrence instance."@en ;
+             rdfs:isDefinedBy <http://purl.org/dsw/> ;
+             rdfs:label "Evidence For"@en ;
+             prov:inverse "hasEvidence" .
+
+
+###  http://purl.org/dsw/georefBy
+:georefBy rdf:type owl:ObjectProperty ;
+          owl:equivalentProperty dwciri:georeferencedBy ;
+          rdfs:domain dcterms:Location ;
+          rdfs:range foaf:Agent ;
+          dc:creator "Steve Baskauf" ;
+          dc:description "Was georeferenceByURI; deprecated 2014-11-21 to be replaced by dwciri:georeferencedBy"@en ;
+          rdfs:isDefinedBy <http://purl.org/dsw/> ;
+          owl:deprecated "true"^^xsd:boolean .
+
+
+###  http://purl.org/dsw/hasDerivative
+:hasDerivative rdf:type owl:ObjectProperty ,
+                        owl:TransitiveProperty ;
+               dc:creator "Steve Baskauf" ;
+               dc:description "Use the inverse property dsw:derivedFrom in preference to this one if the link is made in only one direction."@en ;
+               rdfs:comment "Links a subject Organism or Token instance to an object Token instance."@en ;
+               rdfs:isDefinedBy <http://purl.org/dsw/> ;
+               rdfs:label "Has Derivative"@en .
+
+
+###  http://purl.org/dsw/hasEvidence
+:hasEvidence rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf <http://purl.obolibrary.org/obo/RO_0002558> ;
+             rdfs:domain dwc:Occurrence ;
+             rdfs:range :Token ;
+             dc:creator "Cam Webb" ;
+             dc:description "Use the inverse property dsw:evidenceFor in preference to this one if the link is made in only one direction."@en ;
+             rdfs:comment "Links a subject Occurrence instance to an object Token instance."@en ;
+             rdfs:isDefinedBy <http://purl.org/dsw/> ;
+             rdfs:label "Has Evidence"@en .
+
+
+###  http://purl.org/dsw/hasIdentification
+:hasIdentification rdf:type owl:ObjectProperty ;
+                   owl:inverseOf :identifies ;
+                   rdfs:domain dwc:Organism ;
+                   rdfs:range dwc:Identification ;
+                   dc:creator "Steve Baskauf, name changed by Cam Webb" ;
+                   dc:description "The hasIdentification relationship is one-to-many (one individual organism has many identifications)"@en ,
+                                  "Use the inverse property dsw:identifies in preference to this one if the link is made in only one direction."@en ;
+                   rdfs:comment "Links a subject Organism instance to an object Identification instance."@en ;
+                   rdfs:isDefinedBy <http://purl.org/dsw/> ;
+                   rdfs:label "Has Identification"@en .
+
+
+###  http://purl.org/dsw/hasOccurrence
+:hasOccurrence rdf:type owl:ObjectProperty ;
+               owl:inverseOf :occurrenceOf ;
+               rdfs:domain dwc:Organism ;
+               rdfs:range dwc:Occurrence ;
+               dc:creator "Steve Baskauf, name changed by Cam Webb" ;
+               dc:description "The hasOccurrence relationship is one-to-many (one individual organism may have many occurrences)"@en ,
+                              "Use the inverse property dsw:occurrenceOf in preference to this one if the link is made in only one direction."@en ;
+               rdfs:comment "Links a subject Organism instance to an object Occurrence instance."@en ;
+               rdfs:isDefinedBy <http://purl.org/dsw/> ;
+               rdfs:label "Has Occurrence"@en .
+
+
+###  http://purl.org/dsw/idBasedOn
+:idBasedOn rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf <http://purl.obolibrary.org/obo/RO_0002558> ;
+           owl:inverseOf :isBasisForId ;
+           rdfs:domain dwc:Identification ;
+           rdfs:range :Token ;
+           dc:creator "Steve Baskauf" ;
+           dc:date "2011-01-27" ;
+           dc:description "The subject identification was in part based on the object token. Was identifiedBasedOn"@en ,
+                          "Use the inverse property dsw:isBasisForId in preference to this one if the link is made in only one direction."@en ;
+           rdfs:comment "Links a subject Identification instance to an object Token instance."@en ;
+           rdfs:isDefinedBy <http://purl.org/dsw/> ;
+           rdfs:label "ID Based On"@en .
+
+
+###  http://purl.org/dsw/idBy
+:idBy rdf:type owl:ObjectProperty ;
+      owl:equivalentProperty dwciri:identifiedBy ;
+      rdfs:domain dwc:Identification ;
+      rdfs:range foaf:Agent ;
+      dc:creator "Steve Baskauf" ;
+      dc:description "was dsw:identificationByURI; deprecated 2014-11-21 to be replaced by dwciri:identifiedBy"@en ;
+      rdfs:isDefinedBy <http://purl.org/dsw/> ;
+      owl:deprecated "true"^^xsd:boolean .
+
+
+###  http://purl.org/dsw/identifies
+:identifies rdf:type owl:ObjectProperty ;
+            rdfs:domain dwc:Identification ;
+            rdfs:range dwc:Organism ;
+            dc:creator "Steve Baskauf" ;
+            dc:description "The identifies relationship is many-to-one (many identifications for one individual organism)"@en ,
+                           "This property is preferred over its inverse if the link is made in only one direction."@en ;
+            rdfs:comment "Links a subject Identification instance to an object Organism instance."@en ;
+            rdfs:isDefinedBy <http://purl.org/dsw/> ;
+            rdfs:label "Identifies"@en ;
+            prov:inverse "hasIdentification" .
+
+
+###  http://purl.org/dsw/isBasisForId
+:isBasisForId rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf <http://purl.obolibrary.org/obo/RO_0002472> ;
+              rdfs:domain :Token ;
+              rdfs:range dwc:Identification ;
+              dc:creator "Steve Baskauf" ;
+              dc:date "2011-01-27" ;
+              dc:description "The subject resource is a basis on which the object identification is made."@en ,
+                             "This property is preferred over its inverse if the link is made in only one direction."@en ;
+              rdfs:comment "Links a subject Token instance to an object Identification instance."@en ;
+              rdfs:isDefinedBy <http://purl.org/dsw/> ;
+              rdfs:label "Is Basis For ID"@en ;
+              prov:inverse "idBasedOn" .
+
+
+###  http://purl.org/dsw/locatedAt
+:locatedAt rdf:type owl:ObjectProperty ;
+           owl:inverseOf :locates ;
+           rdfs:domain dwc:Event ;
+           rdfs:range dcterms:Location ;
+           dc:creator "Cam Webb" ;
+           dc:description "The locatedAt relationship is many-to-one (many events at one location)"@en ,
+                          "This property is preferred over its inverse if the link is made in only one direction."@en ;
+           rdfs:comment "Links a subject Event instance to an object Location instance."@en ;
+           rdfs:isDefinedBy <http://purl.org/dsw/> ;
+           rdfs:label "Located At"@en ;
+           prov:inverse "locates" .
+
+
+###  http://purl.org/dsw/locates
+:locates rdf:type owl:ObjectProperty ;
+         rdfs:domain dcterms:Location ;
+         rdfs:range dwc:Event ;
+         dc:creator "Cam Webb" ;
+         dc:description "The locates relationship is one to many (one location may have many events)"@en ,
+                        "Use the inverse property dsw:locatedAt in preference to this one if the link is made in only one direction."@en ;
+         rdfs:comment "Links a subject Event instance to an object Locatino instance."@en ;
+         rdfs:isDefinedBy <http://purl.org/dsw/> ;
+         rdfs:label "Locates"@en .
+
+
+###  http://purl.org/dsw/occurrenceOf
+:occurrenceOf rdf:type owl:ObjectProperty ;
+              rdfs:domain dwc:Occurrence ;
+              rdfs:range dwc:Organism ;
+              dc:creator "Steve Baskauf, name changed by Cam Webb" ;
+              dc:description "The occurrrenceOf relationship is many-to-one (many occurrences for one individual organism)"@en ,
+                             "This property is preferred over its inverse if the link is made in only one direction."@en ;
+              rdfs:comment "Links a subject Occurrence instance to an object Organism instance."@en ;
+              rdfs:isDefinedBy <http://purl.org/dsw/> ;
+              rdfs:label "Occurrence Of"@en ;
+              prov:inverse "hasOccurrence" .
+
+
+###  http://purl.org/dsw/recBy
+:recBy rdf:type owl:ObjectProperty ;
+       owl:equivalentProperty dwciri:recordedBy ;
+       rdfs:domain dwc:Occurrence ;
+       rdfs:range foaf:Agent ;
+       dc:description "Deprecated 2014-11-21 to be replaced by dwciri:recordedBy"@en ;
+       rdfs:isDefinedBy <http://purl.org/dsw/> ;
+       owl:deprecated "true"^^xsd:boolean .
+
+
+###  http://purl.org/dsw/taxonOfId
+:taxonOfId rdf:type owl:ObjectProperty ;
+           owl:inverseOf dwciri:toTaxon ;
+           rdfs:domain dwc:Taxon ;
+           rdfs:range dwc:Identification ;
+           dc:creator "Steve Baskauf, name changed by Cam Webb" ;
+           dc:description "The taxonOfID relationship is one-to-many (one taxon may be referenced in many identifications)"@en ,
+                          "Use the well-known dwciri:toTaxon predicate in preference to this one if the link is only made in one direction."@en ;
+           rdfs:comment "Links a subject Taxon instance to an object Identification instance."@en ;
+           rdfs:isDefinedBy <http://purl.org/dsw/> ;
+           rdfs:label "Taxon Of ID"@en .
+
+
+###  http://purl.org/dsw/toTaxon
+:toTaxon rdf:type owl:ObjectProperty ;
+         owl:equivalentProperty dwciri:toTaxon ;
+         rdfs:domain dwc:Identification ;
+         rdfs:range tc:TaxonConcept ;
+         dc:creator "Steve Baskauf, name changed by Cam Webb" ;
+         dc:description "The toTaxon relationship is many-to-one (many identifications can reference one taxon).  This property should link to a taxon concept (i.e. Taxon name plus Authority) URI, such as: http://biodiversity.org.au/apni.taxon/118883 ; deprecated 2014-11-21 to be replaced by dwciri:toTaxon"@en ;
+         rdfs:isDefinedBy <http://purl.org/dsw/> ;
+         owl:deprecated "true"^^xsd:boolean .
+
+
+###  http://rs.tdwg.org/dwc/iri/georeferencedBy
+dwciri:georeferencedBy rdf:type owl:ObjectProperty ;
+                       rdfs:domain dcterms:Location ;
+                       rdfs:range foaf:Agent ;
+                       rdfs:comment "Links a subject Location instance to an object Agent instance that did the georeferencing."@en ;
+                       rdfs:isDefinedBy dwciri: ;
+                       rdfs:label "Georeferenced By"@en .
+
+
+###  http://rs.tdwg.org/dwc/iri/identifiedBy
+dwciri:identifiedBy rdf:type owl:ObjectProperty ;
+                    rdfs:domain dwc:Identification ;
+                    rdfs:range foaf:Agent ;
+                    dc:description "Definition based on dwc:identifiedBy but modified to make it appropriate for non-literal values."@en ;
+                    rdfs:comment "People, groups, or organizations who assigned the Taxon to the subject"@en ;
+                    rdfs:isDefinedBy dwciri: ;
+                    rdfs:label "Identified By"@en .
+
+
+###  http://rs.tdwg.org/dwc/iri/recordedBy
+dwciri:recordedBy rdf:type owl:ObjectProperty ;
+                  rdfs:domain dwc:Occurrence ;
+                  rdfs:range foaf:Agent ;
+                  dc:description "Definition based on dwc:recordedBy but modified to make it appropriate for non-literal objects."@en ;
+                  rdfs:comment "People, groups, or organizations responsible for recording the original Occurrence."@en ;
+                  rdfs:isDefinedBy dwciri: ;
+                  rdfs:label "Recorded By"@en .
+
+
+###  http://rs.tdwg.org/dwc/iri/toTaxon
+dwciri:toTaxon rdf:type owl:ObjectProperty ;
+               rdfs:domain dwc:Identification ;
+               rdfs:range dwc:Taxon ;
+               rdfs:comment "Links a subject Identification instance to an object Taxon instance."@en ;
+               rdfs:isDefinedBy dwciri: ;
+               rdfs:label "To Taxon"@en .
+
+
+###  http://www.w3.org/2002/07/owl#topObjectProperty
+owl:topObjectProperty rdf:type owl:ObjectProperty .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://purl.org/dsw/individualOrganismRemarks
+:individualOrganismRemarks rdf:type owl:DatatypeProperty ;
+                           rdfs:domain :IndividualOrganism ;
+                           dc:creator "Steve Baskauf" ;
+                           dc:description "Deprecated in favor of dwc:organismRemarks on 2014-11-21."@en ;
+                           rdfs:isDefinedBy <http://purl.org/dsw/> ;
+                           owl:deprecated "true"^^xsd:boolean .
+
+
+###  http://www.w3.org/2002/07/owl#topDataProperty
+owl:topDataProperty rdf:type owl:DatatypeProperty .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://purl.org/dc/terms/Location
+dcterms:Location rdf:type owl:Class ;
+                 owl:disjointWith :Specimen ,
+                                  :Token ,
+                                  dwc:Event ,
+                                  dwc:Identification ,
+                                  dwc:Occurrence ,
+                                  dwc:Organism ,
+                                  dwc:Taxon ,
+                                  tc:TaxonConcept ,
+                                  foaf:Agent ,
+                                  foaf:Document ;
+                 dc:description "Definition taken from Dublin Core vocabulary 2014-11-21."@en ;
+                 rdfs:comment "A spatial region or named place."@en ;
+                 rdfs:isDefinedBy dcterms: ;
+                 rdfs:label "Location"@en .
+
+
+###  http://purl.org/dsw/DriedSpecimen
+:DriedSpecimen rdf:type owl:Class ;
+               rdfs:subClassOf dwc:PreservedSpecimen ;
+               rdfs:comment "A specimen preserved by drying."@en ;
+               rdfs:isDefinedBy <http://purl.org/dsw/> ;
+               rdfs:label "Dried Specimen"@en .
+
+
+###  http://purl.org/dsw/IndividualOrganism
+:IndividualOrganism rdf:type owl:Class ;
+                    owl:equivalentClass dwc:Organism ;
+                    dc:description "This class is equivalent to the more well-known Darwin Core class dwc:Organism.  It was deprecated following the addition of dwc:Organism to Darwin Core on 2014-10-26.  "@en ;
+                    rdfs:comment "A particular organism or defined group of organisms considered to be taxonomically homogeneous.  Instances of the Organism class are intended to facilitate linking of one or more Identification instances to one or more Occurrence instances.  Therefore, things that are typically assigned scientific names (such as viruses, hybrids, and lichens) and aggregates whose occurrences are typically recorded (such as packs, clones, and colonies) are included in the scope of this class."@en ;
+                    rdfs:isDefinedBy <http://purl.org/dsw/> ;
+                    owl:deprecated "true"^^xsd:boolean .
+
+
+###  http://purl.org/dsw/LivingSpecimen
+:LivingSpecimen rdf:type owl:Class ;
+                owl:equivalentClass dwc:LivingSpecimen ;
+                rdfs:subClassOf :Specimen ;
+                dc:description "Deprecated in favor of the Darwin Core class dwc:LivingSpecimen."@en ;
+                rdfs:isDefinedBy <http://purl.org/dsw/> ;
+                owl:deprecated "true"^^xsd:boolean .
+
+
+###  http://purl.org/dsw/PreservedSpecimen
+:PreservedSpecimen rdf:type owl:Class ;
+                   rdfs:subClassOf :Specimen ;
+                   dc:description "Deprecated in favor of the Darwin Core class dwc:PreservedSpecimen."@en ;
+                   rdfs:isDefinedBy <http://purl.org/dsw/> ;
+                   owl:deprecated "true"^^xsd:boolean .
+
+
+###  http://purl.org/dsw/Specimen
+:Specimen rdf:type owl:Class ;
+          owl:disjointWith dwc:Event ,
+                           dwc:Identification ,
+                           dwc:Occurrence ,
+                           dwc:Taxon ,
+                           tc:TaxonConcept ,
+                           foaf:Agent ,
+                           foaf:Document ;
+          rdfs:isDefinedBy <http://purl.org/dsw/> ;
+          rdfs:label "Specimen"@en .
+
+
+###  http://purl.org/dsw/SpecimenInAlcohol
+:SpecimenInAlcohol rdf:type owl:Class ;
+                   rdfs:subClassOf dwc:PreservedSpecimen ;
+                   rdfs:comment "A specimen preserved in alcohol."@en ;
+                   rdfs:isDefinedBy <http://purl.org/dsw/> ;
+                   rdfs:label "Specimen In Alcohol"@en .
+
+
+###  http://purl.org/dsw/Token
+:Token rdf:type owl:Class ;
+       owl:disjointWith dwc:Event ,
+                        dwc:Identification ,
+                        dwc:Occurrence ,
+                        dwc:Taxon ,
+                        tc:TaxonConcept ,
+                        foaf:Agent ;
+       rdfs:comment "A form of evidence derived from a dwc:Organism."@en ;
+       rdfs:isDefinedBy <http://purl.org/dsw/> ;
+       rdfs:label "Token"@en .
+
+
+###  http://rs.tdwg.org/dwc/terms/Event
+dwc:Event rdf:type owl:Class ;
+          owl:disjointWith dwc:Identification ,
+                           dwc:Occurrence ,
+                           dwc:Organism ,
+                           dwc:Taxon ,
+                           tc:TaxonConcept ,
+                           foaf:Agent ,
+                           foaf:Document ;
+          dc:description "Definition taken from Darwin Core vocabulary 2014-11-21."@en ;
+          rdfs:comment "An action that occurs at some location during some time."@en ;
+          rdfs:isDefinedBy dwc: ;
+          rdfs:label "Event"@en .
+
+
+###  http://rs.tdwg.org/dwc/terms/Identification
+dwc:Identification rdf:type owl:Class ;
+                   owl:disjointWith dwc:Occurrence ,
+                                    dwc:Organism ,
+                                    dwc:Taxon ,
+                                    tc:TaxonConcept ,
+                                    foaf:Agent ,
+                                    foaf:Document ;
+                   dc:description "Definition taken from Darwin Core vocabulary 2014-11-21."@en ;
+                   rdfs:comment "A taxonomic determination (e.g., the assignment to a taxon)."@en ;
+                   rdfs:isDefinedBy dwc: ;
+                   rdfs:label "Identification"@en .
+
+
+###  http://rs.tdwg.org/dwc/terms/LivingSpecimen
+dwc:LivingSpecimen rdf:type owl:Class ;
+                   rdfs:subClassOf :Specimen ;
+                   dc:description "Definition taken from Darwin Core vocabulary 2014-11-21."@en ;
+                   rdfs:comment "A specimen that is alive."@en ;
+                   rdfs:isDefinedBy dwc: ;
+                   rdfs:label "Living Specimen"@en .
+
+
+###  http://rs.tdwg.org/dwc/terms/Occurrence
+dwc:Occurrence rdf:type owl:Class ;
+               owl:disjointWith dwc:Organism ,
+                                dwc:Taxon ,
+                                tc:TaxonConcept ,
+                                foaf:Agent ,
+                                foaf:Document ;
+               dc:description "Definition taken from Darwin Core vocabulary 2014-11-21."@en ;
+               rdfs:comment "An existence of an Organism (sensu http://rs.tdwg.org/dwc/terms/Organism) at a particular place at a particular time."@en ;
+               rdfs:isDefinedBy dwc: ;
+               rdfs:label "Occurrence"@en .
+
+
+###  http://rs.tdwg.org/dwc/terms/Organism
+dwc:Organism rdf:type owl:Class ;
+             owl:disjointWith dwc:Taxon ,
+                              tc:TaxonConcept ,
+                              foaf:Document ;
+             dc:description "Definition taken from Darwin Core vocabulary 2014-11-21.  Replaces dsw:IndividualOrganism, which is now deprecated."@en ;
+             rdfs:comment "A particular organism or defined group of organisms considered to be taxonomically homogeneous."@en ;
+             rdfs:isDefinedBy dwc: ;
+             rdfs:label "Organism"@en .
+
+
+###  http://rs.tdwg.org/dwc/terms/PreservedSpecimen
+dwc:PreservedSpecimen rdf:type owl:Class ;
+                      rdfs:subClassOf :Specimen ;
+                      dc:description "Definition taken from Darwin Core vocabulary 2014-11-21."@en ;
+                      rdfs:comment "A specimen that has been preserved."@en ;
+                      rdfs:isDefinedBy dwc: ;
+                      rdfs:label "Preserved Specimen"@en .
+
+
+###  http://rs.tdwg.org/dwc/terms/Taxon
+dwc:Taxon rdf:type owl:Class ;
+          owl:disjointWith foaf:Agent ,
+                           foaf:Document ;
+          dc:description "Definition taken from Darwin Core vocabulary 2014-11-21.  We feel that this class should be considered to be equivalent to TaxonConcept (name plus accordingTo) in TDWG TCS (http://www.tdwg.org/standards/117/). However, this connection has not been explicitly expressed in the Darwin Core standard."@en ;
+          rdfs:comment "A group of organisms (sensu http://purl.obolibrary.org/obo/OBI_0100026) considered by taxonomists to form a homogeneous unit."@en ;
+          rdfs:isDefinedBy dwc: ;
+          rdfs:label "Taxon"@en .
+
+
+###  http://rs.tdwg.org/ontology/voc/TaxonConcept#TaxonConcept
+tc:TaxonConcept rdf:type owl:Class ;
+                owl:disjointWith foaf:Agent ,
+                                 foaf:Document ;
+                dc:description "A taxon concept class (name plus accordingTo) considered to be equivalent to TaxonConcept in TDWG TCS (http://www.tdwg.org/standards/117/).  This class was deprecated in favor of the Darwin Core class dwc:Taxon after the dwc:Taxon definition was clarified on 2014-10-26.  Additionally, by that date the TDWG Ontologies (from which this term was taken) were effectively deprecated."@en ;
+                rdfs:isDefinedBy tc: ;
+                owl:deprecated "true"^^xsd:boolean .
+
+
+###  http://www.w3.org/2002/07/owl#Thing
+owl:Thing rdf:type owl:Class .
+
+
+###  http://xmlns.com/foaf/0.1/Agent
+foaf:Agent rdf:type owl:Class ;
+           owl:disjointWith foaf:Document ;
+           dc:description "Definition taken from FOAF vocabulary 2014-11-21. See also http://purl.org/dc/terms/Agent"@en ;
+           rdfs:comment "An agent (eg. person, group, software or physical artifact)."@en ;
+           rdfs:isDefinedBy foaf: ;
+           rdfs:label "Agent"@en .
+
+
+###  http://xmlns.com/foaf/0.1/Document
+foaf:Document rdf:type owl:Class ;
+              dc:description "Definition taken from FOAF vocabulary 2014-11-21. See also http://purl.org/ontology/bibo/Document"@en ;
+              rdfs:comment "A document."@en ;
+              rdfs:isDefinedBy foaf: ;
+              rdfs:label "Document"@en .
+
+
+###  Generated by the OWL API (version 4.2.6.20160910-2108) https://github.com/owlcs/owlapi

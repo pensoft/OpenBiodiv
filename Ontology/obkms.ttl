@@ -1,0 +1,158 @@
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix openbiodiv: <http://openbiodiv.net/> .
+@prefix pensoft: <http://id.pensoft.net/> .
+
+openbiodiv:
+  rdf:type owl:Ontology ;
+  owl:versionInfo "0.2" ;
+  rdfs:comment "Open Biodiversity Knowledge Management System Ontology" ;
+	dc:title "Open Biodiversity Knowledge Management System Ontology" ;
+	dc:subject "Open Biodiversity Knowledge Management System Ontology" ;
+	rdfs:label "Open Biodiversity Knowledge Management System Ontology" ;
+	dc:creator "Pensoft/Plazi/Bulgarian Academy of Sciences
+  (Viktor Senderov, Terry Catapano, Kiril Simov, Lyubomir Penev)" ;
+  dc:rights "CCBY" .
+
+###  The following terms describe Pensoft-specific features of the ontology
+
+pensoft:PaperTypes  a fabio:TermDictionary ;
+                    rdfs:label "Paper Types" ;
+                    rdfs:comment "A list of paper (article) types published in Pensoft's journals"@en ;
+                    fabio:hasDiscipline dbpedia:Bibliography .     
+
+pensoft:SingleTaxonTreatment a fabio:SubjectTerm ;
+                    rdfs:label "Single Taxon Treatment"@en; 
+                    rdfs:comment "A type of paper with only one taxonomic treatment"@en ;
+                    skos:inScheme openbiodiv:PaperTypes .
+
+openbiodiv:TaxonClassification   a fabio:TermDictionary ;
+  rdfs:label "Taxonomic classification"@en ;
+  rdfs:comment "A list of taxon names borrowed for GBIF for classification of papers."@en ;
+  fabio:hasDiscipline dbpedia:Taxonomy .
+
+openbiodiv:ChronologicalClassification   a fabio:TermDictionary ;
+                                    rdfs:label "Chronological Classification"@en ;
+                                    rdfs:comment "A vocabulary of chronological eras that can be used in Pensoft's journals"@en ; 
+                                    fabio:hasDiscipline dbpedia:Paleontology
+             
+
+#################################################################
+#    Object Properties
+#################################################################
+
+# OpenBiodiv gives terms to specify RCC-5 alignment between taxon concepts
+
+openbiodiv:EQ rdf:type owl:ObjectProperty ;
+  rdfs:label "Equals" ;
+  rdfs:comment "= EQ(x,y) Equals"@en . 
+
+openbiodiv:PP rdf:type owl:ObjectProperty ;
+  rdfs:label "Proper Part" ;
+  rdfs:comment "< PP(x,y) Proper Part of "@en .
+
+openbiodiv:iPP rdf:type owl:ObjectProperty ;
+  rdfs:label "Inverse Proper Part" ;
+  rdfs:comment "iPP(x, y) Inverse Proper Part"@en .
+
+openbiodiv:PO rdf:type owl:ObjectProperty ;
+  rdfs:label "Partially Overlaps" ;
+  rdfs:comment "o PO(x,y) Partially Overlaps"@en .
+
+openbiodiv:DR rdf:type owl:ObjectProperty ;
+    rdfs:label "Disjoint" ;
+    rdfs:comment "! DR(x,y) Disjoint from."@en .
+
+
+
+##########################################################################
+#  _______                         _                                _    #
+# |__   __|                       | |                           | |   #
+#    | |     _ __    ___    __ _  | |_   _ __ ___     ___   _ __   | |_  #
+#    | |    | '__|  / _ \  / _` | | __| | '_ ` _ \   / _ \ | '_ \  | __| #
+#    | |    | |    |  __/ | (_| | | |_  | | | | | | |  __/ | | | | | |_  #
+#    |_|    |_|     \___|  \__,_|  \__| |_| |_| |_|  \___| |_| |_|  \__| #
+#                                                                        #
+##########################################################################                                                                       
+                                                   																
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://plazi.org/treatment#relatedTreatment
+trt:relatedTreatment rdf:type owl:ObjectProperty ;
+  rdfs:domain trt:Treatment ;
+  rdfs:range trt:Treatment ;
+  rdfs:comment """E.g. a Treatment for a species might be deemed related to the Treatment for a particular Genus.  hasRelatedTreatment might need subProperties, e.g. hasOriginalGenus. Or a treatment of a species might be publishedWith Gid, where Gid is the URI of the genus whose original publication contains the genus treatment and the species treatment.
+Analagous to the recursive \"treatment\" element of \"treatment\" in taxonx.
+""" .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+
+#################################################################
+#    Classes
+#################################################################
+
+
+###  http://plazi.org/treatment#Biology
+trt:Biology rdf:type owl:Class ;
+rdfs:subClassOf doco:Section .
+
+
+###  http://plazi.org/treatment#Description
+trt:Description rdf:type owl:Class ;
+rdfs:subClassOf doco:Section .
+
+
+###  http://plazi.org/treatment#Diagnosis
+trt:Diagnosis rdf:type owl:Class ;
+              rdfs:subClassOf doco:Section .
+
+
+###  http://plazi.org/treatment#Distribution
+trt:Distribution rdf:type owl:Class ;
+rdfs:subClassOf doco:Section .
+
+
+###  http://plazi.org/treatment#Etymology
+trt:Etymology rdf:type owl:Class ;
+rdfs:subClassOf doco:Section .
+
+
+###  http://plazi.org/treatment#Key
+trt:Key rdf:type owl:Class ;
+rdfs:subClassOf doco:Section .
+
+###  http://plazi.org/treatment#Material
+trt:Materials rdf:type owl:Class ;
+rdfs:subClassOf doco:Section .
+
+
+###  http://plazi.org/treatment#MaterialsMethods
+trt:MaterialsMethods rdf:type owl:Class ;
+rdfs:subClassOf "doco:Section" . 
+
+
+###  http://plazi.org/treatment#Nomenclature
+trt:Nomenclature rdf:type owl:Class ;
+rdfs:subClassOf doco:Section .
+
+###  http://plazi.org/treatment#Treatment
+trt:Treatment rdf:type owl:Class ;
+    rdfs:subClassOf doco:Section .
+
+trt:Classification rdf:type owl:Class ;
+    rdfs:subClassOf doco:Section .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+
+
+###  Generated by the OWL API (version 4.2.5.20160517-0735) https://github.com/owlcs/owlapi
