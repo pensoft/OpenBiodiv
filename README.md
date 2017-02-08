@@ -1,4 +1,4 @@
-% OpenBiodiv Guide
+% The OpenBiodiv Guide
 
 Open Biodiversity Knowledge Management System Programmer’s and User’s Guide
 
@@ -6,7 +6,7 @@ Open Biodiversity Knowledge Management System Programmer’s and User’s Guide
 
 This is the Open Biodiversity Knowledge Management System (OpenBiodiv/ OBKMS) Guide. It is intended to fully describe the RDF model and other features that OpenBiodiv/ OBKMS possesses and aid users in generating OpenBiodiv/ OBKMS-compatible RDF and in creating working SPARQL queries for OpenBiodiv/ OBKMS.
 
-##Proposal##:
+## Proposal
 
 http://riojournal.com/articles.php?id=7757
 
@@ -22,13 +22,13 @@ Needs to be filled out.
 
 ## RSS feed with the last 100 BDJ articles##
 
- http://bdj.pensoft.net/rss.php
+http://bdj.pensoft.net/rss.php
  
 ## Imported ontologies
 
 All ontologies from directory `~/Ontology/imports/` are imported. In addition to that the OpenBiodiv/ OBKMS core ontology `~/Ontology/openbiodiv.ttl` is imported. Here’s a table of the contents of the `imports/` directory:
 
-[catalog.md](Ontology/imports/)
+[Catalog.md](Ontology/imports/Catalog.md)
 
 
 
