@@ -59,12 +59,12 @@ express bibliographic information OpenBiodiv/OBKMS uses the [Semantic Publishing
 and Referencing Ontologies, a.k.a SPAR 
 Ontologies](http://www.sparontologies.net/) and builds on top of them.
 
-### Journal Article
+#### Journal Article
 
 Every article is represented in RDF using the FaBiO ontology as
 `fabio:JournalArticle`.
 
-#### Example instantiation of an article
+##### Example instantiation of an article
 
 ```
 pensoft:080ba99b-f6c6-4a7f-9ed6-0b0c7c8a7b82 rdf:type fabio:JournalArticle ;
