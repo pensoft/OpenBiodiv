@@ -28,7 +28,7 @@ Needs to be filled out.
 
 All ontologies from directory `~/Ontology/imports/` are imported. In addition to that the OpenBiodiv/ OBKMS core ontology `~/Ontology/openbiodiv.ttl` is imported. Here’s a table of the contents of the `imports/` directory:
 
-[catalog.md](Ontology/imports/Catalog.md)
+[catalog.md](Ontology/imports/)
 
 
 
