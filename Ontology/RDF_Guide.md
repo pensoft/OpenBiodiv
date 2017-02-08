@@ -1,13 +1,34 @@
 # OpenBiodiv RDF Guide
 
-This is the Open Biodiversity Knowledge Management System (OpenBiodiv/ OBKMS) 
-RDF Guide. It is intended to fully describe the data model of OpenBiodiv/ OBKMS 
-and aid users in generating OpenBiodiv/ OBKMS-compatible RDF and in creating 
-working SPARQL queries or other extensions for OpenBiodiv/ OBKMS.
+This is the Open Biodiversity Knowledge Management System (OpenBiodiv/OBKMS) 
+RDF Guide. It is intended to fully describe the data model of OpenBiodiv/OBKMS 
+and aid users in generating OpenBiodiv/OBKMS-compatible RDF and in creating 
+working SPARQL queries or other extensions for OpenBiodiv/OBKMS.
 
 This is a **literate programming document**. This means that the formal 
 description of the data model (i.e. ontology) is found within the document 
 itself and is extracted from it with a program (`noweb`).
+
+## Motivation
+
+The raison d'être of the OpenBiodiv/OBKMS data model is to enable the operation
+of a semantic database as part of OpenBiodiv/OBKMS. The data model consists of
+two parts:
+
+1. Recommendations on how to correctly to express certain statements using 
+existing data models together with examples examples of correct usage.
+
+2. The OpenBiodiv Core Model, which is an OWL ontology together with recommended
+usage and examples of itself.
+
+## Recommendations for the use of existing data models
+
+The OpenBiodiv/OBKMS application domain is the semantic publishing of taxonomic,
+systematic, biodiversity, and related information. In this section we review
+existing data models from the application domain and make recommendations about 
+their usage.
+
+## OpenBiodiv Core Ontology
 
 ## Imported ontologies
 
@@ -117,7 +138,7 @@ pensoft:exampleTreatment1 a doco:Section , trt:Treatment .
 In this subsection we introduce all classes and properties which are used to
 convey taxonomic/ systematic information.
 
-#### class Taxon Concept
+#### Class for taxon concepts
 
 For all practical purposes the semantics of <http://rs.tdwg.org/dwc/terms/Taxon>
 are compatible with the notion of a taxon concepts (TODO cite Nico Franz, Berensohn).
@@ -139,20 +160,42 @@ pensoft:exampleTaxonConcept1 a dwc:Taxon.
 pensoft:exampleTreatment1 frbr:realizationOf pensoft:exampleTaxonConcept1.
 ```
 
-#### class biologicalName
+#### Biological names
 
-In OpenBiodiv/OBKMS, we reify scientific names. [NOMEN](https://github.com/SpeciesFileGroup/nomen)
-does provide classes for scientific names. However, the identifiers that 
-NOMEN uses are not human readable. For example, the identifier for
-class "biological name" is `NOMEN_0000030`, which is highly inscrutable for humans.
-That's why we have defined names in OpenBiodiv and mapped them to their 
-NOMEN equivalents.
+In OpenBiodiv/OBKMS, we reify scientific names.
+[NOMEN](https://github.com/SpeciesFileGroup/nomen) does provide classes for
+scientific names. For example, the identifier for class "biological name" is
+`NOMEN_0000030`. However, the identifiers that NOMEN uses are meaningless. This
+is justified in some cases (TODO citation needed), however, in our workflow both
+RDF generation and debugging would be severely hampered by this convention.
+That's why we have defined names in OpenBiodiv and mapped them to their NOMEN
+equivalents.
 
 ```
-<<scientific_name_defintion>>=
+<<Biological names>>=
 openbiodiv:scientificName a owl:Class ;
     rdfs:label "scientific name"@en ;
-    rdfs:comment "A species discussion done for taxonomic purposes TODO: Needs rewriting!"@en ;
-    rdfs:subClassOf deo:DiscourseElement .
+    owl:sameAs nomen:NOMEN_0000036 .
+    
+openbiodiv:vernacularName a owl:Class ;
+  rdfs:label "vernacular name"@en ;
+  ownl:sameAs nomen:NOMEN_0000037 .
 @
+```
+
+##### Example usage of biological names
+
+```
+pensoft:exampleTaxonConcept1 a dwc:Taxon ; 
+  dwciri:scientificName :exampleName1 ;
+  dwc:nameAccordingTo "Susy Fuentes-Bazan, Pertti Uotila, Thomas Borsch: A novel phylogeny-based generic classification for Chenopodium sensu lato, and a tribal rearrangement of Chenopodioideae (Chenopodiaceae). In: Willdenowia. Vol. 42, No. 1, 2012, p. 14." ;
+  dwciri:vernacularName :exampleName2 ; 
+  
+  "Mauer-Gänsefuss"@de,
+                                                           "Nettle-leaved Goosefoot"@en ;
+                         .
+
+:taxonName a trt:ScientificName ;
+                    dwc:species "murale" ;
+                    dwc:genus "Chenopodium"
 ```
