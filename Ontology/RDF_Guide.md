@@ -103,6 +103,56 @@ trt:Treatment a owl:Class ;
 @
 ```
 
+#### Example instantiation of a treatment
 
+Usually, what we do is that we have an instance of a document section which is
+also an instance of the treatment rhetorical element:
 
+```
+pensoft:exampleTreatment1 a doco:Section , trt:Treatment .
+```
 
+### Taxonomic Concepts
+
+In this subsection we introduce all classes and properties which are used to
+convey taxonomic/ systematic information.
+
+#### class Taxon Concept
+
+For all practical purposes the semantics of <http://rs.tdwg.org/dwc/terms/Taxon>
+are compatible with the notion of a taxon concepts (TODO cite Nico Franz, Berensohn).
+
+We import
+
+https://github.com/darwin-sw/dsw/blob/master/dsw.owl
+
+in order to be able to instantiate taxon concepts.
+
+#### Connection between a treatment and a taxon concept
+
+We consider treatments to be FRBR expressions and taxon concepts to be the
+corresponding FRBR works. Therefore  link treatments to taxon concepts
+like this:
+
+```
+pensoft:exampleTaxonConcept1 a dwc:Taxon.
+pensoft:exampleTreatment1 frbr:realizationOf pensoft:exampleTaxonConcept1.
+```
+
+#### class biologicalName
+
+In OpenBiodiv/OBKMS, we reify scientific names. [NOMEN](https://github.com/SpeciesFileGroup/nomen)
+does provide classes for scientific names. However, the identifiers that 
+NOMEN uses are not human readable. For example, the identifier for
+class "biological name" is `NOMEN_0000030`, which is highly inscrutable for humans.
+That's why we have defined names in OpenBiodiv and mapped them to their 
+NOMEN equivalents.
+
+```
+<<scientific_name_defintion>>=
+openbiodiv:scientificName a owl:Class ;
+    rdfs:label "scientific name"@en ;
+    rdfs:comment "A species discussion done for taxonomic purposes TODO: Needs rewriting!"@en ;
+    rdfs:subClassOf deo:DiscourseElement .
+@
+```
