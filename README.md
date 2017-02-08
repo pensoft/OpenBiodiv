@@ -41,4 +41,10 @@ Of these three namespaces have special meaning:
 2. openbiodiv: is used to issue identifiers to the ontology classes and properties of the OpenBiodiv/ OBKMS ontology;
 3. trt: is used to refer to the tightly-linked Treatment Ontology classes and properties.
 
+## General ideas
+
+### Usage of `skos:prefLabel`
+
+The objects in OBKMS all have unique identifiers (currently in the `pensoft:` namespace). In addition to those identifiers, the objects have labels that are there primarily for human consumption. Labels can be things like the DOI (in the case of an article), the Latin name of a taxon (in the case of scientific names). This preferred label is encoded with the property `skos:prefLabel`. Furthermore, an object can have secondary (alternative) labels such as a different spelling of a scientific name, or a vernacular name of a taxon. In this case we use `skos:altLabel`.
+
 
