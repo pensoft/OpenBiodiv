@@ -30,6 +30,10 @@ All ontologies from directory `~/Ontology/imports/` are imported. In addition to
 
 [Catalog.md](Ontology/imports/Catalog.md)
 
+## Prefixes
 
+In OpenBiodiv/ OBKMS prefixes are stored in a YAML configuration file called
+
+[prefix_db.yml](~/R/obkms/inst/prefix_db.yml)
 
 
