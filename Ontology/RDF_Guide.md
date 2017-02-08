@@ -50,6 +50,10 @@ this case we use `skos:altLabel`.
 
 ## Concepts
 
+Here we will introduce formally and informally all new classes and properties
+used in the OpenBiodiv Core Ontology, as well as informally describe borrowed
+classes and properties from existing ontologies.
+
 ### Bibliographic concepts
 
 OpenBiodiv/OBKMS contains information extracted from scientific articles. As 
@@ -62,22 +66,43 @@ Ontologies](http://www.sparontologies.net/) and builds on top of them.
 #### class JournalArticle
 
 Every article is represented in RDF using the FaBiO ontology as
-`fabio:JournalArticle`.
+`fabio:JournalArticle`. For additional information refer to [the FaBiO
+documentation](http://www.sparontologies.net/ontologies/fabio).
 
 ##### Example instantiation of an article
 
 ```
-pensoft:080ba99b-f6c6-4a7f-9ed6-0b0c7c8a7b82 rdf:type fabio:JournalArticle ;
+pensoft:exampleArticle1 rdf:type fabio:JournalArticle ;
 	 skos:prefLabel "10.3897/BDJ.1.e953" ;
 	 prism:doi "10.3897/BDJ.1.e953" ;
 	 fabio:hasPublicationYear "2013"^^xsd:gYear ;
 	 dcterms:title "Casuarinicola australis Taylor, 2010 (Hemiptera: Triozidae), newly recorded from New Zealand"@en-us ;
-	 po:contains pensoft:c298e00c-e27a-46e1-bc9d-be4c7a1121cb , pensoft:16dbd5c5-e21f-4f76-a964-f58385ee4ccb , pensoft:treatment1 . 
+	 po:contains pensoft:exampleTreatment1 . 
 ```
 
 Except for the usages of `skos:prefLabel` all other properties as used as in the
 SPAR Ontologies. Key here is that the article is linked to different sub-article
 level elements such as treatments (e.g. `pensoft:treatment1`) via `po:contains`.
 
-#### Treatment
+#### class Treatment
+
+In OBKMS, we consider Treatment to be a rhetorical element of a taxonomic 
+publication akin to Introduction, Methods, etc. Treatment is originally defined 
+in the [Treatment
+Ontology](https://github.com/plazi/TreatmentOntologies/blob/master/treatment.owl),
+however this definition of Treatment as a discourse element is slightly more 
+complex. We derive the class Treatment from
+<http://purl.org/spar/deo/DiscourseElement>:
+
+```
+<<treatment_definition>>=
+trt:Treatment a owl:Class ;
+    rdfs:label "treatment"@en ;
+    rdfs:comment "A species discussion done for taxonomic purposes TODO: Needs rewriting!"@en ;
+    rdfs:subClassOf deo:DiscourseElement .
+@
+```
+
+
+
 
