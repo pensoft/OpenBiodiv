@@ -36,4 +36,9 @@ In OpenBiodiv/ OBKMS prefixes are stored in a YAML configuration file called
 
 [prefix_db.yml](R/obkms/inst/prefix_db.yml)
 
+Of these three namespaces have special meaning:
+1. pensoft: is used to issue identifiers for Pensoft-specific objects;
+2. openbiodiv: is used to issue identifiers to the ontology classes and properties of the OpenBiodiv/ OBKMS ontology;
+3. trt: is used to refer to the tightly-linked Treatment Ontology classes and properties.
+
 
