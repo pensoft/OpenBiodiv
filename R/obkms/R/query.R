@@ -59,6 +59,7 @@ get_nodeid = function( label = "", explicit_node_id = "", allow_multiple = FALSE
 }
 
 #' Gets the graph name of an article of it exists
+#' TODO needs review
 #' @param doi the DOI of the article the context of which we are looking for
 #' @export
 get_context_of = function ( doi ) {

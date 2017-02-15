@@ -77,25 +77,6 @@ squote = function ( literal, postfixes = "" ) {
   paste0 ("\"", literal, "\"", postfixes)
 }
 
-#' a function to start an rdf couplet
-
-begin_couplet = function( subject, predicate, object ) {
-  return( paste( subject, predicate, object ) )
-}
-
-end_couplet = function () {
-  return ( " ." )
-}
-
-add_po = function ( predicate, obj, literal = FALSE) {
-  if(literal) {
-    return( paste0( " ;\n ", predicate, " \"", obj, "\"") )
-  }
-  else {
-    paste( " ;\n ", predicate,  obj)
-  }
-}
-
 #' Use the prefix database to create Turtle statements
 #' @param t the syntax
 #' @export
@@ -142,6 +123,7 @@ triples2turtle = function ( context, triples ) {
 }
 
 #' works with lists of triples instead of data frames
+#' TODO "list of triples" should probably be made into a S3 object
 #' @export
 triples2turtle2 = function ( context, triples ) {
   turtle = c( paste( context, "{\n" ) )
@@ -280,5 +262,27 @@ write_end_stanza2 = function ( object, triples ) {
   else {
     # object is a triples list
     turtle = c( " [ ", write_couplet2( "", object ), " ] " )
+  }
+}
+
+
+#' Probably junk
+#'
+#' #' a function to start an rdf couplet
+
+begin_couplet = function( subject, predicate, object ) {
+  return( paste( subject, predicate, object ) )
+}
+
+end_couplet = function () {
+  return ( " ." )
+}
+
+add_po = function ( predicate, obj, literal = FALSE) {
+  if(literal) {
+    return( paste0( " ;\n ", predicate, " \"", obj, "\"") )
+  }
+  else {
+    paste( " ;\n ", predicate,  obj)
   }
 }

@@ -50,7 +50,7 @@ init_env = function ( server_access_options,
 }
 
 #' Loads a package database from a yaml file
-#'
+#' TODO needs review
 #' @param database_path path to the database
 #' @param   internal_name      is the path to internal database to be used if none supplied
 #' @export
