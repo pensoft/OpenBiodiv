@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//TaxonX//DTD Taxonomic Treatment Publishing DTD v0 20100105//EN" "tax-treatment-NS0.dtd">
+<article xmlns:tp="http://www.plazi.org/taxpub" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" article-type="research-article" dtd-version="3.0" xml:lang="en">
+    <front>
+        <journal-meta>
+            <journal-id journal-id-type="publisher-id">ZooKeys</journal-id>
+            <journal-title-group>
+                <journal-title xml:lang="en">ZooKeys</journal-title>
+                <abbrev-journal-title xml:lang="en">ZooKeys</abbrev-journal-title>
+            </journal-title-group>
+            <issn pub-type="ppub">1313-2989</issn>
+            <issn pub-type="epub">1313-2970</issn>
+            <publisher>
+                <publisher-name>Pensoft Publishers</publisher-name>
+            </publisher>
+        </journal-meta>
+        <article-meta>
+            <article-id pub-id-type="doi">10.3897/zookeys.515.9459</article-id>
+            <article-categories>
+                <subj-group subj-group-type="heading"><subject>Research Article</subject></subj-group>
+            </article-categories>
+            <title-group>
+                <article-title>A fast GNU method to draw accurate scientific illustrations for taxonomy</article-title>
+            </title-group>
+            <contrib-group>
+                <contrib contrib-type="author" xlink:type="simple">
+                    <name name-style="western">
+                        <surname>Montesanto</surname>
+                        <given-names>Giuseppe</given-names>
+                    </name>
+                    <xref ref-type="aff" rid="A1">1</xref>
+                </contrib>
+            </contrib-group>
+            <aff id="A1"><label>1</label>University of Pisa, Department of Biology, via Luca Ghini 13, 56126 Pisa, Italy</aff>
+            <author-notes>
+                <fn fn-type="corresp">
+                    <p>Corresponding author: Giuseppe Montesanto (<email xlink:type="simple">giuseppe.montesanto@unipi.it</email>)</p>
+                </fn>
+                <fn fn-type="edited-by">
+                    <p>Academic editor: Jasna Štrus</p>
+                </fn>
+            </author-notes>
+            <pub-date pub-type="collection">
+                <year>2015</year>
+            </pub-date>
+            <pub-date pub-type="epub">
+                <day>30</day>
+                <month>7</month>
+                <year>2015</year>
+            </pub-date>
+            <issue>515</issue>
+            <fpage>191</fpage>
+            <lpage>206</lpage>
+            <history>
+                <date date-type="received">
+                    <day>25</day>
+                    <month>2</month>
+                    <year>2015</year>
+                </date>
+                <date date-type="accepted">
+                    <day>2</day>
+                    <month>4</month>
+                    <year>2015</year>
+                </date>
+            </history>
+            <permissions>
+                <copyright-statement>Giuseppe Montesanto</copyright-statement>
+                <license license-type="creative-commons-attribution" xlink:href="http://creativecommons.org/licenses/by/4.0" xlink:type="simple">
+                    <license-p>This is an open access article distributed under the terms of the Creative Commons Attribution License (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.</license-p>
+                </license>
+            </permissions>
+            <self-uri content-type="zoobank" xlink:type="simple">http://zoobank.org/5D1D05F0-F47D-4E37-AE2B-59AAFF465E45</self-uri>
+            <abstract>
+                <label>Abstract</label>
+                <p>Nowadays only digital figures are accepted by the most important journals of taxonomy. These may be produced by scanning conventional drawings, made with high precision technical ink-pens, which normally use capillary cartridge and various line widths. Digital drawing techniques that use vector graphics, have already been described in literature to support scientists in drawing figures and plates for scientific illustrations; these techniques use many different software and hardware devices. The present work gives step-by-step instructions on how to make accurate line drawings with a new procedure that uses bitmap graphics with the GNU Image Manipulation Program (GIMP). This method is noteworthy: it is very accurate, producing detailed lines at the highest resolution; the raster lines appear as realistic ink-made drawings; it is faster than the traditional way of making illustrations; everyone can use this simple technique; this method is completely free as it does not use expensive and licensed software and it can be used with different operating systems. The method has been developed drawing figures of terrestrial isopods and some examples are here given.</p>
+            </abstract>
+            <kwd-group>
+                <label>Keywords</label>
+                <kwd>Methodology</kwd>
+                <kwd>scientific illustrations</kwd>
+                <kwd>digital drawings</kwd>
+                <kwd>GIMP</kwd>
+                <kwd><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="suborder">Oniscidea</tp:taxon-name-part></tp:taxon-name></kwd>
+                <!--PageBreak-->
+            </kwd-group>
+        </article-meta>
+        <notes>
+            <sec sec-type="Citation">
+                <title>Citation</title>
+                <p>Montesanto G (2015) A fast GNU method to draw accurate scientific illustrations for taxonomy. In: Taiti S, Hornung E, Štrus J, Bouchon D (Eds) Trends in Terrestrial Isopod Biology. ZooKeys 515: 191–206. doi: <ext-link ext-link-type="doi" xlink:href="10.3897/zookeys.515.9459">10.3897/zookeys.515.9459</ext-link></p>
+            </sec>
+        </notes>
+    </front>
+     <body><sec sec-type="Introduction">
+            <title>Introduction</title>
+            <p>Aiming to express a concept or convey a message, the use of a picture is certainly a clearer and understandable way compared to a text-only description. Images help reading a text and explain immediately what that text would represent. In biosystematics, descriptions of new plant and animal taxa are always combined with figures and plates in order to illustrate the anatomical parts and body details. Such figures are of great value for species identifications. Line drawings are normally used for many species descriptions. They can be produced by inexpensive means (ink and paper), as stated in the Council of Biology Editors’ guide, <italic>Illustrating Science</italic>: “A good pen and ink drawing is pleasing, informative and reproduces well, even on poor grades of paper”. The drawings should be organized to highlight the characters and their details. However, each figure should not be cluttered with too much detail, and there should be a pleasing balance between lines and white space (<xref ref-type="bibr" rid="B31">Winston 1999</xref>). When line drawing a body part, one usually makes it larger than requested by the size of the journal page in order to highlight details. The reduced final size will look sharper and small imperfections will usually be minimized (<xref ref-type="bibr" rid="B32">Zweifel 1961</xref>). Further notes on the preparation of illustrations for taxonomic papers are discussed in <xref ref-type="bibr" rid="B12">Mayr et al. (1953)</xref>.</p>
+            <p>Taxonomists need images of good quality in describing taxa. As a rule, drawings are better detailed than stereo or light microscopes photographs since some details, which are often barely visible in a photograph, may be highlighted. When using photographs, focusing a complete detail requires many photos at a high level of magnification. Then, by using an appropriate software, it is afterwards possible to combine all the images, although the resulting quality is considerably low and require further processing steps.</p>
+            <p>Nowadays, only digital figures (drawings or photographs) are accepted by the most important taxonomic journals. The traditional way to generate high quality figures and plates for taxonomic papers, is to make pencil drawings first and then ink with high precision technical pens, which normally use capillary cartridge and different line widths. The single figures are then settled on a sheet of paper and each plate is scanned to a digital format. This method is sufficiently quick but may produce imperfect lines or gaps.</p>
+            <p>Digital drawing techniques that use vector graphics have already been described in literature to support scientists in drawing figures and plates for scientific illustrations (<xref ref-type="bibr" rid="B6">Coleman 2003</xref>, <xref ref-type="bibr" rid="B8">2009</xref>); these techniques use a range of software packages and various hardware devices, such as digitiser boards or digital graphic pens.</p>
+            <p>The GNU Project (GNU is a recursive acronym meaning “GNU’s not Unix”) is a mass collaboration project of free software. Software that have been developed under the GNU Project guarantee these freedom-rights legally (via its license), and are therefore free software. GIMP is an acronym for GNU Image Manipulation Program. The GIMP is suitable for a variety of image manipulation tasks, including photo retouching, image construction and composition. GIMP can be used as a simple paint program, or as an expert quality photo retouching program, or again as an online batch processing system, a mass production image render, an image format converter, etc. <!--PageBreak-->(GIMP documentation is available at: <ext-link ext-link-type="uri" xlink:href="http://www.gimp.org/">http://www.gimp.org/</ext-link>). GIMP is freely available from many sources for many operating systems. Most GNU/Linux distributions include the GIMP as a standard application. The GIMP software application is covered by the General Public License (GPL).</p>
+            <p>The purpose of this methodological work is to describe a new digital drawing method using GIMP software that helps the taxonomist in making high quality line drawings. This method was developed on drawings of terrestrial isopods for taxonomic papers. Some examples are here given.</p>
+        </sec>
+        <sec sec-type="methods">
+            <title>Method</title>
+            <p>First of all GIMP has to be installed on a computer. Notes about installing GIMP on your computer are reported on the official GIMP website at the following URL: <ext-link ext-link-type="uri" xlink:href="http://www.gimp.org/docs/">http://www.gimp.org/docs/</ext-link>. GIMP version 2.8.14 on a Mac computer (Mac Mini, late 2013, with Mac OS 10.10.1) has been used to illustrate the procedures of this paper.</p>
+            <p>The pencil drawings that need to be digital traced must be saved in a digital file or directly digitized in a Portable Document Format (a common PDF file).</p>
+            <sec sec-type="Preparing the workspace">
+                <title>Preparing the workspace</title>
+                <p>In order to prepare the window visualization at first access after the GIMP installation, all the panels that are shown should be closed. Only the “Toolbox” and the Dockable Dialogs “Layers” and “Tool Options” will be used and kept on screen:</p>
+                <p><styled-content style="padding-left:20px;">Windows &gt; Toolbox</styled-content></p>
+                <p><styled-content style="padding-left:20px;">Windows &gt; Dockable Dialogs &gt; Layers</styled-content></p>
+                <p><styled-content style="padding-left:20px;">Windows-&gt; Dockable Dialogs &gt; Tool Options.</styled-content></p>
+                <p>Now the workspace should be arranged as reported in Fig. <xref ref-type="fig" rid="F1">1</xref>, with Image window (Fig. <xref ref-type="fig" rid="F1">1A</xref>) and three floating windows: Toolbox (Fig. <xref ref-type="fig" rid="F1">1B</xref>), Tool Options (Fig. <xref ref-type="fig" rid="F1">1C</xref>) and Layers (Fig. <xref ref-type="fig" rid="F1">1D</xref>). In the Toolbox select black and white for the Foreground and Background colours (Fig. <xref ref-type="fig" rid="F1">1E</xref>).</p>
+                <fig id="F1" position="float" orientation="portrait">
+                    <label>Figure 1.</label>
+                    <caption><p>GNU Image Manipulation Program (GIMP, ver. 2.8.14) on a Mac OS. <bold>A</bold> Image window <bold>B</bold> Toolbox window <bold>C</bold> Tool Options window <bold>D</bold> Layers window <bold>E</bold> Foreground (black) and Background colours (white).</p></caption>
+                    <graphic xlink:href="zookeys-515-e5780-g001.jpg" position="float" orientation="portrait" xlink:type="simple" id="oo_48540.jpg"/>
+                </fig>
+                <p>Using different versions of GIMP or different operative systems the toolbox and the two Dockable Dialogs are sometimes covered by the Image window and not visible as front windows. In GIMP for Windows OS you can change this setting from: Edit &gt; Preferences &gt; Window Management. In Mac OS from: GIMP &gt; Preferences &gt; Window Management (Fig. <xref ref-type="fig" rid="F2">2A</xref>). To have the toolbox and the other windows always on top of the screen change the Hint for the toolbox from ‘Normal Window’ to ‘Utility Window’. You will be asked to restart GIMP in order to make changes effective.</p>
+                <fig id="F2" position="float" orientation="portrait">
+                    <label>Figure 2.</label>
+                    <caption><p>GNU Image Manipulation Program. <bold>A</bold> Preferences window, with the “Window Management” settings <bold>B</bold> “Import from PDF” window appears after a PDF file has been opened with the File &gt; Open command of menu <bold>C</bold> New Layer window with the Layer Fill Type option set on “White” <bold>D</bold> Tool Options window of Brush Tool with the brush No. 2. Hardness 075, used in the present drawing method <bold>E</bold> Tool Options window (Brush Tool) with the brush size set on 5 pixels (5.00).</p></caption>
+                    <graphic xlink:href="zookeys-515-e5780-g002.jpg" position="float" orientation="portrait" xlink:type="simple" id="oo_48541.jpg"/>
+                </fig>
+                <!--PageBreak-->
+            </sec>
+            <sec sec-type="Step-by-step instructions">
+                <title>Step-by-step instructions</title>
+                <p>The user can follow the instructions of the present method according to two different levels of difficulty: beginner and advanced. Beginners are suggested to start testing the former method and then move to the advanced level once they have gained some experience.</p>
+            </sec>
+            <sec sec-type="Beginner level">
+                <title>Beginner level</title>
+                <list list-type="order">
+                    <list-item>
+                        <p>Open the file that contains the pencil drawings: File &gt; Open</p>
+                        <p>(with PDF files, set the resolution at 300 pixel/in) (Fig. <xref ref-type="fig" rid="F2">2B</xref>).</p>
+                    </list-item>
+                    <list-item>
+                        <p>Create a new layer with a white background:</p>
+                        <p>Layer &gt; New Layer</p>
+                        <p>(Layer Set “White” as Layer Fill Type) (Fig. <xref ref-type="fig" rid="F2">2C</xref>).</p>
+                        <p>Set the opacity of this new level to 60–80 in the Layers window.</p>
+                    </list-item>
+                    <list-item>
+                        <p>Create another new layer for the first trace: Layer &gt; New Layer</p>
+                        <p>(Set “Transparency” as Layer Fill Type).</p>
+                    </list-item>
+                    <list-item>
+                        <p>Choose the brush left clicking on “Paintbrush Tool”.</p>
+                        <p>On the “Tool Options” window, click on the square icon labelled “Brush” (Fig. <xref ref-type="fig" rid="F2">2D</xref>).</p>
+                        <p>Choose the brush No. 2. “Hardness 075”.</p>
+                        <p>Set the “Size” to 3-5 points (Fig. <xref ref-type="fig" rid="F2">2E</xref>). Adjust the zoom level to 400–800%</p>
+                    </list-item>
+                    <list-item>
+                        <p>Start drawing (see the “How to draw” section).</p>
+                    </list-item>
+                    <list-item>
+                        <p>Once finished, set again the opacity of the “White” layer to 100, and the opacity of this first trace layer to 20–40, in order to better see the second trace.</p>
+                    </list-item>
+                    <!--PageBreak-->
+                    <list-item>
+                        <p>Create another new layer for the second trace: Layer &gt; New Layer</p>
+                        <p>(Set “Transparency” as Layer Fill Type).</p>
+                    </list-item>
+                    <list-item>
+                        <p>Start drawing in this new layer, following only the lines in the first trace. Remember to set the brush size to 5–7 points and to adjust the zoom level to 800–1100%.</p>
+                    </list-item>
+                </list>
+                <!--PageBreak-->
+            </sec>
+            <sec sec-type="Advanced level">
+                <title>Advanced level</title>
+                <list list-type="order">
+                    <list-item>
+                        <p>Open the file that contains the pencil drawings: File &gt; Open</p>
+                        <p>(with PDF files, set the resolution at 300 pixel/in)</p>
+                    </list-item>
+                    <list-item>
+                        <p>Create a new layer for the trace: Layer &gt; New Layer</p>
+                        <p>(Set “Transparency” as Layer Fill Type).</p>
+                    </list-item>
+                    <list-item>
+                        <p>Choose the brush: click on “Paintbrush Tool”. On the “Tool Options” window click on the square labelled “Brush”. Choose the brush “2. Hardness 075”. Set the “Size” to 5–6 points.</p>
+                    </list-item>
+                    <list-item>
+                        <p>Start drawing (see the “How to draw” section), following the lines of pencil drawings.</p>
+                    </list-item>
+                </list>
+            </sec>
+            <sec sec-type="How to draw (with a mouse)">
+                <title>How to draw (with a mouse)</title>
+                <list list-type="bullet">
+                    <list-item>
+                        <p>Set the zoom level to 400–800% for the first trace, 800–1100% for the second (or at advanced level);</p>
+                    </list-item>
+                    <list-item>
+                        <p>choose an appropriate starting point (e.g. a corner or an intersection);</p>
+                    </list-item>
+                    <list-item>
+                        <p>choose the brush tool with the right size (see above) and do a first click with the left button (Fig. <xref ref-type="fig" rid="F3">3C</xref>) at the starting point you have chosen;</p>
+                    </list-item>
+                    <list-item>
+                        <p>start to trace out the pencil line by pressing the shift key on the keyboard (Fig. <xref ref-type="fig" rid="F3">3A</xref>), then move the mouse pointer along the pencil line: a guide line will appear to help you to trace a segment (Fig. <xref ref-type="fig" rid="F3">3B</xref>);</p>
+                    </list-item>
+                    <list-item>
+                        <p>stop the pointer where you consider worthwhile; left click once again to trace a segment;</p>
+                    </list-item>
+                    <list-item>
+                        <p>press the space bar of the keyboard (Fig. <xref ref-type="fig" rid="F3">3A</xref>) to move along the drawing, only moving the mouse, without clicking any other button;</p>
+                    </list-item>
+                    <list-item>
+                        <p>change the brush size whenever you need to draw smaller details;</p>
+                    </list-item>
+                    <list-item>
+                        <p>find a suitable balance between several closer points or less numerous but more distant points (i.e. the suitable balance between the time you have and the quality of your drawings).</p>
+                    </list-item>
+                </list>
+                <fig id="F3" position="float" orientation="portrait">
+                    <label>Figure 3.</label>
+                    <caption><p>How to draw lines with GNU Image Manipulation Program. <bold>A</bold> Left hand position: with Shift key pressed to draw little segments, space bar to move the screen visual along the drawing <bold>B</bold> Portion of the Image window (at 800% zoom level) showing the drawing guide-line <bold>C</bold> Right hand position with a common mouse.</p></caption>
+                    <graphic xlink:href="zookeys-515-e5780-g003.jpg" position="float" orientation="portrait" xlink:type="simple" id="oo_48542.jpg"/>
+                </fig>
+                <p>Shorter segments will appear as a continuous line and the quality will be even better in the printed version since the figure size is smaller than the digital image.</p>
+            </sec>
+            <sec sec-type="Drawing dashed lines">
+                <title>Drawing dashed lines</title>
+                <list list-type="bullet">
+                    <list-item>
+                        <p>Choose the “Path tool” in the toolbox (Fig. <xref ref-type="fig" rid="F4">4A</xref>);</p>
+                    </list-item>
+                    <list-item>
+                        <p>left click several times following the pencil line;</p>
+                    </list-item>
+                    <list-item>
+                        <p>once finished, click “Stroke path” in the “Tool options” dialog window (Fig. <xref ref-type="fig" rid="F4">4B</xref>);</p>
+                    </list-item>
+                    <list-item>
+                        <p>in the “Stroke path” window (Fig. <xref ref-type="fig" rid="F4">4C</xref>), choose the line width (e.g. 4 or 5 pixels) and open the “Line Style” dialog;</p>
+                    </list-item>
+                    <!--PageBreak-->
+                    <list-item>
+                        <p>choose “round” (the second icon) for “Cap style” in the “Line style” option, then “Medium dashed” in the “Dash preset” option (Fig. <xref ref-type="fig" rid="F4">4C</xref>);</p>
+                    </list-item>
+                    <list-item>
+                        <p>click on the “Stroke” button and then again on the “Paintbrush tool” to see the result (Fig. <xref ref-type="fig" rid="F4">4D</xref>).</p>
+                    </list-item>
+                </list>
+                <fig id="F4" position="float" orientation="portrait">
+                    <label>Figure 4.</label>
+                    <caption><p>GNU Image Manipulation Program. <bold>A</bold> Toolbox window: Path Tool is marked with a black square <bold>B</bold> Tool Options window of Path Tool <bold>C</bold> Stroke Path windows with the settings for a “Medium dashed” line (3 px) <bold>D</bold> Portion of the Image window showing the result (at 400% zoom level) of the “Stroke Path” button.</p></caption>
+                    <graphic xlink:href="zookeys-515-e5780-g004.jpg" position="float" orientation="portrait" xlink:type="simple" id="oo_48543.jpg"/>
+                </fig>
+            </sec>
+            <sec sec-type="Sorting out plates">
+                <title>Sorting out plates</title>
+                <p>First of all open a new file with a blank image. Choose File &gt; New and select A4 (300 ppi) in the Template menu, then click “OK” (Fig. <xref ref-type="fig" rid="F5">5A</xref>). The size of this new image will be 2480 × 3508 pixels at 300 points per inches. It is possible to change the resolution, e.g. at 600 ppi, opening the Advanced Options (Fig. <xref ref-type="fig" rid="F5">5A</xref>)</p>
+                <fig id="F5" position="float" orientation="portrait">
+                    <label>Figure 5.</label>
+                    <caption><p>GNU Image Manipulation Program. <bold>A</bold> “Create a New Image” window with settings for a blank page in international A4 format <bold>B</bold> Layers window after a trace was pasted into a new image, the “Floating Selection” layer is showed <bold>C</bold> “Pasted Layer” on the same window after the “Floating Selection” was transformed in a new layer <bold>D</bold> Portion of the Toolbox window showing the tool icons (explanation in the text).</p></caption>
+                    <graphic xlink:href="zookeys-515-e5780-g005.jpg" position="float" orientation="portrait" xlink:type="simple" id="oo_48544.jpg"/>
+                </fig>
+                <p>In order to move the trace that has been already drawn into the new plate: open the. xcf file and select the layer that contains that trace. Use the ‘Free Select Tool’ to carve out the part of the drawing; left click several times following the trace outline. Then copy the selection (Edit &gt; Copy) and paste it (Edit &gt; Paste) into the new blank image. A new layer, named ‘Floating Selection’ will appear in the Layers Dialog (Fig. <xref ref-type="fig" rid="F5">5B</xref>); right click on this new layer and choose ‘To a new layer’ to create a new layer (named “Pasted Layer”) with the clipping (Fig. <xref ref-type="fig" rid="F5">5C</xref>). This is particularly useful in order to rearrange the plate later. It is also possible to move the entire layer (with a simple drag and drop of the layer into the new image) but this step will increase the file size. The new layer can be renamed by double-clicking on its name in the “Layers” window.</p>
+                <p>Next step is to move, scale, flip or rotate the drawings to set them in the right position. In the toolbox it is possible to find the right instruments (Fig. <xref ref-type="fig" rid="F5">5D</xref>).</p>
+                <!--PageBreak-->
+                <p><italic>Move.</italic> Use the “Move Tool” in the Toolbox. In the “Layers” window select the layer with the trace. In the Tool Option Window, choose “Layer” (the first icon) in the “Move” option and “Move the active layer” in the “Tool Toggle” option. Then, it is possible to move the trace in the right position by left clicking on the trace and dragging the layer.</p>
+                <!--PageBreak-->
+                <p><italic>Scale.</italic> Use the “Scale Tool” in the Toolbox. In the Tool Option Window, choose “Layer” in the “Transform” option and leave the other options with the default values. Left click on the trace and a grid and a “Scale” window will appear helping the user to adjust the image at the right size. It is possible to use percentages by changing the “pixels” option.</p>
+                <!--PageBreak-->
+                <p><italic>Flip.</italic> Similarly, use the “Flip Tool”. In the Tool Option Window, choose “Layer” in the “Affect” option and then choose “Horizontal” or “Vertical” in the “Flip type” option. Left click on the trace and the drawing will be mirrored upside down or left/right.</p>
+                <p><italic>Rotate.</italic> It is also possible to rotate a drawing with the “Rotate Tool”. As before, left click on the trace and a grid and a “Scale” window will appear helping the user to adjust the image at the right angle. Then left click on the “Rotate” button to set the new arrangement.</p>
+                <p>Once completed, it is necessary to repeat the steps above to insert all the drawings into the new plate.</p>
+                <p><italic>Lettering.</italic> Easily, it is possible to add text (e.g. numbers and letters) on the new plate using the “Text Tool”. A common option in the “Tool Options” window is: “Arial” in the Font box and 80–100 in the Size box. A new layer will appear with the text. It can be easily moved with the “Move Tool” just as explained before.</p>
+                <p>It is also possible to crop the image in order to eliminate the blank space around the traces.</p>
+                <p>This can be easily done with the “Crop Tool” in the Toolbox. Left-click and drag the mouse pointer to crop the part of the plate.</p>
+            </sec>
+            <sec sec-type="Saving the files">
+                <title>Saving the files</title>
+                <p>Once completed it is important to save the work in different files. Precisely, the user should be save the draft files in the GIMP proprietary format XCF (eXperimental Computing Facility) in order to leave the possibility to work again on the different layers. In the “File” menu, choose “Save” (or “Save As”); then the user will be asked to add a file name and select a destination folder. Otherwise, it is possible to save the plates as one-layer files in a high resolution format, such as TIFF files, normally used for publication in a scientific journal. This step should be done with the “Export” (or “Export As”) option of the “File” menu. A new dialog window will appear on the screen: in this case choose “TIFF image” in the “Select File Type” option (Fig. <xref ref-type="fig" rid="F6">6A</xref>). Then, it is possible to set the level of compression (that is the quality of images). Generally a LZW compression offer the right balance between quality of the printed image and an appropriate file size. This option is specifically requested by several journals (Fig. <xref ref-type="fig" rid="F6">6B</xref>).</p>
+                <fig id="F6" position="float" orientation="portrait">
+                    <label>Figure 6.</label>
+                    <caption><p>GNU Image Manipulation Program. <bold>A</bold> Portion of the “Export Image” window, showing the “Select File Type” menu with the settings for a TIFF image <bold>B</bold> “Export Image as TIFF” window, with the settings for LZW compression.</p></caption>
+                    <graphic xlink:href="zookeys-515-e5780-g006.jpg" position="float" orientation="portrait" xlink:type="simple" id="oo_48545.jpg"/>
+                </fig>
+            </sec>
+        </sec>
+        <sec sec-type="Results">
+            <title>Results</title>
+            <p>The method here explained, produce three different kind of files: the original digitized pencil drawings (normally PDF or TIFF files), the. xcf files of the traces, the. xcf files of the plates. These last ones are used to export the plates in ‘Tagged Image File Format’ (TIF) that may be directly uploaded to the journal submission website. All those files should be kept because they could be useful in the future for many purposes.</p>
+            <!--PageBreak-->
+            <p>The final result is to have perfect lines without any signs of tremble. The black lines appear as a sharp continuous line in the final version, because the size of the printed image is not as big as the digital image. Generally, the use of digital drawing techniques allows undoing the last action and trying again after an error, until the result is satisfying.</p>
+            <p>Some illustrations made with the method of the present paper, were already published in other articles about terrestrial isopods: figure 1 in <xref ref-type="bibr" rid="B13">Medini-Bouaziz et al. (2006)</xref>; figure 2 in <xref ref-type="bibr" rid="B17">Montesanto et al. (2007)</xref>; figures 2, 3 in <xref ref-type="bibr" rid="B18">Montesanto et al. (2008)</xref>; figures 1–5 in <xref ref-type="bibr" rid="B19">Montesanto et al. (2011)</xref>; figures 1, 2 in <xref ref-type="bibr" rid="B14">Messina et al. (2011)</xref>; figure 1 in <xref ref-type="bibr" rid="B15">Messina et al. (2012)</xref>; figures 6, 7, and 9 in <xref ref-type="bibr" rid="B20">Montesanto et al. (2012)</xref>; figure 1 in <xref ref-type="bibr" rid="B11">Lupetti et al. (2013)</xref>; figures 2, 3 in Montesanto et al. (2013); figures 1–6 in <xref ref-type="bibr" rid="B16">Messina et al. (2014)</xref>. Some indications about drawing terrestrial isopods for taxomomic papers are reported in Figure <xref ref-type="fig" rid="F7">7</xref>, whereas magnifications show the differences of the brush size for different anatomical parts.</p>
+            <fig id="F7" position="float" orientation="portrait">
+                <label>Figure 7.</label>
+                <caption><p>Examples of line drawings of terrestrial isopods anatomical parts. Magnifications in the black circles indicate the brush size (see also the “How to draw” section). <bold>A</bold> Antenna <bold>B</bold> Antennula <bold>C</bold> Cephalon (front view) <bold>D</bold> Pereopod 1 <bold>E</bold> Exopod of pleopod 4 <bold>F</bold> Uropod; dl, dotted lines (Commands: Paths Tool &gt; Stroke Path in the Tool Options &gt; Line style, Dash preset: Dense dots).</p></caption>
+                <graphic xlink:href="zookeys-515-e5780-g007.jpg" position="float" orientation="portrait" xlink:type="simple" id="oo_48546.jpg"/>
+            </fig>
+            <p>Finally, due to the practice made with the method here introduced, some other suggestion are proposed to the reader: draw the possible dotted shadows on a new layer above the other ones; use maximum zoom level for details, even more than 1100%; delete errors with the Eraser Tool (in the toolbox) or by clicking “Undo” in the Edit menu; always look at the general shape of the curve (reducing zoom level); avoid excessively long segments in order to point out no edges; try different size of brushes for setae, spines and other little details (see Fig. <xref ref-type="fig" rid="F7">7</xref>).</p>
+        </sec>
+        <sec sec-type="Discussion">
+            <title>Discussion</title>
+            <p>In a work of biological taxonomy, the part that requires more time, is the preparation of illustrations. There are always many species that need to be described so some taxonomists usually describe more species, not so detailed, others describe fewer species, but very detailed (<xref ref-type="bibr" rid="B7">Coleman 2006</xref>). Our predecessors and contemporary isopodologists <!--PageBreak-->published exemplary literature (e.g. <xref ref-type="bibr" rid="B29">Vandel 1960</xref>, <xref ref-type="bibr" rid="B30">1962</xref>; <xref ref-type="bibr" rid="B4">Caruso and Lombardo 1978</xref>, <xref ref-type="bibr" rid="B5">1982</xref>; Schmalfuss 1996; <xref ref-type="bibr" rid="B26">Taiti and Ferrara 1996</xref>; <xref ref-type="bibr" rid="B22">Schmidt 2002</xref>, <xref ref-type="bibr" rid="B23">2003</xref>, <xref ref-type="bibr" rid="B24">2007</xref>; <xref ref-type="bibr" rid="B27">Taiti and Argano 2009</xref>; <xref ref-type="bibr" rid="B28">Taiti and Gruber 2010</xref>); every taxonomist would aim to publish such high quality works that would be still useful in the future, but the limited time is always a problem. Software packages like DELTA (<xref ref-type="bibr" rid="B9">Dallwitz et al. 1993</xref>; <xref ref-type="bibr" rid="B10">Dallwitz et al. 1998</xref>), can automatically generate dichotomous keys and also taxonomical diagnoses and descriptions, that accelerate the description process. Nevertheless, making illustrations for taxonomy papers and also for software like DELTA, is always a long process <!--PageBreak-->(<xref ref-type="bibr" rid="B7">Coleman 2006</xref>). At first a pencil drawing is made often using a camera lucida; then these drawings are traced again on plates for the publication.</p>
+            <p>Other similar methods of digital drawings techniques, but with the use of vector graphics, have already been described in literature (<xref ref-type="bibr" rid="B2">Bouck and Thistle 1999</xref>, <xref ref-type="bibr" rid="B6">Coleman 2003</xref>, <xref ref-type="bibr" rid="B1">Bober and Riehl 2014</xref>). Such methods were a significant step forward in speeding up the time consuming part of a taxonomic description, but they nevertheless showed some weak spots. Actually, those techniques require the use of several software and various hardware devices (such as digitiser boards and digital graphic pens), and plus the cost of complicate and very expensive software (e.g. Adobe Illustrator™, Adobe Photoshop™). Nonetheless, simple and free vector graphics software (e.g. Inkscape, <ext-link ext-link-type="uri" xlink:href="https://inkscape.org">https://inkscape.org</ext-link>) may be used in order to obtain good results.</p>
+            <p>On the other hand, the method here discussed produces good results in terms of image quality and precision, saving time and costs. Specific strengths are listed here: 1. It is simple but accurate, producing detailed lines at the highest resolution. 2. Small structures can be greatly magnified, so that drawing is easier than using common inking on paper. 3. The raster lines appear as realistic ink-made drawings. 4. It is much faster than the traditional way of making illustrations. 5. Everyone can learn to use this simple technique; it can also be used by technical staff or even inexperienced volunteers. 6. This method is completely free as it doesn’t use expensive and licensed software. 7. As reported in the introduction of this article, GIMP is available for different platforms (Windows, Mac OS, or Linux), thus the work files can be moved in different computers maintaining the same file extension (.xcf).</p>
+            <p>Genuinely, some specialist can find the last points debatable preferring, therefore, the use of vector graphics. For example, only vector graphics allows to scale a drawing supporting the maximum detail; on the other hand when bitmap line drawings are magnified over 200%, they clearly show a typical ‘pixels’ vision. In addition, some other specialist can find a better choice working with a drawing board instead of a simple mouse, and this is also possible with GIMP. These are clearly subjective points. The best suggestion is try as many methods as possible. Then, once practiced, the users will have their better choice.</p>
+            <p>The basis for the digital drawing method here proposed is a conventional pencil drawing, made with a microscope and a camera lucida. However, it is possible to use the same method starting with a work of stack microphotography, in order to avoid the time-taking drawing process. For this purpose many software are available to combine images of different depth of focus into one photo, such as Auto-Montage (<ext-link ext-link-type="uri" xlink:href="http://www.syncroscopy.com/auto-montage/">http://www.syncroscopy.com/auto-montage/</ext-link>), CombineZP (<ext-link ext-link-type="uri" xlink:href="http://www.hadleyweb.pwp.blueyonder.co.uk/">http://www.hadleyweb.pwp.blueyonder.co.uk/</ext-link>), Helicon Focus (<ext-link ext-link-type="uri" xlink:href="http://www.heliconsoft.com/">http://www.heliconsoft.com/</ext-link>), Zerene Stacker (<ext-link ext-link-type="uri" xlink:href="http://www.zerenesystems.com/">http://www.zerenesystems.com/</ext-link>). Recently, an interesting comparison of the focus stacking software packages has been published by <xref ref-type="bibr" rid="B3">Brecko et al. (2014)</xref>, as a possible solution for mass digitization of type specimens; an ant of the genus <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Meranoplus</tp:taxon-name-part></tp:taxon-name></italic> and a beetle of the genus <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Trachys</tp:taxon-name-part></tp:taxon-name></italic> were tested. Nonetheless, these photographic methods show some issues (see also <xref ref-type="bibr" rid="B7">Coleman 2006</xref>). Actually, a drawing can show important characters that are difficult to see in a photo. Even small details, such as aestetaschs of <!--PageBreak-->antennulae, so important for terrestrial isopods taxonomy, can be easily shown, e.g. in <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Trichoniscidae</tp:taxon-name-part></tp:taxon-name>, fine lines between articles of antennal flagellum, or other characters that are often used for species taxonomy. A detailed illustration may be considered as an interpretation, it is not only a simple description of the morphology. So, it is possible to point out some structures that are covered by others (<xref ref-type="bibr" rid="B7">Coleman 2006</xref>). Generally, one other big advantage of such digital inking methods is that technical assistants or other volunteers may be employed in order to save time. The specialist can afterwards correct the illustrations, if indispensable (see also <xref ref-type="bibr" rid="B6">Coleman 2003</xref>, <xref ref-type="bibr" rid="B7">2006</xref>).</p>
+            <p>GIMP offers many other opportunities that have not been described in this paper. In fact, the use of GIMP has been cited in other papers on digital drawing (such as: <xref ref-type="bibr" rid="B25">Sidorchuk and Vorontsov 2014</xref>). Here have been reported only the essential informations needed to obtain high-quality figures and plates which are suitable for online and printed publication. Any further request for clarification may be asked to the author.</p>
+            <sec sec-type="Additional material">
+                <title>Additional material</title>
+                <p>An explanatory playlist (with 6 videos) has been published at the following URL, in order to facilitate the users with the method here showed:</p>
+                <p><ext-link ext-link-type="uri" xlink:href="https://www.youtube.com/playlist?list=PLHuMNpWqA6OxGAgzk6yp07a55KV7i2caJ">https://www.youtube.com/playlist?list=PLHuMNpWqA6OxGAgzk6yp07a55KV7i2caJ</ext-link></p>
+            </sec>
+        </sec>
+    </body>
+     <back><ack>
+            <title>Acknowledgements</title>
+            <p>A very special thanks goes to Dr. Stefano Taiti (ISE-CNR, Florence, Italy) for his constructive comments and precious help in the early version of this paper. Stefano shared many tricks and useful suggestions about drawing and preparing plates for terrestrial isopods taxonomy. I gratefully acknowledge Dr. Annamaria Pulina (University of Pisa, Italy) for editing the english language, without which the present manuscript could not have been completed. I would like to thank Dr. Charles Oliver Coleman (Museum für Naturkunde, Berlin, Germany) and also Dr. Cene Fišer (University of Ljubljana, Slovenia) for their valuable comments which helped to improve the manuscript.</p>
+        </ack>
+        <ref-list>
+            <title>References</title>
+            <ref id="B1"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Bober</surname> <given-names>S</given-names></name><name name-style="western"><surname>Riehl</surname> <given-names>T</given-names></name></person-group> (<year>2014</year>) <article-title>Adding depth to line artwork by digital stippling – a step-by-step guide to the method.</article-title> <source>Organisms Diversity and Evolution</source> <volume>14</volume>: <fpage>327</fpage>–<lpage>337</lpage>. doi: <ext-link ext-link-type="doi" xlink:href="10.1007/s13127-014-0173-7">10.1007/s13127-014-0173-7</ext-link> </mixed-citation></ref>
+            <ref id="B2"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Bouck</surname> <given-names>L</given-names></name><name name-style="western"><surname>Thistle</surname> <given-names>D</given-names></name></person-group> (<year>1999</year>) <article-title>A computer-assisted method for producing illustration for taxonomic descriptions.</article-title> <source>Vie et Milieu</source> <volume>49</volume>(<issue>2/3</issue>): <fpage>101</fpage>–<lpage>105</lpage>.</mixed-citation></ref>
+            <!--PageBreak-->
+            <ref id="B3"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Brecko</surname> <given-names>J</given-names></name><name name-style="western"><surname>Mathys</surname> <given-names>A</given-names></name><name name-style="western"><surname>Dekoninck</surname> <given-names>W</given-names></name><name name-style="western"><surname>Leponce</surname> <given-names>M</given-names></name><name name-style="western"><surname>VandenSpiegel</surname> <given-names>D</given-names></name><name name-style="western"><surname>Semal</surname> <given-names>P</given-names></name></person-group> (<year>2014</year>) <article-title>Focus stacking: Comparing commercial top-end set-ups with a semi-automatic low budget approach. A possible solution for mass digitization of type specimens.</article-title> <source>ZooKeys</source> <volume>464</volume>: <fpage>1</fpage>–<lpage>23</lpage>. doi: <ext-link ext-link-type="doi" xlink:href="10.3897/zookeys.464.8615">10.3897/zookeys.464.8615</ext-link> </mixed-citation></ref>
+            <ref id="B4"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Caruso</surname> <given-names>D</given-names></name><name name-style="western"><surname>Lombardo</surname> <given-names>BM</given-names></name></person-group> (<year>1978</year>) <article-title><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Spelaeoniscidae</tp:taxon-name-part></tp:taxon-name> nuovi del N-Africa e considerazioni sull’evoluzione della famiglia.</article-title> <source><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="kingdom">Animalia</tp:taxon-name-part></tp:taxon-name></source> <volume>5</volume>(<issue>1/3</issue>): <fpage>209</fpage>–<lpage>226</lpage>.</mixed-citation></ref>
+            <ref id="B5"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Caruso</surname> <given-names>D</given-names></name><name name-style="western"><surname>Lombardo</surname> <given-names>BM</given-names></name></person-group> (<year>1982</year>) <article-title>Isopodi terrestri delle Isole Maltesi.</article-title> <source><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="kingdom">Animalia</tp:taxon-name-part></tp:taxon-name></source> <volume>9</volume>(<issue>1/3</issue>): <fpage>5</fpage>–<lpage>52</lpage>.</mixed-citation></ref>
+            <ref id="B6"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Coleman</surname> <given-names>CO</given-names></name></person-group> (<year>2003</year>) <article-title>“Digital inking”: How to make perfect line drawings on computers.</article-title> <source>Organism Diversity and Evolution</source> <volume>14</volume> (<supplement>3 Electr. Suppl.</supplement>): <fpage>1</fpage>–<lpage>14</lpage>. doi: <ext-link ext-link-type="doi" xlink:href="10.1078/1439-6092-00081">10.1078/1439-6092-00081</ext-link> </mixed-citation></ref>
+            <ref id="B7"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Coleman</surname> <given-names>CO</given-names></name></person-group> (<year>2006</year>) <article-title>Substituting time-consuming pencil drawings in arthropod taxonomy using stacks of digital photographs.</article-title> <source>Zootaxa</source> <volume>1360</volume>: <fpage>61</fpage>–<lpage>68</lpage>. </mixed-citation></ref>
+            <ref id="B8"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Coleman</surname> <given-names>CO</given-names></name></person-group> (<year>2009</year>) <article-title>Drawing setae the digital way.</article-title> <source>Zoosystematics and Evolution</source> <volume>85</volume>(<issue>2</issue>): <fpage>305</fpage>–<lpage>310</lpage>. doi: <ext-link ext-link-type="doi" xlink:href="10.1002/zoos.200900008">10.1002/zoos.200900008</ext-link> </mixed-citation></ref>
+            <ref id="B9"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Dallwitz</surname> <given-names>MJ</given-names></name><name name-style="western"><surname>Paine</surname> <given-names>TA</given-names></name><name name-style="western"><surname>Zurcher</surname> <given-names>EJ</given-names></name></person-group> (<year>1993</year>) <source>User’s Guide to the DELTA System: a General System for Processing Taxonomic Descriptions</source>. <edition>4th edition</edition>. <ext-link ext-link-type="uri" xlink:href="http://biodiversity.uno.edu/delta/">http://biodiversity.uno.edu/delta/</ext-link> </mixed-citation></ref>
+            <ref id="B10"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Dallwitz</surname> <given-names>MJ</given-names></name><name name-style="western"><surname>Paine</surname> <given-names>TA</given-names></name><name name-style="western"><surname>Zurcher</surname> <given-names>EJ</given-names></name></person-group> (<year>1998</year>) <article-title>Interactive keys.</article-title> In: <person-group><name name-style="western"><surname>Bridge</surname> <given-names>P</given-names></name><name name-style="western"><surname>Jeffries</surname> <given-names>P</given-names></name><name name-style="western"><surname>Morse</surname> <given-names>DR</given-names></name><name name-style="western"><surname>Scott</surname> <given-names>PR</given-names></name></person-group> (<role>Eds</role>) <source>Information Technology, Plant Pathology and Biodiversity</source>. <publisher-name>CAB International</publisher-name>, <publisher-loc>Wallingford</publisher-loc>, <fpage>201</fpage>–<lpage>212</lpage>. </mixed-citation></ref>
+            <ref id="B11"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Lupetti</surname> <given-names>P</given-names></name><name name-style="western"><surname>Montesanto</surname> <given-names>G</given-names></name><name name-style="western"><surname>Ciolfi</surname> <given-names>S</given-names></name><name name-style="western"><surname>Marri</surname> <given-names>L</given-names></name><name name-style="western"><surname>Gentile</surname> <given-names>M</given-names></name><name name-style="western"><surname>Paccagnini</surname> <given-names>E</given-names></name><name name-style="western"><surname>Lombardo</surname> <given-names>BM</given-names></name></person-group> (<year>2013</year>) <article-title>Iridovirus infection in terrestrial isopods from Sicily (Italy).</article-title> <source>Tissue and Cell</source> <volume>45</volume>: <fpage>321</fpage>–<lpage>327</lpage>. doi: <ext-link ext-link-type="doi" xlink:href="10.1016/j.tice.2013.05.001">10.1016/j.tice.2013.05.001</ext-link> </mixed-citation></ref>
+            <ref id="B12"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Mayr</surname> <given-names>E</given-names></name><name name-style="western"><surname>Linsley</surname> <given-names>EG</given-names></name><name name-style="western"><surname>Usinger</surname> <given-names>RL</given-names></name></person-group> (<year>1953</year>) <source>Methods and principles of systematic zoology</source>. <publisher-name>McGraw-Hill Book Company Inc., The Maple Press Company</publisher-name>, <publisher-loc>York, PA</publisher-loc>, <size units="page">328 pp</size>. </mixed-citation></ref>
+            <ref id="B13"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Medini-Bouaziz</surname> <given-names>L</given-names></name><name name-style="western"><surname>Montesanto</surname> <given-names>G</given-names></name><name name-style="western"><surname>Charfi-Cheikhrouha</surname> <given-names>F</given-names></name><name name-style="western"><surname>Caruso</surname> <given-names>D</given-names></name><name name-style="western"><surname>Lombardo</surname> <given-names>BM</given-names></name></person-group> (<year>2006</year>) <article-title>Genetic and morphological analysis of Tunisian populations of <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Porcellio</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">variabilis</tp:taxon-name-part></tp:taxon-name></italic> Lucas.</article-title> <source>Italian Journal of Zoology</source> <volume>73</volume>(<issue>2</issue>): <fpage>1</fpage>–<lpage>6</lpage>. doi: <ext-link ext-link-type="doi" xlink:href="10.1080/11250000600679991">10.1080/11250000600679991</ext-link> </mixed-citation></ref>
+            <ref id="B14"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Messina</surname> <given-names>G</given-names></name><name name-style="western"><surname>Montesanto</surname> <given-names>G</given-names></name><name name-style="western"><surname>Pezzino</surname> <given-names>E</given-names></name><name name-style="western"><surname>Caruso</surname> <given-names>D</given-names></name><name name-style="western"><surname>Lombardo</surname> <given-names>BM</given-names></name></person-group> (<year>2011</year>) <article-title>Diversity of terrestrial isopods in a protected area characterized by salty coastal ponds (Vendicari, Sicily).</article-title> <source>Journal of Natural History</source> <volume>45</volume>(<issue>35–36</issue>): <fpage>2145</fpage>–<lpage>2158</lpage>. doi: <ext-link ext-link-type="doi" xlink:href="10.1080/00222933.2011.587899">10.1080/00222933.2011.587899</ext-link> </mixed-citation></ref>
+            <ref id="B15"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Messina</surname> <given-names>G</given-names></name><name name-style="western"><surname>Pezzino</surname> <given-names>E</given-names></name><name name-style="western"><surname>Montesanto</surname> <given-names>G</given-names></name><name name-style="western"><surname>Caruso</surname> <given-names>D</given-names></name><name name-style="western"><surname>Lombardo</surname> <given-names>BM</given-names></name></person-group> (<year>2012</year>) <article-title>The diversity of terrestrial isopods in the natural reserve “Saline di Trapani e Paceco” (<tp:taxon-name><tp:taxon-name-part taxon-name-part-type="subphylum">Crustacea</tp:taxon-name-part></tp:taxon-name>, <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="order">Isopoda</tp:taxon-name-part></tp:taxon-name>, <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="suborder">Oniscidea</tp:taxon-name-part></tp:taxon-name>) in northwestern Sicily.</article-title> <source>ZooKeys</source> <volume>176</volume>: <fpage>215</fpage>–<lpage>230</lpage>. doi: <ext-link ext-link-type="doi" xlink:href="10.3897/zookeys.176.2367">10.3897/zookeys.176.2367</ext-link> </mixed-citation></ref>
+            <ref id="B16"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Messina</surname> <given-names>G</given-names></name><name name-style="western"><surname>Montesanto</surname> <given-names>G</given-names></name><name name-style="western"><surname>Pezzino</surname> <given-names>E</given-names></name><name name-style="western"><surname>Sciandrello</surname> <given-names>S</given-names></name><name name-style="western"><surname>Caruso</surname> <given-names>D</given-names></name><name name-style="western"><surname>Lombardo</surname> <given-names>BM</given-names></name></person-group> (<year>2014</year>) <article-title>Plant communities preferences of terrestrial crustaceans (<tp:taxon-name><tp:taxon-name-part taxon-name-part-type="order">Isopoda</tp:taxon-name-part></tp:taxon-name>: <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="suborder">Oniscidea</tp:taxon-name-part></tp:taxon-name>) in a protected coastal area of southeastern Sicily (Italy).</article-title> <source>Biologia</source> <volume>69</volume>(<issue>3</issue>): <fpage>354</fpage>–<lpage>362</lpage>. doi: <ext-link ext-link-type="doi" xlink:href="10.2478/s11756-013-0321-0">10.2478/s11756-013-0321-0</ext-link> </mixed-citation></ref>
+            <ref id="B17"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Montesanto</surname> <given-names>G</given-names></name><name name-style="western"><surname>Caruso</surname> <given-names>D</given-names></name><name name-style="western"><surname>Lombardo</surname> <given-names>BM</given-names></name></person-group> (<year>2007</year>) <article-title>Taxonomic status of the Mediterranean terrestrial isopod <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Porcellio</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">lamellatus</tp:taxon-name-part></tp:taxon-name></italic> Budde-Lund as inferred from genetic and morphological differentiation (<tp:taxon-name><tp:taxon-name-part taxon-name-part-type="subphylum">Crustacea</tp:taxon-name-part></tp:taxon-name>, <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="order">Isopoda</tp:taxon-name-part></tp:taxon-name>, <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="suborder">Oniscidea</tp:taxon-name-part></tp:taxon-name>).</article-title> <source>Crustaeana</source> <volume>80</volume>(<issue>8</issue>): <fpage>917</fpage>–<lpage>938</lpage>. doi: <ext-link ext-link-type="doi" xlink:href="10.1163/156854007781681229">10.1163/156854007781681229</ext-link> </mixed-citation></ref>
+            <!--PageBreak-->
+            <ref id="B18"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Montesanto</surname> <given-names>G</given-names></name><name name-style="western"><surname>Caruso</surname> <given-names>D</given-names></name><name name-style="western"><surname>Lombardo</surname> <given-names>BM</given-names></name></person-group> (<year>2008</year>) <article-title>Genetic variability in parthenogenetic and amphigonic populations of <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Platyarthrus</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">aiasensis</tp:taxon-name-part></tp:taxon-name></italic> from Sicily (<tp:taxon-name><tp:taxon-name-part taxon-name-part-type="subphylum">Crustacea</tp:taxon-name-part></tp:taxon-name>, <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="order">Isopoda</tp:taxon-name-part></tp:taxon-name>, <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="suborder">Oniscidea</tp:taxon-name-part></tp:taxon-name>).</article-title> In: <person-group><name name-style="western"><surname>Zimmer</surname> <given-names>M</given-names></name><name name-style="western"><surname>Charfi-Cheikhrouha</surname> <given-names>F</given-names></name><name name-style="western"><surname>Taiti</surname> <given-names>S</given-names></name></person-group> (<role>Eds</role>) <source>Proceedings of the international symposium on terrestrial isopod biology: ISTIB-07</source>. <publisher-name>Shaker</publisher-name>, <publisher-loc>Aachen</publisher-loc>, <fpage>59</fpage>–<lpage>67</lpage>. </mixed-citation></ref>
+            <ref id="B19"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Montesanto</surname> <given-names>G</given-names></name><name name-style="western"><surname>Caruso</surname> <given-names>D</given-names></name><name name-style="western"><surname>Lombardo</surname> <given-names>BM</given-names></name></person-group> (<year>2011</year>) <article-title>A new species and new records of terrestrial isopods from Sicily (<tp:taxon-name><tp:taxon-name-part taxon-name-part-type="order">Isopoda</tp:taxon-name-part></tp:taxon-name>: <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="suborder">Oniscidea</tp:taxon-name-part></tp:taxon-name>).</article-title> <source>Journal of Natural History</source> <volume>45</volume>(<issue>31–32</issue>): <fpage>1925</fpage>–<lpage>1935</lpage>. doi: <ext-link ext-link-type="doi" xlink:href="10.1080/00222933.2011.573099">10.1080/00222933.2011.573099</ext-link> </mixed-citation></ref>
+            <ref id="B20"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Montesanto</surname> <given-names>G</given-names></name><name name-style="western"><surname>Musarra Pizzo</surname> <given-names>G</given-names></name><name name-style="western"><surname>Caruso</surname> <given-names>D</given-names></name><name name-style="western"><surname>Lombardo</surname> <given-names>BM</given-names></name></person-group> (<year>2012</year>) <article-title>The postmarsupial development of <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Porcellio</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">siculoccidentalis</tp:taxon-name-part></tp:taxon-name></italic>, with some data on reproductive biology (<tp:taxon-name><tp:taxon-name-part taxon-name-part-type="subphylum">Crustacea</tp:taxon-name-part></tp:taxon-name>, <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="order">Isopoda</tp:taxon-name-part></tp:taxon-name>, <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="suborder">Oniscidea</tp:taxon-name-part></tp:taxon-name>).</article-title> <source>ZooKeys</source> <volume>176</volume>: <fpage>87</fpage>–<lpage>101</lpage>. doi: <ext-link ext-link-type="doi" xlink:href="10.3897/zookeys.176.2369">10.3897/zookeys.176.2369</ext-link> </mixed-citation></ref>
+            <ref id="B21"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Montesanto</surname> <given-names>G</given-names></name><name name-style="western"><surname>Deidun</surname> <given-names>A</given-names></name><name name-style="western"><surname>Scibberas</surname> <given-names>A</given-names></name><name name-style="western"><surname>Scibberas</surname> <given-names>J</given-names></name><name name-style="western"><surname>Lombardo</surname> <given-names>BM</given-names></name></person-group> (<year>2014</year>) <article-title>Current distribution of two species of Tylos (<tp:taxon-name><tp:taxon-name-part taxon-name-part-type="order">Isopoda</tp:taxon-name-part></tp:taxon-name>: <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="suborder">Oniscidea</tp:taxon-name-part></tp:taxon-name>) in the Central Mediterranean and the influence of beach sand grain-size parameters.</article-title> <source>Journal of Crustacean Biology</source> <volume>34</volume>(<issue>1</issue>): <fpage>47</fpage>–<lpage>53</lpage>. doi: <ext-link ext-link-type="doi" xlink:href="10.1163/1937240X-00002206">10.1163/1937240X-00002206</ext-link> </mixed-citation></ref>
+            <ref id="B22"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Schmidt</surname> <given-names>C</given-names></name></person-group> (<year>2002</year>) <article-title>Contribution to the phylogenetic system of the <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="clade">Crinocheta</tp:taxon-name-part></tp:taxon-name> (<tp:taxon-name><tp:taxon-name-part taxon-name-part-type="subphylum">Crustacea</tp:taxon-name-part></tp:taxon-name>, <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="order">Isopoda</tp:taxon-name-part></tp:taxon-name>). Part 1. (<tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Olibrinidae</tp:taxon-name-part></tp:taxon-name> to <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Scyphacidae</tp:taxon-name-part></tp:taxon-name> s. str.).</article-title> <source>Zoologische Reihe</source> <volume>78</volume>(<issue>2</issue>): <fpage>275</fpage>–<lpage>352</lpage>. </mixed-citation></ref>
+            <ref id="B23"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Schmidt</surname> <given-names>C</given-names></name></person-group> (<year>2003</year>) <article-title>Contribution to the phylogenetic system of the <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="clade">Crinocheta</tp:taxon-name-part></tp:taxon-name> (<tp:taxon-name><tp:taxon-name-part taxon-name-part-type="subphylum">Crustacea</tp:taxon-name-part></tp:taxon-name>, <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="order">Isopoda</tp:taxon-name-part></tp:taxon-name>). Part 2. (<tp:taxon-name><tp:taxon-name-part taxon-name-part-type="superfamily">Oniscoidea</tp:taxon-name-part></tp:taxon-name> to <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Armadillidiidae</tp:taxon-name-part></tp:taxon-name>).</article-title> <source>Zoologische Reihe</source> <volume>79</volume>(<issue>1</issue>): <fpage>3</fpage>–<lpage>179</lpage>. </mixed-citation></ref>
+            <ref id="B24"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Schmidt</surname> <given-names>C</given-names></name></person-group> (<year>2007</year>) <article-title>Revision of the Neotropical <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Scleropactidae</tp:taxon-name-part></tp:taxon-name> (<tp:taxon-name><tp:taxon-name-part taxon-name-part-type="subphylum">Crustacea</tp:taxon-name-part></tp:taxon-name>: <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="suborder">Oniscidea</tp:taxon-name-part></tp:taxon-name>).</article-title> <source>Zoological Journal of the Linnean Society</source> <volume>151</volume> (<supplement>Suppl. 1</supplement>): <fpage>1</fpage>–<lpage>339</lpage>. doi: <ext-link ext-link-type="doi" xlink:href="10.1111/j.1096-3642.2007.00286.x">10.1111/j.1096-3642.2007.00286.x</ext-link> </mixed-citation></ref>
+            <ref id="B25"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Sidorchuk</surname> <given-names>EA</given-names></name><name name-style="western"><surname>Vorontsov</surname> <given-names>DD</given-names></name></person-group> (<year>2014</year>) <article-title>Computer-aided drawing system – Substitute for <italic>camera lucida</italic>.</article-title> <source>Acarologia</source> <volume>54</volume>(<issue>2</issue>): <fpage>229</fpage>–<lpage>239</lpage>. doi: <ext-link ext-link-type="doi" xlink:href="10.1051/acarologia/20142130">10.1051/acarologia/20142130</ext-link> </mixed-citation></ref>
+            <ref id="B26"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Taiti</surname> <given-names>S</given-names></name><name name-style="western"><surname>Ferrara</surname> <given-names>F</given-names></name></person-group> (<year>1996</year>) <article-title>The terrestrial <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="order">Isopoda</tp:taxon-name-part></tp:taxon-name> of Corsica (<tp:taxon-name><tp:taxon-name-part taxon-name-part-type="subphylum">Crustacea</tp:taxon-name-part></tp:taxon-name>, <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="suborder">Oniscidea</tp:taxon-name-part></tp:taxon-name>).</article-title> <source>Bulletin du Muséum national d’Histoire naturelle Paris</source> (<volume-series>4</volume-series>) <volume>18</volume>(<issue>A</issue>): <fpage>459</fpage>–<lpage>545</lpage>. </mixed-citation></ref>
+            <ref id="B27"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Taiti</surname> <given-names>S</given-names></name><name name-style="western"><surname>Argano</surname> <given-names>R</given-names></name></person-group> (<year>2009</year>) <article-title>New species of terrestrial isopods (<tp:taxon-name><tp:taxon-name-part taxon-name-part-type="order">Isopoda</tp:taxon-name-part></tp:taxon-name>: <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="suborder">Oniscidea</tp:taxon-name-part></tp:taxon-name>) from Sardinia.</article-title> <source>Zootaxa</source> <volume>2318</volume>: <fpage>38</fpage>–<lpage>55</lpage>. </mixed-citation></ref>
+            <ref id="B28"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Taiti</surname> <given-names>S</given-names></name><name name-style="western"><surname>Gruber</surname> <given-names>GA</given-names></name></person-group> (<year>2010</year>) <article-title>The genus <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Tuberillo</tp:taxon-name-part></tp:taxon-name></italic> Schultz 1982 (<tp:taxon-name><tp:taxon-name-part taxon-name-part-type="subphylum">Crustacea</tp:taxon-name-part></tp:taxon-name> <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="suborder">Oniscidea</tp:taxon-name-part></tp:taxon-name> <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Armadillidae</tp:taxon-name-part></tp:taxon-name>) with descriptions of four new species.</article-title> <source>Tropical Zoology</source> <volume>23</volume>: <fpage>205</fpage>–<lpage>230</lpage>. </mixed-citation></ref>
+            <ref id="B29"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Vandel</surname> <given-names>A</given-names></name></person-group> (<year>1960</year>) <article-title>Isopodes terrestres (Premiere Partie).</article-title> <source>Faune de France</source> <volume>64</volume>: <fpage>1</fpage>–<lpage>416</lpage>. </mixed-citation></ref>
+            <ref id="B30"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Vandel</surname> <given-names>A</given-names></name></person-group> (<year>1962</year>) <article-title>Isopodes terrestres (Deuxieme Partie).</article-title> <source>Faune de France</source> <volume>66</volume>: <fpage>417</fpage>–<lpage>931</lpage>. </mixed-citation></ref>
+            <ref id="B31"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Winston</surname> <given-names>JE</given-names></name></person-group> (<year>1999</year>) <source>Describing Species. Practical Taxonomic Procedure for Biologist.</source> <publisher-name>Columbia University Press</publisher-name>, <publisher-loc>New York</publisher-loc>, <size units="page">518 pp</size>. </mixed-citation></ref>
+            <ref id="B32"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Zweifel</surname> <given-names>FW</given-names></name></person-group> (<year>1961</year>) <source>Handbook of Biological Illustration.</source> <publisher-name>University of Chicago Press</publisher-name>, <publisher-loc>Chicago</publisher-loc>, <size units="page">152 pp</size>.</mixed-citation></ref>
+        </ref-list>
+    </back>
+</article>

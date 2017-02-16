@@ -1,0 +1,701 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//TaxonX//DTD Taxonomic Treatment Publishing DTD v0 20100105//EN" "tax-treatment-NS0.dtd">
+<article xmlns:tp="http://www.plazi.org/taxpub" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" article-type="research-article" dtd-version="3.0" xml:lang="en">
+    <front>
+        <journal-meta>
+            <journal-id journal-id-type="publisher-id">ZooKeys</journal-id>
+            <journal-title-group>
+                <journal-title xml:lang="en">ZooKeys</journal-title>
+                <abbrev-journal-title xml:lang="en">ZooKeys</abbrev-journal-title>
+            </journal-title-group>
+            <issn pub-type="ppub">1313-2989</issn>
+            <issn pub-type="epub">1313-2970</issn>
+            <publisher>
+                <publisher-name>Pensoft Publishers</publisher-name>
+            </publisher>
+        </journal-meta>
+        <article-meta>
+            <article-id pub-id-type="doi">10.3897/zookeys.515.9390</article-id>
+            <article-categories>
+                <subj-group subj-group-type="heading"><subject>Research Article</subject></subj-group>
+            </article-categories>
+            <title-group>
+                <article-title>NEIGHBOUR-IN: Image processing software for spatial analysis of animal grouping</article-title>
+            </title-group>
+            <contrib-group>
+                <contrib contrib-type="author" xlink:type="simple">
+                    <name name-style="western">
+                        <surname>Caubet</surname>
+                        <given-names>Yves</given-names>
+                    </name>
+                    <xref ref-type="aff" rid="A1">1</xref>
+                </contrib>
+                <contrib contrib-type="author" xlink:type="simple">
+                    <name name-style="western">
+                        <surname>Richard</surname>
+                        <given-names>Freddie-Jeanne</given-names>
+                    </name>
+                    <xref ref-type="aff" rid="A1">1</xref>
+                </contrib>
+            </contrib-group>
+            <aff id="A1"><label>1</label>Université de Poitiers - Faculté des Sciences, UMR CNRS 7267 EBI – “Écologie, Évolution, Symbiose”, Bat. B8-B35; 6, rue Michel Brunet, TSA 51106, F-86073 POITIERS Cedex 9, France</aff>
+            <author-notes>
+                <fn fn-type="corresp">
+                    <p>Corresponding author: Yves Caubet (<email xlink:type="simple">yves.caubet@univ-poitiers.fr</email>)</p>
+                </fn>
+                <fn fn-type="edited-by">
+                    <p>Academic editor: E. Hornung</p>
+                </fn>
+            </author-notes>
+            <pub-date pub-type="collection">
+                <year>2015</year>
+            </pub-date>
+            <pub-date pub-type="epub">
+                <day>30</day>
+                <month>7</month>
+                <year>2015</year>
+            </pub-date>
+            <issue>515</issue>
+            <fpage>173</fpage>
+            <lpage>189</lpage>
+            <history>
+                <date date-type="received">
+                    <day>13</day>
+                    <month>2</month>
+                    <year>2015</year>
+                </date>
+                <date date-type="accepted">
+                    <day>11</day>
+                    <month>5</month>
+                    <year>2015</year>
+                </date>
+            </history>
+            <permissions>
+                <copyright-statement>Yves Caubet, Freddie-Jeanne Richard</copyright-statement>
+                <license license-type="creative-commons-attribution" xlink:href="http://creativecommons.org/licenses/by/4.0" xlink:type="simple">
+                    <license-p>This is an open access article distributed under the terms of the Creative Commons Attribution License (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.</license-p>
+                </license>
+            </permissions>
+            <self-uri content-type="zoobank" xlink:type="simple">http://zoobank.org/1D91A190-B5D5-4B6F-BC50-6831392176E5</self-uri>
+            <abstract>
+                <label>Abstract</label>
+                <p>Animal grouping is a very complex process that occurs in many species, involving many individuals under the influence of different mechanisms. To investigate this process, we have created an image processing software, called NEIGHBOUR-IN, designed to analyse individuals’ coordinates belonging to up to three different groups. The software also includes statistical analysis and indexes to discriminate aggregates based on spatial localisation of individuals and their neighbours. After the description of the software, the indexes computed by the software are illustrated using both artificial patterns and case studies using the spatial distribution of woodlice. The added strengths of this software and methods are also discussed.</p>
+            </abstract>
+            <kwd-group>
+                <label>Keywords</label>
+                <kwd>Inter-individual distances</kwd>
+                <kwd>aggregation</kwd>
+                <kwd>individual attraction</kwd>
+                <kwd>spatial distribution</kwd>
+            </kwd-group>
+        </article-meta>
+        <notes>
+            <sec sec-type="Citation">
+                <title>Citation</title>
+                <p>Caubet Y, Richard F-J (2015) NEIGHBOUR-IN: Image processing software for spatial analysis of animal grouping. In: Taiti S, Hornung E, Štrus J, Bouchon D (Eds) Trends in Terrestrial Isopod Biology. ZooKeys 515: 173–189. doi: <ext-link ext-link-type="doi" xlink:href="10.3897/zookeys.515.9390">10.3897/zookeys.515.9390</ext-link></p>
+            </sec>
+        </notes>
+    </front>
+     <body><sec sec-type="Introduction">
+            <title>Introduction</title>
+            <p>Group formation or crowd formation behaviour occurs in many taxa, from very simple organisms (bacteria) to highly complicated organisms (e.g. mammals), both wild and domestic (<xref ref-type="bibr" rid="B22">Krause and Ruxton 2002</xref>; <xref ref-type="bibr" rid="B28">Parrish and Edelstein-Keshet 1999</xref>; <xref ref-type="bibr" rid="B29">Parrish and Hamner 1997</xref>). Depending on the species, crowds of individuals are referred to as a <!--PageBreak-->herd in mammals, flocks in birds, schools in fish, swarms in insects and many other terms that indicate aggregation. Species can be range to simply aggregated species with temporal fluid group composition to very complex and relatively stable composition with non-random structures (<xref ref-type="bibr" rid="B23">Kutsukake 2009</xref>).</p>
+            <p>Group living confers several advantage compare to solitary lifestyle and many animals live in groups for part or all of their lives. Aggregate can be the results of abiotic factors and environmental heterogeneity (non-social aggregates) or relied on mutual attraction (interattraction) resulting in different formation process (<xref ref-type="bibr" rid="B6">Broly et al. 2013</xref>). In most of the cases, the ecological and social factors that explain group life are unknown. Ecological factors favouring group life are numerous and usually addressed the benefits from individuals association or differences in fitness related with spatial position of individuals in groups (<xref ref-type="bibr" rid="B22">Krause and Ruxton 2002</xref>). The main two factors are the availability of food and the presence of predators and the optimum group size change according to the species and environmental pressure variations. For example, group’s dimension and geographical repartition change according of both predators and food availability in starlings (<xref ref-type="bibr" rid="B37">Zoratto et al. 2009</xref>). Group size reduces the risk of predation (<xref ref-type="bibr" rid="B8">Brown and Brown 1987</xref>) and offers a better foraging efficiency (<xref ref-type="bibr" rid="B34">Stacey 1986</xref>) and large groups present feeding advantage compared to small groups (<xref ref-type="bibr" rid="B25">Miller and Dietz 2006</xref>). Little is known in general about how group size affects individual welfare (<xref ref-type="bibr" rid="B26">Ohl and Putman 2014</xref>). Costs are mainly the result of competition for limited resources (food, mate, habitat...) and increase in group size favours disease transmission, probability of infection and ectoparasitism that affect survival (<xref ref-type="bibr" rid="B9">Brown and Brown 2004</xref>; <xref ref-type="bibr" rid="B22">Krause and Ruxton 2002</xref>).</p>
+            <p>Animal group formation is a complex dynamic system made up of potentially thousands of individuals. The group formation is the result of each individual’s behaviour under the influence of many (and non-exclusive) parameters, such as heterogeneities of environment, inter-individual interactions, and temporal changes (ie, season, reproduction, and feeding) (<xref ref-type="bibr" rid="B10">Camazine et al. 2003</xref>; <xref ref-type="bibr" rid="B35">Sumpter and Pratt 2009</xref>). In cockroaches, the aggregation relies on mechanisms of amplification depending on the interactions with other individuals (<xref ref-type="bibr" rid="B20">Jeanson et al. 2005</xref>). Group dynamic is also the result of the heterogeneous social relationships and conflict management for maintaining group living in mammals (<xref ref-type="bibr" rid="B23">Kutsukake 2009</xref>). Moreover, animal groups exhibit different patterns according to the species (<xref ref-type="bibr" rid="B27">Parrish and Edelstein-Keshet 2000</xref>; <xref ref-type="bibr" rid="B28">Parrish and Edelstein-Keshet 1999</xref>) which necessitate incorporating species characteristics for conceptual questions and modelling.</p>
+            <p>To better understand group dynamic complexity, the identification of factor influencing group composition and how the dynamic change, it’s necessary to provide specific tools.</p>
+            <p>Many analytic models and simulation of aggregation (mathematical and computer-based) offer interesting tools to investigate aggregation phenomena in various species (<xref ref-type="bibr" rid="B31">Schellinck and White 2011</xref>), including scale of different aggregate-level behaviour (individuals, castes, groups, or species).</p>
+            <!--PageBreak-->
+            <p>Description of animal movements in their environment is necessary to understand species, dispersion strategy as results of individual intrinsic factors, collective responses and social relationship (including change of individual composition moving in or out the group) and also to predict their geographical needs and spatial distribution, providing consistent data for models and simulation accuracy (<xref ref-type="bibr" rid="B31">Schellinck and White 2011</xref>).</p>
+            <p>In order to study aggregation patterns, researchers can use various methods for data collection that could be divided into three mains categories (1) manual : observation and capture (<xref ref-type="bibr" rid="B21">Krause et al. 2000</xref>; <xref ref-type="bibr" rid="B33">Spieler 2003</xref>), photography and film (<xref ref-type="bibr" rid="B1">Aschwanden et al. 2008</xref>; <xref ref-type="bibr" rid="B3">Ballerini et al. 2008</xref>; <xref ref-type="bibr" rid="B5">Boulay et al. 2013</xref>; <xref ref-type="bibr" rid="B14">Eklund and Jensen 2011</xref>; <xref ref-type="bibr" rid="B24">Le Goff et al. 2009</xref>; <xref ref-type="bibr" rid="B36">Yoshida et al. 2010</xref>) (2) semi-manual : sonar and echo sound (<xref ref-type="bibr" rid="B2">Axelsen et al. 2001</xref>; <xref ref-type="bibr" rid="B15">Gerlotto et al. 2006</xref>; <xref ref-type="bibr" rid="B16">Gerlotto and Paramo 2003</xref>; <xref ref-type="bibr" rid="B17">Handegard 2007</xref>; <xref ref-type="bibr" rid="B32">Soria et al. 2003</xref>), (3) automatic : microtransponders (<xref ref-type="bibr" rid="B19">Jeanson 2012</xref>), RFID tagging (<xref ref-type="bibr" rid="B30">Planas-Sitja et al. 2015</xref>).</p>
+            <p>In the current study we propose a data processing software called NEIGHBOUR-IN which allows spatial coordinates to be attributed to individual (object) of up to three different categories (groups), such as species, sex, age, size, moult stage, etc. We illustrate the software applications with artificial patterns and experimental study of aggregation in terrestrial isopods (<tp:taxon-name><tp:taxon-name-part taxon-name-part-type="subphylum">Crustacea</tp:taxon-name-part></tp:taxon-name>, <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="suborder">Oniscidea</tp:taxon-name-part></tp:taxon-name>). The software then calculates indexes qualifying spatial distribution, composition of groups and many other parameters. All data outputs can be used for further analysis and quantification of spatial variations.</p>
+        </sec>
+        <sec sec-type="methods">
+            <title>Methods</title>
+            <p>NEIGHBOUR-IN is a software designed to analyse individuals’ coordinates belonging to up to three different groups. The software can be used only for picture analysis and not for film analysis. However film screenshots in the appropriate format could be made to follow the dynamics of the studied processes. Once the image of the objects (i.e. individuals) is loaded, the user identifies each individual by clicking on anterior and posterior extremities. Each object belongs to up to three different groups. The software includes statistical analysis and indexes to discriminate aggregates based on spatial location of individuals and their neighbours. At the end of the treatment the table of coordinates can be exported for further spatial analysis. Different displays are available in order to show the aggregates or the influence distance of each object (for example the area where the antennas can touch and interact with another individual in the case of insects).</p>
+            <p>Software installation and procedures (Fig. <xref ref-type="fig" rid="F1">1</xref>) are detailed in a separate additional document (NEIGHBOUR-IN Reference Manual). In the current article we will define and illustrate the different indexes of inter-individual distances and spatial distribution provided by the software and how such indexes can be helpful in the analysis of spatial distribution of objects in general and animal aggregation in particular.</p>
+            <p>Three categories of output characterising the group structure and for statistics analysis are prepared: i) inter-individual distances; ii) aggregation profile; and iii) spatial distribution.</p>
+            <fig id="F1" position="float" orientation="portrait">
+                <label>Figure 1.</label>
+                <caption><p>Flow chart of the creation of a new NEIGHBOUR-IN file. This figure presents the different steps in the creation of a new file, from the importation of the snapshot to the calculation of the statistics of dispersion.</p></caption>
+                <graphic xlink:href="zookeys-515-e5779-g001.jpg" position="float" orientation="portrait" xlink:type="simple" id="oo_48535.jpg"/>
+            </fig>
+            <!--PageBreak--><!--PageBreak-->
+            <p>The indexes and data included in the statistics report are:</p>
+            <p><bold>Header</bold>: all the parameters of the experiment (file name; image size in pixels; experiment name; total number of objects identified; calibration information with the ratio “pixel / centimetre”, width or radius of the box and number of cells; and for each group: name, number of objects, mean body width).</p>
+            <p><bold>Inter-individual distance</bold>: the mean inter-individual distances between the centre-point (G point) of all objects and both for each inter-group and intra-group combination are provided. In addition to the mean value, descriptive statistics are available in the output (sample size, standard error, minimum and maximum).</p>
+            <p><bold>Distance to nearest neighbours</bold>: these descriptive statistics are identical to the ones described in the previous section (same inter-individual distances) but only between nearest neighbours (belonging to the same or different groups). The number of neighbours is defined by the user in the parameters dialog box.</p>
+            <p><bold>Statistics on aggregates</bold>: When at least one of the three points of an object is included within the perception field of another object, both are considered aggregated. The perception field is calculated using the mean body width of the group multiplied by the perception ratio determined by the user for the group. The statistics include the number of aggregates automatically identified by the software; number and composition (type of group) of isolated objects; composition of each aggregate; percentage of aggregation in general and for each group (% <italic>Aggr</italic>.); and in the case of heterogeneous populations, Aggregation Heterogeneity Index (<italic>AHI</italic>). The <italic>AHI</italic> provides an estimate of the homogeneity of subpopulation distributions. It will be maximum (1) when the aggregates are “pure” (i.e. each one is composed by objects which belong to the same group) and minimum (0) when all individuals in the aggregates are equally mixed whatever their features. The index is calculated using the following formula:</p>
+            <p><graphic xlink:href="zookeys-515-e5779-i001.jpg" position="float" orientation="portrait" xlink:type="simple" id="oo_48539.jpg"/></p>
+            <p>where N is the number of aggregates; m<sub>i</sub> is the minimum number of objects belonging to the same group for the aggregate i; M is the total number of objects aggregated.</p>
+            <p><bold>Statistics on distribution</bold>: The area is divided in different cells by the software, defining a grid. The distribution of the objects on the area is described by two indexes: the Spatial Distribution Index (<italic>SDI</italic>) for each group, and the Spatial Mixed Index (<italic>SMI</italic>) for groups’ pair comparison.</p>
+            <p><bold>Spatial Distribution Index</bold> (<italic>SDI</italic>) is given for each group and is calculated by dividing the number of cells/sectors where at least one object of the group is present by the total number of objects in the group. <italic>SDI</italic> will be maximum (1) when each object is in a different cell and minimum when the objects are aggregated in few cells (0.125 for eight objects in the same cell). Therefore the <italic>SDI</italic> index is sensitive <!--PageBreak-->to the number of cells (user defined) and the size of the objects (i.e. how many objects can contain a single cell).</p>
+            <p><bold>Spatial Mixed Index</bold> (<italic>SMI</italic>) is calculated for two groups by dividing the number of cells in which at least one object of both groups is present by the total number of cells occupied by the two groups. <italic>SMI</italic> will be maximum (1) when all occupied cells contain mixed groups and minimum (0) when the objects of each group are all in different cells. The <italic>SMI</italic> between the three groups is also computed.</p>
+            <p><bold>Table of distribution</bold>: The repartition of the objects (i.e. the number of objects from each group) in the different cells/sectors of the open field is presented in a table. The number of rows/columns is defined previously by the user (parameters dialog box).</p>
+            <p><bold>Table of coordinates</bold>: The list of the coordinates of each point constituting the objects are presented in a table where the objects are in rows and the type of group is in columns. Group identity number, identity number of which aggregate the object is in, the object’s width and length, and x and y coordinates in pixels for the three constitutive points (forward, gravity and backward) are included in this table.</p>
+        </sec>
+        <sec sec-type="Illustrative examples">
+            <title>Illustrative examples</title>
+            <sec sec-type="Aggregation and dispersion indexes using artificial patterns">
+                <title>Aggregation and dispersion indexes using artificial patterns</title>
+                <p>In order to validate the indexes computed by the software, we have designed artificial patterns using two groups of objects. The placement of each object has been chosen in order to reflect i) a high level of aggregation or no aggregation at all; ii) a high, medium, low or null level of inter-group affinity. The patterns are provided on the top three rows of Table <xref ref-type="table" rid="T1">1</xref> and illustrated by Figs <xref ref-type="fig" rid="F2">2.1–2.8</xref>. Additionally, ten replicates with random distribution of objects have been calculated. The last artificial patterns present the maxima and minima obtained in the random replicates (Table <xref ref-type="table" rid="T1">1</xref>). The goal is to use a set of indexes able to discriminate between the different patterns.</p>
+                <fig id="F2" position="float" orientation="portrait">
+                    <label>Figure 2.</label>
+                    <caption><p>Virtual configurations used for software validation. Virtual configurations used to compile the data presented in the Table <xref ref-type="table" rid="T1">1</xref>. Part 2.8 is one of the 10 replicates obtained with a random distribution. All other configurations have been designed in order to reach the desired level of aggregation and affinity between groups. The filled and empty shapes represented two virtual groups in the population.</p></caption>
+                    <graphic xlink:href="zookeys-515-e5779-g002.jpg" position="float" orientation="portrait" xlink:type="simple" id="oo_48536.jpg"/>
+                </fig>
+                <table-wrap id="T1" position="float" orientation="portrait">
+                    <label>Table 1.</label>
+                    <caption><p>Evolution of indexes in different virtual configurations. Specific patterns of intra-group aggregation and inter-group affinity based on eight virtual configurations composed of two groups of 8 objects (Red and Green). The last configuration (named Random) is the average of ten replicates of a random distribution of 16 objects and presents also minima and maxima of the indexes. Each configuration is illustrated by the Figures <xref ref-type="fig" rid="F2">2.1–2.8</xref>. Categories of indexes are: i) Inter-individual distances between all objects (<italic>All</italic>), or objects of the red (<italic>Red</italic>) or green groups (<italic>Gr.</italic>); ii) Nearest neighbours distances considering only the three nearest neighbours; iii) Number of aggregates (<italic>Nb Aggr.</italic>), Aggregation heterogenity index (<italic>AHI</italic>); Overall aggregation level (%<italic>Aggr. All</italic>) and aggregation level for each group (%<italic>Aggr. Red</italic>) and %<italic>Aggr. Green</italic>); iv) Spatial distribution index (<italic>SDI</italic>) for each group and Spatial Mixed Index (<italic>SMI</italic>) between both groups.</p></caption>
+                    <table id="TID0EHJAG" rules="all">
+                        <tbody>
+                            <tr>
+                                <th rowspan="1" colspan="1">Groups:</th>
+                                <th rowspan="1" colspan="1">Configuration</th>
+                                <th rowspan="1" colspan="1">Virtual 1</th>
+                                <th rowspan="1" colspan="1">Virtual 2</th>
+                                <th rowspan="1" colspan="1">Virtual 3</th>
+                                <th rowspan="1" colspan="1">Virtual 4</th>
+                                <th rowspan="1" colspan="1">Virtual 5</th>
+                                <th rowspan="1" colspan="1">Virtual 6</th>
+                                <th rowspan="1" colspan="1">Virtual 7</th>
+                                <th rowspan="1" colspan="2">Virtual 8 (10 repl.)</th>
+                            </tr>
+                            <tr>
+                                <td rowspan="1" colspan="1">Red</td>
+                                <td rowspan="1" colspan="1">Aggregation</td>
+                                <td rowspan="1" colspan="1">High</td>
+                                <td rowspan="1" colspan="1">High</td>
+                                <td rowspan="1" colspan="1">High</td>
+                                <td rowspan="1" colspan="1">High</td>
+                                <td rowspan="1" colspan="1">None</td>
+                                <td rowspan="1" colspan="1">None</td>
+                                <td rowspan="1" colspan="1">None</td>
+                                <td rowspan="1" colspan="2">Random</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1" colspan="1">Green</td>
+                                <td rowspan="1" colspan="1">Aggregation</td>
+                                <td rowspan="1" colspan="1">High</td>
+                                <td rowspan="1" colspan="1">High</td>
+                                <td rowspan="1" colspan="1">High</td>
+                                <td rowspan="1" colspan="1">High</td>
+                                <td rowspan="1" colspan="1">High</td>
+                                <td rowspan="1" colspan="1">None</td>
+                                <td rowspan="1" colspan="1">None</td>
+                                <td rowspan="1" colspan="2">Random</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1" colspan="1">Red/Green</td>
+                                <td rowspan="1" colspan="1">Affinity</td>
+                                <td rowspan="1" colspan="1">High</td>
+                                <td rowspan="1" colspan="1">Medium</td>
+                                <td rowspan="1" colspan="1">Low</td>
+                                <td rowspan="1" colspan="1">None</td>
+                                <td rowspan="1" colspan="1">None</td>
+                                <td rowspan="1" colspan="1">Medium</td>
+                                <td rowspan="1" colspan="1">None</td>
+                                <td rowspan="1" colspan="2">Random</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1" colspan="2">Categories of index:</td>
+                                <td rowspan="1" colspan="1"/>
+                                <td rowspan="1" colspan="1"/>
+                                <td rowspan="1" colspan="1"/>
+                                <td rowspan="1" colspan="1"/>
+                                <td rowspan="1" colspan="1"/>
+                                <td rowspan="1" colspan="1"/>
+                                <td rowspan="1" colspan="1"/>
+                                <td rowspan="1" colspan="1">Minimum</td>
+                                <td rowspan="1" colspan="1">Maximum</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="6" colspan="1">Inter-individual Distances</td>
+                                <td rowspan="1" colspan="1">All &lt;&gt; All</td>
+                                <td rowspan="1" colspan="1">62</td>
+                                <td rowspan="1" colspan="1">59</td>
+                                <td rowspan="1" colspan="1">61</td>
+                                <td rowspan="1" colspan="1">454</td>
+                                <td rowspan="1" colspan="1">364</td>
+                                <td rowspan="1" colspan="1">326</td>
+                                <td rowspan="1" colspan="1">363</td>
+                                <td rowspan="1" colspan="1">301</td>
+                                <td rowspan="1" colspan="1">374</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1" colspan="1">Red &lt;&gt; All</td>
+                                <td rowspan="1" colspan="1">60</td>
+                                <td rowspan="1" colspan="1">66</td>
+                                <td rowspan="1" colspan="1">81</td>
+                                <td rowspan="1" colspan="1">819</td>
+                                <td rowspan="1" colspan="1">537</td>
+                                <td rowspan="1" colspan="1">318</td>
+                                <td rowspan="1" colspan="1">425</td>
+                                <td rowspan="1" colspan="1">304</td>
+                                <td rowspan="1" colspan="1">365</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1" colspan="1">Red &lt;&gt; Red</td>
+                                <td rowspan="1" colspan="1">63</td>
+                                <td rowspan="1" colspan="1">64</td>
+                                <td rowspan="1" colspan="1">40</td>
+                                <td rowspan="1" colspan="1">38</td>
+                                <td rowspan="1" colspan="1">293</td>
+                                <td rowspan="1" colspan="1">334</td>
+                                <td rowspan="1" colspan="1">292</td>
+                                <td rowspan="1" colspan="1">307</td>
+                                <td rowspan="1" colspan="1">451</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1" colspan="1">Red &lt;&gt; Gr.</td>
+                                <td rowspan="1" colspan="1">60</td>
+                                <td rowspan="1" colspan="1">66</td>
+                                <td rowspan="1" colspan="1">81</td>
+                                <td rowspan="1" colspan="1">819</td>
+                                <td rowspan="1" colspan="1">537</td>
+                                <td rowspan="1" colspan="1">318</td>
+                                <td rowspan="1" colspan="1">425</td>
+                                <td rowspan="1" colspan="1">304</td>
+                                <td rowspan="1" colspan="1">365</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1" colspan="1">Gr. &lt;&gt; All</td>
+                                <td rowspan="1" colspan="1">60</td>
+                                <td rowspan="1" colspan="1">66</td>
+                                <td rowspan="1" colspan="1">81</td>
+                                <td rowspan="1" colspan="1">819</td>
+                                <td rowspan="1" colspan="1">537</td>
+                                <td rowspan="1" colspan="1">318</td>
+                                <td rowspan="1" colspan="1">425</td>
+                                <td rowspan="1" colspan="1">304</td>
+                                <td rowspan="1" colspan="1">365</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1" colspan="1">Gr. &lt;&gt; Gr.</td>
+                                <td rowspan="1" colspan="1">66</td>
+                                <td rowspan="1" colspan="1">39</td>
+                                <td rowspan="1" colspan="1">38</td>
+                                <td rowspan="1" colspan="1">39</td>
+                                <td rowspan="1" colspan="1">37</td>
+                                <td rowspan="1" colspan="1">335</td>
+                                <td rowspan="1" colspan="1">293</td>
+                                <td rowspan="1" colspan="1">254</td>
+                                <td rowspan="1" colspan="1">400</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="6" colspan="1">Nearest Neighbours Distances</td>
+                                <td rowspan="1" colspan="1">All &lt;&gt; All</td>
+                                <td rowspan="1" colspan="1">37</td>
+                                <td rowspan="1" colspan="1">39</td>
+                                <td rowspan="1" colspan="1">38</td>
+                                <td rowspan="1" colspan="1">149</td>
+                                <td rowspan="1" colspan="1">160</td>
+                                <td rowspan="1" colspan="1">195</td>
+                                <td rowspan="1" colspan="1">223</td>
+                                <td rowspan="1" colspan="1">177</td>
+                                <td rowspan="1" colspan="1">247</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1" colspan="1">Red &lt;&gt; All</td>
+                                <td rowspan="1" colspan="1">32</td>
+                                <td rowspan="1" colspan="1">46</td>
+                                <td rowspan="1" colspan="1">60</td>
+                                <td rowspan="1" colspan="1">799</td>
+                                <td rowspan="1" colspan="1">517</td>
+                                <td rowspan="1" colspan="1">175</td>
+                                <td rowspan="1" colspan="1">303</td>
+                                <td rowspan="1" colspan="1">164</td>
+                                <td rowspan="1" colspan="1">239</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1" colspan="1">Red &lt;&gt; Red</td>
+                                <td rowspan="1" colspan="1">49</td>
+                                <td rowspan="1" colspan="1">45</td>
+                                <td rowspan="1" colspan="1">31</td>
+                                <td rowspan="1" colspan="1">32</td>
+                                <td rowspan="1" colspan="1">219</td>
+                                <td rowspan="1" colspan="1">249</td>
+                                <td rowspan="1" colspan="1">211</td>
+                                <td rowspan="1" colspan="1">232</td>
+                                <td rowspan="1" colspan="1">344</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1" colspan="1">Red &lt;&gt; Gr.</td>
+                                <td rowspan="1" colspan="1">32</td>
+                                <td rowspan="1" colspan="1">46</td>
+                                <td rowspan="1" colspan="1">60</td>
+                                <td rowspan="1" colspan="1">799</td>
+                                <td rowspan="1" colspan="1">517</td>
+                                <td rowspan="1" colspan="1">175</td>
+                                <td rowspan="1" colspan="1">303</td>
+                                <td rowspan="1" colspan="1">164</td>
+                                <td rowspan="1" colspan="1">239</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1" colspan="1">Gr. &lt;&gt; All</td>
+                                <td rowspan="1" colspan="1">31</td>
+                                <td rowspan="1" colspan="1">51</td>
+                                <td rowspan="1" colspan="1">62</td>
+                                <td rowspan="1" colspan="1">799</td>
+                                <td rowspan="1" colspan="1">410</td>
+                                <td rowspan="1" colspan="1">169</td>
+                                <td rowspan="1" colspan="1">307</td>
+                                <td rowspan="1" colspan="1">162</td>
+                                <td rowspan="1" colspan="1">210</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1" colspan="1">Gr. &lt;&gt; Gr.</td>
+                                <td rowspan="1" colspan="1">49</td>
+                                <td rowspan="1" colspan="1">32</td>
+                                <td rowspan="1" colspan="1">31</td>
+                                <td rowspan="1" colspan="1">31</td>
+                                <td rowspan="1" colspan="1">31</td>
+                                <td rowspan="1" colspan="1">257</td>
+                                <td rowspan="1" colspan="1">220</td>
+                                <td rowspan="1" colspan="1">169</td>
+                                <td rowspan="1" colspan="1">320</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="5" colspan="1">Aggregation</td>
+                                <td rowspan="1" colspan="1">Nb Aggr.</td>
+                                <td rowspan="1" colspan="1">1</td>
+                                <td rowspan="1" colspan="1">1</td>
+                                <td rowspan="1" colspan="1">1</td>
+                                <td rowspan="1" colspan="1">2</td>
+                                <td rowspan="1" colspan="1">1</td>
+                                <td rowspan="1" colspan="1">0</td>
+                                <td rowspan="1" colspan="1">0</td>
+                                <td rowspan="1" colspan="1">0</td>
+                                <td rowspan="1" colspan="1">3</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1" colspan="1">AHI</td>
+                                <td rowspan="1" colspan="1">1</td>
+                                <td rowspan="1" colspan="1">1</td>
+                                <td rowspan="1" colspan="1">1</td>
+                                <td rowspan="1" colspan="1">0</td>
+                                <td rowspan="1" colspan="1">0</td>
+                                <td rowspan="1" colspan="1">0</td>
+                                <td rowspan="1" colspan="1">0</td>
+                                <td rowspan="1" colspan="1">0</td>
+                                <td rowspan="1" colspan="1">1</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1" colspan="1">%Aggr. All</td>
+                                <td rowspan="1" colspan="1">100</td>
+                                <td rowspan="1" colspan="1">100</td>
+                                <td rowspan="1" colspan="1">100</td>
+                                <td rowspan="1" colspan="1">100</td>
+                                <td rowspan="1" colspan="1">50</td>
+                                <td rowspan="1" colspan="1">0</td>
+                                <td rowspan="1" colspan="1">0</td>
+                                <td rowspan="1" colspan="1">0</td>
+                                <td rowspan="1" colspan="1">43.75</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1" colspan="1">%Aggr. Red</td>
+                                <td rowspan="1" colspan="1">100</td>
+                                <td rowspan="1" colspan="1">100</td>
+                                <td rowspan="1" colspan="1">100</td>
+                                <td rowspan="1" colspan="1">100</td>
+                                <td rowspan="1" colspan="1">0</td>
+                                <td rowspan="1" colspan="1">0</td>
+                                <td rowspan="1" colspan="1">0</td>
+                                <td rowspan="1" colspan="1">0</td>
+                                <td rowspan="1" colspan="1">37.50</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1" colspan="1">%Aggr. Gr.</td>
+                                <td rowspan="1" colspan="1">100</td>
+                                <td rowspan="1" colspan="1">100</td>
+                                <td rowspan="1" colspan="1">100</td>
+                                <td rowspan="1" colspan="1">100</td>
+                                <td rowspan="1" colspan="1">100</td>
+                                <td rowspan="1" colspan="1">0</td>
+                                <td rowspan="1" colspan="1">0</td>
+                                <td rowspan="1" colspan="1">0</td>
+                                <td rowspan="1" colspan="1">50.00</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="3" colspan="1">Spatial distrib.</td>
+                                <td rowspan="1" colspan="1">SDI Red</td>
+                                <td rowspan="1" colspan="1">0.5</td>
+                                <td rowspan="1" colspan="1">0.25</td>
+                                <td rowspan="1" colspan="1">0.13</td>
+                                <td rowspan="1" colspan="1">0.13</td>
+                                <td rowspan="1" colspan="1">1</td>
+                                <td rowspan="1" colspan="1">1</td>
+                                <td rowspan="1" colspan="1">1</td>
+                                <td rowspan="1" colspan="1">0</td>
+                                <td rowspan="1" colspan="1">1</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1" colspan="1">SDI Gr.</td>
+                                <td rowspan="1" colspan="1">0.5</td>
+                                <td rowspan="1" colspan="1">0.13</td>
+                                <td rowspan="1" colspan="1">0.13</td>
+                                <td rowspan="1" colspan="1">0.13</td>
+                                <td rowspan="1" colspan="1">0.13</td>
+                                <td rowspan="1" colspan="1">1</td>
+                                <td rowspan="1" colspan="1">1</td>
+                                <td rowspan="1" colspan="1">0</td>
+                                <td rowspan="1" colspan="1">1</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1" colspan="1">SMI Red-Gr.</td>
+                                <td rowspan="1" colspan="1">1</td>
+                                <td rowspan="1" colspan="1">0</td>
+                                <td rowspan="1" colspan="1">0</td>
+                                <td rowspan="1" colspan="1">0</td>
+                                <td rowspan="1" colspan="1">0</td>
+                                <td rowspan="1" colspan="1">0</td>
+                                <td rowspan="1" colspan="1">0</td>
+                                <td rowspan="1" colspan="1">0</td>
+                                <td rowspan="1" colspan="1">0.88</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </table-wrap>
+                <p>Aggregation patterns can be discriminated by comparing the different indexes (see Table <xref ref-type="table" rid="T1">1</xref>). For example, we will compare data for artificial patterns 1–4 (high aggregation) with 5–7 (high dispersion) for the red group, and between patterns 1–5 (high aggregation) and 6–7 (high dispersion) for the green group.</p>
+                <p>The three categorical values of aggregation (% <italic>Aggr.</italic>) reflect the overall aggregation pattern (100%, 50% or 0%) and for each group (100% or 0%) for extreme cases. The percentages of aggregation do not discriminate between two groups with a high level of aggregation, but their level of affinity differs.</p>
+                <p>The Aggregation Heterogeneity Index (<italic>AHI</italic>) can be used to discriminate between configurations where both groups are highly aggregative according to the presence or absence of affinity between them.</p>
+                <p>The Number of Aggregates index (<italic>Nb Aggr.</italic>) will show the exact number of aggregate but without providing affinity information (except in case of null affinity). When the two groups are not aggregating in the same way, the index is similar (for example <!--PageBreak--><!--PageBreak--><!--PageBreak-->between configurations 3 and 5). In our example group affinity will be characterised more using the spatial distribution index.</p>
+                <p>The Spatial Distribution Index (<italic>SDI</italic>) reflects the different aggregation patterns for both groups. However, in the case of high affinity between groups, the index increases significantly.</p>
+                <p>The other index of this category, the Spatial Mixed Index (<italic>SMI</italic>), reflects the high affinity in configuration 1. However, such an index is similar in the other configurations. These two indexes of spatial distribution are complementary to other indexes.</p>
+                <p>In the case of non-aggregative groups, showing or not a relative affinity (for example configuration 6 or 7 respectively), neither the percentage of aggregation nor the number of aggregates differs. In this case (see Fig. <xref ref-type="fig" rid="F2">2.6 and 2.7</xref>) the comparison of inter-individual distances will be the most informative to characterise individual affinity.</p>
+                <p>Inter-individual distance is a good indicator of aggregation level. Intra-group inter-individual distances are minimal when aggregation level is high. However, Table <xref ref-type="table" rid="T1">1</xref> shows that when affinity is high between groups, such intra-group inter-individual distances increase, as immediate neighbours can belong to both groups due to affinity (configurations 1–2). Use of distances to nearest neighbours limits this inconvenience. The inter-group distances are good indicators of the relationship between groups. Finally, the different levels of affinity between groups differentiate these two configurations.</p>
+            </sec>
+            <sec sec-type="Case study: Aggregation in Woodlice">
+                <title>Case study: Aggregation in Woodlice</title>
+                <p>The indexes have been tested using snapshots of individual distribution in terrestrial crustacean species (<tp:taxon-name><tp:taxon-name-part taxon-name-part-type="suborder">Oniscidea</tp:taxon-name-part></tp:taxon-name>). Woodlice are good candidates for aggregation studies since such behaviour is widespread in this group and is explained as an adaptive response supporting their conquest of terrestrial life (<xref ref-type="bibr" rid="B6">Broly et al. 2013</xref>; <xref ref-type="bibr" rid="B7">Broly et al. 2012</xref>; <xref ref-type="bibr" rid="B11">Caubet et al. 1998</xref>; <xref ref-type="bibr" rid="B12">Caubet et al. 2008</xref>) and is under social component (<xref ref-type="bibr" rid="B4">Beauché and Richard 2013</xref>; <xref ref-type="bibr" rid="B13">Devigne et al. 2011</xref>). Such crustaceans present several specific constraints (weakness, group density. etc.) which lead to difficulties in real time tracking in comparison to insects.</p>
+                <p>First, we compared three gregarious species (groups): <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Porcellio</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">dilatatus</tp:taxon-name-part></tp:taxon-name></italic> (PD), <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Porcellio</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">scaber</tp:taxon-name-part></tp:taxon-name></italic> (PS) and <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Cylisticus</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">convexus</tp:taxon-name-part></tp:taxon-name></italic> (CC). Three different combinations of two groups of eight individuals (“objects”) are placed in a squared arena (width 12.3 cm) divided into 64 cells. After one hour, a snapshot is taken (Fig. <xref ref-type="fig" rid="F3">3</xref>) and the distribution of the individuals is analysed with NEIGHBOUR-IN. We used indexes in order to characterise our aggregates according to group characteristics. In a second step, we added the species <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Armadillidium</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">vulgare</tp:taxon-name-part></tp:taxon-name></italic> (AV) to PD and PS. This species presents a more scattered aggregation pattern (<xref ref-type="bibr" rid="B18">Hassall et al. 2010</xref>). A snapshot is taken after one hour and analysed. The indexes are presented in Table <xref ref-type="table" rid="T2">2</xref> and the outputs concerning spatial distribution in Fig. <xref ref-type="fig" rid="F4">4</xref> (“<italic>Surfaces</italic>” output display).</p>
+                <fig id="F3" position="float" orientation="portrait">
+                    <label>Figure 3.</label>
+                    <caption><p>Aggregation heterogeneity in woodlice. Aggregation patterns of two groups of woodlice illustrating the Aggregation Heterogenity Index (<italic>AHI</italic>) and the Spatial Mixed Index (<italic>SMI</italic>). PD: <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Porcellio</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">dilatatus</tp:taxon-name-part></tp:taxon-name></italic>, PS: <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Porcellio</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">scaber</tp:taxon-name-part></tp:taxon-name></italic>, CC: <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Cylisticus</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">convexus</tp:taxon-name-part></tp:taxon-name></italic>. Values of indexes: PD-PD: <italic>AHI</italic>=0.93 &amp; <italic>SMI</italic>=0.80; PD-PS: <italic>AHI</italic>=0.67 &amp; <italic>SMI</italic>=0.60; PD-CC: <italic>AHI</italic>=0.63 &amp; <italic>SMI</italic>=0.33.</p></caption>
+                    <graphic xlink:href="zookeys-515-e5779-g003.jpg" position="float" orientation="portrait" xlink:type="simple" id="oo_48537.jpg"/>
+                </fig>
+                <fig id="F4" position="float" orientation="portrait">
+                    <label>Figure 4.</label>
+                    <caption><p>Spatial distribution in woodlice. Graphic outputs of spatial distribution patterns obtained in three configurations with monospecific or bispecific populations including two groups of eight individuals: <bold>a</bold> PD-PD: The two groups are <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Porcellio</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">dilatatus</tp:taxon-name-part></tp:taxon-name></italic> (red and green) <bold>b</bold> PD-PS: <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Porcellio</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">dilatatus</tp:taxon-name-part></tp:taxon-name></italic> (red) and <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Porcellio</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">scaber</tp:taxon-name-part></tp:taxon-name></italic> (green) <bold>c</bold> PD-AV: <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Porcellio</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">dilatatus</tp:taxon-name-part></tp:taxon-name></italic> (red) and <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Armadillidium</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">vulgare</tp:taxon-name-part></tp:taxon-name></italic> (green). The outputs show 64 cells. Each cell is represented with a colour corresponding to the individual(s) in that cell. The colour is mixed using green and red proportional to the number of green and red individuals. If the cell is empty, the colour is black. The intensity of the colour reflects the number of individuals. The position of the individual is determined by its point G (centre-point).</p></caption>
+                    <graphic xlink:href="zookeys-515-e5779-g004.jpg" position="float" orientation="portrait" xlink:type="simple" id="oo_48538.jpg"/>
+                </fig>
+                <table-wrap id="T2" position="float" orientation="portrait">
+                    <label>Table 2.</label>
+                    <caption><p>Evolution of indexes in real configurations. Specific patterns of intra-group aggregation and inter-group affinity based on three real configurations composed of two groups of 8 woodlice (Red and Green). PD: <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Porcellio</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">dilatatus</tp:taxon-name-part></tp:taxon-name></italic>; PS: <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Porcellio</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">scaber</tp:taxon-name-part></tp:taxon-name></italic>; AV: <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Armadillidium</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">vulgare</tp:taxon-name-part></tp:taxon-name></italic>. Each configuration is illustrated by figs 4.a-4.c. See Table <xref ref-type="table" rid="T1">1</xref> for the description of the categories of indexes.</p></caption>
+                    <table id="TID0EYOBG" rules="all">
+                        <tbody>
+                            <tr>
+                                <th rowspan="1" colspan="1">Groups</th>
+                                <th rowspan="1" colspan="1">Configuration</th>
+                                <th rowspan="1" colspan="1">PD-PD</th>
+                                <th rowspan="1" colspan="1">PD-PS</th>
+                                <th rowspan="1" colspan="1">PD-AV</th>
+                            </tr>
+                            <tr>
+                                <td rowspan="2" colspan="1">Species</td>
+                                <td rowspan="1" colspan="1">Red</td>
+                                <td rowspan="1" colspan="1">PD</td>
+                                <td rowspan="1" colspan="1">PD</td>
+                                <td rowspan="1" colspan="1">PD</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1" colspan="1">Green</td>
+                                <td rowspan="1" colspan="1">PD</td>
+                                <td rowspan="1" colspan="1">PS</td>
+                                <td rowspan="1" colspan="1">AV</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1" colspan="2">Categories of index:</td>
+                                <td rowspan="1" colspan="1"/>
+                                <td rowspan="1" colspan="1"/>
+                                <td rowspan="1" colspan="1"/>
+                            </tr>
+                            <tr>
+                                <td rowspan="6" colspan="1">Inter-individual Distances</td>
+                                <td rowspan="1" colspan="1">All &lt;&gt; All</td>
+                                <td rowspan="1" colspan="1">188</td>
+                                <td rowspan="1" colspan="1">174</td>
+                                <td rowspan="1" colspan="1">541</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1" colspan="1">Red &lt;&gt; All</td>
+                                <td rowspan="1" colspan="1">188</td>
+                                <td rowspan="1" colspan="1">183</td>
+                                <td rowspan="1" colspan="1">550</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1" colspan="1">Red &lt;&gt; Red</td>
+                                <td rowspan="1" colspan="1">71</td>
+                                <td rowspan="1" colspan="1">279</td>
+                                <td rowspan="1" colspan="1">449</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1" colspan="1">Red &lt;&gt; Gr.</td>
+                                <td rowspan="1" colspan="1">188</td>
+                                <td rowspan="1" colspan="1">183</td>
+                                <td rowspan="1" colspan="1">550</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1" colspan="1">Gr. &lt;&gt; All</td>
+                                <td rowspan="1" colspan="1">188</td>
+                                <td rowspan="1" colspan="1">183</td>
+                                <td rowspan="1" colspan="1">550</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1" colspan="1">Gr. &lt;&gt; Gr.</td>
+                                <td rowspan="1" colspan="1">305</td>
+                                <td rowspan="1" colspan="1">50</td>
+                                <td rowspan="1" colspan="1">614</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="6" colspan="1">Nearest Neighbours Distances</td>
+                                <td rowspan="1" colspan="1">All &lt;&gt; All</td>
+                                <td rowspan="1" colspan="1">113</td>
+                                <td rowspan="1" colspan="1">107</td>
+                                <td rowspan="1" colspan="1">302</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1" colspan="1">Red &lt;&gt; All</td>
+                                <td rowspan="1" colspan="1">49</td>
+                                <td rowspan="1" colspan="1">160</td>
+                                <td rowspan="1" colspan="1">288</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1" colspan="1">Red &lt;&gt; Red</td>
+                                <td rowspan="1" colspan="1">53</td>
+                                <td rowspan="1" colspan="1">217</td>
+                                <td rowspan="1" colspan="1">305</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1" colspan="1">Red &lt;&gt; Gr.</td>
+                                <td rowspan="1" colspan="1">49</td>
+                                <td rowspan="1" colspan="1">160</td>
+                                <td rowspan="1" colspan="1">288</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1" colspan="1">Gr. &lt;&gt; All</td>
+                                <td rowspan="1" colspan="1">155</td>
+                                <td rowspan="1" colspan="1">54</td>
+                                <td rowspan="1" colspan="1">321</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1" colspan="1">Gr. &lt;&gt; Gr.</td>
+                                <td rowspan="1" colspan="1">130</td>
+                                <td rowspan="1" colspan="1">37</td>
+                                <td rowspan="1" colspan="1">492</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="5" colspan="1">Aggregation</td>
+                                <td rowspan="1" colspan="1">Nb Aggr.</td>
+                                <td rowspan="1" colspan="1">1</td>
+                                <td rowspan="1" colspan="1">2</td>
+                                <td rowspan="1" colspan="1">4</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1" colspan="1">AHI</td>
+                                <td rowspan="1" colspan="1">0.93</td>
+                                <td rowspan="1" colspan="1">0.67</td>
+                                <td rowspan="1" colspan="1">0.20</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1" colspan="1">%Aggr. All</td>
+                                <td rowspan="1" colspan="1">93.75</td>
+                                <td rowspan="1" colspan="1">93.75</td>
+                                <td rowspan="1" colspan="1">62.50</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1" colspan="1">%Aggr. Red</td>
+                                <td rowspan="1" colspan="1">100.00</td>
+                                <td rowspan="1" colspan="1">87.50</td>
+                                <td rowspan="1" colspan="1">87.50</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1" colspan="1">%Aggr. Gr.</td>
+                                <td rowspan="1" colspan="1">87.50</td>
+                                <td rowspan="1" colspan="1">100.00</td>
+                                <td rowspan="1" colspan="1">37.50</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="3" colspan="1">Spatial distrib.</td>
+                                <td rowspan="1" colspan="1">SDI Red</td>
+                                <td rowspan="1" colspan="1">0.500</td>
+                                <td rowspan="1" colspan="1">0.500</td>
+                                <td rowspan="1" colspan="1">0.75</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1" colspan="1">SDI Gr.</td>
+                                <td rowspan="1" colspan="1">0.625</td>
+                                <td rowspan="1" colspan="1">0.375</td>
+                                <td rowspan="1" colspan="1">1</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1" colspan="1">SMI Red-Gr.</td>
+                                <td rowspan="1" colspan="1">0.800</td>
+                                <td rowspan="1" colspan="1">0.400</td>
+                                <td rowspan="1" colspan="1">0.077</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </table-wrap>
+                <p>In our combinations, a first analysis focused on the main aggregate obtained in each combination using <italic>AHI</italic> and <italic>SMI</italic> indexes as descriptors of the quality of the ag<!--PageBreak-->gregates (Fig. <xref ref-type="fig" rid="F3">3</xref>). In these snapshots the aggregate is composed of animals from both groups. However, the pattern of aggregation is different and the inter-individual distances cannot be used, since all individuals are close to one other. However, the use of <!--PageBreak--><!--PageBreak--><italic>AHI</italic> and <italic>SMI</italic> indexes can be informative since they differentiate the three combinations. When the two groups belong to the same species <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Porcellio</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">dilatatus</tp:taxon-name-part></tp:taxon-name></italic> (PD-PD, Fig. <xref ref-type="fig" rid="F3">3.a</xref>), affinity score is at a maximum between individuals and the <italic>AHI</italic> and <italic>SMI</italic> are at their highest score (respectively 0.93 and 0.80). When both groups belong to the species <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Porcellio</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">dilatatus</tp:taxon-name-part></tp:taxon-name></italic> and <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Cylisticus</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">convexus</tp:taxon-name-part></tp:taxon-name></italic> (PD-CC, Fig. <xref ref-type="fig" rid="F3">3.c</xref>), the <italic>AHI</italic> and <italic>SMI</italic> are at their lowest (respectively 0.63 and 0.33). The intermediary configuration with the species <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Porcellio</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">dilatatus</tp:taxon-name-part></tp:taxon-name></italic> and <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Porcellio</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">scaber</tp:taxon-name-part></tp:taxon-name></italic> (PD-PS, Fig. <xref ref-type="fig" rid="F3">3.b</xref>) shows intermediary indexes (respectively 0.67 and 0.60). In conclusion, even in the case of very aggregative species, the quality of the aggregation pattern, matched with the affinity between individuals, can be characterised using a combination of complementary indexes.</p>
+                <p>The distribution of the two groups and the aggregation level appear to be very different according to the species pairing (Fig. <xref ref-type="fig" rid="F4">4</xref>). The indexes computed by NEIGHBOUR-IN reflect qualitative and quantitative differences in aggregation pattern variability well (see indexes on Table <xref ref-type="table" rid="T2">2</xref>).</p>
+                <p>In the homospecific combination of the species <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Porcellio</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">dilatatus</tp:taxon-name-part></tp:taxon-name></italic> (PD-PD, Fig. <xref ref-type="fig" rid="F4">4.a</xref>) a single individual in the green group is isolated while all other individuals are crowded in a single mixed aggregate (five cells among 64 contain individuals). Only the cell containing the isolated individual is pure (bottom right corner on Fig. <xref ref-type="fig" rid="F4">4.a</xref>), while the four other cells contain animals that belong to both groups (<italic>SMI</italic> = 0.8; most of the cells contain individuals from both groups) and the distribution is totally mixed (<italic>AHI</italic> = 0.93; higher level of heterogeneity in the aggregate). The inter-individual distances show differences between red and green groups due to the isolated green individual (71 and 305 for reds and greens respectively). The nearest neighbour distances adjust the values especially for the green group (53 and 130 for reds and greens respectively). The intra- and inter-group distances are similar (53 and 49 pixels respectively). Aggregation indexes reflect the high level of aggregation of both groups (between 100% and 87.5% for reds and greens respectively). Concerning the spatial distribution index (<italic>SDI</italic>), the fact that one individual is isolated in the green group induces a small difference in the index (0.5 and 0.625 for red and green groups respectively).</p>
+                <p>In the heterospecific combination, with the species <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Porcellio</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">dilatatus</tp:taxon-name-part></tp:taxon-name></italic> – <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Porcellio</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">scaber</tp:taxon-name-part></tp:taxon-name></italic> (PD-PS, Fig. <xref ref-type="fig" rid="F4">4.b</xref>), we obtain two distinct aggregates located in the two opposed corners of the arena. Even if both species present a high level of aggregation (87.5% and 100% for PD and PS), the indexes are able to differentiate the quality of aggregation in comparison to the homospecific configuration (PD-PD). Both <italic>AHI</italic> and <italic>SDI</italic> values decrease (0.67 and 0.4 respectively). We observed that individuals in the same aggregate are sharing a single cell (Fig. <xref ref-type="fig" rid="F4">4.b</xref>). The other individuals are juxtaposed but not mixed, and stay close to conspecifics. Among the five occupied cells, four of them are occupied by individuals of the same group. Inter-individual distances increase because the aggregates are separated. The nearest neighbour distances adjust the values, and we observe an inter-group distance higher than in the homospecific configuration (169 rather than 49).</p>
+                <p>The third combination, using the two species <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Porcellio</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">dilatatus</tp:taxon-name-part></tp:taxon-name></italic> and <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Armadillidium</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">vulgare</tp:taxon-name-part></tp:taxon-name></italic> (PD-AV, Fig. <xref ref-type="fig" rid="F4">4.c</xref>) presents another pattern of distribution: The green group (<italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Armadillidium</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">vulgare</tp:taxon-name-part></tp:taxon-name></italic>) appears <!--PageBreak-->less aggregative than the red group (<italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Porcellio</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">dilatatus</tp:taxon-name-part></tp:taxon-name></italic>) (37.5% and 87.5% respectively). In this configuration, four aggregates are identified by the software. The <italic>AHI</italic> index, reflecting the mixture of the aggregates, is very low (0.2) compared to homospecific and genera-related configurations (0.93 and 0.67 respectively). Moreover, the spatial distribution is completely different for both species: <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Armadillidium</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">vulgare</tp:taxon-name-part></tp:taxon-name></italic> shows the maximum value of <italic>SDI</italic> index (1.0) meaning that each individual is in a different cell, and <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Porcellio</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">dilatatus</tp:taxon-name-part></tp:taxon-name></italic> shows a more dispersed distribution (0.75) than in the other two combinations (PD <italic>vs.</italic> PD and PD <italic>vs.</italic> PS) (0.5).</p>
+            </sec>
+        </sec>
+        <sec sec-type="Discussion">
+            <title>Discussion</title>
+            <p>Our image processing software, NEIGHBOUR-IN, provides indices with efficient discriminatory power to characterize and analyse group structure using individuals’ coordinates. In the features of the software we integrate elementary statistical analysis and complementary index calculation that are important tools to describe aggregations, as well as a new index for more precise analysis. We provided examples based on random data and a case study using gregarious arthropods to highlight the accuracy of the output information. Moreover, the raw data, individual coordinates and location can be directly manipulated by the researcher for specific analysis such as simulation, modelling, and classic spatial statistics.</p>
+            <p>One of the assets of NEIGHBOUR-IN is the distinction between up to three groups and the open group size, which allow for a variety of applications. The differentiation between groups of individuals can be applied to compare intra-specific and inter-individual affinity according to size, age, sex, moult stage, health, and genetic relatedness at the individual level. Behavioural adaptive responses in inter-specific interactions is also an important field of investigation, and NEIGHBOUR-IN could be a new tool to study prey-predator, host-parasite, and commensalism impacts on group formation and composition. How the dispersion of animals in heterogeneous habitat and physical environment changes the aggregation pattern can also be investigated with this method. Moreover, the management of the image doesn’t require a specific template or scale, and can be used with all type of images including aerial images of vertebrates, to macro photography of small invertebrates, and even picture under microscope with micro-organisms.</p>
+            <p>In comparison with the tools available in aggregation analysis, NEIGHBOUR-IN appears to be an accessible, light, and open solution. Our software is designed for analysis at a point-time however continuous monitoring of behavioural is not possible. The level of integration and data analysis complexity is smaller in comparison to GIS systems, which require user training and specific data templates and libraries. Other powerful softwares that track and analyse animal movement, such as Noldus ETHOVISION, analyse in real time and are not designed for snapshot analysis. Noldus ETHOVISION analyses are automated and qualitative information on aggregates could be missed. Many species present complex aggregate structures and often in three <!--PageBreak-->dimensions so that a fully automatic tracking is necessarily imprecise. For example, when two individuals are superimposed, softwares like Noldus ETHOVISION lose track of the two individuals (one source of imprecision) and then randomly assign the initial characteristics to individuals when they separate, so that both intermediate and final results can lead to incoherency. Our semi-manual software allows manual localisation of individuals, increasing the precision of the spatial encoding, while keeping an automatic acquisition of results and analyses. Moreover, the user is able to identify orientation of individual (anterior and posterior extremities) with its perception area and consequently the possibility of interactions or not.</p>
+            <p>Finally, this software promises to evolve with new features, and could be used to generate and export distribution and coordinates database for other purposes. Potential fields of applications could be evolution of invasive species (animals and plants) distribution using aerial image, competition of fungus or microbial colonies, identification of harems in marine mammals grouping and so on.</p>
+            <p>The main limitations of NEIGHBOUR-IN software are in the potential excessive overlap of the individuals in an aggregate, and the total number of group and individuals taken into account. However, in both case, the user himself/herself is confronted to difficulties and the task, even if it is complicated, will be easier using NEIGHBOUR-IN. In comparison to a direct analysis of the image, the advantage to generating NEIGHBOUR-IN data files is that the image is saved with the coordinates but the statistics are managed separately, which allows the researcher to re-use the same files with further statistical analysis, as well as the integration of new graphic outputs and indexes.</p>
+        </sec>
+    </body>
+     <back><ack>
+            <title>Acknowledgements</title>
+            <p>Authors are grateful to Holly McKelvey for English revision, P. Broly for his comments, and the anonymous reviewers.</p>
+        </ack>
+        <ref-list>
+            <title>References</title>
+            <ref id="B1"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Aschwanden</surname> <given-names>J</given-names></name><name name-style="western"><surname>Gygax</surname> <given-names>L</given-names></name><name name-style="western"><surname>Wechsler</surname> <given-names>B</given-names></name><name name-style="western"><surname>Keil</surname> <given-names>NM</given-names></name></person-group> (<year>2008</year>) <article-title>Social distances of goats at the feeding rack: Influence of the quality of social bonds, rank differences, grouping age and presence of horns.</article-title> <source>Applied Animal Behaviour Science</source> <volume>114</volume>: <fpage>116</fpage>–<lpage>131</lpage>. doi: <ext-link ext-link-type="doi" xlink:href="10.1016/j.applanim.2008.02.002">10.1016/j.applanim.2008.02.002</ext-link> </mixed-citation></ref>
+            <ref id="B2"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Axelsen</surname> <given-names>BE</given-names></name><name name-style="western"><surname>Anker-Nilssen</surname> <given-names>T</given-names></name><name name-style="western"><surname>Fossum</surname> <given-names>P</given-names></name><name name-style="western"><surname>Kvamme</surname> <given-names>C</given-names></name><name name-style="western"><surname>Nøttestad</surname> <given-names>L</given-names></name></person-group> (<year>2001</year>) <article-title>Pretty patterns, but a simple strategy: predator-prey interactions between juvenile herring and atlantic puffins observed with multi-beam sonar.</article-title> <source>Canadian Journal of Zoology</source> <volume>79</volume>: <fpage>1586</fpage>–<lpage>1596</lpage>. doi: <ext-link ext-link-type="doi" xlink:href="10.1139/z01-113">10.1139/z01-113</ext-link> </mixed-citation></ref>
+            <ref id="B3"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Ballerini</surname> <given-names>M</given-names></name><name name-style="western"><surname>Cabibbo</surname> <given-names>N</given-names></name><name name-style="western"><surname>Candelier</surname> <given-names>R</given-names></name><name name-style="western"><surname>Cavagna</surname> <given-names>A</given-names></name><name name-style="western"><surname>Cisbani</surname> <given-names>E</given-names></name><name name-style="western"><surname>Giardina</surname> <given-names>I</given-names></name><name name-style="western"><surname>Lecomte</surname> <given-names>V</given-names></name><name name-style="western"><surname>Orlandi</surname> <given-names>A</given-names></name><name name-style="western"><surname>Parisi</surname> <given-names>G</given-names></name><name name-style="western"><surname>Procaccini</surname> <given-names>A</given-names></name><name name-style="western"><surname>Viale</surname> <given-names>M</given-names></name><name name-style="western"><surname>Zdravkovic</surname> <given-names>V</given-names></name></person-group> (<year>2008</year>) <article-title>Interaction ruling animal collective behavior depends on topological rather than metric distance: evidence from a field study.</article-title> <source>Proceedings of the National Academy of Sciences</source> <volume>105</volume>: <fpage>1232</fpage>–<lpage>1237</lpage>. </mixed-citation></ref>
+            <ref id="B4"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Beauché</surname> <given-names>F</given-names></name><name name-style="western"><surname>Richard</surname> <given-names>F-J</given-names></name></person-group> (<year>2013</year>) <article-title>The best timing of mate search in <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Armadillidium</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">vulgare</tp:taxon-name-part></tp:taxon-name></italic> (<tp:taxon-name><tp:taxon-name-part taxon-name-part-type="order">Isopoda</tp:taxon-name-part></tp:taxon-name>, <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="suborder">Oniscidea</tp:taxon-name-part></tp:taxon-name>).</article-title> <source>PLoS ONE</source> <volume>8</volume>: <elocation-id>e57737</elocation-id>. doi: <ext-link ext-link-type="doi" xlink:href="10.1371/journal.pone.0057737">10.1371/journal.pone.0057737</ext-link> </mixed-citation></ref>
+            <ref id="B5"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Boulay</surname> <given-names>J</given-names></name><name name-style="western"><surname>Devigne</surname> <given-names>C</given-names></name><name name-style="western"><surname>Gosset</surname> <given-names>D</given-names></name><name name-style="western"><surname>Charabidze</surname> <given-names>D</given-names></name></person-group> (<year>2013</year>) <article-title>Evidence of active aggregation behaviour in Lucilia sericata larvae and possible implication of a conspecific mark.</article-title> <source>Animal Behaviour</source> <volume>85</volume>: <fpage>1191</fpage>–<lpage>1197</lpage>. doi: <ext-link ext-link-type="doi" xlink:href="10.1016/j.anbehav.2013.03.005">10.1016/j.anbehav.2013.03.005</ext-link> </mixed-citation></ref>
+            <ref id="B6"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Broly</surname> <given-names>P</given-names></name><name name-style="western"><surname>Denebourg</surname> <given-names>J-L</given-names></name><name name-style="western"><surname>Devigne</surname> <given-names>C</given-names></name></person-group> (<year>2013</year>) <article-title>Benefits of aggregation in woodlince: a factor in the terrestrialization process?</article-title> <source>Insectes Sociaux</source> <volume>60</volume>: <fpage>419</fpage>–<lpage>435</lpage>. doi: <ext-link ext-link-type="doi" xlink:href="10.1007/s00040-013-0313-7">10.1007/s00040-013-0313-7</ext-link> </mixed-citation></ref>
+            <ref id="B7"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Broly</surname> <given-names>P</given-names></name><name name-style="western"><surname>Mullier</surname> <given-names>R</given-names></name><name name-style="western"><surname>Deneubourg</surname> <given-names>JL</given-names></name><name name-style="western"><surname>Devigne</surname> <given-names>C</given-names></name></person-group> (<year>2012</year>) <article-title>Aggregation in woodlice: social interaction and density effects.</article-title> <source>ZooKeys</source> <volume>176</volume>: <fpage>133</fpage>–<lpage>144</lpage>. doi: <ext-link ext-link-type="doi" xlink:href="10.3897/zookeys.176.2258">10.3897/zookeys.176.2258</ext-link> </mixed-citation></ref>
+            <ref id="B8"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Brown</surname> <given-names>C</given-names></name><name name-style="western"><surname>Brown</surname> <given-names>M</given-names></name></person-group> (<year>1987</year>) <article-title>Group-living in cliff swallows as an advantage in avoiding predators.</article-title> <source>Behavioral Ecology and Sociobiology</source> <volume>21</volume>: <fpage>97</fpage>–<lpage>107</lpage>. doi: <ext-link ext-link-type="doi" xlink:href="10.1007/bf02395437">10.1007/bf02395437</ext-link> </mixed-citation></ref>
+            <ref id="B9"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Brown</surname> <given-names>C</given-names></name><name name-style="western"><surname>Brown</surname> <given-names>M</given-names></name></person-group> (<year>2004</year>) <article-title>Group size and ectoparasitism affect daily survival probability in a colonial bird.</article-title> <source>Behavioral Ecology and Sociobiology</source> <volume>56</volume>: <fpage>498</fpage>–<lpage>511</lpage>. doi: <ext-link ext-link-type="doi" xlink:href="10.1007/s00265-004-0813-6">10.1007/s00265-004-0813-6</ext-link> </mixed-citation></ref>
+            <ref id="B10"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Camazine</surname> <given-names>S</given-names></name><name name-style="western"><surname>Denebourg</surname> <given-names>J-L</given-names></name><name name-style="western"><surname>Franks</surname> <given-names>NR</given-names></name><name name-style="western"><surname>Sneyd</surname> <given-names>J</given-names></name><name name-style="western"><surname>Theraulaz</surname> <given-names>G</given-names></name><name name-style="western"><surname>Bonabeau</surname> <given-names>E</given-names></name></person-group> (<year>2003</year>) <source>Self-organization in biological systems</source>. <publisher-name>Princeton University Press</publisher-name>, <size units="page">538 pp</size>. </mixed-citation></ref>
+            <ref id="B11"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Caubet</surname> <given-names>Y</given-names></name><name name-style="western"><surname>Juchault</surname> <given-names>P</given-names></name><name name-style="western"><surname>Mocquard</surname> <given-names>JP</given-names></name></person-group> (<year>1998</year>) <article-title>Biotic triggers of female reproduction in the terrestrial isopod <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Armadillidium</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">vulgare</tp:taxon-name-part></tp:taxon-name></italic> Latr. (<tp:taxon-name><tp:taxon-name-part taxon-name-part-type="subphylum">Crustacea</tp:taxon-name-part></tp:taxon-name>n: <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="suborder">Oniscidea</tp:taxon-name-part></tp:taxon-name>).</article-title> <source>Ethology Ecology Evolution</source> <volume>10</volume>: <fpage>209</fpage>–<lpage>226</lpage>. doi: <ext-link ext-link-type="doi" xlink:href="10.1080/08927014.1998.9522853">10.1080/08927014.1998.9522853</ext-link> </mixed-citation></ref>
+            <ref id="B12"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Caubet</surname> <given-names>Y</given-names></name><name name-style="western"><surname>O’Farrell</surname> <given-names>G</given-names></name><name name-style="western"><surname>Lefebvre</surname> <given-names>F</given-names></name></person-group> (<year>2008</year>) <article-title>Geographical variability of aggregation in terrestrial isopods: What is the actual significance of such behaviour?</article-title> In: <person-group><name name-style="western"><surname>Zimmer</surname> <given-names>M</given-names></name><name name-style="western"><surname>Charfi Cheikhrouha</surname> <given-names>F</given-names></name><name name-style="western"><surname>Taiti</surname> <given-names>S</given-names></name></person-group> (<role>Eds</role>) <source>Proceedings of the International Symposium of Terrestrial Isopod -ISTIB07</source>. <publisher-name>Shaker Verlag</publisher-name>, <publisher-loc>Germany</publisher-loc>, <fpage>137</fpage>–<lpage>148</lpage>. </mixed-citation></ref>
+            <ref id="B13"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Devigne</surname> <given-names>C</given-names></name><name name-style="western"><surname>Broly</surname> <given-names>P</given-names></name><name name-style="western"><surname>Deneubourg</surname> <given-names>JL</given-names></name></person-group> (<year>2011</year>) <article-title>Individual Preferences and Social Interactions Determine the Aggregation of Woodlice.</article-title> <source>PLoS ONE</source> <volume>6</volume>: <elocation-id>e17389</elocation-id>. doi: <ext-link ext-link-type="doi" xlink:href="10.1371/journal.pone.0017389">10.1371/journal.pone.0017389</ext-link> </mixed-citation></ref>
+            <ref id="B14"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Eklund</surname> <given-names>B</given-names></name><name name-style="western"><surname>Jensen</surname> <given-names>P</given-names></name></person-group> (<year>2011</year>) <article-title>Domestication effects on behavioural synchronization and individual distances in chickens (<italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Gallus</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">gallus</tp:taxon-name-part></tp:taxon-name></italic>).</article-title> <source>Behavioural processes</source> <volume>86</volume>: <fpage>250</fpage>–<lpage>256</lpage>. doi: <ext-link ext-link-type="doi" xlink:href="10.1016/j.beproc.2010.12.010">10.1016/j.beproc.2010.12.010</ext-link> </mixed-citation></ref>
+            <ref id="B15"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Gerlotto</surname> <given-names>F</given-names></name><name name-style="western"><surname>Bertrand</surname> <given-names>S</given-names></name><name name-style="western"><surname>Bez</surname> <given-names>N</given-names></name><name name-style="western"><surname>Gutiérrez</surname> <given-names>M</given-names></name></person-group> (<year>2006</year>) <article-title>Waves of agitation inside anchovy schools: a way to transmit information and facilitate fast morphological and structural changes in response to predation, as observed with multibeam sonar.</article-title> <source>ICES Journal of Marine Science</source> <volume>63</volume>: <fpage>1405</fpage>–<lpage>1417</lpage>. doi: <ext-link ext-link-type="doi" xlink:href="10.1016/j.icesjms.2006.04.023">10.1016/j.icesjms.2006.04.023</ext-link> </mixed-citation></ref>
+            <ref id="B16"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Gerlotto</surname> <given-names>F</given-names></name><name name-style="western"><surname>Paramo</surname> <given-names>J</given-names></name></person-group> (<year>2003</year>) <article-title>The three-dimensional morphology and internal structure of clupeid schools as observed using vertical scanning multibeam sonar.</article-title> <source>Aquatic Living Resources</source> <volume>16</volume>: <fpage>113</fpage>–<lpage>122</lpage>. doi: <ext-link ext-link-type="doi" xlink:href="10.1016/S0990-7440(03)00027-5">10.1016/S0990-7440(03)00027-5</ext-link> </mixed-citation></ref>
+            <ref id="B17"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Handegard</surname> <given-names>NO</given-names></name></person-group> (<year>2007</year>) <article-title>Observing individual fish behavior in fish aggregations: Tracking in dense fish aggregations using a split-beam echosounder.</article-title> <source>The Journal of the Acoustical Society of America</source> <volume>122</volume>: <fpage>177</fpage>–<lpage>187</lpage>. doi: <ext-link ext-link-type="doi" xlink:href="10.1121/1.2739421">10.1121/1.2739421</ext-link> </mixed-citation></ref>
+            <ref id="B18"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Hassall</surname> <given-names>M</given-names></name><name name-style="western"><surname>Edwards</surname> <given-names>D</given-names></name><name name-style="western"><surname>Moss</surname> <given-names>A</given-names></name><name name-style="western"><surname>Derhé</surname> <given-names>M</given-names></name><name name-style="western"><surname>Carmenta</surname> <given-names>R</given-names></name></person-group> (<year>2010</year>) <article-title>Predicting the effect of climate change on aggregation behaviour in four species of terrestrial isopods.</article-title> <source>Behaviour</source> <volume>147</volume>: <fpage>151</fpage>–<lpage>164</lpage>. doi: <ext-link ext-link-type="doi" xlink:href="10.1163/000579509x12512861455834">10.1163/000579509x12512861455834</ext-link> </mixed-citation></ref>
+            <!--PageBreak-->
+            <ref id="B19"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Jeanson</surname> <given-names>R</given-names></name></person-group> (<year>2012</year>) <article-title>Long-term dynamics in proximity networks in ants.</article-title> <source>Animal Behaviour</source> <volume>83</volume>: <fpage>915</fpage>–<lpage>923</lpage>. doi: <ext-link ext-link-type="doi" xlink:href="10.1016/j.anbehav.2012.01.009">10.1016/j.anbehav.2012.01.009</ext-link> </mixed-citation></ref>
+            <ref id="B20"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Jeanson</surname> <given-names>R</given-names></name><name name-style="western"><surname>Rivault</surname> <given-names>C</given-names></name><name name-style="western"><surname>Deneubourg</surname> <given-names>J-L</given-names></name><name name-style="western"><surname>Blanco</surname> <given-names>S</given-names></name><name name-style="western"><surname>Fournier</surname> <given-names>R</given-names></name><name name-style="western"><surname>Jost</surname> <given-names>C</given-names></name><name name-style="western"><surname>Theraulaz</surname> <given-names>G</given-names></name></person-group> (<year>2005</year>) <article-title>Self-organized aggregation in cockroaches.</article-title> <source>Animal Behaviour</source> <volume>69</volume>: <fpage>169</fpage>–<lpage>180</lpage>. doi: <ext-link ext-link-type="doi" xlink:href="10.1016/j.anbehav.2004.02.009">10.1016/j.anbehav.2004.02.009</ext-link> </mixed-citation></ref>
+            <ref id="B21"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Krause</surname> <given-names>J</given-names></name><name name-style="western"><surname>Hoare</surname> <given-names>DJ</given-names></name><name name-style="western"><surname>Croft</surname> <given-names>D</given-names></name><name name-style="western"><surname>Lawrence</surname> <given-names>J</given-names></name><name name-style="western"><surname>Ward</surname> <given-names>A</given-names></name><name name-style="western"><surname>Ruxton</surname> <given-names>GD</given-names></name><name name-style="western"><surname>Godin</surname> <given-names>J-GJ</given-names></name><name name-style="western"><surname>James</surname> <given-names>R</given-names></name></person-group> (<year>2000</year>) <article-title>Fish shoal composition: mechanisms and constraints.</article-title> <source>Proceedings of the Royal Society B</source> <volume>267</volume>: <fpage>2011</fpage>–<lpage>2017</lpage>. doi: <ext-link ext-link-type="doi" xlink:href="10.1098/rspb.2000.1243">10.1098/rspb.2000.1243</ext-link> </mixed-citation></ref>
+            <ref id="B22"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Krause</surname> <given-names>J</given-names></name><name name-style="western"><surname>Ruxton</surname> <given-names>GD</given-names></name></person-group> (<year>2002</year>) <source>Living in groups.</source> <publisher-name>Oxford University Press</publisher-name>, <publisher-loc>Oxford</publisher-loc>, <size units="page">210 pp</size>. </mixed-citation></ref>
+            <ref id="B23"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Kutsukake</surname> <given-names>N</given-names></name></person-group> (<year>2009</year>) <article-title>Complexity, dynamics and diversity of sociality in group-living mammals.</article-title> <source>Ecological Research</source> <volume>24</volume>: <fpage>521</fpage>–<lpage>531</lpage>. doi: <ext-link ext-link-type="doi" xlink:href="10.1007/s11284-008-0563-4">10.1007/s11284-008-0563-4</ext-link> </mixed-citation></ref>
+            <ref id="B24"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Le Goff</surname> <given-names>G</given-names></name><name name-style="western"><surname>Mailleux</surname> <given-names>AC</given-names></name><name name-style="western"><surname>Detrain</surname> <given-names>C</given-names></name><name name-style="western"><surname>Deneubourg</surname> <given-names>JL</given-names></name><name name-style="western"><surname>Clotuche</surname> <given-names>G</given-names></name><name name-style="western"><surname>Hance</surname> <given-names>T</given-names></name></person-group> (<year>2009</year>) <article-title>Spatial distribution and inbreeding in <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Tetranychus</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">urticae</tp:taxon-name-part></tp:taxon-name></italic>.</article-title> <source>Comptes Rendus Biologies</source> <volume>332</volume>: <fpage>927</fpage>–<lpage>933</lpage>. doi: <ext-link ext-link-type="doi" xlink:href="10.1016/j.crvi.2009.06.002">10.1016/j.crvi.2009.06.002</ext-link> </mixed-citation></ref>
+            <ref id="B25"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Miller</surname> <given-names>KE</given-names></name><name name-style="western"><surname>Dietz</surname> <given-names>JM</given-names></name></person-group> (<year>2006</year>) <article-title>Effects of Individual and Group Characteristics on Feeding Behaviors in Wild <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Leontopithecus</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">rosalia</tp:taxon-name-part></tp:taxon-name></italic>.</article-title> <source>International Journal of Primatology</source> <volume>26</volume>: <fpage>1291</fpage>–<lpage>1319</lpage>. doi: <ext-link ext-link-type="doi" xlink:href="10.1007/s10764-005-8854-7">10.1007/s10764-005-8854-7</ext-link> </mixed-citation></ref>
+            <ref id="B26"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Ohl</surname> <given-names>F</given-names></name><name name-style="western"><surname>Putman</surname> <given-names>RJ</given-names></name></person-group> (<year>2014</year>) <article-title>Animal Welfare at the Group Level: More Than the Sum of Individual Welfare?</article-title> <source>Acta Biotheoretica</source> <volume>62</volume>: <fpage>35</fpage>–<lpage>45</lpage>. doi: <ext-link ext-link-type="doi" xlink:href="10.1007/s10441-013-9205-5">10.1007/s10441-013-9205-5</ext-link> </mixed-citation></ref>
+            <ref id="B27"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Parrish</surname> <given-names>J</given-names></name><name name-style="western"><surname>Edelstein-Keshet</surname> <given-names>L</given-names></name></person-group> (<year>2000</year>) <article-title>Response to “benefits of membership”.</article-title> <source>Science</source> <volume>287</volume>: <fpage>804</fpage>–<lpage>805</lpage>. </mixed-citation></ref>
+            <ref id="B28"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Parrish</surname> <given-names>JK</given-names></name><name name-style="western"><surname>Edelstein-Keshet</surname> <given-names>L</given-names></name></person-group> (<year>1999</year>) <article-title>Complexity, pattern, and evolutionary trade-offs in animal aggregation.</article-title> <source>Science</source> <volume>284</volume>: <fpage>99</fpage>–<lpage>101</lpage>. doi: <ext-link ext-link-type="doi" xlink:href="10.1126/science.284.5411.99">10.1126/science.284.5411.99</ext-link> </mixed-citation></ref>
+            <ref id="B29"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Parrish</surname> <given-names>JK</given-names></name><name name-style="western"><surname>Hamner</surname> <given-names>WM</given-names></name></person-group> (<year>1997</year>) <source>Animals Groups in Three Dimensions</source>. <publisher-name>Cambridge University Press</publisher-name>, <size units="page">378 pp</size>. doi: <ext-link ext-link-type="doi" xlink:href="10.1017/CBO9780511601156">10.1017/CBO9780511601156</ext-link> </mixed-citation></ref>
+            <ref id="B30"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Planas-Sitja</surname> <given-names>I</given-names></name><name name-style="western"><surname>Deneubourg</surname> <given-names>JL</given-names></name><name name-style="western"><surname>Gibon</surname> <given-names>C</given-names></name><name name-style="western"><surname>Sempo</surname> <given-names>G</given-names></name></person-group> (<year>2015</year>) <article-title>Group personality during collective decision-making: a multi-level approach.</article-title> <source>Proceedings of The Royal Society</source> <volume>282</volume>. doi: <ext-link ext-link-type="doi" xlink:href="10.1098/rspb.2014.2515">10.1098/rspb.2014.2515</ext-link> </mixed-citation></ref>
+            <ref id="B31"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Schellinck</surname> <given-names>J</given-names></name><name name-style="western"><surname>White</surname> <given-names>T</given-names></name></person-group> (<year>2011</year>) <article-title>A review of attraction and repulsion models of aggregation: Methods, findings and a discussion of model validation.</article-title> <source>Ecological Modelling</source> <volume>222</volume>: <fpage>1897</fpage>–<lpage>1911</lpage>. doi: <ext-link ext-link-type="doi" xlink:href="10.1016/j.ecolmodel.2011.03.013">10.1016/j.ecolmodel.2011.03.013</ext-link> </mixed-citation></ref>
+            <ref id="B32"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Soria</surname> <given-names>M</given-names></name><name name-style="western"><surname>Bahri</surname> <given-names>T</given-names></name><name name-style="western"><surname>Gerlotto</surname> <given-names>F</given-names></name></person-group> (<year>2003</year>) <article-title>Effect of external factors (environment and survey vessel) on fish school characteristics observed by echosounder and multibeam sonar in the mediterranean sea.</article-title> <source>Aquatic Living Resources</source> <volume>16</volume>: <fpage>145</fpage>–<lpage>157</lpage>. doi: <ext-link ext-link-type="doi" xlink:href="10.1016/S0990-7440(03)00025-1">10.1016/S0990-7440(03)00025-1</ext-link> </mixed-citation></ref>
+            <ref id="B33"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Spieler</surname> <given-names>M</given-names></name></person-group> (<year>2003</year>) <article-title>Risk of predation affects aggregation size: a study with tadpoles of <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Phrynomantis</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">microps</tp:taxon-name-part></tp:taxon-name></italic> (anura: <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Microhylidae</tp:taxon-name-part></tp:taxon-name>).</article-title> <source>Animal Behaviour</source> <volume>65</volume>: <fpage>179</fpage>–<lpage>184</lpage>. doi: <ext-link ext-link-type="doi" xlink:href="10.1006/anbe.2002.2030">10.1006/anbe.2002.2030</ext-link> </mixed-citation></ref>
+            <ref id="B34"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Stacey</surname> <given-names>P</given-names></name></person-group> (<year>1986</year>) <article-title>Group size and foraging efficiency in yellow baboons.</article-title> <source>Behavioral Ecology and Sociobiology</source> <volume>18</volume>: <fpage>175</fpage>–<lpage>187</lpage>. doi: <ext-link ext-link-type="doi" xlink:href="10.1007/bf00290821">10.1007/bf00290821</ext-link> </mixed-citation></ref>
+            <ref id="B35"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Sumpter</surname> <given-names>DJ</given-names></name><name name-style="western"><surname>Pratt</surname> <given-names>SC</given-names></name></person-group> (<year>2009</year>) <article-title>Quorum responses and consensus decision making.</article-title> <source>Proceedings of the Royal Society B</source> <volume>364</volume>: <fpage>743</fpage>–<lpage>753</lpage>. doi: <ext-link ext-link-type="doi" xlink:href="10.1098/rstb.2008.0204">10.1098/rstb.2008.0204</ext-link> </mixed-citation></ref>
+            <ref id="B36"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Yoshida</surname> <given-names>T</given-names></name><name name-style="western"><surname>Akagi</surname> <given-names>K</given-names></name><name name-style="western"><surname>Toda</surname> <given-names>T</given-names></name><name name-style="western"><surname>Kushairi</surname> <given-names>MMR</given-names></name><name name-style="western"><surname>Kee</surname> <given-names>AAA</given-names></name><name name-style="western"><surname>Othman</surname> <given-names>BHR</given-names></name></person-group> (<year>2010</year>) <article-title>Evaluation of fish behaviour and aggregation by underwater videography in an artificial reef in Tioman island, Malaysia.</article-title> <source>Sains Malaysiana</source> <volume>39</volume>: <fpage>395</fpage>–<lpage>403</lpage>. </mixed-citation></ref>
+            <!--PageBreak-->
+            <ref id="B37"><mixed-citation xlink:type="simple"><person-group><name name-style="western"><surname>Zoratto</surname> <given-names>F</given-names></name><name name-style="western"><surname>Santucci</surname> <given-names>D</given-names></name><name name-style="western"><surname>Alleva</surname> <given-names>E</given-names></name></person-group> (<year>2009</year>) <article-title>Theories commonly adopted to explain the antipredatory benefits of the group life: the case of starling (<italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Sturnus</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">vulgaris</tp:taxon-name-part></tp:taxon-name></italic>).</article-title> <source>Rendiconti Lincei</source> <volume>20</volume>: <fpage>163</fpage>–<lpage>176</lpage>. doi: <ext-link ext-link-type="doi" xlink:href="10.1007/s12210-009-0042-z">10.1007/s12210-009-0042-z</ext-link></mixed-citation></ref>
+        </ref-list>
+    </back>
+</article>

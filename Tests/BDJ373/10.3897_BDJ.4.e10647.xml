@@ -1,0 +1,1207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//TaxonX//DTD Taxonomic Treatment Publishing DTD v0 20100105//EN" "../../nlm/tax-treatment-NS0.dtd">
+<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tp="http://www.plazi.org/taxpub" article-type="research-article">
+  <front>
+    <journal-meta>
+      <journal-id journal-id-type="pmc">Biodiversity Data Journal</journal-id>
+      <journal-id journal-id-type="publisher-id">Biodiversity Data Journal</journal-id>
+      <journal-title-group>
+        <journal-title xml:lang="en">Biodiversity Data Journal</journal-title>
+        <abbrev-journal-title xml:lang="en">BDJ</abbrev-journal-title>
+      </journal-title-group>
+      <issn pub-type="ppub">1314-2836</issn>
+      <issn pub-type="epub">1314-2828</issn>
+      <publisher>
+        <publisher-name>Pensoft Publishers</publisher-name>
+      </publisher>
+    </journal-meta>
+    <article-meta>
+      <article-id pub-id-type="publisher-id">Biodiversity Data Journal</article-id>
+      <article-id pub-id-type="doi">10.3897/BDJ.4.e10647</article-id>
+      <article-id pub-id-type="other">6126</article-id>
+      <article-categories>
+        <subj-group subj-group-type="heading">
+          <subject>Research Article</subject>
+        </subj-group>
+      </article-categories>
+      <title-group>
+        <article-title>Metabarcoding of marine nematodes – evaluation of similarity scores used in alignment-based taxonomy assignment approach</article-title>
+      </title-group>
+      <contrib-group content-type="authors">
+        <contrib contrib-type="author" corresp="yes">
+          <name name-style="western">
+            <surname>Holovachov</surname>
+            <given-names>Oleksandr</given-names>
+          </name>
+          <email xlink:type="simple">oleksandr.holovachov@nrm.se</email>
+          <xref ref-type="aff" rid="A1">‡</xref>
+        </contrib>
+      </contrib-group>
+      <aff id="A1">
+        <label>‡</label>
+        <addr-line>Swedish Museum of Natural History, Stockholm, Sweden</addr-line>
+      </aff>
+      <author-notes>
+        <fn fn-type="corresp">
+          <p>Corresponding author: Oleksandr Holovachov (<email xlink:type="simple">oleksandr.holovachov@nrm.se</email>).</p>
+        </fn>
+        <fn fn-type="edited-by">
+          <p>Academic editor: Vlada Peneva</p>
+        </fn>
+      </author-notes>
+      <pub-date pub-type="collection">
+        <year>2016</year>
+      </pub-date>
+      <pub-date pub-type="epub">
+        <day>15</day>
+        <month>11</month>
+        <year>2016</year>
+      </pub-date>
+      <issue>4</issue>
+      <elocation-id>e10647</elocation-id>
+      <history>
+        <date date-type="received">
+          <day>26</day>
+          <month>09</month>
+          <year>2016</year>
+        </date>
+        <date date-type="accepted">
+          <day>11</day>
+          <month>11</month>
+          <year>2016</year>
+        </date>
+      </history>
+      <permissions>
+        <copyright-statement>Oleksandr Holovachov</copyright-statement>
+        <license license-type="creative-commons-attribution" xlink:href="http://creativecommons.org/licenses/by/4.0" xlink:type="simple">
+          <license-p>This is an open access article distributed under the terms of the Creative Commons Attribution License 4.0 (CC-BY), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.</license-p>
+        </license>
+      </permissions>
+      <abstract>
+        <label>Abstract</label>
+        <sec sec-type="background">
+          <title>Background</title>
+          <p>The diversity of organisms is being commonly accessed using metabarcoding of environmental samples. Reliable identification of barcodes is one of the critical steps in the process and several taxonomy assignment methods were proposed to accomplish this task, including alignment-based approach that uses Basic Local Alignment Search Tool (BLAST) algorithm. This publication evaluates the variability of 5' end of 18S rRNA barcoding region as expressed by similarity scores (alignment score and identity score) produced by BLAST, and its impact on barcode identification to family-level taxonomic categories.</p>
+        </sec>
+        <sec sec-type="new information">
+          <title>New information</title>
+          <p>In alignment-based taxonomy assignment approach, reliable identification of anonymous OTUs to supraspecific taxa depends on the correct application of similarity thresholds. Since various taxa show different level of genetic variation, practical application of alignment-based approach requires the determination and use of taxon-specific similarity thresholds.</p>
+        </sec>
+      </abstract>
+      <kwd-group>
+        <label>Keywords</label>
+        <kwd>
+          <tp:taxon-name>
+            <tp:taxon-name-part taxon-name-part-type="phylum">Nematoda</tp:taxon-name-part>
+          </tp:taxon-name>
+        </kwd>
+        <kwd>metabarcoding</kwd>
+        <kwd>BLAST</kwd>
+        <kwd>taxonomy assignment</kwd>
+        <kwd>18S rRNA</kwd>
+        <kwd>OTU</kwd>
+        <kwd>alignment-based approach.</kwd>
+      </kwd-group>
+      <counts>
+        <fig-count count="2"/>
+        <table-count count="0"/>
+        <ref-count count="24"/>
+      </counts>
+    </article-meta>
+  </front>
+  <body>
+    <sec sec-type="Introduction">
+      <title>Introduction</title>
+      <p>Identification of anonymous barcodes clustered in Operational Taxonomic Units (OTUs) is one of the critical steps in metabarcoding studies of living organisms. It can be accomplished via several taxonomy-assignment tools belonging to four different categories: alignment-based, probabilistic, tree-based and phylogeny-based (Holovachov et al., unpublished). Alignment-based approach uses Basic Local Alignment Search Tool (BLAST, <xref ref-type="bibr" rid="B3373020">Altschul et al. 1990</xref>) algorithm implemented via NCBI server or as part of standalone software packages such as QIIME (<xref ref-type="bibr" rid="B3373903">Caporaso et al. 2010</xref>), LCAClassifier (<xref ref-type="bibr" rid="B3374134">Lanzén et al. 2012</xref>) or Taxonerator (<xref ref-type="bibr" rid="B3373893">Jones et al. 2011</xref>). The taxonomic placement of OTUs is based on whether the identity score (<xref ref-type="bibr" rid="B3374058">Bik et al. 2011</xref>, <xref ref-type="bibr" rid="B3373993">Bik et al. 2012</xref>, <xref ref-type="bibr" rid="B3374019">Creer et al. 2010</xref>, <xref ref-type="bibr" rid="B3373850">Fonseca et al. 2010</xref>, <xref ref-type="bibr" rid="B3374003">Fonseca et al. 2014</xref>, <xref ref-type="bibr" rid="B3373979">Gibson et al. 2015</xref>) or e-value (<xref ref-type="bibr" rid="B3373867">Sinniger et al. 2016</xref>) is above or below the predetermined similarity threshold. Overlap range between barcode and reference sequences can also be considered (<xref ref-type="bibr" rid="B3373979">Gibson et al. 2015</xref>). 90% cutoff for the identity score is most commonly used to assign taxonomy to anonymous OTUs using alignment-based approach with BLAST (<xref ref-type="bibr" rid="B3374058">Bik et al. 2011</xref>, <xref ref-type="bibr" rid="B3373993">Bik et al. 2012</xref>, <xref ref-type="bibr" rid="B3373827">Cowart et al. 2015</xref>, <xref ref-type="bibr" rid="B3374019">Creer et al. 2010</xref>, <xref ref-type="bibr" rid="B3373850">Fonseca et al. 2010</xref>, <xref ref-type="bibr" rid="B3374003">Fonseca et al. 2014</xref>) – OTUs having lower identity score are treated as unidentified, OTUs having higher identity score are identified to respective phyla. It is, however, not always clearly specified as to why OTUs with identity score lower than 90% are considered unidentifiable, and why identified OTUs (those that receive &gt;90% identity score with reference sequence) are assigned only to the level of the phyla.</p>
+      <p>Recent publication describing Classification Resources for Environmental Sequence Tags (CREST, <xref ref-type="bibr" rid="B3374134">Lanzén et al. 2012</xref>) uses following similarity cutoffs to identify anonymous OTUs with LCAClassifier implementation of Megablast: 97% identity for genera, 95% for families, 90% for orders, 85% for classes and 80% for phyla. CREST reference databases include both Pocaryotic and Eucaryotic sequences, but similarity thresholds are based on the procaryotic 16S rRNA analysis of <xref ref-type="bibr" rid="B3374188">Cole et al. (2010)</xref>, which defines 99% identity equal to species, 96.5% – genera, 90% – families, and 84% as equivalent to orders (or 1%, 3.5%, 10% and 16% difference per position) based on single linkage clustering. Another publication (<xref ref-type="bibr" rid="B3374205">Giongo et al. 2010</xref>) defines 99% sequence identity as equivalent to species, 95% – genera, 90% – classes/orders/families, and 80% – phyla, based on publications by <xref ref-type="bibr" rid="B3374671">Hong et al. (2005)</xref>, <xref ref-type="bibr" rid="B3374661">Schloss and Handelsman (2004)</xref>.</p>
+      <p>Barcoding regions are comparatively short and intentionally defined to include hypervariable domains, while the above mentioned rRNA similarity measures are based on comparison of full length sequences that also include highly conserved regions. Thus, similarity measures based on complete genes may or may not reflect variability of the barcoding regions. Moreover, variability of rRNA can be very different in closely related taxa (see the comparison of the families <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Cephalobidae</tp:taxon-name-part></tp:taxon-name> and <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Panagrolaimidae</tp:taxon-name-part></tp:taxon-name> below). Published similarity measures (<xref ref-type="bibr" rid="B3374188">Cole et al. 2010</xref>, <xref ref-type="bibr" rid="B3374671">Hong et al. 2005</xref>, <xref ref-type="bibr" rid="B3374661">Schloss and Handelsman 2004</xref>) themselves are based on distance calculations, and not on BLAST-derived scores. Therefore, similarity thresholds used in identification of metabarcodes need to be reevaluated and, if necessary, adjusted, using actual BLAST-based comparison of identity scores of the barcoding region for individual taxa. There is another issue that, to my knowledge, has not been specifically considered. While identifying own metabarcoding dataset (Haenel et al., in press, Holovachov et al., in press) I found that large number of reference sequences do not have complete overlap with the barcoding region of the 18S rDNA gene commony used for nematodes and other meiofauna (<xref ref-type="bibr" rid="B3416103">Holovachov 2016</xref>), and it is not clear how much impact does it have on the efficiency of the identification. Thus, the goal of this paper is to evaluate identity scores between barcode-sized sequences and reference dataset (often without 100% overlap) produced by BLAST search algorithm, and describe variability of these scores for species grouped in family-level taxonomic categories, as justified elsewhere (Holovachov et al. in press).</p>
+    </sec>
+    <sec sec-type="Materials and Methods">
+      <title>Materials and Methods</title>
+      <sec sec-type="1. Sequence data">
+        <title>1. Sequence data</title>
+        <p>SILVA database (<xref ref-type="bibr" rid="B3373813">Quast et al. 2012</xref>) is regularly used in metabarcoding studies to create reference dataset (<xref ref-type="bibr" rid="B3373827">Cowart et al. 2015</xref>, <xref ref-type="bibr" rid="B3374134">Lanzén et al. 2012</xref>, <xref ref-type="bibr" rid="B3374047">Lindeque et al. 2013</xref>, Haenel et al. in press). The entire <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="phylum">Nematoda</tp:taxon-name-part></tp:taxon-name> alignment of it was downloaded on December of 2015. At the first step, all sequences were manually checked in order to remove animal parasitic and exclusively terrestrial nematode species, sequences already known to be incorrectly identified, unidentified sequences (environmental sequences), and non-nematode sequences placed within <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="phylum">Nematoda</tp:taxon-name-part></tp:taxon-name> (see <xref ref-type="bibr" rid="B3416103">Holovachov 2016</xref>). The alignment was trimmed to the size of the barcoding region (see section 2 of Materials and Methods), only sequences that had 100% coverage with the barcoding region were retained for the comparison. All sequences (identified to species or genus level) from the following five predominantly marine nematode families were used in this study: <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Desmodoridae</tp:taxon-name-part></tp:taxon-name> (represented by 21 taxa), <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Chromadoridae</tp:taxon-name-part></tp:taxon-name> (30 taxa), <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Comesomatidae</tp:taxon-name-part></tp:taxon-name> (12 taxa), <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Monhysteridae</tp:taxon-name-part></tp:taxon-name> (21 taxa), <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Xyalidae</tp:taxon-name-part></tp:taxon-name> (14 taxa) (Suppl. material <xref ref-type="supplementary-material" rid="S3373160">1</xref>). Two terrestrial families, <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Cephalobidae</tp:taxon-name-part></tp:taxon-name> (represented by 16 taxa) and <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Panagrolaimidae</tp:taxon-name-part></tp:taxon-name> (18 taxa), were also included for comparison (Suppl. material <xref ref-type="supplementary-material" rid="S3373160">1</xref>).</p>
+      </sec>
+      <sec sec-type="2. Barcoding region">
+        <title>2. Barcoding region</title>
+        <p>This publication evaluates the variability of the barcoding region of the 18S rRNA gene that includes V1 and V2 variable regions (<xref ref-type="bibr" rid="B3416103">Holovachov 2016</xref>) and is used in barcoding and metabarcoding studies of nematodes in particular (<xref ref-type="bibr" rid="B3373840">Floyd et al. 2002</xref>) and of marine meiofauna in general (<xref ref-type="bibr" rid="B3374003">Fonseca et al. 2014</xref>, <xref ref-type="bibr" rid="B3373850">Fonseca et al. 2010</xref>, <xref ref-type="bibr" rid="B3374036">Mohrbeck et al. 2015</xref>, <xref ref-type="bibr" rid="B3373867">Sinniger et al. 2016</xref>, Haenel et al. in press, Holovachov et al., in press).</p>
+      </sec>
+      <sec sec-type="3. Analysis">
+        <title>3. Analysis</title>
+        <p>Every barcode-size sequence was manually compared with reference sequences available in the Nucleotide collection (excluding uncultured/environmental sample sequences) of the <ext-link ext-link-type="uri" xlink:href="https://blast.ncbi.nlm.nih.gov/Blast.cgi">NCBI database</ext-link> using BLASTN 2.5.0 search algorithm (<xref ref-type="bibr" rid="B3398217">Madden 2002</xref>). Two separate comparisons were done: in the first case all results were sorted by maximum score; in the second case only the results that produced 100% query cover were considered. Following three records were noted:</p>
+        <list list-type="order">
+          <list-item>
+            <p><italic>Identity score</italic> received by the <italic>nearest ingroup taxon</italic> (sequence from the same family), i.e., the closest scoring match from the same family that is not the same sequence;</p>
+          </list-item>
+          <list-item>
+            <p><italic>Identity score</italic> received by the <italic>furthest ingroup taxon</italic> before the first outgroup taxon (sequence from the different family), i.e., the furthest scoring match from the same family immediately preceding the closest scoring match that belongs to a different family;</p>
+          </list-item>
+          <list-item>
+            <p><italic>Identity score</italic> received by the <italic>nearest outgroup taxon</italic> (sequence from the different family), i.e., the closest scoring match from a different family.</p>
+          </list-item>
+        </list>
+        <p>Standard statistical measures (minimum, maximum, averade and standard deviation) were calculated for alignment score, identity score and coverage when appropriate (Suppl. materials <xref ref-type="supplementary-material" rid="S3373616">2</xref>, <xref ref-type="supplementary-material" rid="S3373617">3</xref>) and used for comparison below. Certain sequences were ignored during sorting, these include unidentified sequences, environmental and uncultured sequences that were not automatically excluded during BLAST search, and two misidentified sequences (<ext-link ext-link-type="uri" xlink:href="http://www.ncbi.nlm.nih.gov/nuccore/GQ503078">GQ503078</ext-link> <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Monhystera</tp:taxon-name-part></tp:taxon-name></italic> sp. and <ext-link ext-link-type="uri" xlink:href="http://www.ncbi.nlm.nih.gov/nuccore/KJ636248">KJ636248</ext-link> <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Mononchus</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">aquaticus</tp:taxon-name-part></tp:taxon-name></italic>).</p>
+      </sec>
+    </sec>
+    <sec sec-type="Results">
+      <title>Results</title>
+      <sec sec-type="1. Variable coverage">
+        <title>1. Variable coverage</title>
+        <p>The results of BLAST searches are summarized in Suppl. material <xref ref-type="supplementary-material" rid="S3373616">2</xref>. The lowest identity scores for the nearest ingroup taxon varied considerably in marine families, from 98% in the family <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Comesomatidae</tp:taxon-name-part></tp:taxon-name> to 91% in the family <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Monhysteridae</tp:taxon-name-part></tp:taxon-name>, while average values were more consistent across families (97.8-99.3%). This alone shows that 95% similarity threshold used to define families in LCAClassifier of CREST (<xref ref-type="bibr" rid="B3374134">Lanzén et al. 2012</xref>) may in some cases be too strict and may exclude potentially identifiable sequences.</p>
+        <p>Identity scores for the furthest ingroup taxon and nearest outgroup taxon also varied considerably between different families (Fig. <xref ref-type="fig" rid="F3372863">1</xref>, Suppl. material <xref ref-type="supplementary-material" rid="S3373616">2</xref>). Furthest ingroup taxon for the families <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Desmodoridae</tp:taxon-name-part></tp:taxon-name> and <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Comesomatidae</tp:taxon-name-part></tp:taxon-name> showed relatively narrow range, 93-96% identity score to query sequence, while same scores for the families <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Chromadoridae</tp:taxon-name-part></tp:taxon-name>, <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Monhysteridae</tp:taxon-name-part></tp:taxon-name> and <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Xyalidae</tp:taxon-name-part></tp:taxon-name> varied between 81-86% (lowest) and 95-98% (highest). Identity scores for the nearest outgroup taxon were also variable, with the highest 93-96% in <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Desmodoridae</tp:taxon-name-part></tp:taxon-name> and the lowest 81-91% in <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Chromadoridae</tp:taxon-name-part></tp:taxon-name>. For comparison, in the family <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Cephalobidae</tp:taxon-name-part></tp:taxon-name> identity scores for the furthest ingroup taxon range within 96-98% and for the nearest outgroup taxon – within 95-99%. Same values in the family <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Panagrolaimidae</tp:taxon-name-part></tp:taxon-name> are 79-99% (furthest ingroup taxon) and 73-95% (nearest outgroup taxon). What is more important is that ranges of identity scores for furthest ingroup taxon and nearest outgroup taxon showed considerable overlap for all compared families (marine and terrestrial) except for the family <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Comesomatidae</tp:taxon-name-part></tp:taxon-name> (Fig. <xref ref-type="fig" rid="F3372863">1</xref>).</p>
+        <p>These two terrestrial families purposely chosen for comparison also present two specific challenges that were not seen in marine families. For example, in the family <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Cephalobidae</tp:taxon-name-part></tp:taxon-name> in many cases the nearest outgroup taxon with lesser coverage of 94% would receive higher identity score (98-99% identity) than the furthest ingroup taxon with 100% coverage (96-97% identity). The family <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Panagrolaimidae</tp:taxon-name-part></tp:taxon-name> presented a different challenge – all compared barcodes of the genus <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Halicephalobus</tp:taxon-name-part></tp:taxon-name></italic> received very low sequence coverage with the furthest ingroup (32%) and nearest outgroup (17-27%) taxa, and found no outgroup sequences with 100% coverage, even though many sequences in the reference database have full overlap with them. This can indicate that BLAST algorithm has difficulties aligning highly modified sequences of <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Halicephalobus</tp:taxon-name-part></tp:taxon-name></italic>.</p>
+      </sec>
+      <sec sec-type="2. 100% Coverage">
+        <title>2. 100% Coverage</title>
+        <p>The results of BLAST searches are summarized in Suppl. material <xref ref-type="supplementary-material" rid="S3373617">3</xref>. The lowest identity scores for the nearest ingroup taxon varied considerably in marine families, from 98% in the family <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Comesomatidae</tp:taxon-name-part></tp:taxon-name> to 86% in the family <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Chromadoridae</tp:taxon-name-part></tp:taxon-name>, while average values were more consistent across families (97.0-99.2%) and very similar to the results described in the previous section (Results 1. Variable coverage).</p>
+        <p>Identity scores for the furthest ingroup taxon and nearest outgroup taxon again showed considerable variation between different families (Fig. <xref ref-type="fig" rid="F3372865">2</xref>, Suppl. material <xref ref-type="supplementary-material" rid="S3373617">3</xref>). Furthest ingroup taxon for the family <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Desmodoridae</tp:taxon-name-part></tp:taxon-name> showed relatively narrow range, 93-96% identity score to query sequence. For the remaining five families the same scores varied between 80-93% (lowest) and 92-100% (highest). 100% identity scores for the furthest ingroup taxon were noted in several cases and were caused by limited number of reference taxa that had 100% coverage with query sequence. Identity scores for the nearest outgroup taxon were also variable, with the highest 92-96% in <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Desmodoridae</tp:taxon-name-part></tp:taxon-name> and the lowest 80-91% in <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Chromadoridae</tp:taxon-name-part></tp:taxon-name>. For comparison, in the family <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Cephalobidae</tp:taxon-name-part></tp:taxon-name> identity scores for the furthest ingroup taxon range within 96-98% and for the nearest outgroup taxon – within 95-97%. Same values in the family <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Panagrolaimidae</tp:taxon-name-part></tp:taxon-name> are 79-99% (furthest ingroup taxon) and 78-95% (nearest outgroup taxon). Similarly to the preceding comparison (Results 1. Variable coverage) the ranges of identity scores for furthest ingroup taxon and nearest outgroup taxon showed considerable overlap for all families (marine and terrestrial) except for the family <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Comesomatidae</tp:taxon-name-part></tp:taxon-name> (Fig. <xref ref-type="fig" rid="F3372865">2</xref>).</p>
+        <p>Limiting searches to sequences with 100% overlap affected two specific issues with the families <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Cephalobidae</tp:taxon-name-part></tp:taxon-name> and <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Panagrolaimidae</tp:taxon-name-part></tp:taxon-name> described above (Results 1. Variable coverage). In the family <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Cephalobidae</tp:taxon-name-part></tp:taxon-name> the nearest outgroup taxon no longer have higher identity score than the furthest ingroup taxon (for same query sequence), making identifiication more reliable. In the case of the family <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Panagrolaimidae</tp:taxon-name-part></tp:taxon-name>, limiting searches to sequences with 100% overlap produced no nearest outgroup hits for the genus <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Halicephalobus</tp:taxon-name-part></tp:taxon-name></italic>.</p>
+      </sec>
+    </sec>
+    <sec sec-type="Discussion">
+      <title>Discussion</title>
+      <sec sec-type="Similarity thresholds">
+        <title>Similarity thresholds</title>
+        <p>Only in one out of five analyzed families of marine nematodes, there was no overlap in ranges of identity scores between furthest ingroup taxon and nearest outgroup taxon. Remaining four marine and two terrestrial families showed considerable overlap between both values (identity score of the furthest ingroup taxon and identity score of the nearest outgroup taxon). Moreover, both values showed substantially different variability ranges and average values depending on the taxon in-question. It suggests that universal similarity thresholds applied to nematodes need to be used with great caution.</p>
+        <p>Even considering only highest scoring hits of the BLAST searches for alignment-based identification of OTUs should be done with great care. Due to scarcity of nematode reference dataset, many highest scoring hits have very low identity scores, especially in case when only 100% overlapping sequences are considered. In this analysis, nearest ingroup scores for some sequences from the family <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Chromadoridae</tp:taxon-name-part></tp:taxon-name> were as low as 86%, thus using 95% or even 90% similarity threshold to assign anonymous OTUs to families will treat such cases unidentifiable. This problem can not be solved by broadening similarity cutoffs, as it will increase incorrect taxon assignment for all families, but only by filling in the gaps in the reference databases by specifically targeting those species and genera for which no sequence data is available.</p>
+      </sec>
+      <sec sec-type="Impact of sequence coverage">
+        <title>Impact of sequence coverage</title>
+        <p>Level of overlap between query and reference sequence has certain impact on identity scores in particular and on the identification process in general. While performing BLAST searches, I noticed numerous cases when outgorup taxa with lower coverage received higher identity scores than ingroup taxa with more complete coverage. On the other hand, limiting BLAST searches to sequences with only 100% coverage effectively limits the range of reference taxa to compare with – as already described in <xref ref-type="bibr" rid="B3416103">Holovachov (2016)</xref>, large number of nematode sequences in GenBank are missing a substantial section from the 5' end of this particular barcoding region of rRNA gene.</p>
+      </sec>
+      <sec sec-type="Problematic sequences">
+        <title>Problematic sequences</title>
+        <p>Presence of erroneous sequences in reference databases and its impact on identification of anonymous OTUs had been extensively discussed and illustrated (<xref ref-type="bibr" rid="B3373952">Blaxter et al. 2016</xref>, <xref ref-type="bibr" rid="B3373939">Schnell et al. 2015</xref>). In addition to several erroneous sequences discussed previously (<xref ref-type="bibr" rid="B3416103">Holovachov 2016</xref>), two more incorrectly identified sequences were found during blast searches: <ext-link ext-link-type="uri" xlink:href="http://www.ncbi.nlm.nih.gov/nuccore/GQ503078">GQ503078</ext-link> <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Monhystera</tp:taxon-name-part></tp:taxon-name></italic> sp. groups within the family <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Xyalidae</tp:taxon-name-part></tp:taxon-name> instead of the family <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Monhysteridae</tp:taxon-name-part></tp:taxon-name>, while <ext-link ext-link-type="uri" xlink:href="http://www.ncbi.nlm.nih.gov/nuccore/KJ636248">KJ636248</ext-link> <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Mononchus</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">aquaticus</tp:taxon-name-part></tp:taxon-name></italic> groups within the family <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Monhysteridae</tp:taxon-name-part></tp:taxon-name> instead of the family <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Mononchidae</tp:taxon-name-part></tp:taxon-name>.</p>
+      </sec>
+    </sec>
+    <sec sec-type="Conclusions">
+      <title>Conclusions</title>
+      <p>The diversity of nematodes is seriously underrepresented in reference databases used for identification of anonymous barcodes (OTUs). When using alignment-based taxonomy assignment tools to identify nematode OTUs, it is important to know both (1) the lowest similarity thresholds that can be confidently applied to assign OTUs to supraspecific taxa, in order to maximize the efficiency of identification; and (2) the highest similarity thresholds that can ensure minimum number of mis-assigned OTUs.</p>
+      <p>Targeted sequencing of reference taxa from underrepresented nematode families is expected to improve the efficiency of alignment-based taxonomy assignment approach. Two groups of taxa should be specifically considered: (1) those species that are completely missing from the reference databases, and (2) those species, which sequences (already available in reference databases) do not have full coverage with the barcoding region used in metabarcoding studies.</p>
+      <p>It is also important to understand that universal similarity thresholds can only be applied with great caution, that taxon-specific similarity thresholds may be more effective to use, and that other taxonomy assignment methods may be more reliable for a particular dataset (Holovachov et al., in press).</p>
+    </sec>
+  </body>
+  <back>
+    <ref-list>
+      <title>References</title>
+      <ref id="B3373020">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Altschul</surname>
+              <given-names>S F</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Gish</surname>
+              <given-names>W</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Miller</surname>
+              <given-names>W</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Myers</surname>
+              <given-names>E W</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Lipman</surname>
+              <given-names>D J</given-names>
+            </name>
+          </person-group>
+          <year>1990</year>
+          <article-title>Basic local alignment search tool.</article-title>
+          <source>Journal of molecular biology</source>
+          <volume>215</volume>
+          <fpage>403</fpage>
+          <lpage>410</lpage>
+          <uri>http://dx.doi.org/10.1016/S0022-2836(05)80360-2</uri>
+          <pub-id pub-id-type="doi">10.1016/S0022-2836(05)80360-2</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B3373993">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Bik</surname>
+              <given-names>Holly M.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Halanych</surname>
+              <given-names>Kenneth M.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Sharma</surname>
+              <given-names>Jyotsna</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Thomas</surname>
+              <given-names>W. Kelley</given-names>
+            </name>
+          </person-group>
+          <year>2012</year>
+          <article-title>Dramatic Shifts in Benthic Microbial Eukaryote Communities following the Deepwater Horizon Oil Spill</article-title>
+          <source>PLoS ONE</source>
+          <volume>7</volume>
+          <fpage>e38550</fpage>
+          <uri>http://dx.doi.org/10.1371/journal.pone.0038550</uri>
+          <pub-id pub-id-type="doi">10.1371/journal.pone.0038550</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B3374058">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Bik</surname>
+              <given-names>H. M.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Sung</surname>
+              <given-names>W.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>De Ley</surname>
+              <given-names>P.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Baldwin</surname>
+              <given-names>J. G.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Sharma</surname>
+              <given-names>J.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Rocha-Olivares</surname>
+              <given-names>A.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Thomas</surname>
+              <given-names>W. K.</given-names>
+            </name>
+          </person-group>
+          <year>2011</year>
+          <article-title>Metagenetic community analysis of microbial eukaryotes illuminates biogeographic patterns in deep-sea and shallow water sediments</article-title>
+          <source>Molecular Ecology</source>
+          <volume>21</volume>
+          <fpage>1048</fpage>
+          <lpage>1059</lpage>
+          <uri>http://dx.doi.org/10.1111/j.1365-294x.2011.05297.x</uri>
+          <pub-id pub-id-type="doi">10.1111/j.1365-294x.2011.05297.x</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B3373952">
+        <element-citation publication-type="chapter">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Blaxter</surname>
+              <given-names>M.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Koutsovoulos</surname>
+              <given-names>G.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Jones</surname>
+              <given-names>M.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Kumar</surname>
+              <given-names>S.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Elsworth</surname>
+              <given-names>B.</given-names>
+            </name>
+          </person-group>
+          <year>2016</year>
+          <chapter-title>Phylogenomics of <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="phylum">Nematoda</tp:taxon-name-part></tp:taxon-name></chapter-title>
+          <person-group person-group-type="editor">
+            <name name-style="western">
+              <surname>Olson</surname>
+              <given-names>P. D.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Hughes</surname>
+              <given-names>J.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Cotton</surname>
+              <given-names>J. A.</given-names>
+            </name>
+          </person-group>
+          <source>Next Generation Systematics</source>
+          <publisher-name>Cambridge University Press</publisher-name>
+        </element-citation>
+      </ref>
+      <ref id="B3373903">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Caporaso</surname>
+              <given-names>J Gregory</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Kuczynski</surname>
+              <given-names>Justin</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Stombaugh</surname>
+              <given-names>Jesse</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Bittinger</surname>
+              <given-names>Kyle</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Bushman</surname>
+              <given-names>Frederic D</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Costello</surname>
+              <given-names>Elizabeth K</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Fierer</surname>
+              <given-names>Noah</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Peña</surname>
+              <given-names>Antonio Gonzalez</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Goodrich</surname>
+              <given-names>Julia K</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Gordon</surname>
+              <given-names>Jeffrey I</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Huttley</surname>
+              <given-names>Gavin A</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Kelley</surname>
+              <given-names>Scott T</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Knights</surname>
+              <given-names>Dan</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Koenig</surname>
+              <given-names>Jeremy E</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Ley</surname>
+              <given-names>Ruth E</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Lozupone</surname>
+              <given-names>Catherine A</given-names>
+            </name>
+            <name name-style="western">
+              <surname>McDonald</surname>
+              <given-names>Daniel</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Muegge</surname>
+              <given-names>Brian D</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Pirrung</surname>
+              <given-names>Meg</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Reeder</surname>
+              <given-names>Jens</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Sevinsky</surname>
+              <given-names>Joel R</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Turnbaugh</surname>
+              <given-names>Peter J</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Walters</surname>
+              <given-names>William A</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Widmann</surname>
+              <given-names>Jeremy</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Yatsunenko</surname>
+              <given-names>Tanya</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Zaneveld</surname>
+              <given-names>Jesse</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Knight</surname>
+              <given-names>Rob</given-names>
+            </name>
+          </person-group>
+          <year>2010</year>
+          <article-title>QIIME allows analysis of high-throughput community sequencing data</article-title>
+          <source>Nature Methods</source>
+          <volume>7</volume>
+          <fpage>335</fpage>
+          <lpage>336</lpage>
+          <uri>http://dx.doi.org/10.1038/nmeth.f.303</uri>
+          <pub-id pub-id-type="doi">10.1038/nmeth.f.303</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B3374188">
+        <element-citation publication-type="chapter">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Cole</surname>
+              <given-names>J. R.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Konstantinidis</surname>
+              <given-names>K.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Farris</surname>
+              <given-names>R. J.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Tiedje</surname>
+              <given-names>J. M.</given-names>
+            </name>
+          </person-group>
+          <year>2010</year>
+          <chapter-title>Microbial Diversity and Phylogeny: Extending from rRNAs to Genomes</chapter-title>
+          <person-group person-group-type="editor">
+            <name name-style="western">
+              <surname>Liu</surname>
+              <given-names>W. Y.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Jansson</surname>
+              <given-names>J. K.</given-names>
+            </name>
+          </person-group>
+          <source>Environmental Molecular Microbiology</source>
+          <publisher-name>Caister Academic Press</publisher-name>
+        </element-citation>
+      </ref>
+      <ref id="B3373827">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Cowart</surname>
+              <given-names>Dominique A.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Pinheiro</surname>
+              <given-names>Miguel</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Mouchel</surname>
+              <given-names>Olivier</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Maguer</surname>
+              <given-names>Marion</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Grall</surname>
+              <given-names>Jacques</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Miné</surname>
+              <given-names>Jacques</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Arnaud-Haond</surname>
+              <given-names>Sophie</given-names>
+            </name>
+          </person-group>
+          <year>2015</year>
+          <article-title>Metabarcoding Is Powerful yet Still Blind: A Comparative Analysis of Morphological and Molecular Surveys of Seagrass Communities</article-title>
+          <source>PLOS ONE</source>
+          <volume>10</volume>
+          <fpage>e0117562</fpage>
+          <uri>http://dx.doi.org/10.1371/journal.pone.0117562</uri>
+          <pub-id pub-id-type="doi">10.1371/journal.pone.0117562</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B3374019">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Creer</surname>
+              <given-names>S.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Fonseca</surname>
+              <given-names>V. G.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Porazinska</surname>
+              <given-names>D. L.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Giblin-Davis</surname>
+              <given-names>R. M.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Sung</surname>
+              <given-names>W.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Power</surname>
+              <given-names>D. M.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Packer</surname>
+              <given-names>M.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Carvalho</surname>
+              <given-names>G. R.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Blaxter</surname>
+              <given-names>M. L.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Lambshead</surname>
+              <given-names>P. J. D.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Thomas</surname>
+              <given-names>W. K.</given-names>
+            </name>
+          </person-group>
+          <year>2010</year>
+          <article-title>Ultrasequencing of the meiofaunal biosphere: practice, pitfalls and promises</article-title>
+          <source>Molecular Ecology</source>
+          <volume>19</volume>
+          <fpage>4</fpage>
+          <lpage>20</lpage>
+          <uri>http://dx.doi.org/10.1111/j.1365-294x.2009.04473.x</uri>
+          <pub-id pub-id-type="doi">10.1111/j.1365-294x.2009.04473.x</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B3373840">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Floyd</surname>
+              <given-names>Robin</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Abebe</surname>
+              <given-names>Eyualem</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Papert</surname>
+              <given-names>Artemis</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Blaxter</surname>
+              <given-names>Mark</given-names>
+            </name>
+          </person-group>
+          <year>2002</year>
+          <article-title>Molecular barcodes for soil nematode identification</article-title>
+          <source>Molecular Ecology</source>
+          <volume>11</volume>
+          <fpage>839</fpage>
+          <lpage>850</lpage>
+          <uri>http://dx.doi.org/10.1046/j.1365-294x.2002.01485.x</uri>
+          <pub-id pub-id-type="doi">10.1046/j.1365-294x.2002.01485.x</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B3374003">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Fonseca</surname>
+              <given-names>Vera G.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Carvalho</surname>
+              <given-names>Gary R.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Nichols</surname>
+              <given-names>Ben</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Quince</surname>
+              <given-names>Christopher</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Johnson</surname>
+              <given-names>Harriet F.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Neill</surname>
+              <given-names>Simon P.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Lambshead</surname>
+              <given-names>John D.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Thomas</surname>
+              <given-names>W. Kelley</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Power</surname>
+              <given-names>Deborah M.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Creer</surname>
+              <given-names>Simon</given-names>
+            </name>
+          </person-group>
+          <year>2014</year>
+          <article-title>Metagenetic analysis of patterns of distribution and diversity of marine meiobenthic eukaryotes</article-title>
+          <source>Global Ecology and Biogeography</source>
+          <volume>23</volume>
+          <fpage>1293</fpage>
+          <lpage>1302</lpage>
+          <uri>http://dx.doi.org/10.1111/geb.12223</uri>
+          <pub-id pub-id-type="doi">10.1111/geb.12223</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B3373850">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Fonseca</surname>
+              <given-names>Vera G.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Carvalho</surname>
+              <given-names>Gary R.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Sung</surname>
+              <given-names>Way</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Johnson</surname>
+              <given-names>Harriet F.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Power</surname>
+              <given-names>Deborah M.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Neill</surname>
+              <given-names>Simon P.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Packer</surname>
+              <given-names>Margaret</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Blaxter</surname>
+              <given-names>Mark L.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>D. Lambshead</surname>
+              <given-names>P. John</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Thomas</surname>
+              <given-names>W. Kelley</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Creer</surname>
+              <given-names>Simon</given-names>
+            </name>
+          </person-group>
+          <year>2010</year>
+          <article-title>Second-generation environmental sequencing unmasks marine metazoan biodiversity</article-title>
+          <source>Nature Communications</source>
+          <volume>1</volume>
+          <fpage>98</fpage>
+          <uri>http://dx.doi.org/10.1038/ncomms1095</uri>
+          <pub-id pub-id-type="doi">10.1038/ncomms1095</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B3373979">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Gibson</surname>
+              <given-names>Joel F.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Shokralla</surname>
+              <given-names>Shadi</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Curry</surname>
+              <given-names>Colin</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Baird</surname>
+              <given-names>Donald J.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Monk</surname>
+              <given-names>Wendy A.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>King</surname>
+              <given-names>Ian</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Hajibabaei</surname>
+              <given-names>Mehrdad</given-names>
+            </name>
+          </person-group>
+          <year>2015</year>
+          <article-title>Large-Scale Biomonitoring of Remote and Threatened Ecosystems via High-Throughput Sequencing</article-title>
+          <source>PLOS ONE</source>
+          <volume>10</volume>
+          <fpage>e0138432</fpage>
+          <uri>http://dx.doi.org/10.1371/journal.pone.0138432</uri>
+          <pub-id pub-id-type="doi">10.1371/journal.pone.0138432</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B3374205">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Giongo</surname>
+              <given-names>Adriana</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Davis-Richardson</surname>
+              <given-names>Austin G.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Crabb</surname>
+              <given-names>David B.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Triplett</surname>
+              <given-names>Eric W.</given-names>
+            </name>
+          </person-group>
+          <year>2010</year>
+          <article-title>TaxCollector: Modifying Current 16S rRNA Databases for the Rapid Classification at Six Taxonomic Levels</article-title>
+          <source>Diversity</source>
+          <volume>2</volume>
+          <fpage>1015</fpage>
+          <lpage>1025</lpage>
+          <uri>http://dx.doi.org/10.3390/d2071015</uri>
+          <pub-id pub-id-type="doi">10.3390/d2071015</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B3416103">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Holovachov</surname>
+              <given-names>Oleksandr</given-names>
+            </name>
+          </person-group>
+          <year>2016</year>
+          <article-title>Metabarcoding of marine nematodes – evaluation of reference datasets used in tree-based taxonomy assignment approach</article-title>
+          <source>Biodiversity Data Journal</source>
+          <volume>4</volume>
+          <fpage>e10021</fpage>
+          <uri>http://dx.doi.org/10.3897/bdj.4.e10021</uri>
+          <pub-id pub-id-type="doi">10.3897/bdj.4.e10021</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B3374671">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Hong</surname>
+              <given-names>S-H</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Bunge</surname>
+              <given-names>J.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Jeon</surname>
+              <given-names>S-O</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Epstein</surname>
+              <given-names>S. S.</given-names>
+            </name>
+          </person-group>
+          <year>2005</year>
+          <article-title>Predicting microbial species richness</article-title>
+          <source>Proceedings of the National Academy of Sciences</source>
+          <volume>103</volume>
+          <fpage>117</fpage>
+          <lpage>122</lpage>
+          <uri>http://dx.doi.org/10.1073/pnas.0507245102</uri>
+          <pub-id pub-id-type="doi">10.1073/pnas.0507245102</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B3373893">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Jones</surname>
+              <given-names>Martin</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Ghoorah</surname>
+              <given-names>Anisah</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Blaxter</surname>
+              <given-names>Mark</given-names>
+            </name>
+          </person-group>
+          <year>2011</year>
+          <article-title>jMOTU and Taxonerator: Turning DNA Barcode Sequences into Annotated Operational Taxonomic Units</article-title>
+          <source>PLoS ONE</source>
+          <volume>6</volume>
+          <fpage>e19259</fpage>
+          <uri>http://dx.doi.org/10.1371/journal.pone.0019259</uri>
+          <pub-id pub-id-type="doi">10.1371/journal.pone.0019259</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B3374134">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Lanzén</surname>
+              <given-names>Anders</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Jørgensen</surname>
+              <given-names>Steffen L.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Huson</surname>
+              <given-names>Daniel H.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Gorfer</surname>
+              <given-names>Markus</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Grindhaug</surname>
+              <given-names>Svenn Helge</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Jonassen</surname>
+              <given-names>Inge</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Øvreås</surname>
+              <given-names>Lise</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Urich</surname>
+              <given-names>Tim</given-names>
+            </name>
+          </person-group>
+          <year>2012</year>
+          <article-title>CREST – Classification Resources for Environmental Sequence Tags</article-title>
+          <source>PLoS ONE</source>
+          <volume>7</volume>
+          <fpage>e49334</fpage>
+          <uri>http://dx.doi.org/10.1371/journal.pone.0049334</uri>
+          <pub-id pub-id-type="doi">10.1371/journal.pone.0049334</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B3374047">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Lindeque</surname>
+              <given-names>Penelope K.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Parry</surname>
+              <given-names>Helen E.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Harmer</surname>
+              <given-names>Rachel A.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Somerfield</surname>
+              <given-names>Paul J.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Atkinson</surname>
+              <given-names>Angus</given-names>
+            </name>
+          </person-group>
+          <year>2013</year>
+          <article-title>Next Generation Sequencing Reveals the Hidden Diversity of Zooplankton Assemblages</article-title>
+          <source>PLoS ONE</source>
+          <volume>8</volume>
+          <fpage>e81327</fpage>
+          <uri>http://dx.doi.org/10.1371/journal.pone.0081327</uri>
+          <pub-id pub-id-type="doi">10.1371/journal.pone.0081327</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B3398217">
+        <element-citation publication-type="chapter">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Madden</surname>
+              <given-names>T</given-names>
+            </name>
+          </person-group>
+          <year>2002</year>
+          <chapter-title>Chapter 16. The BLAST sequence analysis tool</chapter-title>
+          <source>The NCBI Handbook</source>
+        </element-citation>
+      </ref>
+      <ref id="B3374036">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Mohrbeck</surname>
+              <given-names>Inga</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Raupach</surname>
+              <given-names>Michael J.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Arbizu</surname>
+              <given-names>Pedro Martínez</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Knebelsberger</surname>
+              <given-names>Thomas</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Laakmann</surname>
+              <given-names>Silke</given-names>
+            </name>
+          </person-group>
+          <year>2015</year>
+          <article-title>High-Throughput Sequencing—The Key to Rapid Biodiversity Assessment of Marine <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="subkingdom">Metazoa</tp:taxon-name-part></tp:taxon-name>?</article-title>
+          <source>PLOS ONE</source>
+          <volume>10</volume>
+          <fpage>e0140342</fpage>
+          <uri>http://dx.doi.org/10.1371/journal.pone.0140342</uri>
+          <pub-id pub-id-type="doi">10.1371/journal.pone.0140342</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B3373813">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Quast</surname>
+              <given-names>C.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Pruesse</surname>
+              <given-names>E.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Yilmaz</surname>
+              <given-names>P.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Gerken</surname>
+              <given-names>J.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Schweer</surname>
+              <given-names>T.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Yarza</surname>
+              <given-names>P.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Peplies</surname>
+              <given-names>J.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Glockner</surname>
+              <given-names>F. O.</given-names>
+            </name>
+          </person-group>
+          <year>2012</year>
+          <article-title>The SILVA ribosomal RNA gene database project: improved data processing and web-based tools</article-title>
+          <source>Nucleic Acids Research</source>
+          <volume>41</volume>
+          <fpage>D590</fpage>
+          <lpage>D596</lpage>
+          <uri>http://dx.doi.org/10.1093/nar/gks1219</uri>
+          <pub-id pub-id-type="doi">10.1093/nar/gks1219</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B3374661">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Schloss</surname>
+              <given-names>P. D.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Handelsman</surname>
+              <given-names>J.</given-names>
+            </name>
+          </person-group>
+          <year>2004</year>
+          <article-title>Status of the Microbial Census</article-title>
+          <source>Microbiology and Molecular Biology Reviews</source>
+          <volume>68</volume>
+          <fpage>686</fpage>
+          <lpage>691</lpage>
+          <uri>http://dx.doi.org/10.1128/mmbr.68.4.686-691.2004</uri>
+          <pub-id pub-id-type="doi">10.1128/mmbr.68.4.686-691.2004</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B3373939">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Schnell</surname>
+              <given-names>Ida Bærholm</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Sollmann</surname>
+              <given-names>Rahel</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Calvignac-Spencer</surname>
+              <given-names>Sébastien</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Siddall</surname>
+              <given-names>Mark E.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Yu</surname>
+              <given-names>Douglas W.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Wilting</surname>
+              <given-names>Andreas</given-names>
+            </name>
+            <name name-style="western">
+              <surname>P. Gilbert</surname>
+              <given-names>M. Thomas.</given-names>
+            </name>
+          </person-group>
+          <year>2015</year>
+          <article-title>iDNA from terrestrial haematophagous leeches as a wildlife surveying and monitoring tool – prospects, pitfalls and avenues to be developed</article-title>
+          <source>Frontiers in Zoology</source>
+          <volume>12</volume>
+          <fpage>1</fpage>
+          <uri>http://dx.doi.org/10.1186/s12983-015-0115-z</uri>
+          <pub-id pub-id-type="doi">10.1186/s12983-015-0115-z</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B3373867">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Sinniger</surname>
+              <given-names>Frédéric</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Pawlowski</surname>
+              <given-names>Jan</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Harii</surname>
+              <given-names>Saki</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Gooday</surname>
+              <given-names>Andrew J.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Yamamoto</surname>
+              <given-names>Hiroyuki</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Chevaldonné</surname>
+              <given-names>Pierre</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Cedhagen</surname>
+              <given-names>Tomas</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Carvalho</surname>
+              <given-names>Gary</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Creer</surname>
+              <given-names>Simon</given-names>
+            </name>
+          </person-group>
+          <year>2016</year>
+          <article-title>Worldwide Analysis of Sedimentary DNA Reveals Major Gaps in Taxonomic Knowledge of Deep-Sea Benthos</article-title>
+          <source>Frontiers in Marine Science</source>
+          <volume>3</volume>
+          <fpage>1</fpage>
+          <uri>http://dx.doi.org/10.3389/fmars.2016.00092</uri>
+          <pub-id pub-id-type="doi">10.3389/fmars.2016.00092</pub-id>
+        </element-citation>
+      </ref>
+    </ref-list>
+  </back>
+  <floats-group>
+    <fig id="F3372863" position="float" orientation="portrait">
+      <label>Figure 1.</label>
+      <caption>
+        <p>Ranges of identity scores of furthest ingroup taxon and nearest outgroup taxon as revealed by BLAST comparison of query sequences with reference dataset with variable coverage between sequences. Ranges of identity scores. 1 – 100% identity to maximum identity score of the furthest ingroup taxon; 2 – maximum to average identity scores of the furthest ingroup taxon; 3 – average to minimum identity scores of the furthest ingroup taxon; 4 – maximum to average identity scores of the nearest outgroup taxon; 5 – average to minimum identity scores of the nearest outgroup taxon; 6 – minimum identity score of the nearest ingroup taxon to 70% identity threshold.</p>
+      </caption>
+      <graphic xlink:href="biodiversity_data_journal-4-e10647-g001.jpg" position="float" id="oo_98557.jpg" orientation="portrait" xlink:type="simple"/>
+    </fig>
+    <fig id="F3372865" position="float" orientation="portrait">
+      <label>Figure 2.</label>
+      <caption>
+        <p>Ranges of identity scores of furthest ingroup taxon and nearest outgroup taxon as revealed by BLAST comparison of query sequences with reference dataset with 100% coverage between sequences. anges of identity scores. 1 – 100% identity to maximum identity score of the furthest ingroup taxon; 2 – maximum to average identity scores of the furthest ingroup taxon; 3 – average to minimum identity scores of the furthest ingroup taxon; 4 – maximum to average identity scores of the nearest outgroup taxon; 5 – average to minimum identity scores of the nearest outgroup taxon; 6 – minimum identity score of the nearest ingroup taxon to 70% identity threshold.</p>
+      </caption>
+      <graphic xlink:href="biodiversity_data_journal-4-e10647-g002.jpg" position="float" id="oo_98382.jpg" orientation="portrait" xlink:type="simple"/>
+    </fig>
+    <supplementary-material id="S3373160" orientation="portrait" position="float" xlink:type="simple">
+      <label>Supplementary material 1</label>
+      <caption>
+        <p>Table S1. GenBank accession numbers and classification of sequences used in present analysis.</p>
+      </caption>
+      <p>Data type: list</p>
+      <p>File: oo_110493.pdf</p>
+      <media xlink:href="biodiversity_data_journal-4-e10647-s001.pdf" mimetype="Adobe Acrobat Document" mime-subtype="pdf" position="float" orientation="portrait" xlink:type="simple"/>
+      <attrib specific-use="authors">Holovachov</attrib>
+    </supplementary-material>
+    <supplementary-material id="S3373616" orientation="portrait" position="float" xlink:type="simple">
+      <label>Supplementary material 2</label>
+      <caption>
+        <p>Table S2. Variability of maximum alignment score and identity score for the nearest ingroup, furthest ingroup and nearest outgroup taxa in the BLASTN searches with variable coverage for each of five marine (<tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Desmodoridae</tp:taxon-name-part></tp:taxon-name>, <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Chromadoridae</tp:taxon-name-part></tp:taxon-name>, <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Comesomatidae</tp:taxon-name-part></tp:taxon-name>, <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Monhysteridae</tp:taxon-name-part></tp:taxon-name> and <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Xyalidae</tp:taxon-name-part></tp:taxon-name>) and two terrestrial (<tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Cephalobidae</tp:taxon-name-part></tp:taxon-name> and <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Panagrolaimidae</tp:taxon-name-part></tp:taxon-name>) families of nematodes. Number of analyzed sequences for each family is given in parenthesis.</p>
+      </caption>
+      <p>Data type: list</p>
+      <p>File: oo_110494.pdf</p>
+      <media xlink:href="biodiversity_data_journal-4-e10647-s002.pdf" mimetype="Adobe Acrobat Document" mime-subtype="pdf" position="float" orientation="portrait" xlink:type="simple"/>
+      <attrib specific-use="authors">Holovachov</attrib>
+    </supplementary-material>
+    <supplementary-material id="S3373617" orientation="portrait" position="float" xlink:type="simple">
+      <label>Supplementary material 3</label>
+      <caption>
+        <p>Table S3. Variability of maximum alignment score and identity score for the nearest ingroup, furthest ingroup and nearest outgroup taxa in the BLASTN searches with 100% coverage for each of five marine (<tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Desmodoridae</tp:taxon-name-part></tp:taxon-name>, <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Chromadoridae</tp:taxon-name-part></tp:taxon-name>, <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Comesomatidae</tp:taxon-name-part></tp:taxon-name>, <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Monhysteridae</tp:taxon-name-part></tp:taxon-name> and <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Xyalidae</tp:taxon-name-part></tp:taxon-name>) and two terrestrial (<tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Cephalobidae</tp:taxon-name-part></tp:taxon-name> and <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Panagrolaimidae</tp:taxon-name-part></tp:taxon-name>) families of nematodes. Number of analyzed sequences for each family is given in parenthesis.</p>
+      </caption>
+      <p>Data type: list</p>
+      <p>File: oo_110495.pdf</p>
+      <media xlink:href="biodiversity_data_journal-4-e10647-s003.pdf" mimetype="Adobe Acrobat Document" mime-subtype="pdf" position="float" orientation="portrait" xlink:type="simple"/>
+      <attrib specific-use="authors">Holovachov</attrib>
+    </supplementary-material>
+  </floats-group>
+</article>
