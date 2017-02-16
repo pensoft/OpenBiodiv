@@ -19,6 +19,14 @@ Needs to be filled out.
 
 http://bdj.pensoft.net/rss.php
 
+#### returned all articles after date
+
+http://bdj.pensoft.net/lib/journal_archive.php?journal=bdj&date=26%2F3%2F2015
+http://zookeys.pensoft.net/lib/journal_archive.php?journal=zookeys&date=26%2F12%2F2016
+
+where {date} is a urlencoded date in format day/month/year 
+(e.g. 26/3/2014)
+
 ## Data model
 
 The data model for generating RDF is found in the
