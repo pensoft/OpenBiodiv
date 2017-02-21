@@ -11,6 +11,27 @@ output:
 This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. It allows for
 the mixing of source code and documentation.
 
+```{r, include=FALSE}
+help_console <- function(topic, format=c("text", "html", "latex", "Rd"),
+                         lines=NULL, before=NULL, after=NULL) {  
+  format=match.arg(format)
+  if (!is.character(topic)) topic <- deparse(substitute(topic))
+  helpfile = utils:::.getHelpFile(help(topic))
+
+  hs <- capture.output(switch(format, 
+                              text=tools:::Rd2txt(helpfile),
+                              html=tools:::Rd2HTML(helpfile),
+                              latex=tools:::Rd2latex(helpfile),
+                              Rd=tools:::prepare_Rd(helpfile)
+                              )
+                      )
+  if(!is.null(lines)) hs <- hs[lines]
+  hs <- c(before, hs, after)
+  cat(hs, sep="\n")
+  invisible(hs)
+}
+```
+
 #### Generating RDF from marked-up text
 
 We're using the `obkms` and the `rdf4jr` R libraries (not yet published). The 
@@ -39,7 +60,7 @@ init_env(server_access_options)
 
 The `obkms` library has lots of functions:
 ```{r}
-?obkms
+help_console(obkms)
 ```
 
 If you want to convert an XML file to RDF, you use the `xml2rdf` function.
