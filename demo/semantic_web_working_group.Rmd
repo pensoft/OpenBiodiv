@@ -1,26 +1,22 @@
 ---
 title: "Demo for the Semantic Web Working Group"
 output:
-  pdf_document: default
-  html_notebook: default
   html_document: default
+  html_notebook: default
+  pdf_document: default
 ---
 
 #### Preamble
 
-This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
-
-Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
-
-Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
-
-When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. It allows for
+the mixing of source code and documentation.
 
 #### Generating RDF from marked-up text
 
 We're using the `obkms` and the `rdf4jr` R libraries (not yet published). The 
 `obkms` library deals with the creation of RDF, while the `rdf4jr` library
-deals with the communication with a GraphDB instance (our triplestore).
+deals with the communication with a
+[GraphDB](http://ontotext.com/products/graphdb/) instance (our triplestore).
 
 ```{r}
 library(obkms)
@@ -29,10 +25,10 @@ library(rdf4jr)
 
 Before we begin, we need to supply the access data. Access data can be read from
 a YAML configuration file. Note: the password is not stored in the configuration
-file. The user-password needs to be read from the environment variable `OBKMS_SECRET`.
-After we read the configuration we need to setup an environment where the functions
-are continuously going to look for the access credentials. We do this with the
-package `init_env` function.
+file. The user-password needs to be read from the environment variable
+`OBKMS_SECRET`. After we read the configuration we need to setup an environment
+where the functions are continuously going to look for the access credentials.
+We do this with the package `init_env` function.
 
 ```{r}
 configuration_file = "/home/viktor/Work/OBKMS/etc/config.yml"
@@ -55,22 +51,11 @@ turtle = xml2rdf( example_taxpub )
 cat(turtle)
 ```
 
-Side note: Note that at the moemnt `xml2rdf` *changes state*. It returns the RDF serialization
-of the XML file and in addition to that extends the knowledge graph with some
-nodes that are used in the returned turtle.
-This needed because say a given name "Aus bus" is used somewhere in the text.
-The sytem tries to resolve and return an identifier for this name in the Knowledge Graph,
-if the name is not found, the system automatically mints a new identifier and
-tells it to the Knowledge Graph. Otherwise, the name would not be resolved the
-next time it appears.
-
-This is at odds with the functional programming paradigm as it mixes logic and state.
-http://curtclifton.net/papers/MoseleyMarks06a.pdf
-Better approach will be explained during the seminar.
-
 Now we can submit the Turtle to the system:
 
 ```{r}
 processing_status = httr::content( rdf4jr::add_data(server_access_options, server_access_options$repository, turtle), as="text" ) 
 ```
+
+
 
