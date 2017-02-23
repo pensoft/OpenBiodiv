@@ -113,12 +113,9 @@ Treamtent from `frbr:Expression`.
 ```
 <<Treatment>>=
 trt:Treatment a owl:Class ;
-    skos:prefLabel "Taxonomic Treatment"@en ;
-    skos:altLabel "Treatment"@en ;
-    skos:prefLabel "Taxonomische Abhandlung"@de ;
-    skos:altLabel "Abhandlung"@de ;
-    skos:prefLabel "Таксономично пояснение"@bg ;
-    skos:altLabel "Пояснение"@bg ; 
+    rdfs:label "Taxonomic Treatment"@en ;
+    rdfs:label "Taxonomische Abhandlung"@de ;
+    rdfs:label "Таксономично пояснение"@bg ;
     rdfs:comment "A taxonomic treatment, or simply a treatment, is a 
                   rhetorical element of a taxonomic publication, i.e. a 
                   specialized section, where taxon circumscription  
@@ -137,11 +134,12 @@ trt:Treatment a owl:Class ;
 
 **Remark (linking treatments to taxonomic concepts):** 
 
-Treatments are closely linked to taxon concepts (defined later). They are the
-expression of theory that a taxon concept carries. Thus the link between
-treatments and taxon concepts is via `frbr:realizationOf`. I.e. the treatment
-is the realization of the taxon concept and the taxon concept has a treatment
-as its realization. Taxon concepts are introduced later in this document:
+Treatments are closely linked to taxonomic concepts (defined later). They are
+the expression of the theory that a taxon concept carries. Thus the link
+between treatments and taxon concepts is `frbr:realizationOf`. I.e. the
+treatment is the realization of the taxon concept and the taxon concept has a
+treatment as its realization. Taxon concepts are introduced later in this
+document:
 
 ```
 :treatment
@@ -159,6 +157,48 @@ element Treatment) and as `doco:Section` as in the cases we look at Treatment
 is also a section of the document.
 
 <br />
+
+#### Paper Types
+
+Pensoft's journals have some paper types, which we define herein. First of
+all, we introduce Paper Types is a Term Dictionary in the discipline of
+Bibliography. Then we introduce the different paper types as Subject Term's
+in the scheme of Paper Types. See the SPAR ontologies for more info on this
+this.
+
+```
+<<Paper Types>>=
+
+pensoft:PaperTypes
+  a fabio:TermDictionary ;
+  rdfs:label "Paper Types"@en ;
+  rdfs:comment "A list of paper (article) types published in Pensoft's
+                journals"@en ;
+  fabio:hasDiscipline dbpedia:Bibliography .     
+
+pensoft:SingleTaxonTreatment
+  a fabio:SubjectTerm ;
+  rdfs:label "Single Taxon Treatment"@en; 
+  rdfs:comment "A type of paper with only one taxonomic treatment"@en ;
+  skos:inScheme pensoft:PaperTypes .
+@
+```
+
+#### Taxon Classification
+
+
+
+openbiodiv:TaxonClassification a fabio:TermDictionary ;
+  rdfs:label "Taxonomic classification"@en ;
+  rdfs:comment "A list of taxon names borrowed for GBIF for classification of papers."@en ;
+  fabio:hasDiscipline dbpedia:Taxonomy .
+
+openbiodiv:ChronologicalClassification   a fabio:TermDictionary ;
+                                    rdfs:label "Chronological Classification"@en ;
+                                    rdfs:comment "A vocabulary of chronological eras that can be used in Pensoft's journals"@en ; 
+                                    fabio:hasDiscipline dbpedia:Paleontology
+@
+```
 
 
 ### Modeling the taxonomic domain
@@ -341,5 +381,6 @@ openbiodiv:
   dc:rights "CCBY" .
 
 <<Treatment>>
+<<Paper Types>>
 @
 ```
