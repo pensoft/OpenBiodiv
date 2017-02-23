@@ -117,8 +117,7 @@ actually holds. Treatments are closely  linked to taxon concepts. Treatments
 are the expressions of taxon concepts
 
 
-$x^2$
-
+<br />
 
 bla
 
