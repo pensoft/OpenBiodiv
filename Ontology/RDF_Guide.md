@@ -75,6 +75,14 @@ about - the actual (domain-specific) information contained in the articles.
 
 Here we will split the description of the model on domains.
 
+**Note on capitalization:** Our ontology strives be a formal specification
+of a conceptualization. In our mental model we have some concepts of entities
+and of relationships between them. We shall refer to concepts for entities
+through the text with a Capital Letter. E.g. later we will introduce the
+concept Treatment - a part of a taxonomic publication. When we formally define
+a concept in OWL, i.e. issue an URI to it, we shall refer to the URI, as we
+refer to all URI's in the text with `typewriter font`.
+
 ## RDF Model
 
 ### of the Publishing Domain
@@ -92,34 +100,34 @@ from the [Treatment Ontologies](https://github.com/plazi/TreatmentOntologies).
 
 #### Treatments
 
-**What is a taxonomic treatment?** See [Plazi](http://plazi.org) for an
+**What is a taxonomic treatment?** See [Plazi](http://plazi.org/) for an
 explanation of what a treatment is in the taxonomic sense of the word.
 
-**Def. Treatment** In OpenBiodiv/OBKMS, we consider Treatment to be a
+**Def. (Treatment):** In OpenBiodiv/OBKMS, we consider Treatment to be a
 rhetorical element of a taxonomic publication akin to Introduction, Methods,
-etc. Thus, we derive the RDF type Treatment from
+etc. Thus, we derive the class Treatment from
 `http://purl.org/spar/deo/DiscourseElement`:
 
 ```
 <<Treatment>>=
 trt:Treatment a owl:Class ;
-    rdfs:label "treatment"@en ;
+    rdfs:label "Treatment"@en ;
+    rdfs:label "Abhandlung"@de ;
     rdfs:comment "A treatment is rhetorical element of a taxonomic
-      publication, i.e. a specialized section, where a taxon circumscription
+      publication, i.e. a specialized section, where taxon circumscription
       takes place.!"@en ;
     rdfs:subClassOf deo:DiscourseElement .
 @
 ```
 
-**Remark: Linking Treatments to Taxon Concepts.** Note that this definition of
-Treatment makes it into a FRBR expression. TODO: verify in SPARQL that this
-actually holds. Treatments are closely  linked to taxon concepts. Treatments
-are the expressions of taxon concepts
+**Remark (linking treatments to taxonomic concepts):** Note that the preceding
+definition of `trt:Treatment` makes it into a FRBR expression. (TODO: verify in
+SPARQL that this actually holds.) Treatments are closely  linked to taxon
+concepts. Treatments are the expressions of taxon concepts
 
 
 <br />
 
-bla
 
 ### Modeling the taxonomic domain
 
