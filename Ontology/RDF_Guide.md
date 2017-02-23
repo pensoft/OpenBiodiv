@@ -98,6 +98,7 @@ URI's of relationships will be in `thisKindOfCamelCase`. URI's of individuals
 ## RDF Model
 
 ### of the Publishing Domain
+
 The publishing domain is described in our model using the Semantic Publishing
 and Referencing Ontologies, a.k.a. [SPAR
 Ontologies](http://www.sparontologies.net/). We do import several of these
@@ -144,21 +145,19 @@ trt:Treatment a owl:Class ;
 @
 ```
 
-**Remark** (linking treatments to taxonomic concepts):
-
-Treatments are closely linked to taxonomic concepts (defined later). They are
-the expression of the theory that a taxon concept carries. Thus the link
-between treatments and taxon concepts is `frbr:realizationOf`. I.e. the
-treatment is the realization of the taxon concept and the taxon concept has a
-treatment as its realization. Taxon concepts are introduced later in this
-document:
+**Remark and example** (linking treatments to taxonomic concepts): Treatments
+are closely linked to taxonomic concepts (defined later). They are the
+expression of the theory that a taxon concept carries. Thus the link between
+treatments and taxon concepts is `frbr:realizationOf`. I.e. the treatment is
+the realization of the taxon concept and the taxon concept has a treatment as
+its realization. Taxon concepts are introduced later in this document:
 
 ```
 :treatment
   a doco:Section, trt:Treatment ;
-  frbr:realizationOf :taxonConcept .
+  frbr:realizationOf :taxon-concept .
 
-:taxonConcept
+:taxon-concept
   a dwc:Taxon ;
   frbr:hasRealization :treatment .
 
@@ -167,6 +166,27 @@ document:
 Note that we type `:treatment` both as `trt:Treatment` (i.e. the rhetorical
 element Treatment) and as `doco:Section` as in the cases we look at Treatment
 is also a section of the document.
+
+**Remark and example** (linking treatments to the articles they reside in):
+Every article is represented in RDF using the
+[FaBiO](http://www.sparontologies.net/ontologies/fabio) ontology as
+`fabio:JournalArticle`. Key here is that the article is linked to different
+sub-article level elements such as treatments (see later) via the use of the
+"contains" property in the [Pattern
+Ontology](http://www.essepuntato.it/2008/12/pattern).
+
+
+```
+:article
+   rdf:type fabio:JournalArticle ;
+   skos:prefLabel "10.3897/BDJ.1.e953" ;
+   prism:doi "10.3897/BDJ.1.e953" ;
+   fabio:hasPublicationYear "2013"^^xsd:gYear ;
+   dcterms:title "Casuarinicola australis Taylor, 2010 (Hemiptera: Triozidae), newly recorded from New Zealand"@en-us ;
+   po:contains :treatment . 
+```
+
+
 
 #### Paper Types
 
@@ -193,7 +213,7 @@ imported in the Knowledge Base during the population phase. We also show how
 to say that a paper has as its type the aforementioned type.
 
 ```
-:singleTaxonTreatment
+:single-taxon-treatment
   a fabio:SubjectTerm ;
   rdfs:label "Single Taxon Treatment"@en; 
   rdfs:comment "A type of paper with only one taxonomic treatment"@en ;
@@ -201,7 +221,7 @@ to say that a paper has as its type the aforementioned type.
 
 :paper
   a fabio:JournalArticle ;
-  fabio:hasSubjectTerm :singleTaxonTreatment .
+  fabio:hasSubjectTerm :single-taxon-treatment .
 ```
 
 TODO: Extract paper types.
@@ -232,73 +252,34 @@ pensoft:TaxonClassification
 openbiodiv:ChronologicalClassification
   a fabio:TermDictionary ;
   rdfs:label "Chronological Classification"@en ;
-  rdfs:comment "A vocabulary of chronological eras that can be used in Pensoft's journals"@en ; 
-                                    fabio:hasDiscipline dbpedia:Paleontology
+  rdfs:comment "A vocabulary of chronological eras that can be used in
+                Pensoft's journals"@en ; 
+  fabio:hasDiscipline dbpedia:Paleontology .
 @
 ```
 
+### of the Taxonomic Domain
 
-### Modeling the taxonomic domain
+#### Taxon Concept
 
+#### Scientific Name
 
+### of the Ecological Domain
 
-## OpenBiodiv Core Ontology
+### of General Ideas
 
-## Imported ontologies
+#### "preferred label"
 
-We start the description of the data model by specifying the external ontologies
-that the model imports. 
-
-
-
-## General ideas
-
-#### Usage of `skos:prefLabel`
-
-The objects in OBKMS all have unique identifiers (currently in the `pensoft:` 
-namespace). In addition to those identifiers, the objects have labels that are 
-there primarily for human consumption. Labels can be things like the DOI (in the
-case of an article), the Latin name of a taxon (in the case of scientific 
-names). This preferred label is encoded with the property `skos:prefLabel`. 
-Furthermore, an object can have secondary (alternative) labels such as a 
-different spelling of a scientific name, or a vernacular name of a taxon. In 
+The individual entities in OpenBiodiv/OBKMS all have unique identifiers (in
+the `pensoft:` and in other namespaces). In addition to those identifiers, the
+objects have labels that are there primarily for human consumption. Labels can
+be things like the DOI (in the case of an article), the Latin name of a taxon.
+This preferred label is encoded with the property `skos:prefLabel`.
+Furthermore, an object can have secondary (alternative) labels such as a
+different spelling of a scientific name, or a vernacular name of a taxon. In
 this case we use `skos:altLabel`.
 
-## Concepts
 
-Here we will introduce formally and informally all new classes and properties
-used in the OpenBiodiv Core Ontology, as well as informally describe borrowed
-classes and properties from existing ontologies.
-
-### Bibliographic concepts
-
-OpenBiodiv/OBKMS contains information extracted from scientific articles. As 
-such system, OpenBiodiv/OBKMS needs allows users to express the bibliographic 
-information stored in the articles, along with the scientific knowledge. To 
-express bibliographic information OpenBiodiv/OBKMS uses the [Semantic Publishing
-and Referencing Ontologies, a.k.a SPAR 
-Ontologies](http://www.sparontologies.net/) and builds on top of them.
-
-#### class JournalArticle
-
-Every article is represented in RDF using the FaBiO ontology as
-`fabio:JournalArticle`. For additional information refer to [the FaBiO
-documentation](http://www.sparontologies.net/ontologies/fabio).
-
-##### Example instantiation of an article
-
-```
-pensoft:exampleArticle1 rdf:type fabio:JournalArticle ;
-	 skos:prefLabel "10.3897/BDJ.1.e953" ;
-	 prism:doi "10.3897/BDJ.1.e953" ;
-	 fabio:hasPublicationYear "2013"^^xsd:gYear ;
-	 dcterms:title "Casuarinicola australis Taylor, 2010 (Hemiptera: Triozidae), newly recorded from New Zealand"@en-us ;
-	 po:contains pensoft:exampleTreatment1 . 
-```
-
-Except for the usages of `skos:prefLabel` all other properties as used as in the
-SPAR Ontologies. Key here is that the article is linked to different sub-article
-level elements such as treatments (e.g. `pensoft:treatment1`) via `po:contains`.
 
 #### class Treatment
 
