@@ -59,13 +59,12 @@ properties of the OpenBiodiv/OBKMS Core Ontology;
 3. `trt:` is used to refer to the tightly-linked Treatment Ontology classes
 and  properties.
 
-### Types of entities that OpenBiodiv manages
-
-There are two ways to look at the types of entities that the OpenBiodiv
-knowledge system manages. The first way is to look at the application domain.
-The OpenBiodiv/OBKMS application domain is the semantic publishing of
-taxonomic, systematic, biodiversity, and related information. Therefore, the
-entities that OpenBiodiv manages are separated into these domains.
+**Types of entities that OpenBiodiv manages**  There are two ways to look at
+the types of entities that the OpenBiodiv knowledge system manages. The first
+way is to look at the application domain. The OpenBiodiv/OBKMS application
+domain is the semantic publishing of taxonomic, systematic, biodiversity, and
+related information. Therefore, the entities that OpenBiodiv manages are
+separated into these domains.
 
 Another way to look at the entities that OpenBiodiv/OBKMS manages is the
 structural way. As the main sources of information for OpenBiodiv/OBKMS are
@@ -78,13 +77,13 @@ Here we will split the description of the model on domains.
 
 ## RDF Model
 
-### Modeling the publishing domain
+### Publishing domain
 
 The publishing domain is described in our model using the Semantic Publishing
 and Referencing Ontologies, a.k.a. [SPAR
 Ontologies](http://www.sparontologies.net/). We do import several of these
-ontologies (please consult the section **Incorporated external ontologies**).
-Refer to the documentation on Spar Ontologies site for an exhaustive
+ontologies (please consult the paragraph "Incorporated external ontologies").
+Refer to the documentation on the SPAR Ontologies' site for an exhaustive
 treatment.
 
 In the reset of this section we describe the modeling entities of the
@@ -92,16 +91,13 @@ publishing domain that are not found in the spar ontologies. The central
 new class in OpenBiodiv not found in SPAR is the `Treatment` class, borrowed
 from the [Treatment Ontologies](https://github.com/plazi/TreatmentOntologies).
 
-#### What is a taxonomic treatment?
+**What is a taxonomic treatment?** See [Plazi](http://plazi.org) for an
+explanation of what a treatment is in the taxonomic sense of the word.
 
-See [Plazi](http://plazi.org) for an explanation of what a treatment is in the
-taxonomic sense of the word.
-
-#### Def. Treatment
-
-In OpenBiodiv/OBKMS, we consider Treatment to be a rhetorical element of a
-taxonomic publication akin to Introduction, Methods, etc. Thus, we derive the
-RDF type Treatment from `http://purl.org/spar/deo/DiscourseElement`:
+**Def. Treatment** In OpenBiodiv/OBKMS, we consider Treatment to be a
+rhetorical element of a taxonomic publication akin to Introduction, Methods,
+etc. Thus, we derive the RDF type Treatment from
+`http://purl.org/spar/deo/DiscourseElement`:
 
 ```
 <<Treatment>>=
@@ -114,9 +110,10 @@ trt:Treatment a owl:Class ;
 @
 ```
 
-Note that this definition of Treatment makes it into a FRBR expression.
-TODO: verify in SPARQL that this actually holds. Treatments are closely 
-linked to taxon concepts. Treatments are the expressions of taxon concepts
+**Remark: Linking Treatments to Taxon Concepts** Note that this definition of
+Treatment makes it into a FRBR expression. TODO: verify in SPARQL that this
+actually holds. Treatments are closely  linked to taxon concepts. Treatments
+are the expressions of taxon concepts
 
 ### Modeling the taxonomic domain
 
