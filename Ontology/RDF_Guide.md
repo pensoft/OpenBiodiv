@@ -116,6 +116,7 @@ Treatment makes it into a FRBR expression. TODO: verify in SPARQL that this
 actually holds. Treatments are closely  linked to taxon concepts. Treatments
 are the expressions of taxon concepts
 
+
 bla
 
 ### Modeling the taxonomic domain
