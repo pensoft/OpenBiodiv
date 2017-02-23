@@ -116,10 +116,10 @@ from the [Treatment Ontologies](https://github.com/plazi/TreatmentOntologies).
 See [Plazi](http://plazi.org/) for an explanation of what a treatment is in
 the taxonomic sense of the word.
 
-**Def. (Taxonomic Treatment):** In OpenBiodiv/OBKMS, we consider Taxonomic Treatment, or
-simply Treatment, to be a rhetorical element of a taxonomic publication akin
-to Introduction, Methods, etc. Thus, we derive the class Treatment from
-`deo:DiscourseElement`. We also consider Treatment to be
+**Def. (Taxonomic Treatment):** In OpenBiodiv/OBKMS, we consider Taxonomic
+Treatment, or simply Treatment, to be a rhetorical element of a taxonomic
+publication akin to Introduction, Methods, etc. Thus, we derive the class
+`trt:Treatment` from `deo:DiscourseElement`. We also consider Treatment to be
 an of expression of a theory about a taxon. That's why we also derive
 Treamtent from `frbr:Expression`.
 
