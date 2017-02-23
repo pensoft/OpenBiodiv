@@ -209,10 +209,10 @@ pensoft:PaperTypes
 @
 ```
 
-**Example and remark:** We give an example of a paper with only one taxonomic
-treatment. These paper types are not part of the Core Ontology but are
-imported in the Knowledge Base during the population phase. We also show how
-to say that a paper has as its type the aforementioned type.
+**Example and remark 3.** We give an example of a paper with only one
+taxonomic treatment. These paper types are not part of the Core Ontology but
+are imported in the Knowledge Base during the population phase. We also show
+how to say that a paper has as its type the aforementioned type.
 
 ```
 :single-taxon-treatment
