@@ -171,27 +171,34 @@ pensoft:PaperTypes
   rdfs:label "Paper Types"@en ;
   rdfs:comment "A list of paper (article) types published in Pensoft's
                 journals"@en ;
-  fabio:hasDiscipline dbpedia:Bibliography .     
+  fabio:hasDiscipline dbpedia:Bibliography .
+@
+```
 
-pensoft:SingleTaxonTreatment
+**Example and remark:** We give an example of a paper with only one taxonomic
+treatment. These paper types are not part of the Core Ontology but are
+imported in the Knowledge Base during the population phase. We also show how
+to say that a paper has as its type the aforementioned type.
+
+```
+:singleTaxonTreatment
   a fabio:SubjectTerm ;
   rdfs:label "Single Taxon Treatment"@en; 
   rdfs:comment "A type of paper with only one taxonomic treatment"@en ;
   skos:inScheme pensoft:PaperTypes .
-@
-```
 
-**Remark:** due to the limited number of paper types some of them can be
-listed here in the ontology. However it is easier to extract them from the
-corpus of articles.
+:paper
+  a fabio:JournalArticle ;
+  fabio:hasSubjectTerm :singleTaxonTreatment .
+```
 
 TODO: Extract paper types.
 
 #### Taxon Classification
 
-Pensoft, in its Keywords uses certain taxon names for the classification of
-its papers. These taxon names are borrowed from GBIF. Here we define a term
-dictionary analogously to paper types:
+**Controlled vocabulary.** Pensoft, in its Keywords uses certain taxon names
+for the classification of its papers. These taxon names are borrowed from
+GBIF. Here we define a term dictionary analogously to paper types:
 
 ```
 <<Taxon Classification>>=
