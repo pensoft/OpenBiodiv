@@ -77,8 +77,7 @@ Here we will split the description of the model on domains.
 
 ## RDF Model
 
-### Publishing domain
-
+### of the Publishing Domain
 The publishing domain is described in our model using the Semantic Publishing
 and Referencing Ontologies, a.k.a. [SPAR
 Ontologies](http://www.sparontologies.net/). We do import several of these
@@ -91,6 +90,7 @@ publishing domain that are not found in the spar ontologies. The central
 new class in OpenBiodiv not found in SPAR is the `Treatment` class, borrowed
 from the [Treatment Ontologies](https://github.com/plazi/TreatmentOntologies).
 
+#### Treatments
 **What is a taxonomic treatment?** See [Plazi](http://plazi.org) for an
 explanation of what a treatment is in the taxonomic sense of the word.
 
@@ -104,13 +104,13 @@ etc. Thus, we derive the RDF type Treatment from
 trt:Treatment a owl:Class ;
     rdfs:label "treatment"@en ;
     rdfs:comment "A treatment is rhetorical element of a taxonomic
-      publication, i.e. a specialized sction, where a taxon circumscription
+      publication, i.e. a specialized section, where a taxon circumscription
       takes place.!"@en ;
     rdfs:subClassOf deo:DiscourseElement .
 @
 ```
 
-**Remark: Linking Treatments to Taxon Concepts** Note that this definition of
+**Remark: Linking Treatments to Taxon Concepts.** Note that this definition of
 Treatment makes it into a FRBR expression. TODO: verify in SPARQL that this
 actually holds. Treatments are closely  linked to taxon concepts. Treatments
 are the expressions of taxon concepts
@@ -277,6 +277,22 @@ pensoft:exampleTaxonConcept1 a dwc:Taxon ;
 
 ```
 <<OpenBiodiv Core Ontology>>=
+
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix openbiodiv: <http://openbiodiv.net/> .
+@prefix pensoft: <http://id.pensoft.net/> .
+
+openbiodiv:
+  rdf:type owl:Ontology ;
+  owl:versionInfo "0.2" ;
+  rdfs:comment "OpenBiodiv Core Ontology" ;
+  dc:title "OpenBiodiv Core Ontology" ;
+  dc:subject "OpenBiodiv Core Ontology" ;
+  rdfs:label "OpenBiodiv Core Ontology" ;
+  dc:creator "Pensoft/Plazi/Bulgarian Academy of Sciences
+  (Viktor Senderov, Terry Catapano, Kiril Simov, Lyubomir Penev)" ;
+  dc:rights "CCBY" .
 
 <<Treatment>>
 @
