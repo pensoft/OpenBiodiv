@@ -1,48 +1,55 @@
 # OpenBiodiv RDF Guide
 
-This is the Open Biodiversity Knowledge Management System (OpenBiodiv/OBKMS) 
-RDF Guide. It is intended to fully describe the data model of OpenBiodiv/OBKMS 
-and aid users in generating OpenBiodiv/OBKMS-compatible RDF and in creating 
-working SPARQL queries or other extensions for OpenBiodiv/OBKMS.
+This is the OpenBiodiv/OBKMS knowledge system RDF guide. It is intended to
+explain to human users and define for computers the data model of
+OpenBiodiv/OBKMS and aid users in generating OpenBiodiv/OBKMS-compatible RDF
+and in creating  working SPARQL queries or other extensions for
+OpenBiodiv/OBKMS.
 
-This is a **literate programming document**. This means that the formal 
-description of the data model (i.e. ontology) is found within the document 
-itself and is extracted from it with a program (`noweb`).
+This guide is a [literate programming
+document](https://en.wikipedia.org/wiki/Literate_programming) document.
+**Literate programming** is the act of including source code within
+documentation. In usual software development practice the reverse hold true.
+Thus, the formal description of the data model, i.e. the
+[OWL](https://www.w3.org/OWL/) statems that form the ontology are found within
+the document  itself and are extracted from it with the program (`noweb`).
+`noweb` can be easily obtained for GNU Linux.
 
-## Motivation
+## Introduction
 
-The raison d'être of the OpenBiodiv/OBKMS data model is to enable the operation
-of a semantic database as part of OpenBiodiv/OBKMS. The data model consists of
-two parts:
+### Motivation
 
-1. Recommendations on how to correctly to express certain statements using 
-existing data models together with examples examples of correct usage.
+The raison d'être of the OpenBiodiv/OBKMS data model is to enable the
+operation of a semantic database as part of OpenBiodiv/OBKMS. The data model
+consists of:
 
-2. The OpenBiodiv Core Model, which is an OWL ontology together with recommended
-usage and examples of itself.
+1. A formal OWL ontology introducing the entities that our knowledge base
+holds and giving axioms that restrict the ways in which they can be combined.
 
-## Recommendations for the use of existing data models
+2. Natural language descriptions of the meaning of these concepts in our
+conceptualization of the world.
 
-The OpenBiodiv/OBKMS application domain is the semantic publishing of taxonomic,
-systematic, biodiversity, and related information. In this section we review
-existing data models from the application domain and make recommendations about 
-their usage.
+3. Examples and recommendations that illustrate and describe the intended
+model to human users as the formal ontology necessarily will be more lax than
+the intented model.
 
-## OpenBiodiv Core Ontology
+As this is a literate programming document, we take the approach of explaining
+the data model to in human-form, and defining the Core Ontology where it is
+needed for the explanations.
 
-## Imported ontologies
+### Incorporated external ontologies
 
-We start the description of the data model by specifying the external ontologies
-that the model imports. All ontologies from directory `~/Ontology/imports/` are 
-imported. In addition to that we have the OpenBiodiv/ OBKMS Core Ontology, 
-`~/Ontology/openbiodiv.ttl`, described in this document is imported. Here’s a 
-table of the imporeted ontologies:
+Our data model is a natural extension of existing data models. Therefore, we
+incorporate several external ontologies into ours. All ontologies from the
+directory `~/Ontology/imports/` are  imported. In addition to that we import
+the OpenBiodiv/OBKMS Core Ontology, `~/Ontology/openbiodiv.ttl` described
+herein. Here’s a catalog of the imported ontologies:
 
 [Catalog of imported ontologies](Ontology/imports/Catalog.md)
 
 ## Prefixes
 
-In OpenBiodiv/ OBKMS prefixes are stored in a YAML configuration file called
+In OpenBiodiv/OBKMS prefixes are stored in a YAML configuration file called
 
 [Prefixes database](R/obkms/inst/prefix_db.yml)
 
@@ -51,10 +58,75 @@ Of these three namespaces have special meaning:
 1. `pensoft:` is used to issue identifiers for Pensoft-specific objects;
 
 2. `openbiodiv:` is used to issue identifiers to the ontology classes and 
-properties of the OpenBiodiv/ OBKMS ontology;
+properties of the OpenBiodiv/OBKMS Core Ontology;
 
-3. `trt:` is used to refer to the tightly-linked Treatment Ontology classes and 
-properties.
+3. `trt:` is used to refer to the tightly-linked Treatment Ontology classes
+and  properties.
+
+### Types of entities that OpenBiodiv manages
+
+There are two ways to look at the types of entities that the OpenBiodiv
+knowledge system manages. The first way is to look at the application domain.
+The OpenBiodiv/OBKMS application domain is the semantic publishing of
+taxonomic, systematic, biodiversity, and related information. Therefore, the
+entities that OpenBiodiv manages are separated into these domains.
+
+Another way to look at the entities that OpenBiodiv/OBKMS manages is the
+structural way. As the main sources of information for OpenBiodiv/OBKMS are
+scientific articles, we can separate the entities that are extracted in
+entities which are structural parts of the articles such as articles,
+paragraphs, sections, tables, figures, etc. and entities which are talked
+about - the actual (domain-specific) information contained in the articles.
+
+Here we will split the description of the model on domains.
+
+## RDF Model
+
+### Modeling the publishing domain
+
+The publishing domain is described in our model using the Semantic Publishing
+and Referencing Ontologies, a.k.a. [SPAR
+Ontologies](http://www.sparontologies.net/). We do import several of these
+ontologies (please consult the section **Incorporated external ontologies**).
+Refer to the documentation on Spar Ontologies site for an exhaustive
+treatment.
+
+In the reset of this section we describe the modeling entities of the
+publishing domain that are not found in the spar ontologies. The central 
+new class in OpenBiodiv not found in SPAR is the `Treatment` class, borrowed
+from the [Treatment Ontologies](https://github.com/plazi/TreatmentOntologies).
+
+#### What is a taxonomic treatment?
+
+See [Plazi](http://plazi.org) for an explanation of what a treatment is in the
+taxonomic sense of the word.
+
+#### OpenBiodiv defintion of Treatment
+
+In OpenBiodiv/OBKMS, we consider Treatment to be a rhetorical element of a
+taxonomic publication akin to Introduction, Methods, etc. Thus, we derive the
+RDF type Treatment from `http://purl.org/spar/deo/DiscourseElement`:
+
+```
+<<Treatment>>=
+trt:Treatment a owl:Class ;
+    rdfs:label "treatment"@en ;
+    rdfs:comment "A treatment is rhetorical element of a taxonomic
+      publication, i.e. a specialized sction, where a taxon circumscription
+      takes place.!"@en ;
+    rdfs:subClassOf deo:DiscourseElement .
+@
+```
+
+
+## OpenBiodiv Core Ontology
+
+## Imported ontologies
+
+We start the description of the data model by specifying the external ontologies
+that the model imports. 
+
+
 
 ## General ideas
 
@@ -198,4 +270,14 @@ pensoft:exampleTaxonConcept1 a dwc:Taxon ;
 :taxonName a trt:ScientificName ;
                     dwc:species "murale" ;
                     dwc:genus "Chenopodium"
+```
+
+
+## Putting the pieces together in an Ontology
+
+```
+<<OpenBiodiv Core Ontology>>=
+
+<<Treatment>>
+@
 ```
