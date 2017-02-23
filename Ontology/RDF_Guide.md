@@ -103,19 +103,32 @@ from the [Treatment Ontologies](https://github.com/plazi/TreatmentOntologies).
 **What is a taxonomic treatment?** See [Plazi](http://plazi.org/) for an
 explanation of what a treatment is in the taxonomic sense of the word.
 
-**Def. (Treatment):** In OpenBiodiv/OBKMS, we consider Treatment to be a
-rhetorical element of a taxonomic publication akin to Introduction, Methods,
-etc. Thus, we derive the class Treatment from
+**Def. (Treatment):** In OpenBiodiv/OBKMS, we consider Taxonomic Treatment, or
+simply Treatment, to be a rhetorical element of a taxonomic publication akin
+to Introduction, Methods, etc. Thus, we derive the class Treatment from
 `http://purl.org/spar/deo/DiscourseElement`:
 
 ```
 <<Treatment>>=
 trt:Treatment a owl:Class ;
-    rdfs:label "Treatment"@en ;
-    rdfs:label "Abhandlung"@de ;
-    rdfs:comment "A treatment is rhetorical element of a taxonomic
-      publication, i.e. a specialized section, where taxon circumscription
-      takes place.!"@en ;
+    skos:prefLabel "Taxonomic Treatment"@en ;
+    skos:altLabel "Treatment"@en ;
+    skos:prefLabel "Taxonomische Abhandlung"@de ;
+    skos:altLabel "Treatment"@de ;
+    skos:prefLabel "Таксономично пояснение"@bg ;
+    skos:altLabel "Пояснение"@bg ; 
+    rdfs:comment "A taxonomic treatment, or simply a treatment, is a 
+                  rhetorical element of a taxonomic publication, i.e. a 
+                  specialized section, where taxon circumscription  
+                  takes place."@en ;
+    rdfs:comment "Eine taxonomische Abhandlung, oder nur Abhandlung ist 
+                  ein rhetorisches Element eines wissenschaftlichen 
+                  taxomischen Artikels, d.h. ein spezialisierter Abschnitt,
+                  wo die Umschreibung eines taxonomischen Konzeptes
+                  stattfindet."@de ;
+    rdfs:comment "Таксономично пояснения или само Пояснение е риторчна част
+                  от таксономичната статия, където се случва описанието
+                  на дадена таксономична концепция."@bg ;                  
     rdfs:subClassOf deo:DiscourseElement .
 @
 ```
