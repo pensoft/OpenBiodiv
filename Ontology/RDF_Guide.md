@@ -156,19 +156,16 @@ Note that we type `:treatment` both as `trt:Treatment` (i.e. the rhetorical
 element Treatment) and as `doco:Section` as in the cases we look at Treatment
 is also a section of the document.
 
-<br />
-
 #### Paper Types
 
-Pensoft's journals have some paper types, which we define herein. First of
-all, we introduce Paper Types is a Term Dictionary in the discipline of
-Bibliography. Then we introduce the different paper types as Subject Term's
-in the scheme of Paper Types. See the SPAR ontologies for more info on this
-this.
+**Controlled vocabulary.** Pensoft's journals have some paper types, which we
+define herein. First of all, we introduce Paper Types as a Term Dictionary in
+the discipline of Bibliography. Then we introduce the different paper types as
+Subject Term's in the scheme of Paper Types. See the SPAR ontologies for more
+info on this this.
 
 ```
 <<Paper Types>>=
-
 pensoft:PaperTypes
   a fabio:TermDictionary ;
   rdfs:label "Paper Types"@en ;
@@ -184,18 +181,37 @@ pensoft:SingleTaxonTreatment
 @
 ```
 
+**Remark:** due to the limited number of paper types some of them can be
+listed here in the ontology. However it is easier to extract them from the
+corpus of articles.
+
+TODO: Extract paper types.
+
 #### Taxon Classification
 
+Pensoft, in its Keywords uses certain taxon names for the classification of
+its papers. These taxon names are borrowed from GBIF. Here we define a term
+dictionary analogously to paper types:
 
-
-openbiodiv:TaxonClassification a fabio:TermDictionary ;
-  rdfs:label "Taxonomic classification"@en ;
-  rdfs:comment "A list of taxon names borrowed for GBIF for classification of papers."@en ;
+```
+<<Taxon Classification>>=
+pensoft:TaxonClassification 
+  a fabio:TermDictionary ;
+  rdfs:label "Taxonomic Classification"@en ;
+  rdfs:comment "A list of taxon names borrowed for GBIF for the 
+                classification of papers."@en ;
   fabio:hasDiscipline dbpedia:Taxonomy .
+@
+```
 
-openbiodiv:ChronologicalClassification   a fabio:TermDictionary ;
-                                    rdfs:label "Chronological Classification"@en ;
-                                    rdfs:comment "A vocabulary of chronological eras that can be used in Pensoft's journals"@en ; 
+### Chronological Classification
+
+```
+<<Chronological Classification>>=
+openbiodiv:ChronologicalClassification
+  a fabio:TermDictionary ;
+  rdfs:label "Chronological Classification"@en ;
+  rdfs:comment "A vocabulary of chronological eras that can be used in Pensoft's journals"@en ; 
                                     fabio:hasDiscipline dbpedia:Paleontology
 @
 ```
@@ -382,5 +398,7 @@ openbiodiv:
 
 <<Treatment>>
 <<Paper Types>>
+<<Taxon Classification>>
+<<Chronological Classification>>
 @
 ```
