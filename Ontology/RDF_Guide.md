@@ -35,19 +35,17 @@ As this is a literate programming document, we take the approach of explaining
 the data model to in human-form, and defining the Core Ontology where it is
 needed for the explanations.
 
-### Incorporated external ontologies
-
-Our data model is a natural extension of existing data models. Therefore, we
-incorporate several external ontologies into ours. All ontologies from the
-directory `~/Ontology/imports/` are  imported. In addition to that we import
-the OpenBiodiv/OBKMS Core Ontology, `~/Ontology/openbiodiv.ttl` described
-herein. Here’s a catalog of the imported ontologies:
+**Incorporated external ontologies** Our data model is a natural extension of
+existing data models. Therefore, we incorporate several external ontologies
+into ours. All ontologies from the directory `~/Ontology/imports/` are
+imported. In addition to that we import the OpenBiodiv/OBKMS Core Ontology,
+`~/Ontology/openbiodiv.ttl` described herein. Here’s a catalog of the imported
+ontologies:
 
 [Catalog of imported ontologies](Ontology/imports/Catalog.md)
 
-## Prefixes
-
-In OpenBiodiv/OBKMS prefixes are stored in a YAML configuration file called
+**Prefixes** In OpenBiodiv/OBKMS prefixes are stored in a YAML configuration
+file called
 
 [Prefixes database](R/obkms/inst/prefix_db.yml)
 
