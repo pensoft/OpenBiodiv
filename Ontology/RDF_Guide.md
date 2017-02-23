@@ -132,7 +132,7 @@ trt:Treatment a owl:Class ;
 @
 ```
 
-**Remark (linking treatments to taxonomic concepts):** 
+**Remark** (linking treatments to taxonomic concepts):
 
 Treatments are closely linked to taxonomic concepts (defined later). They are
 the expression of the theory that a taxon concept carries. Thus the link
