@@ -113,8 +113,8 @@ from the [Treatment Ontologies](https://github.com/plazi/TreatmentOntologies).
 
 #### Treatments
 
-**What is a taxonomic treatment?** See [Plazi](http://plazi.org/) for an
-explanation of what a treatment is in the taxonomic sense of the word.
+See [Plazi](http://plazi.org/) for an explanation of what a treatment is in
+the taxonomic sense of the word.
 
 **Def. (Treatment):** In OpenBiodiv/OBKMS, we consider Taxonomic Treatment, or
 simply Treatment, to be a rhetorical element of a taxonomic publication akin
