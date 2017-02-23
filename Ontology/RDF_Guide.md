@@ -106,7 +106,9 @@ explanation of what a treatment is in the taxonomic sense of the word.
 **Def. (Treatment):** In OpenBiodiv/OBKMS, we consider Taxonomic Treatment, or
 simply Treatment, to be a rhetorical element of a taxonomic publication akin
 to Introduction, Methods, etc. Thus, we derive the class Treatment from
-`http://purl.org/spar/deo/DiscourseElement`:
+`deo:DiscourseElement`. We also consider Treatment to be
+an of expression of a theory about a taxon. That's why we also derive
+Treamtent from `frbr:Expression`.
 
 ```
 <<Treatment>>=
@@ -126,18 +128,35 @@ trt:Treatment a owl:Class ;
                   taxomischen Artikels, d.h. ein spezialisierter Abschnitt,
                   wo die Umschreibung eines taxonomischen Konzeptes
                   stattfindet."@de ;
-    rdfs:comment "Таксономично пояснения или само Пояснение е риторчна част
+    rdfs:comment "Таксономично пояснение или само Пояснение е риторчна част
                   от таксономичната статия, където се случва описанието
                   на дадена таксономична концепция."@bg ;                  
-    rdfs:subClassOf deo:DiscourseElement .
+    rdfs:subClassOf deo:DiscourseElement , frbr:Expression .
 @
 ```
 
-**Remark (linking treatments to taxonomic concepts):** Note that the preceding
-definition of `trt:Treatment` makes it into a FRBR expression. (TODO: verify in
-SPARQL that this actually holds.) Treatments are closely  linked to taxon
-concepts. Treatments are the expressions of taxon concepts
+**Remark (linking treatments to taxonomic concepts):** 
 
+Treatments are closely linked to taxon concepts (defined later). They are the
+expression of theory that a taxon concept carries. Thus the link between
+treatments and taxon concepts is via `frbr:realizationOf`. I.e. the treatment
+is the realization of the taxon concept and the taxon concept has a treatment
+as its realization. Taxon concepts are introduced later in this document:
+
+```
+:treatment
+  a doco:Section, trt:Treatment ;
+  frbr:realizationOf :taxonConcept .
+
+:taxonConcept
+  a dwc:Taxon ;
+  frbr:hasRealization :treatment .
+
+```
+
+Note that we type `:treatment` both as `trt:Treatment` (i.e. the rhetorical
+element Treatment) and as `doco:Section` as in the cases we look at Treatment
+is also a section of the document.
 
 <br />
 
