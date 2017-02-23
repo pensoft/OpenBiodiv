@@ -17,7 +17,7 @@ the document  itself and are extracted from it with the program (`noweb`).
 
 ## Introduction
 
-#### Motivation
+**Motivation**
 
 The raison d'être of the OpenBiodiv/OBKMS data model is to enable the
 operation of a semantic database as part of OpenBiodiv/OBKMS. The data model
