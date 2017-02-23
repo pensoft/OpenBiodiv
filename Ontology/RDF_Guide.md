@@ -111,7 +111,7 @@ publishing domain that are not found in the spar ontologies. The central
 new class in OpenBiodiv not found in SPAR is the `Treatment` class, borrowed
 from the [Treatment Ontologies](https://github.com/plazi/TreatmentOntologies).
 
-#### Treatments
+#### Taxonomic Treatment
 
 See [Plazi](http://plazi.org/) for an explanation of what a treatment is in
 the taxonomic sense of the word.
