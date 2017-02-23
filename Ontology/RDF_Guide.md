@@ -17,7 +17,7 @@ the document  itself and are extracted from it with the program (`noweb`).
 
 ## Introduction
 
-### Motivation
+#### Motivation
 
 The raison d'être of the OpenBiodiv/OBKMS data model is to enable the
 operation of a semantic database as part of OpenBiodiv/OBKMS. The data model
@@ -101,7 +101,7 @@ from the [Treatment Ontologies](https://github.com/plazi/TreatmentOntologies).
 See [Plazi](http://plazi.org) for an explanation of what a treatment is in the
 taxonomic sense of the word.
 
-#### OpenBiodiv defintion of Treatment
+#### Def. Treatment
 
 In OpenBiodiv/OBKMS, we consider Treatment to be a rhetorical element of a
 taxonomic publication akin to Introduction, Methods, etc. Thus, we derive the
@@ -117,6 +117,13 @@ trt:Treatment a owl:Class ;
     rdfs:subClassOf deo:DiscourseElement .
 @
 ```
+
+Note that this definition of Treatment makes it into a FRBR expression.
+TODO: verify in SPARQL that this actually holds. Treatments are closely 
+linked to taxon concepts. Treatments are the expressions of taxon concepts
+
+### Modeling the taxonomic domain
+
 
 
 ## OpenBiodiv Core Ontology
