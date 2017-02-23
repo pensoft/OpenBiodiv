@@ -75,13 +75,25 @@ about - the actual (domain-specific) information contained in the articles.
 
 Here we will split the description of the model on domains.
 
-**Note on capitalization:** Our ontology strives be a formal specification
-of a conceptualization. In our mental model we have some concepts of entities
-and of relationships between them. We shall refer to concepts for entities
-through the text with a Capital Letter. E.g. later we will introduce the
-concept Treatment - a part of a taxonomic publication. When we formally define
-a concept in OWL, i.e. issue an URI to it, we shall refer to the URI, as we
-refer to all URI's in the text with `typewriter font`.
+**Note on capitalization, cases, etc.** Our ontology strives be a formal
+specification of a conceptualization. In our mental model we have some
+concepts of some things. When we talk about these concepts in the abstract, we
+will make use of Capitalization. For example, we say Thing for the top-level
+concept and we say Treatment when we refer to the concept (introduced later)
+of a taxon circumscription. We also have concepts for relations (in our
+conceptualization only binary relations are allowed). To denote these
+relations in the abstract we use verbal phrases and we might or might not use
+quotes (we will use quotes only if adds to the clarity of exposion). For
+example, Treatment is a Thing as opposed to Treatment "is a" Thing. We also
+have individual instances of these concepts. To refer to those we might use
+improper or proper nouns or phrases whereever appropriate. For example "the
+treatment on page 5," or "a treatment," or "John".
+
+When we formally define a concept in OWL, i.e. issue an URI to it, we shall
+refer to the URI, as we refer to all URI's in the text with `typewriter font`.
+URI's of classes and vocabularies will be in `CamelCaseWithStartingCaps`.
+URI's of relationships will be in `thisKindOfCamelCase`. URI's of individuals
+`will-be-hyphenated`. This seems to generally in accordance with WWW practice.
 
 ## RDF Model
 
@@ -158,11 +170,11 @@ is also a section of the document.
 
 #### Paper Types
 
-**Controlled vocabulary.** Pensoft's journals have some paper types, which we
-define herein. First of all, we introduce Paper Types as a Term Dictionary in
-the discipline of Bibliography. Then we introduce the different paper types as
-Subject Term's in the scheme of Paper Types. See the SPAR ontologies for more
-info on this this.
+**Def. of controlled vocabulary (Paper Types):** Pensoft's journals have some
+paper types, which we define herein. First of all, we introduce Paper Types as
+a Term Dictionary in the discipline of Bibliography. Then we introduce the
+different paper types as Subject Term's in the scheme of Paper Types. See the
+SPAR ontologies for more info on this this.
 
 ```
 <<Paper Types>>=
@@ -196,9 +208,10 @@ TODO: Extract paper types.
 
 #### Taxon Classification
 
-**Controlled vocabulary.** Pensoft, in its Keywords uses certain taxon names
-for the classification of its papers. These taxon names are borrowed from
-GBIF. Here we define a term dictionary analogously to paper types:
+**Def. of controlled vocabulary (Taxon Classification):** Pensoft, in its
+Keywords uses certain taxon names for the classification of its papers. These
+taxon names are borrowed from GBIF. Here we define a term dictionary
+analogously to paper types:
 
 ```
 <<Taxon Classification>>=
@@ -213,6 +226,7 @@ pensoft:TaxonClassification
 
 ### Chronological Classification
 
+**Def. of controlled vocabulary (Taxon Classification):**
 ```
 <<Chronological Classification>>=
 openbiodiv:ChronologicalClassification
