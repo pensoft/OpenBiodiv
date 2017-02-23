@@ -114,14 +114,14 @@ trt:Treatment a owl:Class ;
     skos:prefLabel "Taxonomic Treatment"@en ;
     skos:altLabel "Treatment"@en ;
     skos:prefLabel "Taxonomische Abhandlung"@de ;
-    skos:altLabel "Treatment"@de ;
+    skos:altLabel "Abhandlung"@de ;
     skos:prefLabel "Таксономично пояснение"@bg ;
     skos:altLabel "Пояснение"@bg ; 
     rdfs:comment "A taxonomic treatment, or simply a treatment, is a 
                   rhetorical element of a taxonomic publication, i.e. a 
                   specialized section, where taxon circumscription  
                   takes place."@en ;
-    rdfs:comment "Eine taxonomische Abhandlung, oder nur Abhandlung ist 
+    rdfs:comment "Eine taxonomische Abhandlung, oder nur Abhandlung, ist 
                   ein rhetorisches Element eines wissenschaftlichen 
                   taxomischen Artikels, d.h. ein spezialisierter Abschnitt,
                   wo die Umschreibung eines taxonomischen Konzeptes
