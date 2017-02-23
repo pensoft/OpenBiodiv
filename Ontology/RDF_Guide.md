@@ -145,7 +145,7 @@ trt:Treatment a owl:Class ;
 @
 ```
 
-**Remark and example** (linking treatments to taxonomic concepts): Treatments
+**Remark and example 1** (linking treatments to taxonomic concepts): Treatments
 are closely linked to taxonomic concepts (defined later). They are the
 expression of the theory that a taxon concept carries. Thus the link between
 treatments and taxon concepts is `frbr:realizationOf`. I.e. the treatment is
@@ -167,7 +167,7 @@ Note that we type `:treatment` both as `trt:Treatment` (i.e. the rhetorical
 element Treatment) and as `doco:Section` as in the cases we look at Treatment
 is also a section of the document.
 
-**Remark and example** (linking treatments to the articles they reside in):
+**Remark and example 2** (linking treatments to the articles they reside in):
 Every article is represented in RDF using the
 [FaBiO](http://www.sparontologies.net/ontologies/fabio) ontology as
 `fabio:JournalArticle`. Key here is that the article is linked to different
