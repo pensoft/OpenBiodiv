@@ -91,6 +91,7 @@ new class in OpenBiodiv not found in SPAR is the `Treatment` class, borrowed
 from the [Treatment Ontologies](https://github.com/plazi/TreatmentOntologies).
 
 #### Treatments
+
 **What is a taxonomic treatment?** See [Plazi](http://plazi.org) for an
 explanation of what a treatment is in the taxonomic sense of the word.
 
@@ -114,6 +115,8 @@ trt:Treatment a owl:Class ;
 Treatment makes it into a FRBR expression. TODO: verify in SPARQL that this
 actually holds. Treatments are closely  linked to taxon concepts. Treatments
 are the expressions of taxon concepts
+
+bla
 
 ### Modeling the taxonomic domain
 
