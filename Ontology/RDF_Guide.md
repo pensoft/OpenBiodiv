@@ -145,12 +145,13 @@ trt:Treatment a owl:Class ;
 @
 ```
 
-**Remark and example 1** (linking treatments to taxonomic concepts): Treatments
-are closely linked to taxonomic concepts (defined later). They are the
-expression of the theory that a taxon concept carries. Thus the link between
-treatments and taxon concepts is `frbr:realizationOf`. I.e. the treatment is
-the realization of the taxon concept and the taxon concept has a treatment as
-its realization. Taxon concepts are introduced later in this document:
+**Remark and example 1.** How to link treatments to taxonomic concepts?
+Treatments are closely linked to taxonomic concepts (defined later). They are
+the expression of the theory that a taxon concept carries. Thus the link
+between treatments and taxon concepts is `frbr:realizationOf`. I.e. the
+treatment is the realization of the taxon concept and the taxon concept has a
+treatment as its realization. Taxon concepts are introduced later in this
+document:
 
 ```
 :treatment
@@ -167,8 +168,8 @@ Note that we type `:treatment` both as `trt:Treatment` (i.e. the rhetorical
 element Treatment) and as `doco:Section` as in the cases we look at Treatment
 is also a section of the document.
 
-**Remark and example 2** (linking treatments to the articles they reside in):
-Every article is represented in RDF using the
+**Remark and example 2.** How to link treatments to the articles they reside
+in? Every article is represented in RDF using the
 [FaBiO](http://www.sparontologies.net/ontologies/fabio) ontology as
 `fabio:JournalArticle`. Key here is that the article is linked to different
 sub-article level elements such as treatments (see later) via the use of the
@@ -182,7 +183,8 @@ Ontology](http://www.essepuntato.it/2008/12/pattern).
    skos:prefLabel "10.3897/BDJ.1.e953" ;
    prism:doi "10.3897/BDJ.1.e953" ;
    fabio:hasPublicationYear "2013"^^xsd:gYear ;
-   dcterms:title "Casuarinicola australis Taylor, 2010 (Hemiptera: Triozidae), newly recorded from New Zealand"@en-us ;
+   dcterms:title "Casuarinicola australis Taylor, 2010 (Hemiptera: Triozidae),
+                  newly recorded from New Zealand"@en-us ;
    po:contains :treatment . 
 ```
 
