@@ -102,7 +102,7 @@ ontologies (please consult the paragraph "Incorporated external ontologies").
 Refer to the documentation on the SPAR Ontologies' site for an exhaustive
 treatment.
 
-In the reset of this section we describe the modeling entities of the
+In the rest of this section we describe the modeling of entities of the
 publishing domain that are not found in the spar ontologies. The central 
 new class in OpenBiodiv not found in SPAR is the `Treatment` class, borrowed
 from the [Treatment Ontologies](https://github.com/plazi/TreatmentOntologies).
