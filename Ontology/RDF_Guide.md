@@ -19,7 +19,7 @@ obtained for GNU Linux.
 ## Introduction
 
 **Motivation** The raison d'être of the OpenBiodiv data model is to enable the
-operation of a semantic database as part of OpenBiodiv/OBKMS. The data model
+operation of a semantic database as part of OpenBiodiv. The data model
 consists of:
 
 1. A formal OWL ontology introducing the entities that our knowledge base
