@@ -33,7 +33,7 @@ conceptualization of the world.
 model to human users as the formal ontology necessarily will be more lax than
 the intended model.
 
-For a discussion see (Specification of Conceptualization)[https://www.obitko.com/tutorials/ontologies-semantic-web/specification-of-conceptualization.html], as well as the article by (Guarino et al. (2009))[http://iaoa.org/isc2012/docs/Guarino2009_What_is_an_Ontology.pdf].
+For a discussion see [Specification of Conceptualization](https://www.obitko.com/tutorials/ontologies-semantic-web/specification-of-conceptualization.html), as well as the article by [Guarino et al. (2009)](http://iaoa.org/isc2012/docs/Guarino2009_What_is_an_Ontology.pdf).
 
 As this is a literate programming document, we take the approach of explaining
 the data model to in human-form, and defining the Core Ontology where it is
