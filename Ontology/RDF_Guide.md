@@ -72,7 +72,7 @@ tables, figures, etc. and entities which are talked about - the actual
 
 Here we will split the description of the model on domains.
 
-**Note on capitalization, cases, etc.** Our ontology strives be a formal
+**Note on Capitalization, cases, etc.** Our ontology strives be a formal
 specification of a conceptualization. In our mental model we have some
 concepts of some things. When we talk about these concepts in the abstract, we
 will make use of Capitalization. For example, we say Thing for the top-level
