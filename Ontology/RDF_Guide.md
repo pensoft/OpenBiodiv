@@ -8,13 +8,13 @@ and aid users in generating OpenBiodiv compatible RDF and in creating working
 SPARQL queries or other extensions for OpenBiodiv.
 
 This guide is a [literate programming
-](https://en.wikipedia.org/wiki/Literate_programming) document.
-*Literate programming* is the act of including source code within
-documentation. In usual software development practice the reverse holds true.
-Thus, the formal description of the data model, i.e. the
-[OWL](https://www.w3.org/OWL/) statems that form the ontology are found within
-the document  itself and are extracted from it with the program (`noweb`).
-`noweb` can be easily obtained for GNU Linux.
+](https://en.wikipedia.org/wiki/Literate_programming) document. *Literate
+programming* is the act of including source code within documentation. In
+usual software development practice the reverse holds true. Thus, the formal
+description of the data model, i.e. the [OWL](https://www.w3.org/OWL/)
+statements that form the ontology are found within the document  itself and
+are extracted from it with the program (`noweb`). `noweb` can be easily
+obtained for GNU Linux.
 
 ## Introduction
 
