@@ -18,8 +18,8 @@ obtained for GNU Linux.
 
 ## Introduction
 
-**Motivation** The raison d'être of the OpenBiodiv data model is to enable the
-operation of a semantic database as part of OpenBiodiv. The data model
+**Motivation.** The raison d'être of the OpenBiodiv data model is to enable
+the operation of a semantic database as part of OpenBiodiv. The data model
 consists of:
 
 1. A formal OWL ontology, called from here on *OpenBiodiv Core Ontology*,
@@ -36,10 +36,10 @@ the intended model.
 For a discussion see [Specification of Conceptualization](https://www.obitko.com/tutorials/ontologies-semantic-web/specification-of-conceptualization.html), as well as the article by [Guarino et al. (2009)](http://iaoa.org/isc2012/docs/Guarino2009_What_is_an_Ontology.pdf).
 
 As this is a literate programming document, we take the approach of explaining
-the data model to human-like intelligence, and defining the Core Ontology where it is
-needed for the explanations.
+the data model to human-like intelligence, and defining the Core Ontology as
+we progress with our explanations.
 
-**Incorporated external ontologies** Our data model is a natural extension of
+**Incorporated external ontologies.** Our data model is a natural extension of
 existing data models. Therefore, we incorporate several external ontologies
 into ours. All ontologies from the directory `~/Ontology/imports/` are
 imported. In addition to that we import the OpenBiodiv/OBKMS Core Ontology,
