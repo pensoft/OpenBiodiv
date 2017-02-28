@@ -22,7 +22,7 @@ obtained for GNU Linux.
 operation of a semantic database as part of OpenBiodiv. The data model
 consists of:
 
-1. A formal OWL ontology introducing the entities that our knowledge base
+1. A formal OWL ontology, called from here on *OpenBiodiv Core Ontology*, introducing the entities that our knowledge base
 holds and giving axioms that restrict the ways in which they can be combined.
 
 2. Natural language descriptions of the meaning of these concepts in our
