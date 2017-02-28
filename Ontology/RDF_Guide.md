@@ -53,17 +53,11 @@ called
 
 [`prefix_db.yml`](../R/obkms/inst/prefix_db.yml)
 
-Of these three namespaces have special meaning:
+This guide will not go into the question of the meaning of the prefixes, into
+identifiers and into cross-linking. This will be the subject matter of later
+"OpenBiodiv Extension and Linking Guide".
 
-1. `pensoft:` is used to issue identifiers for Pensoft-specific objects;
-
-2. `openbiodiv:` is used to issue identifiers to the ontology classes and 
-properties of the OpenBiodiv/OBKMS Core Ontology;
-
-3. `trt:` is used to refer to the tightly-linked Treatment Ontology classes
-and  properties.
-
-**Types of entities that OpenBiodiv manages**  There are two ways to look at
+**Types of entities that OpenBiodiv manages.** There are two ways to look at
 the types of entities that the OpenBiodiv knowledge system manages. The first
 way is to look at the application domain. The OpenBiodiv/OBKMS application
 domain is the semantic publishing of taxonomic, systematic, biodiversity, and
