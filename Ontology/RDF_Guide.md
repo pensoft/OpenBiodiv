@@ -46,7 +46,7 @@ loaded into the Knowledge System. In addition to that we load the OpenBiodiv
 Core Ontology, `~/Ontology/openbiodiv.ttl` described herein. Here’s a catalog
 of the imported ontologies:
 
-[Catalog of imported ontologies](Ontology/imports/Catalog.md)
+[Catalog of imported ontologies](~/Ontology/imports/Catalog.md)
 
 **Prefixes** In OpenBiodiv/OBKMS prefixes are stored in a YAML configuration
 file called
