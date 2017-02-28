@@ -88,9 +88,9 @@ treatment," or "John."
 
 When we formally define a concept in OWL, i.e. issue an URI to it, we shall
 refer to the URI, as we refer to all URI's in the text with `typewriter font`.
-URI's of classes and vocabularies will be in `CamelCaseWithStartingCaps`.
-URI's of relationships will be in `thisKindOfCamelCase`. URI's of individuals
-`will-be-hyphenated`. This seems to generally in accordance with WWW practice.
+URI's of classes and vocabularies will be in `MajorCamelCase`. URI's of
+relationships will be in `minorCamelCase`. URI's of individuals `will-be-
+hyphenated`. This seems to generally in accordance with WWW practice.
 
 ## RDF Model
 
