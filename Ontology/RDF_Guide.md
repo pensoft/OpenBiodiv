@@ -48,10 +48,10 @@ of the imported ontologies:
 
 [Catalog of imported ontologies](imports/Catalog.md)
 
-**Prefixes** In OpenBiodiv/OBKMS prefixes are stored in a YAML configuration
-file called
+**Prefixes.** In OpenBiodiv prefixes are stored in a YAML configuration file
+called
 
-[Prefixes database](R/obkms/inst/prefix_db.yml)
+[Prefixes database](../R/obkms/inst/prefix_db.yml)
 
 Of these three namespaces have special meaning:
 
