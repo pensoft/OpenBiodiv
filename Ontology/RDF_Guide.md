@@ -1,6 +1,6 @@
 # OpenBiodiv RDF Guide
 
-This is the OpenBiodiv/OBKMS Knowledge System RDF guide. It is intended to
+This is the Open Biodiversity Knowledge Management System (OBKMS) RDF Guide. In the rest of this document OBKMS will be more compactly as OpenBiodiv Knowledge System, or simply OpenBiodiv. OpenBiodiv/OBKMS Knowledge System RDF guide. It is intended to
 explain to human users and define for computers the data model of
 OpenBiodiv/OBKMS and aid users in generating OpenBiodiv/OBKMS-compatible RDF
 and in creating  working SPARQL queries or other extensions for
