@@ -36,7 +36,7 @@ the intended model.
 For a discussion see [Specification of Conceptualization](https://www.obitko.com/tutorials/ontologies-semantic-web/specification-of-conceptualization.html), as well as the article by [Guarino et al. (2009)](http://iaoa.org/isc2012/docs/Guarino2009_What_is_an_Ontology.pdf).
 
 As this is a literate programming document, we take the approach of explaining
-the data model to humans, and defining the Core Ontology where it is
+the data model to human-like intelligence, and defining the Core Ontology where it is
 needed for the explanations.
 
 **Incorporated external ontologies** Our data model is a natural extension of
