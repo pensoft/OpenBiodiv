@@ -58,18 +58,17 @@ identifiers and into cross-linking. This will be the subject matter of later
 "OpenBiodiv Extension and Linking Guide".
 
 **Types of entities that OpenBiodiv manages.** There are two ways to look at
-the types of entities that the OpenBiodiv knowledge system manages. The first
-way is to look at the application domain. The OpenBiodiv/OBKMS application
-domain is the semantic publishing of taxonomic, systematic, biodiversity, and
-related information. Therefore, the entities that OpenBiodiv manages are
-separated into these domains.
+the types of entities that OpenBiodiv manages. The first way is to look at the
+application domain. OpenBiodiv's application domain is the semantic publishing
+of taxonomic, systematic, biodiversity, and related information. Therefore,
+the entities that OpenBiodiv manages are separated into these domains.
 
-Another way to look at the entities that OpenBiodiv/OBKMS manages is the
-structural way. As the main sources of information for OpenBiodiv/OBKMS are
-scientific articles, we can separate the entities that are extracted in
-entities which are structural parts of the articles such as articles,
-paragraphs, sections, tables, figures, etc. and entities which are talked
-about - the actual (domain-specific) information contained in the articles.
+Another way to look at the entities that OpenBiodiv manages is the structural
+way. As the main sources of information for OpenBiodiv are scientific
+articles, we can separate the entities that are extracted in entities which
+are structural parts of the articles such as articles, paragraphs, sections,
+tables, figures, etc. and entities which are talked about - the actual
+(domain-specific) information contained in the articles.
 
 Here we will split the description of the model on domains.
 
