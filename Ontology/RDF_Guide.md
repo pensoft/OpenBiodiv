@@ -72,7 +72,7 @@ tables, figures, etc. and entities which are talked about - the actual
 
 Here we will split the description of the model on domains.
 
-**Note on capitalization, cases, etc.** Our ontology strives be a formal
+**Note on Capitalization.** Our ontology strives be a formal
 specification of a conceptualization. In our mental model we have some
 concepts of some things. When we talk about these concepts in the abstract, we
 will make use of Capitalization. For example, we say Thing for the top-level
@@ -80,7 +80,7 @@ concept and we say Treatment when we refer to the concept (introduced later)
 of a taxon circumscription. We also have concepts for relations (in our
 conceptualization only binary relations are allowed). To denote these
 relations in the abstract we use verbal phrases and we might or might not use
-quotes (we will use quotes only if adds to the clarity of exposion). For
+quotes (we will use quotes only if it adds to the clarity of exposion). For
 example, Treatment is a Thing as opposed to Treatment "is a" Thing. We also
 have individual instances of these concepts. To refer to those we might use
 improper or proper nouns or phrases whereever appropriate. For example "the
