@@ -12,6 +12,7 @@
 #' Returns a prefix string in Turtle
 #'
 #' @param reqd_prefixes  a list of needed prefixes
+#' @export
 
 prefix_ttl = function( reqd_prefixes, prefix_db = paste0( path.package ("obkms") ,"/prefix_db.yml" ) ) {
 
