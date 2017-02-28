@@ -1,15 +1,16 @@
 # OpenBiodiv RDF Guide
 
-This is the Open Biodiversity Knowledge Management System (OBKMS) RDF Guide. In the rest of this document OBKMS will be more compactly as OpenBiodiv Knowledge System, or simply OpenBiodiv. OpenBiodiv/OBKMS Knowledge System RDF guide. It is intended to
-explain to human users and define for computers the data model of
-OpenBiodiv/OBKMS and aid users in generating OpenBiodiv/OBKMS-compatible RDF
-and in creating  working SPARQL queries or other extensions for
-OpenBiodiv/OBKMS.
+This is the Open Biodiversity Knowledge Management System (OBKMS) RDF Guide.
+In the rest of this document OBKMS will be more compactly referred to as the
+OpenBiodiv Knowledge System, or simply OpenBiodiv. The guide is intended to
+explain to human users and define for computers the data model of OpenBiodiv
+and aid users in generating OpenBiodiv compatible RDF and in creating working
+SPARQL queries or other extensions for OpenBiodiv.
 
 This guide is a [literate programming
-document](https://en.wikipedia.org/wiki/Literate_programming) document.
-**Literate programming** is the act of including source code within
-documentation. In usual software development practice the reverse hold true.
+](https://en.wikipedia.org/wiki/Literate_programming) document.
+*Literate programming* is the act of including source code within
+documentation. In usual software development practice the reverse holds true.
 Thus, the formal description of the data model, i.e. the
 [OWL](https://www.w3.org/OWL/) statems that form the ontology are found within
 the document  itself and are extracted from it with the program (`noweb`).
