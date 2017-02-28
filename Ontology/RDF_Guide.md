@@ -80,11 +80,11 @@ Treatment when we refer to the concept (introduced later) of a taxon
 circumscription. We also have concepts for relations (in our conceptualization
 only binary relations are allowed). To denote these relations in the abstract
 we use verbal phrases and we might or might not use quotes (we will use quotes
-only if it adds to the clarity of exposition). For example, Treatment is a Thing
-as opposed to Treatment "is a" Thing. We also have individual instances of
-these concepts. To refer to those we might use improper or proper nouns or
-phrases whereever appropriate. For example "the treatment on page 5," or "a
-treatment," or "John".
+only if it adds to the clarity of exposition). For example, Treatment is a
+Thing as opposed to Treatment "is a" Thing. We also have individual instances
+of these concepts. To refer to those we might use improper or proper nouns or
+phrases wherever appropriate. For example, "the treatment on page 5," or "a
+treatment," or "John."
 
 When we formally define a concept in OWL, i.e. issue an URI to it, we shall
 refer to the URI, as we refer to all URI's in the text with `typewriter font`.
