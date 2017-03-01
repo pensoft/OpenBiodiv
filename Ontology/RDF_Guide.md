@@ -345,7 +345,7 @@ Web, version 1.0", where `dwc:Taxon` is defined.
 TODO: check for prefix consistency for all imported ontologies.
 
 Linking to treatments is explained in Remark and example 1 under [Taxonomic
-Treatment](#### Taxonomic Treatment).
+Treatment](#taxonomic-treatment).
 
 #### Scientific Name
 
