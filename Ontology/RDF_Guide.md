@@ -57,6 +57,17 @@ openbiodiv:
 @
 ```
 
+We've just defined our *root chunk*. In the `noweb` way of doing literate
+programming, we write our source in chunks. Each chunk has a name that is
+found between the `<<` and `>>` and ends in `@`. Chunks can contain other
+chunks and thus the writing of the source code becomes hierarchical and non-
+linear. In the root chunk, we've listed other chunks that we'll introduce
+later and some verbatim code. In order to create the ontology we use
+the `notangle` command from `noweb`:
+
+```
+notangle -ROntology RDF_Guide.md > nowebonto.ttl
+```
 
 **Incorporated external ontologies.** Our data model is a natural extension of
 existing data models. Therefore, we incorporate several external ontologies
@@ -335,25 +346,6 @@ article), the Latin name of a taxon. This preferred label is encoded with the
 property `skos:prefLabel`. Furthermore, an object can have secondary
 (alternative) labels such as a different spelling of a scientific name, or a
 vernacular name of a taxon. In this case we use `skos:altLabel`.
-
-#### class Treatment
-
-In OBKMS, we consider Treatment to be a rhetorical element of a taxonomic 
-publication akin to Introduction, Methods, etc. Treatment is originally defined 
-in the [Treatment
-Ontology](https://github.com/plazi/TreatmentOntologies/blob/master/treatment.owl),
-however this definition of Treatment as a discourse element is slightly more 
-complex. We derive the class Treatment from
-<http://purl.org/spar/deo/DiscourseElement>:
-
-```
-<<treatment_definition>>=
-trt:Treatment a owl:Class ;
-    rdfs:label "treatment"@en ;
-    rdfs:comment "A species discussion done for taxonomic purposes TODO: Needs rewriting!"@en ;
-    rdfs:subClassOf deo:DiscourseElement .
-@
-```
 
 #### Example instantiation of a treatment
 
