@@ -227,7 +227,7 @@ document:
 
 :taxon-concept
   a dwc:Taxon ;
-  frbr:hasRealization :treatment .
+  frbr:realization :treatment .
 
 ```
 
@@ -327,9 +327,25 @@ openbiodiv:ChronologicalClassification
 @
 ```
 
-### of the Taxonomic Domain
+### of the Biological Systematics Domain
 
-#### Taxon Concept
+In this subsection we introduce  classes and properties which are used to
+convey information from the domain of biological systematics.
+
+#### Taxon Concepts
+
+For all practical purposes the semantics of
+<http://rs.tdwg.org/dwc/terms/Taxon> are compatible with the notion of a taxon
+concepts. Our understanding of taxon concepts is based on [Franz et al.
+(2016)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4911943/).
+
+In order to be able to instantiate taxon concepts, we import "Darwin Semantic
+Web, version 1.0", where `dwc:Taxon` is defined.
+
+TODO: check for prefix consistency for all imported ontologies.
+
+Linking to treatments is explained in Remark and example 1 under [Taxonomic
+Treatment](#### Taxonomic Treatment).
 
 #### Scientific Name
 
@@ -347,41 +363,11 @@ property `skos:prefLabel`. Furthermore, an object can have secondary
 (alternative) labels such as a different spelling of a scientific name, or a
 vernacular name of a taxon. In this case we use `skos:altLabel`.
 
-#### Example instantiation of a treatment
 
-Usually, what we do is that we have an instance of a document section which is
-also an instance of the treatment rhetorical element:
 
-```
-pensoft:exampleTreatment1 a doco:Section , trt:Treatment .
-```
 
-### Taxonomic Concepts
 
-In this subsection we introduce all classes and properties which are used to
-convey taxonomic/ systematic information.
 
-#### Class for taxon concepts
-
-For all practical purposes the semantics of <http://rs.tdwg.org/dwc/terms/Taxon>
-are compatible with the notion of a taxon concepts (TODO cite Nico Franz, Berensohn).
-
-We import
-
-https://github.com/darwin-sw/dsw/blob/master/dsw.owl
-
-in order to be able to instantiate taxon concepts.
-
-#### Connection between a treatment and a taxon concept
-
-We consider treatments to be FRBR expressions and taxon concepts to be the
-corresponding FRBR works. Therefore  link treatments to taxon concepts
-like this:
-
-```
-pensoft:exampleTaxonConcept1 a dwc:Taxon.
-pensoft:exampleTreatment1 frbr:realizationOf pensoft:exampleTaxonConcept1.
-```
 
 #### Biological names
 
