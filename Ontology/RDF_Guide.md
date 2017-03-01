@@ -39,6 +39,25 @@ As this is a literate programming document, we take the approach of explaining
 the data model to human-like intelligence, and defining the Core Ontology as
 we progress with our explanations.
 
+```
+<<Ontology>>=
+<<Prefixes>>
+
+openbiodiv:
+  rdf:type owl:Ontology ;
+  owl:versionInfo "0.2" ;
+  rdfs:comment "Open Biodiversity Knowledge Management System Ontology" ;
+  dc:title "OpenBiodiv Core Ontology" ;
+  dc:subject "OpenBiodiv Core Ontology" ;
+  rdfs:label "OpenBiodiv Core Ontology" ;
+  dc:creator "Viktor Senderov, Terry Catapano, Kiril Simov, Lyubomir Penev" ;
+  dc:rights "CCBY" .
+
+<<Publishing Domain>>
+@
+```
+
+
 **Incorporated external ontologies.** Our data model is a natural extension of
 existing data models. Therefore, we incorporate several external ontologies
 into ours. All ontologies from the directory `~/Ontology/imports/*.ttl` are
@@ -56,6 +75,35 @@ called
 This guide will not go into the question of the meaning of the prefixes, into
 identifiers and into cross-linking. This will be the subject matter of later
 "OpenBiodiv Extension and Linking Guide".
+
+```
+<<Prefixes>>=
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix pensoft: <http://id.pensoft.net/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix pro: <http://purl.org/spar/pro/> .
+@prefix scoro: <http://purl.org/spar/scoro/> .
+@prefix ti: <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#> .
+@prefix tvc: <http://www.essepuntato.it/2012/04/tvc/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix fabio: <http://purl.org/spar/fabio/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix frbr: <http://purl.org/spar/frbr/> .
+@prefix prism: <http://prismstandard.org/namespaces/basic/2.0> .
+@prefix doco: <http://purl.org/spar/doco/> .
+@prefix po: <http://www.essepuntato.it/2008/12/pattern#> .
+@prefix co: <http://purl.org/co/> .
+@prefix trt: <http://plazi.org/treatment#> .
+@prefix c4o: <http://purl.org/spar/c4o/> .
+@prefix dwciri: <http://rs.tdwg.org/dwc/iri/> .
+@prefix nomen: <http://www.semanticweb.org/dmitriev/ontologies/2013/8/untitled-ontology-6#> .
+@prefix dwc: <http://rs.tdwg.org/dwc/terms/> .
+@prefix sro: <http://salt.semanticauthoring.org/ontologies/sro#> .
+@prefix deo: <http://purl.org/spar/deo/> .
+@
+```
 
 **Types of entities that OpenBiodiv manages.** There are two ways to look at
 the types of entities that OpenBiodiv manages. The first way is to look at the
@@ -106,6 +154,18 @@ In the rest of this section we describe the modeling of entities in the
 publishing domain that are not found in the SPAR ontologies. The central  new
 class in OpenBiodiv not found in SPAR is the `Treatment` class, borrowed from
 the [Treatment Ontologies](https://github.com/plazi/TreatmentOntologies).
+
+```
+<<Publishing Domain>>=
+<<Treatment>>
+
+<<Paper Types>>
+
+<<Taxon Classification>>
+
+<<Chronological Classification>>
+@
+```
 
 #### Taxonomic Treatment
 
@@ -268,16 +328,13 @@ openbiodiv:ChronologicalClassification
 
 #### "preferred label"
 
-The individual entities in OpenBiodiv/OBKMS all have unique identifiers (in
-the `pensoft:` and in other namespaces). In addition to those identifiers, the
-objects have labels that are there primarily for human consumption. Labels can
-be things like the DOI (in the case of an article), the Latin name of a taxon.
-This preferred label is encoded with the property `skos:prefLabel`.
-Furthermore, an object can have secondary (alternative) labels such as a
-different spelling of a scientific name, or a vernacular name of a taxon. In
-this case we use `skos:altLabel`.
-
-
+The individual entities in OpenBiodiv all have unique identifiers. In addition
+to those identifiers, the objects have labels that are there primarily for
+human consumption. Labels can be things like the DOI (in the case of an
+article), the Latin name of a taxon. This preferred label is encoded with the
+property `skos:prefLabel`. Furthermore, an object can have secondary
+(alternative) labels such as a different spelling of a scientific name, or a
+vernacular name of a taxon. In this case we use `skos:altLabel`.
 
 #### class Treatment
 
@@ -377,28 +434,3 @@ pensoft:exampleTaxonConcept1 a dwc:Taxon ;
 
 ## Putting the pieces together in an Ontology
 
-```
-<<OpenBiodiv Core Ontology>>=
-
-@prefix dc: <http://purl.org/dc/elements/1.1/> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
-@prefix openbiodiv: <http://openbiodiv.net/> .
-@prefix pensoft: <http://id.pensoft.net/> .
-
-openbiodiv:
-  rdf:type owl:Ontology ;
-  owl:versionInfo "0.2" ;
-  rdfs:comment "OpenBiodiv Core Ontology" ;
-  dc:title "OpenBiodiv Core Ontology" ;
-  dc:subject "OpenBiodiv Core Ontology" ;
-  rdfs:label "OpenBiodiv Core Ontology" ;
-  dc:creator "Pensoft/Plazi/Bulgarian Academy of Sciences
-  (Viktor Senderov, Terry Catapano, Kiril Simov, Lyubomir Penev)" ;
-  dc:rights "CCBY" .
-
-<<Treatment>>
-<<Paper Types>>
-<<Taxon Classification>>
-<<Chronological Classification>>
-@
-```
