@@ -2,11 +2,13 @@
 % Please edit documentation in R/rdf.R
 \name{triples2turtle2}
 \alias{triples2turtle2}
-\title{works with lists of triples instead of data frames}
+\title{works with lists of triples instead of data frames
+TODO "list of triples" should probably be made into a S3 object}
 \usage{
 triples2turtle2(context, triples)
 }
 \description{
 works with lists of triples instead of data frames
+TODO "list of triples" should probably be made into a S3 object
 }
 

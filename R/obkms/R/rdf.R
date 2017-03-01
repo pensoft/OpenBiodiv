@@ -1,36 +1,77 @@
-# _____  _____  ______
-# |  __ \|  __ \|  ____|
-# | |__) | |  | | |__
-# |  _  /| |  | |  __|
-# | | \ \| |__| | |
-# |_|  \_\_____/|_|
-#
-#
-# RDF Functions
-#
-
-#' Returns a prefix string in Turtle
+#'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 #'
-#' @param reqd_prefixes  a list of needed prefixes
+#' Return a prefix string in Turtle or SPARQL
+#'
+#' @param reqd_prefixes a character vector of needed prefixes, can be missing
+#' @param prefix_db path to YAML prefix database, has a default
+#' @param prefix_lang whether you want SPARQL or Turtle, the default is SPARQL
+#'
+#' If `reqd_prefixes` is left missing, all prefixes will be returned.
+#' The individual prefixes may or may not end with ":". If they don't,
+#' it will be added during function execution.
+#'
 #' @export
+prefix_ttl = function( reqd_prefixes,
+                       prefix_db = paste0( path.package ("obkms") ,"/prefix_db.yml" ),
+                       prefix_lang = "SPARQL") {
 
-prefix_ttl = function( reqd_prefixes, prefix_db = paste0( path.package ("obkms") ,"/prefix_db.yml" ) ) {
+  if ( missing(prefix_lang) || !(prefix_lang %in% c( "Turtle", "SPARQL" ) ) ) {
+    warning("Incorrect prefix language, defaulting to SPARQL")
+    prefix_lang = "SPARQL"
+  }
 
+  # format a sing prefix line as SPARQL
+  prefix_sparql_line = function( prefix, uri ) {
+    paste0( "PREFIX ", prefix, ": ", uri, " \n" )
+  }
+  # format a sing prefix line as Turtle
+  prefix_turtle_line = function( prefix, uri ) {
+    paste0( "@prefix ", prefix, ": ", uri, " .\n" )
+  }
+
+  # db load
   if (prefix_db != paste0( path.package ("obkms") ,"/prefix_db.yml" ) ) {
     warning( paste0( "You are overriding the prefix database path with the value \"", prefix_db , "\"!") )
   }
-
   all_prefixes = yaml::yaml.load_file( prefix_db )
 
-  ttl = sapply ( reqd_prefixes, function ( p ) {
-    paste( "PREFIX", p, all_prefixes[[p]], "\n" )
- #   if ( is.null( all_prefixes[[p]] ) ) {
- #      warning( paste0( "Prefix ", p, "is not found in the database!") )
- #   }
-  })
+  # process
+  ttl = character()
+  if ( missing( reqd_prefixes ) )
+    {
+    ttl = sapply ( names(all_prefixes), function ( p ) {
+      if ( prefix_lang == "SPARQL" ) {
+        paste0( ttl, prefix_sparql_line( p, all_prefixes[[p]] ) )
+      }
+      else {
+        paste0( ttl, prefix_turtle_line( p, all_prefixes[[p]] ) )
+      }
+    })
+  }
+  else {
+    # we want to strip the colon if we have one, as it will be added later
+    reqd_prefixes = sapply ( reqd_prefixes, function (p) {
+        sub( ":$", "", p )
+    })
+    ttl = sapply ( reqd_prefixes, function ( p ) {
+      if ( is.null( all_prefixes[[p]] ) ) {
+        return("")
+      }
+      else {
+        if ( prefix_lang == "SPARQL" ) {
+          paste0(ttl, prefix_sparql_line( p, all_prefixes[[p]] ) )
+        }
+        else {
+          paste0( ttl, prefix_turtle_line( p, all_prefixes[[p]] ) )
+        }
+      }
+    })
+  }
 
   return ( ttl )
 }
+#'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
 
 #' Minimizes a URI to a Qname.
 #'

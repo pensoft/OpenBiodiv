@@ -2,7 +2,8 @@
 % Please edit documentation in R/init.R
 \name{load_yaml_database}
 \alias{load_yaml_database}
-\title{Loads a package database from a yaml file}
+\title{Loads a package database from a yaml file
+TODO needs review}
 \usage{
 load_yaml_database(database_path, internal_name)
 }
@@ -13,5 +14,6 @@ load_yaml_database(database_path, internal_name)
 }
 \description{
 Loads a package database from a yaml file
+TODO needs review
 }
 

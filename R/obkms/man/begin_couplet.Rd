@@ -2,11 +2,11 @@
 % Please edit documentation in R/rdf.R
 \name{begin_couplet}
 \alias{begin_couplet}
-\title{a function to start an rdf couplet}
+\title{Probably junk}
 \usage{
 begin_couplet(subject, predicate, object)
 }
 \description{
-a function to start an rdf couplet
+#' a function to start an rdf couplet
 }
 

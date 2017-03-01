@@ -2,7 +2,8 @@
 % Please edit documentation in R/query.R
 \name{get_context_of}
 \alias{get_context_of}
-\title{Gets the graph name of an article of it exists}
+\title{Gets the graph name of an article of it exists
+TODO needs review}
 \usage{
 get_context_of(doi)
 }
@@ -11,5 +12,6 @@ get_context_of(doi)
 }
 \description{
 Gets the graph name of an article of it exists
+TODO needs review
 }
 
