@@ -179,12 +179,12 @@ the [Treatment Ontologies](https://github.com/plazi/TreatmentOntologies).
 @
 ```
 
-#### Taxonomic Treatment
+#### Treatment
 
 See [Plazi](http://plazi.org/) for an explanation of what a treatment is in
 the taxonomic sense of the word.
 
-**Def. (Treatment):** *Taxonomic Treatment (or simply Treatment) is
+**Def. (Treatment):** *Taxonomic Treatment, or simply Treatment, is
 a rhetorical element of a taxonomic publication:*
 
 ```
@@ -209,12 +209,8 @@ trt:Treatment a owl:Class ;
 @
 ```
 
-
-
-akin to Introduction,
-Methods, etc. Thus, we derive the class `trt:Treatment` from
-`deo:DiscourseElement`. We model this derivation on the way `deo:Introduction`
-is defined.
+Thus Treatment is defined akin to Introduction, Methods, etc. from [DEO]
+(http://www.sparontologies.net/ontologies/deo/source.html).
 
 We also consider Treatment to be an of expression of a theory about a taxon
 aka Taxon Concept, sometimes just Taxon. In order to  link Treatment to Taxon
