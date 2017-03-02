@@ -184,7 +184,7 @@ the [Treatment Ontologies](https://github.com/plazi/TreatmentOntologies).
 See [Plazi](http://plazi.org/) for an explanation of what a treatment is in
 the taxonomic sense of the word.
 
-**Def. (Treatment):** *Taxonomic Treatment, or simply Treatment, is
+**Def. 1 (Treatment).** *Taxonomic Treatment, or simply Treatment, is
 a rhetorical element of a taxonomic publication:*
 
 ```
@@ -209,21 +209,18 @@ trt:Treatment a owl:Class ;
 @
 ```
 
-Thus Treatment is defined akin to Introduction, Methods, etc. from [DEO]
+Thus, Treatment is defined akin to Introduction, Methods, etc. from [DEO]
 (http://www.sparontologies.net/ontologies/deo/source.html).
 
-We also consider Treatment to be an of expression of a theory about a taxon
-aka Taxon Concept, sometimes just Taxon. In order to  link Treatment to Taxon
-Concept we connect the Journal Article or Book Chapter or whatever
-
-
-**Remark and example 1.** _How to link treatments to taxonomic concepts?_
-Treatments are closely linked to taxonomic concepts (defined later). They are
-the expression of the theory that a taxon concept carries. Thus the link
-between treatments and taxon concepts is `frbr:realizationOf`. I.e. the
-treatment is the realization of the taxon concept and the taxon concept has a
-treatment as its realization. Taxon concepts are introduced later in this
-document:
+**Remark and example 2 (linking treatments to taxon concepts).** We view 
+Treatment to be an of expression of a theory about a taxon aka Taxon Concept,
+sometimes just Taxon. In order to  link Treatment to Taxon Concept we connect
+the Journal Article or Book Chapter or whatever Treatments are closely linked
+to taxonomic concepts (defined later). They are the expression of the theory
+that a taxon concept carries. Thus the link between treatments and taxon
+concepts is `frbr:realizationOf`. I.e. the treatment is the realization of the
+taxon concept and the taxon concept has a treatment as its realization. Taxon
+concepts are introduced later in this document:
 
 ```
 :treatment
