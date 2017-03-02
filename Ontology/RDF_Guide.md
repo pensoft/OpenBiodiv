@@ -185,16 +185,7 @@ See [Plazi](http://plazi.org/) for an explanation of what a treatment is in
 the taxonomic sense of the word.
 
 **Def. (Taxonomic Treatment):** *Taxonomic Treatment (or simply Treatment) is
-a rhetorical element of a taxonomic publication.*
-
-akin to Introduction,
-Methods, etc. Thus, we derive the class `trt:Treatment` from
-`deo:DiscourseElement`. We model this derivation on the way `deo:Introduction`
-is defined.
-
-We also consider Treatment to be an of expression of a theory about a taxon
-aka Taxon Concept, sometimes just Taxon. In order to  link Treatment to Taxon
-Concept we connect the Journal Article or Book Chapter or whatever
+a rhetorical element of a taxonomic publication*
 
 ```
 <<Treatment>>=
@@ -214,9 +205,21 @@ trt:Treatment a owl:Class ;
     rdfs:comment "Таксономично пояснение или само Пояснение е риторчна част
                   от таксономичната статия, където се случва описанието
                   на дадена таксономична концепция."@bg ;                  
-    rdfs:subClassOf deo:DiscourseElement , frbr:Expression .
+    rdfs:subClassOf deo:DiscourseElement .
 @
 ```
+
+
+
+akin to Introduction,
+Methods, etc. Thus, we derive the class `trt:Treatment` from
+`deo:DiscourseElement`. We model this derivation on the way `deo:Introduction`
+is defined.
+
+We also consider Treatment to be an of expression of a theory about a taxon
+aka Taxon Concept, sometimes just Taxon. In order to  link Treatment to Taxon
+Concept we connect the Journal Article or Book Chapter or whatever
+
 
 **Remark and example 1.** _How to link treatments to taxonomic concepts?_
 Treatments are closely linked to taxonomic concepts (defined later). They are
