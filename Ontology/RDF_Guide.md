@@ -54,6 +54,7 @@ openbiodiv:
   dc:rights "CCBY" .
 
 <<Publishing Domain>>
+<<Systematics>>
 @
 ```
 
@@ -183,12 +184,17 @@ the [Treatment Ontologies](https://github.com/plazi/TreatmentOntologies).
 See [Plazi](http://plazi.org/) for an explanation of what a treatment is in
 the taxonomic sense of the word.
 
-**Def. (Taxonomic Treatment):** In OpenBiodiv, we consider Taxonomic
-Treatment, or simply Treatment, to be a rhetorical element of a taxonomic
-publication akin to Introduction, Methods, etc. Thus, we derive the class
-`trt:Treatment` from `deo:DiscourseElement`. We also consider Treatment to be
-an of expression of a theory about a taxon. That's why we also derive
-`trt:Treamtent` from `frbr:Expression`.
+**Def. (Taxonomic Treatment):** *Taxonomic Treatment (or simply Treatment) is
+a rhetorical element of a taxonomic publication.*
+
+akin to Introduction,
+Methods, etc. Thus, we derive the class `trt:Treatment` from
+`deo:DiscourseElement`. We model this derivation on the way `deo:Introduction`
+is defined.
+
+We also consider Treatment to be an of expression of a theory about a taxon
+aka Taxon Concept, sometimes just Taxon. In order to  link Treatment to Taxon
+Concept we connect the Journal Article or Book Chapter or whatever
 
 ```
 <<Treatment>>=
@@ -332,20 +338,102 @@ openbiodiv:ChronologicalClassification
 In this subsection we introduce  classes and properties which are used to
 convey information from the domain of biological systematics.
 
+```
+<<Systematics>>=
+<<RCC5>>
+@
+```
 #### Taxon Concepts
+
+In a nutshell a taxon concept is a scientific theory about a taxon. In our
+data model scientific theories are represented by `frbr:Work`. Here are the
+comments on Work from FRBR:
+
+"A distinct intellectual or artistic creation. A work is an abstract entity;
+there is no single material object one can point to as the work. We recognize
+the work through individual realizations or expressions of the work, but the
+work itself exists only in the commonality of content between and among the
+various expressions of the work. When we speak of Homer's Iliad as a work, our
+point of reference is not a particular recitation or text of the work, but the
+intellectual creation that lies behind all the various expressions of the
+work."
+
+##### 1. Taxon concepts are linked to their expression
+
+This comment in FRBR means that taxon concepts can have different realizations
+(`frbr:Expression`) such as a treatment or a database entry. Linking to
+treatments is explained in Remark and example 1 under [Taxonomic Treatment
+](#taxonomic-treatment). Here's another example of how to link a taxon concept
+to an online database.
+
+
+```
+:gbif2017 a fabio:Database ;
+  skos:prefLabel "GBIF Backbone Taxonomy 20170301"@en ; 
+  rdfs:comment "A dump of GBIF's backbone taxonomy on 2 Mar 2017."@en ;
+  frbr:realizationOf :taxon-concept2 .
+
+:taxon-concept2
+  a dwc:Taxon ;
+  frbr:realization :gbif2017 .
+
+```
+
+In our understanding of the domain every taxon concepts needs to have at least
+one expression.
+
+TODO Is this possible to express this OWL? It would be simpler to express it
+in SPARQL.
+
+##### 2. Taxon concepts may be linked to a scientific name
+
+Linnaean names are an attempt to label taxa. In most cases taxon concepts will
+be linked to exactly one scientific name
 
 For all practical purposes the semantics of
 <http://rs.tdwg.org/dwc/terms/Taxon> are compatible with the notion of a taxon
 concepts. Our understanding of taxon concepts is based on [Franz et al.
 (2016)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4911943/).
-
 In order to be able to instantiate taxon concepts, we import "Darwin Semantic
-Web, version 1.0", where `dwc:Taxon` is defined.
+Web, version 1.0", where `dwc:Taxon` is defined. 
 
-TODO: check for prefix consistency for all imported ontologies.
 
-Linking to treatments is explained in Remark and example 1 under [Taxonomic
-Treatment](#taxonomic-treatment).
+**Remark and example 1.** Note that 
+
+Taxon concepts are related to one another via simple relationships and
+via RCC-5 properties.
+
+#### Simple Taxon Concept Relationships
+
+- subconceptOf (this can be used when you refine a concept, or when 
+a higher rank subsumes a lower rank)
+- relatedTo (when you have two overlaping but different concepts)
+- congruent (when two concepts are exactly the same)
+
+#### RCC-5 Relationships
+
+```
+openbiodiv:EQ_INT rdf:type owl:ObjectProperty ;
+  rdfs:label "Equals (INT)" ;
+  rdfs:comment "= EQ(x,y) Equals (intensional)"@en . 
+
+openbiodiv:PP_INT rdf:type owl:ObjectProperty ;
+  rdfs:label "Proper Part (INT)" ;
+  rdfs:comment "< PP(x,y) Proper Part of (intensional)"@en .
+
+openbiodiv:iPP_INT rdf:type owl:ObjectProperty ;
+  owl:inverseOf openbiodiv:PP_INT ;
+  rdfs:label "Inverse Proper Part (INT)" ;
+  rdfs:comment "iPP(x, y) Inverse Proper Part (intensional)"@en .
+
+openbiodiv:PO rdf:type owl:ObjectProperty ;
+  rdfs:label "Partially Overlaps" ;
+  rdfs:comment "o PO(x,y) Partially Overlaps"@en .
+
+openbiodiv:DR rdf:type owl:ObjectProperty ;
+    rdfs:label "Disjoint" ;
+    rdfs:comment "! DR(x,y) Disjoint from."@en .
+```
 
 #### Scientific Name
 
@@ -362,11 +450,6 @@ article), the Latin name of a taxon. This preferred label is encoded with the
 property `skos:prefLabel`. Furthermore, an object can have secondary
 (alternative) labels such as a different spelling of a scientific name, or a
 vernacular name of a taxon. In this case we use `skos:altLabel`.
-
-
-
-
-
 
 
 #### Biological names
@@ -412,3 +495,7 @@ pensoft:exampleTaxonConcept1 a dwc:Taxon ;
 
 ## Putting the pieces together in an Ontology
 
+
+
+
+TODO: check for prefix consistency for all imported ontologies.
