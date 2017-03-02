@@ -184,8 +184,8 @@ the [Treatment Ontologies](https://github.com/plazi/TreatmentOntologies).
 See [Plazi](http://plazi.org/) for an explanation of what a treatment is in
 the taxonomic sense of the word.
 
-**Def. (Treatment):** Taxonomic Treatment (or simply Treatment) is
-a rhetorical element of a taxonomic publication:
+**Def. (Treatment): Taxonomic Treatment (or simply Treatment) is
+a rhetorical element of a taxonomic publication:*
 
 ```
 <<Treatment>>=
