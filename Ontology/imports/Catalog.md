@@ -9,3 +9,4 @@ Darwin Semantic Web, version 1.0 | `dsw.ttl` | `http://phylodiversity.net/dsw/ds
 Essential FRBR in OWL2 DL | `frbr.ttl` | `http://purl.org/spar/frbr`
 
 TODO Add NOMEN
+TODO Add pattern

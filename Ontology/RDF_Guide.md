@@ -179,19 +179,54 @@ the [Treatment Ontologies](https://github.com/plazi/TreatmentOntologies).
 @
 ```
 
+#### Article, Journal, Publisher
+
+The main objects of information extraction and retrieval of OpenBiodiv in the
+first stage of its developments are scientific journal articles from the
+journals [Biodiversity Data Journal](http://bdj.pensoft.net/) and [ZooKeys]
+(http://zookeys.pensoft.net/). We model the bibliographic objects around
+Journal Article, such as Publisher, and Journal using SPAR.
+
+**Example 1 (modeling Journal Article).**
+
+```
+<<eg: article, journal, publisher>>=
+:pensoft-publishers rdf:type foaf:Agent ;
+  skos:prefLabel "Pensoft Publishers" ;
+  pro:holdsRoleInTime :pensoft-publishes-bdj . 
+
+:pensoft-publishes-bdj rdf:type pro:RoleInTime ;
+  pro:relatesToDocument :biodiversity-data-journal . 
+
+:biodiversity-data-journal rdf:type fabio:Journal ;
+  skos:prefLabel "Biodiversity Data Journal" ;
+  skos:altLabel  "BDJ" ;
+  fabio:issn     "1314-2836" ;
+  fabio:eIssn    "1314-2828" ;
+  dcterms:publisher "Pensoft Publishers" ;
+  frbr:hasPart :article . 
+
+:article a fabio:JournalArticle ;
+  skos:prefLabel "10.0000/BDJ.0.e000" ;
+  prism:doi "10.0000/BDJ.0.e000" ;
+  fabio:hasPublicationYear "2017"^^xsd:gYear ;
+  dcterms:title "Aus bus Senderov, 2017, newly recorded from Bulgaria"@en-us ;
+  po:contains :treatment .
+@
+```
+
 #### Treatment
 
-See [Plazi](http://plazi.org/) for an explanation of what a treatment is in
-the taxonomic sense of the word.
+See [Plazi](http://plazi.org/) for a theoretical discussion of Treatment.
 
-**Def. 1 (Treatment).** *Taxonomic Treatment, or simply Treatment, is
+**Def. 1 (Treatment):** *Taxonomic Treatment, or simply Treatment, is
 a rhetorical element of a taxonomic publication:*
 
 ```
 <<Treatment>>=
-trt:Treatment a owl:Class ;
-    rdfs:label "Taxonomic Treatment"@en ;
-    rdfs:label "Taxonomische Abhandlung"@de ;
+:Treatment a owl:Class ;
+  rdfs:label "Taxonomic Treatment"@en ;
+  rdfs:label "Taxonomische Abhandlung"@de ;
     rdfs:label "Таксономично пояснение"@bg ;
     rdfs:comment "A taxonomic treatment, or simply a treatment, is a 
                   rhetorical element of a taxonomic publication, i.e. a 
@@ -212,52 +247,98 @@ trt:Treatment a owl:Class ;
 Thus, Treatment is defined akin to Introduction, Methods, etc. from [DEO]
 (http://www.sparontologies.net/ontologies/deo/source.html).
 
-**Remark and example 2 (linking treatments to taxon concepts).** We view 
-Treatment to be an of expression of a theory about a taxon aka Taxon Concept,
-sometimes just Taxon. In order to  link Treatment to Taxon Concept we connect
-the Journal Article or Book Chapter or whatever Treatments are closely linked
-to taxonomic concepts (defined later). They are the expression of the theory
-that a taxon concept carries. Thus the link between treatments and taxon
-concepts is `frbr:realizationOf`. I.e. the treatment is the realization of the
-taxon concept and the taxon concept has a treatment as its realization. Taxon
-concepts are introduced later in this document:
+**Example 2 (instantiating a treatment).**
 
 ```
+<<eg: treatment>>=
 :treatment
-  a doco:Section, trt:Treatment ;
-  frbr:realizationOf :taxon-concept .
-
-:taxon-concept
-  a dwc:Taxon ;
-  frbr:realization :treatment .
-
+  a doco:Section, trt:Treatment .
+@
 ```
 
 Note that we type `:treatment` both as `trt:Treatment` (i.e. the rhetorical
-element Treatment) and as `doco:Section` as in the cases we look at Treatment
-is also a section of the document.
+element Treatment) and as `doco:Section` because we view this particular 
+treatment to also be a structural section of the document.
 
-**Remark and example 2.** _How to link treatments to the articles they reside
-in?_ Every article is represented in RDF using the
-[FaBiO](http://www.sparontologies.net/ontologies/fabio) ontology as
-`fabio:JournalArticle`. Key here is that the article is linked to different
-sub-article level elements such as treatments (see later) via the use of the
-"contains" property in the [Pattern
+**Remark and example 3 (linking treatments to the articles they reside in).**
+Key here is that an article is linked to different sub-article level elements
+such as treatments via the use of the "contains" property in the [Pattern
 Ontology](http://www.essepuntato.it/2008/12/pattern).
-
 
 ```
 :article
-   rdf:type fabio:JournalArticle ;
-   skos:prefLabel "10.3897/BDJ.1.e953" ;
-   prism:doi "10.3897/BDJ.1.e953" ;
-   fabio:hasPublicationYear "2013"^^xsd:gYear ;
-   dcterms:title "Casuarinicola australis Taylor, 2010 (Hemiptera: Triozidae),
-                  newly recorded from New Zealand"@en-us ;
    po:contains :treatment . 
 ```
 
+#### Taxonomic Name Usage, Taxonomic Concept Label, PROTON Mention
 
+In the text of taxonomic articles we often find strings like "**Aus bus**"
+that refer to taxon names or like "**Aus bus sec Senderov (2017)**" that refer
+to taxon concepts. We call these strings in the first case **taxon name
+usages** and in the second case **taxon concept labels**. We consider these to
+be instances of Mention from the [PROTON Extensions module]
+(http://ontotext.com/proton/).
+
+**Def. 1 (Taxon Name Usage):** *A taxonomic name usage is the mentioning of a
+taxon name in the text. A taxonomic concept label is taxonomic name usage 
+followed by a citation of a reference to an expression:*
+
+```
+<<Mention>>=
+
+top:Entity rdf:type owl:Class ;
+            rdfs:comment "Any sort of an entity of interest, usually something existing, happening, or purely abstract. Entities may have several - more than one - names or aliases."@en ;
+            rdfs:label "Entity"@en .
+
+ptop:Object rdf:type owl:Class ;
+            rdfs:subClassOf ptop:Entity ;
+            rdfs:comment "Objects are entities that could be claimed to exist - in some sense of existence. An object can play a certain role in some happenings. Objects could be substantially real - as the Buckingham Palace or a hardcopy book - or substantially imperceptible - for instance, an electronic document that exists only virtually, one cannot touch it."@en ;
+            rdfs:label "Object"@en .
+
+ptop:Statement rdf:type owl:Class ;
+               rdfs:subClassOf ptop:Object ;
+               rdfs:comment "A message that is stated or declared; a communication (oral or written), setting forth particulars or facts, etc; \"according to his statement he was in London on that day\". WordNet 1.7.1"@en ;
+               rdfs:label "Statement"@en .
+
+ptop:InformationResource rdf:type owl:Class ;
+                         rdfs:subClassOf ptop:Statement ;
+                         rdfs:comment "InformationResource denotes an information resource with identity, as defined in Dublin Core (DC2003ISO). InformationResource is considered any communication or message that is delivered or produced, taking into account the specific intention of its originator, and also the supposition (and anticipation) for a particular audience or counter-agent in the process of communication (i.e. passive or active feed-back)."@en ;
+                         rdfs:label "Information Resource"@en .
+
+pext:Mention rdf:type owl:Class ;
+             rdfs:subClassOf ptop:InformationResource ;
+             rdfs:comment "An area of a document that can be considered a mention of something."@en ;
+             rdfs:label "Section" .
+
+:ТaxonоmicNameUsage a owl:Class ;
+  rdfs:subClassOf  pext:Mention ;
+  rdfs:range :TaxonomicName ;
+  rdfs:comment "A string within a document that can be considered a mention of a
+                  taxonomic name."@en;
+  rdfs:label "Taxonomic Name Usage"@en;
+
+:TaxonomicConceptLabel a owl:Class ;
+  rdfs:subClassOf pext:Mention ;
+  rdfs:range :TaxonConcept ;
+  rdfs:comment "A string that can be unambiguously unambiguously resolved as
+                refering a taxonomic concept either by the usage of 'sec' or
+                by the usage some other unique identifier."@en .
+@
+```
+
+**Example 2 (taxonomic name usage and taxonomic concept label).**
+
+```
+<<taxonomic name usage and taxonomic concept label>>=
+:taxonomic-name-usage a :TaxonomicNameUsage ;
+  cnt:chars "Aus bus" .
+
+:taxonomic-concept-label a :TaxonomicConceptLabel ;
+  cnt:chars "Aus bus sec Senderov (2017)"
+
+:treatment po:contains :taxonomic-name-usage , :taxonomic-concept-label .
+@
+```
 
 #### Paper Types
 
@@ -339,6 +420,15 @@ convey information from the domain of biological systematics.
 <<RCC5>>
 @
 ```
+
+#### Taxonomic Names
+
+In our conceptual view of the world taxonomic names are symbols (Symbol) for
+real world taxa in the language of the [semiotic triangle]
+(https://de.wikipedia.org/wiki/Semiotisches_Dreieck). Taxonomic names play a
+dual role in our system as they are also references (Begriff) of taxonomic
+name usages.
+
 #### Taxon Concepts
 
 In a nutshell a taxon concept is a scientific theory about a taxon. In our
@@ -354,7 +444,19 @@ point of reference is not a particular recitation or text of the work, but the
 intellectual creation that lies behind all the various expressions of the
 work."
 
-##### 1. Taxon concepts are linked to their expression
+Taxon concepts have a few defining characteristics:
+
+1. They may be linked to a scientific name (e.g. **Aus bus**) that acts as a
+
+1. They are linked to an article, book chapter, database or any other form
+of expression realizing the taxon concepts.
+
+**Remark and example 2 (linking treatments to taxon concepts).**  We view
+Treatment to be an expression of a theory about a taxon. Therefore, we may
+establish a link between the significant bibliographic unit (be it Journal 
+Article, Book Chapter, or any other Expression) containing the treatment and
+the taxon concept, whose realization the treatment is.
+
 
 This comment in FRBR means that taxon concepts can have different realizations
 (`frbr:Expression`) such as a treatment or a database entry. Linking to
