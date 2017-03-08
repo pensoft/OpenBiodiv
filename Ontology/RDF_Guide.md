@@ -60,7 +60,7 @@ openbiodiv:
 
 We've just defined our *root chunk*. In the `noweb` way of doing literate
 programming, we write our source in chunks. Each chunk has a name that is
-found between the `<<` and `>>` and ends in `@`. Chunks can contain other
+found between the `@<<` and `>>` and ends in `@`. Chunks can contain other
 chunks and thus the writing of the source code becomes hierarchical and non-
 linear. In the root chunk, we've listed other chunks that we'll introduce
 later and some verbatim code. In order to create the ontology we use
@@ -169,13 +169,12 @@ the [Treatment Ontologies](https://github.com/plazi/TreatmentOntologies).
 
 ```
 <<Publishing Domain>>=
+
 <<Treatment>>
-
 <<Paper Types>>
-
 <<Taxon Classification>>
-
 <<Chronological Classification>>
+
 @
 ```
 
@@ -190,7 +189,7 @@ Journal Article, such as Publisher, and Journal using SPAR.
 **Example 1 (modeling Journal Article).**
 
 ```
-<<eg: article, journal, publisher>>=
+<<eg1>>=
 :pensoft-publishers rdf:type foaf:Agent ;
   skos:prefLabel "Pensoft Publishers" ;
   pro:holdsRoleInTime :pensoft-publishes-bdj . 
@@ -219,7 +218,7 @@ Journal Article, such as Publisher, and Journal using SPAR.
 
 See [Plazi](http://plazi.org/) for a theoretical discussion of Treatment.
 
-**Def. 1 (Treatment):** *Taxonomic Treatment, or simply Treatment, is
+**Def. 2 (Treatment):** *Taxonomic Treatment, or simply Treatment, is
 a rhetorical element of a taxonomic publication:*
 
 ```
@@ -247,12 +246,12 @@ a rhetorical element of a taxonomic publication:*
 Thus, Treatment is defined akin to Introduction, Methods, etc. from [DEO]
 (http://www.sparontologies.net/ontologies/deo/source.html).
 
-**Example 2 (instantiating a treatment).**
+**Example 3 (instantiating a treatment).**
 
 ```
-<<eg: treatment>>=
+<<eg3>>=
 :treatment
-  a doco:Section, trt:Treatment .
+  a doco:Section, :Treatment .
 @
 ```
 
@@ -266,11 +265,45 @@ such as treatments via the use of the "contains" property in the [Pattern
 Ontology](http://www.essepuntato.it/2008/12/pattern).
 
 ```
+<<eg3-2>>=
 :article
    po:contains :treatment . 
+@
 ```
 
-#### Taxonomic Name Usage, Taxonomic Concept Label, PROTON Mention
+##### Nomenclature
+
+The nomenclature is a special subsection of treatment where nomenclatural acts
+are published. We define it similar to Treatment, but proper modeling entails
+that for each Nomenclature section there ought to be a Treatment that contains
+it.
+
+**Def. 4 (Nomenclature):** *Nomenclature is a specialized section of a
+taxonomic publication, usually a subsection of Treatment, where nomenclatural
+acts take place.*
+
+```
+<<Nomenclature>>=
+:Nomenclature a owl:Class ;
+  rdfs:label "Taxonomic Nomenclature Section"@en ;
+  rdfs:comment "A taxonomic nomenclature section, or simply a nomenclature, 
+                  is a rhetorical element of a taxonomic publication, i.e. a 
+                  specialized section, where nomenclatural acts are published."@en ;
+    
+  rdfs:subClassOf deo:DiscourseElement .
+@
+```
+
+**Example 5: contecting a nomenclatural section to a treatment section.**
+
+```
+<<eg5>>=
+:nomenclature a Doco:Section, :Nomenclature .
+:treatment po:contains :nomenclature.
+@
+```
+
+#### Taxonomic Name Usage and Taxonomic Concept Label
 
 In the text of taxonomic articles we often find strings like "**Aus bus**"
 that refer to taxon names or like "**Aus bus sec Senderov (2017)**" that refer
@@ -279,8 +312,22 @@ usages** and in the second case **taxon concept labels**. We consider these to
 be instances of Mention from the [PROTON Extensions module]
 (http://ontotext.com/proton/).
 
-**Def. 1 (Taxon Name Usage):** *A taxonomic name usage is the mentioning of a
-taxon name in the text. A taxonomic concept label is taxonomic name usage 
+Furthermore, taxonomic name usages may be accompanied by strings such as "new.
+comb.", "new syn." and so on that have nomenclatural meaning. We view these as
+specialized classes of taxonomic name usages. In order to come up  with these
+specialized classes of taxonomic name usages, one approach would be to do a
+top-down study of the Codes of Zoological and Botanical nomenclature. We have,
+decided, however, to ground our ontology in the realities of our publishing
+practice and found the most widely used cases of taxonomic name usages by text
+mining the texts of over 5000 articles. Note that our bottom- up approach may
+still be combined by deriving the Code-inspired TNU's from our more general
+classes.
+
+Here's a list of the taxonomic name usages that we found and their abbreviations:
+
+
+**Def. 6 (Taxonomic Name Usage):** *A taxonomic name usage is the mentioning
+of a taxon name in the text. A taxonomic concept label is taxonomic name usage
 followed by a citation of a reference to an expression:*
 
 ```
@@ -326,10 +373,10 @@ pext:Mention rdf:type owl:Class ;
 @
 ```
 
-**Example 2 (taxonomic name usage and taxonomic concept label).**
+**Example 7 (taxonomic name usage and taxonomic concept label).**
 
 ```
-<<taxonomic name usage and taxonomic concept label>>=
+<<eg7>>=
 :taxonomic-name-usage a :TaxonomicNameUsage ;
   cnt:chars "Aus bus" .
 
@@ -342,7 +389,7 @@ pext:Mention rdf:type owl:Class ;
 
 #### Paper Types
 
-**Def. of controlled vocabulary (Paper Types):** Pensoft's journals have some
+**Def. 8 of controlled vocabulary (Paper Types):** Pensoft's journals have some
 paper types, which we define herein. First of all, we introduce Paper Types as
 a Term Dictionary in the discipline of Bibliography. Then we introduce the
 different paper types as Subject Term's in the scheme of Paper Types. See the
@@ -359,12 +406,13 @@ pensoft:PaperTypes
 @
 ```
 
-**Example and remark 3.** We give an example of a paper with only one
+**Example 9.** We give an example of a paper with only one
 taxonomic treatment. These paper types are not part of the Core Ontology but
 are imported in the Knowledge Base during the population phase. We also show
 how to say that a paper has as its type the aforementioned type.
 
 ```
+<<eg9>>=
 :single-taxon-treatment
   a fabio:SubjectTerm ;
   rdfs:label "Single Taxon Treatment"@en; 
@@ -374,13 +422,14 @@ how to say that a paper has as its type the aforementioned type.
 :paper
   a fabio:JournalArticle ;
   fabio:hasSubjectTerm :single-taxon-treatment .
+@
 ```
 
 TODO: Extract paper types.
 
 #### Taxon Classification
 
-**Def. of controlled vocabulary (Taxon Classification):** Pensoft, in its
+**Def. 10 of controlled vocabulary (Taxon Classification):** Pensoft, in its
 Keywords uses certain taxon names for the classification of its papers. These
 taxon names are borrowed from GBIF. Here we define a term dictionary
 analogously to paper types:
@@ -398,7 +447,7 @@ pensoft:TaxonClassification
 
 ### Chronological Classification
 
-**Def. of controlled vocabulary (Taxon Classification):**
+**Def. 11 of controlled vocabulary (Taxon Classification):**
 ```
 <<Chronological Classification>>=
 openbiodiv:ChronologicalClassification
@@ -451,7 +500,7 @@ Taxon concepts have a few defining characteristics:
 1. They are linked to an article, book chapter, database or any other form
 of expression realizing the taxon concepts.
 
-**Remark and example 2 (linking treatments to taxon concepts).**  We view
+**Remark and example 12 (linking treatments to taxon concepts).**  We view
 Treatment to be an expression of a theory about a taxon. Therefore, we may
 establish a link between the significant bibliographic unit (be it Journal 
 Article, Book Chapter, or any other Expression) containing the treatment and
@@ -466,6 +515,8 @@ to an online database.
 
 
 ```
+<<eg12>>=
+
 :gbif2017 a fabio:Database ;
   skos:prefLabel "GBIF Backbone Taxonomy 20170301"@en ; 
   rdfs:comment "A dump of GBIF's backbone taxonomy on 2 Mar 2017."@en ;
@@ -475,6 +526,7 @@ to an online database.
   a dwc:Taxon ;
   frbr:realization :gbif2017 .
 
+@
 ```
 
 In our understanding of the domain every taxon concepts needs to have at least
@@ -496,19 +548,21 @@ In order to be able to instantiate taxon concepts, we import "Darwin Semantic
 Web, version 1.0", where `dwc:Taxon` is defined. 
 
 
-**Remark and example 1.** Note that 
+**Remark and example 13.** Note that 
 
 Taxon concepts are related to one another via simple relationships and
 via RCC-5 properties.
 
 #### Simple Taxon Concept Relationships
 
-- subconceptOf (this can be used when you refine a concept, or when 
+- is_a (this can be used when you refine a concept, or when 
 a higher rank subsumes a lower rank)
 - relatedTo (when you have two overlaping but different concepts)
 - congruent (when two concepts are exactly the same)
 
 #### RCC-5 Relationships
+
+Complex RCC 5 relationships will be modeled as separate entities.
 
 ```
 openbiodiv:EQ_INT rdf:type owl:ObjectProperty ;
@@ -591,9 +645,21 @@ pensoft:exampleTaxonConcept1 a dwc:Taxon ;
 ```
 
 
-## Putting the pieces together in an Ontology
+## Build the examples
 
+```
+<<Examples>>=
+<<eg1>>>
+<<eg3>>>
+<<eg3-2>>
+<<eg5>>>
+<<eg9>>>
+<<eg12>>
+@
+```
 
-
+```
+notangle -RExamples RDF_Guide.md > Examples.ttl
+```
 
 TODO: check for prefix consistency for all imported ontologies.
