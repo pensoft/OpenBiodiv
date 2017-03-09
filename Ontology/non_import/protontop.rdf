@@ -1,0 +1,647 @@
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:ptop="http://www.ontotext.com/proton/protontop#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
+  <owl:Ontology rdf:about="http://www.ontotext.com/proton/protontop">
+    <owl:versionInfo>3.0</owl:versionInfo>
+    <dc:rights>Proton ontology is available under the Creative Commons Attribution 3.0 Unported license; see http://creativecommons.org/licenses/by/3.0/. In a nutshell, you are free to copy, distribute and transmit the work; to remix/adapt the work (e.g. to import the ontology and create specializations of its elements), as long as you attribute the work in the manner specified by the author or licensor (but not in any way that suggests that they endorse you or your use of the work). Proper Attribution: Simply include the statement This work is based on Proton ontology, developed by Ontotext and link back to http://www.ontotext.com/proton-ontology</dc:rights>
+    <dc:creator>Ontotext (Kiril Simov, Atanas Kiryakov, Ivan Terziev, Dimitar Manov, Mariana Damova, Svetoslav Petrov)</dc:creator>
+    <rdfs:label>Proton Ontology</rdfs:label>
+    <dc:subject>Upper-level ontology with extensions to handle Linked Open Data (LOD)</dc:subject>
+    <dc:title>Proton</dc:title>
+    <rdfs:comment>PROTON (Proto Ontology), Top module</rdfs:comment>
+  </owl:Ontology>
+  <owl:Class rdf:about="http://www.ontotext.com/proton/protontop#ProductModel">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.ontotext.com/proton/protontop#Object"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Product Model</rdfs:label>
+    <rdfs:comment xml:lang="en">The general concept of a product model, for example, Ford T. The instances of this class are not specific instances of the product - the latter are just instances. Although product models are rather abstract entities (generally, intangible), this class is defined as a sub-class of Object, because it has a strong temporal extent (it comes to exsitence at some point of time). There could be several information resources associated with a product model (e.g. specifications, brouchures, etc.), but it is not an information resource on its own.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.ontotext.com/proton/protontop#Location">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.ontotext.com/proton/protontop#Object"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Location</rdfs:label>
+    <rdfs:comment xml:lang="en">Usually a geographic location on the earth, however any sort of 3D regions also fit here. The classification is based on the ADL Feature Type Thesaurus version 070203. Additionally, classes from Geonames classification are included. For each specific type, the corresponding NIMA GNS designators (DSG) are given.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.ontotext.com/proton/protontop#Group">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.ontotext.com/proton/protontop#Agent"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Group</rdfs:label>
+    <rdfs:comment xml:lang="en">A group of agents that is not organized in any way. It could be the group of people in a bus or the shareholders of a company.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.ontotext.com/proton/protontop#Event">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.ontotext.com/proton/protontop#Happening"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Event</rdfs:label>
+    <rdfs:comment xml:lang="en">A dynamic event, such as "running" or "a concert".</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.ontotext.com/proton/protontop#Person">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.ontotext.com/proton/protontop#Agent"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Person</rdfs:label>
+    <rdfs:comment xml:lang="en">A Person is an agent, which is an individual who is a human being (i.e. any living or not alive member of the family Hominidae). Wordnet 2.0.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.ontotext.com/proton/protontop#Happening">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.ontotext.com/proton/protontop#Entity"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Happening</rdfs:label>
+    <rdfs:comment xml:lang="en">Something that happens. It can be either dynamic - like in "drawing a circle", or static - like in "being a president". In all cases, a happening (an event, a situation, or a time period) has a certain (usually quite concrete) temporal positioning - in the simplest case it is the one, denoted by start and end point in time.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.ontotext.com/proton/protontop#Document">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.ontotext.com/proton/protontop#InformationResource"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Document</rdfs:label>
+    <rdfs:comment xml:lang="en">The information content of any sort of document. The tangible aspects are ignored. It is usually a document in free text with no formal structure or semantics.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.ontotext.com/proton/protontop#Entity">
+    <rdfs:label xml:lang="en">Entity</rdfs:label>
+    <rdfs:comment xml:lang="en">Any sort of an entity of interest, usually something existing, happening, or purely abstract. Entities may have several - more than one - names or aliases.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.ontotext.com/proton/protontop#InformationResource">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.ontotext.com/proton/protontop#Statement"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Information Resource</rdfs:label>
+    <rdfs:comment xml:lang="en">InformationResource denotes an information resource with identity, as defined in Dublin Core (DC2003ISO). InformationResource is considered any communication or message that is delivered or produced, taking into account the specific intention of its originator, and also the supposition (and anticipation) for a particular audience or counter-agent in the process of communication (i.e. passive or active feed-back).</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.ontotext.com/proton/protontop#GeneralTerm">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.ontotext.com/proton/protontop#Abstract"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">General Term</rdfs:label>
+    <rdfs:comment xml:lang="en">General concept with well defined (idiomatic) meaning which can have a set of distinct lexical items (surface realizations) associated with it. Examples are: F2F, I18N, P2P, B2B, VIP, ASAP, Semantic Web</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.ontotext.com/proton/protontop#SocialPosition">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.ontotext.com/proton/protontop#Situation"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Social Position</rdfs:label>
+    <rdfs:comment xml:lang="en">The situation of a person, having a social position like celebrity, nobelty, job position, cleric, out of laws. The sub-classes of this class define different social statuses.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.ontotext.com/proton/protontop#ContactInformation">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.ontotext.com/proton/protontop#Abstract"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Contact Information</rdfs:label>
+    <rdfs:comment xml:lang="en">Any instance of a particular notation, used to make the contact with an individual, an organization, or any other object possible.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.ontotext.com/proton/protontop#Abstract">
+    <rdfs:subClassOf rdf:resource="http://www.ontotext.com/proton/protontop#Entity"/>
+    <rdfs:label xml:lang="en">Abstract</rdfs:label>
+    <rdfs:comment xml:lang="en">Something, which neither happens nor exists, e.g. a number or a chemical compound formula. Those are usually some symbols, invented to refer to general notions.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.ontotext.com/proton/protontop#Object">
+    <rdfs:subClassOf rdf:resource="http://www.ontotext.com/proton/protontop#Entity"/>
+    <rdfs:label xml:lang="en">Object</rdfs:label>
+    <rdfs:comment xml:lang="en">Objects are entities that could be claimed to exist - in some sense of existence. An object can play a certain role in some happenings. Objects could be substantially real - as the Buckingham Palace or a hardcopy book - or substantially imperceptible - for instance, an electronic document that exists only virtually, one cannot touch it.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.ontotext.com/proton/protontop#Role">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.ontotext.com/proton/protontop#Situation"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Role</rdfs:label>
+    <rdfs:comment xml:lang="en">The role of an entity (usually an agent) within/during/affecting (intentionally or not) a particular happening. For instance a project coordinator, or a trial defendant, or even a material object that serves as an evidence in a trial (e.g. a weapon). Usually, we say 'this object is in this role in this happening'.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.ontotext.com/proton/protontop#Number">
+    <rdfs:subClassOf rdf:resource="http://www.ontotext.com/proton/protontop#Abstract"/>
+    <rdfs:label xml:lang="en">Number</rdfs:label>
+    <rdfs:comment xml:lang="en">Any given number, within the meaning that a number is one of the following: a concept of quantity derived from zero and units; or a numeral (or a string of numerals) used for identification ("she refused to give them her Social Security number"); or a phone number, etc.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.ontotext.com/proton/protontop#TimeInterval">
+    <rdfs:subClassOf rdf:resource="http://www.ontotext.com/proton/protontop#Happening"/>
+    <rdfs:label xml:lang="en">Time Interval</rdfs:label>
+    <rdfs:comment xml:lang="en">This is a general time expression, which refers to a particular period of time, an interval. Repeating periods (like Spring or Christmas) are not time intervals, while specific instances of them (like the Spring of 1944) are. A TimeInterval could collapse, in very special cases, to a time point, however in this case, in contrast to the Abstract time point (referring to some time during the day), it should be bound to a specific date, i.e. to represent a timestamp.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.ontotext.com/proton/protontop#Service">
+    <rdfs:subClassOf rdf:resource="http://www.ontotext.com/proton/protontop#Object"/>
+    <rdfs:label xml:lang="en">Service</rdfs:label>
+    <rdfs:comment xml:lang="en">Any sort of service, ranging from a scheduled flight or train services to a weather forecast information/web serivce. Many services could be considered agents (usually software services).</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.ontotext.com/proton/protontop#Language">
+    <rdfs:subClassOf rdf:resource="http://www.ontotext.com/proton/protontop#Abstract"/>
+    <rdfs:label xml:lang="en">Language</rdfs:label>
+    <rdfs:comment xml:lang="en">A spoken or written natural language</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.ontotext.com/proton/protontop#Statement">
+    <rdfs:subClassOf rdf:resource="http://www.ontotext.com/proton/protontop#Object"/>
+    <rdfs:label xml:lang="en">Statement</rdfs:label>
+    <rdfs:comment xml:lang="en">A message that is stated or declared; a communication (oral or written), setting forth particulars or facts, etc; "according to his statement he was in London on that day". WordNet 1.7.1</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.ontotext.com/proton/protontop#Agent">
+    <rdfs:subClassOf rdf:resource="http://www.ontotext.com/proton/protontop#Object"/>
+    <rdfs:label xml:lang="en">Agent</rdfs:label>
+    <rdfs:comment xml:lang="en">An Agent is something, which can show (carry out) an independent action, whether consciously or not. Most animals are considered agents, in most contexts; so are most organizations. According to DOLCE 2.0 "objects to which we ascribe intentions, beliefs and desires". In PROTON, Agent also denotes any automatic device and service, including web services and servers.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.ontotext.com/proton/protontop#Organization">
+    <rdfs:subClassOf rdf:resource="http://www.ontotext.com/proton/protontop#Group"/>
+    <rdfs:label xml:lang="en">Organization</rdfs:label>
+    <rdfs:comment xml:lang="en">Organization is a group, which is established in such a way that certain known relationships and obligations exist between the members, and/or between the organization and its members, and/or between the organization and the public (individuals or groups). It includes both informal and legally constituted organizations. Organizations can act as agents - to undertake projects, to enter into agreements, to own properties, etc. Most organizations have names. Almost all of them have at least two members.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.ontotext.com/proton/protontop#Topic">
+    <rdfs:subClassOf rdf:resource="http://www.ontotext.com/proton/protontop#Abstract"/>
+    <rdfs:label xml:lang="en">Topic</rdfs:label>
+    <rdfs:comment xml:lang="en">Any sort of a topic or theme, explicitly defined for classification purposes. As long as any other class or entity can play the role of a topic, the instances of this class are only those concepts that are defined to serve as topics. The topic class is the natural top-class for linkage of logically informal taxonomies.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.ontotext.com/proton/protontop#JobPosition">
+    <rdfs:subClassOf rdf:resource="http://www.ontotext.com/proton/protontop#SocialPosition"/>
+    <rdfs:label xml:lang="en">Job Position</rdfs:label>
+    <rdfs:comment xml:lang="en">The situation of a person, holding a job (employment) position within an organization. The sub-classes of this class define a number of different types of positions.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.ontotext.com/proton/protontop#Situation">
+    <rdfs:subClassOf rdf:resource="http://www.ontotext.com/proton/protontop#Happening"/>
+    <rdfs:label xml:lang="en">Situation</rdfs:label>
+    <rdfs:comment xml:lang="en">A static event or situation, like "sitting on a chair" or "holding position". Typically, those are temporarily homogenous, i.e. their nature is not expected/required to change with their duration. As a happening, they used to happen/take place/be true for some periods of time and may or may not have a well-defined space extension.</rdfs:comment>
+  </owl:Class>
+  <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#hasRelative">
+    <rdfs:range rdf:resource="http://www.ontotext.com/proton/protontop#Person"/>
+    <rdfs:label xml:lang="en">has Relative</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#Person"/>
+    <rdfs:comment xml:lang="en">Relation between a person and his/her relatives - mother, father, brother, sister, child, etc.</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#SymmetricProperty"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#partOf">
+    <rdfs:range rdf:resource="http://www.ontotext.com/proton/protontop#Entity"/>
+    <rdfs:label xml:lang="en">Part of</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#Entity"/>
+    <rdfs:comment xml:lang="en">The general part-of relation which takes place between a whole and each of its parts. It has a number of specializations.</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#hasParent">
+    <owl:inverseOf>
+      <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#hasChild"/>
+    </owl:inverseOf>
+    <rdfs:subPropertyOf rdf:resource="http://www.ontotext.com/proton/protontop#hasRelative"/>
+    <rdfs:label xml:lang="en">has Parent</rdfs:label>
+    <rdfs:comment xml:lang="en">Relation between a person and his/her mother or father.</rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#inLanguage">
+    <rdfs:range rdf:resource="http://www.ontotext.com/proton/protontop#Language"/>
+    <rdfs:label xml:lang="en">in Language</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#InformationResource"/>
+    <rdfs:comment xml:lang="en">The language of the intellectual content of a resource. Recommended best practice is to use RFC 3066 [RFC3066], which, in conjunction with ISO 639 [ISO639], defines two- and three-letter primary language tags with optional subtags. Examples include “en” or “eng” for English, “akk” for Akkadian, and “en-GB” for English used in the United Kingdom. DC2003ISO</rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#hasParticipatingEntity">
+    <owl:inverseOf>
+      <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#involvedEntityIn"/>
+    </owl:inverseOf>
+    <rdfs:range rdf:resource="http://www.ontotext.com/proton/protontop#Entity"/>
+    <rdfs:label xml:lang="en">Entity Participating in a Happening</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#Happening"/>
+    <rdfs:comment xml:lang="en">The relation between a happening and an entity determining it. Such entities can be agents, instruments, materials, places, etc.</rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#registeredIn">
+    <rdfs:subPropertyOf>
+      <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#locatedIn"/>
+    </rdfs:subPropertyOf>
+    <rdfs:label xml:lang="en">Registered in</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#Organization"/>
+    <rdfs:comment xml:lang="en">A relation between an organization and the location in which it is registered.</rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#involvedIn">
+    <rdfs:subPropertyOf>
+      <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#involvedEntityIn"/>
+    </rdfs:subPropertyOf>
+    <rdfs:range rdf:resource="http://www.ontotext.com/proton/protontop#Happening"/>
+    <rdfs:label xml:lang="en">Involved in</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#Entity"/>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#Agent"/>
+    <rdfs:comment xml:lang="en">The participating entities in a given happening that are agents. Participation is usually via some role.</rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#roleIn">
+    <rdfs:range rdf:resource="http://www.ontotext.com/proton/protontop#Happening"/>
+    <rdfs:label xml:lang="en">Role in</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#Role"/>
+    <rdfs:comment xml:lang="en">Relates a role to a happening, conditioned and affected by the role. Usually, the participants of a happening 'play' one or more roles in it.</rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#hasPosition">
+    <owl:inverseOf>
+      <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#holder"/>
+    </owl:inverseOf>
+    <rdfs:range rdf:resource="http://www.ontotext.com/proton/protontop#JobPosition"/>
+    <rdfs:label xml:lang="en">has Position</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#Person"/>
+    <rdfs:comment xml:lang="en">Relation between a person and his/her job position.</rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#partiallyOwns">
+    <rdfs:subPropertyOf>
+      <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#partiallyControls"/>
+    </rdfs:subPropertyOf>
+    <rdfs:label xml:lang="en">Partially Owns</rdfs:label>
+    <rdfs:comment xml:lang="en">Indicates that an Agent has some ownership over an object. It allows wide interpretations from "I have a bike" to "John has shares in Fujitsu".</rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#hasEmployee">
+    <rdfs:subPropertyOf>
+      <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#hasMember"/>
+    </rdfs:subPropertyOf>
+    <rdfs:range rdf:resource="http://www.ontotext.com/proton/protontop#Person"/>
+    <rdfs:label xml:lang="en">has Employee</rdfs:label>
+    <rdfs:comment xml:lang="en">Relates a particular organization to its employees.</rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#hasSibling">
+    <rdfs:subPropertyOf rdf:resource="http://www.ontotext.com/proton/protontop#hasRelative"/>
+    <rdfs:label xml:lang="en">has Sibling</rdfs:label>
+    <rdfs:comment xml:lang="en">Relation between a person and his/her siblings - brother or sister.</rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#holder">
+    <rdfs:range rdf:resource="http://www.ontotext.com/proton/protontop#Person"/>
+    <rdfs:label xml:lang="en">Holder</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#JobPosition"/>
+    <rdfs:comment xml:lang="en">The person holding the position</rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#hasContributor">
+    <rdfs:range rdf:resource="http://www.ontotext.com/proton/protontop#Agent"/>
+    <rdfs:label xml:lang="en">has Contributor</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#InformationResource"/>
+    <rdfs:comment xml:lang="en">An agent responsible for making contributions to the content of a resource. Examples of Contributor include a person, an organization, or a service. DC2003ISO</rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#hasLeader">
+    <rdfs:subPropertyOf>
+      <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#hasMember"/>
+    </rdfs:subPropertyOf>
+    <rdfs:range rdf:resource="http://www.ontotext.com/proton/protontop#Person"/>
+    <rdfs:label xml:lang="en">has Leader</rdfs:label>
+    <rdfs:comment xml:lang="en">A general relation between an organization and a person who rules or guides or inspires it in some sense. It may or may not be an employee, may or may not be formal etc. Typically there is a single leader of an organization.</rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#isOwnedBy">
+    <rdfs:range rdf:resource="http://www.ontotext.com/proton/protontop#Agent"/>
+    <rdfs:label xml:lang="en">is Owned by</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#Object"/>
+    <rdfs:comment xml:lang="en">The relation between an object and an agent that is the owner of that object.</rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#subTopicOf">
+    <rdfs:range rdf:resource="http://www.ontotext.com/proton/protontop#Topic"/>
+    <rdfs:label xml:lang="en">Subtopic of</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#Topic"/>
+    <rdfs:comment xml:lang="en">A relation from less general to more general topic. Defined to be transitive via rule.</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#hasContactInfo">
+    <rdfs:range rdf:resource="http://www.ontotext.com/proton/protontop#ContactInformation"/>
+    <rdfs:label xml:lang="en">has Contact Info</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#Object"/>
+    <rdfs:comment xml:lang="en">The information by which a given object can be contacted. Usually an address, telefon number, e-mail address, etc.</rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#statedBy">
+    <rdfs:range rdf:resource="http://www.ontotext.com/proton/protontop#Agent"/>
+    <rdfs:label xml:lang="en">Stated by</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#Statement"/>
+    <rdfs:comment xml:lang="en">Relates a statement to the agent who made it. In the case of an offer, the agent is the offerer; in case of a contract, those are the parties. In case of written statements, the creator/author and the "stater" could be different agents, due to the fact that one agent my have prepared and/or published a statement on behalf of another.</rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#operatedBy">
+    <rdfs:range rdf:resource="http://www.ontotext.com/proton/protontop#Agent"/>
+    <rdfs:label xml:lang="en">Operated by</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#Service"/>
+    <rdfs:comment xml:lang="en">A relation between a service and the agent (usually organisation), who provides it</rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#producedBy">
+    <rdfs:range rdf:resource="http://www.ontotext.com/proton/protontop#Agent"/>
+    <rdfs:label xml:lang="en">Produced by</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#ProductModel"/>
+    <rdfs:comment xml:lang="en">A relation between a company and its ProductModel</rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#withinOrganization">
+    <rdfs:range rdf:resource="http://www.ontotext.com/proton/protontop#Organization"/>
+    <rdfs:label xml:lang="en">within Organization</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#JobPosition"/>
+    <rdfs:comment xml:lang="en">Determines in which organization is the position</rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#hasSubject">
+    <ptop:transitiveOver rdf:resource="http://www.ontotext.com/proton/protontop#subTopicOf"/>
+    <rdfs:range rdf:resource="http://www.ontotext.com/proton/protontop#Topic"/>
+    <rdfs:label xml:lang="en">has Subject</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#InformationResource"/>
+    <rdfs:comment xml:lang="en">The topic of content of a given resource. Comment: Typically, the Subject will be expressed as keywords, key phrases, or classification codes that describe the topic of resource. Recommended best practice is to select a value from a controlled vocabulary or formal classification scheme. (DC2003ISO, Subject)</rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#derivedFromSource">
+    <rdfs:range rdf:resource="http://www.ontotext.com/proton/protontop#InformationResource"/>
+    <rdfs:label xml:lang="en">Derived from Source</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#InformationResource"/>
+    <rdfs:comment xml:lang="en">A reference to a resource from which the present resource is derived. The present resource may be derived from the Source resource in whole or in part. Recommended best practice is to identify the referenced resource by means of a string or number conforming to a formal identification system. DC2003ISO</rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#locatedIn">
+    <rdfs:range rdf:resource="http://www.ontotext.com/proton/protontop#Location"/>
+    <rdfs:label xml:lang="en">Located in</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#Entity"/>
+    <rdfs:comment xml:lang="en">The relation between an object (also some happenings via their participants) and location where the object is.</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#involvedEntityIn">
+    <rdfs:range rdf:resource="http://www.ontotext.com/proton/protontop#Happening"/>
+    <rdfs:label xml:lang="en">Entity Involved in</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#Entity"/>
+    <rdfs:comment xml:lang="en">The entities related to a given happening. Such entities can be agents, instruments, materials, places, etc.</rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#hasParticipant">
+    <owl:inverseOf rdf:resource="http://www.ontotext.com/proton/protontop#involvedIn"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.ontotext.com/proton/protontop#hasParticipatingEntity"/>
+    <rdfs:range rdf:resource="http://www.ontotext.com/proton/protontop#Agent"/>
+    <rdfs:label xml:lang="en">Participant in a Happening</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#Happening"/>
+    <rdfs:comment xml:lang="en">The relation between a happenning and the agent involved in it. Fequently, the participants play some roles in the happening, then the appriate roles have to be introduced.</rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#controls">
+    <rdfs:subPropertyOf>
+      <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#partiallyControls"/>
+    </rdfs:subPropertyOf>
+    <rdfs:label xml:lang="en">Controls</rdfs:label>
+    <rdfs:comment xml:lang="en">Indicates that an Agent has full control over an object. This is typically the case of wholly-owned subsidiaries and physicall possession of goods.</rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#subRegionOf">
+    <rdfs:subPropertyOf rdf:resource="http://www.ontotext.com/proton/protontop#locatedIn"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.ontotext.com/proton/protontop#partOf"/>
+    <rdfs:label xml:lang="en">Subregion of</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#Location"/>
+    <rdfs:comment xml:lang="en">Relation between two locations where the first is contained within the other.</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#partiallyControls">
+    <rdfs:range rdf:resource="http://www.ontotext.com/proton/protontop#Object"/>
+    <rdfs:label xml:lang="en">Partially Controls</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#Agent"/>
+    <rdfs:comment xml:lang="en">Any sort of partial control an agent has with respect to an object.</rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#hasSpouse">
+    <rdfs:subPropertyOf rdf:resource="http://www.ontotext.com/proton/protontop#hasRelative"/>
+    <rdfs:label xml:lang="en">has Spouse</rdfs:label>
+    <rdfs:comment xml:lang="en">Relation between a man and a woman that are married. This property is time constrained by the marriage happening for the two persons. Thus, one could have different spouses in different periods. If this time relation is important for a given domain, it needs to be modelled by the marriage happening.</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#SymmetricProperty"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#isBossOf">
+    <rdfs:range rdf:resource="http://www.ontotext.com/proton/protontop#Person"/>
+    <rdfs:label xml:lang="en">is Boss of</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#Person"/>
+    <rdfs:comment xml:lang="en">Relates a Person to another one, where the first is the immediate boss or supervisor of the latter. This is a many-to-many relationship, i.e. there can be more than one boss of a person, even contemporally.</rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#establishedIn">
+    <rdfs:subPropertyOf rdf:resource="http://www.ontotext.com/proton/protontop#locatedIn"/>
+    <rdfs:label xml:lang="en">Established in</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#Organization"/>
+    <rdfs:comment xml:lang="en">The place where the organization is established or registered</rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#parentOrganizationOf">
+    <owl:inverseOf>
+      <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#subsidiaryOrganizationOf"/>
+    </owl:inverseOf>
+    <rdfs:subPropertyOf rdf:resource="http://www.ontotext.com/proton/protontop#partiallyControls"/>
+    <rdfs:range rdf:resource="http://www.ontotext.com/proton/protontop#Organization"/>
+    <rdfs:label xml:lang="en">Parent Organization of</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#Organization"/>
+    <rdfs:comment xml:lang="en">A relation between two organizations, where one of them is dependent on the other in some sense. This is a transitive relation, i.e. if organization X is a parent organization of Y and the latter is a parent organization of Z, then X is also considered a parent organization of Z. Inverse of subsidiaryOrganizationOf.</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#subsidiaryOrganizationOf">
+    <rdfs:subPropertyOf rdf:resource="http://www.ontotext.com/proton/protontop#partOf"/>
+    <rdfs:range rdf:resource="http://www.ontotext.com/proton/protontop#Organization"/>
+    <rdfs:label xml:lang="en">Subsidiary Organization of</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#Organization"/>
+    <rdfs:comment xml:lang="en">Indicates that an organization is in some sense part of another organization. This necessarily requires structural and organizational relations and may or may not indicate ownership. Its reverse, parentOrganizationOf, is a special case of partial control.</rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#socialPositionHolder">
+    <owl:inverseOf>
+      <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#hasSocialPosition"/>
+    </owl:inverseOf>
+    <rdfs:range rdf:resource="http://www.ontotext.com/proton/protontop#Person"/>
+    <rdfs:label xml:lang="en">Social Position Holder</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#SocialPosition"/>
+    <rdfs:comment xml:lang="en">The relation between a social position and the person who has it. </rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#roleHolder">
+    <rdfs:range rdf:resource="http://www.ontotext.com/proton/protontop#Entity"/>
+    <rdfs:label xml:lang="en">Role Holder</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#Role"/>
+    <rdfs:comment xml:lang="en">The relation between a role and the entity that 'plays' a role in a given happening.</rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#hasChild">
+    <rdfs:subPropertyOf rdf:resource="http://www.ontotext.com/proton/protontop#hasRelative"/>
+    <rdfs:label xml:lang="en">has Child</rdfs:label>
+    <rdfs:comment xml:lang="en">The relation of a parent to his/her child.</rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#owns">
+    <rdfs:subPropertyOf rdf:resource="http://www.ontotext.com/proton/protontop#partiallyOwns"/>
+    <rdfs:label xml:lang="en">Owns</rdfs:label>
+    <rdfs:comment xml:lang="en">An agent fully owns an Object. In many cases this means also full control, unless the agent has transferred the control to another agent.</rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#documentAuthor">
+    <rdfs:subPropertyOf>
+      <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#hasCreator"/>
+    </rdfs:subPropertyOf>
+    <rdfs:range rdf:resource="http://www.ontotext.com/proton/protontop#Agent"/>
+    <rdfs:label xml:lang="en">Document Author</rdfs:label>
+    <rdfs:comment xml:lang="en">The creator (or one of the creators) of a document.</rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#hasSocialPosition">
+    <owl:inverseOf rdf:resource="http://www.ontotext.com/proton/protontop#socialPositionHolder"/>
+    <rdfs:range rdf:resource="http://www.ontotext.com/proton/protontop#SocialPosition"/>
+    <rdfs:label xml:lang="en">has Social Position</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#Person"/>
+    <rdfs:comment xml:lang="en">The relation between a person and the social position he has. </rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#hasCreator">
+    <rdfs:subPropertyOf rdf:resource="http://www.ontotext.com/proton/protontop#hasContributor"/>
+    <rdfs:label xml:lang="en">has Creator</rdfs:label>
+    <rdfs:comment xml:lang="en">An agent primarily responsible for making the content of a resource. Examples of Creator include a person, an organization, or a service. Typically, the name of the Creator should be used to indicate the agent. (DC2003ISO, Creator)</rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.ontotext.com/proton/protontop#hasMember">
+    <rdfs:range rdf:resource="http://www.ontotext.com/proton/protontop#Agent"/>
+    <rdfs:label xml:lang="en">has Member</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#Group"/>
+    <rdfs:comment xml:lang="en">Relates a particular organization to the agents that are its members. This predicate indicates `generic' membership, although there may be specialized kinds of membership in the same organization. Typically, membership eligibility is determined by the organization and accepted with the agent's voluntary affiliation. In many cases Persons that take Positions within Organization are considered members of the organization, although this is no way formally encoded here.</rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:DatatypeProperty rdf:about="http://www.ontotext.com/proton/protontop#nimaGNSDesignator">
+    <rdfs:label xml:lang="en">NIMA GNS Designator</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#Location"/>
+    <rdfs:comment xml:lang="en">The designator of the entity according to the NIMA GeoNames Server.</rdfs:comment>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.ontotext.com/proton/protontop#doingBusinessAs">
+    <rdfs:subPropertyOf>
+      <owl:DatatypeProperty rdf:about="http://www.ontotext.com/proton/protontop#name"/>
+    </rdfs:subPropertyOf>
+    <rdfs:label xml:lang="en">Doing Business as</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#Organization"/>
+    <rdfs:comment xml:lang="en">A name used for marketing purposes. Usually, it does not correspond to the legal name of the organisation.</rdfs:comment>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.ontotext.com/proton/protontop#name">
+    <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
+    <rdfs:label xml:lang="en">Name of any kind</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#Entity"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.ontotext.com/proton/protontop#laconicDescription">
+    <rdfs:subPropertyOf>
+      <owl:DatatypeProperty rdf:about="http://www.ontotext.com/proton/protontop#description"/>
+    </rdfs:subPropertyOf>
+    <rdfs:label xml:lang="en">Laconic Description</rdfs:label>
+    <rdfs:comment xml:lang="en">An extremely short (typically, single sentence) description of an entity</rdfs:comment>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.ontotext.com/proton/protontop#hasOldName">
+    <rdfs:subPropertyOf rdf:resource="http://www.ontotext.com/proton/protontop#name"/>
+    <rdfs:label xml:lang="en">has Old Name</rdfs:label>
+    <rdfs:comment xml:lang="en">Relates an entity to its old name or alias that is no longer considered legitimate. For instance, Pekin is one of the old spellings of the name of the Chineese capital Beijing. The same happens to companies when they change their names and to womam when she gets married.</rdfs:comment>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.ontotext.com/proton/protontop#populationCount">
+    <rdfs:label xml:lang="en">Population Count</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#Location"/>
+    <rdfs:comment xml:lang="en">The number of citizens of a location.</rdfs:comment>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.ontotext.com/proton/protontop#establishmentDate">
+    <rdfs:label xml:lang="en">Establishment Date</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#Organization"/>
+    <rdfs:comment xml:lang="en">The date when the organization was established or registered</rdfs:comment>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.ontotext.com/proton/protontop#nimaGNSUniqueFeatureIndentifier">
+    <rdfs:label xml:lang="en">NIMA GNS Unique Feature Identifier</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#Location"/>
+    <rdfs:comment xml:lang="en">The Unique Feature Identifier from the NIMA GNS. A number which uniquely identifies the location.</rdfs:comment>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.ontotext.com/proton/protontop#documentAbstract">
+    <rdfs:subPropertyOf>
+      <owl:DatatypeProperty rdf:about="http://www.ontotext.com/proton/protontop#description"/>
+    </rdfs:subPropertyOf>
+    <rdfs:label xml:lang="en">Document Abstract</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#Document"/>
+    <rdfs:comment xml:lang="en">An abstract or summary of a document.</rdfs:comment>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.ontotext.com/proton/protontop#startTime">
+    <rdfs:label xml:lang="en">Start Time</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#Happening"/>
+    <rdfs:comment xml:lang="en">the starting moment of a happening</rdfs:comment>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.ontotext.com/proton/protontop#validUntil">
+    <rdfs:label xml:lang="en">Valid until</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#Statement"/>
+    <rdfs:comment xml:lang="en">The time when a statement is made invalid. The happening of making the statement invalid is not explicitly represented in Proton. If it is necessary for the task the ontology should be extented.</rdfs:comment>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.ontotext.com/proton/protontop#informationResourceCoverage">
+    <rdfs:label xml:lang="en">Information Resource Coverage</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#InformationResource"/>
+    <rdfs:comment xml:lang="en">The extent or scope of resource content. Typically, Coverage will include spatial location (a place name or geographic coordinates), temporal period (a period label, date, or date range), or jurisdiction (such as a named administrative entity). Recommended best practice is to select a value from a controlled vocabulary (for example, the Thesaurus of Geographic Names [TGN]) and to use, where appropriate, named places or time periods in preference to numeric identifiers such as sets of coordinates or date ranges. DC2003ISO</rdfs:comment>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.ontotext.com/proton/protontop#informationResourceRights">
+    <rdfs:label xml:lang="en">Information Resource Rights</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#InformationResource"/>
+    <rdfs:comment xml:lang="en">Information about rights held in and over the resource. Typically, Rights will contain a rights management statement for the resource, or reference to a service providing such information. Rights information often encompasses Intellectual Property Rights (IPR), Copyright, and various Property Rights. If the Rights element is absent, no assumptions should be made about any rights held in or over the resource. DC2003ISO</rdfs:comment>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.ontotext.com/proton/protontop#endTime">
+    <rdfs:label xml:lang="en">End Time</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#Happening"/>
+    <rdfs:comment xml:lang="en">the end time point of a happening</rdfs:comment>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.ontotext.com/proton/protontop#informationResourceIdentifier">
+    <rdfs:label xml:lang="en">Information Resource Identifier</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#InformationResource"/>
+    <rdfs:comment xml:lang="en">An unambiguous reference to the information resource within a given context. Recommended best practice is to identify the resource by means of a string or number conforming to a formal identification system. Formal identification systems include but are not limited to the Uniform Resource Identifier (URI) (including the Uniform Resource Locator (URL)), the Digital Object Identifier (DOI), and the International Standard Book Number (ISBN). DC2003ISO.</rdfs:comment>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.ontotext.com/proton/protontop#givenName">
+    <rdfs:subPropertyOf rdf:resource="http://www.ontotext.com/proton/protontop#name"/>
+    <rdfs:label xml:lang="en">Given Name</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#Person"/>
+    <rdfs:comment xml:lang="en">The relation between a person and his/her given name.</rdfs:comment>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.ontotext.com/proton/protontop#heldTo">
+    <rdfs:subPropertyOf rdf:resource="http://www.ontotext.com/proton/protontop#endTime"/>
+    <rdfs:label xml:lang="en">Held to</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#JobPosition"/>
+    <rdfs:comment xml:lang="en">When the holder released a given position</rdfs:comment>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.ontotext.com/proton/protontop#firstName">
+    <rdfs:subPropertyOf rdf:resource="http://www.ontotext.com/proton/protontop#name"/>
+    <rdfs:label xml:lang="en">First Name</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#Person"/>
+    <rdfs:comment xml:lang="en">The relation between a person and his/her first name. Usually used to call the person.</rdfs:comment>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.ontotext.com/proton/protontop#numberOfEmployees">
+    <rdfs:label xml:lang="en">Number of Employees</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#Organization"/>
+    <rdfs:comment xml:lang="en">The estimated number of employees in the organization.</rdfs:comment>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.ontotext.com/proton/protontop#title">
+    <rdfs:subPropertyOf rdf:resource="http://www.ontotext.com/proton/protontop#name"/>
+    <rdfs:label xml:lang="en">Title</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#InformationResource"/>
+    <rdfs:comment xml:lang="en">A name given to an information resource. Typically, title will be a name by which the resource is formally known. (DC2003ISO, Title there)</rdfs:comment>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.ontotext.com/proton/protontop#resourceType">
+    <rdfs:label xml:lang="en">Resource Type</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#InformationResource"/>
+    <rdfs:comment xml:lang="en">The nature or genre of the content of the resource. Type includes terms describing general categories, functions, genres, or aggregation levels for content. Recommended best practice is to select a value from a controlled vocabulary (for example, the DCMI Type Vocabulary [DCT]). To describe the physical or digital manifestation of the resource, use the resourceFormat property. DC2003ISO.</rdfs:comment>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.ontotext.com/proton/protontop#isLegalEntity">
+    <rdfs:label xml:lang="en">is Legal Entity</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#Agent"/>
+    <rdfs:comment xml:lang="en">Determines whether a particular Agent is a legal entity. The range should be constrained to Boolean. Agents, for which the value is True, correspond to instances of http://www.cyc.com/2003/04/01/cyc#LegalAgent, which is defined as follows "Each instance of #LegalAgent is an agent who has some status in a particular legal system. At the very least, such an agent is recognized by some legal authority as having some kinds of rights and/or responsibilities as an agent (e.g., #citizens of Germany), ... ". In PROTON, it is modeled as property in order to avoid multiple-inheritance of classes and/or multiple classifications of instances.</rdfs:comment>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.ontotext.com/proton/protontop#longitude">
+    <rdfs:label xml:lang="en">Longitude</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#Location"/>
+    <rdfs:comment xml:lang="en">In degrees, minutes, and seconds: no sign or (+) = East; negative sign (-) = West.</rdfs:comment>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.ontotext.com/proton/protontop#hasDate">
+    <rdfs:label xml:lang="en">has Date</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#InformationResource"/>
+    <rdfs:comment xml:lang="en">Typically, Date will be associated with the creation or availability of the resource. Recommended best practice for encoding the date value is defined in a profile of ISO 8601 [W3CDTF] and includes (among others) dates of the form YYYY-MM-DD. For official documents, it could be the date of signature. It can also contain a java timestamp. Usually, time is connected to a happening (event/situation) in which the information resource is a participation entity. These include: creation of the information resource, its modification or other important happening. Very often such happening is in the background knowledge and the modeling of domain task does not require the explicit representation of this happening. If it plays important role in the model domain or for the task, then the user needs to extend the ontology in an appropriate way.</rdfs:comment>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.ontotext.com/proton/protontop#description">
+    <rdfs:label xml:lang="en">Description</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#Entity"/>
+    <rdfs:comment xml:lang="en">A textual description of an entity. Usually a free text in some natural language. As defined in DC2003ISO for InformationResources. In a sense, it is a specializatoin of rdf:comment</rdfs:comment>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.ontotext.com/proton/protontop#validFrom">
+    <rdfs:label xml:lang="en">Valid from</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#Statement"/>
+    <rdfs:comment xml:lang="en">The time when a statement is made valid. The happing of making the statement valid is not explicitly represented in Proton. If it is necessary for the task the ontology needs to be extented.</rdfs:comment>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.ontotext.com/proton/protontop#latitude">
+    <rdfs:label xml:lang="en">Latitude</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#Location"/>
+    <rdfs:comment xml:lang="en">In degrees, minutes, and seconds: no sign or (+) = North; negative sign (-) = South.</rdfs:comment>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.ontotext.com/proton/protontop#heldFrom">
+    <rdfs:subPropertyOf rdf:resource="http://www.ontotext.com/proton/protontop#startTime"/>
+    <rdfs:label xml:lang="en">Held from</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#JobPosition"/>
+    <rdfs:comment xml:lang="en">When the holder occupied a given position</rdfs:comment>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.ontotext.com/proton/protontop#mainLabel">
+    <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
+    <rdfs:label xml:lang="en">Main Label</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#Entity"/>
+    <rdfs:comment xml:lang="en">This is a label of an entity which is consider to be representative for it. In cases when the entity is presented to someone, usually, this label will be used. In a sense, it is a specializatoin of rdfs:label</rdfs:comment>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.ontotext.com/proton/protontop#documentSubTitle">
+    <rdfs:subPropertyOf rdf:resource="http://www.ontotext.com/proton/protontop#laconicDescription"/>
+    <rdfs:label xml:lang="en">Document Subtitle</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#Document"/>
+    <rdfs:comment xml:lang="en">A very short sub-title of a document, usually a single sentence</rdfs:comment>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.ontotext.com/proton/protontop#resourceFormat">
+    <rdfs:label xml:lang="en">Resource Format</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#InformationResource"/>
+    <rdfs:comment xml:lang="en">The physical or digital manifestation of the resource. Typically, Format will include the media-type or dimensions of the resource. Format may be used to identify the software, hardware, or other equipment needed to display or operate the resource. Examples of dimensions include size and duration. Recommended best practice is to select a value from a controlled vocabulary (for example, the list of Internet Media Types [MIME] defining computer media formats). DC2003ISO</rdfs:comment>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.ontotext.com/proton/protontop#lastName">
+    <rdfs:subPropertyOf rdf:resource="http://www.ontotext.com/proton/protontop#name"/>
+    <rdfs:label xml:lang="en">Last Name</rdfs:label>
+    <rdfs:domain rdf:resource="http://www.ontotext.com/proton/protontop#Person"/>
+    <rdfs:comment xml:lang="en">The relation between a person and his/her last name. Usually the family name.</rdfs:comment>
+  </owl:DatatypeProperty>
+  <owl:AnnotationProperty rdf:about="http://www.w3.org/2000/01/rdf-schema#comment"/>
+  <owl:AnnotationProperty rdf:about="http://www.w3.org/2002/07/owl#versionInfo"/>
+  <owl:AnnotationProperty rdf:about="http://www.ontotext.com/proton/protontop#systemPrimitive">
+    <rdfs:label xml:lang="en">System Primitive</rdfs:label>
+    <rdfs:comment xml:lang="en">The system classes and properties are used to encode system specific information. They, as well as their instances and related information, should usually not be presented to the end-user. In practice, user-interface and visualization modules, can filter such primitives. All system primitives with this property should be marked with string value "T".</rdfs:comment>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:about="http://www.w3.org/2000/01/rdf-schema#label"/>
+  <owl:AnnotationProperty rdf:about="http://www.ontotext.com/proton/protontop#transitiveOver">
+    <rdfs:label xml:lang="en">Transitive over</rdfs:label>
+    <rdfs:comment xml:lang="en">Makes possible the modelling of a specific, but rather useful modelling pattern. The semantics is defined with the following axiom: (p,transitiveOver,q) (x,p,y) (y,q,z) =&gt; (x,p,z). Sample usage is: (locatedIn, transitiveOver, subRegionOf) (Ontotext,locatedIn,Bulgaria) (Bulgaria,subRegionOf,Europe) =&gt; (Ontotext,locatedIn,Europe). The intended domain and range of this property are owl:ObjectProperty; those are not formally specified, in order not to get the ontology outside the OWL DL segment.</rdfs:comment>
+  </owl:AnnotationProperty>
+</rdf:RDF>

@@ -1,0 +1,134 @@
+:pensoft-publishers rdf:type foaf:Agent ;
+  skos:prefLabel "Pensoft Publishers" ;
+  pro:holdsRoleInTime :pensoft-publishes-bdj . 
+
+:pensoft-publishes-bdj rdf:type pro:RoleInTime ;
+  pro:relatesToDocument :biodiversity-data-journal . 
+
+:biodiversity-data-journal rdf:type fabio:Journal ;
+  skos:prefLabel "Biodiversity Data Journal" ;
+  skos:altLabel  "BDJ" ;
+  fabio:issn     "1314-2836" ;
+  fabio:eIssn    "1314-2828" ;
+  dcterms:publisher "Pensoft Publishers" ;
+  frbr:hasPart :article . 
+
+:article a fabio:JournalArticle ;
+  skos:prefLabel "10.0000/BDJ.0.e000" ;
+  prism:doi "10.0000/BDJ.0.e000" ;
+  fabio:hasPublicationYear "2017"^^xsd:gYear ;
+  dcterms:title "Aus bus Senderov, 2017, newly recorded from Bulgaria"@en-us ;
+  po:contains :treatment .>
+:treatment
+  a doco:Section, :Treatment .>
+:article
+   po:contains :treatment . 
+:nomenclature a Doco:Section, :Nomenclature .
+:treatment po:contains :nomenclature.>
+:single-taxon-treatment
+  a fabio:SubjectTerm ;
+  rdfs:label "Single Taxon Treatment"@en; 
+  rdfs:comment "A type of paper with only one taxonomic treatment"@en ;
+  skos:inScheme pensoft:PaperTypes .
+
+:paper
+  a fabio:JournalArticle ;
+  fabio:hasSubjectTerm :single-taxon-treatment .>
+:gbif2017 a fabio:Database ;
+  skos:prefLabel "GBIF Backbone Taxonomy 20170301"@en ; 
+  rdfs:comment "A dump of GBIF's backbone taxonomy on 2 Mar 2017."@en ;
+  frbr:realizationOf :taxon-concept2 .
+
+:taxon-concept2
+  a dwc:Taxon ;
+  frbr:realization :gbif2017 .
+
+```
+
+In our understanding of the domain every taxon concepts needs to have at least
+one expression.
+
+TODO Is this possible to express this OWL? It would be simpler to express it
+in SPARQL.
+
+##### 2. Taxon concepts may be linked to a scientific name
+
+Linnaean names are an attempt to label taxa. In most cases taxon concepts will
+be linked to exactly one scientific name
+
+For all practical purposes the semantics of
+<http://rs.tdwg.org/dwc/terms/Taxon> are compatible with the notion of a taxon
+concepts. Our understanding of taxon concepts is based on [Franz et al.
+(2016)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4911943/).
+In order to be able to instantiate taxon concepts, we import "Darwin Semantic
+Web, version 1.0", where `dwc:Taxon` is defined. 
+
+
+**Remark and example 13.** Note that 
+
+Taxon concepts are related to one another via simple relationships and
+via RCC-5 properties.
+
+#### Simple Taxon Concept Relationships
+
+- is_a (this can be used when you refine a concept, or when 
+a higher rank subsumes a lower rank)
+- relatedTo (when you have two overlaping but different concepts)
+- congruent (when two concepts are exactly the same)
+
+#### RCC-5 Relationships
+
+Complex RCC 5 relationships will be modeled as separate entities.
+
+```
+openbiodiv:EQ_INT rdf:type owl:ObjectProperty ;
+  rdfs:label "Equals (INT)" ;
+  rdfs:comment "= EQ(x,y) Equals (intensional)"@en . 
+
+openbiodiv:PP_INT rdf:type owl:ObjectProperty ;
+  rdfs:label "Proper Part (INT)" ;
+  rdfs:comment "< PP(x,y) Proper Part of (intensional)"@en .
+
+openbiodiv:iPP_INT rdf:type owl:ObjectProperty ;
+  owl:inverseOf openbiodiv:PP_INT ;
+  rdfs:label "Inverse Proper Part (INT)" ;
+  rdfs:comment "iPP(x, y) Inverse Proper Part (intensional)"@en .
+
+openbiodiv:PO rdf:type owl:ObjectProperty ;
+  rdfs:label "Partially Overlaps" ;
+  rdfs:comment "o PO(x,y) Partially Overlaps"@en .
+
+openbiodiv:DR rdf:type owl:ObjectProperty ;
+    rdfs:label "Disjoint" ;
+    rdfs:comment "! DR(x,y) Disjoint from."@en .
+```
+
+#### Scientific Name
+
+### of the Ecological Domain
+
+### of General Ideas
+
+#### "preferred label"
+
+The individual entities in OpenBiodiv all have unique identifiers. In addition
+to those identifiers, the objects have labels that are there primarily for
+human consumption. Labels can be things like the DOI (in the case of an
+article), the Latin name of a taxon. This preferred label is encoded with the
+property `skos:prefLabel`. Furthermore, an object can have secondary
+(alternative) labels such as a different spelling of a scientific name, or a
+vernacular name of a taxon. In this case we use `skos:altLabel`.
+
+
+#### Biological names
+
+In OpenBiodiv/OBKMS, we reify scientific names.
+[NOMEN](https://github.com/SpeciesFileGroup/nomen) does provide classes for
+scientific names. For example, the identifier for class "biological name" is
+`NOMEN_0000030`. However, the identifiers that NOMEN uses are meaningless. This
+is justified in some cases (TODO citation needed), however, in our workflow both
+RDF generation and debugging would be severely hampered by this convention.
+That's why we have defined names in OpenBiodiv and mapped them to their NOMEN
+equivalents.
+
+```

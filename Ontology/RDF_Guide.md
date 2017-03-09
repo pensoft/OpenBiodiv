@@ -303,17 +303,33 @@ acts take place.*
 @
 ```
 
-#### Taxonomic Name Usage and Taxonomic Concept Label
+#### Taxonomic Name Usage
 
-In the text of taxonomic articles we often find strings like "**Aus bus**"
-that refer to taxon names or like "**Aus bus sec Senderov (2017)**" that refer
-to taxon concepts. We call these strings in the first case **taxon name
-usages** and in the second case **taxon concept labels**. We consider these to
-be instances of Mention from the [PROTON Extensions module]
-(http://ontotext.com/proton/).
+In the text of taxonomic articles we find strings like "*Aus bus*". We call
+these strings *taxonomic name usages* as they refer to published scientific
+names from the domain of biological systematics. Semantically, we consider
+these to be specialized instances of Mention from the [PROTON Extensions
+module] (http://ontotext.com/proton/).
 
 Furthermore, taxonomic name usages may be accompanied by strings such as "new.
-comb.", "new syn." and so on that have nomenclatural meaning. We view these as
+comb.", "new syn." and so on. These taxon statuses have taxonomic or 
+nomenclatural meaning and further specialize the usage. For example, if a
+taxonomic name is used for the first time - e.g. when for example we are 
+describing a new species for science - then we write "n. sp." after the 
+species time. This is also a nomenclatural act in the sense of the Codes of
+zoological or botanical nomenclature.
+
+Not all taxon statuses necessarily are government by the codes. Sometimes the
+taxon status is more of a note to the reader and conveys taxonomic rather than
+nomenclatural information. E.g. when a previously known species is recorded in
+a new location.
+
+Here we take the road of modeling taxonomic name usages from the bottom-up,
+i.e. based on their actual use in three of the most successful journals in
+biological systematics - ZooKeys, Biodiversity Data Journal, and PhytoKeys. We
+have analyzed over 
+
+ that have nomenclatural meaning. We view these as
 specialized classes of taxonomic name usages. In order to come up  with these
 specialized classes of taxonomic name usages, one approach would be to do a
 top-down study of the Codes of Zoological and Botanical nomenclature. We have,
@@ -386,6 +402,10 @@ pext:Mention rdf:type owl:Class ;
 :treatment po:contains :taxonomic-name-usage , :taxonomic-concept-label .
 @
 ```
+
+#### Taxonomic Concept Label
+
+
 
 #### Paper Types
 
