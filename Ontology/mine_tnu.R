@@ -24,5 +24,7 @@ bdj.statuses = sapply ( bdj.articles, extract_taxon_status )
 zookeys.statuses = sapply ( zookeys.articles, extract_taxon_status )
 phytokeys.statuses = sapply ( phytokeys.articles, extract_taxon_status )
 
-all.factors = as.factor ( unlist ( c( bdj.articles, zookeys.articles, phytokeys.statuses ) ) )
-levels(all.factors)
+all.factors = as.factor ( unlist ( c( bdj.statuses, zookeys.statuses, phytokeys.statuses ) ) )
+statuses = levels(all.factors)
+
+writeLines( statuses, "/home/viktor/Work/OBKMS/Ontology/statuses.txt")

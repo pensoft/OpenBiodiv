@@ -327,27 +327,17 @@ a new location.
 Here we take the road of modeling taxonomic name usages from the bottom-up,
 i.e. based on their actual use in three of the most successful journals in
 biological systematics - ZooKeys, Biodiversity Data Journal, and PhytoKeys. We
-have analyzed over 
-
- that have nomenclatural meaning. We view these as
-specialized classes of taxonomic name usages. In order to come up  with these
-specialized classes of taxonomic name usages, one approach would be to do a
-top-down study of the Codes of Zoological and Botanical nomenclature. We have,
-decided, however, to ground our ontology in the realities of our publishing
-practice and found the most widely used cases of taxonomic name usages by text
-mining the texts of over 5000 articles. Note that our bottom- up approach may
-still be combined by deriving the Code-inspired TNU's from our more general
-classes.
-
-Here's a list of the taxonomic name usages that we found and their abbreviations:
-
+have analyzed about 4,000 articles from these journals and came up with the
+concepts below. The concepts below are broad concepts and encompass both
+specific cases of botanical or zoological nomenclature as well as purely
+taxonomic and informative use. More specific code-based concepts can be 
+derived from our usage-based concepts.
 
 **Def. 6 (Taxonomic Name Usage):** *A taxonomic name usage is the mentioning
-of a taxon name in the text. A taxonomic concept label is taxonomic name usage
-followed by a citation of a reference to an expression:*
+of a biological taxonomic name in a text.*
 
 ```
-<<Mention>>=
+<<Taxonomic Name Usage>>=
 
 top:Entity rdf:type owl:Class ;
             rdfs:comment "Any sort of an entity of interest, usually something existing, happening, or purely abstract. Entities may have several - more than one - names or aliases."@en ;
@@ -375,22 +365,15 @@ pext:Mention rdf:type owl:Class ;
 
 :ТaxonоmicNameUsage a owl:Class ;
   rdfs:subClassOf  pext:Mention ;
-  rdfs:range :TaxonomicName ;
   rdfs:comment "A string within a document that can be considered a mention of a
-                  taxonomic name."@en;
+                  biological taxonomic name."@en;
   rdfs:label "Taxonomic Name Usage"@en;
 
-:TaxonomicConceptLabel a owl:Class ;
-  rdfs:subClassOf pext:Mention ;
-  rdfs:range :TaxonConcept ;
-  rdfs:comment "A string that can be unambiguously unambiguously resolved as
-                refering a taxonomic concept either by the usage of 'sec' or
-                by the usage some other unique identifier."@en .
 @
 ```
 
-**Example 7 (taxonomic name usage and taxonomic concept label).**
-
+**Example 7.**
+Taxonomic name usage:
 ```
 <<eg7>>=
 :taxonomic-name-usage a :TaxonomicNameUsage ;
@@ -399,13 +382,135 @@ pext:Mention rdf:type owl:Class ;
 :taxonomic-concept-label a :TaxonomicConceptLabel ;
   cnt:chars "Aus bus sec Senderov (2017)"
 
-:treatment po:contains :taxonomic-name-usage , :taxonomic-concept-label .
+:treatment po:contains :taxonomic-name-usage .
 @
 ```
 
-#### Taxonomic Concept Label
+Now we describe more specific taxonomic name usages.
+
+##### Taxonomic Concept Label
+
+Taxonomic concept label is a taxonomic name usage accompanied by a status
+referring to the scientific work that circumscribes the mentioned taxon.
+Thus taxonomic concept labels can be linked directly to Taxon Concepts and
+not just to Taxonomic Names.
+
+**Def.**
+
+```
+<<Taxonomic Concept Label>>=
+
+:TaxonomicConceptLabel a owl:Class ;
+  rdfs:subClassOf :TaxonomicName ;
+  rdfs:comment "A string that can be unambiguously unambiguously resolved as
+                refering a taxonomic concept either by the usage 'sensu',
+                'sec' or by the usage some other unique form of identification."@en .
+
+@
+```
+
+##### Uncertain Placement
+
+Sometimes taxonomic name usages are accompanied by a status indicating that
+the placement of the name in the taxonomy is uncertain.
+
+**Def.**
+
+```
+<<Uncertain Placement>>=
+
+:UncertainPlacement a owl:Class ;
+  rdfs:subClassOf :TaxonomicNameUsage ;
+  rdfs:comment "Sometimes taxonomic name usages are accompanied by a status indicating that
+                the placement of the name in the taxonomy is uncertain.
+                E.g.: 'incertae sedis'"@en .
+
+@
+
+```
+
+##### Taxon Discovery
+
+When a taxon is believed to have been discovered, a new taxonomic name is
+coined. This encompasses: new species, new genus, new family,  etc.
+
+```
+<<New Taxonomic Name>>=
+
+:NewTaxon a owl:Class ;
+  rdfs:subClassOf :TaxonomicNameUsage ;
+  rdfs:comment "A class to denote the different types of situations where
+                a new taxon is discovered"@en .
 
 
+:NewSpecies a owl:Class ;
+  rdfs:subClassOf :NewTaxon ;
+  rdfs:comment "E.g.: sp. n."@en .
+
+:NewSubspecies a owl:Class ;
+  rdfs:subClassOf :NewSpecies ;
+  rdfs:comment "E.g.: subsp. n."@en .
+
+
+@
+
+```
+
+##### Changed Name
+
+Often an old name is changed to a new one for a variety of reasons. This means
+that probably parts of the underlying taxon concept circumscription is
+carried over to the new name and there is an old name that is being
+invalidated. Algorithms have to be written to locate the old name.
+Situations include
+
+- changed rank (e.g.: stat. nov.)
+- new spelling (e.g.: nomen novum)
+- placement in a new genus (e.g.: new comb.)
+- 
+
+##### Extinct Species
+
+Sometimes in taxonomic articles there will be a status indicating the
+taxonomic name being used refers to a fossilized or extinct species.
+
+
+##### Invalidated Name
+
+
+Often a name has problems and it should not be used any more. It can be
+the old variant of a changed name, a misspelling, insufficiently described name, synonimized or otherwise invalidated:
+
+
+
+- nomen dubium
+- nomen inquirendum
+- nom. inval.
+- syn. nov.
+
+##### Revalidated Name 
+
+Sometimes a name that has been changed, synonimized or otherwise marked as
+invalid can be revalidated.
+
+- genus bona
+- nom rest.
+- comb. rev.
+
+##### Conserved Name
+
+  - nom. cons.
+  - nomen protectum
+  - nom. et orth. cons.
+
+##### Type designation
+
+Sometimes a name is used to designate a type specimen or a type species.
+
+##### Record
+
+Sometimes a name is used to indicate that some species has been described
+for the first time in a given location.
 
 #### Paper Types
 
