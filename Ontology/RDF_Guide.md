@@ -325,7 +325,7 @@ Modeling-wise, we consider TNU's to be specialized instances of Mention from
 the [PROTON Extensions module] (http://ontotext.com/proton/). Furthermore we
 link the TNU's to the scientific name they are symbolizing via `pkm:mentions`.
 
-**Vocabulary of taxonomic name usage statuses.** Taxonomic name usages may be
+**Vocabulary of taxonomic name statuses.** Taxonomic name usages may be
 accompanied by strings such as "new. comb.", "new syn.", "new record for
 cuba", and so on. These taxonomic name usage statuses (from now on statuses)
 have taxonomic or nomenclatural meaning and further specialize the usage. For
@@ -349,6 +349,7 @@ concepts to be adequately granular for the purposes of reasoning in
 OpenBiodiv. The main objective we want to achieve is to encode information
 about the preferred name to use for a given taxonomic concept lineage.
 
+See for a similar attempt http://rs.gbif.org/vocabulary/gbif/taxonomic_status.xml
 ```
 <<Vocabulary Taxonomic Statuses>>=
 
@@ -363,7 +364,7 @@ about the preferred name to use for a given taxonomic concept lineage.
                                   owl:onProperty :isSchemeOf ;
                                   owl:allValuesFrom :SubjectTerm
                                 ] ;
-                                
+
   rdfs:label "OpenBiodiv Vocabulary of Taxonomic Statuses"@en ;
   rdfs:comment "The status following a taxonomic name usage in a taxonomic
                 manuscript, i.e. 'n. sp.',
@@ -380,14 +381,16 @@ about the preferred name to use for a given taxonomic concept lineage.
                 (e.g. incertae sedis), or in the description of the name
                 (e.g. nomen dubium)."@en .
 
-:TaxonDiscovery a :TaxonomicStatus ;
+
+:TaxonomicDiscovery a :TaxonomicStatus ;
   rdfs:label "Taxon Discovery"@en ;
   rdfs:comment "This term when applied to a taxonomic name indicates
-                that this name denotes a newly described taxon. E.g.:
+                that this name denotes a taxon that is being described in
+                the present context. E.g.:
                 n. sp., gen. nov., n. trib., etc."@en .
 
 
-:UpdatedName a :TaxonomicStatus ;
+:ReplacementName a :TaxonomicStatus ;
   rdfs:label "Updated Name"@en ;
   rdfs:comment "This term when applied to a taxonomic name indicates
                 that the name it is being applied to is an updated version
@@ -398,7 +401,17 @@ about the preferred name to use for a given taxonomic concept lineage.
                 reasons such as to avoid homonymy or correct grammatical
                 or spelling mistakes (nomen nov.), or anything else."@en 
 
+:Synonym a :TaxonomicStatus .
 
+:AcceptedName a :TaxonomicStatus .
+
+:ConservedName a :TaxonomicStatus .
+
+:TypeSpeciesDesignation a :TaxonomicStatus .
+
+:Record a :TaxonomicStatus .
+
+:TaxonConceptLabel a :TaxonomicStatus.
 @
 ```
 
