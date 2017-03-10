@@ -346,8 +346,8 @@ vocabulary of statuses described below. The concepts in this vocabulary are
 broad concepts and encompass both specific cases of botanical or zoological
 nomenclature as well as purely taxonomic and informative use. We believe these
 concepts to be adequately granular for the purposes of reasoning in
-OpenBiodiv. The main objective we want achieve is to encode information about
-the preferred name to use for a given taxonomic concept lineage.
+OpenBiodiv. The main objective we want to achieve is to encode information
+about the preferred name to use for a given taxonomic concept lineage.
 
 ```
 <<Vocabulary Taxonomic Statuses>>=
@@ -355,9 +355,15 @@ the preferred name to use for a given taxonomic concept lineage.
 :TaxonomicStatus rdf:type owl:Class ;
   rdfs:subClassOf [ rdf:type owl:Restriction ;
                     owl:onProperty <http://www.w3.org/2004/02/skos/core#inScheme> ;
-                    owl:someValuesFrom :TermDictionary ] ;
+                    owl:someValuesFrom fabio:TermDictionary ] ;
 
-:VocabularyTaxononomicStatuses a fabio:TermDictionary ;
+:StatusVocabulary rdf:type owl:Class ;
+  rdfs:subClassOf <http://www.w3.org/2004/02/skos/core#ConceptScheme> ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty :isSchemeOf ;
+                                  owl:allValuesFrom :SubjectTerm
+                                ] ;
+                                
   rdfs:label "OpenBiodiv Vocabulary of Taxonomic Statuses"@en ;
   rdfs:comment "The status following a taxonomic name usage in a taxonomic
                 manuscript, i.e. 'n. sp.',
@@ -366,7 +372,32 @@ the preferred name to use for a given taxonomic concept lineage.
 
   fabio:hasDiscipline dbpedia:Taxonomy_(biology) .
 
-:TaxonomicUncertaitanty a :TaxonomicStatus 
+:TaxonomicUncertaitanty a :TaxonomicStatus ;
+  rdfs:label "Taxonomic Uncertainty"@en ;
+  rdfs:comment "This term indicates when applied to a taxonomic name
+                 that there is some uncertainty about the name:
+                either in the placement of the name in the hierarchy
+                (e.g. incertae sedis), or in the description of the name
+                (e.g. nomen dubium)."@en .
+
+:TaxonDiscovery a :TaxonomicStatus ;
+  rdfs:label "Taxon Discovery"@en ;
+  rdfs:comment "This term when applied to a taxonomic name indicates
+                that this name denotes a newly described taxon. E.g.:
+                n. sp., gen. nov., n. trib., etc."@en .
+
+
+:UpdatedName a :TaxonomicStatus ;
+  rdfs:label "Updated Name"@en ;
+  rdfs:comment "This term when applied to a taxonomic name indicates
+                that the name it is being applied to is an updated version
+                of a different name. This update may come about through
+                changes in rank (stat. n.) when the endings change (e.g.
+                -ini -> -idae), through changes in genus placement
+                (new comb.), through updates needed purely for nomenclatural
+                reasons such as to avoid homonymy or correct grammatical
+                or spelling mistakes (nomen nov.), or anything else."@en 
+
 
 @
 ```
@@ -383,7 +414,6 @@ the preferred name to use for a given taxonomic concept lineage.
   cnt:chars "Heser stoev Deltschev sp. n."
   dwc:scientificNameAuthorship "Deltschev" ;
   dwc:taxonRank "species" ;
-  pkm:mentions :scientific-name-heser-stoevi ;
   
   dwc:taxonomicStatus "sp. n." ;
   dwciri:taxonomicStatus :TaxonDiscovery .
@@ -724,11 +754,25 @@ to an online database.
 @
 ```
 
+
+
 In our understanding of the domain every taxon concepts needs to have at least
 one expression.
 
 TODO Is this possible to express this OWL? It would be simpler to express it
 in SPARQL.
+
+```
+:TaxonConcept rdf:type owl:Class;
+  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                    owl:onProperty frbr:realization ;
+                    owl:someValuesFrom frbr:Expression ] ,
+                  [ rdf:type owl:Restriction ;
+                    owl:onProperty frbr:realization ;
+                    owl:minCardinality "1" ] .
+```
+
+all individuals of the taxonconcept class ha
 
 ##### 2. Taxon concepts may be linked to a scientific name
 
