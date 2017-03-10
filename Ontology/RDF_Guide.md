@@ -178,7 +178,7 @@ the [Treatment Ontologies](https://github.com/plazi/TreatmentOntologies).
 @
 ```
 
-#### Article, Journal, Publisher
+#### Article Metadata
 
 The main objects of information extraction and retrieval of OpenBiodiv in the
 first stage of its developments are scientific journal articles from the
@@ -213,6 +213,8 @@ Journal Article, such as Publisher, and Journal using SPAR.
   po:contains :treatment .
 @
 ```
+
+TODO: keywords
 
 #### Treatment
 
@@ -303,6 +305,8 @@ acts take place.*
 @
 ```
 
+TODO: Coordinate with TaxPub 
+
 #### Taxonomic Name Usage
 
 In the text of taxonomic articles we find strings like "*Heser stoevi*
@@ -321,19 +325,48 @@ Modeling-wise, we consider TNU's to be specialized instances of Mention from
 the [PROTON Extensions module] (http://ontotext.com/proton/). Furthermore we
 link the TNU's to the scientific name they are symbolizing via `pkm:mentions`.
 
-Last, the information encoded in taxonomic status is modeled with a controlled
-vocabulary.
+**Vocabulary of taxonomic name usage statuses.** Taxonomic name usages may be
+accompanied by strings such as "new. comb.", "new syn.", "new record for
+cuba", and so on. These taxonomic name usage statuses (from now on statuses)
+have taxonomic or nomenclatural meaning and further specialize the usage. For
+example, if we are  describing a new species for science, we may write "n.
+sp." after the species name. This particular example is also a nomenclatural
+act in the sense of the Codes of zoological or botanical nomenclature.
+
+Not all statuses necessarily nomenclatural in nature. Sometimes the status is
+more of a note to the reader and conveys taxonomic rather than nomenclatural
+information. E.g. when a previously known species is recorded in a new
+location.
+
+Here we take the road of modeling statuses from the bottom-up, i.e. based on
+their actual use in three of the most successful journals in biological
+systematics - ZooKeys, Biodiversity Data Journal, and PhytoKeys. We have
+analyzed about 4,000 articles from these journals and came up with a
+vocabulary of statuses described below. The concepts in this vocabulary are
+broad concepts and encompass both specific cases of botanical or zoological
+nomenclature as well as purely taxonomic and informative use. We believe these
+concepts to be adequately granular for the purposes of reasoning in
+OpenBiodiv. The main objective we want achieve is to encode information about
+the preferred name to use for a given taxonomic concept lineage.
 
 ```
-<<Taxonomic Name Statuses>>=
+<<Vocabulary Taxonomic Statuses>>=
 
-:TaxonomicNameStatuses
-  a fabio:TermDictionary ;
-  rdfs:label "Taxonomic Statuses"@en ;
-  rdfs:comment "The taxonomic name status following a taxonomic name in a
-                taxonomic manuscript, i.e. 'n. sp.', 'comb. new',
-                                                'sec. Franz (2017)', etc"@en .
-  fabio:hasDiscipline dbpedia:Biological_nomenclature .
+:TaxonomicStatus rdf:type owl:Class ;
+  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                    owl:onProperty <http://www.w3.org/2004/02/skos/core#inScheme> ;
+                    owl:someValuesFrom :TermDictionary ] ;
+
+:VocabularyTaxononomicStatuses a fabio:TermDictionary ;
+  rdfs:label "OpenBiodiv Vocabulary of Taxonomic Statuses"@en ;
+  rdfs:comment "The status following a taxonomic name usage in a taxonomic
+                manuscript, i.e. 'n. sp.',
+                                 'comb. new',
+                                 'sec. Franz (2017)', etc"@en .
+
+  fabio:hasDiscipline dbpedia:Taxonomy_(biology) .
+
+:TaxonomicUncertaitanty a :TaxonomicStatus 
 
 @
 ```
@@ -348,38 +381,17 @@ vocabulary.
 
 :tnu
   cnt:chars "Heser stoev Deltschev sp. n."
-  dwc:taxonRank "species" ;
   dwc:scientificNameAuthorship "Deltschev" ;
-  dwc:taxonomicStatus "sp. n." ;
-
+  dwc:taxonRank "species" ;
   pkm:mentions :scientific-name-heser-stoevi ;
+  
+  dwc:taxonomicStatus "sp. n." ;
   dwciri:taxonomicStatus :TaxonDiscovery .
      
-
 ```
 
 
-Furthermore, taxonomic name usages may be accompanied by strings such as "new.
-comb.", "new syn.", "new record for cuba" and so on. These taxon statuses have
-taxonomic or  nomenclatural meaning and further specialize the usage. For
-example, if a taxonomic name is used for the first time - e.g. when for
-example we are  describing a new species for science - then we write "n. sp."
-after the  species time. This is also a nomenclatural act in the sense of the
-Codes of zoological or botanical nomenclature.
 
-Not all taxon statuses necessarily are government by the codes. Sometimes the
-taxon status is more of a note to the reader and conveys taxonomic rather than
-nomenclatural information. E.g. when a previously known species is recorded in
-a new location.
-
-Here we take the road of modeling taxonomic name usages from the bottom-up,
-i.e. based on their actual use in three of the most successful journals in
-biological systematics - ZooKeys, Biodiversity Data Journal, and PhytoKeys. We
-have analyzed about 4,000 articles from these journals and came up with the
-concepts below. The concepts below are broad concepts and encompass both
-specific cases of botanical or zoological nomenclature as well as purely
-taxonomic and informative use. More specific code-based concepts can be 
-derived from our usage-based concepts.
 
 
 **Def. 6 (Taxonomic Name Usage):** *A taxonomic name usage is the mentioning
