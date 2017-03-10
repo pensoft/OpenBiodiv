@@ -305,19 +305,31 @@ acts take place.*
 
 #### Taxonomic Name Usage
 
-In the text of taxonomic articles we find strings like "*Aus bus*". We call
-these strings *taxonomic name usages* as they refer to published scientific
-names from the domain of biological systematics. Semantically, we consider
-these to be specialized instances of Mention from the [PROTON Extensions
-module] (http://ontotext.com/proton/).
+In the text of taxonomic articles we find strings like "*Heser stoevi*
+Deltschev, sp. n.". We choose to call these strings *taxonomic name usages*
+(TNU's) as they refer to published scientific names from the domain of
+biological systematics. The taxonomic name usage consists of three parts: one
+or more words identifying the taxon (these can be Latinized or take the form
+of an identifier), followed by the name of the author of the taxon, followed
+by a taxonomic status containing information about the type of the taxonomic
+name usage. In the example, "*Heser stoevi*" is the binomial Latinized species
+name, "Deltschev" is the name of the person who described the taxon and "sp.
+n." bears nomenclatural information indicating that this is a species new to
+science.
+
+Modeling-wise, we consider TNU's to be specialized instances of Mention from
+the [PROTON Extensions module] (http://ontotext.com/proton/). Furthermore we
+link the TNU's to the scientific name they are symbolizing via `pkm:mentions`.
+
+
 
 Furthermore, taxonomic name usages may be accompanied by strings such as "new.
-comb.", "new syn." and so on. These taxon statuses have taxonomic or 
-nomenclatural meaning and further specialize the usage. For example, if a
-taxonomic name is used for the first time - e.g. when for example we are 
-describing a new species for science - then we write "n. sp." after the 
-species time. This is also a nomenclatural act in the sense of the Codes of
-zoological or botanical nomenclature.
+comb.", "new syn.", "new record for cuba" and so on. These taxon statuses have
+taxonomic or  nomenclatural meaning and further specialize the usage. For
+example, if a taxonomic name is used for the first time - e.g. when for
+example we are  describing a new species for science - then we write "n. sp."
+after the  species time. This is also a nomenclatural act in the sense of the
+Codes of zoological or botanical nomenclature.
 
 Not all taxon statuses necessarily are government by the codes. Sometimes the
 taxon status is more of a note to the reader and conveys taxonomic rather than
@@ -332,6 +344,7 @@ concepts below. The concepts below are broad concepts and encompass both
 specific cases of botanical or zoological nomenclature as well as purely
 taxonomic and informative use. More specific code-based concepts can be 
 derived from our usage-based concepts.
+
 
 **Def. 6 (Taxonomic Name Usage):** *A taxonomic name usage is the mentioning
 of a biological taxonomic name in a text.*
@@ -357,6 +370,15 @@ ptop:InformationResource rdf:type owl:Class ;
                          rdfs:subClassOf ptop:Statement ;
                          rdfs:comment "InformationResource denotes an information resource with identity, as defined in Dublin Core (DC2003ISO). InformationResource is considered any communication or message that is delivered or produced, taking into account the specific intention of its originator, and also the supposition (and anticipation) for a particular audience or counter-agent in the process of communication (i.e. passive or active feed-back)."@en ;
                          rdfs:label "Information Resource"@en .
+
+pkm:mentions
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment """
+    A direct link between an information resource, like a document or a section and an entity.
+  """ ;
+      rdfs:domain ptop:InformationResource ;
+      rdfs:label "mentions" ;
+      rdfs:range psys:Entity .
 
 pext:Mention rdf:type owl:Class ;
              rdfs:subClassOf ptop:InformationResource ;
