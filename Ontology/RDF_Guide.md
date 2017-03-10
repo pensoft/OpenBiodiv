@@ -311,7 +311,7 @@ Deltschev, sp. n.". We choose to call these strings *taxonomic name usages*
 biological systematics. The taxonomic name usage consists of three parts: one
 or more words identifying the taxon (these can be Latinized or take the form
 of an identifier), followed by the name of the author of the taxon, followed
-by a taxonomic status containing information about the type of the taxonomic
+by a taxonomic name status containing information about the type of the taxonomic
 name usage. In the example, "*Heser stoevi*" is the binomial Latinized species
 name, "Deltschev" is the name of the person who described the taxon and "sp.
 n." bears nomenclatural information indicating that this is a species new to
@@ -321,6 +321,42 @@ Modeling-wise, we consider TNU's to be specialized instances of Mention from
 the [PROTON Extensions module] (http://ontotext.com/proton/). Furthermore we
 link the TNU's to the scientific name they are symbolizing via `pkm:mentions`.
 
+Last, the information encoded in taxonomic status is modeled with a controlled
+vocabulary.
+
+```
+<<Taxonomic Name Statuses>>=
+
+:TaxonomicNameStatuses
+  a fabio:TermDictionary ;
+  rdfs:label "Taxonomic Statuses"@en ;
+  rdfs:comment "The taxonomic name status following a taxonomic name in a
+                taxonomic manuscript, i.e. 'n. sp.', 'comb. new',
+                                                'sec. Franz (2017)', etc"@en .
+  fabio:hasDiscipline dbpedia:Biological_nomenclature .
+
+@
+```
+
+**Example (TNU)**
+
+```
+:tnu a :TaxonomicNameUsage .
+
+
+:nomenclature po:contains :tnu .
+
+:tnu
+  cnt:chars "Heser stoev Deltschev sp. n."
+  dwc:taxonRank "species" ;
+  dwc:scientificNameAuthorship "Deltschev" ;
+  dwc:taxonomicStatus "sp. n." ;
+
+  pkm:mentions :scientific-name-heser-stoevi ;
+  dwciri:taxonomicStatus :TaxonDiscovery .
+     
+
+```
 
 
 Furthermore, taxonomic name usages may be accompanied by strings such as "new.

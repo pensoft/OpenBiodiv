@@ -27,4 +27,4 @@ phytokeys.statuses = sapply ( phytokeys.articles, extract_taxon_status )
 all.factors = as.factor ( unlist ( c( bdj.statuses, zookeys.statuses, phytokeys.statuses ) ) )
 statuses = levels(all.factors)
 
-writeLines( statuses, "/home/viktor/Work/OBKMS/Ontology/statuses.txt")
+writeLines( statuses, "/home/viktor/Work/OBKMS/Ontology/statuses.original2")
