@@ -434,7 +434,14 @@ See for a similar attempt http://rs.gbif.org/vocabulary/gbif/taxonomic_status.xm
 ```
 
 
+**Example (Taxon Concept Label)**
 
+```
+:tcl a :TaxonomicNameUsage ;
+  cnt:chars "Heser stoevi sec. <https://doi.org/10.3897/BDJ.4.e10095>" .
+  dwciri:taxonomicStatus :TaxonConceptLabel ;
+  pkm:mentions :heser-stoevi-sec-bdj10095 .
+```
 
 
 **Def. 6 (Taxonomic Name Usage):** *A taxonomic name usage is the mentioning
