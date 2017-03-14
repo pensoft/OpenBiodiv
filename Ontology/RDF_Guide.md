@@ -81,6 +81,27 @@ In order to create the ontology we use the `notangle` command from `noweb`.
 notangle -ROntology RDF_Guide.md > nowebonto.ttl
 ```
 
+**Examples.** This document also contains some examples.
+
+```
+<<Examples>>=
+
+<<eg_metadata>>>
+<<eg_treatment>>>
+<<eg_contains>>
+<<eg_tnu>>
+
+@
+```
+
+**Command to build the examples.** 
+
+```
+notangle -RExamples RDF_Guide.md > Examples.ttl
+```
+
+TODO: check for prefix consistency for all imported ontologies.
+
 **Incorporated external ontologies.** Our data model is a natural extension of
 existing data models. Therefore, we incorporate several external ontologies
 into ours. All ontologies from the directory `~/Ontology/imports/*.ttl` are
@@ -408,13 +429,12 @@ string of the usage, and use DwC properties to encode more granular
 information in addition to the dump. Note that we do use
 `dwciri:taxonomicStatus` to link to named entity from a vocabulary. This step
 does require an external lookup (type 2 step). Vocabularies are given in
-the appendix of this guide.
+the (appendix)[#vocabulary-of-taxonomic-name-statuses] of this guide.
 
 ```
 <<eg_tnu>>=
 
 :tnu a :TaxonomicNameUsage .
-
 
 :nomenclature po:contains :tnu .
 
@@ -430,44 +450,22 @@ the appendix of this guide.
      
 ```
 
-
-
-
-
-
 **Example (Taxon Concept Label)**
 
 ```
+<<eg_tnu>>=
+
 :tcl a :TaxonomicNameUsage ;
   cnt:chars "Heser stoevi sec. <https://doi.org/10.3897/BDJ.4.e10095>" .
+  dwc:taxonomicStatus "sec <https://doi.org/10.3897/BDJ.4.e10095>" ;
   dwciri:taxonomicStatus :TaxonConceptLabel ;
-  pkm:mentions :heser-stoevi-sec-bdj10095 .
-```
 
-
-
-**Example 7.**
-Taxonomic name usage:
-```
-<<eg7>>=
-:taxonomic-name-usage a :TaxonomicNameUsage ;
-  cnt:chars "Aus bus" .
-
-:taxonomic-concept-label a :TaxonomicConceptLabel ;
-  cnt:chars "Aus bus sec Senderov (2017)"
-
-:treatment po:contains :taxonomic-name-usage .
 @
-```
 
-Now we describe more specific taxonomic name usages.
+```
 
 ##### Taxonomic Concept Label
 
-Taxonomic concept label is a taxonomic name usage accompanied by a status
-referring to the scientific work that circumscribes the mentioned taxon.
-Thus taxonomic concept labels can be linked directly to Taxon Concepts and
-not just to Taxonomic Names.
 
 **Def.**
 
@@ -910,10 +908,10 @@ See for a similar attempt <http://rs.gbif.org/vocabulary/gbif/taxonomic_status.x
   fabio:hasDiscipline dbpedia:Taxonomy_(biology) .
 
   <<Taxonomic Uncertainty>>
-  <<Taxonomic Discovery>>
+  <<Taxon Discovery>>
   <<Replacement Name>>
   <<Synonym>>
-  <<Accepted Name>>
+  <<Restored Name>>
   <<Conserved Name>>
   <<Type Species Designation>>
   <<Record>>
@@ -922,6 +920,14 @@ See for a similar attempt <http://rs.gbif.org/vocabulary/gbif/taxonomic_status.x
 @
 ```
 
+#### Taxonomic Uncertainty
+
+**Def. (Taxonomic Uncertainty)** This status is used after a name when
+there is some sort of ambiguity related to the name.
+
+```
+<<Taxonomic Uncertainty>>=
+
 :TaxonomicUncertaitanty a :TaxonomicStatus ;
   rdfs:label "Taxonomic Uncertainty"@en ;
   rdfs:comment "This term indicates when applied to a taxonomic name
@@ -929,7 +935,24 @@ See for a similar attempt <http://rs.gbif.org/vocabulary/gbif/taxonomic_status.x
                 either in the placement of the name in the hierarchy
                 (e.g. incertae sedis), or in the description of the name
                 (e.g. nomen dubium)."@en .
+@
 
+```
+
+Here're some ways in which taxonomic uncertainty can be abbreivated:
+
+-  incertae sedis
+-  Incertae Sedis
+-  indet.
+-  ? indeterminate
+
+#### Taxon Discovery
+
+
+**Def. (Taxon Discovery):**
+
+```
+<<Taxon Discovery>>=
 
 :TaxonomicDiscovery a :TaxonomicStatus ;
   rdfs:label "Taxon Discovery"@en ;
@@ -938,9 +961,59 @@ See for a similar attempt <http://rs.gbif.org/vocabulary/gbif/taxonomic_status.x
                 the present context. E.g.:
                 n. sp., gen. nov., n. trib., etc."@en .
 
+@
+```
+
+- sp. n.
+- subsp. n.
+- subsp. nov.
+- ssp. n.
+- ssp.n.
+- subtrib. n.
+- subtr. n.
+- sp. n.
+- gen. et sp. n.
+- gen et sp. nov.
+- gen. n. and sp. n.
+- gen. n., comb. n.
+- gen. n., sp. n.
+- n. sp.
+- p. n.
+- spec. nov.
+- sp .n.
+- sp. n.
+- sp.n.
+- sp. nov.
+- sp.nov.
+- sp. n., variety
+- subgen. n.
+- subg. n.
+- subg. nov.
+- en. n.
+- gen. et sp. n.
+- gen et sp. nov.
+- gen n.
+- gen. n.
+- gen. n. and sp. n.
+- gen nov.
+- gen. nov.
+- gen. n., sp. n.
+- subfam. n.
+- var. nov.
+- fam. n.
+- new clade
+- hybr. nov.
+- sect. nov.
+
+#### Replacement Name
+
+**Def. (Replacement Name):**
+
+```
+<<Replacement Name>>=
 
 :ReplacementName a :TaxonomicStatus ;
-  rdfs:label "Updated Name"@en ;
+  rdfs:label "Replacement Name"@en ;
   rdfs:comment "This term when applied to a taxonomic name indicates
                 that the name it is being applied to is an updated version
                 of a different name. This update may come about through
@@ -950,16 +1023,113 @@ See for a similar attempt <http://rs.gbif.org/vocabulary/gbif/taxonomic_status.x
                 reasons such as to avoid homonymy or correct grammatical
                 or spelling mistakes (nomen nov.), or anything else."@en 
 
+@
+```
+
+- comb. et stat. nov.
+- comb. et. stat. nov.
+- (comb. n.)
+- comb. n.
+- comb.n.
+- comb. n. (misplaced)
+- comb. nov.
+- comb. n., re-instated
+- comb. n., stat. rev.
+- comb. r.
+- comb. rest.
+- comb. restored
+- comb. rev.
+- comb. r., stat. r. & stat. n.
+- comb. & stat. nov.
+- gen. n., comb. n.
+- new combination
+- new comb., new subfamily assignment
+- resurrected combination
+- revalidated, comb. n.
+- stat. & comb. nov.
+- stat. prom. & comb. n.
+- comb. et stat. nov.
+- comb. et. stat. nov.
+- comb. n., stat. rev.
+- comb. r., stat. r. & stat. n.
+- comb. & stat. nov.
+- new comb., new subfamily assignment
+- new familial and subfamilial assignment
+- new family assignment
+- new rank
+- new status
+- NEW STATUS
+- new subfamilial assignment
+- new subfamily assignment
+- new subgeneric assignment
+- nom. n. et stat. rev.
+- nom. n. & stat. rev.
+- revised status, lectotype designation
+- rev. placement
+- rev. stat.
+- rev. status
+- stat. & comb. nov.
+- tat. n.
+- stat. n.: invalid genus
+- stat. nov.
+- stat. n.: restored name
+- stat. prom.
+- stat. prom. & comb. n.
+- stat. rev., stat. n.
+- emended
+- (name emended by Wüster et al. 2001)
+- nomen novum
+- nomen revivisco
+- nom. n.
+- nom. n. et stat. rev.
+- nom. nov.
+- nom. n. & stat. rev.
+- replacement name
+
+#### Synonym
+
+```
+<<Synonym>>=
 :Synonym a :TaxonomicStatus .
+@
+```
 
+#### Restored Name
+
+```
+<<Restored Name>>=
 :AcceptedName a :TaxonomicStatus .
+@
+```
 
+#### Conserved Name
+
+```
 :ConservedName a :TaxonomicStatus .
+```
 
+#### Type Species Designation
+
+```
 :TypeSpeciesDesignation a :TaxonomicStatus .
+```
 
+#### Type Specimen Designation
+
+#### New Record
+
+```
 :Record a :TaxonomicStatus .
+```
 
+#### Taxon Concept Label
+
+Taxonomic concept label is a taxonomic name usage accompanied by a status
+referring to the scientific work that circumscribes the mentioned taxon.
+Thus taxonomic concept labels can be linked directly to Taxon Concepts and
+not just to Taxonomic Names.
+
+```
 :TaxonConceptLabel a :TaxonomicStatus.
 @
 ```
@@ -968,21 +1138,3 @@ See for a similar attempt <http://rs.gbif.org/vocabulary/gbif/taxonomic_status.x
 
 ## Build the examples
 
-```
-<<Examples>>=
-
-<<eg_metadata>>>
-<<eg_treatment>>>
-<<eg_contains>>
-<<eg_tnu>>
-<<eg5>>>
-<<eg9>>>
-<<eg12>>
-@
-```
-
-```
-notangle -RExamples RDF_Guide.md > Examples.ttl
-```
-
-TODO: check for prefix consistency for all imported ontologies.
