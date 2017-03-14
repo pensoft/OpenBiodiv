@@ -1,20 +1,20 @@
 # OpenBiodiv RDF Guide
 
 This is the Open Biodiversity Knowledge Management System (OBKMS) RDF Guide.
-In the rest of this document OBKMS will be more compactly referred to as the
-OpenBiodiv Knowledge System, or simply OpenBiodiv. The guide is intended to
-explain to human users and define for computers the data model of OpenBiodiv
-and aid users in generating OpenBiodiv compatible RDF and in creating working
-SPARQL queries or other extensions for OpenBiodiv.
+In the rest of this document the discussed knowledge managements system will
+also be referred to as OpenBiodiv. The guide is intended to explain to human
+users and define for computers the data model of OpenBiodiv and aid users in
+generating OpenBiodiv compatible RDF and in creating working SPARQL queries or
+other extensions.
 
-This guide is a [literate programming
-](https://en.wikipedia.org/wiki/Literate_programming) document. *Literate
-programming* is the act of including source code within documentation. In
-usual software development practice the reverse holds true. Thus, the formal
-description of the data model, i.e. the [OWL](https://www.w3.org/OWL/)
-statements that form the ontology are found within the document  itself and
-are extracted from it with the program (`noweb`). `noweb` can be easily
-obtained for GNU Linux.
+This guide is a
+[literate programming](https://en.wikipedia.org/wiki/Literate_programming)
+document. *Literate programming* is the act of including source code within
+documentation. In usual software development practice the reverse holds true.
+Thus, the formal description of the data model, i.e. the
+[RDF](https://www.w3.org/RDF/) statements that form the ontology are found
+within the document  itself and are extracted from it with the program
+(`noweb`). `noweb` can be easily obtained for GNU Linux.
 
 ## Introduction
 
@@ -22,7 +22,7 @@ obtained for GNU Linux.
 the operation of a semantic database as part of OpenBiodiv. The data model
 consists of:
 
-1. A formal OWL ontology, called from here on *OpenBiodiv Core Ontology*,
+1. A formal ontology, called from here on *OpenBiodiv Core Ontology*,
 introducing the entities that our knowledge base holds and giving axioms that
 restrict the ways in which they can be combined.
 
@@ -33,38 +33,45 @@ conceptualization of the world.
 model to human users as the formal ontology necessarily will be more lax than
 the intended model.
 
-For a discussion see [Specification of Conceptualization](https://www.obitko.com/tutorials/ontologies-semantic-web/specification-of-conceptualization.html), as well as the article by [Guarino et al. (2009)](http://iaoa.org/isc2012/docs/Guarino2009_What_is_an_Ontology.pdf).
+For a discussion see
+[Specification of Conceptualization](https://www.obitko.com/tutorials/ontologies-semantic-web/specification-of-conceptualization.html),
+as well as the article by
+[Guarino et al. (2009)](http://iaoa.org/isc2012/docs/Guarino2009_What_is_an_Ontology.pdf).
 
 As this is a literate programming document, we take the approach of explaining
-the data model to human-like intelligence, and defining the Core Ontology as
-we progress with our explanations.
+the data model to humans, and defining the Core Ontology as we progress with
+our explanations.
 
 ```
 <<Ontology>>=
+
 <<Prefixes>>
 
 openbiodiv:
   rdf:type owl:Ontology ;
   owl:versionInfo "0.2" ;
-  rdfs:comment "Open Biodiversity Knowledge Management System Ontology" ;
+  rdfs:comment "Open Biodiversity Knowledge Management System Core Ontology" ;
   dc:title "OpenBiodiv Core Ontology" ;
   dc:subject "OpenBiodiv Core Ontology" ;
   rdfs:label "OpenBiodiv Core Ontology" ;
   dc:creator "Viktor Senderov, Terry Catapano, Kiril Simov, Lyubomir Penev" ;
   dc:rights "CCBY" .
 
-<<Publishing Domain>>
-<<Systematics>>
+<<Publishing Domain Model>>
+<<Biological Systematics Model>>
+
 @
 ```
 
-We've just defined our *root chunk*. In the `noweb` way of doing literate
-programming, we write our source in chunks. Each chunk has a name that is
-found between the `@<<` and `>>` and ends in `@`. Chunks can contain other
-chunks and thus the writing of the source code becomes hierarchical and non-
-linear. In the root chunk, we've listed other chunks that we'll introduce
-later and some verbatim code. In order to create the ontology we use
-the `notangle` command from `noweb`:
+TODO: Authors list needs to be emended.
+
+We've just defined our *root chunk*, `Ontology`. In the `noweb` way of doing
+literate programming, we write our source in chunks. Each chunk has a name
+that is found between the `@<<` and `>>` and ends in `@`. Chunks can contain
+other chunks and thus the writing of the source code becomes hierarchical and
+non- linear. In the root chunk, we've listed other chunks that we'll introduce
+later and some verbatim code. In order to create the ontology we use the
+`notangle` command from `noweb`:
 
 ```
 notangle -ROntology RDF_Guide.md > nowebonto.ttl
