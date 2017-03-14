@@ -327,52 +327,107 @@ Nomenclature is a special subsection of Treatment where nomenclatural acts are
 published. We define it similar to Treatment, but proper modeling entails that
 for each Nomenclature there ought to be a Treatment that contains it.
 
-TODO: owl:restriction for above?
-
 **Def. (Nomenclature):** Nomenclature is a specialized section of a taxonomic
 publication, a subsection of Treatment, where nomenclatural acts take place.
 
 ```
 <<Nomenclature>>=
 
-:Nomenclature a owl:Class ;
+trt:Nomenclature a owl:Class ;
+  rdfs:subClassOf deo:DiscourseElement ,
+                  [ rdf:type owl:Restriction ;
+                    owl:onProperty po:isContainedBy ;
+                    owl:someValuesFrom trt:Treatment ] ;
   rdfs:label "Taxonomic Nomenclature Section"@en ;
   rdfs:comment "A taxonomic nomenclature section, or simply a nomenclature, 
-                  is a rhetorical element of a taxonomic publication, i.e. a 
-                  specialized section, where nomenclatural acts are published."@en ;
-    
-  rdfs:subClassOf deo:DiscourseElement .
+                is a rhetorical element of a taxonomic publication, i.e. a 
+                specialized section, where nomenclatural acts are published."@en .
+
 @
 ```
 
-**Example 5: contecting a nomenclatural section to a treatment section.**
+**Example (Nomenclature).**
 
 ```
-<<eg5>>=
-:nomenclature a Doco:Section, :Nomenclature .
+<<eg_nomenclature>>=
+
+:nomenclature a Doco:Section, trt:Nomenclature .
 :treatment po:contains :nomenclature.
+
 @
 ```
 
-TODO: Coordinate with TaxPub 
+TODO: All the other subsections of trt:Treatment, Description, etc.
 
 #### Taxonomic Name Usage
 
 In the text of taxonomic articles we find strings like "*Heser stoevi*
 Deltschev, sp. n.". We choose to call these strings *taxonomic name usages*
 (TNU's) as they refer to published scientific names from the domain of
-biological systematics. The taxonomic name usage consists of three parts: one
-or more words identifying the taxon (these can be Latinized or take the form
-of an identifier), followed by the name of the author of the taxon, followed
-by a taxonomic name status containing information about the type of the taxonomic
-name usage. In the example, "*Heser stoevi*" is the binomial Latinized species
-name, "Deltschev" is the name of the person who described the taxon and "sp.
-n." bears nomenclatural information indicating that this is a species new to
-science.
+biological systematics. The taxonomic name usage consists of three parts:
+
+1. One or more words identifying the taxon (these can be Latinized or take the form
+of an identifier).
+
+2. The name-and-year of the author(s) of the taxon.
+
+3. Taxonomic name status containing information about the type of the taxonomic
+name usage.
+
+In the example, "*Heser stoevi*" is the binomial Latinized species name,
+"Deltschev" is the name of the person who described the taxon and "sp. n."
+bears taxonomic (and nomenclatural) information indicating that this is a
+species new to science.
 
 Modeling-wise, we consider TNU's to be specialized instances of Mention from
 the [PROTON Extensions module] (http://ontotext.com/proton/). Furthermore we
 link the TNU's to the scientific name they are symbolizing via `pkm:mentions`.
+
+**Def. (Taxonomic Name Usage):** A taxonomic name usage is the mentioning of a
+biological taxonomic name in a text.
+
+```
+<<Taxonomic Name Usage>>=
+
+:ТaxonоmicNameUsage a owl:Class ;
+  rdfs:subClassOf  pext:Mention ;
+  rdfs:comment "A string within a document that can be considered a mention of a
+                  biological taxonomic name."@en;
+  rdfs:label "Taxonomic Name Usage"@en;
+
+@
+```
+
+TODO: Need to add proton prefixes to the YAML database `pext`, `ptop`, etc.
+
+**Example (TNU).** In this example we define a TNU, connect it to a
+nomenclature section via `po:contains`, use `cnt:chars` to dump the full
+string of the usage, and use DwC properties to encode more granular
+information in addition to the dump. Note that we do use
+`dwciri:taxonomicStatus` to link to named entity from a vocabulary. This step
+does require an external lookup (type 2 step). Vocabularies are given in
+the appendix of this guide.
+
+```
+<<eg_tnu>>=
+
+:tnu a :TaxonomicNameUsage .
+
+
+:nomenclature po:contains :tnu .
+
+:tnu
+  cnt:chars "Heser stoev Deltschev sp. n."
+  dwc:scientificNameAuthorship "Deltschev" ;
+  dwc:taxonRank "species" ;
+  
+  dwc:taxonomicStatus "sp. n." ;
+  dwciri:taxonomicStatus :TaxonDiscovery .
+
+@
+     
+```
+
 
 **Vocabulary of taxonomic name statuses.** Taxonomic name usages may be
 accompanied by strings such as "new. comb.", "new syn.", "new record for
@@ -464,23 +519,7 @@ See for a similar attempt http://rs.gbif.org/vocabulary/gbif/taxonomic_status.xm
 @
 ```
 
-**Example (TNU)**
 
-```
-:tnu a :TaxonomicNameUsage .
-
-
-:nomenclature po:contains :tnu .
-
-:tnu
-  cnt:chars "Heser stoev Deltschev sp. n."
-  dwc:scientificNameAuthorship "Deltschev" ;
-  dwc:taxonRank "species" ;
-  
-  dwc:taxonomicStatus "sp. n." ;
-  dwciri:taxonomicStatus :TaxonDiscovery .
-     
-```
 
 
 **Example (Taxon Concept Label)**
@@ -493,53 +532,6 @@ See for a similar attempt http://rs.gbif.org/vocabulary/gbif/taxonomic_status.xm
 ```
 
 
-**Def. 6 (Taxonomic Name Usage):** *A taxonomic name usage is the mentioning
-of a biological taxonomic name in a text.*
-
-```
-<<Taxonomic Name Usage>>=
-
-top:Entity rdf:type owl:Class ;
-            rdfs:comment "Any sort of an entity of interest, usually something existing, happening, or purely abstract. Entities may have several - more than one - names or aliases."@en ;
-            rdfs:label "Entity"@en .
-
-ptop:Object rdf:type owl:Class ;
-            rdfs:subClassOf ptop:Entity ;
-            rdfs:comment "Objects are entities that could be claimed to exist - in some sense of existence. An object can play a certain role in some happenings. Objects could be substantially real - as the Buckingham Palace or a hardcopy book - or substantially imperceptible - for instance, an electronic document that exists only virtually, one cannot touch it."@en ;
-            rdfs:label "Object"@en .
-
-ptop:Statement rdf:type owl:Class ;
-               rdfs:subClassOf ptop:Object ;
-               rdfs:comment "A message that is stated or declared; a communication (oral or written), setting forth particulars or facts, etc; \"according to his statement he was in London on that day\". WordNet 1.7.1"@en ;
-               rdfs:label "Statement"@en .
-
-ptop:InformationResource rdf:type owl:Class ;
-                         rdfs:subClassOf ptop:Statement ;
-                         rdfs:comment "InformationResource denotes an information resource with identity, as defined in Dublin Core (DC2003ISO). InformationResource is considered any communication or message that is delivered or produced, taking into account the specific intention of its originator, and also the supposition (and anticipation) for a particular audience or counter-agent in the process of communication (i.e. passive or active feed-back)."@en ;
-                         rdfs:label "Information Resource"@en .
-
-pkm:mentions
-      rdf:type owl:ObjectProperty ;
-      rdfs:comment """
-    A direct link between an information resource, like a document or a section and an entity.
-  """ ;
-      rdfs:domain ptop:InformationResource ;
-      rdfs:label "mentions" ;
-      rdfs:range psys:Entity .
-
-pext:Mention rdf:type owl:Class ;
-             rdfs:subClassOf ptop:InformationResource ;
-             rdfs:comment "An area of a document that can be considered a mention of something."@en ;
-             rdfs:label "Section" .
-
-:ТaxonоmicNameUsage a owl:Class ;
-  rdfs:subClassOf  pext:Mention ;
-  rdfs:comment "A string within a document that can be considered a mention of a
-                  biological taxonomic name."@en;
-  rdfs:label "Taxonomic Name Usage"@en;
-
-@
-```
 
 **Example 7.**
 Taxonomic name usage:
@@ -959,8 +951,9 @@ pensoft:exampleTaxonConcept1 a dwc:Taxon ;
 <<Examples>>=
 
 <<eg_metadata>>>
-<<eg_treatnebt>>>
+<<eg_treatment>>>
 <<eg_contains>>
+<<eg_tnu>>
 <<eg5>>>
 <<eg9>>>
 <<eg12>>
