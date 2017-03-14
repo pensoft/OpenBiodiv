@@ -464,206 +464,16 @@ the (appendix)[#vocabulary-of-taxonomic-name-statuses] of this guide.
 
 ```
 
-##### Taxonomic Concept Label
-
-
-**Def.**
-
-```
-<<Taxonomic Concept Label>>=
-
-:TaxonomicConceptLabel a owl:Class ;
-  rdfs:subClassOf :TaxonomicName ;
-  rdfs:comment "A string that can be unambiguously unambiguously resolved as
-                refering a taxonomic concept either by the usage 'sensu',
-                'sec' or by the usage some other unique form of identification."@en .
-
-@
-```
-
-##### Uncertain Placement
-
-Sometimes taxonomic name usages are accompanied by a status indicating that
-the placement of the name in the taxonomy is uncertain.
-
-**Def.**
-
-```
-<<Uncertain Placement>>=
-
-:UncertainPlacement a owl:Class ;
-  rdfs:subClassOf :TaxonomicNameUsage ;
-  rdfs:comment "Sometimes taxonomic name usages are accompanied by a status indicating that
-                the placement of the name in the taxonomy is uncertain.
-                E.g.: 'incertae sedis'"@en .
-
-@
-
-```
-
-##### Taxon Discovery
-
-When a taxon is believed to have been discovered, a new taxonomic name is
-coined. This encompasses: new species, new genus, new family,  etc.
-
-```
-<<New Taxonomic Name>>=
-
-:NewTaxon a owl:Class ;
-  rdfs:subClassOf :TaxonomicNameUsage ;
-  rdfs:comment "A class to denote the different types of situations where
-                a new taxon is discovered"@en .
-
-
-:NewSpecies a owl:Class ;
-  rdfs:subClassOf :NewTaxon ;
-  rdfs:comment "E.g.: sp. n."@en .
-
-:NewSubspecies a owl:Class ;
-  rdfs:subClassOf :NewSpecies ;
-  rdfs:comment "E.g.: subsp. n."@en .
-
-
-@
-
-```
-
-##### Changed Name
-
-Often an old name is changed to a new one for a variety of reasons. This means
-that probably parts of the underlying taxon concept circumscription is
-carried over to the new name and there is an old name that is being
-invalidated. Algorithms have to be written to locate the old name.
-Situations include
-
-- changed rank (e.g.: stat. nov.)
-- new spelling (e.g.: nomen novum)
-- placement in a new genus (e.g.: new comb.)
-- 
-
-##### Extinct Species
-
-Sometimes in taxonomic articles there will be a status indicating the
-taxonomic name being used refers to a fossilized or extinct species.
-
-
-##### Invalidated Name
-
-
-Often a name has problems and it should not be used any more. It can be
-the old variant of a changed name, a misspelling, insufficiently described name, synonimized or otherwise invalidated:
-
-
-
-- nomen dubium
-- nomen inquirendum
-- nom. inval.
-- syn. nov.
-
-##### Revalidated Name 
-
-Sometimes a name that has been changed, synonimized or otherwise marked as
-invalid can be revalidated.
-
-- genus bona
-- nom rest.
-- comb. rev.
-
-##### Conserved Name
-
-  - nom. cons.
-  - nomen protectum
-  - nom. et orth. cons.
-
-##### Type designation
-
-Sometimes a name is used to designate a type specimen or a type species.
-
-##### Record
-
-Sometimes a name is used to indicate that some species has been described
-for the first time in a given location.
-
-#### Paper Types
-
-**Def. 8 of controlled vocabulary (Paper Types):** Pensoft's journals have some
-paper types, which we define herein. First of all, we introduce Paper Types as
-a Term Dictionary in the discipline of Bibliography. Then we introduce the
-different paper types as Subject Term's in the scheme of Paper Types. See the
-SPAR ontologies for more info on this this.
-
-```
-<<Paper Types>>=
-pensoft:PaperTypes
-  a fabio:TermDictionary ;
-  rdfs:label "Paper Types"@en ;
-  rdfs:comment "A list of paper (article) types published in Pensoft's
-                journals"@en ;
-  fabio:hasDiscipline dbpedia:Bibliography .
-@
-```
-
-**Example 9.** We give an example of a paper with only one
-taxonomic treatment. These paper types are not part of the Core Ontology but
-are imported in the Knowledge Base during the population phase. We also show
-how to say that a paper has as its type the aforementioned type.
-
-```
-<<eg9>>=
-:single-taxon-treatment
-  a fabio:SubjectTerm ;
-  rdfs:label "Single Taxon Treatment"@en; 
-  rdfs:comment "A type of paper with only one taxonomic treatment"@en ;
-  skos:inScheme pensoft:PaperTypes .
-
-:paper
-  a fabio:JournalArticle ;
-  fabio:hasSubjectTerm :single-taxon-treatment .
-@
-```
-
-TODO: Extract paper types.
-
-#### Taxon Classification
-
-**Def. 10 of controlled vocabulary (Taxon Classification):** Pensoft, in its
-Keywords uses certain taxon names for the classification of its papers. These
-taxon names are borrowed from GBIF. Here we define a term dictionary
-analogously to paper types:
-
-```
-<<Taxon Classification>>=
-pensoft:TaxonClassification 
-  a fabio:TermDictionary ;
-  rdfs:label "Taxonomic Classification"@en ;
-  rdfs:comment "A list of taxon names borrowed for GBIF for the 
-                classification of papers."@en ;
-  fabio:hasDiscipline dbpedia:Taxonomy .
-@
-```
-
-### Chronological Classification
-
-**Def. 11 of controlled vocabulary (Taxon Classification):**
-```
-<<Chronological Classification>>=
-openbiodiv:ChronologicalClassification
-  a fabio:TermDictionary ;
-  rdfs:label "Chronological Classification"@en ;
-  rdfs:comment "A vocabulary of chronological eras that can be used in
-                Pensoft's journals"@en ; 
-  fabio:hasDiscipline dbpedia:Paleontology .
-@
-```
-
 ### Model of the Biological Systematics Domain
 
 In this subsection we introduce  classes and properties which are used to
 convey information from the domain of biological systematics.
 
 ```
-<<Systematics>>=
+<<Biological Systematics Model>>=
+
 <<RCC5>>
+
 @
 ```
 
@@ -922,6 +732,9 @@ See for a similar attempt <http://rs.gbif.org/vocabulary/gbif/taxonomic_status.x
 
 #### Taxonomic Uncertainty
 
+Sometimes taxonomic name usages are accompanied by a status indicating that
+the placement of the name in the taxonomy is uncertain.
+
 **Def. (Taxonomic Uncertainty)** This status is used after a name when
 there is some sort of ambiguity related to the name.
 
@@ -948,6 +761,9 @@ Here're some ways in which taxonomic uncertainty can be abbreivated:
 
 #### Taxon Discovery
 
+
+When a taxon is believed to have been discovered, a new taxonomic name is
+coined. This encompasses: new species, new genus, new family,  etc.
 
 **Def. (Taxon Discovery):**
 
@@ -1006,6 +822,17 @@ Here're some ways in which taxonomic uncertainty can be abbreivated:
 - sect. nov.
 
 #### Replacement Name
+
+Often an old name is changed to a new one for a variety of reasons. This means
+that probably parts of the underlying taxon concept circumscription is
+carried over to the new name and there is an old name that is being
+invalidated. Algorithms have to be written to locate the old name.
+Situations include
+
+- changed rank (e.g.: stat. nov.)
+- new spelling (e.g.: nomen novum)
+- placement in a new genus (e.g.: new comb.)
+- 
 
 **Def. (Replacement Name):**
 
@@ -1096,6 +923,9 @@ Here're some ways in which taxonomic uncertainty can be abbreivated:
 
 #### Restored Name
 
+Sometimes a name that has been changed, synonimized or otherwise marked as
+invalid can be revalidated.
+
 ```
 <<Restored Name>>=
 :AcceptedName a :TaxonomicStatus .
@@ -1108,6 +938,11 @@ Here're some ways in which taxonomic uncertainty can be abbreivated:
 :ConservedName a :TaxonomicStatus .
 ```
 
+  - nom. cons.
+  - nomen protectum
+  - nom. et orth. cons.
+
+
 #### Type Species Designation
 
 ```
@@ -1117,6 +952,9 @@ Here're some ways in which taxonomic uncertainty can be abbreivated:
 #### Type Specimen Designation
 
 #### New Record
+
+Sometimes a name is used to indicate that some species has been described
+for the first time in a given location.
 
 ```
 :Record a :TaxonomicStatus .
@@ -1130,11 +968,81 @@ Thus taxonomic concept labels can be linked directly to Taxon Concepts and
 not just to Taxonomic Names.
 
 ```
-:TaxonConceptLabel a :TaxonomicStatus.
+:TaxonConceptLabel a :TaxonomicStatus ;
+                refering a taxonomic concept either by the usage 'sensu',
+                'sec' or by the usage some other unique form of identification."@en .
+
 @
 ```
 
+### Vocabulary of Paper Types
 
+**Def. 8 of controlled vocabulary (Paper Types):** Pensoft's journals have some
+paper types, which we define herein. First of all, we introduce Paper Types as
+a Term Dictionary in the discipline of Bibliography. Then we introduce the
+different paper types as Subject Term's in the scheme of Paper Types. See the
+SPAR ontologies for more info on this this.
 
-## Build the examples
+```
+<<Paper Types>>=
+pensoft:PaperTypes
+  a fabio:TermDictionary ;
+  rdfs:label "Paper Types"@en ;
+  rdfs:comment "A list of paper (article) types published in Pensoft's
+                journals"@en ;
+  fabio:hasDiscipline dbpedia:Bibliography .
+@
+```
 
+**Example 9.** We give an example of a paper with only one
+taxonomic treatment. These paper types are not part of the Core Ontology but
+are imported in the Knowledge Base during the population phase. We also show
+how to say that a paper has as its type the aforementioned type.
+
+```
+<<eg9>>=
+:single-taxon-treatment
+  a fabio:SubjectTerm ;
+  rdfs:label "Single Taxon Treatment"@en; 
+  rdfs:comment "A type of paper with only one taxonomic treatment"@en ;
+  skos:inScheme pensoft:PaperTypes .
+
+:paper
+  a fabio:JournalArticle ;
+  fabio:hasSubjectTerm :single-taxon-treatment .
+@
+```
+
+TODO: Extract paper types.
+
+### Vocabulary of Taxon Classification
+
+**Def. 10 of controlled vocabulary (Taxon Classification):** Pensoft, in its
+Keywords uses certain taxon names for the classification of its papers. These
+taxon names are borrowed from GBIF. Here we define a term dictionary
+analogously to paper types:
+
+```
+<<Taxon Classification>>=
+pensoft:TaxonClassification 
+  a fabio:TermDictionary ;
+  rdfs:label "Taxonomic Classification"@en ;
+  rdfs:comment "A list of taxon names borrowed for GBIF for the 
+                classification of papers."@en ;
+  fabio:hasDiscipline dbpedia:Taxonomy .
+@
+```
+
+### Vocabulary of Chronological Classification
+
+**Def. 11 of controlled vocabulary (Taxon Classification):**
+```
+<<Chronological Classification>>=
+openbiodiv:ChronologicalClassification
+  a fabio:TermDictionary ;
+  rdfs:label "Chronological Classification"@en ;
+  rdfs:comment "A vocabulary of chronological eras that can be used in
+                Pensoft's journals"@en ; 
+  fabio:hasDiscipline dbpedia:Paleontology .
+@
+```
