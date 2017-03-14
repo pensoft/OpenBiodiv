@@ -90,6 +90,8 @@ notangle -ROntology RDF_Guide.md > nowebonto.ttl
 <<eg_treatment>>>
 <<eg_contains>>
 <<eg_tnu>>
+<<eg_biological_names>>
+<<eg_taxon_concept>>
 
 @
 ```
@@ -260,10 +262,10 @@ and Journal using SPAR.
   frbr:hasPart :article . 
 
 :article a fabio:JournalArticle ;
-  skos:prefLabel "10.0000/BDJ.0.e000" ;
-  prism:doi "10.0000/BDJ.0.e000" ;
-  fabio:hasPublicationYear "2017"^^xsd:gYear ;
-  dcterms:title "Aus bus Senderov, 2017, newly recorded from Bulgaria"@en-us .
+  skos:prefLabel "10.3897/BDJ.4.e10095" ;
+  prism:doi "10.3897/BDJ.4.e10095" ;
+  fabio:hasPublicationYear "2016"^^xsd:gYear ;
+  dcterms:title "A new spider species, Heser stoevi sp. nov., from Turkmenistan (Araneae: Gnaphosidae)"@en-us .
 
 :pensoft-publishers rdf:type foaf:Agent ;
   skos:prefLabel "Pensoft Publishers" ;
@@ -455,7 +457,7 @@ the (appendix)[#vocabulary-of-taxonomic-name-statuses] of this guide.
 
 :tnu a :TaxonomicNameUsage .
 
-:nomenclature po:contains :tnu .
+:article po:contains :tnu .
 
 :tnu
   dc:date "2016-08-31"^xsd:date ;
@@ -469,6 +471,8 @@ the (appendix)[#vocabulary-of-taxonomic-name-statuses] of this guide.
 @
      
 ```
+
+TODO: Check if `po:contains` is transitive
 
 **Example (Taxon Concept Label)**
 
@@ -621,6 +625,11 @@ has the `:New` status, then the name is marked as `:New`. Note, this can
 be combined with other statuses. If the name has more than one treatment,
 then the status `:New` is revoked.
 
+**Rule 6 for Names:** If a TNU is marked as `:Conserved`, then the name is
+also marked as `:Conserved`. A conserved name cannot be invalidated with
+`:Synonym` or `:Invalid` (some kind of error must be produced if this is
+attempted).
+
 TODO: Can I express this in OWL or SPARQL?
 
 **Example usage of biological names.** We go back to the example of 
@@ -688,12 +697,14 @@ From it, we can say:
 @
 ```
 
-
-
 #### Taxon Concepts
 
 In a nutshell a taxon concept is a scientific theory about a taxon. In our
-data model scientific theories are represented by `frbr:Work`. Here are the
+data model scientific theories are represented by `frbr:Work` and taxon concepts
+are `dwc:Taxon`, but we introduce a `:TaxonConcept` together with a restriction.
+
+
+ Here are the
 comments on Work from FRBR:
 
 "A distinct intellectual or artistic creation. A work is an abstract entity;
@@ -707,17 +718,36 @@ work."
 
 Taxon concepts have a few defining characteristics:
 
-1. They may be linked to a scientific name (e.g. **Aus bus**) that acts as a
+1. They must be linked to a scientific name (e.g. **Aus bus**) that acts as a
+part of their label.
 
-1. They are linked to an article, book chapter, database or any other form
-of expression realizing the taxon concepts.
+1. They are linked to an article, book chapter, database or any other form of
+expression realizing the taxon concepts that makes up the second part of their
+label.
 
-**Remark and example 12 (linking treatments to taxon concepts).**  We view
-Treatment to be an expression of a theory about a taxon. Therefore, we may
-establish a link between the significant bibliographic unit (be it Journal 
-Article, Book Chapter, or any other Expression) containing the treatment and
-the taxon concept, whose realization the treatment is.
+**Def. (Taxon Concept):**
 
+```
+<<Biological Systematics Model>>= 
+
+:TaxonConcept rdf:type owl:Class ;
+  rdfs:subClassOf dwc:Taxon ,
+                  [ rdf:Type owl:Restriction ;
+                  owl:onProperty frbr:realization ;
+                  owl:allValuesFrom frbr:Expression ] ,
+                  [ rdf:type owl:Restriction ;
+                    owl:onProperty frbr:realization ;
+                    owl:minCardinality "1" ] .
+
+@
+```
+
+
+**Example (linking articles to taxon concepts).** We view Treatment to be an
+expression of a theory about a taxon. Therefore, we may establish a link
+between the significant bibliographic unit (be it Journal  Article, Book
+Chapter, or any other Expression) containing the treatment and the taxon
+concept, whose realization the treatment is.
 
 This comment in FRBR means that taxon concepts can have different realizations
 (`frbr:Expression`) such as a treatment or a database entry. Linking to
@@ -725,59 +755,35 @@ treatments is explained in Remark and example 1 under [Taxonomic Treatment
 ](#taxonomic-treatment). Here's another example of how to link a taxon concept
 to an online database.
 
-
 ```
-<<eg12>>=
+<<eg_taxon_concept>>=
+
+:heser-stoevi-deltschev-sec-deltschev a :TaxonConcept ;
+  dwciri:scientificName :heser-stoevi-deltschev ;
+  frbr:realization :artcile ;
+  skos:prefLabel "Heser stoevi sec. 10.3897/BDJ.4.e10095" .
+
+:tcl pkm:mentions :heser-stoevi-deltschev-sec-deltschev .
 
 :gbif2017 a fabio:Database ;
   skos:prefLabel "GBIF Backbone Taxonomy 20170301"@en ; 
-  rdfs:comment "A dump of GBIF's backbone taxonomy on 2 Mar 2017."@en ;
-  frbr:realizationOf :taxon-concept2 .
+  rdfs:comment "A dump of GBIF's backbone taxonomy on 2 Mar 2017."@en .
 
-:taxon-concept2
-  a dwc:Taxon ;
-  frbr:realization :gbif2017 .
+:taxon-concept2 a :TaxonConcept ;
+  dwciri:scientificName :heser-stoevi-deltschev ;
+  frbr:realization :gbif2017 ;
+  skos:prefLabel "Heser stoevi sec. GBIF Backbone Taxonomy 20170301"
 
 @
 ```
 
+Note that in the above example one scientific name, *Heser stoevi*, is
+linked to two different taxon concepts, as one taxon concept comes
+from the article and another one comes from the GBIF database.
 
+It is possible to express that these are the same thing, that one
+is a subconcept of the other, or even more granular relationships.
 
-In our understanding of the domain every taxon concepts needs to have at least
-one expression.
-
-TODO Is this possible to express this OWL? It would be simpler to express it
-in SPARQL.
-
-```
-:TaxonConcept rdf:type owl:Class;
-  rdfs:subClassOf [ rdf:type owl:Restriction ;
-                    owl:onProperty frbr:realization ;
-                    owl:someValuesFrom frbr:Expression ] ,
-                  [ rdf:type owl:Restriction ;
-                    owl:onProperty frbr:realization ;
-                    owl:minCardinality "1" ] .
-```
-
-all individuals of the taxonconcept class ha
-
-##### 2. Taxon concepts may be linked to a scientific name
-
-Linnaean names are an attempt to label taxa. In most cases taxon concepts will
-be linked to exactly one scientific name
-
-For all practical purposes the semantics of
-<http://rs.tdwg.org/dwc/terms/Taxon> are compatible with the notion of a taxon
-concepts. Our understanding of taxon concepts is based on [Franz et al.
-(2016)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4911943/).
-In order to be able to instantiate taxon concepts, we import "Darwin Semantic
-Web, version 1.0", where `dwc:Taxon` is defined. 
-
-
-**Remark and example 13.** Note that 
-
-Taxon concepts are related to one another via simple relationships and
-via RCC-5 properties.
 
 #### Simple Taxon Concept Relationships
 
@@ -785,6 +791,9 @@ via RCC-5 properties.
 a higher rank subsumes a lower rank)
 - relatedTo (when you have two overlaping but different concepts)
 - congruent (when two concepts are exactly the same)
+
+
+
 
 #### RCC-5 Relationships
 
@@ -812,8 +821,6 @@ openbiodiv:DR rdf:type owl:ObjectProperty ;
     rdfs:label "Disjoint" ;
     rdfs:comment "! DR(x,y) Disjoint from."@en .
 ```
-
-#### Scientific Name
 
 ### of the Ecological Domain
 
@@ -858,30 +865,31 @@ analyzed about 4,000 articles from these journals and came up with a
 vocabulary of statuses described below. The concepts in this vocabulary are
 broad concepts and encompass both specific cases of botanical or zoological
 nomenclature as well as purely taxonomic and informative use. We believe these
-concepts to be adequately granular for the purposes of reasoning in
-OpenBiodiv (see the (Rules)[#biological-names]. The main objective we want to achieve is to encode information
-about the preferred name to use for a given taxonomic concept lineage.
+concepts to be adequately granular for the purposes of reasoning in OpenBiodiv
+(see the (Rules)[#biological-names]. The main objective we want to achieve is
+to encode information about the preferred name to use for a given taxonomic
+concept lineage.
 
 See for a similar attempt <http://rs.gbif.org/vocabulary/gbif/taxonomic_status.xml>.
 
 ```
 <<Vocabulary Taxonomic Statuses>>=
 
-:TaxonomicNameStatus rdf:type owl:Class ;
+:TaxonomicStatus rdf:type owl:Class ;
   rdfs:subClassOf [ rdf:type owl:Restriction ;
                     owl:onProperty <http://www.w3.org/2004/02/skos/core#inScheme> ;
-                    owl:someValuesFrom :TaxonomicStatusVocabulary ] ;
+                    owl:someValuesFrom :TaxonomicStatusTerms ] ;
   rdfs:label "Taxonomic Name Status"@en ;
   rdfs:comment "The status following a taxonomic name usage in a taxonomic
                 manuscript, i.e. 'n. sp.',
                                  'comb. new',
                                  'sec. Franz (2017)', etc"@en .
 
-:TaxonomicNameStatusVocabulary rdf:type owl:Class ;
+:TaxonomicStatusTerms rdf:type owl:Class ;
   rdfs:subClassOf <http://www.w3.org/2004/02/skos/core#ConceptScheme> ,
                                 [ rdf:type owl:Restriction ;
                                   owl:onProperty fabio:isSchemeOf ;
-                                  owl:allValuesFrom :Taxonomic Status] ;
+                                  owl:allValuesFrom :TaxonomicStatus] ;
   rdfs:label "OpenBiodiv Vocabulary of Taxonomic Name Statuses"@en ;
   fabio:hasDiscipline dbpedia:Taxonomy_(biology) .
 
@@ -909,7 +917,7 @@ there is some sort of ambiguity related to the name.
 ```
 <<Taxonomic Uncertainty>>=
 
-:TaxonomicUncertaitanty a :TaxonomicStatus ;
+:Uncertain a :TaxonomicStatus ;
   rdfs:label "Taxonomic Uncertainty"@en ;
   rdfs:comment "This term indicates when applied to a taxonomic name
                  that there is some uncertainty about the name:
@@ -938,7 +946,7 @@ coined. This encompasses: new species, new genus, new family,  etc.
 ```
 <<Taxon Discovery>>=
 
-:TaxonomicDiscovery a :TaxonomicStatus ;
+:New a :TaxonomicStatus ;
   rdfs:label "Taxon Discovery"@en ;
   rdfs:comment "This term when applied to a taxonomic name indicates
                 that this name denotes a taxon that is being described in
@@ -1007,7 +1015,7 @@ Situations include
 ```
 <<Replacement Name>>=
 
-:ReplacementName a :TaxonomicStatus ;
+:Replacement a :TaxonomicStatus ;
   rdfs:label "Replacement Name"@en ;
   rdfs:comment "This term when applied to a taxonomic name indicates
                 that the name it is being applied to is an updated version
@@ -1089,6 +1097,8 @@ Situations include
 @
 ```
 
+#### Invalid
+
 #### Restored Name
 
 Sometimes a name that has been changed, synonimized or otherwise marked as
@@ -1096,9 +1106,13 @@ invalid can be revalidated.
 
 ```
 <<Restored Name>>=
-:AcceptedName a :TaxonomicStatus .
+:Restored a :TaxonomicStatus .
 @
 ```
+
+#### Accepted Name
+
+See GBIF
 
 #### Conserved Name
 
