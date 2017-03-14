@@ -67,11 +67,13 @@ TODO: Authors list needs to be emended.
 
 We've just defined our *root chunk*, `Ontology`. In the `noweb` way of doing
 literate programming, we write our source in chunks. Each chunk has a name
-that is found between the `@<<` and `>>` and ends in `@`. Chunks can contain
-other chunks and thus the writing of the source code becomes hierarchical and
-non- linear. In the root chunk, we've listed other chunks that we'll introduce
-later and some verbatim code. In order to create the ontology we use the
-`notangle` command from `noweb`:
+that is found between the `@<<` (TODO: not sure how to escape this character)
+and `>>` and ends in `@`. Chunks can contain other chunks and thus the writing
+of the source code becomes hierarchical and non- linear. In the root chunk,
+we've listed other chunks that we'll introduce later and some verbatim code.
+In order to create the ontology we use the `notangle` command from `noweb`.
+
+**Command to extract the Core Ontology.**
 
 ```
 notangle -ROntology RDF_Guide.md > nowebonto.ttl
@@ -92,11 +94,12 @@ called
 [`prefix_db.yml`](../R/obkms/inst/prefix_db.yml)
 
 This guide will not go into the question of the meaning of the prefixes, into
-identifiers and into cross-linking. This will be the subject matter of later
+identifiers and into cross-linking. This will be the subject matter of a later
 "OpenBiodiv Extension and Linking Guide".
 
 ```
 <<Prefixes>>=
+
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix pensoft: <http://id.pensoft.net/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -121,6 +124,7 @@ identifiers and into cross-linking. This will be the subject matter of later
 @prefix dwc: <http://rs.tdwg.org/dwc/terms/> .
 @prefix sro: <http://salt.semanticauthoring.org/ontologies/sro#> .
 @prefix deo: <http://purl.org/spar/deo/> .
+
 @
 ```
 
@@ -137,7 +141,30 @@ are structural parts of the articles such as articles, paragraphs, sections,
 tables, figures, etc. and entities which are talked about - the actual
 (domain-specific) information contained in the articles.
 
-Here we will split the description of the model on domains.
+Both ways of looking at the entities are compatible with each other. The
+following information should probably go into "OpenBiodiv Extension and
+Linking Guide" but for the sake of completeness we will present it here, as
+well.
+
+Entity extraction from taxonomic articles can happen in two phases:
+
+1. Conversion of XML elements into RDF triples following the structure of the
+XML. In this stage key XML elements are transformed into bibliographic
+elements. XML elements denoting sections become `doco:Section`'s, figures
+become `doco:Figure`'s, etc. Here no information extraction is taking place
+and no additional semantics are added. This step can be completed linearly
+without any external lookups.
+
+2. Named entity recognition, coreferencing, and named entity identification.
+During this step, non-structural entities are extracted from the informaiton
+presented in the structural elements in the form of text or attributes that
+have been transformed into properties. The details of how this done are beyond
+the scope of this guide but it is important to note that an attempt is made to
+coreference - i.e. match multiple bibliographic elements to the same non-
+bibliographic entity, if they do in fact refer to the same entity in the sense
+of Frege's semiotic triangle. Another attempt is made to properly manage
+identifiers. This stage cannot be completed without external look-ups.
+
 
 **Note on Capitalization.** Our ontology strives be a formal specification of
 a conceptualization. In our mental model we have some concepts of some things.
@@ -156,31 +183,33 @@ treatment," or "John."
 When we formally define a concept in OWL, i.e. issue an URI to it, we shall
 refer to the URI, as we refer to all URI's in the text with `typewriter font`.
 URI's of classes and vocabularies will be in `MajorCamelCase`. URI's of
-relationships will be in `minorCamelCase`. URI's of individuals `will-be-hyphenated`. This seems to generally in accordance with WWW practice.
+relationships will be in `minorCamelCase`. URI's of individuals `will-be-hyphenated`.
+This seems to generally in accordance with WWW practice.
 
 ## RDF Model
 
 ### of the Publishing Domain
 
 The publishing domain is described in our model using the Semantic Publishing
-and Referencing Ontologies, a.k.a. [SPAR
-Ontologies](http://www.sparontologies.net/). We do import several of these
-ontologies (please consult the paragraph "Incorporated external ontologies").
-Refer to the documentation on the SPAR Ontologies' site for an exhaustive
-treatment.
+and Referencing Ontologies, a.k.a. [SPAR Ontologies](http://www.sparontologies.net/).
+We do import several of these ontologies (please consult the paragraph
+"Incorporated external ontologies"). Refer to the documentation on the SPAR
+Ontologies' site for an exhaustive treatment.
 
 In the rest of this section we describe the modeling of entities in the
 publishing domain that are not found in the SPAR ontologies. The central  new
-class in OpenBiodiv not found in SPAR is the `Treatment` class, borrowed from
-the [Treatment Ontologies](https://github.com/plazi/TreatmentOntologies).
+class in OpenBiodiv not found in SPAR is the `trt:Treatment` class, borrowed
+from the
+
+[Treatment Ontologies](https://github.com/plazi/TreatmentOntologies).
 
 ```
-<<Publishing Domain>>=
+<<Publishing Domain Model>>=
 
 <<Treatment>>
-<<Paper Types>>
-<<Taxon Classification>>
-<<Chronological Classification>>
+<<Vocabulary of Paper Types>>
+<<Vocabulary of Taxon Classification>>
+<<Vocabulary of Chronological Classification>>
 
 @
 ```
@@ -189,20 +218,15 @@ the [Treatment Ontologies](https://github.com/plazi/TreatmentOntologies).
 
 The main objects of information extraction and retrieval of OpenBiodiv in the
 first stage of its developments are scientific journal articles from the
-journals [Biodiversity Data Journal](http://bdj.pensoft.net/) and [ZooKeys]
-(http://zookeys.pensoft.net/). We model the bibliographic objects around
-Journal Article, such as Publisher, and Journal using SPAR.
+journals [Biodiversity Data Journal](http://bdj.pensoft.net/) and
+[ZooKeys](http://zookeys.pensoft.net/).
+We model the bibliographic objects around Journal Article, such as Publisher,
+and Journal using SPAR.
 
-**Example 1 (modeling Journal Article).**
+**Example (modeling article metadata).**
 
 ```
-<<eg1>>=
-:pensoft-publishers rdf:type foaf:Agent ;
-  skos:prefLabel "Pensoft Publishers" ;
-  pro:holdsRoleInTime :pensoft-publishes-bdj . 
-
-:pensoft-publishes-bdj rdf:type pro:RoleInTime ;
-  pro:relatesToDocument :biodiversity-data-journal . 
+<<eg_metadata>>=
 
 :biodiversity-data-journal rdf:type fabio:Journal ;
   skos:prefLabel "Biodiversity Data Journal" ;
@@ -216,83 +240,101 @@ Journal Article, such as Publisher, and Journal using SPAR.
   skos:prefLabel "10.0000/BDJ.0.e000" ;
   prism:doi "10.0000/BDJ.0.e000" ;
   fabio:hasPublicationYear "2017"^^xsd:gYear ;
-  dcterms:title "Aus bus Senderov, 2017, newly recorded from Bulgaria"@en-us ;
-  po:contains :treatment .
+  dcterms:title "Aus bus Senderov, 2017, newly recorded from Bulgaria"@en-us .
+
+:pensoft-publishers rdf:type foaf:Agent ;
+  skos:prefLabel "Pensoft Publishers" ;
+  pro:holdsRoleInTime :pensoft-publishes-bdj . 
+
+:pensoft-publishes-bdj rdf:type pro:RoleInTime ;
+  pro:relatesToDocument :biodiversity-data-journal . 
+
 @
 ```
 
 TODO: keywords
 
-#### Treatment
+TODO Note: In this example `:biodiversity-data-journal` is non-structural
+entity, as it doesn't denote part of the manuscript, but rather something
+external, i.e. a journal. This means that creating it, requires of the step of
+named entity identification.
+
+#### Taxonomic Treatment
 
 See [Plazi](http://plazi.org/) for a theoretical discussion of Treatment.
 
-**Def. 2 (Treatment):** *Taxonomic Treatment, or simply Treatment, is
-a rhetorical element of a taxonomic publication:*
+**Def. (Treatment):** Taxonomic Treatment, or simply Treatment, is
+a rhetorical element of a taxonomic publication:
 
 ```
 <<Treatment>>=
-:Treatment a owl:Class ;
+
+trt:Treatment a owl:Class ;
   rdfs:label "Taxonomic Treatment"@en ;
   rdfs:label "Taxonomische Abhandlung"@de ;
-    rdfs:label "Таксономично пояснение"@bg ;
-    rdfs:comment "A taxonomic treatment, or simply a treatment, is a 
-                  rhetorical element of a taxonomic publication, i.e. a 
-                  specialized section, where taxon circumscription  
-                  takes place."@en ;
-    rdfs:comment "Eine taxonomische Abhandlung, oder nur Abhandlung, ist 
-                  ein rhetorisches Element eines wissenschaftlichen 
-                  taxomischen Artikels, d.h. ein spezialisierter Abschnitt,
-                  wo die Umschreibung eines taxonomischen Konzeptes
-                  stattfindet."@de ;
-    rdfs:comment "Таксономично пояснение или само Пояснение е риторчна част
-                  от таксономичната статия, където се случва описанието
-                  на дадена таксономична концепция."@bg ;                  
-    rdfs:subClassOf deo:DiscourseElement .
+  rdfs:label "Таксономично пояснение"@bg ;
+  rdfs:comment "A taxonomic treatment, or simply a treatment, is a 
+                rhetorical element of a taxonomic publication, i.e. a 
+                specialized section, where taxon circumscription  
+                takes place."@en ;
+  rdfs:comment "Eine taxonomische Abhandlung, oder nur Abhandlung, ist 
+                ein rhetorisches Element eines wissenschaftlichen 
+                taxomischen Artikels, d.h. ein spezialisierter Abschnitt,
+                wo die Umschreibung eines taxonomischen Konzeptes
+                stattfindet."@de ;
+  rdfs:comment "Таксономично пояснение или само Пояснение е риторчна част
+                от таксономичната статия, където се случва описанието
+                на дадена таксономична концепция."@bg ;                  
+  rdfs:subClassOf deo:DiscourseElement .
 @
-```
-
-Thus, Treatment is defined akin to Introduction, Methods, etc. from [DEO]
-(http://www.sparontologies.net/ontologies/deo/source.html).
-
-**Example 3 (instantiating a treatment).**
 
 ```
-<<eg3>>=
+
+Thus, Treatment is defined akin to Introduction, Methods, etc. from 
+[DEO](http://www.sparontologies.net/ontologies/deo/source.html).
+
+**Example (instantiating a treatment).**
+
+```
+<<eg_treatment>>=
+
 :treatment
-  a doco:Section, :Treatment .
+  a doco:Section, trt:Treatment .
+
 @
 ```
 
 Note that we type `:treatment` both as `trt:Treatment` (i.e. the rhetorical
-element Treatment) and as `doco:Section` because we view this particular 
+element Treatment) and as s `doco:Section` because we view this particular
 treatment to also be a structural section of the document.
 
-**Remark and example 3 (linking treatments to the articles they reside in).**
-Key here is that an article is linked to different sub-article level elements
-such as treatments via the use of the "contains" property in the [Pattern
-Ontology](http://www.essepuntato.it/2008/12/pattern).
+**Linking treatments to the articles they reside in.** Key here is that an
+article is linked to different sub-article level elements such as treatments
+via the use of the "contains" property in the
+[Pattern Ontology](http://www.essepuntato.it/2008/12/pattern).
 
 ```
-<<eg3-2>>=
-:article
-   po:contains :treatment . 
+<<eg_contains>>=
+
+:article po:contains :treatment . 
+
 @
 ```
 
-##### Nomenclature
+##### Taxonomic Nomenclature Section
 
-The nomenclature is a special subsection of treatment where nomenclatural acts
-are published. We define it similar to Treatment, but proper modeling entails
-that for each Nomenclature section there ought to be a Treatment that contains
-it.
+Nomenclature is a special subsection of Treatment where nomenclatural acts are
+published. We define it similar to Treatment, but proper modeling entails that
+for each Nomenclature there ought to be a Treatment that contains it.
 
-**Def. 4 (Nomenclature):** *Nomenclature is a specialized section of a
-taxonomic publication, usually a subsection of Treatment, where nomenclatural
-acts take place.*
+TODO: owl:restriction for above?
+
+**Def. (Nomenclature):** Nomenclature is a specialized section of a taxonomic
+publication, a subsection of Treatment, where nomenclatural acts take place.
 
 ```
 <<Nomenclature>>=
+
 :Nomenclature a owl:Class ;
   rdfs:label "Taxonomic Nomenclature Section"@en ;
   rdfs:comment "A taxonomic nomenclature section, or simply a nomenclature, 
@@ -915,9 +957,10 @@ pensoft:exampleTaxonConcept1 a dwc:Taxon ;
 
 ```
 <<Examples>>=
-<<eg1>>>
-<<eg3>>>
-<<eg3-2>>
+
+<<eg_metadata>>>
+<<eg_treatnebt>>>
+<<eg_contains>>
 <<eg5>>>
 <<eg9>>>
 <<eg12>>
