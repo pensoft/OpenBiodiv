@@ -59,6 +59,8 @@ openbiodiv:
 
 <<Publishing Domain Model>>
 <<Biological Systematics Model>>
+<<Vocabulary Taxonomic Statuses>>
+
 
 @
 ```
@@ -429,95 +431,6 @@ the appendix of this guide.
 ```
 
 
-**Vocabulary of taxonomic name statuses.** Taxonomic name usages may be
-accompanied by strings such as "new. comb.", "new syn.", "new record for
-cuba", and so on. These taxonomic name usage statuses (from now on statuses)
-have taxonomic or nomenclatural meaning and further specialize the usage. For
-example, if we are  describing a new species for science, we may write "n.
-sp." after the species name. This particular example is also a nomenclatural
-act in the sense of the Codes of zoological or botanical nomenclature.
-
-Not all statuses necessarily nomenclatural in nature. Sometimes the status is
-more of a note to the reader and conveys taxonomic rather than nomenclatural
-information. E.g. when a previously known species is recorded in a new
-location.
-
-Here we take the road of modeling statuses from the bottom-up, i.e. based on
-their actual use in three of the most successful journals in biological
-systematics - ZooKeys, Biodiversity Data Journal, and PhytoKeys. We have
-analyzed about 4,000 articles from these journals and came up with a
-vocabulary of statuses described below. The concepts in this vocabulary are
-broad concepts and encompass both specific cases of botanical or zoological
-nomenclature as well as purely taxonomic and informative use. We believe these
-concepts to be adequately granular for the purposes of reasoning in
-OpenBiodiv. The main objective we want to achieve is to encode information
-about the preferred name to use for a given taxonomic concept lineage.
-
-See for a similar attempt http://rs.gbif.org/vocabulary/gbif/taxonomic_status.xml
-```
-<<Vocabulary Taxonomic Statuses>>=
-
-:TaxonomicStatus rdf:type owl:Class ;
-  rdfs:subClassOf [ rdf:type owl:Restriction ;
-                    owl:onProperty <http://www.w3.org/2004/02/skos/core#inScheme> ;
-                    owl:someValuesFrom fabio:TermDictionary ] ;
-
-:StatusVocabulary rdf:type owl:Class ;
-  rdfs:subClassOf <http://www.w3.org/2004/02/skos/core#ConceptScheme> ,
-                                [ rdf:type owl:Restriction ;
-                                  owl:onProperty :isSchemeOf ;
-                                  owl:allValuesFrom :SubjectTerm
-                                ] ;
-
-  rdfs:label "OpenBiodiv Vocabulary of Taxonomic Statuses"@en ;
-  rdfs:comment "The status following a taxonomic name usage in a taxonomic
-                manuscript, i.e. 'n. sp.',
-                                 'comb. new',
-                                 'sec. Franz (2017)', etc"@en .
-
-  fabio:hasDiscipline dbpedia:Taxonomy_(biology) .
-
-:TaxonomicUncertaitanty a :TaxonomicStatus ;
-  rdfs:label "Taxonomic Uncertainty"@en ;
-  rdfs:comment "This term indicates when applied to a taxonomic name
-                 that there is some uncertainty about the name:
-                either in the placement of the name in the hierarchy
-                (e.g. incertae sedis), or in the description of the name
-                (e.g. nomen dubium)."@en .
-
-
-:TaxonomicDiscovery a :TaxonomicStatus ;
-  rdfs:label "Taxon Discovery"@en ;
-  rdfs:comment "This term when applied to a taxonomic name indicates
-                that this name denotes a taxon that is being described in
-                the present context. E.g.:
-                n. sp., gen. nov., n. trib., etc."@en .
-
-
-:ReplacementName a :TaxonomicStatus ;
-  rdfs:label "Updated Name"@en ;
-  rdfs:comment "This term when applied to a taxonomic name indicates
-                that the name it is being applied to is an updated version
-                of a different name. This update may come about through
-                changes in rank (stat. n.) when the endings change (e.g.
-                -ini -> -idae), through changes in genus placement
-                (new comb.), through updates needed purely for nomenclatural
-                reasons such as to avoid homonymy or correct grammatical
-                or spelling mistakes (nomen nov.), or anything else."@en 
-
-:Synonym a :TaxonomicStatus .
-
-:AcceptedName a :TaxonomicStatus .
-
-:ConservedName a :TaxonomicStatus .
-
-:TypeSpeciesDesignation a :TaxonomicStatus .
-
-:Record a :TaxonomicStatus .
-
-:TaxonConceptLabel a :TaxonomicStatus.
-@
-```
 
 
 
@@ -745,7 +658,7 @@ openbiodiv:ChronologicalClassification
 @
 ```
 
-### of the Biological Systematics Domain
+### Model of the Biological Systematics Domain
 
 In this subsection we introduce  classes and properties which are used to
 convey information from the domain of biological systematics.
@@ -943,6 +856,114 @@ pensoft:exampleTaxonConcept1 a dwc:Taxon ;
                     dwc:species "murale" ;
                     dwc:genus "Chenopodium"
 ```
+
+
+## Apendicies
+
+### Vocabulary of Taxonomic Name Statuses
+
+Taxonomic name usages may be accompanied by strings such as "new. comb.", "new
+syn.", "new record for cuba", and so on. These taxonomic name usage statuses
+(from now on statuses) have taxonomic or nomenclatural meaning and further
+specialize the usage. For example, if we are  describing a new species for
+science, we may write "n. sp." after the species name. This particular example
+is also a nomenclatural act in the sense of the Codes of zoological or
+botanical nomenclature.
+
+Not all statuses are necessarily nomenclatural in nature. Sometimes the status
+is more of a note to the reader and conveys taxonomic rather than
+nomenclatural information. E.g. when a previously known species is recorded in
+a new location.
+
+Here we take the road of modeling statuses from the bottom-up, i.e. based on
+their actual use in three of the most successful journals in biological
+systematics - ZooKeys, Biodiversity Data Journal, and PhytoKeys. We have
+analyzed about 4,000 articles from these journals and came up with a
+vocabulary of statuses described below. The concepts in this vocabulary are
+broad concepts and encompass both specific cases of botanical or zoological
+nomenclature as well as purely taxonomic and informative use. We believe these
+concepts to be adequately granular for the purposes of reasoning in
+OpenBiodiv. The main objective we want to achieve is to encode information
+about the preferred name to use for a given taxonomic concept lineage.
+
+See for a similar attempt <http://rs.gbif.org/vocabulary/gbif/taxonomic_status.xml>.
+
+```
+<<Vocabulary Taxonomic Statuses>>=
+
+:TaxonomicNameStatus rdf:type owl:Class ;
+  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                    owl:onProperty <http://www.w3.org/2004/02/skos/core#inScheme> ;
+                    owl:someValuesFrom :TaxonomicStatusVocabulary ] ;
+  rdfs:label "Taxonomic Name Status"@en ;
+  rdfs:comment "The status following a taxonomic name usage in a taxonomic
+                manuscript, i.e. 'n. sp.',
+                                 'comb. new',
+                                 'sec. Franz (2017)', etc"@en .
+
+:TaxonomicNameStatusVocabulary rdf:type owl:Class ;
+  rdfs:subClassOf <http://www.w3.org/2004/02/skos/core#ConceptScheme> ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty fabio:isSchemeOf ;
+                                  owl:allValuesFrom :Taxonomic Status] ;
+  rdfs:label "OpenBiodiv Vocabulary of Taxonomic Name Statuses"@en ;
+  fabio:hasDiscipline dbpedia:Taxonomy_(biology) .
+
+  <<Taxonomic Uncertainty>>
+  <<Taxonomic Discovery>>
+  <<Replacement Name>>
+  <<Synonym>>
+  <<Accepted Name>>
+  <<Conserved Name>>
+  <<Type Species Designation>>
+  <<Record>>
+  <<Taxon Concept Label>>
+
+@
+```
+
+:TaxonomicUncertaitanty a :TaxonomicStatus ;
+  rdfs:label "Taxonomic Uncertainty"@en ;
+  rdfs:comment "This term indicates when applied to a taxonomic name
+                 that there is some uncertainty about the name:
+                either in the placement of the name in the hierarchy
+                (e.g. incertae sedis), or in the description of the name
+                (e.g. nomen dubium)."@en .
+
+
+:TaxonomicDiscovery a :TaxonomicStatus ;
+  rdfs:label "Taxon Discovery"@en ;
+  rdfs:comment "This term when applied to a taxonomic name indicates
+                that this name denotes a taxon that is being described in
+                the present context. E.g.:
+                n. sp., gen. nov., n. trib., etc."@en .
+
+
+:ReplacementName a :TaxonomicStatus ;
+  rdfs:label "Updated Name"@en ;
+  rdfs:comment "This term when applied to a taxonomic name indicates
+                that the name it is being applied to is an updated version
+                of a different name. This update may come about through
+                changes in rank (stat. n.) when the endings change (e.g.
+                -ini -> -idae), through changes in genus placement
+                (new comb.), through updates needed purely for nomenclatural
+                reasons such as to avoid homonymy or correct grammatical
+                or spelling mistakes (nomen nov.), or anything else."@en 
+
+:Synonym a :TaxonomicStatus .
+
+:AcceptedName a :TaxonomicStatus .
+
+:ConservedName a :TaxonomicStatus .
+
+:TypeSpeciesDesignation a :TaxonomicStatus .
+
+:Record a :TaxonomicStatus .
+
+:TaxonConceptLabel a :TaxonomicStatus.
+@
+```
+
 
 
 ## Build the examples
