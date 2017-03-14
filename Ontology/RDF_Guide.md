@@ -366,6 +366,25 @@ trt:Nomenclature a owl:Class ;
                 is a rhetorical element of a taxonomic publication, i.e. a 
                 specialized section, where nomenclatural acts are published."@en .
 
+
+trt:NomenclatureCitationList a owl:Class ;
+  rdfs:subClassOf deo:DiscourseElement ,
+                  [ rdf:type owl:Restriction ;
+                    owl:onProperty po:isContainedBy ;
+                    owl:someValuesFrom trt:Nomenclature ] ;
+                  rdfs:label "Taxonomic Nomenclature Citation List"@en ;
+  rdfs:comment "Inside the taxonomic nomenclature section, we have a list
+                of citations."@en .                  
+
+trt:TreatmentTitle a owl:Class ;
+  rdfs:subClassOf deo:DiscourseElement ,
+                  [ rdf:type owl:Restriction ;
+                    owl:onProperty po:isContainedBy ;
+                    owl:someValuesFrom trt:Nomenclature ] ;
+                  rdfs:label "Treatment Title"@en ;
+  rdfs:comment "Inside the taxonomic nomenclature section, we have the treatment title."@en .                  
+
+
 @
 ```
 
@@ -439,7 +458,8 @@ the (appendix)[#vocabulary-of-taxonomic-name-statuses] of this guide.
 :nomenclature po:contains :tnu .
 
 :tnu
-  cnt:chars "Heser stoev Deltschev sp. n."
+  dc:date "2016-08-31"^xsd:date ;
+  cnt:chars "Heser stoevi Deltschev sp. n." ;
   dwc:scientificNameAuthorship "Deltschev" ;
   dwc:taxonRank "species" ;
   
@@ -498,19 +518,21 @@ our workflow both RDF generation and debugging would be severely hampered by
 this convention. That's why we have defined names in OpenBiodiv and mapped
 them to their NOMEN equivalents.
 
+**Def. (Biological Name):**
+
 ```
 <<Biological Names>>=
 
-:biologicalName rdf:type owl:Class ;
+:BiologicalName rdf:type owl:Class ;
     rdfs:label "biological name"@en ;
     owl:sameAs nomen:NOMEN_0000030 .
 
-:scientificName rdf:type owl:Class ;
+:ScientificName rdf:type owl:Class ;
     rdfs:subClassOf :biologicalName ;
     rdfs:label "scientific name"@en ;
     owl:sameAs nomen:NOMEN_0000036 .
     
-:vernacularName a owl:Class ;
+:VernacularName a owl:Class ;
   rdfs:subClassOf :biologicalName ;
   rdfs:label "vernacular name"@en ;
   ownl:sameAs nomen:NOMEN_0000037 .
@@ -518,22 +540,154 @@ them to their NOMEN equivalents.
 @
 ```
 
-##### Example usage of biological names
+Again, as in the taxonomic statuses example, we do not model scientific names
+down to the level of the Codes as NOMEN does. We also use different sets of
+properties to define relationships between biological names and for their
+data properties.
+
+For the data properties we use DwC terms.
+
+For object properties, have two types of relationships: unidirectional and
+bidirectional.
+
+**Def. (Related name):** Related name is an object property that we use in
+order to indicate that two biological names are related somehow. This
+relationship is purposely vague as to encompass all situations where two
+biological names co-occur in a text. Related name is transitive and reflexive.
 
 ```
-pensoft:exampleTaxonConcept1 a dwc:Taxon ; 
-  dwciri:scientificName :exampleName1 ;
-  dwc:nameAccordingTo "Susy Fuentes-Bazan, Pertti Uotila, Thomas Borsch: A novel phylogeny-based generic classification for Chenopodium sensu lato, and a tribal rearrangement of Chenopodioideae (Chenopodiaceae). In: Willdenowia. Vol. 42, No. 1, 2012, p. 14." ;
-  dwciri:vernacularName :exampleName2 ; 
-  
-  "Mauer-Gänsefuss"@de,
-                                                           "Nettle-leaved Goosefoot"@en ;
-                         .
+<<Biological Names>>=
 
-:taxonName a trt:ScientificName ;
-                    dwc:species "murale" ;
-                    dwc:genus "Chenopodium"
+:relatedName rdf:type owl:ObjectProperty,
+                      owl:TransitiveProperty,
+                      owl:ReflexiveProperty ;
+            rdfs:label "related biological name"@en ;
+            rdfs:domain :BiologicalName ;
+            rdfs:range :BiologicalName ;
+            rdfs:comment "Related name is a property relationship that
+we use in order to indicate that two biological names are related
+somehow. This relationship is purposely vague as to encompass all 
+situations where two biological names co-occur in a text. Related
+name is transitive and reflexive."@en.
+
+@
 ```
+
+**Def. (Replacement name):** This is a uni-directional property. Its meaning
+is that one one biological name links to a different biological name via the
+usage of this property, then the object of the triple is the form of the
+biological name the use of which is more accurate and should be preferred
+given the information that system currently holds. This property is only
+defined for scientific names.
+
+```
+<<Biological Names>>=
+
+:replacementName rdf:type owl:ObjectProperty ,
+                          owl:TransitiveProperty ,
+                          owl:ReflexiveProperty ;
+                 rdfs:label "replacement scientific name"@en ;
+                 rdfs:domain :ScientificName ;
+                 rdfs:range :ScientificName ;
+                 rdfs:comment "This is a uni-directional property. Its meaning
+is that one one biological name links to a different biological name via the
+usage of this property, then the object of the triple is the form of the
+biological name the use of which is more accurate and should be preferred
+given the information that system currently holds. This property is only
+defined for scientific names."@en.
+
+@
+```
+
+Names in our Knowledge Base follow certain rules:
+
+**Rule 1 for Names:** If a name has never been invalidated by a TNU with
+status `:Synonym` or `:Invalid`, or invalidated and then restored by
+`:Restored` then it is `:Accepted`. Otherwise it is `:Synonym` or `:Ivalid`.
+
+**Rule 2 for Names:** If a name is mentioned in the title of a nomenclature
+section of a treatment with TNU `:Replacement` and if names are being 
+invalidated in the nomenclature citation list with `:Synonym` or `:Invalid`,
+then the invalidated names are linked to the replacement name via
+`:replacementName`.
+
+**Rule 3 for Names:** All names in the nomenclature section are related.
+
+**Rule 4 for Names:** If the last usage of a name has the mark `:Uncertain`,
+then the name is `:Uncertain`.
+
+**Rule 5 for Names:** If the latest TNU of a name in a treatment title,
+has the `:New` status, then the name is marked as `:New`. Note, this can
+be combined with other statuses. If the name has more than one treatment,
+then the status `:New` is revoked.
+
+TODO: Can I express this in OWL or SPARQL?
+
+**Example usage of biological names.** We go back to the example of 
+*Heser stoevi*. The meaning of the date property here is to indicate
+when was the taxonomic status assumed.
+
+```
+<<eg_biological_names>> = 
+
+:tnu pkm:mentions :heser-stovi-deltschev .
+
+:heser-stoevi-deltschev a :ScientificName ;
+                    dwc:species "stoevi" ;
+                    dwc:genus "Heser" ;
+                    dwc:taxonRank "species" ;
+                    dwciri:taxonomicStatus <http://rs.gbif.org/vocabulary/gbif/taxonomicStatus/accepted> ;
+                    dc:date "2016-08-31"^xsd:date .
+
+```
+
+Let's take for example,
+the paper <http://bdj.pensoft.net/articles.php?id=8030&instance_id=2809105>.
+From it, we can say:
+
+```
+<<eg_biological_names>> = 
+
+:nomenclature-bdje8030 a trt:Nomenclature ;
+  po:contains :treatment-title-bdje8030, :cit-list-bdje8030 .
+
+:treatment-title-bdje8030 a trt:TreatmentTitle ;
+  po:contains :tnu1 .
+
+:cit-list-bdje8030 a trt:NomenclatureCitationList ;
+  po:contains :tnu2 .
+
+:tnu1 a :TaxonomicNameUsage ;
+  dc:date "2016-08-16"^xsd:date ;
+  cnt:chars "Harmonia manillana (Mulsant, 1866)" .
+
+:tnu2 a :TaxonomicNameUsage ;
+  dc:date "2016-08-16"^xsd:date ;
+  cnt:chars "Leis papuensis var. suffusa Crotch 1874 121 (Lectotype, UCCC). Korschefsky 1932 : 275.- Gordon 1987 : 14 (lectotype designation). Syn. nov." ;
+  dwc:taxonomicStatus "var. suffusa Crotch 1874 121 (Lectotype, UCCC). Korschefsky 1932 : 275.- Gordon 1987 : 14 (lectotype designation). Syn. nov." ;
+  dwciri:taxonomicStatus :Synonym .
+
+:harmonia-manillana-mulsant-1866 a :ScientificName ;
+  dwc:species "manillana" ;
+  dwc:genus "Harmonia" ;
+  dwc:taxonRank "species" ;
+  dwc:scientificNameAuthorship "(Mulsant, 1866)" ;
+  dc:date "2016-08-16"^xsd:date ; 
+  dwc:taxonomicStatus :Accepted ;
+  :relatedName :leis-papuensis .
+
+:leis-papuensis a :ScientificName ;
+  dwc:species "papuensis" ;
+  dwc:genus "Leis" ;
+  dwc:taxonRank "species" ;
+  dc:date "2016-08-16"^xsd:date ; 
+  dwciri:taxonomicStatus :Synonym ;
+  :replacementName :harmonia-manillana-mulsant-1866 ;
+  :relatedName :harmonia-manillana-mulsant-1866 .
+
+@
+```
+
 
 
 #### Taxon Concepts
@@ -681,15 +835,16 @@ vernacular name of a taxon. In this case we use `skos:altLabel`.
 
 ## Apendicies
 
-### Vocabulary of Taxonomic Name Statuses
+### Vocabulary of Taxonomic Statuses
 
-Taxonomic name usages may be accompanied by strings such as "new. comb.", "new
-syn.", "new record for cuba", and so on. These taxonomic name usage statuses
-(from now on statuses) have taxonomic or nomenclatural meaning and further
-specialize the usage. For example, if we are  describing a new species for
+Taxonomic name usages (TNU's) may be accompanied by strings such as "new.
+comb.", "new syn.", "new record for Cuba", and many others. These "extensions"
+are called in our model taxonomic statuses and have taxonomic as well
+nomenclatural meaning. For example, if we are describing a new species for
 science, we may write "n. sp." after the species name. This particular example
 is also a nomenclatural act in the sense of the Codes of zoological or
-botanical nomenclature.
+botanical nomenclature. Taxonomic statuses can be applied to TNU's and to
+scientific names.
 
 Not all statuses are necessarily nomenclatural in nature. Sometimes the status
 is more of a note to the reader and conveys taxonomic rather than
@@ -704,7 +859,7 @@ vocabulary of statuses described below. The concepts in this vocabulary are
 broad concepts and encompass both specific cases of botanical or zoological
 nomenclature as well as purely taxonomic and informative use. We believe these
 concepts to be adequately granular for the purposes of reasoning in
-OpenBiodiv. The main objective we want to achieve is to encode information
+OpenBiodiv (see the (Rules)[#biological-names]. The main objective we want to achieve is to encode information
 about the preferred name to use for a given taxonomic concept lineage.
 
 See for a similar attempt <http://rs.gbif.org/vocabulary/gbif/taxonomic_status.xml>.
