@@ -472,18 +472,69 @@ convey information from the domain of biological systematics.
 ```
 <<Biological Systematics Model>>=
 
-<<RCC5>>
+<<Biological Names>>
 
 @
 ```
 
-#### Taxonomic Names
+#### Biological Names
 
-In our conceptual view of the world taxonomic names are symbols (Symbol) for
-real world taxa in the language of the [semiotic triangle]
-(https://de.wikipedia.org/wiki/Semiotisches_Dreieck). Taxonomic names play a
-dual role in our system as they are also references (Begriff) of taxonomic
-name usages.
+In OpenBiodiv, we reify biological names.
+
+In our conceptual view of the world biological names are symbols (Ger.
+"Symbol") for real world taxa in the language of the
+[semiotic triangle](https://de.wikipedia.org/wiki/Semiotisches_Dreieck).
+Biological names play a dual role in our system as they are also references
+(Ger. "Begriff") of taxonomic name usages. In this system we model biological
+names as separate concepts from the taxon concepts that they may symbolize.
+
+Biological names have been modelled elsewhere such as for example in
+(NOMEN)[TODO link to the NOMEN Ontology]. However, NOMEN takes the approach
+of using non-human-readable identifiers and only relying on labels to
+identify classes of taxonomic names, which we do not espose.
+
+For example, the identifier for class "biological name" is `NOMEN_0000030`. In
+our workflow both RDF generation and debugging would be severely hampered by
+this convention. That's why we have defined names in OpenBiodiv and mapped
+them to their NOMEN equivalents.
+
+```
+<<Biological Names>>=
+
+:biologicalName rdf:type owl:Class ;
+    rdfs:label "biological name"@en ;
+    owl:sameAs nomen:NOMEN_0000030 .
+
+:scientificName rdf:type owl:Class ;
+    rdfs:subClassOf :biologicalName ;
+    rdfs:label "scientific name"@en ;
+    owl:sameAs nomen:NOMEN_0000036 .
+    
+:vernacularName a owl:Class ;
+  rdfs:subClassOf :biologicalName ;
+  rdfs:label "vernacular name"@en ;
+  ownl:sameAs nomen:NOMEN_0000037 .
+
+@
+```
+
+##### Example usage of biological names
+
+```
+pensoft:exampleTaxonConcept1 a dwc:Taxon ; 
+  dwciri:scientificName :exampleName1 ;
+  dwc:nameAccordingTo "Susy Fuentes-Bazan, Pertti Uotila, Thomas Borsch: A novel phylogeny-based generic classification for Chenopodium sensu lato, and a tribal rearrangement of Chenopodioideae (Chenopodiaceae). In: Willdenowia. Vol. 42, No. 1, 2012, p. 14." ;
+  dwciri:vernacularName :exampleName2 ; 
+  
+  "Mauer-Gänsefuss"@de,
+                                                           "Nettle-leaved Goosefoot"@en ;
+                         .
+
+:taxonName a trt:ScientificName ;
+                    dwc:species "murale" ;
+                    dwc:genus "Chenopodium"
+```
+
 
 #### Taxon Concepts
 
@@ -625,45 +676,7 @@ property `skos:prefLabel`. Furthermore, an object can have secondary
 vernacular name of a taxon. In this case we use `skos:altLabel`.
 
 
-#### Biological names
 
-In OpenBiodiv/OBKMS, we reify scientific names.
-[NOMEN](https://github.com/SpeciesFileGroup/nomen) does provide classes for
-scientific names. For example, the identifier for class "biological name" is
-`NOMEN_0000030`. However, the identifiers that NOMEN uses are meaningless. This
-is justified in some cases (TODO citation needed), however, in our workflow both
-RDF generation and debugging would be severely hampered by this convention.
-That's why we have defined names in OpenBiodiv and mapped them to their NOMEN
-equivalents.
-
-```
-<<Biological names>>=
-openbiodiv:scientificName a owl:Class ;
-    rdfs:label "scientific name"@en ;
-    owl:sameAs nomen:NOMEN_0000036 .
-    
-openbiodiv:vernacularName a owl:Class ;
-  rdfs:label "vernacular name"@en ;
-  ownl:sameAs nomen:NOMEN_0000037 .
-@
-```
-
-##### Example usage of biological names
-
-```
-pensoft:exampleTaxonConcept1 a dwc:Taxon ; 
-  dwciri:scientificName :exampleName1 ;
-  dwc:nameAccordingTo "Susy Fuentes-Bazan, Pertti Uotila, Thomas Borsch: A novel phylogeny-based generic classification for Chenopodium sensu lato, and a tribal rearrangement of Chenopodioideae (Chenopodiaceae). In: Willdenowia. Vol. 42, No. 1, 2012, p. 14." ;
-  dwciri:vernacularName :exampleName2 ; 
-  
-  "Mauer-Gänsefuss"@de,
-                                                           "Nettle-leaved Goosefoot"@en ;
-                         .
-
-:taxonName a trt:ScientificName ;
-                    dwc:species "murale" ;
-                    dwc:genus "Chenopodium"
-```
 
 
 ## Apendicies
