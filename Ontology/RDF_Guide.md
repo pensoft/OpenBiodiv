@@ -697,15 +697,22 @@ From it, we can say:
 @
 ```
 
+TODO : derive a property biologicalName as a superproperty of vernacularName and scientificName
+
 #### Taxon Concepts
 
-In a nutshell a taxon concept is a scientific theory about a taxon. In our
-data model scientific theories are represented by `frbr:Work` and taxon concepts
-are `dwc:Taxon`, but we introduce a `:TaxonConcept` together with a restriction.
+**Def. (Taxon Concept):**
 
+From a biological standpoint, a taxon concept is a scientific theory about a
+taxon (TODO add Berendsohn, Franz citations). It's our mental picture about
+what a group of organisms is out there in nature. This has several interesting
+implications for typing taxon concepts:
 
- Here are the
-comments on Work from FRBR:
+1. Taxon concepts are compatible with `dwc:Taxon`, whose definition reads:
+
+"A group of organisms [sic] considered by taxonomists to form a homogeneous unit."
+
+2. Taxon concepts are also compatible with `frbr:Work`, whose defintion reads:
 
 "A distinct intellectual or artistic creation. A work is an abstract entity;
 there is no single material object one can point to as the work. We recognize
@@ -716,44 +723,58 @@ point of reference is not a particular recitation or text of the work, but the
 intellectual creation that lies behind all the various expressions of the
 work."
 
-Taxon concepts have a few defining characteristics:
+3. Taxon concepts are also compatible with `skos:concept`, whose definition reads:
 
-1. They must be linked to a scientific name (e.g. **Aus bus**) that acts as a
-part of their label.
+"A SKOS concept can be viewed as an idea or notion; a unit of thought.
+However, what constitutes a unit of thought is subjective, and this
+definition is meant to be suggestive, rather than restrictive."
 
-1. They are linked to an article, book chapter, database or any other form of
-expression realizing the taxon concepts that makes up the second part of their
-label.
+We believe that all three types are correct as each represents a distinctive
+view that we want to adopt in modeling different properties of a taxon
+concept. First, the biodiversity informatics community has embraced the DwC
+term `dwc:Taxon` in creating the Darwin-SW ontology (TODO cite Baskauf).
+Second, to establish correct links from the taxon concepts to the works they
+were published requires taking the view that they are `frbr:Work`. Third, as
+the relationships between taxon concepts need to be modeled as well, we have
+chosen SKOS for this endeavour.
 
-**Def. (Taxon Concept):**
+Furthermore, we impose the restrictions that realizations of taxon concepts
+are only `frbr:Expression` and that each taxon concepts needs to have at least
+one realization, and that each taxon concept must be linked to some biological
+name (could be more than one).
 
 ```
 <<Biological Systematics Model>>= 
 
 :TaxonConcept rdf:type owl:Class ;
   rdfs:subClassOf dwc:Taxon ,
+                  frbr:Work ,
+                  skos:Concept ,
                   [ rdf:Type owl:Restriction ;
                   owl:onProperty frbr:realization ;
                   owl:allValuesFrom frbr:Expression ] ,
                   [ rdf:type owl:Restriction ;
                     owl:onProperty frbr:realization ;
-                    owl:minCardinality "1" ] .
+                    owl:minCardinality "1" ] ,
+               #   [ rdf:type owl:Restriction ;
+               #     owl:onProperty dwciri:scientificName ;
+               #     owl:allValuesFrom :biologicalName ] ;
+               #   [ rdf:type owl:Restriction ;
+               #     owl:onProperty :biologicalName ;
+               #     owl:minCardinality "1" ] .
+                      
 
 @
 ```
 
+TODO: Removed the name restrictions because of the example.
 
-**Example (linking articles to taxon concepts).** We view Treatment to be an
-expression of a theory about a taxon. Therefore, we may establish a link
-between the significant bibliographic unit (be it Journal  Article, Book
-Chapter, or any other Expression) containing the treatment and the taxon
-concept, whose realization the treatment is.
 
-This comment in FRBR means that taxon concepts can have different realizations
-(`frbr:Expression`) such as a treatment or a database entry. Linking to
-treatments is explained in Remark and example 1 under [Taxonomic Treatment
-](#taxonomic-treatment). Here's another example of how to link a taxon concept
-to an online database.
+**Example (Taxon Concept).** We view Treatment to be an expression of a theory
+about a taxon. Therefore, we may establish a link between the significant
+bibliographic unit (be it Journal  Article, Book Chapter, or any other
+Expression) containing the treatment and the taxon concept, whose realization
+the treatment is.
 
 ```
 <<eg_taxon_concept>>=
@@ -785,17 +806,92 @@ It is possible to express that these are the same thing, that one
 is a subconcept of the other, or even more granular relationships.
 
 
-#### Simple Taxon Concept Relationships
+#### Taxon Concept Relationships
 
-- is_a (this can be used when you refine a concept, or when 
-a higher rank subsumes a lower rank)
-- relatedTo (when you have two overlaping but different concepts)
-- congruent (when two concepts are exactly the same)
+##### Simple Taxon Concept Relationships with SKOS
+
+One way to model taxon concept relationships is with SKOS. This has
+no inferential concequences and is suitable for data integration
+purposes.
+
+**Example (two taxon concepts are the same).**
+
+```
+<<eg_taxon_concept>>=
+
+:heser-stoevi-deltschev-sec-deltschev skos:exactMatch :taxon-concept2 .
+
+@
+```
+
+This has no inferenetial consequences unlike `owl:sameAs`. Note from the
+[SKOS primer](https://www.w3.org/TR/skos-primer/):
+
+"Note on skos:exactMatch vs. owl:sameAs: SKOS provides skos:exactMatch to map concepts with equivalent meaning, and intentionally does not use owl:sameAs from the OWL ontology language [OWL]. When two resources are linked with owl:sameAs they are considered to be the same resource, and triples involving these resources are merged. This does not fit what is needed in most SKOS applications. In the above example, ex1:animal is said to be equivalent to ex2:animals. If this equivalence relation were represented using owl:sameAs, the following statements would hold for ex:animal:
+
+ex1:animal rdf:type skos:Concept;
+   skos:prefLabel "animal"@en;
+   skos:inScheme ex1:referenceAnimalScheme.
+   skos:prefLabel "animals"@en;
+   skos:inScheme ex2:eggSellerScheme.
+
+This would make ex:animal inconsistent, as a concept cannot possess two different preferred labels in the same language. Had the concepts been assigned other information, such as semantic relationships to other concepts, or notes, these would be merged as well, causing these concepts to acquire new meanings."
+
+**Example (one taxon concept is included in the other).**
+
+```
+<<eg_taxon_concept>>=
+
+:animal-folk-name a :VernacularName ;
+  dwc:vernacularName "animal"@en ;
+  dwc:vernacularName "Tier"@de ;
+  dwc:vernacularName "животно"@bg .
+
+:animal a :TaxonConcept;
+  skos:prefLabel "animal sec. <https://www.w3.org/TR/skos-primer/#sechierarchy>"@en;
+  dwciri:vernacularName :animal-folk-name ;
+  frbr:realization <https://www.w3.org/TR/skos-primer/#sechierarchy> .
+
+:heser-stoevi-deltschev-sec-deltschev skos:narrower :animal .
+
+@
+```
+
+**Example (relatedness)**
 
 
+```
+<<eg_taxon_concept>>=
+
+:heser-nicola a :ScientificName ;
+  dwc:scientificName "Heser nilicola (O. P.-Cambridge, 1874)" ;
+  skos:prefLabel "Heser nilicola" ;
+  dwc:genus "Heser" ;
+  dwc:species "nilicola" ;
+  dwc:taxonRank "species" .
+
+:heser-nicola-sec-unibe a :TaxonConcept ;
+  dwciri:scientificName :heser-nicola ;
+  frbr:realization <http://www.araneae.unibe.ch/data/3301> .
+
+:heser-stoevi-deltschev-sec-deltschev skos:related :heser-nicola-sec-unibe .
+
+@
+```
+
+##### simple Taxon Concept Relationships with OWL
+
+Another way to model simple taxon concept relationships is to use OWL Full because of
+
+NOTE: In OWL Lite and OWL DL an individual can never be at the same time a class: classes and individuals form disjoint domains (as do properties and data values). OWL Full allows the freedom of RDF Schema: a class may act as an instance of another (meta)class.
+
+1. `owl:sameAs`
+2. `rdfs:subClassOf` or `rdf:type` chains
+TODO : Question does `rdf:type` imply owl:Class for range? yes.
+3. We still need to use SKOS here.
 
 
-#### RCC-5 Relationships
+#### Complex Relationships with RCC-5
 
 Complex RCC 5 relationships will be modeled as separate entities.
 
