@@ -439,9 +439,14 @@ biological taxonomic name in a text.
 :ТaxonоmicNameUsage a owl:Class ;
   rdfs:subClassOf  pext:Mention ;
   rdfs:comment "A string within a document that can be considered a mention of a
-                  biological taxonomic name."@en;
+                  biological name."@en;
   rdfs:label "Taxonomic Name Usage"@en;
 
+:ExternalTaxonId a owl:Class ;
+  rdfs:subClassOf pext:Mention ;
+  rdfs:label "External Taxon Id"@en ;
+  rdfs:comment "A string within a document that can be considered mentioning
+                of an external identifier of taxon"@en .
 @
 ```
 
@@ -464,12 +469,23 @@ the (appendix)[#vocabulary-of-taxonomic-name-statuses] of this guide.
 
 :heser-stoevi-act a :TaxonomicNameUsage .
   dc:date "2016-08-31"^xsd:date ;
-  cnt:chars "Heser stoevi Deltschev sp. n." ;
+  cnt:chars
+  "Heser stoevi urn:lsid:zoobank.org:act:E4D7D5A0-D649-4F5E-9360-D0488D73EEE8 Deltschev sp. n." ;
+  dwc:genus "Heser" ;
+  dwc:species "stoevi" ;
+  dwc:taxonId "urn:lsid:zoobank.org:act:E4D7D5A0-D649-4F5E-9360-D0488D73EEE8" ;
   dwc:scientificNameAuthorship "Deltschev" ;
-  dwc:taxonRank "species" ;
-  
   dwc:taxonomicStatus "sp. n." ;
+
+  po:contains heser-stoevi-zoobank ;
+
+  urn:lsid:zoobank.org:act:E4D7D5A0-D649-4F5E-9360-D0488D73EEE8>;
   dwciri:taxonomicStatus :TaxonDiscovery .
+
+:heser-stoevi-zoobank a :ExternalTaxonId ;
+  dwc:taxonId "urn:lsid:zoobank.org:act:E4D7D5A0-D649-4F5E-9360-D0488D73EEE8" ;
+  ptop:resourceType "ZooBank" .
+
 
 @
      
