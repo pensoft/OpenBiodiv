@@ -479,13 +479,11 @@ the (appendix)[#vocabulary-of-taxonomic-name-statuses] of this guide.
 
   po:contains heser-stoevi-zoobank ;
 
-  urn:lsid:zoobank.org:act:E4D7D5A0-D649-4F5E-9360-D0488D73EEE8>;
   dwciri:taxonomicStatus :TaxonDiscovery .
 
 :heser-stoevi-zoobank a :ExternalTaxonId ;
   dwc:taxonId "urn:lsid:zoobank.org:act:E4D7D5A0-D649-4F5E-9360-D0488D73EEE8" ;
   ptop:resourceType "ZooBank" .
-
 
 @
      
@@ -493,17 +491,8 @@ the (appendix)[#vocabulary-of-taxonomic-name-statuses] of this guide.
 
 TODO: Check if `po:contains` is transitive
 
-**Example (Taxon Concept Label)**
-
-```
-<<eg_tnu>>=
-
-:tcl a :TaxonomicNameUsage ;
-  cnt:chars "Heser stoevi sec. <https://doi.org/10.3897/BDJ.4.e10095>" .
-  dwc:taxonomicStatus "sec <https://doi.org/10.3897/BDJ.4.e10095>" ;
-  dwciri:taxonomicStatus :TaxonConceptLabel ;
-
-@
+TODO: model taxon concept labels with some of Nico's articles. Big problem
+here for disambiguation is the usage of abbreviations like [FZ2017]
 
 ```
 
