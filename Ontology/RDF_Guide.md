@@ -46,6 +46,15 @@ our explanations.
 <<Ontology>>=
 
 <<Prefixes>>
+<<Ontology Title>>
+<<Publishing Domain>>
+<<Systematics>>
+
+<<Vocabularies>>
+
+@
+
+<<Ontology Title>>=
 
 openbiodiv:
   rdf:type owl:Ontology ;
@@ -56,11 +65,6 @@ openbiodiv:
   rdfs:label "OpenBiodiv Core Ontology" ;
   dc:creator "Viktor Senderov, Terry Catapano, Kiril Simov, Lyubomir Penev" ;
   dc:rights "CCBY" .
-
-<<Publishing Domain Model>>
-<<Biological Systematics Model>>
-<<Vocabulary Taxonomic Statuses>>
-
 
 @
 ```
@@ -254,7 +258,7 @@ and Journal using SPAR.
   dcterms:publisher "Pensoft Publishers" ;
   frbr:hasPart :article . 
 
-:article a fabio:JournalArticle ;
+:heser-stoevi-article a fabio:JournalArticle ;
   skos:prefLabel "10.3897/BDJ.4.e10095" ;
   prism:doi "10.3897/BDJ.4.e10095" ;
   fabio:hasPublicationYear "2016"^^xsd:gYear ;
@@ -314,9 +318,9 @@ Thus, Treatment is defined akin to Introduction, Methods, etc. from
 **Example (instantiating a treatment).**
 
 ```
-<<eg_treatment>>=
+<<Examples>>=
 
-:treatment
+:heser-stoevi-treatment
   a doco:Section, trt:Treatment .
 
 @
@@ -332,9 +336,9 @@ via the use of the "contains" property in the
 [Pattern Ontology](http://www.essepuntato.it/2008/12/pattern).
 
 ```
-<<eg_contains>>=
+<<Examples>>=
 
-:article po:contains :treatment . 
+:heser-stoevi-article po:contains :heser-stoevi-treatment . 
 
 @
 ```
@@ -371,14 +375,13 @@ trt:NomenclatureCitationList a owl:Class ;
   rdfs:comment "Inside the taxonomic nomenclature section, we have a list
                 of citations."@en .                  
 
-trt:TreatmentTitle a owl:Class ;
+trt:NomenclatureHead a owl:Class ;
   rdfs:subClassOf deo:DiscourseElement ,
                   [ rdf:type owl:Restriction ;
                     owl:onProperty po:isContainedBy ;
                     owl:someValuesFrom trt:Nomenclature ] ;
                   rdfs:label "Treatment Title"@en ;
-  rdfs:comment "Inside the taxonomic nomenclature section, we have the treatment title."@en .                  
-
+  rdfs:comment "Inside the taxonomic nomenclature section, we have the treatment title."@en .
 
 @
 ```
@@ -386,10 +389,17 @@ trt:TreatmentTitle a owl:Class ;
 **Example (Nomenclature).**
 
 ```
-<<eg_nomenclature>>=
+<<Examples>>=
 
-:nomenclature a Doco:Section, trt:Nomenclature .
-:treatment po:contains :nomenclature.
+:heser-stoevi-treatment
+  po:contains :heser-stoevi-nomenclature ;
+
+:heser-stoevi-nomenclature a Doco:Section, trt:Nomenclature ;
+  po:contains :heser-stoevi-nomenclature-head .
+
+:heser-stoevi-nomenclature-head a trt:nomenclature-head ;
+  cnt:chars 
+  "Heser stoevi urn:lsid:zoobank.org:act:E4D7D5A0-D649-4F5E-9360-D0488D73EEE8 Deltshev sp. n." .
 
 @
 ```
@@ -437,6 +447,8 @@ biological taxonomic name in a text.
 
 TODO: Need to add proton prefixes to the YAML database `pext`, `ptop`, etc.
 
+For the logic of our algorithms, it is very important that TNU's are dated.
+
 **Example (TNU).** In this example we define a TNU, connect it to a
 nomenclature section via `po:contains`, use `cnt:chars` to dump the full
 string of the usage, and use DwC properties to encode more granular
@@ -446,13 +458,11 @@ does require an external lookup (type 2 step). Vocabularies are given in
 the (appendix)[#vocabulary-of-taxonomic-name-statuses] of this guide.
 
 ```
-<<eg_tnu>>=
+<<Examples>>=
 
-:tnu a :TaxonomicNameUsage .
+:heser-stoevi-article po:contains :heser-stoevi-act .
 
-:article po:contains :tnu .
-
-:tnu
+:heser-stoevi-act a :TaxonomicNameUsage .
   dc:date "2016-08-31"^xsd:date ;
   cnt:chars "Heser stoevi Deltschev sp. n." ;
   dwc:scientificNameAuthorship "Deltschev" ;
