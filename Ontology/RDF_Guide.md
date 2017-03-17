@@ -86,12 +86,7 @@ notangle -ROntology RDF_Guide.md > nowebonto.ttl
 ```
 <<Examples>>=
 
-<<eg_metadata>>>
-<<eg_treatment>>>
-<<eg_contains>>
-<<eg_tnu>>
-<<eg_biological_names>>
-<<eg_taxon_concept>>
+ # These are the examples for the OpenBiodiv data model.
 
 @
 ```
@@ -232,9 +227,7 @@ from the
 <<Publishing Domain Model>>=
 
 <<Treatment>>
-<<Vocabulary of Paper Types>>
-<<Vocabulary of Taxon Classification>>
-<<Vocabulary of Chronological Classification>>
+<<Taxonomic Name Usage>>
 
 @
 ```
@@ -251,7 +244,7 @@ and Journal using SPAR.
 **Example (modeling article metadata).**
 
 ```
-<<eg_metadata>>=
+<<Examples>>=
 
 :biodiversity-data-journal rdf:type fabio:Journal ;
   skos:prefLabel "Biodiversity Data Journal" ;
@@ -701,18 +694,19 @@ TODO : derive a property biologicalName as a superproperty of vernacularName and
 
 #### Taxon Concepts
 
-**Def. (Taxon Concept):**
+Our view of taxon concepts is based on [TODO add Berendsohn, Franz
+citations](). Thus we consider a taxon concept to be a scientific theory about
+a group of biological organisms. Taxon concepts can be expressed as treatments
+in scientific articles or as a group of records in a database.
 
-From a biological standpoint, a taxon concept is a scientific theory about a
-taxon (TODO add Berendsohn, Franz citations). It's our mental picture about
-what a group of organisms is out there in nature. This has several interesting
-implications for typing taxon concepts:
+Thus,taxon concepts are compatible with `dwc:Taxon`, the definition of which
+reads:
 
-1. Taxon concepts are compatible with `dwc:Taxon`, whose definition reads:
+"A group of organisms [sic] considered by taxonomists to form a homogeneous
+unit."
 
-"A group of organisms [sic] considered by taxonomists to form a homogeneous unit."
-
-2. Taxon concepts are also compatible with `frbr:Work`, whose defintion reads:
+Also, taxon concepts are compatible with `frbr:Work`, the defintion of which
+is:
 
 "A distinct intellectual or artistic creation. A work is an abstract entity;
 there is no single material object one can point to as the work. We recognize
@@ -723,25 +717,23 @@ point of reference is not a particular recitation or text of the work, but the
 intellectual creation that lies behind all the various expressions of the
 work."
 
-3. Taxon concepts are also compatible with `skos:concept`, whose definition reads:
+Furthermore, taxon concepts can also be modeled as `skos:concept` which are
+defined as follows:
 
 "A SKOS concept can be viewed as an idea or notion; a unit of thought.
-However, what constitutes a unit of thought is subjective, and this
-definition is meant to be suggestive, rather than restrictive."
+However, what constitutes a unit of thought is subjective, and this definition
+is meant to be suggestive, rather than restrictive."
 
-We believe that all three types are correct as each represents a distinctive
-view that we want to adopt in modeling different properties of a taxon
-concept. First, the biodiversity informatics community has embraced the DwC
-term `dwc:Taxon` in creating the Darwin-SW ontology (TODO cite Baskauf).
-Second, to establish correct links from the taxon concepts to the works they
-were published requires taking the view that they are `frbr:Work`. Third, as
-the relationships between taxon concepts need to be modeled as well, we have
-chosen SKOS for this endeavour.
+All three classes represent a distinctive view that we want to adopt in
+modeling different features of taxon concepts. First, the biodiversity
+informatics community heavily relies on the DwC standard for sharing
+occurrence data (TODO cite Baskauf). Thus, for purposes of data integration we
+derive the OpenBiodiv taxon concept class from `dwc:Taxon`. Secondly, to link
+taxon concepts to the scientific works they were expressed in requires taking
+the view that they are instances of `frbr:Work`. Third, to model some of
+relationships between taxon concepts, we view them as SKOS concepts as well.
 
-Furthermore, we impose the restrictions that realizations of taxon concepts
-are only `frbr:Expression` and that each taxon concepts needs to have at least
-one realization, and that each taxon concept must be linked to some biological
-name (could be more than one).
+**Def. (Taxon Concept):**
 
 ```
 <<Biological Systematics Model>>= 
@@ -750,18 +742,12 @@ name (could be more than one).
   rdfs:subClassOf dwc:Taxon ,
                   frbr:Work ,
                   skos:Concept ,
-                  [ rdf:Type owl:Restriction ;
-                  owl:onProperty frbr:realization ;
-                  owl:allValuesFrom frbr:Expression ] ,
                   [ rdf:type owl:Restriction ;
                     owl:onProperty frbr:realization ;
                     owl:minCardinality "1" ] ,
-               #   [ rdf:type owl:Restriction ;
-               #     owl:onProperty dwciri:scientificName ;
-               #     owl:allValuesFrom :biologicalName ] ;
-               #   [ rdf:type owl:Restriction ;
-               #     owl:onProperty :biologicalName ;
-               #     owl:minCardinality "1" ] .
+                  [ rdf:type owl:Restriction ;
+                    owl:onProperty :biologicalName ;
+                    owl:minCardinality "1" ] .
                       
 
 @
@@ -769,17 +755,18 @@ name (could be more than one).
 
 TODO: Removed the name restrictions because of the example.
 
+The definition of Taxon Concept thus requires every taxon concept to have at
+least one expression and at least biological name.
 
-**Example (Taxon Concept).** We view Treatment to be an expression of a theory
-about a taxon. Therefore, we may establish a link between the significant
-bibliographic unit (be it Journal  Article, Book Chapter, or any other
-Expression) containing the treatment and the taxon concept, whose realization
-the treatment is.
+**Example.** We view Treatment to be an expression of a theory about a taxon.
+Therefore, we may establish a link between the significant bibliographic unit
+(be it Journal  Article, Book Chapter, or any other Expression) containing the
+treatment and the taxon concept, whose realization the treatment is.
 
 ```
 <<eg_taxon_concept>>=
 
-:heser-stoevi-deltschev-sec-deltschev a :TaxonConcept ;
+:heser-stoevi-sec-deltschev-2016 a :TaxonConcept ;
   dwciri:scientificName :heser-stoevi-deltschev ;
   frbr:realization :artcile ;
   skos:prefLabel "Heser stoevi sec. 10.3897/BDJ.4.e10095" .
