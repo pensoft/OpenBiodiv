@@ -12,8 +12,8 @@ This guide is a
 document. *Literate programming* is the act of including source code within
 documentation. In usual software development practice the reverse holds true.
 Thus, the formal description of the data model, i.e. the
-[RDF](https://www.w3.org/RDF/) statements that form the ontology are found
-within the document  itself and are extracted from it with the program
+[RDF](https://www.w3.org/RDF/) statements that form the ontology, are found
+within the document itself and are extracted from it with the program
 (`noweb`). `noweb` can be easily obtained for GNU Linux.
 
 ## Introduction
