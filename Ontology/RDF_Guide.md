@@ -212,7 +212,7 @@ This seems to generally in accordance with WWW practice.
 
 ## RDF Model
 
-### of the Publishing Domain
+### The Publishing Domain
 
 The publishing domain is described in our model using the Semantic Publishing
 and Referencing Ontologies, a.k.a. [SPAR Ontologies](http://www.sparontologies.net/).
@@ -496,7 +496,7 @@ here for disambiguation is the usage of abbreviations like [FZ2017]
 
 ```
 
-### Model of the Biological Systematics Domain
+### Biological Taxonomy and Systematics
 
 In this subsection we introduce  classes and properties which are used to
 convey information from the domain of biological systematics.
