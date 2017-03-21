@@ -200,7 +200,7 @@ name contains any general error rendering it unfit for use."@en .
 
 Here're some ways in which it can be abbreivated:
 
-[unavaible_name.txt](status_abbrev/unavailable_name.txt)
+[unavailable_name.txt](status_abbrev/unavailable_name.txt)
 
 #### Available Name
 
