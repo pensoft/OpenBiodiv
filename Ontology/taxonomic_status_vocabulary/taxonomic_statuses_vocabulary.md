@@ -145,7 +145,7 @@ science), and simultaneously assigning it a new name."@en .
 
 Here're some ways in which it can be abbreivated:
 
-[taxon_discovery.txt](R/taxon_discovery.txt)
+[taxon_discovery.txt](status_abbrev/taxon_discovery.txt)
 
 #### Replacement Name
 
@@ -171,7 +171,7 @@ include changes of rank, new combinations, spelling mistakes, etc.
 ```
 Here're some ways in which it can be abbreivated:
 
-[replacement_name.txt](R/replacement_name.txt)
+[replacement_name.txt](status_abbrev/replacement_name.txt)
 
 #### Unavailable Name
 
@@ -200,7 +200,7 @@ name contains any general error rendering it unfit for use."@en .
 
 Here're some ways in which it can be abbreivated:
 
-[unavaible_name.txt](R/unavavaible_name.txt)
+[unavaible_name.txt](status_abbrev/unavavaible_name.txt)
 
 #### Available Name
 
@@ -230,7 +230,7 @@ from then on in compliance with all Codes and practices."@en.
 @
 ```
 
-[available_name.txt](R/available_name.txt)
+[available_name.txt](status_abbrev/available_name.txt)
 
 #### Type Species Designation
 
@@ -253,7 +253,7 @@ author."@en.
 @
 ```
 
-[type_species_desgination.txt](R/type_species_designation.txt)
+[type_species_desgination.txt](status_abbrev/type_species_designation.txt)
 
 #### Type Specimen Designation
 
@@ -277,7 +277,7 @@ TNU."@en.
 
 ```
 
-[type_specimen_desgination.txt](R/type_specimen_designation.txt)
+[type_specimen_desgination.txt](status_abbrev/type_specimen_designation.txt)
 
 #### New Record
 
@@ -300,7 +300,7 @@ extended with new occurrences (for a given locality).
 @
 ```
 
-[new_occurrence_record.txt](R/new_occurrence_record.txt)
+[new_occurrence_record.txt](status_abbrev/new_occurrence_record.txt)
 
 #### Taxon Concept Label
 
@@ -323,4 +323,4 @@ to indicate that a particular TNU is taxonomic concept label.
 @
 ```
 
-[taxon_concept_label.txt](R/taxon_concept_label.txt)
+[taxon_concept_label.txt](status_abbrev/taxon_concept_label.txt)
