@@ -1,0 +1,54 @@
+
+:TaxonomicStatus rdf:type owl:Class ;
+  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                    owl:onProperty <http://www.w3.org/2004/02/skos/core#inScheme> ;
+                    owl:someValuesFrom :TaxonomicStatusTerms ] ;
+  rdfs:label "Taxonomic Name Status"@en ;
+  rdfs:comment "The status following a taxonomic name usage in a taxonomic
+                manuscript, i.e. 'n. sp.',
+                                 'comb. new',
+                                 'sec. Franz (2017)', etc"@en .
+
+:TaxonomicStatusTerms rdf:type owl:Class ;
+  rdfs:subClassOf <http://www.w3.org/2004/02/skos/core#ConceptScheme> ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty fabio:isSchemeOf ;
+                                  owl:allValuesFrom :TaxonomicStatus] ;
+  rdfs:label "OpenBiodiv Vocabulary of Taxonomic Name Statuses"@en ;
+  fabio:hasDiscipline dbpedia:Taxonomy_(biology) .
+
+  
+  :Uncertain a :TaxonomicStatus ;
+    rdfs:label "Taxonomic Uncertainty"@en ;
+    rdfs:comment "This term indicates when applied to a taxonomic name
+                   that there is some uncertainty about the name:
+                  either in the placement of the name in the hierarchy
+                  (e.g. incertae sedis), or in the description of the name
+                  (e.g. nomen dubium)."@en .
+  
+  :New a :TaxonomicStatus ;
+    rdfs:label "Taxon Discovery"@en ;
+    rdfs:comment "This term when applied to a taxonomic name indicates
+                  that this name denotes a taxon that is being described in
+                  the present context. E.g.:
+                  n. sp., gen. nov., n. trib., etc."@en .
+
+  
+  :Replacement a :TaxonomicStatus ;
+    rdfs:label "Replacement Name"@en ;
+    rdfs:comment "This term when applied to a taxonomic name indicates
+                  that the name it is being applied to is an updated version
+                  of a different name. This update may come about through
+                  changes in rank (stat. n.) when the endings change (e.g.
+                  -ini -> -idae), through changes in genus placement
+                  (new comb.), through updates needed purely for nomenclatural
+                  reasons such as to avoid homonymy or correct grammatical
+                  or spelling mistakes (nomen nov.), or anything else."@en 
+
+  :Synonym a :TaxonomicStatus .
+  :Restored a :TaxonomicStatus .
+  
+  
+  
+  
+

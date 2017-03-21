@@ -22,12 +22,14 @@ within the document itself and are extracted from it with the program
 the operation of a semantic database as part of OpenBiodiv. The data model
 consists of:
 
-1. A formal ontology, called from here on *OpenBiodiv Core Ontology*,
-introducing the entities that our knowledge base holds and giving axioms that
-restrict the ways in which they can be combined.
+1. A formal ontology, called from here on *OpenBiodiv Ontology*, introducing
+the entities that our knowledge base holds and giving axioms that restrict the
+ways in which they can be combined.
 
-2. Natural language descriptions of the meaning of these concepts in our
-conceptualization of the world.
+2. Formal vocabularies specified in RDF for particular application areas.
+
+2. Natural language descriptions of the meaning (semantics) of the concepts
+from (1) and (2) in our conceptualization of the universe of discourse.
 
 3. Examples and recommendations that illustrate and describe the intended
 model to human users as the formal ontology necessarily will be more lax than
@@ -39,18 +41,16 @@ as well as the article by
 [Guarino et al. (2009)](http://iaoa.org/isc2012/docs/Guarino2009_What_is_an_Ontology.pdf).
 
 As this is a literate programming document, we take the approach of explaining
-the data model to humans, and defining the Core Ontology as we progress with
-our explanations.
+the data model to humans, and defining the OpenBiodiv Ontology as we progress
+with our explanations.
 
 ```
-<<Ontology>>=
+<<OpenBiodiv Ontology>>=
 
 <<Prefixes>>
 <<Ontology Title>>
-<<Publishing Domain>>
-<<Systematics>>
-
-<<Vocabularies>>
+<<Publishing Domain Model>>
+<<Systematics Domain Model>>
 
 @
 
@@ -102,6 +102,13 @@ notangle -RExamples RDF_Guide.md > Examples.ttl
 ```
 
 TODO: check for prefix consistency for all imported ontologies.
+
+**Commands to extract the vocabularies.**
+
+```
+notangle -R"Vocabulary Taxonomic Statuses" RDF_Guide.md > TaxonomicStatuses.ttl
+```
+
 
 **Incorporated external ontologies.** Our data model is a natural extension of
 existing data models. Therefore, we incorporate several external ontologies
@@ -645,7 +652,7 @@ TODO: Can I express this in OWL or SPARQL?
 when was the taxonomic status assumed.
 
 ```
-<<eg_biological_names>> = 
+<<eg_biological_names>>= 
 
 :tnu pkm:mentions :heser-stovi-deltschev .
 
@@ -663,7 +670,7 @@ the paper <http://bdj.pensoft.net/articles.php?id=8030&instance_id=2809105>.
 From it, we can say:
 
 ```
-<<eg_biological_names>> = 
+<<eg_biological_names>>= 
 
 :nomenclature-bdje8030 a trt:Nomenclature ;
   po:contains :treatment-title-bdje8030, :cit-list-bdje8030 .
@@ -943,13 +950,13 @@ vernacular name of a taxon. In this case we use `skos:altLabel`.
 ### Vocabulary of Taxonomic Statuses
 
 Taxonomic name usages (TNU's) may be accompanied by strings such as "new.
-comb.", "new syn.", "new record for Cuba", and many others. These "extensions"
-are called in our model taxonomic statuses and have taxonomic as well
-nomenclatural meaning. For example, if we are describing a new species for
-science, we may write "n. sp." after the species name. This particular example
-is also a nomenclatural act in the sense of the Codes of zoological or
-botanical nomenclature. Taxonomic statuses can be applied to TNU's and to
-scientific names.
+comb.", "new syn.", "new record for Cuba", and many others. These extensions
+to a taxonomic name usage are called in our model taxonomic statuses and have
+taxonomic as well nomenclatural meaning. For example, if we are describing a
+new species for science, we may write "n. sp." after the species name. This
+particular example is also a nomenclatural act in the sense of the Codes of
+zoological or botanical nomenclature. Taxonomic statuses can be applied to
+TNU's and to scientific names.
 
 Not all statuses are necessarily nomenclatural in nature. Sometimes the status
 is more of a note to the reader and conveys taxonomic rather than
