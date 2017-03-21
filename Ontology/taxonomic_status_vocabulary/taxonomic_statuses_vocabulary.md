@@ -9,7 +9,7 @@ notangle -R"Vocabulary Taxonomic Statuses" taxonomic_statuses_vocabulary.md > ta
 
 ## What is a taxonomic status?
 
-[Taxonomic name usages](RDF_Guide.md) (TNU's) in taxonomic articles may be
+[Taxonomic name usages](../RDF_Guide.md) (TNU's) in taxonomic articles may be
 accompanied by strings such as "new. comb.", "new syn.", "new record for
 Cuba", and many others. These postfixes to a taxonomic name usage are called
 in our model taxonomic statuses and have taxonomic as well nomenclatural
@@ -31,7 +31,7 @@ vocabulary of statuses described below. The terms in this vocabulary refer to
 broad concepts and encompass both specific cases of botanical or zoological
 nomenclature as well as purely taxonomic or informative use. We believe these
 concepts to be adequately granular for the purposes of reasoning in OpenBiodiv
-(see section Rules in [RDF guide](RDF_Guide.md)).
+(see section Rules in [RDF guide](../RDF_Guide.md)).
 
 ## Extraction of 4,000 TNU suffixes
 
