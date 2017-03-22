@@ -530,8 +530,6 @@ also made via `pkm:mentions`.
      
 ```
 
-TODO: Check if `po:contains` is transitive
-
 ### Biological Taxonomy and Systematics
 
 In this subsection we introduce  classes and properties which are used to
