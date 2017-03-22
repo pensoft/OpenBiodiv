@@ -52,4 +52,54 @@
   dwciri:taxonomicStatus :TaxonDiscovery ;
 
   pkm:mentions :heser-stoevi-deltshev, <http://zoobank.org/urn:lsid:zoobank.org:act:E4D7D5A0-D649-4F5E-9360-D0488D73EEE8> ,
-                                :Heser-Stoeiv-sec-Deltshev .
+                                :Heser-Stoevi-sec-Deltshev .
+
+:tnu pkm:mentions :heser-stovi-deltschev .
+
+:heser-stoevi-deltshev a :ScientificName ;
+        skos:prefLabel "Heser stoevi Deltshev" ;
+    dwc:species "stoevi" ;
+    dwc:genus "Heser" ;
+    dwc:taxonRank "species" ;
+    dwciri:taxonomicStatus <http://rs.gbif.org/vocabulary/gbif/taxonomicStatus/accepted> ;
+    dwc:scientificNameAuthorship "Deltschev" 
+    dc:date "2016-08-31"^xsd:date .
+
+
+:nomenclature-bdje8030 a trt:Nomenclature ;
+  po:contains :treatment-title-bdje8030, :cit-list-bdje8030 .
+
+:treatment-title-bdje8030 a trt:TreatmentTitle ;
+  po:contains :tnu1 .
+
+:cit-list-bdje8030 a trt:NomenclatureCitationList ;
+  po:contains :tnu2 .
+
+:tnu1 a :TaxonomicNameUsage ;
+  dc:date "2016-08-16"^xsd:date ;
+  cnt:chars "Harmonia manillana (Mulsant, 1866)" .
+
+:tnu2 a :TaxonomicNameUsage ;
+  dc:date "2016-08-16"^xsd:date ;
+  cnt:chars "Leis papuensis var. suffusa Crotch 1874 121 (Lectotype, UCCC). Korschefsky 1932 : 275.- Gordon 1987 : 14 (lectotype designation). Syn. nov." ;
+  dwc:taxonomicStatus "var. suffusa Crotch 1874 121 (Lectotype, UCCC). Korschefsky 1932 : 275.- Gordon 1987 : 14 (lectotype designation). Syn. nov." ;
+  dwciri:taxonomicStatus :Synonym .
+
+:harmonia-manillana-mulsant-1866 a :ScientificName ;
+  dwc:species "manillana" ;
+  dwc:genus "Harmonia" ;
+  dwc:taxonRank "species" ;
+  dwc:scientificNameAuthorship "(Mulsant, 1866)" ;
+  dc:date "2016-08-16"^xsd:date ; 
+  dwc:taxonomicStatus :Accepted ;
+  :relatedName :leis-papuensis .
+
+:leis-papuensis a :ScientificName ;
+  dwc:species "papuensis" ;
+  dwc:genus "Leis" ;
+  dwc:taxonRank "species" ;
+  dc:date "2016-08-16"^xsd:date ; 
+  dwciri:taxonomicStatus :Synonym ;
+  :replacementName :harmonia-manillana-mulsant-1866 ;
+  :relatedName :harmonia-manillana-mulsant-1866 .
+

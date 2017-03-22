@@ -679,6 +679,74 @@ of `:AvailableName`.
 
 TODO: write this rule in SPARQL
 
+```
+<<SPARQL Rules>>=
+
+ # rules need to be evaluated in the order here
+ # 1. set all names that have not been made unavailabel to available
+INSERT {
+  ?a dwciri:taxonomicStatus :AvailableName .
+}
+WHERE {
+  ?a rdf:type :ScientificName .
+  ?tnu pkm:mentions ?a .
+  UNSAID { ?tnu dwciri:taxonomicStatus :UnavailableName .}
+}
+
+ # note the date here refers to when was the taxonomic status of the name last determined
+ # 2. set all names that were made unavailable at one point to unavailable and copy the
+ # date
+INSERT {
+  ?a dwciri:taxonomicStatus :UnavailableName .
+  ?a dc:date ?d .
+}
+WHERE {
+  ?a rdf:type :ScientificName .
+  ?tnu pkm:mentions ?a ;
+       dwciri:taxonomicStatus :UnavailableName ;
+       dc:date ?d .
+}
+@
+
+ # 3. set names to :Available back 
+DELETE {
+  ?a dwciri:taxonomicStatus :UnavailableName ;
+  ?a dc:date ?d0 .
+}
+INSERT {
+  ?a dwciri:taxonomicStatus :AvailableName .
+  ?a dc:date ?d1 .
+}
+WHERE {
+  ?a rdf:type :ScientificName ;
+     dc:date ?d0 .
+  ?tnu1 pkm:mentions ?a ;
+        dwciri:taxonomicStatus :AvailableName ;
+        dc:date ?d1 .
+  FILTER ( ?d1 > ?d0 )
+}
+
+DELETE {
+  ?a dwciri:taxonomicStatus :UnavailableName ;
+  ?a dc:date ?d0 .
+}
+INSERT {
+  ?a dwciri:taxonomicStatus :AvailableName .
+  ?a dc:date ?d1 .
+}
+WHERE {
+  ?a rdf:type :ScientificName ;
+     dc:date ?d0 .
+  ?tnu1 rdf:type :TaxonomicNameUsage ;
+        pkm:mentions ?a ;
+        dwciri:taxonomicStatus :ReplacementName ;
+        dc:date ?d1 .
+  FILTER ( ?d1 > ?d0 )
+}
+```
+
+TODO: test that the rules work OK in a local GraphDB installation!
+
 **Rule 2 for Names:** For a scientific name X, if it is mentioned in the heading of a nomenclature section (treatment title) in a TNU Y with status `:ReplacementName`, then
 every name Z_i, mentioned in the nomenclatural citation list in TNU's with status
 `:UnavailableName` is linked to X via `:replacementName`.
@@ -708,6 +776,9 @@ WHERE {
 ```
 <<SPARQL Rules>>=
 
+ # if two names are mentioned in the same nomenclature
+ # section then they are related
+
 INSERT {
     ?a trt:relatedName ?b .
 }
@@ -718,27 +789,37 @@ WHERE {
   	   po:contains [ pkm:mentions ?a ];
 		      	   [ pkm:mentions ?b ].
 }
-
-# if two names are mentioned in the same nomenclature
-# section then they are related
 @
 ```
 
-**Rule 6 for Names:** If for a name X, there exists a TNU Y
+**Rule 4 for Names:** If for a name X, there exists a TNU Y If a TNU is marked
+as `:Conserved`, then the name is also marked as `:Conserved`. A conserved
+name should not be made `:Unavailable`!
 
-If a TNU is marked as `:Conserved`, then the name is
-also marked as `:Conserved`. A conserved name cannot be invalidated with
-`:Synonym` or `:Invalid` (some kind of error must be produced if this is
-attempted).
 
-TODO: Can I express this in OWL or SPARQL?
+```
+<<SPARQL Rules>>=
 
-**Example usage of biological names.** We go back to the example of 
+ # if two names are mentioned in the same nomenclature
+ # section then they are related
+
+INSERT {
+    ?a dwciri:taxonomicStatus :ConservedName .
+}
+WHERE {
+  ?a a :ScientificName .
+  ?t a :TaxonomicNameUsage ;
+     pkm:mentions ?a
+     dwciri:taxonomicStatus :ConservedName .
+@
+```
+
+**Example** We go back to the example of 
 *Heser stoevi*. The meaning of the date property here is to indicate
 when was the taxonomic status assumed.
 
 ```
-<<eg_biological_names>>= 
+<<Examples>>= 
 
 :tnu pkm:mentions :heser-stovi-deltschev .
 
@@ -751,56 +832,58 @@ when was the taxonomic status assumed.
     dwc:scientificNameAuthorship "Deltschev" 
     dc:date "2016-08-31"^xsd:date .
 
+@
 ```
 
-Let's take for example,
+**Example.**
+Let's take another example,
 the paper <http://bdj.pensoft.net/articles.php?id=8030&instance_id=2809105>.
 From it, we can say:
 
 ```
-<<eg_biological_names>>= 
+<<Examples>>= 
 
 :nomenclature-bdje8030 a trt:Nomenclature ;
-  po:contains :treatment-title-bdje8030, :cit-list-bdje8030 .
+  po:contains :nomenclature-heading-bdje8030, :cit-list-bdje8030 .
 
-:treatment-title-bdje8030 a trt:TreatmentTitle ;
-  po:contains :tnu1 .
+:nomenclature-heading-bdje8030 a :NomenclatureHeading ;
+  po:contains :harmonia-manillana-tnu-heading .
 
 :cit-list-bdje8030 a trt:NomenclatureCitationList ;
-  po:contains :tnu2 .
+  po:contains :leis-papuensis-tnu-citation .
 
-:tnu1 a :TaxonomicNameUsage ;
+:harmonia-manillana-tnu-heading a :TaxonomicNameUsage ;
   dc:date "2016-08-16"^xsd:date ;
   cnt:chars "Harmonia manillana (Mulsant, 1866)" .
 
-:tnu2 a :TaxonomicNameUsage ;
+:leis-papuensis-tnu-citation a :TaxonomicNameUsage ;
   dc:date "2016-08-16"^xsd:date ;
   cnt:chars "Leis papuensis var. suffusa Crotch 1874 121 (Lectotype, UCCC). Korschefsky 1932 : 275.- Gordon 1987 : 14 (lectotype designation). Syn. nov." ;
   dwc:taxonomicStatus "var. suffusa Crotch 1874 121 (Lectotype, UCCC). Korschefsky 1932 : 275.- Gordon 1987 : 14 (lectotype designation). Syn. nov." ;
-  dwciri:taxonomicStatus :Synonym .
+  dwciri:taxonomicStatus :Unavailable .
 
 :harmonia-manillana-mulsant-1866 a :ScientificName ;
+  skos:prefLabel "Harmonia manillana (Mulsant, 1866)" ;
+  skos:altLabel "Harmonia manillana" ;
   dwc:species "manillana" ;
   dwc:genus "Harmonia" ;
   dwc:taxonRank "species" ;
   dwc:scientificNameAuthorship "(Mulsant, 1866)" ;
   dc:date "2016-08-16"^xsd:date ; 
-  dwc:taxonomicStatus :Accepted ;
+  dwc:taxonomicStatus :Available ;
   :relatedName :leis-papuensis .
 
 :leis-papuensis a :ScientificName ;
+  skos:prefLabel "Leis papuensis" ;
   dwc:species "papuensis" ;
   dwc:genus "Leis" ;
   dwc:taxonRank "species" ;
   dc:date "2016-08-16"^xsd:date ; 
-  dwciri:taxonomicStatus :Synonym ;
+  dwciri:taxonomicStatus :Unavailable ;
   :replacementName :harmonia-manillana-mulsant-1866 ;
   :relatedName :harmonia-manillana-mulsant-1866 .
-
 @
 ```
-
-TODO : derive a property biologicalName as a superproperty of vernacularName and scientificName
 
 #### Taxon Concepts
 
@@ -814,6 +897,8 @@ scientific articles or as a group of records in a database.
 
 Thus, taxon concepts are instances of `dwc:Taxon`, the definition of which
 from TDWG reads:
+
+TODO: add link to all the DwC RDF in the catalog of imported ontologies.
 
 "A group of organisms [sic] considered by taxonomists to form a homogeneous
 unit."
@@ -830,7 +915,7 @@ point of reference is not a particular recitation or text of the work, but the
 intellectual creation that lies behind all the various expressions of the
 work."
 
-Furthermore, taxon concepts can also be modeled as `skos:concept`, which are
+Furthermore, taxon concepts can also be modeled as `skos:Concept`, which are
 defined as follows:
 
 "A SKOS concept can be viewed as an idea or notion; a unit of thought.
@@ -843,13 +928,15 @@ informatics community heavily relies on the DwC standard for sharing
 occurrence data (TODO cite Baskauf). Secondly, to link taxon concepts to the
 scientific works they were expressed in requires taking the view that they are
 instances of `frbr:Work`. Third, to model some of relationships between taxon
-concepts, we view them as SKOS concepts as well.
+concepts, we view them as SKOS concepts.
 
 Holding the views of Berendsohn and of Franz, we require that each taxon
 concept is linked to both a biological name and to a work (i.e. publication,
-database, etc.), where the circumscriptio is properly defined.
+database, etc.), where the circumscription is properly defined.
 
 **Def. (Taxon Concept):**
+
+TODO: add comment here
 
 ```
 <<Biological Systematics Model>>= 
@@ -873,8 +960,8 @@ according to the article published by Deltshev in 2016. First, we introduce an
 instance of `:TaxonConcept` and link this instance to the scientific name
 *Heser stoevi* via the appropriate DwC term. Next, we establish a link between
 the significant bibliographic unit (in this case journal article) containing
-the treatment, which is the realizatio of the taxon concept. The last point we
-would like to make is that the taxon concept label, which is in this case,
+the treatment, which is the realization of the taxon concept. The last point we
+would like to make is that the taxon concept label, which is in this case
 `Heser stoevi sec. 10.3897/BDJ.4.e100095` is constructed by pasting together
 the label of the biological name and the expression that are assigned to the
 concept glued together by `sec.`.
@@ -883,11 +970,10 @@ concept glued together by `sec.`.
 <<eg_taxon_concept>>=
 
 :heser-stoevi-sec-deltshev-2016 a :TaxonConcept ;
-  dwciri:biologicalName :heser-stoevi-deltschev ;
-  frbr:realization :artcile ;
-  skos:prefLabel "Heser stoevi sec. 10.3897/BDJ.4.e10095" .
+  dwciri:scientificName :heser-stoevi-deltschev ;
+  frbr:realization :heser-stoevi-article ;
+  skos:prefLabel "Heser stoevi Deltshev sec. 10.3897/BDJ.4.e10095" .
 
-:tcl pkm:mentions :heser-stoevi-deltschev-sec-deltschev .
 
 :gbif2017 a fabio:Database ;
   skos:prefLabel "GBIF Backbone Taxonomy 20170301"@en ; 
