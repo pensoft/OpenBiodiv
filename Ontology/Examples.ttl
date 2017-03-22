@@ -1,4 +1,5 @@
 
+ # These are the examples for the OpenBiodiv data model.
 
 :biodiversity-data-journal rdf:type fabio:Journal ;
   skos:prefLabel "Biodiversity Data Journal" ;
@@ -8,11 +9,11 @@
   dcterms:publisher "Pensoft Publishers" ;
   frbr:hasPart :article . 
 
-:article a fabio:JournalArticle ;
-  skos:prefLabel "10.0000/BDJ.0.e000" ;
-  prism:doi "10.0000/BDJ.0.e000" ;
-  fabio:hasPublicationYear "2017"^^xsd:gYear ;
-  dcterms:title "Aus bus Senderov, 2017, newly recorded from Bulgaria"@en-us .
+:heser-stoevi-article a fabio:JournalArticle ;
+  skos:prefLabel "10.3897/BDJ.4.e10095" ;
+  prism:doi "10.3897/BDJ.4.e10095" ;
+  fabio:hasPublicationYear "2016"^^xsd:gYear ;
+  dcterms:title "A new spider species, Heser stoevi sp. nov., from Turkmenistan (Araneae: Gnaphosidae)"@en-us .
 
 :pensoft-publishers rdf:type foaf:Agent ;
   skos:prefLabel "Pensoft Publishers" ;
@@ -20,31 +21,35 @@
 
 :pensoft-publishes-bdj rdf:type pro:RoleInTime ;
   pro:relatesToDocument :biodiversity-data-journal . 
->
 
-:treatment
+:heser-stoevi-treatment
   a doco:Section, trt:Treatment .
->
 
-:article po:contains :treatment . 
+:heser-stoevi-article po:contains :heser-stoevi-treatment . 
 
+:heser-stoevi-treatment
+  po:contains :heser-stoevi-nomenclature ;
 
-:tnu a :TaxonomicNameUsage .
+:heser-stoevi-nomenclature a Doco:Section, trt:Nomenclature ;
+  po:contains :heser-stoevi-nomenclature-heading .
 
-:nomenclature po:contains :tnu .
+:heser-stoevi-nomenclature-heading a trt:NomenclatureHeading ;
+  cnt:chars 
+  "Heser stoevi urn:lsid:zoobank.org:act:E4D7D5A0-D649-4F5E-9360-D0488D73EEE8 Deltshev sp. n." .
 
-:tnu
-  cnt:chars "Heser stoev Deltschev sp. n."
+:heser-stoevi-nomenclature-heading po:contains :heser-stoevi-tnu .
+
+:heser-stoevi-tnu a :TaxonConceptLabel .
+  dc:date "2016-08-31"^xsd:date ;
+  cnt:chars
+  "Heser stoevi urn:lsid:zoobank.org:act:E4D7D5A0-D649-4F5E-9360-D0488D73EEE8 Deltschev sp. n." ;
+  dwc:genus "Heser" ;
+  dwc:species "stoevi" ;
+  dwc:taxonId "urn:lsid:zoobank.org:act:E4D7D5A0-D649-4F5E-9360-D0488D73EEE8 (ZooBank)" ;
   dwc:scientificNameAuthorship "Deltschev" ;
-  dwc:taxonRank "species" ;
-  
   dwc:taxonomicStatus "sp. n." ;
-  dwciri:taxonomicStatus :TaxonDiscovery .
 
+  dwciri:taxonomicStatus :TaxonDiscovery ;
 
-:tcl a :TaxonomicNameUsage ;
-  cnt:chars "Heser stoevi sec. <https://doi.org/10.3897/BDJ.4.e10095>" .
-  dwc:taxonomicStatus "sec <https://doi.org/10.3897/BDJ.4.e10095>" ;
-  dwciri:taxonomicStatus :TaxonConceptLabel ;
-
-
+  pkm:mentions :heser-stoevi-deltshev, <http://zoobank.org/urn:lsid:zoobank.org:act:E4D7D5A0-D649-4F5E-9360-D0488D73EEE8> ,
+                                :Heser-Stoeiv-sec-Deltshev .

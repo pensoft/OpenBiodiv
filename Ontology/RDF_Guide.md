@@ -91,7 +91,6 @@ notangle -ROntology RDF_Guide.md > nowebonto.ttl
 <<Examples>>=
 
  # These are the examples for the OpenBiodiv data model.
-
 @
 ```
 
@@ -237,9 +236,21 @@ from the
 ```
 <<Publishing Domain Model>>=
 
+<<Changes to SPAR>>
 <<Treatment>>
 <<Taxonomic Name Usage>>
 
+@
+```
+
+#### Changes to SPAR
+
+`po:contains` is a transitive property.
+
+```
+<<Changes to SPAR>>=
+
+po:contains rdf:type owl:TransitiveProperty ;
 @
 ```
 
@@ -277,7 +288,6 @@ and Journal using SPAR.
 
 :pensoft-publishes-bdj rdf:type pro:RoleInTime ;
   pro:relatesToDocument :biodiversity-data-journal . 
-
 @
 ```
 
@@ -316,7 +326,6 @@ trt:Treatment a owl:Class ;
                 на дадена таксономична концепция."@bg ;                  
   rdfs:subClassOf deo:DiscourseElement .
 @
-
 ```
 
 Thus, Treatment is defined akin to Introduction, Methods, etc. from 
@@ -329,7 +338,6 @@ Thus, Treatment is defined akin to Introduction, Methods, etc. from
 
 :heser-stoevi-treatment
   a doco:Section, trt:Treatment .
-
 @
 ```
 
@@ -346,7 +354,6 @@ via the use of the "contains" property in the
 <<Examples>>=
 
 :heser-stoevi-article po:contains :heser-stoevi-treatment . 
-
 @
 ```
 
@@ -372,6 +379,13 @@ trt:Nomenclature a owl:Class ;
                 is a rhetorical element of a taxonomic publication, i.e. a 
                 specialized section, where nomenclatural acts are published."@en .
 
+trt:NomenclatureHeading a owl:Class ;
+  rdfs:subClassOf deo:DiscourseElement ,
+                  [ rdf:type owl:Restriction ;
+                    owl:onProperty po:isContainedBy ;
+                    owl:someValuesFrom trt:Nomenclature ] ;
+                  rdfs:label "Treatment Title"@en ;
+  rdfs:comment "Inside the taxonomic nomenclature section, we have the treatment title."@en .
 
 trt:NomenclatureCitationList a owl:Class ;
   rdfs:subClassOf deo:DiscourseElement ,
@@ -381,15 +395,6 @@ trt:NomenclatureCitationList a owl:Class ;
                   rdfs:label "Taxonomic Nomenclature Citation List"@en ;
   rdfs:comment "Inside the taxonomic nomenclature section, we have a list
                 of citations."@en .                  
-
-trt:NomenclatureHead a owl:Class ;
-  rdfs:subClassOf deo:DiscourseElement ,
-                  [ rdf:type owl:Restriction ;
-                    owl:onProperty po:isContainedBy ;
-                    owl:someValuesFrom trt:Nomenclature ] ;
-                  rdfs:label "Treatment Title"@en ;
-  rdfs:comment "Inside the taxonomic nomenclature section, we have the treatment title."@en .
-
 @
 ```
 
@@ -402,12 +407,11 @@ trt:NomenclatureHead a owl:Class ;
   po:contains :heser-stoevi-nomenclature ;
 
 :heser-stoevi-nomenclature a Doco:Section, trt:Nomenclature ;
-  po:contains :heser-stoevi-nomenclature-head .
+  po:contains :heser-stoevi-nomenclature-heading .
 
-:heser-stoevi-nomenclature-head a trt:nomenclature-head ;
+:heser-stoevi-nomenclature-heading a trt:NomenclatureHeading ;
   cnt:chars 
   "Heser stoevi urn:lsid:zoobank.org:act:E4D7D5A0-D649-4F5E-9360-D0488D73EEE8 Deltshev sp. n." .
-
 @
 ```
 
@@ -437,8 +441,11 @@ Modeling-wise, we consider TNU's to be specialized instances of Mention from
 the [PROTON Extensions module] (http://ontotext.com/proton/). Furthermore we
 link the TNU's to the scientific name they are symbolizing via `pkm:mentions`.
 
-**Def. (Taxonomic Name Usage):** A taxonomic name usage is the mentioning of a
-biological taxonomic name in a text.
+**Def. (Taxonomic Name Usage):** *A taxonomic name usage is the mentioning of a
+biological taxonomic name in a text. A taxon concept label is a taxonomic name
+usage accompanied by an additional part, consisting of "sec." + an identifier
+or a literature reference of a work containing the expression of a taxon concept
+(treatment).*
 
 ```
 <<Taxonomic Name Usage>>=
@@ -446,62 +453,84 @@ biological taxonomic name in a text.
 :ТaxonоmicNameUsage a owl:Class ;
   rdfs:subClassOf  pext:Mention ;
   rdfs:comment "A string within a document that can be considered a mention of a
-                  biological name."@en;
-  rdfs:label "Taxonomic Name Usage"@en;
+                  biological name."@en ;
+  rdfs:label "Taxonomic Name Usage"@en . 
 
-:ExternalTaxonId a owl:Class ;
-  rdfs:subClassOf pext:Mention ;
-  rdfs:label "External Taxon Id"@en ;
-  rdfs:comment "A string within a document that can be considered mentioning
-                of an external identifier of taxon"@en .
+:TaxonConceptLabel rdf:type owl:Class ;
+	rdfs:subClassOf :TaxonomicNameUsage ;
+	rdfs:label "Taxon Concept Label"@en ;
+	rdfs:comment "A taxon concept label is a taxonomic name
+usage accompanied by an additional part, consisting of "sec." + an identifier
+or a literature reference of a work containing the expression of a taxon concept
+(treatment)." @en .
 @
 ```
 
-TODO: Need to add proton prefixes to the YAML database `pext`, `ptop`, etc.
+**Important note.** or the logic of our algorithms, it is very important that
+TNU's are dated with `dc:date`.
 
-For the logic of our algorithms, it is very important that TNU's are dated.
+**Rule:** *All TNU's that are in nomenclatural headings are taxon concept
+labels and they should be linked to the taxon concept coming about through the
+treatment of which they are the headings.*
 
-**Example (TNU).** In this example we define a TNU, connect it to a
-nomenclature section via `po:contains`, use `cnt:chars` to dump the full
-string of the usage, and use DwC properties to encode more granular
-information in addition to the dump. Note that we do use
-`dwciri:taxonomicStatus` to link to named entity from a vocabulary. This step
-does require an external lookup (type 2 step). Vocabularies are given in
-the (appendix)[#vocabulary-of-taxonomic-name-statuses] of this guide.
+```
+
+<<SPARQL Rules>>=
+
+INSERT {
+    ?a rdf:type :TaxonConceptLabel . 
+}
+WHERE {
+	?a rdf:type :TaxonomicNameUsage .
+	[] rdf:type :NomenclatureHeading ;
+	   po:contains ?a .
+}
+@
+```
+
+**Example.** In the following example, we express in RDF a TNU which is the
+nomenclature heading of a treatment (treatment title). This automatically
+make the TNU into a taxon concept label. The connection to the
+nomenclature heading is via `po:contains`; `cnt:chars` is used  to dump the
+full string of the usage; and DwC properties are used to encode more granular
+information in addition to the dump.
+
+In the second step of RDF-ization, we use `dwciri` properties to link the TNU
+to semantic entities. `dwciri:taxonomicStatus` is used to link the TNU to an
+item in the
+[OpenBiodiv Taxonomic Status Vocabulary](taxonomic_status_vocabulary/taxonomic_status_vocabulary.md)
+and `dwciri:taxonId` is used to link the TNU to an external taxon concept.
+Also, during the second step, the TNU is linked to the reified scientific name
+*Heser stoevi* Deltshev and to the taxon concept *Heser stoevi* sec Deltshev
+(2016) as even though the text-content of TNU does not contain a "sec.",
+we know for certain which concept the author is invoking as we are in the
+treatment title. The link between the TNU and the local taxon concept is
+also made via `pkm:mentions`.
 
 ```
 <<Examples>>=
 
-:heser-stoevi-article po:contains :heser-stoevi-act .
+:heser-stoevi-nomenclature-heading po:contains :heser-stoevi-tnu .
 
-:heser-stoevi-act a :TaxonomicNameUsage .
+:heser-stoevi-tnu a :TaxonConceptLabel .
   dc:date "2016-08-31"^xsd:date ;
   cnt:chars
   "Heser stoevi urn:lsid:zoobank.org:act:E4D7D5A0-D649-4F5E-9360-D0488D73EEE8 Deltschev sp. n." ;
   dwc:genus "Heser" ;
   dwc:species "stoevi" ;
-  dwc:taxonId "urn:lsid:zoobank.org:act:E4D7D5A0-D649-4F5E-9360-D0488D73EEE8" ;
+  dwc:taxonId "urn:lsid:zoobank.org:act:E4D7D5A0-D649-4F5E-9360-D0488D73EEE8 (ZooBank)" ;
   dwc:scientificNameAuthorship "Deltschev" ;
   dwc:taxonomicStatus "sp. n." ;
 
-  po:contains heser-stoevi-zoobank ;
+  dwciri:taxonomicStatus :TaxonDiscovery ;
 
-  dwciri:taxonomicStatus :TaxonDiscovery .
-
-:heser-stoevi-zoobank a :ExternalTaxonId ;
-  dwc:taxonId "urn:lsid:zoobank.org:act:E4D7D5A0-D649-4F5E-9360-D0488D73EEE8" ;
-  ptop:resourceType "ZooBank" .
-
+  pkm:mentions :heser-stoevi-deltshev, <http://zoobank.org/urn:lsid:zoobank.org:act:E4D7D5A0-D649-4F5E-9360-D0488D73EEE8> ,
+  				:Heser-Stoevi-sec-Deltshev .
 @
      
 ```
 
 TODO: Check if `po:contains` is transitive
-
-TODO: model taxon concept labels with some of Nico's articles. Big problem
-here for disambiguation is the usage of abbreviations like [FZ2017]
-
-```
 
 ### Biological Taxonomy and Systematics
 
@@ -537,23 +566,23 @@ our workflow both RDF generation and debugging would be severely hampered by
 this convention. That's why we have defined names in OpenBiodiv and mapped
 them to their NOMEN equivalents.
 
-**Def. (Biological Name):**
+**Def. (Biological Name, Scientific Name, Vernacular Name):**
 
 ```
 <<Biological Names>>=
 
 :BiologicalName rdf:type owl:Class ;
-    rdfs:label "biological name"@en ;
+    rdfs:label "Biological Name"@en ;
     owl:sameAs nomen:NOMEN_0000030 .
 
 :ScientificName rdf:type owl:Class ;
     rdfs:subClassOf :biologicalName ;
-    rdfs:label "scientific name"@en ;
+    rdfs:label "Scientific Name"@en ;
     owl:sameAs nomen:NOMEN_0000036 .
     
 :VernacularName a owl:Class ;
   rdfs:subClassOf :biologicalName ;
-  rdfs:label "vernacular name"@en ;
+  rdfs:label "Vernacular Name"@en ;
   ownl:sameAs nomen:NOMEN_0000037 .
 
 @
@@ -561,38 +590,62 @@ them to their NOMEN equivalents.
 
 Again, as in the taxonomic statuses example, we do not model scientific names
 down to the level of the Codes as NOMEN does. We also use different sets of
-properties to define relationships between biological names and for their
-data properties.
+properties to define relationships between biological names and for their data
+properties.
 
-For the data properties we use DwC terms.
+For the data properties we use DwC terms. We also use `dwciri:scientificName`
+to connect different biological objects such as taxon concepts or occurrences
+to a scientific name. However, even though `dwciri:scientificName` is defined 
+in spirit in <http://rs.tdwg.org/dwc/terms/guides/rdf/index.htm#2.5_Terms_in_the_dwciri:_namespace>, we couldn't actually find
+a formal definition in RDF, that's why we're introducing it here together
+with a super-property to refer to a more broader class of names.
+
+**Def. (has biological name, has scientific name, has vernacular name):**.
+
+```
+<<Biological Names>>=
+
+:biologicalName rdf:type owl:ObjectProperty ;
+	rdfs:label "has biological name" @en ;
+	rdfs:range :BiologicalName .
+
+:scientificName rdf:type owl:ObjectProperty ;
+	rdfs:label "has scientific name" @en ;
+	owl:sameAs dwciri:scientificName ;
+	rdfs:range :ScientificName .
+
+:vernacularName rdf:type owl:ObjectProperty ;
+	rdfs:label "has vernacular name" @en ;
+	rdfs:range :VernacularName .
+@
+```
 
 For object properties, have two types of relationships: unidirectional and
 bidirectional.
 
-**Def. (Related name):** Related name is an object property that we use in
-order to indicate that two biological names are related somehow. This
+**Def. (has related name):** 'has related name' is an object property that we
+use in order to indicate that two biological names are related somehow. This
 relationship is purposely vague as to encompass all situations where two
-biological names co-occur in a text. Related name is transitive and reflexive.
+biological names co-occur in a text. It is transitive and reflexive.
 
 ```
 <<Biological Names>>=
 
 :relatedName rdf:type owl:ObjectProperty,
-                      owl:TransitiveProperty,
-                      owl:ReflexiveProperty ;
-            rdfs:label "related biological name"@en ;
-            rdfs:domain :BiologicalName ;
-            rdfs:range :BiologicalName ;
-            rdfs:comment "Related name is a property relationship that
-we use in order to indicate that two biological names are related
-somehow. This relationship is purposely vague as to encompass all 
-situations where two biological names co-occur in a text. Related
-name is transitive and reflexive."@en.
+						owl:TransitiveProperty,
+						owl:ReflexiveProperty ;
+	rdfs:label "has related name"@en ;
+    rdfs:domain :BiologicalName ;
+    rdfs:range :BiologicalName ;
+    rdfs:comment "'has related name' is an object property that we
+use in order to indicate that two biological names are related somehow. This
+relationship is purposely vague as to encompass all situations where two
+biological names co-occur in a text. It is transitive and reflexive."@en.
 
 @
 ```
 
-**Def. (Replacement name):** This is a uni-directional property. Its meaning
+**Def. (has replacement name):** This is a uni-directional property. Its meaning
 is that one one biological name links to a different biological name via the
 usage of this property, then the object of the triple is the form of the
 biological name the use of which is more accurate and should be preferred
@@ -605,7 +658,7 @@ defined for scientific names.
 :replacementName rdf:type owl:ObjectProperty ,
                           owl:TransitiveProperty ,
                           owl:ReflexiveProperty ;
-                 rdfs:label "replacement scientific name"@en ;
+                 rdfs:label "has replacement name"@en ;
                  rdfs:domain :ScientificName ;
                  rdfs:range :ScientificName ;
                  rdfs:comment "This is a uni-directional property. Its meaning
@@ -614,33 +667,68 @@ usage of this property, then the object of the triple is the form of the
 biological name the use of which is more accurate and should be preferred
 given the information that system currently holds. This property is only
 defined for scientific names."@en.
-
 @
 ```
 
 Names in our Knowledge Base follow certain rules:
 
-**Rule 1 for Names:** If a name has never been invalidated by a TNU with
-status `:Synonym` or `:Invalid`, or invalidated and then restored by
-`:Restored` then it is `:Accepted`. Otherwise it is `:Synonym` or `:Ivalid`.
+**Rule 1 for Names:** For a scientific name X, if there doesn't exist a TNU
+mentioning X, which has the taxon status of `:UnavailableName`, or if there
+does exist a TNU Y mentioning X with the status of `:UnavailableName`, but
+there also exists a TNU Z mentioning X with a later date than Y, which has the
+status of `:AvailableName` or `:ReplacementName`, then X has the taxon status
+of `:AvailableName`.
 
-**Rule 2 for Names:** If a name is mentioned in the title of a nomenclature
-section of a treatment with TNU `:Replacement` and if names are being 
-invalidated in the nomenclature citation list with `:Synonym` or `:Invalid`,
-then the invalidated names are linked to the replacement name via
-`:replacementName`.
+TODO: write this rule in SPARQL
 
-**Rule 3 for Names:** All names in the nomenclature section are related.
+**Rule 2 for Names:** For a scientific name X, if it is mentioned in the heading of a nomenclature section (treatment title) in a TNU Y with status `:ReplacementName`, then
+every name Z_i, mentioned in the nomenclatural citation list in TNU's with status
+`:UnavailableName` is linked to X via `:replacementName`.
 
-**Rule 4 for Names:** If the last usage of a name has the mark `:Uncertain`,
-then the name is `:Uncertain`.
+```
+<<SPARQL Rules>>=
 
-**Rule 5 for Names:** If the latest TNU of a name in a treatment title,
-has the `:New` status, then the name is marked as `:New`. Note, this can
-be combined with other statuses. If the name has more than one treatment,
-then the status `:New` is revoked.
+INSERT {
+    ?a trt:replacementName ?b .
+}
+WHERE {
+	?a a :ScientificName .
+	?b a :ScientificName .
+	[] a trt:Nomenclature ;
+	 	   po:contains [ a :TaxonomicNameUsage ;
+	 	   				 pkm:mentions ?a ;
+	 	   				 dwciri:taxonomicStatus :ReplacementName ] ,
+		      	   	   [ a :TaxonomicNameUsage ;
+		      	         pkm:mentions ?b ;
+		      	         dwciri:taxonomicStatus :UnavailableName ].
+}
+@
+```
 
-**Rule 6 for Names:** If a TNU is marked as `:Conserved`, then the name is
+**Rule 3 for Names:** All names in the nomenclature section are linked via `:relatedName`.
+
+```
+<<SPARQL Rules>>=
+
+INSERT {
+    ?a trt:relatedName ?b .
+}
+WHERE {
+	?a a :ScientificName .
+	?b a :ScientificName .
+	?c a trt:Nomenclature ;
+  	   po:contains [ pkm:mentions ?a ];
+		      	   [ pkm:mentions ?b ].
+}
+
+# if two names are mentioned in the same nomenclature
+# section then they are related
+@
+```
+
+**Rule 6 for Names:** If for a name X, there exists a TNU Y
+
+If a TNU is marked as `:Conserved`, then the name is
 also marked as `:Conserved`. A conserved name cannot be invalidated with
 `:Synonym` or `:Invalid` (some kind of error must be produced if this is
 attempted).
@@ -656,12 +744,14 @@ when was the taxonomic status assumed.
 
 :tnu pkm:mentions :heser-stovi-deltschev .
 
-:heser-stoevi-deltschev a :ScientificName ;
-                    dwc:species "stoevi" ;
-                    dwc:genus "Heser" ;
-                    dwc:taxonRank "species" ;
-                    dwciri:taxonomicStatus <http://rs.gbif.org/vocabulary/gbif/taxonomicStatus/accepted> ;
-                    dc:date "2016-08-31"^xsd:date .
+:heser-stoevi-deltshev a :ScientificName ;
+	skos:prefLabel "Heser stoevi Deltshev" ;
+    dwc:species "stoevi" ;
+    dwc:genus "Heser" ;
+    dwc:taxonRank "species" ;
+    dwciri:taxonomicStatus <http://rs.gbif.org/vocabulary/gbif/taxonomicStatus/accepted> ;
+    dwc:scientificNameAuthorship "Deltschev" 
+    dc:date "2016-08-31"^xsd:date .
 
 ```
 
@@ -716,19 +806,22 @@ TODO : derive a property biologicalName as a superproperty of vernacularName and
 
 #### Taxon Concepts
 
-Our view of taxon concepts is based on [TODO add Berendsohn, Franz
-citations](). Thus we consider a taxon concept to be a scientific theory about
-a group of biological organisms. Taxon concepts can be expressed as treatments
-in scientific articles or as a group of records in a database.
+**Discussion.** Our view of taxon concepts is based on
+[Berendsohn (1995)](http://www.jstor.org/stable/1222443)
+and
+[Franz et al (2008)](http://dx.doi.org/10.1201/9781420008562.ch5).
+We consider a taxon concept to be a scientific theory about a group of
+biological organisms. Taxon concepts can be expressed as treatments in
+scientific articles or as a group of records in a database.
 
-Thus,taxon concepts are compatible with `dwc:Taxon`, the definition of which
-reads:
+Thus, taxon concepts are instances of `dwc:Taxon`, the definition of which
+from TDWG reads:
 
 "A group of organisms [sic] considered by taxonomists to form a homogeneous
 unit."
 
-Also, taxon concepts are compatible with `frbr:Work`, the defintion of which
-is:
+Also, taxon concepts are instances of `frbr:Work` as well, the defintion of
+which is:
 
 "A distinct intellectual or artistic creation. A work is an abstract entity;
 there is no single material object one can point to as the work. We recognize
@@ -739,7 +832,7 @@ point of reference is not a particular recitation or text of the work, but the
 intellectual creation that lies behind all the various expressions of the
 work."
 
-Furthermore, taxon concepts can also be modeled as `skos:concept` which are
+Furthermore, taxon concepts can also be modeled as `skos:concept`, which are
 defined as follows:
 
 "A SKOS concept can be viewed as an idea or notion; a unit of thought.
@@ -749,11 +842,14 @@ is meant to be suggestive, rather than restrictive."
 All three classes represent a distinctive view that we want to adopt in
 modeling different features of taxon concepts. First, the biodiversity
 informatics community heavily relies on the DwC standard for sharing
-occurrence data (TODO cite Baskauf). Thus, for purposes of data integration we
-derive the OpenBiodiv taxon concept class from `dwc:Taxon`. Secondly, to link
-taxon concepts to the scientific works they were expressed in requires taking
-the view that they are instances of `frbr:Work`. Third, to model some of
-relationships between taxon concepts, we view them as SKOS concepts as well.
+occurrence data (TODO cite Baskauf). Secondly, to link taxon concepts to the
+scientific works they were expressed in requires taking the view that they are
+instances of `frbr:Work`. Third, to model some of relationships between taxon
+concepts, we view them as SKOS concepts as well.
+
+Holding the views of Berendsohn and of Franz, we require that each taxon
+concept is linked to both a biological name and to a work (i.e. publication,
+database, etc.), where the circumscriptio is properly defined.
 
 **Def. (Taxon Concept):**
 
@@ -770,26 +866,26 @@ relationships between taxon concepts, we view them as SKOS concepts as well.
                   [ rdf:type owl:Restriction ;
                     owl:onProperty :biologicalName ;
                     owl:minCardinality "1" ] .
-                      
 
 @
 ```
 
-TODO: Removed the name restrictions because of the example.
-
-The definition of Taxon Concept thus requires every taxon concept to have at
-least one expression and at least biological name.
-
-**Example.** We view Treatment to be an expression of a theory about a taxon.
-Therefore, we may establish a link between the significant bibliographic unit
-(be it Journal  Article, Book Chapter, or any other Expression) containing the
-treatment and the taxon concept, whose realization the treatment is.
+**Example.** In the next example we introduce the concept of *Heser stoevi*
+according to the article published by Deltshev in 2016. First, we introduce an
+instance of `:TaxonConcept` and link this instance to the scientific name
+*Heser stoevi* via the appropriate DwC term. Next, we establish a link between
+the significant bibliographic unit (in this case journal article) containing
+the treatment, which is the realizatio of the taxon concept. The last point we
+would like to make is that the taxon concept label, which is in this case,
+`Heser stoevi sec. 10.3897/BDJ.4.e100095` is constructed by pasting together
+the label of the biological name and the expression that are assigned to the
+concept glued together by `sec.`.
 
 ```
 <<eg_taxon_concept>>=
 
-:heser-stoevi-sec-deltschev-2016 a :TaxonConcept ;
-  dwciri:scientificName :heser-stoevi-deltschev ;
+:heser-stoevi-sec-deltshev-2016 a :TaxonConcept ;
+  dwciri:biologicalName :heser-stoevi-deltschev ;
   frbr:realization :artcile ;
   skos:prefLabel "Heser stoevi sec. 10.3897/BDJ.4.e10095" .
 
@@ -947,320 +1043,6 @@ vernacular name of a taxon. In this case we use `skos:altLabel`.
 
 ## Apendicies
 
-### Vocabulary of Taxonomic Statuses
-
-Taxonomic name usages (TNU's) may be accompanied by strings such as "new.
-comb.", "new syn.", "new record for Cuba", and many others. These extensions
-to a taxonomic name usage are called in our model taxonomic statuses and have
-taxonomic as well nomenclatural meaning. For example, if we are describing a
-new species for science, we may write "n. sp." after the species name. This
-particular example is also a nomenclatural act in the sense of the Codes of
-zoological or botanical nomenclature. Taxonomic statuses can be applied to
-TNU's and to scientific names.
-
-Not all statuses are necessarily nomenclatural in nature. Sometimes the status
-is more of a note to the reader and conveys taxonomic rather than
-nomenclatural information. E.g. when a previously known species is recorded in
-a new location.
-
-Here we take the road of modeling statuses from the bottom-up, i.e. based on
-their actual use in three of the most successful journals in biological
-systematics - ZooKeys, Biodiversity Data Journal, and PhytoKeys. We have
-analyzed about 4,000 articles from these journals and came up with a
-vocabulary of statuses described below. The concepts in this vocabulary are
-broad concepts and encompass both specific cases of botanical or zoological
-nomenclature as well as purely taxonomic and informative use. We believe these
-concepts to be adequately granular for the purposes of reasoning in OpenBiodiv
-(see the (Rules)[#biological-names]. The main objective we want to achieve is
-to encode information about the preferred name to use for a given taxonomic
-concept lineage.
-
-See for a similar attempt <http://rs.gbif.org/vocabulary/gbif/taxonomic_status.xml>.
-
-```
-<<Vocabulary Taxonomic Statuses>>=
-
-:TaxonomicStatus rdf:type owl:Class ;
-  rdfs:subClassOf [ rdf:type owl:Restriction ;
-                    owl:onProperty <http://www.w3.org/2004/02/skos/core#inScheme> ;
-                    owl:someValuesFrom :TaxonomicStatusTerms ] ;
-  rdfs:label "Taxonomic Name Status"@en ;
-  rdfs:comment "The status following a taxonomic name usage in a taxonomic
-                manuscript, i.e. 'n. sp.',
-                                 'comb. new',
-                                 'sec. Franz (2017)', etc"@en .
-
-:TaxonomicStatusTerms rdf:type owl:Class ;
-  rdfs:subClassOf <http://www.w3.org/2004/02/skos/core#ConceptScheme> ,
-                                [ rdf:type owl:Restriction ;
-                                  owl:onProperty fabio:isSchemeOf ;
-                                  owl:allValuesFrom :TaxonomicStatus] ;
-  rdfs:label "OpenBiodiv Vocabulary of Taxonomic Name Statuses"@en ;
-  fabio:hasDiscipline dbpedia:Taxonomy_(biology) .
-
-  <<Taxonomic Uncertainty>>
-  <<Taxon Discovery>>
-  <<Replacement Name>>
-  <<Synonym>>
-  <<Restored Name>>
-  <<Conserved Name>>
-  <<Type Species Designation>>
-  <<Record>>
-  <<Taxon Concept Label>>
-
-@
-```
-
-#### Taxonomic Uncertainty
-
-Sometimes taxonomic name usages are accompanied by a status indicating that
-the placement of the name in the taxonomy is uncertain.
-
-**Def. (Taxonomic Uncertainty)** This status is used after a name when
-there is some sort of ambiguity related to the name.
-
-```
-<<Taxonomic Uncertainty>>=
-
-:Uncertain a :TaxonomicStatus ;
-  rdfs:label "Taxonomic Uncertainty"@en ;
-  rdfs:comment "This term indicates when applied to a taxonomic name
-                 that there is some uncertainty about the name:
-                either in the placement of the name in the hierarchy
-                (e.g. incertae sedis), or in the description of the name
-                (e.g. nomen dubium)."@en .
-@
-
-```
-
-Here're some ways in which taxonomic uncertainty can be abbreivated:
-
--  incertae sedis
--  Incertae Sedis
--  indet.
--  ? indeterminate
-
-#### Taxon Discovery
-
-
-When a taxon is believed to have been discovered, a new taxonomic name is
-coined. This encompasses: new species, new genus, new family,  etc.
-
-**Def. (Taxon Discovery):**
-
-```
-<<Taxon Discovery>>=
-
-:New a :TaxonomicStatus ;
-  rdfs:label "Taxon Discovery"@en ;
-  rdfs:comment "This term when applied to a taxonomic name indicates
-                that this name denotes a taxon that is being described in
-                the present context. E.g.:
-                n. sp., gen. nov., n. trib., etc."@en .
-
-@
-```
-
-- sp. n.
-- subsp. n.
-- subsp. nov.
-- ssp. n.
-- ssp.n.
-- subtrib. n.
-- subtr. n.
-- sp. n.
-- gen. et sp. n.
-- gen et sp. nov.
-- gen. n. and sp. n.
-- gen. n., comb. n.
-- gen. n., sp. n.
-- n. sp.
-- p. n.
-- spec. nov.
-- sp .n.
-- sp. n.
-- sp.n.
-- sp. nov.
-- sp.nov.
-- sp. n., variety
-- subgen. n.
-- subg. n.
-- subg. nov.
-- en. n.
-- gen. et sp. n.
-- gen et sp. nov.
-- gen n.
-- gen. n.
-- gen. n. and sp. n.
-- gen nov.
-- gen. nov.
-- gen. n., sp. n.
-- subfam. n.
-- var. nov.
-- fam. n.
-- new clade
-- hybr. nov.
-- sect. nov.
-
-#### Replacement Name
-
-Often an old name is changed to a new one for a variety of reasons. This means
-that probably parts of the underlying taxon concept circumscription is
-carried over to the new name and there is an old name that is being
-invalidated. Algorithms have to be written to locate the old name.
-Situations include
-
-- changed rank (e.g.: stat. nov.)
-- new spelling (e.g.: nomen novum)
-- placement in a new genus (e.g.: new comb.)
-- 
-
-**Def. (Replacement Name):**
-
-```
-<<Replacement Name>>=
-
-:Replacement a :TaxonomicStatus ;
-  rdfs:label "Replacement Name"@en ;
-  rdfs:comment "This term when applied to a taxonomic name indicates
-                that the name it is being applied to is an updated version
-                of a different name. This update may come about through
-                changes in rank (stat. n.) when the endings change (e.g.
-                -ini -> -idae), through changes in genus placement
-                (new comb.), through updates needed purely for nomenclatural
-                reasons such as to avoid homonymy or correct grammatical
-                or spelling mistakes (nomen nov.), or anything else."@en 
-
-@
-```
-
-- comb. et stat. nov.
-- comb. et. stat. nov.
-- (comb. n.)
-- comb. n.
-- comb.n.
-- comb. n. (misplaced)
-- comb. nov.
-- comb. n., re-instated
-- comb. n., stat. rev.
-- comb. r.
-- comb. rest.
-- comb. restored
-- comb. rev.
-- comb. r., stat. r. & stat. n.
-- comb. & stat. nov.
-- gen. n., comb. n.
-- new combination
-- new comb., new subfamily assignment
-- resurrected combination
-- revalidated, comb. n.
-- stat. & comb. nov.
-- stat. prom. & comb. n.
-- comb. et stat. nov.
-- comb. et. stat. nov.
-- comb. n., stat. rev.
-- comb. r., stat. r. & stat. n.
-- comb. & stat. nov.
-- new comb., new subfamily assignment
-- new familial and subfamilial assignment
-- new family assignment
-- new rank
-- new status
-- NEW STATUS
-- new subfamilial assignment
-- new subfamily assignment
-- new subgeneric assignment
-- nom. n. et stat. rev.
-- nom. n. & stat. rev.
-- revised status, lectotype designation
-- rev. placement
-- rev. stat.
-- rev. status
-- stat. & comb. nov.
-- tat. n.
-- stat. n.: invalid genus
-- stat. nov.
-- stat. n.: restored name
-- stat. prom.
-- stat. prom. & comb. n.
-- stat. rev., stat. n.
-- emended
-- (name emended by Wüster et al. 2001)
-- nomen novum
-- nomen revivisco
-- nom. n.
-- nom. n. et stat. rev.
-- nom. nov.
-- nom. n. & stat. rev.
-- replacement name
-
-#### Synonym
-
-```
-<<Synonym>>=
-:Synonym a :TaxonomicStatus .
-@
-```
-
-#### Invalid
-
-#### Restored Name
-
-Sometimes a name that has been changed, synonimized or otherwise marked as
-invalid can be revalidated.
-
-```
-<<Restored Name>>=
-:Restored a :TaxonomicStatus .
-@
-```
-
-#### Accepted Name
-
-See GBIF
-
-#### Conserved Name
-
-```
-:ConservedName a :TaxonomicStatus .
-```
-
-  - nom. cons.
-  - nomen protectum
-  - nom. et orth. cons.
-
-
-#### Type Species Designation
-
-```
-:TypeSpeciesDesignation a :TaxonomicStatus .
-```
-
-#### Type Specimen Designation
-
-#### New Record
-
-Sometimes a name is used to indicate that some species has been described
-for the first time in a given location.
-
-```
-:Record a :TaxonomicStatus .
-```
-
-#### Taxon Concept Label
-
-Taxonomic concept label is a taxonomic name usage accompanied by a status
-referring to the scientific work that circumscribes the mentioned taxon.
-Thus taxonomic concept labels can be linked directly to Taxon Concepts and
-not just to Taxonomic Names.
-
-```
-:TaxonConceptLabel a :TaxonomicStatus ;
-                refering a taxonomic concept either by the usage 'sensu',
-                'sec' or by the usage some other unique form of identification."@en .
-
-@
-```
 
 ### Vocabulary of Paper Types
 
@@ -1333,3 +1115,7 @@ openbiodiv:ChronologicalClassification
   fabio:hasDiscipline dbpedia:Paleontology .
 @
 ```
+## TODO's
+
+
+TODO: Need to add proton prefixes to the YAML database `pext`, `ptop`, etc.
