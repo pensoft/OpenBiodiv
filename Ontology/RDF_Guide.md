@@ -50,8 +50,8 @@ with our explanations.
 <<Prefixes>>
 <<Ontology Title>>
 <<Publishing Domain Model>>
-<<Systematics Domain Model>>
-
+<<Biological Systematics Model>>
+<<External Ontology>>
 @
 
 <<Ontology Title>>=
@@ -154,9 +154,11 @@ identifiers and into cross-linking. This will be the subject matter of a later
 @prefix dwc: <http://rs.tdwg.org/dwc/terms/> .
 @prefix sro: <http://salt.semanticauthoring.org/ontologies/sro#> .
 @prefix deo: <http://purl.org/spar/deo/> .
-
+@prefix : <http://openbiodiv.net/> /
 @
 ```
+TODO: add base prefix to YAML database
+
 
 **Types of entities that OpenBiodiv manages.** There are two ways to look at
 the types of entities that OpenBiodiv manages. The first way is to look at the
@@ -629,17 +631,14 @@ biological names co-occur in a text. It is transitive and reflexive.
 ```
 <<Biological Names>>=
 
-:relatedName rdf:type owl:ObjectProperty,
-						owl:TransitiveProperty,
-						owl:ReflexiveProperty ;
-	rdfs:label "has related name"@en ;
-    rdfs:domain :BiologicalName ;
-    rdfs:range :BiologicalName ;
-    rdfs:comment "'has related name' is an object property that we
+:relatedName rdf:type owl:ObjectProperty, owl:TransitiveProperty, owl:ReflexiveProperty ;
+  rdfs:label "has related name"@en ;
+  rdfs:domain :BiologicalName ;
+  rdfs:range :BiologicalName ;
+  rdfs:comment "'has related name' is an object property that we
 use in order to indicate that two biological names are related somehow. This
 relationship is purposely vague as to encompass all situations where two
 biological names co-occur in a text. It is transitive and reflexive."@en.
-
 @
 ```
 
@@ -656,10 +655,10 @@ defined for scientific names.
 :replacementName rdf:type owl:ObjectProperty ,
                           owl:TransitiveProperty ,
                           owl:ReflexiveProperty ;
-                 rdfs:label "has replacement name"@en ;
-                 rdfs:domain :ScientificName ;
-                 rdfs:range :ScientificName ;
-                 rdfs:comment "This is a uni-directional property. Its meaning
+  rdfs:label "has replacement name"@en ;
+  rdfs:domain :ScientificName ;
+  rdfs:range :ScientificName ;
+  rdfs:comment "This is a uni-directional property. Its meaning
 is that one one biological name links to a different biological name via the
 usage of this property, then the object of the triple is the form of the
 biological name the use of which is more accurate and should be preferred
@@ -895,32 +894,24 @@ We consider a taxon concept to be a scientific theory about a group of
 biological organisms. Taxon concepts can be expressed as treatments in
 scientific articles or as a group of records in a database.
 
-Thus, taxon concepts are instances of `dwc:Taxon`, the definition of which
-from TDWG reads:
+Thus, OpenBiodiv taxon concepts are instances of `dwc:Taxon` and vice versa
+(*"A group of organisms [sic] considered by taxonomists to form a homogeneous
+unit."*).
 
-TODO: add link to all the DwC RDF in the catalog of imported ontologies.
-
-"A group of organisms [sic] considered by taxonomists to form a homogeneous
-unit."
-
-Also, taxon concepts are instances of `frbr:Work` as well, the defintion of
-which is:
-
-"A distinct intellectual or artistic creation. A work is an abstract entity;
+Also, taxon concepts are instances of `frbr:Work` as well, but not vice
+versa (*"A distinct intellectual or artistic creation. A work is an abstract entity;
 there is no single material object one can point to as the work. We recognize
 the work through individual realizations or expressions of the work, but the
 work itself exists only in the commonality of content between and among the
 various expressions of the work. When we speak of Homer's Iliad as a work, our
 point of reference is not a particular recitation or text of the work, but the
 intellectual creation that lies behind all the various expressions of the
-work."
+work."*).
 
-Furthermore, taxon concepts can also be modeled as `skos:Concept`, which are
-defined as follows:
-
-"A SKOS concept can be viewed as an idea or notion; a unit of thought.
-However, what constitutes a unit of thought is subjective, and this definition
-is meant to be suggestive, rather than restrictive."
+Furthermore, taxon concepts can also be modeled as `skos:Concept`, but not
+vice versa(*"A SKOS concept can be viewed as an idea or notion; a unit of
+thought. However, what constitutes a unit of thought is subjective, and this
+definition is meant to be suggestive, rather than restrictive."*).
 
 All three classes represent a distinctive view that we want to adopt in
 modeling different features of taxon concepts. First, the biodiversity
@@ -942,8 +933,8 @@ TODO: add comment here
 <<Biological Systematics Model>>= 
 
 :TaxonConcept rdf:type owl:Class ;
-  rdfs:subClassOf dwc:Taxon ,
-                  frbr:Work ,
+  owl:sameAs dwc:Taxon ;
+  rdfs:subClassof frbr:Work ,
                   skos:Concept ,
                   [ rdf:type owl:Restriction ;
                     owl:onProperty frbr:realization ;
@@ -951,7 +942,6 @@ TODO: add comment here
                   [ rdf:type owl:Restriction ;
                     owl:onProperty :biologicalName ;
                     owl:minCardinality "1" ] .
-
 @
 ```
 
@@ -967,13 +957,12 @@ the label of the biological name and the expression that are assigned to the
 concept glued together by `sec.`.
 
 ```
-<<eg_taxon_concept>>=
+<<Examples>>=
 
 :heser-stoevi-sec-deltshev-2016 a :TaxonConcept ;
   dwciri:scientificName :heser-stoevi-deltschev ;
   frbr:realization :heser-stoevi-article ;
   skos:prefLabel "Heser stoevi Deltshev sec. 10.3897/BDJ.4.e10095" .
-
 
 :gbif2017 a fabio:Database ;
   skos:prefLabel "GBIF Backbone Taxonomy 20170301"@en ; 
@@ -1199,6 +1188,53 @@ openbiodiv:ChronologicalClassification
   fabio:hasDiscipline dbpedia:Paleontology .
 @
 ```
+
+## Directly imported external ontologies
+
+Some third party ontologies cannot be imported via `owl:imports` for various
+reasons (updated versions that we don't use, broken links, etc.) We add the
+objects that we borrow from them here.
+
+```
+<<External Ontology>>=
+
+  # Parts of PROTON
+
+top:Entity rdf:type owl:Class ;
+            rdfs:comment "Any sort of an entity of interest, usually something existing, happening, or purely abstract. Entities may have several - more than one - names or aliases."@en ;
+            rdfs:label "Entity"@en .
+
+ptop:Object rdf:type owl:Class ;
+            rdfs:subClassOf ptop:Entity ;
+            rdfs:comment "Objects are entities that could be claimed to exist - in some sense of existence. An object can play a certain role in some happenings. Objects could be substantially real - as the Buckingham Palace or a hardcopy book - or substantially imperceptible - for instance, an electronic document that exists only virtually, one cannot touch it."@en ;
+            rdfs:label "Object"@en .
+
+ptop:Statement rdf:type owl:Class ;
+               rdfs:subClassOf ptop:Object ;
+               rdfs:comment "A message that is stated or declared; a communication (oral or written), setting forth particulars or facts, etc; \"according to his statement he was in London on that day\". WordNet 1.7.1"@en ;
+               rdfs:label "Statement"@en .
+
+ptop:InformationResource rdf:type owl:Class ;
+                         rdfs:subClassOf ptop:Statement ;
+                         rdfs:comment "InformationResource denotes an information resource with identity, as defined in Dublin Core (DC2003ISO). InformationResource is considered any communication or message that is delivered or produced, taking into account the specific intention of its originator, and also the supposition (and anticipation) for a particular audience or counter-agent in the process of communication (i.e. passive or active feed-back)."@en ;
+                         rdfs:label "Information Resource"@en .
+
+pkm:mentions
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment """
+    A direct link between an information resource, like a document or a section and an entity.
+  """ ;
+      rdfs:domain ptop:InformationResource ;
+      rdfs:label "mentions" ;
+      rdfs:range psys:Entity .
+
+pext:Mention rdf:type owl:Class ;
+             rdfs:subClassOf ptop:InformationResource ;
+             rdfs:comment "An area of a document that can be considered a mention of something."@en ;
+             rdfs:label "Section" .
+@
+```
+
 ## TODO's
 
 
