@@ -1,30 +1,30 @@
 # OpenBiodiv RDF Guide
 
-This is the Open Biodiversity Knowledge Management System (OpenBiodiv) RDF Guide.
-In the rest of this document this discussed knowledge management system will
-also be referred to as OpenBiodiv. The guide is intended to explain to human
-users and define for computers the data model of OpenBiodiv and aid users in
-generating OpenBiodiv compatible RDF and in creating working SPARQL queries or
-other extensions.
+This is the Open Biodiversity Knowledge Management System (OpenBiodiv,
+formerly known as OBKMS) RDF Guide. The guide is intended to explain to humans
+and to define for computers the data model of OpenBiodiv and aid its users in
+generating OpenBiodiv-compatible RDF and in creating useful SPARQL queries or
+other useful extensions.
 
-This guide is a
-[literate programming](https://en.wikipedia.org/wiki/Literate_programming)
-document. *Literate programming* is the act of including source code within
-documentation. In usual software development practice the reverse holds true.
-Thus, the formal description of the data model, i.e. the
-[RDF](https://www.w3.org/RDF/) statements that form the ontology and the vocabularies, are found
-within the document itself and are extracted from it with the program
-`noweb`. `noweb` can be easily obtained for GNU Linux.
+This guide is a [literate
+programming](https://en.wikipedia.org/wiki/Literate_programming) document.
+Literate programming is the act of including source code within documentation.
+In usual software development practice the reverse holds true. By virtual of
+this programming paradigm, in this document the formal description of the data
+model, i.e. the [RDF](https://www.w3.org/RDF/) statements that form the
+ontology and the vocabularies, are found within the document itself and are
+extracted from it with the program `noweb`. `noweb` can be easily obtained for
+GNU Linux.
 
 ## Introduction
 
-**Motivation.** The raison d'être of the OpenBiodiv data model is to enable
+**Motivation.** The raison d'être of the OpenBiodiv Data Model is to enable
 the operation of a semantic database as part of OpenBiodiv. The data model
 consists of:
 
-1. A formal ontology, called from here on *OpenBiodiv Ontology*, introducing
-the entities that our knowledge base holds and giving axioms that restrict the
-ways in which they can be combined.
+1. A formal computer ontology expressed as RDF, called from here on OpenBiodiv
+Ontology, introducing the entities that our knowledge base holds and giving
+axioms that restrict the ways in which they can be combined.
 
 2. Formal vocabularies specified in RDF for particular application areas.
 
@@ -35,14 +35,26 @@ from (1) and (2) in our conceptualization of the universe of discourse.
 model to human users as the formal ontology necessarily will be more lax than
 the intended model.
 
-For a discussion see
-[Specification of Conceptualization](https://www.obitko.com/tutorials/ontologies-semantic-web/specification-of-conceptualization.html),
-as well as the article by
-[Guarino et al. (2009)](http://iaoa.org/isc2012/docs/Guarino2009_What_is_an_Ontology.pdf).
+Viewing the data model from another angle it
 
-As this is a literate programming document, we take the approach of explaining
-the data model to humans, and defining the OpenBiodiv Ontology as we progress
-with our explanations.
+(a) describes a view of the universe of discourse (biodiversity information),
+which we call conceptualization, and
+
+(b) introduces a formal way to store biodiversity information in a database.
+
+We do not believe other data providers ought to use the same formal way to
+store biodiversity information in their databases, as they might be using a
+different database. However, we do believe that should information exchange
+between OpenBiodiv and these other data providers occur, biodiversity
+information ought to at least follow the same conceptual model presented
+herein.
+
+For a discussion see [Specification of
+Conceptualization](https://www.obitko.com/tutorials/ontologies-semantic-web
+/specification-of-conceptualization.html), as well as the article by [Guarino
+et al.
+(2009)](http://iaoa.org/isc2012/docs/Guarino2009_What_is_an_Ontology.pdf).
+
 
 ```
 <<OpenBiodiv Ontology>>=
