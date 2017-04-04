@@ -466,19 +466,26 @@ biological taxonomic name or taxon concept label in a text."@en ;
   rdfs:label "Taxonomic Name Usage"@en .
 
 dwciri:scientificName rdf:type owl:ObjectProperty ;
-  rdfs:subPropertyOf pkm:mention ;
+  rdfs:subPropertyOf pkm:mentions ;
   rdfs:label "scientific name"@en ; 
-  rdfs:domain :ScientificName ;
+  rdfs:range :ScientificName ;
   rdfs:comment "'scientific name' is a property linking anything to a
 scientific name; should only be used with IRI's"@en ;
 
+:taxonConceptLabel rdf:type owl:ObjectProperty ;
+  rdfs:subPropertyOf :biologicalName ;
+  rdfs:label "taxon concept label"@en ;
+  rdfs:range :TaxonConceptLabel ;
+  rdfs:comment "like 'scientif name' but more narrow, works only for TCL's"@en .
+
 dwciri:nameAccordingTo rdf:type owl:ObjectProperty ;
   rdfs:label "sec."@en ; 
-  rdfs:domain frbr:Work ;
+  rdfs:range frbr:Work ;
   rdfs:comment "The reference to the source in which the specific taxon concept circumscription is defined or implied - traditionally signified by the Latin 'sensu' or 'sec.'' (from secundum, meaning 'according to'). For taxa that result from identifications, a reference to the keys, monographs, experts and other sources should be given. Should only be used with IRI's"@en ;
 @
 
 ```
+TODO: check if it is `pkm:mentions` or mention
 
 **Important note:** In the logic of our algorithms, it is very important that
 TNU's are dated with `dc:date`.
@@ -493,17 +500,15 @@ In the second step of RDF-ization, we use `dwciri` properties to link the TNU
 to semantic entities. `dwciri:taxonomicStatus` is used to link the TNU to an
 item in the
 [OpenBiodiv Taxonomic Status Vocabulary](#vocabulary-of-taxon-classification).
-`dwciri:scientificName` is used to link the TNU to the URI of the name that
-the TNU is mentioning. Note, we are introducing `dwciri:scientificName` as
-a sub-property of `ptop:mention` later.
+`dwciri:scientificName` is used to link the TNU to the IRI of the name that
+the TNU is mentioning. Note, we have introduced `dwciri:scientificName` as
+a sub-property of `ptop:mention`. In this example it is linked both to local
+name and to a remote name. This implies that the names are the same.
 
-and `dwciri:taxonId` is used to link the TNU to an external taxon concept label.
-Also, during the second step, the TNU is linked to the reified scientific name
-*Heser stoevi* Deltshev and to the taxon concept label *Heser stoevi* sec Deltshev
-(2016) as even though the text-content of TNU does not contain a "sec.",
-we know for certain which concept the author is invoking as we are in the
-treatment title. The link between the TNU and the local taxon concept is
-also made via `pkm:mentions`.
+Also, during the second step, the TNU is linked to the reified taxon concept
+label *Heser stoevi* sec Deltshev (2016) via `:taxonConceptLabel` as even
+though the text-content of the TNU does not contain a "sec.", we know for
+certain which concept the author is invoking as we are in the treatment title.
 
 ```
 <<Examples>>=
@@ -526,11 +531,14 @@ also made via `pkm:mentions`.
 
   dwciri:scientificName :heser-stoevi-deltshev , <http://zoobank.org/urn:lsid:zoobank.org:act:E4D7D5A0-D649-4F5E-9360-D0488D73EEE8> ;
 
-  pkm:mentions <http://zoobank.org/urn:lsid:zoobank.org:act:E4D7D5A0-D649-4F5E-9360-D0488D73EEE8> ,
-  				:Heser-Stoevi-sec-Deltshev .
+  :taxonConceptLabel :heser-stoevi-sec-deltshev .
+
+:heser-stoevi-deltshev owl:sameAs <http://zoobank.org/urn:lsid:zoobank.org:act:E4D7D5A0-D649-4F5E-9360-D0488D73EEE8> .
 @
      
 ```
+
+TODO: create  rule for sameness of names, if a TNU points to two different names with `dwciri:scientificName`.
 
 ### Biological Taxonomy and Systematics
 
