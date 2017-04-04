@@ -407,7 +407,7 @@ trt:NomenclatureCitationList a owl:Class ;
 @
 ```
 
-**Example (Nomenclature).**
+**Example:** In this example, we show how to define a nomenclature section:
 
 ```
 <<Examples>>=
@@ -447,7 +447,7 @@ bears taxonomic (and nomenclatural) information indicating that this is a
 species new to science.
 
 Modeling-wise, we consider TNU's to be specialized instances of Mention from
-the [PROTON Extensions module] (http://ontotext.com/proton/). Furthermore we
+the [PROTON Extensions module](http://ontotext.com/proton/). Furthermore we
 link the TNU's to the scientific name they are symbolizing via `pkm:mentions`.
 
 **Def. (Taxonomic Name Usage):** *A taxonomic name usage is the mentioning of a
