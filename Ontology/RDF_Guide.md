@@ -181,9 +181,9 @@ into these domains.
 
 Another way to look at the entities that OpenBiodiv manages is the structural
 way. As the main sources of information for OpenBiodiv are scientific
-articles, we can separate the entities that are extracted in entities which
+articles, we can separate the entities that are extracted in entities that
 are structural parts of the articles such as articles, paragraphs, sections,
-tables, figures, etc. and entities which are talked about - the actual
+tables, figures, etc., and entities that are talked about -- the actual
 (domain-specific) information contained in the articles.
 
 Both ways of looking at the entities are compatible with each other. The
@@ -194,8 +194,8 @@ well.
 Entity extraction from taxonomic articles can happen in two phases:
 
 1. Conversion of XML elements into RDF triples following the structure of the
-XML. In this stage key XML elements are transformed into bibliographic
-elements. XML elements denoting sections become `doco:Section`'s, figures
+XML. In this stage, key XML elements are transformed into bibliographic
+elements. E.g., XML elements denoting sections become `doco:Section`'s, figures
 become `doco:Figure`'s, etc. Here no information extraction is taking place
 and no additional semantics are added. This step can be completed linearly
 without any external lookups.
