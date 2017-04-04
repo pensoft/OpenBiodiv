@@ -451,8 +451,10 @@ the [PROTON Extensions module](http://ontotext.com/proton/). Furthermore, we
 link the TNU's to the scientific name they are symbolizing via `pkm:mentions`.
 TODO: check!
 
-**Def. (Taxonomic Name Usage):** *A taxonomic name usage is the mentioning of a
-biological taxonomic name or taxon concept label (see later) in a text:*
+**Def. (Taxonomic Name Usage, scientific name):** *A taxonomic name usage
+is the mentioning of a biological taxonomic name or taxon concept label (see
+later) in a text; 'scientific name' is a property linking anything to a
+scientific name:*
 
 ```
 <<Taxonomic Name Usage>>=
@@ -461,7 +463,14 @@ biological taxonomic name or taxon concept label (see later) in a text:*
   rdfs:subClassOf  pext:Mention ;
   rdfs:comment "A taxonomic name usage is the mentioning of a
 biological taxonomic name or taxon concept label in a text."@en ;
-  rdfs:label "Taxonomic Name Usage"@en . 
+  rdfs:label "Taxonomic Name Usage"@en .
+
+dwciri:scientificName rdf:type owl:ObjectProperty ;
+  rdfs:subPropertyOf pkm:mention ;
+  rdfs:label "scientific name"@en ; 
+  rdfs:domain :ScientificName ;
+  rdfs:comment "'scientific name' is a property linking anything to a
+scientific name" ;
 @
 ```
 
@@ -469,19 +478,22 @@ biological taxonomic name or taxon concept label in a text."@en ;
 TNU's are dated with `dc:date`.
 
 **Example:** In the following example, we express in RDF a TNU that is in the
-nomenclature heading of a treatment (treatment title). This automatically
-make the TNU into a taxon concept label. The connection to the
-nomenclature heading is via `po:contains`; `cnt:chars` is used  to dump the
-full string of the usage; and DwC properties are used to encode more granular
-information in addition to the dump.
+nomenclature heading of a treatment (treatment title). Structurally, the TNU
+is connected to the containing section via `po:contains`; `cnt:chars` is used
+to dump the full string of the usage; and DwC properties are used to encode
+more granular information in addition to the dump.
 
 In the second step of RDF-ization, we use `dwciri` properties to link the TNU
 to semantic entities. `dwciri:taxonomicStatus` is used to link the TNU to an
 item in the
-[OpenBiodiv Taxonomic Status Vocabulary](#vocabulary-of-taxon-classification)
-and `dwciri:taxonId` is used to link the TNU to an external taxon concept.
+[OpenBiodiv Taxonomic Status Vocabulary](#vocabulary-of-taxon-classification).
+`dwciri:scientificName` is used to link the TNU to the URI of the name that
+the TNU is mentioning. Note, we are introducing `dwciri:scientificName` as
+a sub-property of `ptop:mention` later.
+
+and `dwciri:taxonId` is used to link the TNU to an external taxon concept label.
 Also, during the second step, the TNU is linked to the reified scientific name
-*Heser stoevi* Deltshev and to the taxon concept *Heser stoevi* sec Deltshev
+*Heser stoevi* Deltshev and to the taxon concept label *Heser stoevi* sec Deltshev
 (2016) as even though the text-content of TNU does not contain a "sec.",
 we know for certain which concept the author is invoking as we are in the
 treatment title. The link between the TNU and the local taxon concept is
@@ -492,13 +504,13 @@ also made via `pkm:mentions`.
 
 :heser-stoevi-nomenclature-heading po:contains :heser-stoevi-tnu .
 
-:heser-stoevi-tnu a :TaxonConceptLabel .
+:heser-stoevi-tnu a :TaxonomicNameUsage .
   dc:date "2016-08-31"^^xsd:date ;
   cnt:chars
   "Heser stoevi urn:lsid:zoobank.org:act:E4D7D5A0-D649-4F5E-9360-D0488D73EEE8 Deltschev sp. n." ;
   dwc:genus "Heser" ;
   dwc:species "stoevi" ;
-  dwc:taxonId "urn:lsid:zoobank.org:act:E4D7D5A0-D649-4F5E-9360-D0488D73EEE8 (ZooBank)" ;
+  dwc:scientificNameId "urn:lsid:zoobank.org:act:E4D7D5A0-D649-4F5E-9360-D0488D73EEE8 (ZooBank)" ;
   dwc:scientificNameAuthorship "Deltschev" ;
   dwc:taxonomicStatus "sp. n." ;
   dwc:nameAccordingToId "10.3897/BDJ.4.e10095" ;
@@ -506,7 +518,9 @@ also made via `pkm:mentions`.
   dwciri:taxonomicStatus :TaxonDiscovery ;
   dwciri:nameAccordingToId <http://dx.doi.org/10.3897/BDJ.4.e10095> ;
 
-  pkm:mentions :heser-stoevi-deltshev, <http://zoobank.org/urn:lsid:zoobank.org:act:E4D7D5A0-D649-4F5E-9360-D0488D73EEE8> ,
+  dwciri:scientificName :heser-stoevi-deltshev ;
+
+  pkm:mentions <http://zoobank.org/urn:lsid:zoobank.org:act:E4D7D5A0-D649-4F5E-9360-D0488D73EEE8> ,
   				:Heser-Stoevi-sec-Deltshev .
 @
      
