@@ -8,7 +8,7 @@ other useful extensions.
 
 This guide is a
 [literate programming](https://en.wikipedia.org/wiki/Literate_programming)
-document. *Literate programming* is the act of including source code within
+document. Literate programming is the act of including source code within
 documentation. In usual software development practice the reverse holds true.
 Thus, the formal description of the data model, i.e. the
 [RDF](https://www.w3.org/RDF/) statements that form the ontology and the vocabularies, are found
