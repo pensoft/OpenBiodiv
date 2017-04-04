@@ -451,7 +451,7 @@ the [PROTON Extensions module](http://ontotext.com/proton/). Furthermore, we
 link the TNU's to the scientific name they are symbolizing via `pkm:mentions`.
 TODO: check!
 
-**Def. (Taxonomic Name Usage, scientific name):** *A taxonomic name usage
+**Def. (Taxonomic Name Usage, 'scientific name', 'sec.'):** *A taxonomic name usage
 is the mentioning of a biological taxonomic name or taxon concept label (see
 later) in a text; 'scientific name' is a property linking anything to a
 scientific name:*
@@ -473,7 +473,7 @@ dwciri:scientificName rdf:type owl:ObjectProperty ;
 scientific name; should only be used with IRI's"@en ;
 
 dwciri:nameAccordingTo rdf:type owl:ObjectProperty ;
-  rdfs:label "name according to ID"@en ; 
+  rdfs:label "sec."@en ; 
   rdfs:domain frbr:Work ;
   rdfs:comment "The reference to the source in which the specific taxon concept circumscription is defined or implied - traditionally signified by the Latin 'sensu' or 'sec.'' (from secundum, meaning 'according to'). For taxa that result from identifications, a reference to the keys, monographs, experts and other sources should be given. Should only be used with IRI's"@en ;
 @
