@@ -17,7 +17,7 @@ within the document itself and are extracted from it with the program
 
 ## Introduction
 
-**Motivation.** The raison d'être of the OpenBiodiv data model is to enable
+**Motivation.** The raison d'être of the OpenBiodiv Data Model is to enable
 the operation of a semantic database as part of OpenBiodiv. The data model
 consists of:
 
