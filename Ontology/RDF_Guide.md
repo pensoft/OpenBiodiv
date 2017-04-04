@@ -198,12 +198,12 @@ XML. In this stage, key XML elements are transformed into bibliographic
 elements. E.g., XML elements denoting sections become `doco:Section`'s, figures
 become `doco:Figure`'s, etc. Here no information extraction is taking place
 and no additional semantics are added. This step can be completed linearly
-without any external lookups.
+without any external lookups. Key here is that the XML-hierachy is preserved
+in RDF via, for example, `po:contains`.
 
 2. Named entity recognition, coreferencing, and named entity identification.
 During this step, non-structural entities are extracted from the informaiton
-presented in the structural elements in the form of text or attributes that
-have been transformed into properties. The details of how this done are beyond
+present in the structural elements in the form of text or attributes. The details of how this done are beyond
 the scope of this guide but it is important to note that an attempt is made to
 coreference - i.e. match multiple bibliographic elements to the same non-
 bibliographic entity, if they do in fact refer to the same entity in the sense
