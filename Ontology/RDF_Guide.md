@@ -4,7 +4,7 @@ This is the Open Biodiversity Knowledge Management System (OpenBiodiv, formerly 
 The guide is intended to explain to humans
 and to define for computers the data model of OpenBiodiv and aid its users in
 generating OpenBiodiv-compatible RDF and in creating useful SPARQL queries or
-other extensions.
+other useful extensions.
 
 This guide is a
 [literate programming](https://en.wikipedia.org/wiki/Literate_programming)
