@@ -465,7 +465,7 @@ biological taxonomic name or taxon concept label in a text."@en ;
 @
 ```
 
-**Important note.** or the logic of our algorithms, it is very important that
+**Important note:** In the logic of our algorithms, it is very important that
 TNU's are dated with `dc:date`.
 
 **Example:** In the following example, we express in RDF a TNU that is in the
@@ -478,7 +478,7 @@ information in addition to the dump.
 In the second step of RDF-ization, we use `dwciri` properties to link the TNU
 to semantic entities. `dwciri:taxonomicStatus` is used to link the TNU to an
 item in the
-[OpenBiodiv Taxonomic Status Vocabulary](taxonomic_status_vocabulary/taxonomic_status_vocabulary.md)
+[OpenBiodiv Taxonomic Status Vocabulary](#vocabulary-of-taxon-classification)
 and `dwciri:taxonId` is used to link the TNU to an external taxon concept.
 Also, during the second step, the TNU is linked to the reified scientific name
 *Heser stoevi* Deltshev and to the taxon concept *Heser stoevi* sec Deltshev
