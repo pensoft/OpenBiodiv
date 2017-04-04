@@ -175,8 +175,9 @@ The following Turtle code can be extracted from the prefix database with
 **Types of entities that OpenBiodiv manages.** There are two ways to look at
 the types of entities that OpenBiodiv manages. The first way is to look at the
 application domain. OpenBiodiv's application domain is the semantic publishing
-of taxonomic, systematic, biodiversity, and related information. Therefore,
-the entities that OpenBiodiv manages are separated into these domains.
+of taxonomic, systematic, biodiversity, genomic, ecologic, and related
+information. Therefore, the entities that OpenBiodiv manages are separated
+into these domains.
 
 Another way to look at the entities that OpenBiodiv manages is the structural
 way. As the main sources of information for OpenBiodiv are scientific
