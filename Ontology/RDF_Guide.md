@@ -468,7 +468,7 @@ biological taxonomic name or taxon concept label in a text."@en ;
 **Important note.** or the logic of our algorithms, it is very important that
 TNU's are dated with `dc:date`.
 
-**Example:** In the following example, we express in RDF a TNU which is the
+**Example:** In the following example, we express in RDF a TNU that is in the
 nomenclature heading of a treatment (treatment title). This automatically
 make the TNU into a taxon concept label. The connection to the
 nomenclature heading is via `po:contains`; `cnt:chars` is used  to dump the
