@@ -447,31 +447,21 @@ bears taxonomic (and nomenclatural) information indicating that this is a
 species new to science.
 
 Modeling-wise, we consider TNU's to be specialized instances of Mention from
-the [PROTON Extensions module](http://ontotext.com/proton/). Furthermore we
+the [PROTON Extensions module](http://ontotext.com/proton/). Furthermore, we
 link the TNU's to the scientific name they are symbolizing via `pkm:mentions`.
+TODO: check!
 
 **Def. (Taxonomic Name Usage):** *A taxonomic name usage is the mentioning of a
-biological taxonomic name in a text. A taxon concept label is a taxonomic name
-usage accompanied by an additional part, consisting of "sec." + an identifier
-or a literature reference of a work containing the expression of a taxon concept
-(treatment).*
+biological taxonomic name or taxon concept label (see later) in a text:*
 
 ```
 <<Taxonomic Name Usage>>=
 
 :TaxonomicNameUsage rdf:type owl:Class ;
   rdfs:subClassOf  pext:Mention ;
-  rdfs:comment "A string within a document that can be considered a mention of a
-                  biological name."@en ;
+  rdfs:comment "A taxonomic name usage is the mentioning of a
+biological taxonomic name or taxon concept label in a text."@en ;
   rdfs:label "Taxonomic Name Usage"@en . 
-
-:TaxonConceptLabel rdf:type owl:Class ;
-	rdfs:subClassOf :TaxonomicNameUsage ;
-	rdfs:label "Taxon Concept Label"@en ;
-	rdfs:comment "A taxon concept label is a taxonomic name
-usage accompanied by an additional part, consisting of "sec." + an identifier
-or a literature reference of a work containing the expression of a taxon concept
-(treatment)." @en .
 @
 ```
 
@@ -555,6 +545,14 @@ convey information from the domain of biological systematics.
 ```
 
 #### Biological Names
+
+:TaxonConceptLabel rdf:type owl:Class ;
+  rdfs:subClassOf :TaxonomicNameUsage ;
+  rdfs:label "Taxon Concept Label"@en ;
+  rdfs:comment "A taxon concept label is a taxonomic name
+usage accompanied by an additional part, consisting of "sec." + an identifier
+or a literature reference of a work containing the expression of a taxon concept
+(treatment)." @en .
 
 In OpenBiodiv, we reify biological names.
 
