@@ -49,11 +49,9 @@ should information exchange between OpenBiodiv and these other data providers
 occur, biodiversity information ought to at least follow the same conceptual
 model presented herein.
 
-For a discussion see [Specification of
-Conceptualization](https://www.obitko.com/tutorials/ontologies-semantic-web
-/specification-of-conceptualization.html), as well as the article by [Guarino
-et al.
-(2009)](http://iaoa.org/isc2012/docs/Guarino2009_What_is_an_Ontology.pdf).
+For a discussion see
+[Specification of Conceptualization](https://www.obitko.com/tutorials/ontologies-semantic-web/specification-of-conceptualization.html), as well as the article by
+[Guarino et al. (2009)](http://iaoa.org/isc2012/docs/Guarino2009_What_is_an_Ontology.pdf).
 
 
 ```
