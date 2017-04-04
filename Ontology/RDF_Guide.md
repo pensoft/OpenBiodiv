@@ -66,7 +66,6 @@ top-level structure of the ontology is defined:
 <<Model of Biological Systematics>>
 <<Vocabulary of Taxonomic Statuses>>
 <<Borrowed Parts from External Ontology>>
-
 @
 ```
 
@@ -84,7 +83,6 @@ openbiodiv:
   rdfs:label "OpenBiodiv Core Ontology" ;
   dc:creator "Viktor Senderov, Terry Catapano, Kiril Simov, Lyubomir Penev" ;
   dc:rights "CCBY" .
-
 @
 ```
 
@@ -110,7 +108,7 @@ notangle -R"OpenBiodiv Ontology" RDF_Guide.md > OpenbBodiv.ttl
 ```
 <<Examples>>=
 
- # These are the examples for the OpenBiodiv data model.
+# These are the examples for the OpenBiodiv data model.
 @
 ```
 
@@ -121,12 +119,6 @@ notangle -RExamples RDF_Guide.md > Examples.ttl
 ```
 
 TODO: check for prefix consistency for all imported ontologies.
-
-**Commands to extract the vocabularies.**
-
-```
-notangle -R"Vocabulary Taxonomic Statuses" RDF_Guide.md > TaxonomicStatuses.ttl
-```
 
 
 **Incorporated external ontologies.** Our data model is a natural extension of
@@ -1588,7 +1580,7 @@ objects that we borrow from them here.
 ```
 <<External Ontology>>=
 
-  # Parts of PROTON
+# Parts of PROTON
 
 top:Entity rdf:type owl:Class ;
             rdfs:comment "Any sort of an entity of interest, usually something existing, happening, or purely abstract. Entities may have several - more than one - names or aliases."@en ;
