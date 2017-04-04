@@ -470,7 +470,12 @@ dwciri:scientificName rdf:type owl:ObjectProperty ;
   rdfs:label "scientific name"@en ; 
   rdfs:domain :ScientificName ;
   rdfs:comment "'scientific name' is a property linking anything to a
-scientific name" ;
+scientific name; should only be used with IRI's"@en ;
+
+dwciri:nameAccordingTo rdf:type owl:ObjectProperty ;
+  rdfs:label "name according to ID"@en ; 
+  rdfs:domain frbr:Work ;
+  rdfs:comment "The reference to the source in which the specific taxon concept circumscription is defined or implied - traditionally signified by the Latin 'sensu' or 'sec.'' (from secundum, meaning 'according to'). For taxa that result from identifications, a reference to the keys, monographs, experts and other sources should be given. Should only be used with IRI's"@en ;
 @
 
 ```
@@ -517,9 +522,9 @@ also made via `pkm:mentions`.
   dwc:nameAccordingToId "10.3897/BDJ.4.e10095" ;
 
   dwciri:taxonomicStatus :TaxonDiscovery ;
-  dwciri:nameAccordingToId <http://dx.doi.org/10.3897/BDJ.4.e10095> ;
+  dwciri:nameAccordingTo <http://dx.doi.org/10.3897/BDJ.4.e10095> ;
 
-  dwciri:scientificName :heser-stoevi-deltshev ;
+  dwciri:scientificName :heser-stoevi-deltshev , <http://zoobank.org/urn:lsid:zoobank.org:act:E4D7D5A0-D649-4F5E-9360-D0488D73EEE8> ;
 
   pkm:mentions <http://zoobank.org/urn:lsid:zoobank.org:act:E4D7D5A0-D649-4F5E-9360-D0488D73EEE8> ,
   				:Heser-Stoevi-sec-Deltshev .
