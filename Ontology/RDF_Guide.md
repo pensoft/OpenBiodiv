@@ -21,7 +21,7 @@ within the document itself and are extracted from it with the program
 the operation of a semantic database as part of OpenBiodiv. The data model
 consists of:
 
-1. A formal ontology, called from here on *OpenBiodiv Ontology*, introducing
+1. A formal computer ontology expressed as RDF, called from here on *penBiodiv Ontology, introducing
 the entities that our knowledge base holds and giving axioms that restrict the
 ways in which they can be combined.
 
