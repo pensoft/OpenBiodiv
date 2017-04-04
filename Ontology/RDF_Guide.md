@@ -102,7 +102,7 @@ from `noweb`.
 **Command to extract the Core Ontology.**
 
 ```
-notangle -ROntology RDF_Guide.md > nowebonto.ttl
+notangle -R"OpenBiodiv Ontology" RDF_Guide.md > OpenbBodiv.ttl
 ```
 
 **Examples.** This document also contains some examples.
