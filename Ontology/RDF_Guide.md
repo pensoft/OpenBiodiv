@@ -53,23 +53,27 @@ For a discussion see
 [Specification of Conceptualization](https://www.obitko.com/tutorials/ontologies-semantic-web/specification-of-conceptualization.html), as well as the article by
 [Guarino et al. (2009)](http://iaoa.org/isc2012/docs/Guarino2009_What_is_an_Ontology.pdf).
 
+**Def. (OpenBiodiv Ontology):** In the following code-chunk that will be
+extracted by `notangle` (you can use the `Makefile` for this purpose), the
+top-level structure of the ontology is defined:
 
 ```
 <<OpenBiodiv Ontology>>=
 
 <<Prefixes>>
-<<Ontology Title>>
-<<Publishing Domain Model>>
-<<Biological Systematics Model>>
+<<Ontology Metadata>>
+<<Model of the Publishing Domain>>
+<<Model of Biological Systematics>>
+<<Vocabulary of Taxonomic Statuses>>
+<<Borrowed Parts from External Ontology>>
 
-<<Vocabulary Taxonomic Statuses>>
-
-<<External Ontology>>
-
-<<Examples>>
 @
+```
 
-<<Ontology Title>>=
+**Def. (Ontology Metadata):**
+
+```
+<<Ontology Metadata>>=
 
 openbiodiv:
   rdf:type owl:Ontology ;
@@ -86,13 +90,14 @@ openbiodiv:
 
 TODO: Authors list needs to be emended.
 
-We've just defined our *root chunk*, `Ontology`. In the `noweb` way of doing
-literate programming, we write our source in chunks. Each chunk has a name
-that is found between the `@<<` (TODO: not sure how to escape this character)
-and `>>` and ends in `@`. Chunks can contain other chunks and thus the writing
-of the source code becomes hierarchical and non- linear. In the root chunk,
-we've listed other chunks that we'll introduce later and some verbatim code.
-In order to create the ontology we use the `notangle` command from `noweb`.
+**Note:** We've just defined our *root chunk*, `Ontology`. In the `noweb` way
+of doing literate programming, we write our source in chunks. Each chunk has a
+name that is found between the `@<<` (TODO: not sure how to escape this
+character) and `>>` and ends in `@`. Chunks can contain other chunks and thus
+the writing of the source code becomes hierarchical and non-linear. In the
+root chunk, we've listed other chunks that we'll introduce later and some
+verbatim code. In order to create the ontology we use the `notangle` command
+from `noweb`.
 
 **Command to extract the Core Ontology.**
 
