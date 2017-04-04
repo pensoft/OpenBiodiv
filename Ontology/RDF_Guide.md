@@ -171,8 +171,6 @@ The following Turtle code can be extracted from the prefix database with
 @prefix : <http://openbiodiv.net/> .
 @
 ```
-TODO: add base prefix to YAML database
-
 
 **Types of entities that OpenBiodiv manages.** There are two ways to look at
 the types of entities that OpenBiodiv manages. The first way is to look at the
