@@ -44,10 +44,10 @@ which we call conceptualization, and
 
 We do not believe other data providers ought to use the same formal way to
 store biodiversity information in their databases, as they might be using a
-different database. However, we do believe that should information exchange
-between OpenBiodiv and these other data providers occur, biodiversity
-information ought to at least follow the same conceptual model presented
-herein.
+different database application, or even paradigm. However, we do believe that
+should information exchange between OpenBiodiv and these other data providers
+occur, biodiversity information ought to at least follow the same conceptual
+model presented herein.
 
 For a discussion see [Specification of
 Conceptualization](https://www.obitko.com/tutorials/ontologies-semantic-web
