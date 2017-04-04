@@ -177,7 +177,7 @@ the types of entities that OpenBiodiv manages. The first way is to look at the
 application domain. OpenBiodiv's application domain is the semantic publishing
 of taxonomic, systematic, biodiversity, genomic, ecologic, and related
 information. Therefore, the entities that OpenBiodiv manages are separated
-into these domains.
+across these domains.
 
 Another way to look at the entities that OpenBiodiv manages is the structural
 way. As the main sources of information for OpenBiodiv are scientific
