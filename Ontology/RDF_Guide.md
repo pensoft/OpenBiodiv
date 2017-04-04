@@ -1,6 +1,6 @@
 # OpenBiodiv RDF Guide
 
-This is the Open Biodiversity Knowledge Management System (OBKMS) RDF Guide.
+This is the Open Biodiversity Knowledge Management System (OpenBiodiv) RDF Guide.
 In the rest of this document this discussed knowledge management system will
 also be referred to as OpenBiodiv. The guide is intended to explain to human
 users and define for computers the data model of OpenBiodiv and aid users in
@@ -283,7 +283,7 @@ and Journal using SPAR.
   dcterms:publisher "Pensoft Publishers" ;
   frbr:hasPart :article . 
 
-:heser-stoevi-article a fabio:JournalArticle ;
+<http://dx.doi.org/10.3897/BDJ.4.e10095> a fabio:JournalArticle ;
   skos:prefLabel "10.3897/BDJ.4.e10095" ;
   prism:doi "10.3897/BDJ.4.e10095" ;
   fabio:hasPublicationYear "2016"^^xsd:gYear ;
@@ -591,7 +591,6 @@ them to their NOMEN equivalents.
   rdfs:subClassOf :biologicalName ;
   rdfs:label "Vernacular Name"@en ;
   ownl:sameAs nomen:NOMEN_0000037 .
-
 @
 ```
 
@@ -620,6 +619,11 @@ with a super-property to refer to a more broader class of names.
 	rdfs:label "has scientific name" @en ;
 	owl:sameAs dwciri:scientificName ;
 	rdfs:range :ScientificName .
+
+:nameAccordingTo rdf:type owl:ObjectProperty ;
+  rdfs:label "sec" ;
+  owl:sameAs dwciri:nameAccordingTo ;
+  rfs:range frbr:Expression .
 
 :vernacularName rdf:type owl:ObjectProperty ;
 	rdfs:label "has vernacular name" @en ;
@@ -893,13 +897,33 @@ From it, we can say:
 
 #### Taxon Concepts
 
-**Discussion.** Our view of taxon concepts is based on
-[Berendsohn (1995)](http://www.jstor.org/stable/1222443)
-and
-[Franz et al (2008)](http://dx.doi.org/10.1201/9781420008562.ch5).
-We consider a taxon concept to be a scientific theory about a group of
-biological organisms. Taxon concepts can be expressed as treatments in
-scientific articles or as a group of records in a database.
+**Discussion.** Our view of taxon concepts is based on [Berendsohn
+(1995)](http://www.jstor.org/stable/1222443) and [Franz et al
+(2008)](http://dx.doi.org/10.1201/9781420008562.ch5). We consider any given
+taxon concept to be a scientific theory (concept) about a class of biological
+organisms (taxon). The class description, as in "as in all spiders have
+spinnerets (silk-producing glands)" (Nico Franz, personal correspondence), is
+called *intensional meaning,* whereas the group of organisms in nature
+conforming with the intensional meaning is called the class *extension.* In our
+view the words "taxon" and "taxon concept" are the two sides of the same coin:
+taxon concept stresses the intensional meaning
+
+As we do want to model both the intensional meaning (traits of taxa) and the
+extension  of taxon concepts (occurrences of taxa)
+
+and the
+extensions being organisms that are considered to be members of the class.
+
+As we do want to talk both about the taxon concepts themselves, i.e. to
+explicitly specify their intensional meaning 
+This necessitates the view that taxon concepts are both instances
+of a Taxon Concept class and are classes of ogranisms of each individual
+organisms may be instances. Later, we will show that this means that
+we model Taxon Concepts with OWL Full.
+
+Taxon concepts can be expressed as works of human thought (`frbr:Work`), for
+instance as treatments in scientific articles or as a group of records in a
+database.
 
 Thus, OpenBiodiv taxon concepts are instances of `dwc:Taxon` and vice versa
 (*"A group of organisms [sic] considered by taxonomists to form a homogeneous
@@ -944,10 +968,10 @@ TODO: add comment here
   rdfs:subClassof frbr:Work ,
                   skos:Concept ,
                   [ rdf:type owl:Restriction ;
-                    owl:onProperty frbr:realization ;
+                    owl:onProperty dwciri:scientificName ;
                     owl:minCardinality "1" ] ,
                   [ rdf:type owl:Restriction ;
-                    owl:onProperty :biologicalName ;
+                    owl:onProperty dwciri:nameAccordingTo ;
                     owl:minCardinality "1" ] .
 @
 ```
@@ -967,40 +991,28 @@ concept glued together by `sec.`.
 <<Examples>>=
 
 :heser-stoevi-sec-deltshev-2016 a :TaxonConcept ;
-  dwciri:scientificName :heser-stoevi-deltschev ;
-  frbr:realization :heser-stoevi-article ;
-  skos:prefLabel "Heser stoevi Deltshev sec. 10.3897/BDJ.4.e10095" .
+  skos:prefLabel "Heser stoevi sec. 10.3897/BDJ.4.e10095" ;
+  dwciri:scientificName :heser-stoevi-deltshev ;
+  dwciri:nameAccordingTo <http://dx.doi.org/10.3897/BDJ.4.e10095> .
 
-:gbif20170323 a fabio:Database ;
+:heser-stoevi-sec-gbif20170323 a :TaxonConcept ;
+  skos:prefLabel "Heser stoevi sec. doi:10.15468/39omei" ;
+  dwciri:scientificName :heser-stoevi-deltshev ;
+  dwciri:nameAccordingTo :gbif20170323 .
+
+<http://dx.doi.org/doi:10.15468/39omei> a fabio:Database ;
+  skos:prefLabel "GBIF Backbone Taxonomy" ;
+  skos:altLabel "doi:10.15468/39omei" ;
+  prism:doi "doi:10.15468/39omei" ; 
   dc:date "2017-03-23"^^xsd:date ;
-  skos:prefLabel "doi:10.15468/39omei" ; 
   rdfs:comment "A dump of GBIF's backbone taxonomy on 23 Mar 2017."@en ;
-  po:contains protozoa-gbif-tnu .
-
-:protozoa-gbif-tnu a :TaxonConceptLabel ; # because you can directly link to GBIF concepts
-  dc:date "2017-03-23"^^xsd:date ;
-  dwc:taxonId "7 (GBIF)" ;
-  dwc:scientificName "Protozoa" ;
-  dwciri:scientificName :protozoa ;
-  dwc:nameAccordingTo "doi:10.15468/39omei" ;
-  dwciri:nameAccordingTo :gbif20170323 ;
-  dwc:taxonRank "kingdom" ;
-  dwc:taxonomicStatus "accepted" ;
-  dwciri:taxonomicStatus :Available ;
-  dwc:kingdom "Protozoa" ;
-  pkm:mentions :protozoa-sec-gbif20170323 .
-
-:protozoa-sec-gbif20170323 a :TaxonConcept ;
-  dwciri:scientificName :protozoa ;
-  frbr:realization :gbif2017 ;
-  skos:prefLabel "Heser stoevi sec. GBIF Backbone Taxonomy 20170323" .
-
-:protozoa a :ScientificName ;
-  dwc:scientificName "Protozoa" ;
-  dwc:taxonRank "kingdom" ;
-  dwciri:taxonomicStatus :Available ;
-  dc:date "2017-03-23"^^xsd:date .
-
+  po:contains [ a :TaxonConceptLabel ;
+                dc:date ""2017-03-23"^^xsd:date ;
+                dwc:scientificName "Heser stoevi Deltshev, 2016" ;
+                dwc:nameAccordingTo "GBIF Backbone Taxonomy" ;
+                dwciri:nameAccordingTo <http://dx.doi.org/doi:10.15468/39omei> ;
+                dwciri:scientificName :heser-stoevi-deltshev ;
+                pkm:mentions :heser-stoevi-sec-gbif20170323 . ] .
 @
 ```
 
@@ -1008,45 +1020,57 @@ Note that in the above example one scientific name, *Heser stoevi*, is
 linked to two different taxon concepts, as one taxon concept comes
 from the article and another one comes from the GBIF database.
 
-It is possible to express that these are the same thing, that one
-is a subconcept of the other, or even more granular relationships.
-
+It is possible to express that these are the same thing, that one is a
+subconcept of the other, or even more granular relationships.
 
 #### Taxon Concept Relationships
 
-##### Simple Taxon Concept Relationships with SKOS
+**Example of congruent concepts.** We model sameness of taxon concepts with `skos:exactMatch` as we
+do not want the inferenetial consequences of `owl:sameAs`. For example, if two
+taxon concepts have different scientific names but are considered to be the
+same, the use of `owl:sameAs` would imply copying the scientific name property
+from one concept to the other, which we do not want. Or the labels will get copied.
+Note that we can always gather the properties later in SPARQL.
+[SKOS primer](https://www.w3.org/TR/skos-primer/).
 
-One way to model taxon concept relationships is with SKOS. This has
-no inferential concequences and is suitable for data integration
-purposes.
-
-**Example (two taxon concepts are the same).**
 
 ```
-<<eg_taxon_concept>>=
+<<Examples>>=
 
-:heser-stoevi-deltschev-sec-deltschev skos:exactMatch :taxon-concept2 .
-
+:heser-stoevi-sec-deltschev owl:equivalentClass :heser-stoevi-sec-gbif20170323 .
 @
-```
-
-This has no inferenetial consequences unlike `owl:sameAs`. Note from the
-[SKOS primer](https://www.w3.org/TR/skos-primer/):
-
-"Note on skos:exactMatch vs. owl:sameAs: SKOS provides skos:exactMatch to map concepts with equivalent meaning, and intentionally does not use owl:sameAs from the OWL ontology language [OWL]. When two resources are linked with owl:sameAs they are considered to be the same resource, and triples involving these resources are merged. This does not fit what is needed in most SKOS applications. In the above example, ex1:animal is said to be equivalent to ex2:animals. If this equivalence relation were represented using owl:sameAs, the following statements would hold for ex:animal:
-
-ex1:animal rdf:type skos:Concept;
-   skos:prefLabel "animal"@en;
-   skos:inScheme ex1:referenceAnimalScheme.
-   skos:prefLabel "animals"@en;
-   skos:inScheme ex2:eggSellerScheme.
-
-This would make ex:animal inconsistent, as a concept cannot possess two different preferred labels in the same language. Had the concepts been assigned other information, such as semantic relationships to other concepts, or notes, these would be merged as well, causing these concepts to acquire new meanings."
-
-**Example (one taxon concept is included in the other).**
 
 ```
-<<eg_taxon_concept>>=
+
+**Example of contained concepts.** Again we opt for `skos:narrower` rather than
+`rdfs:subClassOf` even if we do consider taxon concepts classes.
+
+
+```
+<<Examples>>=
+
+[] a :TaxonConceptLabel ;
+  dc:date "2017-03-23"^^xsd:date ;
+  pkm:mentions :animalia-sec-gbif20170323 ;
+  dwciri:scientificName :animalia ;
+  dwc:taxonomicStatus "Accepted" ;
+  dwciri:taxonomicStatus :Available .
+
+:animalia a :ScientificName ;
+  dwc:scientificName "Animalia" ;
+  dwc:taxonRank "kingdom" ;
+  dc:date "2017-03-23"^^xsd:date ;
+  dwciri:taxonomicStatus :Available .
+
+:animalia-sec-gbif20170323 a :TaxonCocept ;
+  skos:prefLabel "Animalia sec. GBIF Backbone Taxonomy" ;
+  dwciri:scientificName :animalia ;
+  dwciri:nameAccordingTo <http://dx.doi.org/doi:10.15468/39omei> ;
+  dwc:taxonId "1 (GBIF)" .
+
+:heser-stoevi-sec-gbif20170323 skos:narrower :animlia-sec-gbif20170323
+@
+
 
 :animal-folk-name a :VernacularName ;
   dwc:vernacularName "animal"@en ;
