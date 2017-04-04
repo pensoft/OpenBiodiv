@@ -82,7 +82,9 @@ top-level structure of the ontology is defined:
   rdfs:label "OpenBiodiv Core Ontology" ;
   dc:creator "Viktor Senderov, Terry Catapano, Kiril Simov, Lyubomir Penev" ;
   dc:rights "CCBY" ;
-  owl:imports <http://phylodiversity.net/dsw/dsw.rdf> .
+  owl:imports <http://phylodiversity.net/dsw/dsw.rdf> ;
+  owl:imports <http://www.essepuntato.it/2008/12/pattern> .
+
 @
 ```
 
@@ -205,7 +207,7 @@ in RDF via, for example, `po:contains`.
 During this step, non-structural entities are extracted from the informaiton
 present in the structural elements in the form of text or attributes. The details of how this done are beyond
 the scope of this guide but it is important to note that an attempt is made to
-coreference - i.e. match multiple bibliographic elements to the same non-
+coreference -- i.e. match multiple bibliographic elements to the same non-
 bibliographic entity, if they do in fact refer to the same entity in the sense
 of Frege's semiotic triangle. Another attempt is made to properly manage
 identifiers. This stage cannot be completed without external look-ups.
@@ -214,7 +216,7 @@ identifiers. This stage cannot be completed without external look-ups.
 **Note on Capitalization.** Our ontology strives be a formal specification of
 a conceptualization. In our mental model we have some concepts of some things.
 When we talk about these concepts in the abstract, we will make use of
-Capitalization. For example, we say Thing for the top-level concept and we say
+Capitalization. For example, we say Thing for the top-level concept, and we say
 Treatment when we refer to the concept (introduced later) of a taxon
 circumscription. We also have concepts for relations (in our conceptualization
 only binary relations are allowed). To denote these relations in the abstract
@@ -225,7 +227,7 @@ of these concepts. To refer to those we might use improper or proper nouns or
 phrases wherever appropriate. For example, "the treatment on page 5," or "a
 treatment," or "John."
 
-When we formally define a concept in OWL, i.e. issue an URI to it, we shall
+When we formally define a concept in OWL and issue an URI to it, we shall
 refer to the URI, as we refer to all URI's in the text with `typewriter font`.
 URI's of classes and vocabularies will be in `MajorCamelCase`. URI's of
 relationships will be in `minorCamelCase`. URI's of individuals `will-be-hyphenated`.
@@ -242,28 +244,22 @@ We do import several of these ontologies (please consult the paragraph
 Ontologies' site for an exhaustive treatment.
 
 In the rest of this section we describe the modeling of entities in the
-publishing domain that are not found in the SPAR ontologies. The central  new
+publishing domain that are *not found* in the SPAR ontologies. The central new
 class in OpenBiodiv not found in SPAR is the `trt:Treatment` class, borrowed
-from the
-
-[Treatment Ontologies](https://github.com/plazi/TreatmentOntologies).
-
-```
-<<Publishing Domain Model>>=
-
-<<Changes to SPAR>>
-<<Treatment>>
-<<Taxonomic Name Usage>>
-
-@
-```
+from the [Treatment Ontologies](https://github.com/plazi/TreatmentOntologies).
 
 #### Changes to SPAR
 
-`po:contains` is a transitive property.
+We have mentioned before that when we extract bibliographic elements from the XML,
+we make use of the `po:contains` SPAR property. For example, an article can 
+`po:contain` a secion and this section can `po:contain` another (sub-)section.
+In our view, this means that also the article contains the (sub-)section. Thefore
+we define `po:contains` as a transitive property.
 
+**Def. (`po:contains`):**
 ```
-<<Changes to SPAR>>=
+
+<<Model of the Publishing Domain>>=
 
 po:contains rdf:type owl:TransitiveProperty ;
 @
@@ -272,13 +268,13 @@ po:contains rdf:type owl:TransitiveProperty ;
 #### Article Metadata
 
 The main objects of information extraction and retrieval of OpenBiodiv in the
-first stage of its developments are scientific journal articles from the
+first stage of its development are scientific journal articles from the
 journals [Biodiversity Data Journal](http://bdj.pensoft.net/) and
-[ZooKeys](http://zookeys.pensoft.net/).
+[ZooKeys](http://zookeys.pensoft.net/) and other Pensoft journals.
 We model the bibliographic objects around Journal Article, such as Publisher,
 and Journal using SPAR.
 
-**Example (modeling article metadata).**
+**Example:**
 
 ```
 <<Examples>>=
@@ -295,7 +291,7 @@ and Journal using SPAR.
   skos:prefLabel "10.3897/BDJ.4.e10095" ;
   prism:doi "10.3897/BDJ.4.e10095" ;
   fabio:hasPublicationYear "2016"^^xsd:gYear ;
-  dcterms:title "A new spider species, Heser stoevi sp. nov., from Turkmenistan (Araneae: Gnaphosidae)"@en-us .
+  dcterms:title "A new spider species, Heser stoevi sp. nov., from Turkmenistan (Araneae: Gnaphosidae)"@en .
 
 :pensoft-publishers rdf:type foaf:Agent ;
   skos:prefLabel "Pensoft Publishers" ;
@@ -308,7 +304,7 @@ and Journal using SPAR.
 
 TODO: keywords
 
-TODO Note: In this example `:biodiversity-data-journal` is non-structural
+**Note:** In this example `:biodiversity-data-journal` is non-structural
 entity, as it doesn't denote part of the manuscript, but rather something
 external, i.e. a journal. This means that creating it, requires of the step of
 named entity identification.
@@ -317,8 +313,8 @@ named entity identification.
 
 See [Plazi](http://plazi.org/) for a theoretical discussion of Treatment.
 
-**Def. (Treatment):** Taxonomic Treatment, or simply Treatment, is
-a rhetorical element of a taxonomic publication:
+**Def. (Treatment):** *Taxonomic Treatment, or simply Treatment, is
+a rhetorical element of a taxonomic publication:*
 
 ```
 <<Treatment>>=
