@@ -304,7 +304,7 @@ and Journal using SPAR.
 
 TODO: keywords
 
-**Note:** In this example `:biodiversity-data-journal` is non-structural
+Note that in this example `:biodiversity-data-journal` is non-structural
 entity, as it doesn't denote part of the manuscript, but rather something
 external, i.e. a journal. This means that creating it, requires of the step of
 named entity identification.
@@ -342,7 +342,7 @@ trt:Treatment a owl:Class ;
 Thus, Treatment is defined akin to Introduction, Methods, etc. from 
 [DEO](http://www.sparontologies.net/ontologies/deo/source.html).
 
-**Example (instantiating a treatment).**
+**Example:** In this example, we show how to instantiate a treatment:
 
 ```
 <<Examples>>=
@@ -356,10 +356,8 @@ Note that we type `:treatment` both as `trt:Treatment` (i.e. the rhetorical
 element Treatment) and as s `doco:Section` because we view this particular
 treatment to also be a structural section of the document.
 
-**Linking treatments to the articles they reside in.** Key here is that an
-article is linked to different sub-article level elements such as treatments
-via the use of the "contains" property in the
-[Pattern Ontology](http://www.essepuntato.it/2008/12/pattern).
+**Example:** In this example we show how different sub-article elements such as treatments
+are linked via the use of the `po:contains`:
 
 ```
 <<Examples>>=
