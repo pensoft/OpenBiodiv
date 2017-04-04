@@ -2,15 +2,19 @@
 % Please edit documentation in R/rdf.R
 \name{prefix_ttl}
 \alias{prefix_ttl}
-\title{Returns a prefix string in Turtle}
+\title{Return prefixes serialized as Turtle}
 \usage{
 prefix_ttl(reqd_prefixes, prefix_db = paste0(path.package("obkms"),
   "/prefix_db.yml"))
 }
 \arguments{
-\item{reqd_prefixes}{a list of needed prefixes}
+\item{reqd_prefixes}{a character vector of needed prefixes, can be missing}
+
+\item{prefix_db}{path to YAML prefix database, has a default}
 }
 \description{
-Returns a prefix string in Turtle
+#' If `reqd_prefixes` is left missing, all prefixes will be returned.
+The individual prefixes may or may not end with ":". If they don't,
+it will be added during function execution.
 }
 

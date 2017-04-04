@@ -1,50 +1,74 @@
-#'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+#' Return prefixes serialized as Turtle
 #'
-#' Return a prefix string in Turtle or SPARQL
-#'
-#' @param reqd_prefixes a character vector of needed prefixes, can be missing
-#' @param prefix_db path to YAML prefix database, has a default
-#' @param prefix_lang whether you want SPARQL or Turtle, the default is SPARQL
-#'
-#' If `reqd_prefixes` is left missing, all prefixes will be returned.
+#'#' If `reqd_prefixes` is left missing, all prefixes will be returned.
 #' The individual prefixes may or may not end with ":". If they don't,
 #' it will be added during function execution.
 #'
+#' @param reqd_prefixes a character vector of needed prefixes, can be missing
+#' @param prefix_db path to YAML prefix database, has a default
 #' @export
 prefix_ttl = function( reqd_prefixes,
-                       prefix_db = paste0( path.package ("obkms") ,"/prefix_db.yml" ),
-                       prefix_lang = "SPARQL") {
+  prefix_db = paste0( path.package ("obkms") ,"/prefix_db.yml" ))
+{
+ prefix_serializer( reqd_prefixes, prefix_db, "Turtle")
+}
 
-  if ( missing(prefix_lang) || !(prefix_lang %in% c( "Turtle", "SPARQL" ) ) ) {
-    warning("Incorrect prefix language, defaulting to SPARQL")
+
+#' Serializes the prefix database in a language
+#'
+#' #' If `reqd_prefixes` is left missing, all prefixes will be returned.
+#' The individual prefixes may or may not end with ":". If they don't,
+#' it will be added during function execution.
+#'
+#' @param reqd_prefixes a character vector of needed prefixes, can be missing
+#' @param prefix_db path to a YAML prefix database, has a default from the pkg
+#' @param prefix_lang whether you want SPARQL or Turtle, the default is SPARQL
+#' @export
+prefix_serializer = function ( reqd_prefixes,
+             prefix_db = paste0( path.package ("obkms") ,"/prefix_db.yml" ),
+             prefix_lang = "Turtle")
+{
+  # if the prefix language is missing, default to SPARQL
+  if ( missing( prefix_lang ) || !( prefix_lang %in% c( "Turtle", "SPARQL" ) ) )
+  {
+    warning("Unknown or unsupported prefix language, defaulting to SPARQL...")
     prefix_lang = "SPARQL"
   }
-
-  # format a sing prefix line as SPARQL
+  # sub-function to format a single prefix line as SPARQL
   prefix_sparql_line = function( prefix, uri ) {
-    paste0( "PREFIX ", prefix, ": ", uri, " \n" )
+    if ( ! prefix == "_base" ) {
+      paste0( "PREFIX ", prefix, ": ", uri, " \n" )
+    }
+    # base prefix case:
+    else {
+      paste0( "PREFIX ", ": ", uri, " \n" )
+    }
   }
-  # format a sing prefix line as Turtle
+  # sub-function to format a sing prefix line as Turtle
   prefix_turtle_line = function( prefix, uri ) {
-    paste0( "@prefix ", prefix, ": ", uri, " .\n" )
+    if ( ! prefix == "_base" ) {
+      paste0( "@prefix ", prefix, ": ", uri, " .\n" )
+    }
+    # base prefix case:
+    else {
+      paste0( "@prefix ", ": ", uri, " .\n" )
+    }
   }
-
   # db load
   if (prefix_db != paste0( path.package ("obkms") ,"/prefix_db.yml" ) ) {
     warning( paste0( "You are overriding the prefix database path with the value \"", prefix_db , "\"!") )
   }
   all_prefixes = yaml::yaml.load_file( prefix_db )
-
   # process
-  ttl = character()
+  serialization = character()
   if ( missing( reqd_prefixes ) )
     {
-    ttl = sapply ( names(all_prefixes), function ( p ) {
+    serialization = sapply ( names(all_prefixes), function ( p ) {
       if ( prefix_lang == "SPARQL" ) {
-        paste0( ttl, prefix_sparql_line( p, all_prefixes[[p]] ) )
+        paste0( serialization, prefix_sparql_line( p, all_prefixes[[p]] ) )
       }
       else {
-        paste0( ttl, prefix_turtle_line( p, all_prefixes[[p]] ) )
+        paste0( serialization, prefix_turtle_line( p, all_prefixes[[p]] ) )
       }
     })
   }
@@ -53,25 +77,23 @@ prefix_ttl = function( reqd_prefixes,
     reqd_prefixes = sapply ( reqd_prefixes, function (p) {
         sub( ":$", "", p )
     })
-    ttl = sapply ( reqd_prefixes, function ( p ) {
+    serialization = sapply ( reqd_prefixes, function ( p ) {
       if ( is.null( all_prefixes[[p]] ) ) {
         return("")
       }
       else {
         if ( prefix_lang == "SPARQL" ) {
-          paste0(ttl, prefix_sparql_line( p, all_prefixes[[p]] ) )
+          paste0(serialization, prefix_sparql_line( p, all_prefixes[[p]] ) )
         }
         else {
-          paste0( ttl, prefix_turtle_line( p, all_prefixes[[p]] ) )
+          paste0( serialization, prefix_turtle_line( p, all_prefixes[[p]] ) )
         }
       }
     })
   }
 
-  return ( ttl )
-}
-#'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-
+  return ( serialization )
+  }
 
 #' Minimizes a URI to a Qname.
 #'

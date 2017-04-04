@@ -74,15 +74,15 @@ top-level structure of the ontology is defined:
 ```
 <<Ontology Metadata>>=
 
-openbiodiv:
-  rdf:type owl:Ontology ;
+: rdf:type owl:Ontology ;
   owl:versionInfo "0.2" ;
   rdfs:comment "Open Biodiversity Knowledge Management System Core Ontology" ;
   dc:title "OpenBiodiv Core Ontology" ;
   dc:subject "OpenBiodiv Core Ontology" ;
   rdfs:label "OpenBiodiv Core Ontology" ;
   dc:creator "Viktor Senderov, Terry Catapano, Kiril Simov, Lyubomir Penev" ;
-  dc:rights "CCBY" .
+  dc:rights "CCBY" ;
+  owl:imports <http://phylodiversity.net/dsw/dsw.rdf> .
 @
 ```
 
@@ -122,22 +122,24 @@ TODO: check for prefix consistency for all imported ontologies.
 
 
 **Incorporated external ontologies.** Our data model is a natural extension of
-existing data models. Therefore, we incorporate several external ontologies
-into ours. All ontologies from the directory `~/Ontology/imports/*.ttl` are
-loaded into the Knowledge System. In addition to that we load the OpenBiodiv
-Core Ontology, `~/Ontology/openbiodiv.ttl` described herein. Here’s a catalog
-of the imported ontologies:
-
-[Catalog of imported ontologies](imports/Catalog.md)
+existing data models. Therefore, we incorporate several external ontologies or
+parts of existing ontologies into ours. We try to include these ontologies via
+`owl:imports`. Where a URL does not resolve, or we want to import only a specific
+subset of an ontology or a specific version, we directly introduce the needed
+RDF into our model in the code-chunk `Borrowed Parts from External Ontologies`.
+In addition to that we've downloaded the RDF for everything that we've borrowed
+in the `imports` sub-subdirectory in case the URL's become unavailable in the
+future. There is a catalog of this directory under
+[Catalog of imported ontologies](imports/Catalog.md), which is, however,
+still a work in progress.
 
 **Prefixes.** In OpenBiodiv prefixes are stored in a YAML configuration file
 called
 
 [`prefix_db.yml`](../R/obkms/inst/prefix_db.yml)
 
-This guide will not go into the question of the meaning of the prefixes, into
-identifiers and into cross-linking. This will be the subject matter of a later
-"OpenBiodiv Extension and Linking Guide".
+The following Turtle code can be extracted from the prefix database with
+???? command
 
 ```
 <<Prefixes>>=
@@ -166,7 +168,7 @@ identifiers and into cross-linking. This will be the subject matter of a later
 @prefix dwc: <http://rs.tdwg.org/dwc/terms/> .
 @prefix sro: <http://salt.semanticauthoring.org/ontologies/sro#> .
 @prefix deo: <http://purl.org/spar/deo/> .
-@prefix : <http://openbiodiv.net/> /
+@prefix : <http://openbiodiv.net/> .
 @
 ```
 TODO: add base prefix to YAML database
