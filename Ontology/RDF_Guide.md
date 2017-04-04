@@ -139,7 +139,7 @@ called
 [`prefix_db.yml`](../R/obkms/inst/prefix_db.yml)
 
 The following Turtle code can be extracted from the prefix database with
-???? command
+`obkms::prefix_ttl()` command:
 
 ```
 <<Prefixes>>=
