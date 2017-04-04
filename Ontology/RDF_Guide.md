@@ -472,6 +472,7 @@ dwciri:scientificName rdf:type owl:ObjectProperty ;
   rdfs:comment "'scientific name' is a property linking anything to a
 scientific name" ;
 @
+
 ```
 
 **Important note:** In the logic of our algorithms, it is very important that
