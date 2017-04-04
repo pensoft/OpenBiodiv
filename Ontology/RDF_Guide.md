@@ -468,26 +468,7 @@ biological taxonomic name or taxon concept label in a text."@en ;
 **Important note.** or the logic of our algorithms, it is very important that
 TNU's are dated with `dc:date`.
 
-**Rule:** *All TNU's that are in nomenclatural headings are taxon concept
-labels and they should be linked to the taxon concept coming about through the
-treatment of which they are the headings.*
-
-```
-
-<<SPARQL Rules>>=
-
-INSERT {
-    ?a rdf:type :TaxonConceptLabel . 
-}
-WHERE {
-	?a rdf:type :TaxonomicNameUsage .
-	[] rdf:type :NomenclatureHeading ;
-	   po:contains ?a .
-}
-@
-```
-
-**Example.** In the following example, we express in RDF a TNU which is the
+**Example:** In the following example, we express in RDF a TNU which is the
 nomenclature heading of a treatment (treatment title). This automatically
 make the TNU into a taxon concept label. The connection to the
 nomenclature heading is via `po:contains`; `cnt:chars` is used  to dump the
