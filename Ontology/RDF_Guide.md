@@ -256,7 +256,7 @@ we make use of the `po:contains` SPAR property. For example, an article can
 In our view, this means that also the article contains the (sub-)section. Thefore
 we define `po:contains` as a transitive property.
 
-**Def. (`po:contains`):**
+**Def. ('contains'):**
 ```
 
 <<Model of the Publishing Domain>>=
@@ -429,9 +429,9 @@ TODO: All the other subsections of trt:Treatment, Description, etc.
 #### Taxonomic Name Usage
 
 In the text of taxonomic articles we find strings like "*Heser stoevi*
-Deltschev, sp. n.". We choose to call these strings *taxonomic name usages*
-(TNU's) as they refer to published scientific names from the domain of
-biological systematics. The taxonomic name usage consists of three parts:
+Deltschev, sp. n.". In our conceptualization these are called *taxonomic name usages* (TNU's) as they refer to 
+published scientific names from the domain of biological systematics. The
+taxonomic name usage consists of three parts:
 
 1. One or more words identifying the taxon (these can be Latinized or take the form
 of an identifier).
@@ -446,15 +446,15 @@ In the example, "*Heser stoevi*" is the binomial Latinized species name,
 bears taxonomic (and nomenclatural) information indicating that this is a
 species new to science.
 
-Modeling-wise, we consider TNU's to be specialized instances of Mention from
-the [PROTON Extensions module](http://ontotext.com/proton/). Furthermore, we
-link the TNU's to the scientific name they are symbolizing via `pkm:mentions`.
-TODO: check!
+Modeling-wise, we consider TNU's to be specialized instances of `pext:Mention`
+from the [PROTON Extensions module](http://ontotext.com/proton/). Furthermore,
+we link the TNU's to the scientific name they are symbolizing via
+`pkm:mentions`.
 
-**Def. (Taxonomic Name Usage, 'scientific name', 'sec.'):** *A taxonomic name usage
-is the mentioning of a biological taxonomic name or taxon concept label (see
-later) in a text; 'scientific name' is a property linking anything to a
-scientific name:*
+**Def. (Taxonomic Name Usage):** *A taxonomic name usage is the mentioning of
+a biological taxonomic name or taxon concept label (see later) in a text,
+together with possibly a taxonomic status, bearing further information about
+the name:*
 
 ```
 <<Taxonomic Name Usage>>=
@@ -464,36 +464,17 @@ scientific name:*
   rdfs:comment "A taxonomic name usage is the mentioning of a
 biological taxonomic name or taxon concept label in a text."@en ;
   rdfs:label "Taxonomic Name Usage"@en .
-
-dwciri:scientificName rdf:type owl:ObjectProperty ;
-  rdfs:subPropertyOf pkm:mentions ;
-  rdfs:label "scientific name"@en ; 
-  rdfs:range :ScientificName ;
-  rdfs:comment "'scientific name' is a property linking anything to a
-scientific name; should only be used with IRI's"@en ;
-
-:taxonConceptLabel rdf:type owl:ObjectProperty ;
-  rdfs:subPropertyOf :biologicalName ;
-  rdfs:label "taxon concept label"@en ;
-  rdfs:range :TaxonConceptLabel ;
-  rdfs:comment "like 'scientif name' but more narrow, works only for TCL's"@en .
-
-dwciri:nameAccordingTo rdf:type owl:ObjectProperty ;
-  rdfs:label "sec."@en ; 
-  rdfs:range frbr:Work ;
-  rdfs:comment "The reference to the source in which the specific taxon concept circumscription is defined or implied - traditionally signified by the Latin 'sensu' or 'sec.'' (from secundum, meaning 'according to'). For taxa that result from identifications, a reference to the keys, monographs, experts and other sources should be given. Should only be used with IRI's"@en ;
 @
 
 ```
-TODO: check if it is `pkm:mentions` or mention
 
-**Important note:** In the logic of our algorithms, it is very important that
-TNU's are dated with `dc:date`.
+**Note:** In the logic of our algorithms, it is very important that TNU's are
+dated with `dc:date`.
 
 **Example:** In the following example, we express in RDF a TNU that is in the
 nomenclature heading of a treatment (treatment title). Structurally, the TNU
 is connected to the containing section via `po:contains`; `cnt:chars` is used
-to dump the full string of the usage; and DwC properties are used to encode
+to dump the full string of the usage and DwC properties are used to encode
 more granular information in addition to the dump.
 
 In the second step of RDF-ization, we use `dwciri` properties to link the TNU
@@ -502,13 +483,15 @@ item in the
 [OpenBiodiv Taxonomic Status Vocabulary](#vocabulary-of-taxon-classification).
 `dwciri:scientificName` is used to link the TNU to the IRI of the name that
 the TNU is mentioning. Note, we have introduced `dwciri:scientificName` as
-a sub-property of `ptop:mention`. In this example it is linked both to local
-name and to a remote name. This implies that the names are the same.
+a sub-property of `pext:Mention`. In this example it is linked both to local
+name and to a remote name. This implies that the names are the same (see Rule
+later).
 
 Also, during the second step, the TNU is linked to the reified taxon concept
-label *Heser stoevi* sec Deltshev (2016) via `:taxonConceptLabel` as even
-though the text-content of the TNU does not contain a "sec.", we know for
-certain which concept the author is invoking as we are in the treatment title.
+label *Heser stoevi* sec. 10.3897/BDJ.4.e10095 via `:taxonConceptLabel` as
+even though the character content of the TNU does not contain a "sec.", we
+know for certain which concept the author is invoking as we are in the
+treatment title (current concept/ *this* concept).
 
 ```
 <<Examples>>=
@@ -523,37 +506,82 @@ certain which concept the author is invoking as we are in the treatment title.
   dwc:species "stoevi" ;
   dwc:scientificNameId "urn:lsid:zoobank.org:act:E4D7D5A0-D649-4F5E-9360-D0488D73EEE8 (ZooBank)" ;
   dwc:scientificNameAuthorship "Deltschev" ;
-  dwc:taxonomicStatus "sp. n." ;
+  dwc:taxonomicStatus "sp. n." ; dwciri:taxonomicStatus :TaxonDiscovery ;
   dwc:nameAccordingToId "10.3897/BDJ.4.e10095" ;
 
-  dwciri:taxonomicStatus :TaxonDiscovery ;
+  dwciri:scientificName :heser-stoevi-deltshev 
   dwciri:nameAccordingTo <http://dx.doi.org/10.3897/BDJ.4.e10095> ;
+  :taxonConceptLabel :heser-stoevi-sec-deltshev ;
 
-  dwciri:scientificName :heser-stoevi-deltshev , <http://zoobank.org/urn:lsid:zoobank.org:act:E4D7D5A0-D649-4F5E-9360-D0488D73EEE8> ;
-
-  :taxonConceptLabel :heser-stoevi-sec-deltshev .
+  dwciri:scientificName <http://zoobank.org/urn:lsid:zoobank.org:act:E4D7D5A0-D649-4F5E-9360-D0488D73EEE8> .
 
 :heser-stoevi-deltshev owl:sameAs <http://zoobank.org/urn:lsid:zoobank.org:act:E4D7D5A0-D649-4F5E-9360-D0488D73EEE8> .
 @
      
 ```
 
-TODO: create  rule for sameness of names, if a TNU points to two different names with `dwciri:scientificName`.
-
 ### Biological Taxonomy and Systematics
 
 In this subsection we introduce  classes and properties which are used to
 convey information from the domain of biological systematics.
 
-```
-<<Biological Systematics Model>>=
 
-<<Biological Names>>
-
-@
-```
 
 #### Biological Names
+
+In OpenBiodiv, we reify biological names.
+
+In our conceptualization taxa in nature are things (referents) that are
+refered to by our thoughts, theories and concepts (references), that are
+labeled or symbolized by by  biological names
+([semiotic triangle](https://de.wikipedia.org/wiki/Semiotisches_Dreieck)).
+
+Biological names play a dual role, however, in our system as they are also
+concepts, i.e. references of taxonomic name usages and the symbols of taxon
+concepts. It turns out that the concept biological name may symbolize more
+than one taxon concepts. It is useful to think of biological names then
+as taxon concept lineages. More about taxon concepts later.
+ 
+Biological names have been modeled elsewhere such as for example in
+[NOMEN](https://github.com/SpeciesFileGroup/nomen). However, NOMEN takes the
+approach of using non-human-readable identifiers and only relying on labels to
+identify classes of taxonomic names, which does not fit our workflow. For
+example, the identifier for the class "biological name" is `NOMEN_0000030`. In
+our workflow both RDF generation and debugging would be severely hampered by
+this convention. That's why we have defined names in OpenBiodiv and mapped
+them to their NOMEN equivalents.
+
+**Def. (Biological Name, Scientific Name, Vernacular Name):** *Biological
+Name, Scientific Name, and Vernacular Name are introduced as their NOMEN
+equivalents.*
+
+```
+
+
+:BiologicalName rdf:type owl:Class ;
+    rdfs:label "Biological Name"@en ;
+    owl:equivalentClass nomen:NOMEN_0000030 .
+
+:ScientificName rdf:type owl:Class ;
+    rdfs:subClassOf :biologicalName ;
+    rdfs:label "Scientific Name"@en ;
+    owl:equivalentClass  nomen:NOMEN_0000036 .
+    
+:VernacularName a owl:Class ;
+  rdfs:subClassOf :biologicalName ;
+  rdfs:label "Vernacular Name"@en ;
+  owl:equivalentClass nomen:NOMEN_0000037 .
+@
+
+**Def. (Taxon Concept Label):** *We further introduce the class of taxon
+concept labels, unknown to NOMEN that is a biological name plus a reference to
+its descrition, i.e. it is the label of taxon concept. A taxon concept label
+is a taxonomic name usage accompanied by an additional part, consisting of
+"sec." + an identifier or a literature reference of a work containing the
+expression of a taxon concept (for example a treatment).*
+
+```
+<<Model of Biological Systematics>>=
 
 :TaxonConceptLabel rdf:type owl:Class ;
   rdfs:subClassOf :TaxonomicNameUsage ;
@@ -562,51 +590,17 @@ convey information from the domain of biological systematics.
 usage accompanied by an additional part, consisting of "sec." + an identifier
 or a literature reference of a work containing the expression of a taxon concept
 (treatment)." @en .
-
-In OpenBiodiv, we reify biological names.
-
-In our conceptual view of the world biological names are symbols (Ger.
-"Symbol") for real world taxa in the language of the
-[semiotic triangle](https://de.wikipedia.org/wiki/Semiotisches_Dreieck).
-Biological names play a dual role in our system as they are also references
-(Ger. "Begriff") of taxonomic name usages. In this system we model biological
-names as separate concepts from the taxon concepts that they may symbolize.
-
-Biological names have been modelled elsewhere such as for example in
-(NOMEN)[TODO link to the NOMEN Ontology]. However, NOMEN takes the approach
-of using non-human-readable identifiers and only relying on labels to
-identify classes of taxonomic names, which we do not espose.
-
-For example, the identifier for class "biological name" is `NOMEN_0000030`. In
-our workflow both RDF generation and debugging would be severely hampered by
-this convention. That's why we have defined names in OpenBiodiv and mapped
-them to their NOMEN equivalents.
-
-**Def. (Biological Name, Scientific Name, Vernacular Name):**
-
-```
-<<Biological Names>>=
-
-:BiologicalName rdf:type owl:Class ;
-    rdfs:label "Biological Name"@en ;
-    owl:sameAs nomen:NOMEN_0000030 .
-
-:ScientificName rdf:type owl:Class ;
-    rdfs:subClassOf :biologicalName ;
-    rdfs:label "Scientific Name"@en ;
-    owl:sameAs nomen:NOMEN_0000036 .
-    
-:VernacularName a owl:Class ;
-  rdfs:subClassOf :biologicalName ;
-  rdfs:label "Vernacular Name"@en ;
-  ownl:sameAs nomen:NOMEN_0000037 .
 @
 ```
 
-Again, as in the taxonomic statuses example, we do not model scientific names
-down to the level of the Codes as NOMEN does. We also use different sets of
-properties to define relationships between biological names and for their data
-properties.
+We do not model scientific names down to the level of the Codes as NOMEN does.
+For example we do not make a distinction between a zoological and a botanical
+name. Nothing prevents us, however, from creating derived classes later on.
+This means that our model is somewhat cruder but compatible with NOMEN.
+
+For properties of biological names we take a different path from NOMEN. We
+also use different sets of properties to define relationships between
+biological names and for their data properties.
 
 For the data properties we use DwC terms. We also use `dwciri:scientificName`
 to connect different biological objects such as taxon concepts or occurrences
@@ -637,6 +631,26 @@ with a super-property to refer to a more broader class of names.
 :vernacularName rdf:type owl:ObjectProperty ;
 	rdfs:label "has vernacular name" @en ;
 	rdfs:range :VernacularName .
+
+  dwciri:scientificName rdf:type owl:ObjectProperty ;
+  rdfs:subPropertyOf pkm:mentions ;
+  rdfs:label "scientific name"@en ; 
+  rdfs:range :ScientificName ;
+  rdfs:comment "'scientific name' is a property linking anything to a
+scientific name; should only be used with IRI's"@en ;
+
+:taxonConceptLabel rdf:type owl:ObjectProperty ;
+  rdfs:subPropertyOf :biologicalName ;
+  rdfs:label "taxon concept label"@en ;
+  rdfs:range :TaxonConceptLabel ;
+  rdfs:comment "like 'scientif name' but more narrow, works only for TCL's"@en .
+
+dwciri:nameAccordingTo rdf:type owl:ObjectProperty ;
+  rdfs:label "sec."@en ; 
+  rdfs:range frbr:Work ;
+  rdfs:comment "The reference to the source in which the specific taxon concept circumscription is defined or implied - traditionally signified by the Latin 'sensu' or 'sec.'' (from secundum, meaning 'according to'). For taxa that result from identifications, a reference to the keys, monographs, experts and other sources should be given. Should only be used with IRI's"@en ;
+@
+```
 @
 ```
 
@@ -832,6 +846,10 @@ WHERE {
      dwciri:taxonomicStatus :ConservedName .
 @
 ```
+
+**Rule:** *If a TNU points to two different names with `dwciri:scientificName`, then
+they are the same:*
+
 
 **Example** We go back to the example of 
 *Heser stoevi*. The meaning of the date property here is to indicate
