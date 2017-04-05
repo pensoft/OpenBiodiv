@@ -464,6 +464,10 @@ the name:*
   rdfs:comment "A taxonomic name usage is the mentioning of a
 biological taxonomic name or taxon concept label in a text."@en ;
   rdfs:label "Taxonomic Name Usage"@en .
+
+dwciri:taxonomicStatus rdf:type owl:Class ;
+  rdfs:label "taxonomic status"@en ;
+  rdfs:comment "the IRI version of the DwC term taxonmic status" .
 @
 
 ```
@@ -481,8 +485,8 @@ In the second step of RDF-ization, we use `dwciri` properties to link the TNU
 to semantic entities. `dwciri:taxonomicStatus` is used to link the TNU to an
 item in the
 [OpenBiodiv Taxonomic Status Vocabulary](#vocabulary-of-taxon-classification).
-`dwciri:scientificName` is used to link the TNU to the IRI of the name that
-the TNU is mentioning. Note, we have introduced `dwciri:scientificName` as
+`:scientificName` is used to link the TNU to the IRI of the name that
+the TNU is mentioning. Note, we have introduced `:scientificName` as
 a sub-property of `pext:Mention`. In this example it is linked both to local
 name and to a remote name. This implies that the names are the same (see Rule
 later).
@@ -509,11 +513,11 @@ treatment title (current concept/ *this* concept).
   dwc:taxonomicStatus "sp. n." ; dwciri:taxonomicStatus :TaxonDiscovery ;
   dwc:nameAccordingToId "10.3897/BDJ.4.e10095" ;
 
-  dwciri:scientificName :heser-stoevi-deltshev 
-  dwciri:nameAccordingTo <http://dx.doi.org/10.3897/BDJ.4.e10095> ;
+  :scientificName :heser-stoevi-deltshev 
+  :nameAccordingTo <http://dx.doi.org/10.3897/BDJ.4.e10095> ;
   :taxonConceptLabel :heser-stoevi-sec-deltshev ;
 
-  dwciri:scientificName <http://zoobank.org/urn:lsid:zoobank.org:act:E4D7D5A0-D649-4F5E-9360-D0488D73EEE8> .
+  :scientificName <http://zoobank.org/urn:lsid:zoobank.org:act:E4D7D5A0-D649-4F5E-9360-D0488D73EEE8> .
 
 :heser-stoevi-deltshev owl:sameAs <http://zoobank.org/urn:lsid:zoobank.org:act:E4D7D5A0-D649-4F5E-9360-D0488D73EEE8> .
 @
@@ -531,16 +535,15 @@ convey information from the domain of biological systematics.
 
 In OpenBiodiv, we reify biological names.
 
-In our conceptualization taxa in nature are things (referents) that are
-refered to by our thoughts, theories and concepts (references), that are
+In our conceptualization, taxa in nature are things (referents) that are
+refered to by our thoughts, theories and concepts (references) that are
 labeled or symbolized by by  biological names
 ([semiotic triangle](https://de.wikipedia.org/wiki/Semiotisches_Dreieck)).
 
 Biological names play a dual role, however, in our system as they are also
-concepts, i.e. references of taxonomic name usages and the symbols of taxon
-concepts. It turns out that the concept biological name may symbolize more
-than one taxon concepts. It is useful to think of biological names then
-as taxon concept lineages. More about taxon concepts later.
+concepts, i.e. references of taxonomic name usages. A biological name may
+symbolize more than one taxon concept. It is useful to think of biological
+names then as taxon concept lineages. More about taxon concepts later.
  
 Biological names have been modeled elsewhere such as for example in
 [NOMEN](https://github.com/SpeciesFileGroup/nomen). However, NOMEN takes the
@@ -556,8 +559,6 @@ Name, Scientific Name, and Vernacular Name are introduced as their NOMEN
 equivalents.*
 
 ```
-
-
 :BiologicalName rdf:type owl:Class ;
     rdfs:label "Biological Name"@en ;
     owl:equivalentClass nomen:NOMEN_0000030 .
@@ -584,12 +585,12 @@ expression of a taxon concept (for example a treatment).*
 <<Model of Biological Systematics>>=
 
 :TaxonConceptLabel rdf:type owl:Class ;
-  rdfs:subClassOf :TaxonomicNameUsage ;
+  rdfs:subClassOf :BiologicalName ;
   rdfs:label "Taxon Concept Label"@en ;
   rdfs:comment "A taxon concept label is a taxonomic name
 usage accompanied by an additional part, consisting of "sec." + an identifier
 or a literature reference of a work containing the expression of a taxon concept
-(treatment)." @en .
+(treatment)."@en .
 @
 ```
 
@@ -602,65 +603,66 @@ For properties of biological names we take a different path from NOMEN. We
 also use different sets of properties to define relationships between
 biological names and for their data properties.
 
-For the data properties we use DwC terms. We also use `dwciri:scientificName`
-to connect different biological objects such as taxon concepts or occurrences
-to a scientific name. However, even though `dwciri:scientificName` is defined 
-in spirit in <http://rs.tdwg.org/dwc/terms/guides/rdf/index.htm#2.5_Terms_in_the_dwciri:_namespace>, we couldn't actually find
-a formal definition in RDF, that's why we're introducing it here together
-with a super-property to refer to a more broader class of names.
+For data properties we use DwC terms.
+
+To connect different biological objects such as taxon concepts or occurrences
+to a scientific name we use `:scientificName`, which is derived from
+`dwciri:scientificName`. Even though `dwciri:scientificName` is defined  in
+spirit in
+<http://rs.tdwg.org/dwc/terms/guides/rdf/index.htm#2.5_Terms_in_the_dwciri:_namespace>,
+
+we couldn't actually find a formal definition in RDF, that's why we're
+introducing it here together with a super-property to refer to a more broader
+class of names.
 
 **Def. (has biological name, has scientific name, has vernacular name):**.
 
 ```
 <<Biological Names>>=
 
+dwciri:scientificName rdf:type owl:ObjectProperty ;
+  rdfs:label "scientific name" @en ;
+  rdfs:comment "the IRI version of dwc:scientificName".
+
+dwciri:nameAccordingTo rdf:type owl:ObjectProperty ;
+  rdfs:label "name according to" ;
+  rdfs:comment "the IRI version of dwc:scientificName" . 
+  
 :biologicalName rdf:type owl:ObjectProperty ;
 	rdfs:label "has biological name" @en ;
 	rdfs:range :BiologicalName .
 
-:scientificName rdf:type owl:ObjectProperty ;
-	rdfs:label "has scientific name" @en ;
-	owl:sameAs dwciri:scientificName ;
-	rdfs:range :ScientificName .
-
-:nameAccordingTo rdf:type owl:ObjectProperty ;
-  rdfs:label "sec" ;
-  owl:sameAs dwciri:nameAccordingTo ;
-  rfs:range frbr:Expression .
-
 :vernacularName rdf:type owl:ObjectProperty ;
+  rdfs:subPropertyOf :biologicalName ;
 	rdfs:label "has vernacular name" @en ;
 	rdfs:range :VernacularName .
 
-  dwciri:scientificName rdf:type owl:ObjectProperty ;
-  rdfs:subPropertyOf pkm:mentions ;
-  rdfs:label "scientific name"@en ; 
+:scientificName rdf:type owl:ObjectProperty ;
+  rdfs:subPropertyOf pkm:mentions, dwciri:scientificName, :biologicalName ;
+  rdfs:label "has scientific name"@en ; 
   rdfs:range :ScientificName ;
-  rdfs:comment "'scientific name' is a property linking anything to a
-scientific name; should only be used with IRI's"@en ;
+  rdfs:comment "'the scientific name property, derived from ':biologicalName', 'pkm:mentions', and 'dwciri:scientificName"@en .
 
 :taxonConceptLabel rdf:type owl:ObjectProperty ;
   rdfs:subPropertyOf :biologicalName ;
-  rdfs:label "taxon concept label"@en ;
-  rdfs:range :TaxonConceptLabel ;
-  rdfs:comment "like 'scientif name' but more narrow, works only for TCL's"@en .
+  rdfs:label "has taxon concept label"@en ;
+  rdfs:range :TaxonConceptLabel .
 
-dwciri:nameAccordingTo rdf:type owl:ObjectProperty ;
+:nameAccordingTo rdf:type owl:ObjectProperty ;
+  rdfs:subPropertyOf :biologicalName ;
   rdfs:label "sec."@en ; 
-  rdfs:range frbr:Work ;
+  rfs:range frbr:Expression .
   rdfs:comment "The reference to the source in which the specific taxon concept circumscription is defined or implied - traditionally signified by the Latin 'sensu' or 'sec.'' (from secundum, meaning 'according to'). For taxa that result from identifications, a reference to the keys, monographs, experts and other sources should be given. Should only be used with IRI's"@en ;
 @
 ```
-@
-```
 
-For object properties, have two types of relationships: unidirectional and
-bidirectional.
+For relationships between names we introduce two types of relationships:
+unidirectional and bidirectional.
 
-**Def. (has related name):** 'has related name' is an object property that we
+**Def. ('has related name'):** *'has related name' is an object property that we
 use in order to indicate that two biological names are related somehow. This
 relationship is purposely vague as to encompass all situations where two
-biological names co-occur in a text. It is transitive and reflexive.
+biological names co-occur in a text. It is transitive and reflexive.*
 
 ```
 <<Biological Names>>=
@@ -676,12 +678,12 @@ biological names co-occur in a text. It is transitive and reflexive."@en.
 @
 ```
 
-**Def. (has replacement name):** This is a uni-directional property. Its meaning
+**Def. (has replacement name):** *This is a uni-directional property. Its meaning
 is that one one biological name links to a different biological name via the
 usage of this property, then the object of the triple is the form of the
 biological name the use of which is more accurate and should be preferred
 given the information that system currently holds. This property is only
-defined for scientific names.
+defined for scientific names.*
 
 ```
 <<Biological Names>>=
@@ -701,22 +703,20 @@ defined for scientific names."@en.
 @
 ```
 
-Names in our Knowledge Base follow certain rules:
+##### Now we define some rules for names
 
-**Rule 1 for Names:** For a scientific name X, if there doesn't exist a TNU
+**Rule 1 for Names:** *For a scientific name X, if there doesn't exist a TNU
 mentioning X, which has the taxon status of `:UnavailableName`, or if there
 does exist a TNU Y mentioning X with the status of `:UnavailableName`, but
 there also exists a TNU Z mentioning X with a later date than Y, which has the
 status of `:AvailableName` or `:ReplacementName`, then X has the taxon status
-of `:AvailableName`.
-
-TODO: write this rule in SPARQL
+of `:AvailableName`.*
 
 ```
-<<SPARQL Rules>>=
+<<Rules>>=
 
- # rules need to be evaluated in the order here
- # 1. set all names that have not been made unavailabel to available
+# rules need to be evaluated in the order here
+# I. set all names that have not been made unavailabel to available
 INSERT {
   ?a dwciri:taxonomicStatus :AvailableName .
 }
@@ -739,7 +739,6 @@ WHERE {
        dwciri:taxonomicStatus :UnavailableName ;
        dc:date ?d .
 }
-@
 
  # 3. set names to :Available back 
 DELETE {
@@ -776,17 +775,19 @@ WHERE {
         dc:date ?d1 .
   FILTER ( ?d1 > ?d0 )
 }
+@
 ```
 
-TODO: test that the rules work OK in a local GraphDB installation!
-
-**Rule 2 for Names:** For a scientific name X, if it is mentioned in the heading of a nomenclature section (treatment title) in a TNU Y with status `:ReplacementName`, then
-every name Z_i, mentioned in the nomenclatural citation list in TNU's with status
-`:UnavailableName` is linked to X via `:replacementName`.
+**Rule 2 for Names:** *For a scientific name X, if it is mentioned in the
+heading of a nomenclature section (treatment title) in a TNU Y with status
+`:ReplacementName`, then every name Z_i, mentioned in the nomenclatural
+citation list in TNU's with status `:UnavailableName` is linked to X via
+`:replacementName`.*
 
 ```
-<<SPARQL Rules>>=
+<<Rules>>=
 
+# II. Link replacement names
 INSERT {
     ?a trt:replacementName ?b .
 }
@@ -804,13 +805,13 @@ WHERE {
 @
 ```
 
-**Rule 3 for Names:** All names in the nomenclature section are linked via `:relatedName`.
+**Rule 3 for Names:** *All names in the nomenclature section are linked via `:relatedName`.*
 
 ```
-<<SPARQL Rules>>=
+<<Rules>>=
 
- # if two names are mentioned in the same nomenclature
- # section then they are related
+# III. if two names are mentioned in the same nomenclature
+# section then they are related
 
 INSERT {
     ?a trt:relatedName ?b .
@@ -825,16 +826,15 @@ WHERE {
 @
 ```
 
-**Rule 4 for Names:** If for a name X, there exists a TNU Y If a TNU is marked
-as `:Conserved`, then the name is also marked as `:Conserved`. A conserved
-name should not be made `:Unavailable`!
+**Rule 4 for Names:** *If for a name X, there exists a TNU Y If a TNU is
+marked as `:Conserved`, then the name is also marked as `:Conserved`. A
+conserved name should not be made `:Unavailable`!*
 
 
 ```
-<<SPARQL Rules>>=
+<<Rules>>=
 
- # if two names are mentioned in the same nomenclature
- # section then they are related
+# IV. Conserved names
 
 INSERT {
     ?a dwciri:taxonomicStatus :ConservedName .
@@ -847,18 +847,32 @@ WHERE {
 @
 ```
 
-**Rule:** *If a TNU points to two different names with `dwciri:scientificName`, then
+**Rule 5 for Names:** *If a TNU points to two different names with `dwciri:scientificName`, then
 they are the same:*
 
 
-**Example** We go back to the example of 
-*Heser stoevi*. The meaning of the date property here is to indicate
-when was the taxonomic status assumed.
+```
+<<Rules>>=
+
+# V. Conserved names
+
+INSERT {
+    ?name1 owl:sameAs ?name2 .
+}
+WHERE {
+  ?name1 a :ScientificName .
+  ?name2 a :ScientificName .
+  ?t a :TaxonomicNameUsage ;
+   t dwciri:scientificName ?name1, ?name2 .
+  FILTER( ?name1 != ?name2 ) .
+@
+```
+
+**Example** We go back to the example of  *Heser stoevi*. The meaning of the
+date property here is to indicate when was the taxonomic status assumed.
 
 ```
 <<Examples>>= 
-
-:tnu pkm:mentions :heser-stovi-deltschev .
 
 :heser-stoevi-deltshev a :ScientificName ;
 	skos:prefLabel "Heser stoevi Deltshev" ;
@@ -868,14 +882,12 @@ when was the taxonomic status assumed.
     dwciri:taxonomicStatus <http://rs.gbif.org/vocabulary/gbif/taxonomicStatus/accepted> ;
     dwc:scientificNameAuthorship "Deltschev" 
     dc:date "2016-08-31"^xsd:date .
-
 @
 ```
 
-**Example.**
-Let's take another example,
-the paper <http://bdj.pensoft.net/articles.php?id=8030&instance_id=2809105>.
-From it, we can say:
+**Example.** Let's take another example, the paper
+<http://bdj.pensoft.net/articles.php?id=8030&instance_id=2809105>. From it, we
+can say:
 
 ```
 <<Examples>>= 
@@ -924,40 +936,32 @@ From it, we can say:
 
 #### Taxon Concepts
 
-**Discussion.** Our view of taxon concepts is based on [Berendsohn
-(1995)](http://www.jstor.org/stable/1222443) and [Franz et al
-(2008)](http://dx.doi.org/10.1201/9781420008562.ch5). We consider any given
-taxon concept to be a scientific theory (concept) about a class of biological
-organisms (taxon). The class description, as in "as in all spiders have
-spinnerets (silk-producing glands)" (Nico Franz, personal correspondence), is
-called *intensional meaning,* whereas the group of organisms in nature
-conforming with the intensional meaning is called the class *extension.* In our
-view the words "taxon" and "taxon concept" are the two sides of the same coin:
-taxon concept stresses the intensional meaning
+**Discussion.** Our view of taxon concepts is based on
+[Berendsohn (1995)](http://www.jstor.org/stable/1222443) and
+[Franz et al (2008)](http://dx.doi.org/10.1201/9781420008562.ch5).
 
-As we do want to model both the intensional meaning (traits of taxa) and the
-extension  of taxon concepts (occurrences of taxa)
+We consider any given taxon concept to be a scientific theory (concept) about
+a class of biological organisms (taxon). The class description, as in "as in
+all spiders have spinnerets (silk-producing glands)" (Nico Franz, personal
+correspondence), is called *intensional meaning,* whereas the group of
+organisms in nature conforming with the intensional meaning is called the
+class *extension.*
 
-and the
-extensions being organisms that are considered to be members of the class.
+We want to model both the intensional meaning (which traits do organisms
+belonging to a taxon have) and the extension of taxon concepts (which
+organisms belong to a taxon) and the extensions being organisms that are
+considered to be members of the class.
 
-As we do want to talk both about the taxon concepts themselves, i.e. to
-explicitly specify their intensional meaning 
-This necessitates the view that taxon concepts are both instances
-of a Taxon Concept class and are classes of ogranisms of each individual
-organisms may be instances. Later, we will show that this means that
-we model Taxon Concepts with OWL Full.
+This necessitates the view that taxon concepts are both instances of a taxon
+concept class and are classes of ogranisms. Later, we will show that this
+means that we model Taxon Concepts with OWL Full.
 
-Taxon concepts can be expressed as works of human thought (`frbr:Work`), for
-instance as treatments in scientific articles or as a group of records in a
-database.
-
-Thus, OpenBiodiv taxon concepts are instances of `dwc:Taxon` and vice versa
-(*"A group of organisms [sic] considered by taxonomists to form a homogeneous
+OpenBiodiv taxon concepts are instances of `dwc:Taxon` and vice versa (*"A
+group of organisms [sic] considered by taxonomists to form a homogeneous
 unit."*).
 
-Also, taxon concepts are instances of `frbr:Work` as well, but not vice
-versa (*"A distinct intellectual or artistic creation. A work is an abstract entity;
+Also, taxon concepts are instances of `frbr:Work` as well, but not vice versa
+(*"A distinct intellectual or artistic creation. A work is an abstract entity;
 there is no single material object one can point to as the work. We recognize
 the work through individual realizations or expressions of the work, but the
 work itself exists only in the commonality of content between and among the
@@ -967,17 +971,12 @@ intellectual creation that lies behind all the various expressions of the
 work."*).
 
 Furthermore, taxon concepts can also be modeled as `skos:Concept`, but not
-vice versa(*"A SKOS concept can be viewed as an idea or notion; a unit of
+vice versa (*"A SKOS concept can be viewed as an idea or notion; a unit of
 thought. However, what constitutes a unit of thought is subjective, and this
 definition is meant to be suggestive, rather than restrictive."*).
 
 All three classes represent a distinctive view that we want to adopt in
-modeling different features of taxon concepts. First, the biodiversity
-informatics community heavily relies on the DwC standard for sharing
-occurrence data (TODO cite Baskauf). Secondly, to link taxon concepts to the
-scientific works they were expressed in requires taking the view that they are
-instances of `frbr:Work`. Third, to model some of relationships between taxon
-concepts, we view them as SKOS concepts.
+modeling different features of taxon concepts.
 
 Holding the views of Berendsohn and of Franz, we require that each taxon
 concept is linked to both a biological name and to a work (i.e. publication,
@@ -985,20 +984,14 @@ database, etc.), where the circumscription is properly defined.
 
 **Def. (Taxon Concept):**
 
-TODO: add comment here
-
 ```
 <<Biological Systematics Model>>= 
 
 :TaxonConcept rdf:type owl:Class ;
-  owl:sameAs dwc:Taxon ;
-  rdfs:subClassof frbr:Work ,
+  rdfs:subClassof dwc:Taxon , frbr:Work ,
                   skos:Concept ,
                   [ rdf:type owl:Restriction ;
-                    owl:onProperty dwciri:scientificName ;
-                    owl:minCardinality "1" ] ,
-                  [ rdf:type owl:Restriction ;
-                    owl:onProperty dwciri:nameAccordingTo ;
+                    owl:onProperty :taxonConceptLabel ;
                     owl:minCardinality "1" ] .
 @
 ```
@@ -1008,8 +1001,8 @@ according to the article published by Deltshev in 2016. First, we introduce an
 instance of `:TaxonConcept` and link this instance to the scientific name
 *Heser stoevi* via the appropriate DwC term. Next, we establish a link between
 the significant bibliographic unit (in this case journal article) containing
-the treatment, which is the realization of the taxon concept. The last point we
-would like to make is that the taxon concept label, which is in this case
+the treatment, which is the realization of the taxon concept. The last point
+we would like to make is that the taxon concept label, which is in this case
 `Heser stoevi sec. 10.3897/BDJ.4.e100095` is constructed by pasting together
 the label of the biological name and the expression that are assigned to the
 concept glued together by `sec.`.
@@ -1017,15 +1010,24 @@ concept glued together by `sec.`.
 ```
 <<Examples>>=
 
-:heser-stoevi-sec-deltshev-2016 a :TaxonConcept ;
-  skos:prefLabel "Heser stoevi sec. 10.3897/BDJ.4.e10095" ;
-  dwciri:scientificName :heser-stoevi-deltshev ;
-  dwciri:nameAccordingTo <http://dx.doi.org/10.3897/BDJ.4.e10095> .
+:heser-stoevi-sec-deltshev a :TaxonConceptLabel ;
+   skos:prefLabel "Heser stoevi Deltshev sec. 10.3897/BDJ.4.e10095" ;
+   dwc:species "stoevi" ;
+   dwc:genus "Heser" ;
+   dwc:taxonRank "species" ;
+   dwc:scientificNameAuthorship "Deltschev" ;
+   ::nameAccordingTo <http://dx.doi.org/10.3897/BDJ.4.e10095> .
+  
+:concept-deltshev-2016 a :TaxonConcept ;
+  :taxonConceptLabel :heser-stoevi-sec-deltshev ;
 
-:heser-stoevi-sec-gbif20170323 a :TaxonConcept ;
+:heser-stoevi-sec-gbif20170323 a :TaxonConceptLabel ;
   skos:prefLabel "Heser stoevi sec. doi:10.15468/39omei" ;
   dwciri:scientificName :heser-stoevi-deltshev ;
   dwciri:nameAccordingTo :gbif20170323 .
+
+:concept-gbif s :TaxonConcept ;
+  :taxonConceptLabel :heser-stoevi-sec-gbif20170323 
 
 <http://dx.doi.org/doi:10.15468/39omei> a fabio:Database ;
   skos:prefLabel "GBIF Backbone Taxonomy" ;
@@ -1043,45 +1045,88 @@ concept glued together by `sec.`.
 @
 ```
 
-Note that in the above example one scientific name, *Heser stoevi*, is
-linked to two different taxon concepts, as one taxon concept comes
-from the article and another one comes from the GBIF database.
+Note that in the above example one scientific name, *Heser stoevi*, is linked
+to two different taxon concept labels, as one taxon concept label denotes the
+concept coming from the article and the other one comes from the GBIF
+database.
 
 It is possible to express that these are the same thing, that one is a
 subconcept of the other, or even more granular relationships.
 
 #### Taxon Concept Relationships
 
-**Example of congruent concepts.** We model sameness of taxon concepts with `skos:exactMatch` as we
-do not want the inferenetial consequences of `owl:sameAs`. For example, if two
-taxon concepts have different scientific names but are considered to be the
-same, the use of `owl:sameAs` would imply copying the scientific name property
-from one concept to the other, which we do not want. Or the labels will get copied.
-Note that we can always gather the properties later in SPARQL.
-[SKOS primer](https://www.w3.org/TR/skos-primer/).
-
+**Example congruence 1.** If we want to express that two concepts
+are exactly the same both intensionally and ostensively, then we use `owl:sameAs`.
+However, if we want to express that the taxon concepts have the same extension
+without being equal intensionally (as in the spider example), then we use
+`owl:equivalentClass`.
 
 ```
 <<Examples>>=
 
-:heser-stoevi-sec-deltschev owl:equivalentClass :heser-stoevi-sec-gbif20170323 .
+:heser-stoevi-sec-deltschev owl:sameAs :heser-stoevi-sec-gbif20170323 .
 @
-
 ```
 
-**Example of contained concepts.** Again we opt for `skos:narrower` rather than
-`rdfs:subClassOf` even if we do consider taxon concepts classes.
+Note that this will copy both taxon concept labels both ways, but this is OK
+as the different taxon concept labels refer to the same class.
 
+**Example congruence 2.** Let's define the two spider concepts here.
+
+```
+<<Examples>>
+
+:haveSpinnerets rdf:type owl:DatatypeProperty ;
+  rdfs:domain :TaxonConcept ; 
+  rdfs:comment "This property if true, indicates that some taxon has spinnertes." .
+
+:havePedipals rdf:type owl:DataTypeProperty ;
+  rdfs:domain :TaxonConcept ;
+  rdfs:comment "If this property is true, that the taxon has pedipals"
+
+:spiders-with-spinnerets-sec-rdfguide a :TaxonConceptLabel ;
+  dwc:order "Araneae" ;
+  skos:prefLabel "Araneae sec. OpenBiodiv RDF Guide" ;
+  :nameAccordingTo <https://github.com/pensoft/OpenBiodiv/blob/master/Ontology/RDF_Guide.md> .
+
+:spiders-with-pedipals-sec-rdfguide a :TaxonConceptLabel ;
+  dwc:order "Aranea" ;
+  skos:prefLabel "Araneae sec. OpenBiodiv RDF Guide" ;
+  :nameAccordingTo <https://github.com/pensoft/OpenBiodiv/blob/master/Ontology/RDF_Guide.md> .
+
+:concept-spinnerets a :TaxonConcept ;
+  :taxonConceptLabel :spiders-with-spinnerets-sec-rdfguide ;
+  :haveSpinnerrets "true"^^xsd:boolean .
+
+:concept-pedipals a :TaxonConcept ;
+  :taxonConceptLabel :spiders-with-pedipals-sec-rdfguide ;
+  :havePedipals "true"^^xsd:boolean .
+
+:spider1 a :concept-spinnerts ;
+:spider2 a :concept-pedipals ;
+
+:concept-spinnerts owl:equivalentClass :concept-pedipals .
+```
+
+Here, the implication is that although the intensional meaning of the two concepts
+is different, they have the same class extension. I.e. we will infer
+
+```
+:spider1 a :concept-pedipals;
+:spider2 a :concept-spinnerts'
+```
+
+but we will not copy any of the `:havePedipals` or `:haveSpinnerts` to the other concept.
+
+**Example of contained concepts.** For contained concept we use `rdfs:subClassOf`:
 
 ```
 <<Examples>>=
 
-[] a :TaxonConceptLabel ;
-  dc:date "2017-03-23"^^xsd:date ;
-  pkm:mentions :animalia-sec-gbif20170323 ;
+animalia-sec-gbif :TaxonConceptLabel ;
+  skos:prefLabel "Animalia sec. GBIF Backbone Taxonomy" ;
   dwciri:scientificName :animalia ;
-  dwc:taxonomicStatus "Accepted" ;
-  dwciri:taxonomicStatus :Available .
+  :nameAccordingTo <http://dx.doi.org/doi:10.15468/39omei> .
 
 :animalia a :ScientificName ;
   dwc:scientificName "Animalia" ;
@@ -1089,36 +1134,17 @@ Note that we can always gather the properties later in SPARQL.
   dc:date "2017-03-23"^^xsd:date ;
   dwciri:taxonomicStatus :Available .
 
-:animalia-sec-gbif20170323 a :TaxonCocept ;
-  skos:prefLabel "Animalia sec. GBIF Backbone Taxonomy" ;
+:concept-animalia-gbif a :TaxonConcept ;
   dwciri:scientificName :animalia ;
-  dwciri:nameAccordingTo <http://dx.doi.org/doi:10.15468/39omei> ;
   dwc:taxonId "1 (GBIF)" .
 
-:heser-stoevi-sec-gbif20170323 skos:narrower :animlia-sec-gbif20170323
+:heser-stoevi-sec-gbif20170323 rdfs:subClassOf :animlia-sec-gbif20170323
 @
 
-
-:animal-folk-name a :VernacularName ;
-  dwc:vernacularName "animal"@en ;
-  dwc:vernacularName "Tier"@de ;
-  dwc:vernacularName "животно"@bg .
-
-:animal a :TaxonConcept;
-  skos:prefLabel "animal sec. <https://www.w3.org/TR/skos-primer/#sechierarchy>"@en;
-  dwciri:vernacularName :animal-folk-name ;
-  frbr:realization <https://www.w3.org/TR/skos-primer/#sechierarchy> .
-
-:heser-stoevi-deltschev-sec-deltschev skos:narrower :animal .
-
-@
-```
-
-**Example (relatedness)**
-
+**Example (Relatedness)** If two taxon concepts are related we can use `skos:related`.
 
 ```
-<<eg_taxon_concept>>=
+<<Examples>>=
 
 :heser-nicola a :ScientificName ;
   dwc:scientificName "Heser nilicola (O. P.-Cambridge, 1874)" ;
@@ -1127,152 +1153,53 @@ Note that we can always gather the properties later in SPARQL.
   dwc:species "nilicola" ;
   dwc:taxonRank "species" .
 
-:heser-nicola-sec-unibe a :TaxonConcept ;
+:heser-nicola-sec-unibe a :TaxonConceptLabel ;
+  skos:prefLabel "Heser nilicola (O. P.-Cambridge, 1874) sec. Unibe" ;
   dwciri:scientificName :heser-nicola ;
   frbr:realization <http://www.araneae.unibe.ch/data/3301> .
 
-:heser-stoevi-deltschev-sec-deltschev skos:related :heser-nicola-sec-unibe .
+:concept-heser-nicola-unibe a :TaxonConcept ;
+  :taxonConceptLabel :heser-nicola-sec-unibe .
 
+:heser-stoevi-deltschev-sec-deltschev skos:related :heser-nicola-sec-unibe .
 @
 ```
 
-##### simple Taxon Concept Relationships with OWL
+#### Occurrences
 
-Another way to model simple taxon concept relationships is to use OWL Full because of
-
-NOTE: In OWL Lite and OWL DL an individual can never be at the same time a class: classes and individuals form disjoint domains (as do properties and data values). OWL Full allows the freedom of RDF Schema: a class may act as an instance of another (meta)class.
-
-1. `owl:sameAs`
-2. `rdfs:subClassOf` or `rdf:type` chains
-TODO : Question does `rdf:type` imply owl:Class for range? yes.
-3. We still need to use SKOS here.
-
+Occurrences are modeled with Darwin-SW.
 
 #### Complex Relationships with RCC-5
 
-Complex RCC 5 relationships will be modeled as separate entities.
+Future work:
+Statements about more complex taxon concept relationships can be expressed with RCC-5.
 
 ```
-openbiodiv:EQ_INT rdf:type owl:ObjectProperty ;
+:EQ_INT rdf:type owl:ObjectProperty ;
   rdfs:label "Equals (INT)" ;
   rdfs:comment "= EQ(x,y) Equals (intensional)"@en . 
 
-openbiodiv:PP_INT rdf:type owl:ObjectProperty ;
+:PP_INT rdf:type owl:ObjectProperty ;
   rdfs:label "Proper Part (INT)" ;
   rdfs:comment "< PP(x,y) Proper Part of (intensional)"@en .
 
-openbiodiv:iPP_INT rdf:type owl:ObjectProperty ;
+:iPP_INT rdf:type owl:ObjectProperty ;
   owl:inverseOf openbiodiv:PP_INT ;
   rdfs:label "Inverse Proper Part (INT)" ;
   rdfs:comment "iPP(x, y) Inverse Proper Part (intensional)"@en .
 
-openbiodiv:PO rdf:type owl:ObjectProperty ;
+:PO rdf:type owl:ObjectProperty ;
   rdfs:label "Partially Overlaps" ;
   rdfs:comment "o PO(x,y) Partially Overlaps"@en .
 
-openbiodiv:DR rdf:type owl:ObjectProperty ;
+:DR rdf:type owl:ObjectProperty ;
     rdfs:label "Disjoint" ;
     rdfs:comment "! DR(x,y) Disjoint from."@en .
 ```
 
-### of the Ecological Domain
-
-### of General Ideas
-
-#### "preferred label"
-
-The individual entities in OpenBiodiv all have unique identifiers. In addition
-to those identifiers, the objects have labels that are there primarily for
-human consumption. Labels can be things like the DOI (in the case of an
-article), the Latin name of a taxon. This preferred label is encoded with the
-property `skos:prefLabel`. Furthermore, an object can have secondary
-(alternative) labels such as a different spelling of a scientific name, or a
-vernacular name of a taxon. In this case we use `skos:altLabel`.
-
-
-
-
-
 ## Apendicies
 
-
-### Vocabulary of Paper Types
-
-**Def. 8 of controlled vocabulary (Paper Types):** Pensoft's journals have some
-paper types, which we define herein. First of all, we introduce Paper Types as
-a Term Dictionary in the discipline of Bibliography. Then we introduce the
-different paper types as Subject Term's in the scheme of Paper Types. See the
-SPAR ontologies for more info on this this.
-
-```
-<<Paper Types>>=
-pensoft:PaperTypes
-  a fabio:TermDictionary ;
-  rdfs:label "Paper Types"@en ;
-  rdfs:comment "A list of paper (article) types published in Pensoft's
-                journals"@en ;
-  fabio:hasDiscipline dbpedia:Bibliography .
-@
-```
-
-**Example 9.** We give an example of a paper with only one
-taxonomic treatment. These paper types are not part of the Core Ontology but
-are imported in the Knowledge Base during the population phase. We also show
-how to say that a paper has as its type the aforementioned type.
-
-```
-<<eg9>>=
-:single-taxon-treatment
-  a fabio:SubjectTerm ;
-  rdfs:label "Single Taxon Treatment"@en; 
-  rdfs:comment "A type of paper with only one taxonomic treatment"@en ;
-  skos:inScheme pensoft:PaperTypes .
-
-:paper
-  a fabio:JournalArticle ;
-  fabio:hasSubjectTerm :single-taxon-treatment .
-@
-```
-
-TODO: Extract paper types.
-
-### Vocabulary of Taxon Classification
-
-**Def. 10 of controlled vocabulary (Taxon Classification):** Pensoft, in its
-Keywords uses certain taxon names for the classification of its papers. These
-taxon names are borrowed from GBIF. Here we define a term dictionary
-analogously to paper types:
-
-```
-<<Taxon Classification>>=
-pensoft:TaxonClassification 
-  a fabio:TermDictionary ;
-  rdfs:label "Taxonomic Classification"@en ;
-  rdfs:comment "A list of taxon names borrowed for GBIF for the 
-                classification of papers."@en ;
-  fabio:hasDiscipline dbpedia:Taxonomy .
-@
-```
-
-### Vocabulary of Chronological Classification
-
-**Def. 11 of controlled vocabulary (Taxon Classification):**
-```
-<<Chronological Classification>>=
-openbiodiv:ChronologicalClassification
-  a fabio:TermDictionary ;
-  rdfs:label "Chronological Classification"@en ;
-  rdfs:comment "A vocabulary of chronological eras that can be used in
-                Pensoft's journals"@en ; 
-  fabio:hasDiscipline dbpedia:Paleontology .
-@
-```
-
-## Vocabulary of taxonomic statuses
-
-# Vocabulary of Taxonomic Statuses
-
-### What is a taxonomic status?
+### Vocabulary of Taxonomic Statuses
 
 [Taxonomic name usages](#taxonomic-name-usage) (TNU's) in taxonomic articles
 may be accompanied by strings such as "new. comb.", "new syn.", "new record
@@ -1637,7 +1564,76 @@ pext:Mention rdf:type owl:Class ;
 @
 ```
 
-## TODO's
+### Vocabulary of Paper Types
 
+Future work
 
-TODO: Need to add proton prefixes to the YAML database `pext`, `ptop`, etc.
+**Def.:** Pensoft's journals have some
+paper types, which we define herein. First of all, we introduce Paper Types as
+a Term Dictionary in the discipline of Bibliography. Then we introduce the
+different paper types as Subject Term's in the scheme of Paper Types. See the
+SPAR ontologies for more info on this this.
+
+```
+<<Paper Types>>=
+pensoft:PaperTypes
+  a fabio:TermDictionary ;
+  rdfs:label "Paper Types"@en ;
+  rdfs:comment "A list of paper (article) types published in Pensoft's
+                journals"@en ;
+  fabio:hasDiscipline dbpedia:Bibliography .
+@
+```
+
+**Example 9.** We give an example of a paper with only one
+taxonomic treatment. These paper types are not part of the Core Ontology but
+are imported in the Knowledge Base during the population phase. We also show
+how to say that a paper has as its type the aforementioned type.
+
+```
+<<eg9>>=
+:single-taxon-treatment
+  a fabio:SubjectTerm ;
+  rdfs:label "Single Taxon Treatment"@en; 
+  rdfs:comment "A type of paper with only one taxonomic treatment"@en ;
+  skos:inScheme pensoft:PaperTypes .
+
+:paper
+  a fabio:JournalArticle ;
+  fabio:hasSubjectTerm :single-taxon-treatment .
+@
+```
+
+TODO: Extract paper types.
+
+### Vocabulary of Taxon Classification
+
+**Def. 10 of controlled vocabulary (Taxon Classification):** Pensoft, in its
+Keywords uses certain taxon names for the classification of its papers. These
+taxon names are borrowed from GBIF. Here we define a term dictionary
+analogously to paper types:
+
+```
+<<Taxon Classification>>=
+pensoft:TaxonClassification 
+  a fabio:TermDictionary ;
+  rdfs:label "Taxonomic Classification"@en ;
+  rdfs:comment "A list of taxon names borrowed for GBIF for the 
+                classification of papers."@en ;
+  fabio:hasDiscipline dbpedia:Taxonomy .
+@
+```
+
+### Vocabulary of Chronological Classification
+
+**Def. 11 of controlled vocabulary (Taxon Classification):**
+```
+<<Chronological Classification>>=
+openbiodiv:ChronologicalClassification
+  a fabio:TermDictionary ;
+  rdfs:label "Chronological Classification"@en ;
+  rdfs:comment "A vocabulary of chronological eras that can be used in
+                Pensoft's journals"@en ; 
+  fabio:hasDiscipline dbpedia:Paleontology .
+@
+```
