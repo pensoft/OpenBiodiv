@@ -1074,7 +1074,7 @@ as the different taxon concept labels refer to the same class.
 **Example congruence 2.** Let's define the two spider concepts here.
 
 ```
-<<Examples>>
+<<Examples>>=
 
 :haveSpinnerets rdf:type owl:DatatypeProperty ;
   rdfs:domain :TaxonConcept ; 
@@ -1251,7 +1251,7 @@ statuses.
 
 
 ```
-<<Vocabulary Taxonomic Statuses>>=
+<<Vocabulary of Taxonomic Statuses>>=
 
 :TaxonomicStatus rdf:type owl:Class ;
   rdfs:subClassOf [ rdf:type owl:Restriction ;
@@ -1528,6 +1528,9 @@ objects that we borrow from them here.
 <<External Ontology>>=
 
 # Parts of PROTON
+
+```
+<<Borrowed Parts from External Ontology>>= 
 
 top:Entity rdf:type owl:Class ;
             rdfs:comment "Any sort of an entity of interest, usually something existing, happening, or purely abstract. Entities may have several - more than one - names or aliases."@en ;
