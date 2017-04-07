@@ -1004,8 +1004,8 @@ database, etc.), where the circumscription is properly defined.
 <<Model of Biological Systematics>>=
 
 :TaxonConcept rdf:type owl:Class ;
-  rdfs:subClassof dwc:Taxon , frbr:Work ,
-                  skos:Concept ,
+  owl:equivalentClass dwc:Taxon ;
+  rdfs:subClassof frbr:Work , skos:Concept ,
                   [ rdf:type owl:Restriction ;
                     owl:onProperty :taxonConceptLabel ;
                     owl:minCardinality "1" ] .
