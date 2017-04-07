@@ -65,6 +65,7 @@ top-level structure of the ontology is defined:
 <<Model of the Publishing Domain>>
 <<Model of Biological Systematics>>
 <<Vocabulary of Taxonomic Statuses>>
+<<Vocabulary of RCC5 Terms>>
 <<Borrowed Parts from External Ontology>>
 @
 ```
@@ -170,6 +171,9 @@ The following Turtle code can be extracted from the prefix database with
 @prefix dwc: <http://rs.tdwg.org/dwc/terms/> .
 @prefix sro: <http://salt.semanticauthoring.org/ontologies/sro#> .
 @prefix deo: <http://purl.org/spar/deo/> .
+@prefix pext: <http://proton.semanticweb.org/protonue#> .
+@prefix ptop: <http://proton.semanticweb.org/protont#> .
+@prefix pkm: <http://proton.semanticweb.org/protonkm#> .
 @prefix : <http://openbiodiv.net/> .
 @
 ```
@@ -261,7 +265,7 @@ we define `po:contains` as a transitive property.
 
 <<Model of the Publishing Domain>>=
 
-po:contains rdf:type owl:TransitiveProperty ;
+po:contains rdf:type owl:TransitiveProperty .
 @
 ```
 
@@ -317,7 +321,7 @@ See [Plazi](http://plazi.org/) for a theoretical discussion of Treatment.
 a rhetorical element of a taxonomic publication:*
 
 ```
-<<Treatment>>=
+<<Model of the Publishing Domain>>=
 
 trt:Treatment a owl:Class ;
   rdfs:label "Taxonomic Treatment"@en ;
@@ -376,7 +380,7 @@ for each Nomenclature there ought to be a Treatment that contains it.
 publication, a subsection of Treatment, where nomenclatural acts take place.
 
 ```
-<<Nomenclature>>=
+<<Model of the Publishing Domain>>=
 
 trt:Nomenclature a owl:Class ;
   rdfs:subClassOf deo:DiscourseElement ,
@@ -457,7 +461,7 @@ together with possibly a taxonomic status, bearing further information about
 the name:*
 
 ```
-<<Taxonomic Name Usage>>=
+<<Model of the Publishing Domain>>=
 
 :TaxonomicNameUsage rdf:type owl:Class ;
   rdfs:subClassOf  pext:Mention ;
@@ -465,7 +469,7 @@ the name:*
 biological taxonomic name or taxon concept label in a text."@en ;
   rdfs:label "Taxonomic Name Usage"@en .
 
-dwciri:taxonomicStatus rdf:type owl:Class ;
+dwciri:taxonomicStatus rdf:type owl:ObjectProperty ; 
   rdfs:label "taxonomic status"@en ;
   rdfs:comment "the IRI version of the DwC term taxonmic status" .
 @
@@ -559,20 +563,23 @@ Name, Scientific Name, and Vernacular Name are introduced as their NOMEN
 equivalents.*
 
 ```
+<<Model of Biological Systematics>>=
+
 :BiologicalName rdf:type owl:Class ;
     rdfs:label "Biological Name"@en ;
-    owl:equivalentClass nomen:NOMEN_0000030 .
+    owl:sameAs nomen:NOMEN_0000030 .
 
 :ScientificName rdf:type owl:Class ;
-    rdfs:subClassOf :biologicalName ;
+    rdfs:subClassOf :BiologicalName ;
     rdfs:label "Scientific Name"@en ;
-    owl:equivalentClass  nomen:NOMEN_0000036 .
+    owl:sameAs  nomen:NOMEN_0000036 .
     
 :VernacularName a owl:Class ;
-  rdfs:subClassOf :biologicalName ;
+  rdfs:subClassOf :BiologicalName ;
   rdfs:label "Vernacular Name"@en ;
-  owl:equivalentClass nomen:NOMEN_0000037 .
+  owl:sameAs nomen:NOMEN_0000037 .
 @
+```
 
 **Def. (Taxon Concept Label):** *We further introduce the class of taxon
 concept labels, unknown to NOMEN that is a biological name plus a reference to
@@ -588,7 +595,7 @@ expression of a taxon concept (for example a treatment).*
   rdfs:subClassOf :BiologicalName ;
   rdfs:label "Taxon Concept Label"@en ;
   rdfs:comment "A taxon concept label is a taxonomic name
-usage accompanied by an additional part, consisting of "sec." + an identifier
+usage accompanied by an additional part, consisting of 'sec.' + an identifier
 or a literature reference of a work containing the expression of a taxon concept
 (treatment)."@en .
 @
@@ -618,41 +625,41 @@ class of names.
 **Def. (has biological name, has scientific name, has vernacular name):**.
 
 ```
-<<Biological Names>>=
+<<Model of Biological Systematics>>=
 
 dwciri:scientificName rdf:type owl:ObjectProperty ;
   rdfs:label "scientific name" @en ;
-  rdfs:comment "the IRI version of dwc:scientificName".
+  rdfs:comment "the IRI version of dwc:scientificName"@en .
 
 dwciri:nameAccordingTo rdf:type owl:ObjectProperty ;
   rdfs:label "name according to" ;
-  rdfs:comment "the IRI version of dwc:scientificName" . 
+  rdfs:comment "the IRI version of dwc:scientificName"@en . 
   
 :biologicalName rdf:type owl:ObjectProperty ;
-	rdfs:label "has biological name" @en ;
+  rdfs:subClassOf pkm:mentions ;
+	rdfs:label "mentions biological name" @en ;
 	rdfs:range :BiologicalName .
 
 :vernacularName rdf:type owl:ObjectProperty ;
   rdfs:subPropertyOf :biologicalName ;
-	rdfs:label "has vernacular name" @en ;
+	rdfs:label "mentions vernacular name" @en ;
 	rdfs:range :VernacularName .
 
 :scientificName rdf:type owl:ObjectProperty ;
-  rdfs:subPropertyOf pkm:mentions, dwciri:scientificName, :biologicalName ;
-  rdfs:label "has scientific name"@en ; 
+  rdfs:subPropertyOf dwciri:scientificName, :biologicalName ;
+  rdfs:label "mentions scientific name"@en ; 
   rdfs:range :ScientificName ;
   rdfs:comment "'the scientific name property, derived from ':biologicalName', 'pkm:mentions', and 'dwciri:scientificName"@en .
 
 :taxonConceptLabel rdf:type owl:ObjectProperty ;
   rdfs:subPropertyOf :biologicalName ;
-  rdfs:label "has taxon concept label"@en ;
+  rdfs:label "mentions taxon concept label"@en ;
   rdfs:range :TaxonConceptLabel .
 
 :nameAccordingTo rdf:type owl:ObjectProperty ;
-  rdfs:subPropertyOf :biologicalName ;
   rdfs:label "sec."@en ; 
-  rfs:range frbr:Expression .
-  rdfs:comment "The reference to the source in which the specific taxon concept circumscription is defined or implied - traditionally signified by the Latin 'sensu' or 'sec.'' (from secundum, meaning 'according to'). For taxa that result from identifications, a reference to the keys, monographs, experts and other sources should be given. Should only be used with IRI's"@en ;
+  rdfs:range frbr:Expression ;
+  rdfs:comment "The reference to the source in which the specific taxon concept circumscription is defined or implied - traditionally signified by the Latin 'sensu' or 'sec.'' (from secundum, meaning 'according to'). For taxa that result from identifications, a reference to the keys, monographs, experts and other sources should be given. Should only be used with IRI's"@en .
 @
 ```
 
@@ -665,7 +672,7 @@ relationship is purposely vague as to encompass all situations where two
 biological names co-occur in a text. It is transitive and reflexive.*
 
 ```
-<<Biological Names>>=
+<<Model of Biological Systematics>>=
 
 :relatedName rdf:type owl:ObjectProperty, owl:TransitiveProperty, owl:ReflexiveProperty ;
   rdfs:label "has related name"@en ;
@@ -675,6 +682,7 @@ biological names co-occur in a text. It is transitive and reflexive.*
 use in order to indicate that two biological names are related somehow. This
 relationship is purposely vague as to encompass all situations where two
 biological names co-occur in a text. It is transitive and reflexive."@en.
+
 @
 ```
 
@@ -686,11 +694,10 @@ given the information that system currently holds. This property is only
 defined for scientific names.*
 
 ```
-<<Biological Names>>=
+<<Model of Biological Systematics>>=
 
 :replacementName rdf:type owl:ObjectProperty ,
-                          owl:TransitiveProperty ,
-                          owl:ReflexiveProperty ;
+                          owl:TransitiveProperty ;
   rdfs:label "has replacement name"@en ;
   rdfs:domain :ScientificName ;
   rdfs:range :ScientificName ;
@@ -985,7 +992,7 @@ database, etc.), where the circumscription is properly defined.
 **Def. (Taxon Concept):**
 
 ```
-<<Biological Systematics Model>>= 
+<<Model of Biological Systematics>>=
 
 :TaxonConcept rdf:type owl:Class ;
   rdfs:subClassof dwc:Taxon , frbr:Work ,
@@ -1165,37 +1172,76 @@ animalia-sec-gbif :TaxonConceptLabel ;
 @
 ```
 
-#### Occurrences
-
-Occurrences are modeled with Darwin-SW.
 
 #### Complex Relationships with RCC-5
 
-Future work:
-Statements about more complex taxon concept relationships can be expressed with RCC-5.
+**Def.: *A set of properties describing RCC-5 relations.*
 
 ```
-:EQ_INT rdf:type owl:ObjectProperty ;
-  rdfs:label "Equals (INT)" ;
-  rdfs:comment "= EQ(x,y) Equals (intensional)"@en . 
+<<Model of Biological Systematics>>=
 
-:PP_INT rdf:type owl:ObjectProperty ;
-  rdfs:label "Proper Part (INT)" ;
-  rdfs:comment "< PP(x,y) Proper Part of (intensional)"@en .
+:RCC5Statement rdf:type owl:Class ;
+  rdfs:label "RCC5 Statement" ;
+  rdfs:comment "A statemnt of RCC-5 relationship" .
 
-:iPP_INT rdf:type owl:ObjectProperty ;
-  owl:inverseOf openbiodiv:PP_INT ;
-  rdfs:label "Inverse Proper Part (INT)" ;
-  rdfs:comment "iPP(x, y) Inverse Proper Part (intensional)"@en .
+:rcc5Property rdf:Type owl:ObjectProperty ;
+  rdfs:domain :RCC5Statement .
 
-:PO rdf:type owl:ObjectProperty ;
-  rdfs:label "Partially Overlaps" ;
-  rdfs:comment "o PO(x,y) Partially Overlaps"@en .
+:rcc5fromRegion rdf:type owl:ObjectProperty ;
+  rdfs:subPropertyOf :rcc5Property ;
+  rdfs:label "from region" ;
+  rdfs:comment "Connects to the RCC5 statement to the originating region"@en .
 
-:DR rdf:type owl:ObjectProperty ;
-    rdfs:label "Disjoint" ;
-    rdfs:comment "! DR(x,y) Disjoint from."@en .
+:rcc5toRegion rdf:type owl:ObjectProperty ;
+  rdfs:label "to region" ;
+  rdfs:subPropertyOf :rcc5Property ;
+  rdfs:comment "Connects to the RCC5 statement to the target region"@en .
+
+:rcc5RelationType rdf:type owl:ObjectProperty ;
+  rdfs:label "relation type" ;
+  rdfs:subPropertyOf :rcc5Property ;
+  rdfs:range :RCC5Relation ;
+  rdfs:comment "Connects an RCC-5 statement to the type of RCC-5 relation between the regions."@en .
+@
 ```
+
+In order to model complex RCC-5 statements such as those made in
+[Jansen & Franz 2015](https://doi.org/10.3897/zookeys.528.6001) we use 
+the above defitions and the RCC5 Vocabulary described in the Appendix.
+
+We model the following exceprt here:
+
+"Minyomerus microps (Say, 1831: 9) sec. Jansen & Franz (2015), stat. n. 
+==
+(INT) AND > (OST) AND = Minyomerus innocuus Horn, 1876: 18 sec. Horn (1876) (type, designated by Pierce 1913: 400), syn. n."
+
+```
+<<Examples>>=
+
+:jansen-franz-2015 a fabio:JournalArticle ;
+  skos:prefLabel "10.3897/zookeys.528.6001" . 
+
+:concept-minyomerus-microps-jansen-franz a :TaxonConcept .
+
+:concept-minyomerus-innocuus-horn a :TaxonConcept .
+
+:microps-innocuus-relation-int a RCC5Stament ;
+  :rcc5FromRegion :concept-minyomerus-microps-jansen-franz ;
+  :rcc5ToRegion :concept-minyomerus-innocuus-horn ;
+  :rcc5RelationType :Equals_INT ;
+  frbr:expression :jansen-franz-2015 .
+
+:microps-innocuus-relation-ost a RCC5Stament ;
+  :rcc5FromRegion :concept-minyomerus-microps-jansen-franz ;
+  :rcc5ToRegion :concept-minyomerus-innocuus-horn ;
+  :rcc5RelationType :InverseProperPart_OST ;
+  frbr:expression :jansen-franz-2015 .
+@
+```
+
+#### The rest of Biodiversity Sysmtematics
+
+We follow the Darwin-SW model.
 
 ## Apendicies
 
@@ -1269,13 +1315,13 @@ statuses.
                                   owl:onProperty fabio:isSchemeOf ;
                                   owl:allValuesFrom :TaxonomicStatus] ;
   rdfs:label "OpenBiodiv Vocabulary of Taxonomic Statuses"@en ;
-  fabio:hasDiscipline dbpedia:Taxonomy_(biology) .
+  fabio:hasDiscipline <http://dbpedia.org/page/Taxonomy_(biology)> .
 
   <<Taxonomic Uncertainty>>
   <<Taxon Discovery>>
   <<Replacement Name>>
   <<Unavailable Name>>
-  <<Available Name>
+  <<Available Name>>
   <<Type Specimen Designation>>
   <<Type Species Designation>>
   <<New Occurrence Record>>
@@ -1386,8 +1432,6 @@ the name that is being referred to by the TNU is no longer or has never been
 available for use due to the fact that it has either been replaced or it has
 been determined that the name has been improperly coined or published, or the
 name contains any general error rendering it unfit for use."@en .
-
-
 @
 ```
 
@@ -1411,7 +1455,7 @@ compliance with all Codes and practices. This is the same as
 
 :AvailableName a :TaxonomicStatus ;
   skos:inScheme :TaxonomicStatusTerms ;
-  rdfs:Label :Available Name"@en ;
+  rdfs:Label "Available Name"@en ;
   skos:exactMatch <http://rs.gbif.org/vocabulary/gbif/taxonomicStatus/accepted> ;
   rdfs:comment "When a TNU is followed by the term `:AvailableName`, the
 implication is that the name that is being referred to by the TNU has been
@@ -1420,7 +1464,6 @@ name unavailable or by fixing other issues with the name or finding out that
 other issues with the name had been fixed, or just stating the fact that the
 name shall be used or even conserving it, so that the name can be freely used
 from then on in compliance with all Codes and practices."@en.
-
 @
 ```
 
@@ -1518,52 +1561,52 @@ to indicate that a particular TNU is taxonomic concept label.
 
 [taxon_concept_label.txt](R/taxon_concept_label.txt)
 
-## Directly imported external ontologies
 
-Some third party ontologies cannot be imported via `owl:imports` for various
-reasons (updated versions that we don't use, broken links, etc.) We add the
-objects that we borrow from them here.
+### Vocabulary of RCC5 Terms
 
+ 
 ```
-<<External Ontology>>=
+<<Vocabulary of RCC5 Terms>>
 
-# Parts of PROTON
+:RCC5Relation rdf:type owl:Class ;
+  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                    owl:onProperty <http://www.w3.org/2004/02/skos/core#inScheme> ;
+                    owl:someValuesFrom :RCC5RelationTerms ] ;
+  rdfs:label "RCC5 Relation"@en ;
+  rdfs:comment "The of RCC 5 relation, e.g. 'partially overlaps'"@en .
 
-```
-<<Borrowed Parts from External Ontology>>= 
+:RCC5RelationTerms rdf:type owl:Class ;
+  rdfs:subClassOf <http://www.w3.org/2004/02/skos/core#ConceptScheme> ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty fabio:isSchemeOf ;
+                                  owl:allValuesFrom :RCC5Relation] ;
+  rdfs:label "OpenBiodiv Vocabulary of RCC5 Relations"@en ;
+  fabio:hasDiscipline dbpedia:Taxonomy_(biology) .
 
-top:Entity rdf:type owl:Class ;
-            rdfs:comment "Any sort of an entity of interest, usually something existing, happening, or purely abstract. Entities may have several - more than one - names or aliases."@en ;
-            rdfs:label "Entity"@en .
+:Equals_INT rdf:type :RCC5Relation ;
+  skos:inScheme :RCC5RelationTerms ;
+  rdfs:label "Equals (INT)" ;
+  rdfs:comment "= EQ(x,y) Equals (intensional)"@en . 
 
-ptop:Object rdf:type owl:Class ;
-            rdfs:subClassOf ptop:Entity ;
-            rdfs:comment "Objects are entities that could be claimed to exist - in some sense of existence. An object can play a certain role in some happenings. Objects could be substantially real - as the Buckingham Palace or a hardcopy book - or substantially imperceptible - for instance, an electronic document that exists only virtually, one cannot touch it."@en ;
-            rdfs:label "Object"@en .
+:ProperPart_INT rdf:type :RCC5Relation ;
+  skos:inScheme :RCC5RelationTerms ;
+  rdfs:label "Proper Part (INT)" ;
+  rdfs:comment "< PP(x,y) Proper Part of (intensional)"@en .
 
-ptop:Statement rdf:type owl:Class ;
-               rdfs:subClassOf ptop:Object ;
-               rdfs:comment "A message that is stated or declared; a communication (oral or written), setting forth particulars or facts, etc; \"according to his statement he was in London on that day\". WordNet 1.7.1"@en ;
-               rdfs:label "Statement"@en .
+:InverseProperPart_INT rdf:type :RCC5Relation ;
+  skos:inScheme :RCC5RelationTerms ;
+  rdfs:label "Inverse Proper Part (INT)" ;
+  rdfs:comment "iPP(x, y) Inverse Proper Part (intensional)"@en .
 
-ptop:InformationResource rdf:type owl:Class ;
-                         rdfs:subClassOf ptop:Statement ;
-                         rdfs:comment "InformationResource denotes an information resource with identity, as defined in Dublin Core (DC2003ISO). InformationResource is considered any communication or message that is delivered or produced, taking into account the specific intention of its originator, and also the supposition (and anticipation) for a particular audience or counter-agent in the process of communication (i.e. passive or active feed-back)."@en ;
-                         rdfs:label "Information Resource"@en .
+:PartiallyOverlaps rdf:type :RCC5Relation ;
+  skos:inScheme :RCC5RelationTerms ;
+  rdfs:label "Partially Overlaps (INT)" ;
+  rdfs:comment "o PO(x,y) Partially Overlaps (intensional)"@en .
 
-pkm:mentions
-      rdf:type owl:ObjectProperty ;
-      rdfs:comment """
-    A direct link between an information resource, like a document or a section and an entity.
-  """ ;
-      rdfs:domain ptop:InformationResource ;
-      rdfs:label "mentions" ;
-      rdfs:range psys:Entity .
-
-pext:Mention rdf:type owl:Class ;
-             rdfs:subClassOf ptop:InformationResource ;
-             rdfs:comment "An area of a document that can be considered a mention of something."@en ;
-             rdfs:label "Section" .
+:Disjoint_INT rdf:type :RCC5Relation ;
+  skos:inScheme :RCC5RelationTerms ;
+  rdfs:label "Disjoint (INT)" ;
+  rdfs:comment "! DR(x,y) Disjoint from (intensional)."@en .
 @
 ```
 
@@ -1638,5 +1681,51 @@ openbiodiv:ChronologicalClassification
   rdfs:comment "A vocabulary of chronological eras that can be used in
                 Pensoft's journals"@en ; 
   fabio:hasDiscipline dbpedia:Paleontology .
+@
+```
+
+
+## Directly imported external ontologies
+
+Some third party ontologies cannot be imported via `owl:imports` for various
+reasons (updated versions that we don't use, broken links, etc.) We add the
+objects that we borrow from them here.
+
+
+# Parts of PROTON
+
+```
+<<Borrowed Parts from External Ontology>>= 
+
+ptop:Entity rdf:type owl:Class ;
+            rdfs:comment "Any sort of an entity of interest, usually something existing, happening, or purely abstract. Entities may have several - more than one - names or aliases."@en ;
+            rdfs:label "Entity"@en .
+
+ptop:Object rdf:type owl:Class ;
+            rdfs:subClassOf ptop:Entity ;
+            rdfs:comment "Objects are entities that could be claimed to exist - in some sense of existence. An object can play a certain role in some happenings. Objects could be substantially real - as the Buckingham Palace or a hardcopy book - or substantially imperceptible - for instance, an electronic document that exists only virtually, one cannot touch it."@en ;
+            rdfs:label "Object"@en .
+
+ptop:Statement rdf:type owl:Class ;
+               rdfs:subClassOf ptop:Object ;
+               rdfs:comment "A message that is stated or declared; a communication (oral or written), setting forth particulars or facts, etc; \"according to his statement he was in London on that day\". WordNet 1.7.1"@en ;
+               rdfs:label "Statement"@en .
+
+ptop:InformationResource rdf:type owl:Class ;
+                         rdfs:subClassOf ptop:Statement ;
+                         rdfs:comment "InformationResource denotes an information resource with identity, as defined in Dublin Core (DC2003ISO). InformationResource is considered any communication or message that is delivered or produced, taking into account the specific intention of its originator, and also the supposition (and anticipation) for a particular audience or counter-agent in the process of communication (i.e. passive or active feed-back)."@en ;
+                         rdfs:label "Information Resource"@en .
+
+pkm:mentions
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "A direct link between an information resource, like a document or a section and an entity." ;
+      rdfs:domain ptop:InformationResource ;
+      rdfs:label "mentions" ;
+      rdfs:range ptop:Entity .
+
+pext:Mention rdf:type owl:Class ;
+             rdfs:subClassOf ptop:InformationResource ;
+             rdfs:comment "An area of a document that can be considered a mention of something."@en ;
+             rdfs:label "Section" .
 @
 ```
