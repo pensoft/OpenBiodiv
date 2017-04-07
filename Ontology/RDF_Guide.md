@@ -84,7 +84,8 @@ top-level structure of the ontology is defined:
   dc:creator "Viktor Senderov, Terry Catapano, Kiril Simov, Lyubomir Penev" ;
   dc:rights "CCBY" ;
   owl:imports <http://phylodiversity.net/dsw/dsw.rdf> ;
-  owl:imports <http://www.essepuntato.it/2008/12/pattern> .
+  owl:imports <http://www.essepuntato.it/2008/12/pattern> ;
+  owl:imports <http://purl.org/spar/fabio/> .
 
 @
 ```
@@ -111,7 +112,7 @@ notangle -R"OpenBiodiv Ontology" RDF_Guide.md > OpenbBodiv.ttl
 ```
 <<Examples>>=
 
-# These are the examples for the OpenBiodiv data model.
+ #' These are the examples for the OpenBiodiv data model.
 @
 ```
 
@@ -159,7 +160,7 @@ The following Turtle code can be extracted from the prefix database with
 @prefix fabio: <http://purl.org/spar/fabio/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
-@prefix frbr: <http://purl.org/spar/frbr/> .
+@prefix frbr: <http://purl.org/vocab/frbr/core#> .
 @prefix prism: <http://prismstandard.org/namespaces/basic/2.0> .
 @prefix doco: <http://purl.org/spar/doco/> .
 @prefix po: <http://www.essepuntato.it/2008/12/pattern#> .
@@ -237,6 +238,14 @@ URI's of classes and vocabularies will be in `MajorCamelCase`. URI's of
 relationships will be in `minorCamelCase`. URI's of individuals `will-be-hyphenated`.
 This seems to generally in accordance with WWW practice.
 
+**Examples**
+
+```
+<<Examples>>=
+<<Prefixes>>
+@
+```
+
 ## RDF Model
 
 ### The Publishing Domain
@@ -286,10 +295,10 @@ and Journal using SPAR.
 :biodiversity-data-journal rdf:type fabio:Journal ;
   skos:prefLabel "Biodiversity Data Journal" ;
   skos:altLabel  "BDJ" ;
-  fabio:issn     "1314-2836" ;
-  fabio:eIssn    "1314-2828" ;
+  <http://prismstandard.org/namespaces/basic/2.0/issn>     "1314-2836" ;
+  <http://prismstandard.org/namespaces/basic/2.0/eIssn>    "1314-2828" ;
   dcterms:publisher "Pensoft Publishers" ;
-  frbr:hasPart :article . 
+  frbr:part <http://dx.doi.org/10.3897/BDJ.4.e10095> . 
 
 <http://dx.doi.org/10.3897/BDJ.4.e10095> a fabio:JournalArticle ;
   skos:prefLabel "10.3897/BDJ.4.e10095" ;
@@ -366,7 +375,7 @@ are linked via the use of the `po:contains`:
 ```
 <<Examples>>=
 
-:heser-stoevi-article po:contains :heser-stoevi-treatment . 
+<http://dx.doi.org/10.3897/BDJ.4.e10095> po:contains :heser-stoevi-treatment . 
 @
 ```
 
@@ -417,9 +426,9 @@ trt:NomenclatureCitationList a owl:Class ;
 <<Examples>>=
 
 :heser-stoevi-treatment
-  po:contains :heser-stoevi-nomenclature ;
+  po:contains :heser-stoevi-nomenclature .
 
-:heser-stoevi-nomenclature a Doco:Section, trt:Nomenclature ;
+:heser-stoevi-nomenclature a doco:Section, trt:Nomenclature ;
   po:contains :heser-stoevi-nomenclature-heading .
 
 :heser-stoevi-nomenclature-heading a trt:NomenclatureHeading ;
@@ -506,7 +515,7 @@ treatment title (current concept/ *this* concept).
 
 :heser-stoevi-nomenclature-heading po:contains :heser-stoevi-tnu .
 
-:heser-stoevi-tnu a :TaxonomicNameUsage .
+:heser-stoevi-tnu a :TaxonomicNameUsage ;
   dc:date "2016-08-31"^^xsd:date ;
   cnt:chars
   "Heser stoevi urn:lsid:zoobank.org:act:E4D7D5A0-D649-4F5E-9360-D0488D73EEE8 Deltschev sp. n." ;
@@ -517,7 +526,7 @@ treatment title (current concept/ *this* concept).
   dwc:taxonomicStatus "sp. n." ; dwciri:taxonomicStatus :TaxonDiscovery ;
   dwc:nameAccordingToId "10.3897/BDJ.4.e10095" ;
 
-  :scientificName :heser-stoevi-deltshev 
+  :scientificName :heser-stoevi-deltshev ;
   :nameAccordingTo <http://dx.doi.org/10.3897/BDJ.4.e10095> ;
   :taxonConceptLabel :heser-stoevi-sec-deltshev ;
 
@@ -628,7 +637,7 @@ class of names.
 <<Model of Biological Systematics>>=
 
 dwciri:scientificName rdf:type owl:ObjectProperty ;
-  rdfs:label "scientific name" @en ;
+  rdfs:label "scientific name"@en;
   rdfs:comment "the IRI version of dwc:scientificName"@en .
 
 dwciri:nameAccordingTo rdf:type owl:ObjectProperty ;
@@ -637,7 +646,7 @@ dwciri:nameAccordingTo rdf:type owl:ObjectProperty ;
   
 :biologicalName rdf:type owl:ObjectProperty ;
   rdfs:subClassOf pkm:mentions ;
-	rdfs:label "mentions biological name" @en ;
+	rdfs:label "mentions biological name"@en ;
 	rdfs:range :BiologicalName .
 
 :vernacularName rdf:type owl:ObjectProperty ;
@@ -887,8 +896,8 @@ date property here is to indicate when was the taxonomic status assumed.
     dwc:genus "Heser" ;
     dwc:taxonRank "species" ;
     dwciri:taxonomicStatus <http://rs.gbif.org/vocabulary/gbif/taxonomicStatus/accepted> ;
-    dwc:scientificNameAuthorship "Deltschev" 
-    dc:date "2016-08-31"^xsd:date .
+    dwc:scientificNameAuthorship "Deltschev" ;
+    dc:date "2016-08-31"^^xsd:date .
 @
 ```
 
@@ -909,11 +918,11 @@ can say:
   po:contains :leis-papuensis-tnu-citation .
 
 :harmonia-manillana-tnu-heading a :TaxonomicNameUsage ;
-  dc:date "2016-08-16"^xsd:date ;
+  dc:date "2016-08-16"^^xsd:date ;
   cnt:chars "Harmonia manillana (Mulsant, 1866)" .
 
 :leis-papuensis-tnu-citation a :TaxonomicNameUsage ;
-  dc:date "2016-08-16"^xsd:date ;
+  dc:date "2016-08-16"^^xsd:date ;
   cnt:chars "Leis papuensis var. suffusa Crotch 1874 121 (Lectotype, UCCC). Korschefsky 1932 : 275.- Gordon 1987 : 14 (lectotype designation). Syn. nov." ;
   dwc:taxonomicStatus "var. suffusa Crotch 1874 121 (Lectotype, UCCC). Korschefsky 1932 : 275.- Gordon 1987 : 14 (lectotype designation). Syn. nov." ;
   dwciri:taxonomicStatus :Unavailable .
@@ -925,7 +934,7 @@ can say:
   dwc:genus "Harmonia" ;
   dwc:taxonRank "species" ;
   dwc:scientificNameAuthorship "(Mulsant, 1866)" ;
-  dc:date "2016-08-16"^xsd:date ; 
+  dc:date "2016-08-16"^^xsd:date ; 
   dwc:taxonomicStatus :Available ;
   :relatedName :leis-papuensis .
 
@@ -934,7 +943,7 @@ can say:
   dwc:species "papuensis" ;
   dwc:genus "Leis" ;
   dwc:taxonRank "species" ;
-  dc:date "2016-08-16"^xsd:date ; 
+  dc:date "2016-08-16"^^xsd:date ; 
   dwciri:taxonomicStatus :Unavailable ;
   :replacementName :harmonia-manillana-mulsant-1866 ;
   :relatedName :harmonia-manillana-mulsant-1866 .
@@ -1026,15 +1035,15 @@ concept glued together by `sec.`.
    ::nameAccordingTo <http://dx.doi.org/10.3897/BDJ.4.e10095> .
   
 :concept-deltshev-2016 a :TaxonConcept ;
-  :taxonConceptLabel :heser-stoevi-sec-deltshev ;
+  :taxonConceptLabel :heser-stoevi-sec-deltshev .
 
 :heser-stoevi-sec-gbif20170323 a :TaxonConceptLabel ;
   skos:prefLabel "Heser stoevi sec. doi:10.15468/39omei" ;
   dwciri:scientificName :heser-stoevi-deltshev ;
   dwciri:nameAccordingTo :gbif20170323 .
 
-:concept-gbif s :TaxonConcept ;
-  :taxonConceptLabel :heser-stoevi-sec-gbif20170323 
+:concept-gbif a :TaxonConcept ;
+  :taxonConceptLabel :heser-stoevi-sec-gbif20170323 .
 
 <http://dx.doi.org/doi:10.15468/39omei> a fabio:Database ;
   skos:prefLabel "GBIF Backbone Taxonomy" ;
@@ -1043,12 +1052,12 @@ concept glued together by `sec.`.
   dc:date "2017-03-23"^^xsd:date ;
   rdfs:comment "A dump of GBIF's backbone taxonomy on 23 Mar 2017."@en ;
   po:contains [ a :TaxonConceptLabel ;
-                dc:date ""2017-03-23"^^xsd:date ;
+                dc:date "2017-03-23"^^xsd:date ;
                 dwc:scientificName "Heser stoevi Deltshev, 2016" ;
                 dwc:nameAccordingTo "GBIF Backbone Taxonomy" ;
                 dwciri:nameAccordingTo <http://dx.doi.org/doi:10.15468/39omei> ;
                 dwciri:scientificName :heser-stoevi-deltshev ;
-                pkm:mentions :heser-stoevi-sec-gbif20170323 . ] .
+                pkm:mentions :heser-stoevi-sec-gbif20170323  ] .
 @
 ```
 
@@ -1089,7 +1098,7 @@ as the different taxon concept labels refer to the same class.
 
 :havePedipals rdf:type owl:DataTypeProperty ;
   rdfs:domain :TaxonConcept ;
-  rdfs:comment "If this property is true, that the taxon has pedipals"
+  rdfs:comment "If this property is true, that the taxon has pedipals" .
 
 :spiders-with-spinnerets-sec-rdfguide a :TaxonConceptLabel ;
   dwc:order "Araneae" ;
@@ -1109,10 +1118,11 @@ as the different taxon concept labels refer to the same class.
   :taxonConceptLabel :spiders-with-pedipals-sec-rdfguide ;
   :havePedipals "true"^^xsd:boolean .
 
-:spider1 a :concept-spinnerts ;
-:spider2 a :concept-pedipals ;
+:spider1 a :concept-spinnerts .
+:spider2 a :concept-pedipals .
 
 :concept-spinnerts owl:equivalentClass :concept-pedipals .
+@
 ```
 
 Here, the implication is that although the intensional meaning of the two concepts
@@ -1130,7 +1140,7 @@ but we will not copy any of the `:havePedipals` or `:haveSpinnerts` to the other
 ```
 <<Examples>>=
 
-animalia-sec-gbif :TaxonConceptLabel ;
+:animalia-sec-gbif a :TaxonConceptLabel ;
   skos:prefLabel "Animalia sec. GBIF Backbone Taxonomy" ;
   dwciri:scientificName :animalia ;
   :nameAccordingTo <http://dx.doi.org/doi:10.15468/39omei> .
@@ -1145,7 +1155,7 @@ animalia-sec-gbif :TaxonConceptLabel ;
   dwciri:scientificName :animalia ;
   dwc:taxonId "1 (GBIF)" .
 
-:heser-stoevi-sec-gbif20170323 rdfs:subClassOf :animlia-sec-gbif20170323
+:heser-stoevi-sec-gbif20170323 rdfs:subClassOf :animlia-sec-gbif20170323 .
 @
 
 **Example (Relatedness)** If two taxon concepts are related we can use `skos:related`.
@@ -1225,13 +1235,13 @@ We model the following exceprt here:
 
 :concept-minyomerus-innocuus-horn a :TaxonConcept .
 
-:microps-innocuus-relation-int a RCC5Stament ;
+:microps-innocuus-relation-int a :RCC5Stament ;
   :rcc5FromRegion :concept-minyomerus-microps-jansen-franz ;
   :rcc5ToRegion :concept-minyomerus-innocuus-horn ;
   :rcc5RelationType :Equals_INT ;
   frbr:expression :jansen-franz-2015 .
 
-:microps-innocuus-relation-ost a RCC5Stament ;
+:microps-innocuus-relation-ost a :RCC5Stament ;
   :rcc5FromRegion :concept-minyomerus-microps-jansen-franz ;
   :rcc5ToRegion :concept-minyomerus-innocuus-horn ;
   :rcc5RelationType :InverseProperPart_OST ;
