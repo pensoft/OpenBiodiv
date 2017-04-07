@@ -1222,8 +1222,7 @@ the above defitions and the RCC5 Vocabulary described in the Appendix.
 
 We model the following exceprt here:
 
-"Minyomerus microps (Say, 1831: 9) sec. Jansen & Franz (2015), stat. n. 
-==
+"Minyomerus microps (Say, 1831: 9) sec. Jansen & Franz (2015), stat. n.  ==
 (INT) AND > (OST) AND = Minyomerus innocuus Horn, 1876: 18 sec. Horn (1876) (type, designated by Pierce 1913: 400), syn. n."
 
 ```
