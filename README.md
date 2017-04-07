@@ -31,4 +31,4 @@ where {date} is a urlencoded date in format day/month/year
 
 The data model for generating RDF is found in the
 
-[OpenBiodiv RDF Guide][Guide.md]
+[OpenBiodiv RDF Guide](Ontology/RDF_Guide.md)
