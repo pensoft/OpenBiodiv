@@ -1524,7 +1524,7 @@ TNU."@en.
 
 ```
 
-[type_specimen_desgination.txt](R/type_specimen_designation.txt)
+[type_specimen_designation.txt](R/type_specimen_designation.txt)
 
 #### New Record
 
