@@ -1157,6 +1157,7 @@ but we will not copy any of the `:havePedipals` or `:haveSpinnerts` to the other
 
 :heser-stoevi-sec-gbif20170323 rdfs:subClassOf :animlia-sec-gbif20170323 .
 @
+```
 
 **Example (Relatedness)** If two taxon concepts are related we can use `skos:related`.
 
