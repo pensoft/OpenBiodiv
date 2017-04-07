@@ -1500,7 +1500,7 @@ author."@en.
 @
 ```
 
-[type_species_desgination.txt](R/type_species_designation.txt)
+[type_species_designation.txt](R/type_species_designation.txt)
 
 #### Type Specimen Designation
 
