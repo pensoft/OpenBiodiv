@@ -1566,7 +1566,7 @@ to indicate that a particular TNU is taxonomic concept label.
 
  
 ```
-<<Vocabulary of RCC5 Terms>>
+<<Vocabulary of RCC5 Terms>>=
 
 :RCC5Relation rdf:type owl:Class ;
   rdfs:subClassOf [ rdf:type owl:Restriction ;
@@ -1580,8 +1580,7 @@ to indicate that a particular TNU is taxonomic concept label.
                                 [ rdf:type owl:Restriction ;
                                   owl:onProperty fabio:isSchemeOf ;
                                   owl:allValuesFrom :RCC5Relation] ;
-  rdfs:label "OpenBiodiv Vocabulary of RCC5 Relations"@en ;
-  fabio:hasDiscipline dbpedia:Taxonomy_(biology) .
+  rdfs:label "OpenBiodiv Vocabulary of RCC5 Relations"@en .
 
 :Equals_INT rdf:type :RCC5Relation ;
   skos:inScheme :RCC5RelationTerms ;
@@ -1598,7 +1597,7 @@ to indicate that a particular TNU is taxonomic concept label.
   rdfs:label "Inverse Proper Part (INT)" ;
   rdfs:comment "iPP(x, y) Inverse Proper Part (intensional)"@en .
 
-:PartiallyOverlaps rdf:type :RCC5Relation ;
+:PartiallyOverlaps_INT rdf:type :RCC5Relation ;
   skos:inScheme :RCC5RelationTerms ;
   rdfs:label "Partially Overlaps (INT)" ;
   rdfs:comment "o PO(x,y) Partially Overlaps (intensional)"@en .
@@ -1607,12 +1606,37 @@ to indicate that a particular TNU is taxonomic concept label.
   skos:inScheme :RCC5RelationTerms ;
   rdfs:label "Disjoint (INT)" ;
   rdfs:comment "! DR(x,y) Disjoint from (intensional)."@en .
+
+:Equals_OST rdf:type :RCC5Relation ;
+  skos:inScheme :RCC5RelationTerms ;
+  rdfs:label "Equals (OST)" ;
+  rdfs:comment "= EQ(x,y) Equals (ostensive)"@en . 
+
+:ProperPart_OST rdf:type :RCC5Relation ;
+  skos:inScheme :RCC5RelationTerms ;
+  rdfs:label "Proper Part (OST)" ;
+  rdfs:comment "< PP(x,y) Proper Part of (ostensive)"@en .
+
+:InverseProperPart_OST rdf:type :RCC5Relation ;
+  skos:inScheme :RCC5RelationTerms ;
+  rdfs:label "Inverse Proper Part (OST)" ;
+  rdfs:comment "iPP(x, y) Inverse Proper Part (ostensive)"@en .
+
+:PartiallyOverlaps_OST rdf:type :RCC5Relation ;
+  skos:inScheme :RCC5RelationTerms ;
+  rdfs:label "Partially Overlaps (OST)" ;
+  rdfs:comment "o PO(x,y) Partially Overlaps (ostensive)"@en .
+
+:Disjoint_OST rdf:type :RCC5Relation ;
+  skos:inScheme :RCC5RelationTerms ;
+  rdfs:label "Disjoint (OST)" ;
+  rdfs:comment "! DR(x,y) Disjoint from (ostensive)."@en .
 @
 ```
 
 ### Vocabulary of Paper Types
 
-Future work
+TODO: Future work
 
 **Def.:** Pensoft's journals have some
 paper types, which we define herein. First of all, we introduce Paper Types as
@@ -1621,32 +1645,30 @@ different paper types as Subject Term's in the scheme of Paper Types. See the
 SPAR ontologies for more info on this this.
 
 ```
-<<Paper Types>>=
-pensoft:PaperTypes
-  a fabio:TermDictionary ;
-  rdfs:label "Paper Types"@en ;
+<<Vocabulary Paper Types>>=
+
+
+:PaperTypeTerms rdf:type owl:Class ;
+  rdfs:subClassOf <http://www.w3.org/2004/02/skos/core#ConceptScheme> ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty fabio:isSchemeOf ;
+                                  owl:allValuesFrom :PaperType] ;
+  rdfs:label "Paper Types Vocabulary"@en ;
   rdfs:comment "A list of paper (article) types published in Pensoft's
                 journals"@en ;
   fabio:hasDiscipline dbpedia:Bibliography .
-@
-```
 
-**Example 9.** We give an example of a paper with only one
-taxonomic treatment. These paper types are not part of the Core Ontology but
-are imported in the Knowledge Base during the population phase. We also show
-how to say that a paper has as its type the aforementioned type.
+:PaperType rdf:type owl:Class ;
+  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                    owl:onProperty <http://www.w3.org/2004/02/skos/core#inScheme> ;
+                    owl:someValuesFrom :PaperTypeTerms ] ;
+  rdfs:label "Paper Type"@en ;
+  rdfs:comment "A Specific Type Of Paper"@en .
 
-```
-<<eg9>>=
-:single-taxon-treatment
-  a fabio:SubjectTerm ;
+:SingleTaxonTreatment a PaperType ;
   rdfs:label "Single Taxon Treatment"@en; 
   rdfs:comment "A type of paper with only one taxonomic treatment"@en ;
   skos:inScheme pensoft:PaperTypes .
-
-:paper
-  a fabio:JournalArticle ;
-  fabio:hasSubjectTerm :single-taxon-treatment .
 @
 ```
 
@@ -1654,15 +1676,21 @@ TODO: Extract paper types.
 
 ### Vocabulary of Taxon Classification
 
+TODO: Future work
+
 **Def. 10 of controlled vocabulary (Taxon Classification):** Pensoft, in its
 Keywords uses certain taxon names for the classification of its papers. These
 taxon names are borrowed from GBIF. Here we define a term dictionary
 analogously to paper types:
 
 ```
-<<Taxon Classification>>=
-pensoft:TaxonClassification 
-  a fabio:TermDictionary ;
+<<Vocabulary of Taxon Classification>>=
+
+:TaxonClassificationTerms rdf:type owl:Class ;
+  rdfs:subClassOf <http://www.w3.org/2004/02/skos/core#ConceptScheme> ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty fabio:isSchemeOf ;
+                                  owl:allValuesFrom :TaxonClassification] ; 
   rdfs:label "Taxonomic Classification"@en ;
   rdfs:comment "A list of taxon names borrowed for GBIF for the 
                 classification of papers."@en ;
@@ -1671,12 +1699,15 @@ pensoft:TaxonClassification
 ```
 
 ### Vocabulary of Chronological Classification
+TODO: Future work
 
-**Def. 11 of controlled vocabulary (Taxon Classification):**
 ```
-<<Chronological Classification>>=
-openbiodiv:ChronologicalClassification
-  a fabio:TermDictionary ;
+<<Vocabulary of Chronological Classification>>=
+:ChronologicalClassificationTerms rdf:type owl:Class ;
+  rdfs:subClassOf <http://www.w3.org/2004/02/skos/core#ConceptScheme> ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty fabio:isSchemeOf ;
+                                  owl:allValuesFrom :ChronologicalClassigication] ; 
   rdfs:label "Chronological Classification"@en ;
   rdfs:comment "A vocabulary of chronological eras that can be used in
                 Pensoft's journals"@en ; 
