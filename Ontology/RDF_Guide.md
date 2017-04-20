@@ -6,17 +6,20 @@ and to define for computers the data model of OpenBiodiv and aid its users in
 generating OpenBiodiv-compatible RDF and in creating useful SPARQL queries or
 other useful extensions.
 
-This guide is a [literate
-programming](https://en.wikipedia.org/wiki/Literate_programming) document.
+This guide is a [literate programming](https://en.wikipedia.org/wiki/Literate_programming) document.
 Literate programming is the act of including source code within documentation.
-In usual software development practice the reverse holds true. By virtual of
-this programming paradigm, in this document the formal description of the data
-model, i.e. the [RDF](https://www.w3.org/RDF/) statements that form the
-ontology and the vocabularies, are found within the document itself and are
-extracted from it with the program `noweb`. `noweb` can be easily obtained for
-GNU Linux.
+In usual software development practice the reverse holds true. By virtue of
+this programming paradigm the formal description of the data model, i.e. the
+[RDF](https://www.w3.org/RDF/) statements that form the ontology and the
+vocabularies, are found within the document itself and are extracted from it
+with the program `noweb`. `noweb` can be easily obtained for GNU Linux.
 
 ## Introduction
+
+TODO: NMF: Include in Guide a Reference section, with a few essential refs. to
+connect to relevant prior efforts?
+
+Answer to NMF: I will do this once I start writing the paper.
 
 **Motivation.** The raison d'être of the OpenBiodiv Data Model is to enable
 the operation of a semantic database as part of OpenBiodiv. The data model
@@ -76,11 +79,11 @@ top-level structure of the ontology is defined:
 <<Ontology Metadata>>=
 
 : rdf:type owl:Ontology ;
-  owl:versionInfo "0.2" ;
-  rdfs:comment "Open Biodiversity Knowledge Management System Core Ontology" ;
-  dc:title "OpenBiodiv Core Ontology" ;
-  dc:subject "OpenBiodiv Core Ontology" ;
-  rdfs:label "OpenBiodiv Core Ontology" ;
+  owl:versionInfo "0.3" ;
+  rdfs:comment "Open Biodiversity Knowledge Management System Ontology" ;
+  dc:title "OpenBiodiv Ontology" ;
+  dc:subject "OpenBiodiv Ontology" ;
+  rdfs:label "OpenBiodiv Ontology" ;
   dc:creator "Viktor Senderov, Terry Catapano, Kiril Simov, Lyubomir Penev" ;
   dc:rights "CCBY" ;
   owl:imports <http://phylodiversity.net/dsw/dsw.rdf> ;
@@ -90,16 +93,14 @@ top-level structure of the ontology is defined:
 @
 ```
 
-TODO: Authors list needs to be emended.
-
-**Note:** We've just defined our *root chunk*, `Ontology`. In the `noweb` way
-of doing literate programming, we write our source in chunks. Each chunk has a
-name that is found between the `@<<` (TODO: not sure how to escape this
-character) and `>>` and ends in `@`. Chunks can contain other chunks and thus
-the writing of the source code becomes hierarchical and non-linear. In the
-root chunk, we've listed other chunks that we'll introduce later and some
-verbatim code. In order to create the ontology we use the `notangle` command
-from `noweb`.
+**Note:** The code snipped above, `Ontology Metadata`, is called a *chunk*. In
+the `noweb` way of doing literate programming, we write our source in chunks.
+Each chunk has a name that is found between the `&lt;&lt;` (TODO: not sure how to
+escape this character) and `>>` and ends in `@`. Chunks can contain other
+chunks and thus the writing of the source code becomes hierarchical and non-
+linear. In the root chunk, we've listed other chunks that we'll introduce
+later and some verbatim code. In order to create the ontology we use the
+`notangle` command from `noweb`.
 
 **Command to extract the Core Ontology.**
 
