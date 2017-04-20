@@ -1,0 +1,114 @@
+
+# rules need to be evaluated in the order here
+# I. set all names that have not been made unavailabel to available
+INSERT {
+  ?a dwciri:taxonomicStatus :AvailableName .
+}
+WHERE {
+  ?a rdf:type :ScientificName .
+  ?tnu pkm:mentions ?a .
+  UNSAID { ?tnu dwciri:taxonomicStatus :UnavailableName .}
+}
+
+ # note the date here refers to when was the taxonomic status of the name last determined
+ # 2. set all names that were made unavailable at one point to unavailable and copy the
+ # date
+INSERT {
+  ?a dwciri:taxonomicStatus :UnavailableName .
+  ?a dc:date ?d .
+}
+WHERE {
+  ?a rdf:type :ScientificName .
+  ?tnu pkm:mentions ?a ;
+       dwciri:taxonomicStatus :UnavailableName ;
+       dc:date ?d .
+}
+
+ # 3. set names to :Available back 
+DELETE {
+  ?a dwciri:taxonomicStatus :UnavailableName ;
+  ?a dc:date ?d0 .
+}
+INSERT {
+  ?a dwciri:taxonomicStatus :AvailableName .
+  ?a dc:date ?d1 .
+}
+WHERE {
+  ?a rdf:type :ScientificName ;
+     dc:date ?d0 .
+  ?tnu1 pkm:mentions ?a ;
+        dwciri:taxonomicStatus :AvailableName ;
+        dc:date ?d1 .
+  FILTER ( ?d1 > ?d0 )
+}
+
+DELETE {
+  ?a dwciri:taxonomicStatus :UnavailableName ;
+  ?a dc:date ?d0 .
+}
+INSERT {
+  ?a dwciri:taxonomicStatus :AvailableName .
+  ?a dc:date ?d1 .
+}
+WHERE {
+  ?a rdf:type :ScientificName ;
+     dc:date ?d0 .
+  ?tnu1 rdf:type :TaxonomicNameUsage ;
+        pkm:mentions ?a ;
+        dwciri:taxonomicStatus :ReplacementName ;
+        dc:date ?d1 .
+  FILTER ( ?d1 > ?d0 )
+}
+
+# II. Link replacement names
+INSERT {
+    ?a trt:replacementName ?b .
+}
+WHERE {
+        ?a a :ScientificName .
+        ?b a :ScientificName .
+        [] a trt:Nomenclature ;
+                   po:contains [ a :TaxonomicNameUsage ;
+                                                 pkm:mentions ?a ;
+                                                 dwciri:taxonomicStatus :ReplacementName ] ,
+                                   [ a :TaxonomicNameUsage ;
+                                 pkm:mentions ?b ;
+                                 dwciri:taxonomicStatus :UnavailableName ].
+}
+
+# III. if two names are mentioned in the same nomenclature
+# section then they are related
+
+INSERT {
+    ?a trt:relatedName ?b .
+}
+WHERE {
+        ?a a :ScientificName .
+        ?b a :ScientificName .
+        ?c a trt:Nomenclature ;
+           po:contains [ pkm:mentions ?a ];
+                           [ pkm:mentions ?b ].
+}
+
+# IV. Conserved names
+
+INSERT {
+    ?a dwciri:taxonomicStatus :ConservedName .
+}
+WHERE {
+  ?a a :ScientificName .
+  ?t a :TaxonomicNameUsage ;
+     pkm:mentions ?a
+     dwciri:taxonomicStatus :ConservedName .
+
+# V. Conserved names
+
+INSERT {
+    ?name1 owl:sameAs ?name2 .
+}
+WHERE {
+  ?name1 a :ScientificName .
+  ?name2 a :ScientificName .
+  ?t a :TaxonomicNameUsage ;
+   t dwciri:scientificName ?name1, ?name2 .
+  FILTER( ?name1 != ?name2 ) .
