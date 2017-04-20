@@ -9,4 +9,3 @@ write_couplet(subject, triples)
 \description{
 Writes a single couplet for the given subejct
 }
-

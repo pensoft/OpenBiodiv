@@ -15,4 +15,3 @@ string (e.g. things like @en, or xsd:date)}
 \description{
 Semantic quote. Function to quote literals for use in RDF
 }
-

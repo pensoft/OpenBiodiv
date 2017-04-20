@@ -9,4 +9,3 @@ strip_angle(uri)
 \description{
 A function to strip the angle brackets
 }
-

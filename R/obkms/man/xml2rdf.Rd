@@ -25,4 +25,3 @@ Convert an XML document to RDF
 \author{
 Viktor Senderov
 }
-

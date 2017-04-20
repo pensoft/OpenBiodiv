@@ -11,4 +11,3 @@ write_couplet2(subject, triples)
 Writes a single couplet for the given subejct
 with triples in a list
 }
-

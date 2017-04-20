@@ -115,7 +115,9 @@ strip_angle = function ( uri ) {
 #' string (e.g. things like @en, or xsd:date)
 #' @export
 squote = function ( literal, postfixes = "" ) {
-  if ( is.null ( literal ) ) return ( NULL )
+  if ( is.null ( literal ) || is.na(literal) || literal == "") return ( NULL )
+  literal = gsub("\"", "", literal  )
+  literal = gsub("\\\\", "", literal  )
   paste0 ("\"", literal, "\"", postfixes)
 }
 

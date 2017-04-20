@@ -12,4 +12,3 @@ turtle_prepend_prefixes(t = c("turtle"))
 \description{
 Use the prefix database to create Turtle statements
 }
-

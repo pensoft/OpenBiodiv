@@ -524,6 +524,7 @@ find_document_component_entities = function ( xml, document_component_xpath ) {
 #' @param O \emph{character OR list} object
 #' @return NULL, if one of the values is missing, a character of length 3 otherwise
 #' unless blank is TRUE, then S = ""
+#' @export
 triple = function(S, P, O, blank = FALSE) {
   # this has not been tested yet, probably needs a list around the return anyway
   if ( blank == TRUE ) {
@@ -533,6 +534,21 @@ triple = function(S, P, O, blank = FALSE) {
     else return ( c( S,P,O))
   }
   if ( is.null(S) || is.null(P) || is.null(O) ) return ( NULL )
+  if ( is.list (O) ) return( list(S, P, O) )
+  else return ( c(S,P,O))
+}
+
+#' do a little bit more
+#' @export
+triple2 = function(S, P, O, blank = FALSE) {
+  # this has not been tested yet, probably needs a list around the return anyway
+  if ( blank == TRUE ) {
+    S = c("")
+    if ( is.null(P) || is.null(O) ) return ( NULL )
+    if ( is.list (O) ) return ( list( S, P, O ) )
+    else return ( c( S,P,O))
+  }
+  if ( is.null(S) || is.null(P) || is.null(O) || S == "" || P == "" || O == "" || is.na(S) || is.na(P) || is.na(O) ) return ( NULL )
   if ( is.list (O) ) return( list(S, P, O) )
   else return ( c(S,P,O))
 }

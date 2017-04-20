@@ -9,4 +9,3 @@ write_predicate_stanza2(predicate, triples)
 \description{
 takes care of the predicates, but with the triple structure a list
 }
-

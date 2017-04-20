@@ -2,7 +2,8 @@
 % Please edit documentation in R/rdf.R
 \name{qname}
 \alias{qname}
-\title{Minimizes a URI to a Qname.}
+\title{''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Minimizes a URI to a Qname.}
 \usage{
 qname(uri)
 }
@@ -10,6 +11,6 @@ qname(uri)
 \item{uri}{the full URI to minimize}
 }
 \description{
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 Minimizes a URI to a Qname.
 }
-

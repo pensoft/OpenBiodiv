@@ -14,4 +14,3 @@ the OBKMS node of the valid (first name)
 Extract nomenclature citations (next citations) from a nomenclatural section in the XML
 #' @param nomen_xml the nomenclatural node in the taxpub file
 }
-

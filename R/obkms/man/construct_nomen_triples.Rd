@@ -19,4 +19,3 @@ triples
 \description{
 Construct the nomen triples by creating a NomenclaturalAct
 }
-

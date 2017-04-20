@@ -12,4 +12,3 @@ status of query
 \description{
 Remove the default graph
 }
-

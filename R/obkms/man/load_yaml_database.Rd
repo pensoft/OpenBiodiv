@@ -16,4 +16,3 @@ load_yaml_database(database_path, internal_name)
 Loads a package database from a yaml file
 TODO needs review
 }
-

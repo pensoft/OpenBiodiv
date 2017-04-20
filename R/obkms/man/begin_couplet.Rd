@@ -9,4 +9,3 @@ begin_couplet(subject, predicate, object)
 \description{
 #' a function to start an rdf couplet
 }
-

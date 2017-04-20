@@ -19,4 +19,3 @@ triples
 Connects one local entity, to a list of the names that have been used
 via an intermediate class TNU
 }
-

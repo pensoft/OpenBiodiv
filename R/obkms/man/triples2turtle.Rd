@@ -9,4 +9,3 @@ triples2turtle(context, triples)
 \description{
 Uses the Trig syntax.
 }
-

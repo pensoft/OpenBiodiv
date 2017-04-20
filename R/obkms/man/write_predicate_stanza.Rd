@@ -9,4 +9,3 @@ write_predicate_stanza(predicate, triples)
 \description{
 Writes the predicate-object stanza after a subject has been written
 }
-

@@ -9,4 +9,3 @@ write_end_stanza2(object, triples)
 \description{
 does it with lists
 }
-
