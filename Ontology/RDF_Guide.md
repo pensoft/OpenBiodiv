@@ -95,7 +95,7 @@ top-level structure of the ontology is defined:
 
 **Note:** The code snipped above, `Ontology Metadata`, is called a *chunk*. In
 the `noweb` way of doing literate programming, we write our source in chunks.
-Each chunk has a name that is found between the `@<<` (TODO: not sure how to
+Each chunk has a name that is found between the "&lt;&lt;" (TODO: not sure how to
 escape this character) and `>>` and ends in `@`. Chunks can contain other
 chunks and thus the writing of the source code becomes hierarchical and non-
 linear. In the root chunk, we've listed other chunks that we'll introduce
