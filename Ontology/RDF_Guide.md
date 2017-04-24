@@ -364,8 +364,9 @@ trt:Treatment a owl:Class ;
 @
 ```
 
-Thus, Treatment is defined akin to Introduction, Methods, etc. from 
-[DEO](http://www.sparontologies.net/ontologies/deo/source.html).
+Thus, Treatment is defined akin to Introduction, Methods, etc. from
+
+[DEO, The Discourse Elements Ontology](http://www.sparontologies.net/ontologies/deo/source.html).
 
 **Example:** In this example, we show how to instantiate a treatment:
 
