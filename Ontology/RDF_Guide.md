@@ -226,9 +226,11 @@ it to my reading list.
 **Note on Capitalization.** Our ontology strives be a formal specification of
 a conceptualization. In our mental model we have some concepts of some things.
 When we talk about these concepts in the abstract, we will make use of
-Capitalization. For example, we say Thing for the top-level concept, and we say
-Treatment when we refer to the concept (introduced later) of a taxon
-circumscription. We also have concepts for relations (in our conceptualization
+Capitalization. For example let's suppose we want to name the top-level concept,
+i.e. the concept which encompasses all  concepts. For this we write Thing.
+In another example, let's suppose we want to name a part of a manuscript
+where taxon circumscription takes place. We say
+Treatment when we refer to that concept. We also have concepts for relations (in our conceptualization
 only binary relations are allowed). To denote these relations in the abstract
 we use verbal phrases and we might or might not use quotes (we will use quotes
 only if it adds to the clarity of exposition). For example, Treatment is a
