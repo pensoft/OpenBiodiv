@@ -577,8 +577,7 @@ approach of using non-human-readable identifiers and only relying on labels to
 identify classes of taxonomic names, which does not fit our workflow. For
 example, the identifier for the class "biological name" is `NOMEN_0000030`. In
 our workflow both RDF generation and debugging would be severely hampered by
-this convention. That's why we have defined names in OpenBiodiv and mapped
-them to their NOMEN equivalents.
+this convention. Therefore, OpenBiodiv names use human-readable identifiers.
 
 **Def. (Biological Name, Scientific Name, Vernacular Name):** *Biological
 Name, Scientific Name, and Vernacular Name are introduced as their NOMEN
