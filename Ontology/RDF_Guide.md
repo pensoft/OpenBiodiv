@@ -226,18 +226,18 @@ it to my reading list.
 **Note on Capitalization.** Our ontology strives be a formal specification of
 a conceptualization. In our mental model we have some concepts of some things.
 When we talk about these concepts in the abstract, we will make use of
-Capitalization. For example let's suppose we want to name the top-level concept,
-i.e. the concept which encompasses all  concepts. For this we write Thing.
-In another example, let's suppose we want to name a part of a manuscript
-where taxon circumscription takes place. We say
-Treatment when we refer to that concept. We also have concepts for relations (in our conceptualization
-only binary relations are allowed). To denote these relations in the abstract
-we use verbal phrases and we might or might not use quotes (we will use quotes
-only if it adds to the clarity of exposition). For example, Treatment is a
-Thing as opposed to Treatment "is a" Thing. We also have individual instances
-of these concepts. To refer to those we might use improper or proper nouns or
-phrases wherever appropriate. For example, "the treatment on page 5," or "a
-treatment," or "John."
+Capitalization. For example let's suppose we want to name the top-level
+concept, i.e. the concept which encompasses all  concepts. For this we write
+Thing. In another example, let's suppose we want to name a part of a
+manuscript where taxon circumscription takes place. We say Treatment when we
+refer to that concept. We also have concepts for relations (in our
+conceptualization only binary relations are allowed). To denote these
+relations in the abstract we use verbal phrases and we might or might not use
+quotes (we will use quotes only if it adds to the clarity of exposition). For
+example, Treatment is a Thing as opposed to Treatment "is a" Thing. We also
+have individual instances of these concepts. To refer to those we might use
+improper or proper nouns or phrases wherever appropriate. For example, "the
+treatment on page 5," or "a treatment," or "John."
 
 When we formally define a concept in OWL and issue an URI to it, we shall
 refer to the URI, as we refer to all URI's in the text with `typewriter font`.
@@ -332,6 +332,11 @@ named entity identification.
 #### Taxonomic Treatment
 
 See [Plazi](http://plazi.org/) for a theoretical discussion of Treatment.
+
+TODO: NMF: Is that deliberately about application domain, or structural perspective, or both? Does it matter that you clarify this? (maybe not, I just want you to consider..)
+
+Answer: most structural elements are defined in the publishing domain. However,
+not everything here is a structural element.
 
 **Def. (Treatment):** *Taxonomic Treatment, or simply Treatment, is
 a rhetorical element of a taxonomic publication:*
