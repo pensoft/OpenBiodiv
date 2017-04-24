@@ -93,14 +93,13 @@ top-level structure of the ontology is defined:
 @
 ```
 
-**Note:** The code snipped above, `Ontology Metadata`, is called a *chunk*. In
-the `noweb` way of doing literate programming, we write our source in chunks.
-Each chunk has a name that is found between the "&lt;&lt;" (TODO: not sure how to
-escape this character) and `>>` and ends in `@`. Chunks can contain other
-chunks and thus the writing of the source code becomes hierarchical and non-
-linear. In the root chunk, we've listed other chunks that we'll introduce
-later and some verbatim code. In order to create the ontology we use the
-`notangle` command from `noweb`.
+**Note:** The code snipped above named `Ontology Metadata` is called a
+*chunk*. In the `noweb` way of doing literate programming, we write our source
+in chunks. Each chunk has a name that is found between the &lt;&lt; and `>>`
+and ends in `@`. Chunks can contain other chunks and thus the writing of the
+source code becomes hierarchical and non- linear. In the root chunk, we've
+listed other chunks that we'll introduce later and some verbatim code. In
+order to create the ontology we use the `notangle` command from `noweb`.
 
 **Command to extract the Core Ontology.**
 
@@ -209,8 +208,8 @@ and no additional semantics are added. This step can be completed linearly
 without any external lookups. Key here is that the XML-hierachy is preserved
 in RDF via, for example, `po:contains`.
 
-2. Named entity recognition, coreferencing, and named entity identification.
-During this step, non-structural entities are extracted from the informaiton
+2. Named entity recognition, co-referencing, and named entity identification.
+During this step, non-structural entities are extracted from the information
 present in the structural elements in the form of text or attributes. The details of how this done are beyond
 the scope of this guide but it is important to note that an attempt is made to
 coreference -- i.e. match multiple bibliographic elements to the same non-

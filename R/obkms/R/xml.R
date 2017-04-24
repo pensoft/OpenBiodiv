@@ -13,7 +13,7 @@
 #'        one of "FILE"
 #' @param resource_format
 #'        XML schema of the XML resource;
-#'        one of "TAXPUB"
+#'        one of { "TAXPUB", "REFBANK_XML" }
 #' @param serialization_format
 #'        output serialization format of the RDF;
 #'        one of "TURTLE"
@@ -23,9 +23,8 @@ xml2rdf = function( resource_locator, resource_type = "FILE",
 {
   # checks
   stopifnot ( is.character(resource_type), resource_type == "FILE" )
-  stopifnot ( is.character(resource_format), resource_format == "TAXPUB" )
-  stopifnot ( is.character(serialization_format), serialization_format
-              == "TURTLE" )
+  stopifnot ( is.character(resource_format), resource_format %in% c( "TAXPUB", "REFBANK_XML" ) )
+  stopifnot ( is.character(serialization_format), serialization_format == "TURTLE" )
   # load xpath
   if ( resource_format == "TAXPUB" ) {
     # load xpath for taxpub XML format
@@ -55,6 +54,7 @@ xml2rdf = function( resource_locator, resource_type = "FILE",
   xml2::write_xml( xml, resource_locator )
   return ( do.call(paste, as.list( serialization )))
 }
+
 #===============================================================================
 #            _                  _       _        __                            _   _
 #   _____  _| |_ _ __ __ _  ___| |_    (_)_ __  / _| ___  _ __ _ __ ___   __ _| |_(_) ___  _ __
