@@ -394,12 +394,10 @@ are linked via the use of the `po:contains`:
 
 ##### Taxonomic Nomenclature Section
 
-Nomenclature is a special subsection of Treatment where nomenclatural acts are
-published. We define it similar to Treatment, but proper modeling entails that
-for each Nomenclature there ought to be a Treatment that contains it.
-
-**Def. (Nomenclature):** Nomenclature is a specialized section of a taxonomic
-publication, a subsection of Treatment, where nomenclatural acts take place.
+**Def. (Nomenclature):** A taxonomic nomenclature section, or simply a
+nomenclature, is a rhetorical element of a taxonomic publication where
+nomenclatural acts are published and nomenclatural statements are made.
+Nomenclature is a subsection of Treatment.
 
 ```
 <<Model of the Publishing Domain>>=
@@ -410,9 +408,10 @@ trt:Nomenclature a owl:Class ;
                     owl:onProperty po:isContainedBy ;
                     owl:someValuesFrom trt:Treatment ] ;
   rdfs:label "Taxonomic Nomenclature Section"@en ;
-  rdfs:comment "A taxonomic nomenclature section, or simply a nomenclature, 
-                is a rhetorical element of a taxonomic publication, i.e. a 
-                specialized section, where nomenclatural acts are published."@en .
+  rdfs:comment "A taxonomic nomenclature section, or simply a
+nomenclature, is a rhetorical element of a taxonomic publication where
+nomenclatural acts are published and nomenclatural statements are made.
+Nomenclature is a subsection of Treatment."@en .
 
 trt:NomenclatureHeading a owl:Class ;
   rdfs:subClassOf deo:DiscourseElement ,
@@ -455,22 +454,23 @@ TODO: All the other subsections of trt:Treatment, Description, etc.
 #### Taxonomic Name Usage
 
 In the text of taxonomic articles we find strings like "*Heser stoevi*
-Deltschev, sp. n.". In our conceptualization these are called *taxonomic name usages* (TNU's) as they refer to 
-published scientific names from the domain of biological systematics. The
-taxonomic name usage consists of three parts:
+Deltschev, sp. n.". In our conceptualization these are called *taxonomic name
+usages* (TNU's) as they refer to  published scientific names from the domain
+of biological systematics. The taxonomic name usage consists of three parts:
 
-1. One or more words identifying the taxon (these can be Latinized or take the form
-of an identifier).
+1. Taxonomic name: one or more words identifying the taxon (a purported
+evolutionary entity in nature). These can be Latinized or take the form of an
+identifier.
 
-2. The name-and-year of the author(s) of the taxon.
+2. Taxonomic name author. The name-and-year of the author(s) of the taxonomic name.
 
 3. Taxonomic name status containing information about the type of the taxonomic
 name usage.
 
 In the example, "*Heser stoevi*" is the binomial Latinized species name,
-"Deltschev" is the name of the person who described the taxon and "sp. n."
-bears taxonomic (and nomenclatural) information indicating that this is a
-species new to science.
+"Deltschev" is the name of the person who newly coined the name describing the
+taxon , and "sp. n." bears taxonomic (and nomenclatural) information
+indicating that this is a species new to science.
 
 Modeling-wise, we consider TNU's to be specialized instances of `pext:Mention`
 from the [PROTON Extensions module](http://ontotext.com/proton/). Furthermore,
@@ -519,9 +519,10 @@ later).
 
 Also, during the second step, the TNU is linked to the reified taxon concept
 label *Heser stoevi* sec. 10.3897/BDJ.4.e10095 via `:taxonConceptLabel` as
-even though the character content of the TNU does not contain a "sec.", we
-know for certain which concept the author is invoking as we are in the
-treatment title (current concept/ *this* concept).
+even though the character content of the TNU does not contain an "according
+to" (usually abbreviated as "sec."), we know for certain which concept the
+author is invoking as we are in the treatment title (current concept/ *this*
+concept).
 
 ```
 <<Examples>>=
