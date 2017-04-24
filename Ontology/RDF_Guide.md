@@ -605,7 +605,7 @@ equivalents.*
 
 **Def. (Taxon Concept Label):** *We further introduce the class of taxon
 concept labels, unknown to NOMEN that is a biological name plus a reference to
-its descrition, i.e. it is the label of taxon concept. A taxon concept label
+its description, i.e. it is the label of taxon concept. A taxon concept label
 is a taxonomic name usage accompanied by an additional part, consisting of
 "sec." + an identifier or a literature reference of a work containing the
 expression of a taxon concept (for example a treatment).*
@@ -626,7 +626,7 @@ or a literature reference of a work containing the expression of a taxon concept
 We do not model scientific names down to the level of the Codes as NOMEN does.
 For example we do not make a distinction between a zoological and a botanical
 name. Nothing prevents us, however, from creating derived classes later on.
-This means that our model is somewhat cruder but compatible with NOMEN.
+This means that our model is somewhat less granular but compatible with NOMEN.
 
 For properties of biological names we take a different path from NOMEN. We
 also use different sets of properties to define relationships between
@@ -640,8 +640,8 @@ to a scientific name we use `:scientificName`, which is derived from
 spirit in
 <http://rs.tdwg.org/dwc/terms/guides/rdf/index.htm#2.5_Terms_in_the_dwciri:_namespace>,
 
-we couldn't actually find a formal definition in RDF, that's why we're
-introducing it here together with a super-property to refer to a more broader
+To the best of our knowledge, no formal definition of `dwciri:scientificName` exists in RDF.
+Therefore, it has been introduced it here together with a super-property to refer to a more broader
 class of names.
 
 **Def. (has biological name, has scientific name, has vernacular name):**.
