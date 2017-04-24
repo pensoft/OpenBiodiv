@@ -272,6 +272,8 @@ from the [Treatment Ontologies](https://github.com/plazi/TreatmentOntologies).
 
 ##### Changes to SPAR
 
+###### Changes to SPAR
+
 We have mentioned before that when we extract bibliographic elements from the XML,
 we make use of the `po:contains` SPAR property. For example, an article can 
 `po:contain` a secion and this section can `po:contain` another (sub-)section.
