@@ -218,6 +218,10 @@ bibliographic entity, if they do in fact refer to the same entity in the sense
 of Frege's semiotic triangle. Another attempt is made to properly manage
 identifiers. This stage cannot be completed without external look-ups.
 
+TODO NMF: Or Peirce's ? https://plato.stanford.edu/entries/peirce-semiotics/
+
+Answer: I am not immediately familiar with the work of Pierce, but I am adding
+it to my reading list.
 
 **Note on Capitalization.** Our ontology strives be a formal specification of
 a conceptualization. In our mental model we have some concepts of some things.
