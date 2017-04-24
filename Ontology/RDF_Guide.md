@@ -270,6 +270,8 @@ from the [Treatment Ontologies](https://github.com/plazi/TreatmentOntologies).
 
 #### Changes to SPAR
 
+##### Changes to SPAR
+
 We have mentioned before that when we extract bibliographic elements from the XML,
 we make use of the `po:contains` SPAR property. For example, an article can 
 `po:contain` a secion and this section can `po:contain` another (sub-)section.
@@ -681,7 +683,7 @@ dwciri:nameAccordingTo rdf:type owl:ObjectProperty ;
 :nameAccordingTo rdf:type owl:ObjectProperty ;
   rdfs:label "sec."@en ; 
   rdfs:range frbr:Expression ;
-  rdfs:comment "The reference to the source in which the specific taxon concept circumscription is defined or implied - traditionally signified by the Latin 'sensu' or 'sec.'' (from secundum, meaning 'according to'). For taxa that result from identifications, a reference to the keys, monographs, experts and other sources should be given. Should only be used with IRI's"@en .
+  rdfs:comment "The reference to the source in which the specific taxon concept circumscription is defined or implied - traditionally signified by the Latin 'sensu' or 'sec.'' (from secundum, meaning 'according to'). For taxa that are relevantly circumscribed by identifications, a reference to the keys, monographs, experts and other sources should be given. Should only be used with IRI's"@en .
 @
 ```
 
@@ -690,7 +692,7 @@ unidirectional and bidirectional.
 
 **Def. ('has related name'):** *'has related name' is an object property that we
 use in order to indicate that two biological names are related somehow. This
-relationship is purposely vague as to encompass all situations where two
+relationship is purposefully vague as to encompass all situations where two
 biological names co-occur in a text. It is transitive and reflexive.*
 
 ```
@@ -734,18 +736,18 @@ defined for scientific names."@en.
 
 ##### Now we define some rules for names
 
-**Rule 1 for Names:** *For a scientific name X, if there doesn't exist a TNU
-mentioning X, which has the taxon status of `:UnavailableName`, or if there
-does exist a TNU Y mentioning X with the status of `:UnavailableName`, but
-there also exists a TNU Z mentioning X with a later date than Y, which has the
-status of `:AvailableName` or `:ReplacementName`, then X has the taxon status
-of `:AvailableName`.*
+**Rule 1 for Names:** *If there is no taxonomic name usage with the status
+`:UnavailableName` mentioning a taxonomic name X, or there does exist a TNU Y
+mentioning X with the status of `:UnavailableName`, but there also exists a
+TNU Z mentioning X with a later date than Y, which has the status of
+`:AvailableName` or `:ReplacementName`, then X has the taxon status of
+`:AvailableName`.*
 
 ```
 <<Rules>>=
 
 # rules need to be evaluated in the order here
-# I. set all names that have not been made unavailabel to available
+# I. set all names that have not been made unavailable to available
 INSERT {
   ?a dwciri:taxonomicStatus :AvailableName .
 }
@@ -816,7 +818,7 @@ citation list in TNU's with status `:UnavailableName` is linked to X via
 ```
 <<Rules>>=
 
-# II. Link replacement names
+ # II. Link replacement names
 INSERT {
     ?a trt:replacementName ?b .
 }
@@ -839,8 +841,8 @@ WHERE {
 ```
 <<Rules>>=
 
-# III. if two names are mentioned in the same nomenclature
-# section then they are related
+ # III. if two names are mentioned in the same nomenclature
+ # section then they are related
 
 INSERT {
     ?a trt:relatedName ?b .
@@ -863,7 +865,7 @@ conserved name should not be made `:Unavailable`!*
 ```
 <<Rules>>=
 
-# IV. Conserved names
+ # IV. Conserved names
 
 INSERT {
     ?a dwciri:taxonomicStatus :ConservedName .
@@ -876,6 +878,8 @@ WHERE {
 @
 ```
 
+TODO: As an aside, I'll send you the current ASP nomenclature manuscript galley proof. (and code..) Nico
+
 **Rule 5 for Names:** *If a TNU points to two different names with `dwciri:scientificName`, then
 they are the same:*
 
@@ -883,7 +887,7 @@ they are the same:*
 ```
 <<Rules>>=
 
-# V. Conserved names
+ # V. Conserved names
 
 INSERT {
     ?name1 owl:sameAs ?name2 .
