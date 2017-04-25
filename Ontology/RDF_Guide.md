@@ -6,186 +6,173 @@ and to define for computers the data model of OpenBiodiv and aid its users in
 generating OpenBiodiv-compatible RDF and in creating useful SPARQL queries or
 other useful extensions.
 
-This guide is a [literate programming](https://en.wikipedia.org/wiki/Literate_programming) document.
-Literate programming is the act of including source code within documentation.
-In usual software development practice the reverse holds true. By virtue of
-this programming paradigm the formal description of the data model, i.e. the
-[RDF](https://www.w3.org/RDF/) statements that form the ontology and the
-vocabularies, are found within the document itself and are extracted from it
-with the program `noweb`. `noweb` can be easily obtained for GNU Linux.
+This guide is a
+[literate programming](https://en.wikipedia.org/wiki/Literate_programming)
+document. Literate programming is the act of including source code within
+documentation. In usual software development practice the reverse holds true.
+By virtue of this programming paradigm the formal description of the data
+model, i.e. the [RDF](https://www.w3.org/RDF/) statements that form the
+ontology and the vocabularies, are found within the document itself and are
+extracted from it with the program `noweb`. `noweb` can be easily obtained for
+GNU Linux.
+
+We've hidden the `noweb` intricacies inside a [`Makefile`](./Makefile). In
+order to make the ontology one types:
+
+```
+make ontology
+```
+
+In order to make the examples, one types
+
+```
+make examples
+```
+
+And, in order to create the ruleset, one types
+
+```
+make rules
+```
+
+These command invoke the necessary `noweb` commands and generate
+respectively the following files [`OpenBiodiv.ttl`](./openbiodiv.ttl),
+[`Examples.ttl`](./Examples.ttl), and [`Rules.sparql`](./Rules.sparql).
 
 ## Introduction
 
 TODO: NMF: Include in Guide a Reference section, with a few essential refs. to
 connect to relevant prior efforts?
 
-Answer to NMF: I will do this once I start writing the paper.
+The purpose of this paper is to introduce a data model for taxonomic and
+biodiversity publications, and a work-flow for generating data according to
+the data model (TODO second item under construction).
 
-**Motivation.** The raison d'être of the OpenBiodiv Data Model is to enable
-the operation of a semantic database as part of OpenBiodiv. The data model
-consists of:
+The data model consists of:
 
-1. A formal computer ontology expressed as RDF, called from here on OpenBiodiv
-Ontology, introducing the entities that our knowledge base holds and giving
-axioms that restrict the ways in which they can be combined.
+1. A formal computer ontology expressed as RDF (TODO link to RDF info), called
+from here on OpenBiodiv Ontology, introducing the entities that our knowledge
+base holds and giving axioms that restrict the ways in which they can be
+combined.
 
-2. Formal vocabularies specified in RDF for particular application areas.
+2. Formal vocabularies, also also expressed as RDF, for particular application
+areas.
 
-2. Natural language descriptions of the meaning (semantics) of the concepts
-from (1) and (2) in our conceptualization of the universe of discourse.
+3. Examples illustrate and describe the intended model to human users as the
+formal ontology necessarily will be more lax than the intended model (TODO
+link).
 
-3. Examples and recommendations that illustrate and describe the intended
-model to human users as the formal ontology necessarily will be more lax than
-the intended model.
+4. A discussion of the concepts that gives further clarification of the
+intended model and the reasoning behind our design choices of the ontology and
+the vocabularies.
 
-Viewing the data model from another angle it
+Thus, the data model
 
-(a) describes a view of the universe of discourse (biodiversity information),
-which we call conceptualization, and
+(a) describes a view of the universe of discourse (in our case taxonomic and
+biodiversity information), which we call conceptualization, and
 
 (b) introduces a formal way to store biodiversity information in a database.
 
-We do not believe other data providers ought to use the same formal way to
-store biodiversity information in their databases, as they might be using a
-different database application, or even paradigm. However, we do believe that
-should information exchange between OpenBiodiv and these other data providers
-occur, biodiversity information ought to at least follow the same conceptual
-model presented herein.
+We do not believe other data providers ought to use the same implementation of
+the data model to store biodiversity information in their databases (in our
+case RDF optimized for GraphDB), as they might be using a different database
+application, or even paradigm. However, we do believe that should information
+exchange between OpenBiodiv and these other data providers occur, biodiversity
+information ought to at least follow the same conceptual model presented
+herein.
 
-For a discussion see
-[Specification of Conceptualization](https://www.obitko.com/tutorials/ontologies-semantic-web/specification-of-conceptualization.html), as well as the article by
-[Guarino et al. (2009)](http://iaoa.org/isc2012/docs/Guarino2009_What_is_an_Ontology.pdf).
+### Previous work
 
-**Def. (OpenBiodiv Ontology):** In the following code-chunk that will be
-extracted by `notangle` (you can use the `Makefile` for this purpose), the
-top-level structure of the ontology is defined:
+A lot of research has gone into ontologies, knowledge bases in general and
+into biodiversity knowledge representation in particular. This gives us a vast
+amount of publications, ontologies, vocabularies, and datasets to draw from
+while implementing our model and database. In this section we list these
+sources of inspiration.
 
-```
-<<OpenBiodiv Ontology>>=
+#### What is an ontology
 
-<<Prefixes>>
-<<Ontology Metadata>>
-<<Model of the Publishing Domain>>
-<<Model of Biological Systematics>>
-<<Vocabulary of Taxonomic Statuses>>
-<<Vocabulary of RCC5 Terms>>
-<<Borrowed Parts from External Ontology>>
-@
-```
+1. Obitko (2007) defines an ontology as a
+[Specification of Conceptualization](https://www.obitko.com/tutorials/ontologies-semantic-web/specification-of-conceptualization.html)
 
-**Def. (Ontology Metadata):**
+2. Guarino et al. (2009) define an ontology a
+[Ga shared formal, explicit specification of a conceptualization](http://iaoa.org/isc2012/docs/Guarino2009_What_is_an_Ontology.pdf).
+This article goes into set-theoretic details of what is conceptualization and
+formalisms are in order to properly write down a conceptualization in a
+mathematical form.
 
-```
-<<Ontology Metadata>>=
+#### Data models
 
-: rdf:type owl:Ontology ;
-  owl:versionInfo "0.3" ;
-  rdfs:comment "Open Biodiversity Knowledge Management System Ontology" ;
-  dc:title "OpenBiodiv Ontology" ;
-  dc:subject "OpenBiodiv Ontology" ;
-  rdfs:label "OpenBiodiv Ontology" ;
-  dc:creator "Viktor Senderov, Terry Catapano, Kiril Simov, Lyubomir Penev" ;
-  dc:rights "CCBY" ;
-  owl:imports <http://phylodiversity.net/dsw/dsw.rdf> ;
-  owl:imports <http://www.essepuntato.it/2008/12/pattern> ;
-  owl:imports <http://purl.org/spar/fabio/> .
+3. A very important data model that we are drawing from is the
+[Semantic Publishing and Referencing Ontologies][http://http://www.sparontologies.net/ontologies/]
+by Peroni (2014). We use it to model scientific articles, their structure, and related
+entities. As part of SPAR we use individual ontologies such as
+[FaBiO](http://www.sparontologies.net/ontologies/fabio),
+[DOCO](http://www.sparontologies.net/ontologies/fabio) and so on.
 
-@
-```
+4. Another very important data model that we drawing from is the
+[Darwin-SW](http://www.semantic-web-journal.net/system/files/swj635.pdf)
+by Baskauf and Web (2014).
 
-**Note:** The code snipped above, `Ontology Metadata`, is called a *chunk*. In
-the `noweb` way of doing literate programming, we write our source code in chunks.
-Each chunk has a name that is found between the &lt;&lt; and &gt;&gt; and ends in `@`. Chunks can contain other
-chunks and thus the writing of the source code becomes hierarchical and non-
-linear. In this root chunk, we've listed other chunks that we'll introduce
-later and some verbatim code. In order to create the ontology we use the
-`notangle` command from `noweb`.
+5. Furthermore we use the [Darwin Core RDF Guide](http://rs.tdwg.org/dwc/terms/guides/rdf/).
+
+6. As a top-level ontologies we use [PROTON](http://ontotext.com/proton/) and
+[SKOS](https://www.w3.org/2004/02/skos/).
+
+7. For modeling scientific names we draw inspiration from [NOMEN](https://github.com/SpeciesFileGroup/nomen) 
+and the 
+[Taxonomic Nomenclatural Status Terms](https://github.com/plazi/TreatmentOntologies/blob/master/ontologies/taxonomic_nomenclatural_status_terms.owl_).
+
+8. A specific part of a taxonomic manuscript called
+["treatment" is modeled by Plazi](https://github.com/plazi/TreatmentOntologies).
+
+9. An attempt to model taxon concepts has previously been made in the
+[Taxon Concept Ontology](http://lod.taxonconcept.org/ontology/doc/index.html).
+
+#### Concepts
+
+10. [Open Biodiversity Knowledge Management System](http://riojournal.com/browse_user_collection_documents.php?collection_id=1&journal_id=17) is a PhD
+project by Viktor Senderov. Rod Page
+[has also published an article](http://riojournal.com/articles.php?id=8767)
+on the same topic.
+
+11. It is an attempt to model
+[Taxonomic and Biodiversity Information for Computers](https://link.springer.com/article/10.1007/s13752-017-0259-5).
+
+12. [Names ultimately have a limited use in informatics](http://zookeys.pensoft.net/articles.php?id=6234),
+also [challenges](http://bdj.pensoft.net/articles.php?id=8080).
+Original research in this work models them names and their relationships
+
+13. It models
+[potential taxa](https://link.springer.com/article/10.1007/s13752-017-0259-5)
+as taxon concepts. Taxon concepts are also treated in 
+[Two Influential Primate Classifications Aligned](https://academic.oup.com/sysbio/article/65/4/561/1753624/Two-Influential-Primate-Classifications-Logically) and 
+[the phylogentic revision of the genus *Minyomerus*](http://zookeys.pensoft.net/articles.php?id=6001)
+by Franz et. al (2015, 2016).
+
+14. Taxon concepts can have both an intensional meaning and a class
+extension. Some examples come from
+[From Cladograms to Classifications](http://www.systass.org/archive/events-archive/2001/platnick.pdf)
+by Platnick (2001).
+
+14. The Codes of [Zoological](http://www.iczn.org/iczn/index.jsp) and
+[Botanical](http://www.iapt-taxon.org/nomen/main.php) Nomenclature ought also
+to be mentioned as a source of albeit too granular in some cases inspiration
+for the data models.
+
+#### Semiotics
+
+14. When we model the real world we always run up against the sign theories
+of [Frege](https://en.wikipedia.org/wiki/Triangle_of_reference) and of
+[Pierce](https://plato.stanford.edu/entries/peirce-semiotics/).
 
 
-**Command to extract the Core Ontology.**
+### Types of entities that OpenBiodiv manages
 
-```
-notangle -R"OpenBiodiv Ontology" RDF_Guide.md > OpenbBodiv.ttl
-```
-
-**Examples.** This document also contains some examples.
-
-```
-<<Examples>>=
-
- #' These are the examples for the OpenBiodiv data model.
-@
-```
-
-**Command to build the examples.** 
-
-```
-notangle -RExamples RDF_Guide.md > Examples.ttl
-```
-
-TODO: check for prefix consistency for all imported ontologies.
-
-
-**Incorporated external ontologies.** Our data model is a natural extension of
-existing data models. Therefore, we incorporate several external ontologies or
-parts of existing ontologies into ours. We try to include these ontologies via
-`owl:imports`. Where a URL does not resolve, or we want to import only a specific
-subset of an ontology or a specific version, we directly introduce the needed
-RDF into our model in the code-chunk `Borrowed Parts from External Ontologies`.
-In addition to that we've downloaded the RDF for everything that we've borrowed
-in the `imports` sub-subdirectory in case the URL's become unavailable in the
-future. There is a catalog of this directory under
-[Catalog of imported ontologies](imports/Catalog.md), which is, however,
-still a work in progress.
-
-**Prefixes.** In OpenBiodiv prefixes are stored in a YAML configuration file
-called
-
-[`prefix_db.yml`](../R/obkms/inst/prefix_db.yml)
-
-The following Turtle code can be extracted from the prefix database with
-`obkms::prefix_ttl()` command:
-
-```
-<<Prefixes>>=
-
-@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
-@prefix pensoft: <http://id.pensoft.net/> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix foaf: <http://xmlns.com/foaf/0.1/> .
-@prefix pro: <http://purl.org/spar/pro/> .
-@prefix scoro: <http://purl.org/spar/scoro/> .
-@prefix ti: <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#> .
-@prefix tvc: <http://www.essepuntato.it/2012/04/tvc/> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix fabio: <http://purl.org/spar/fabio/> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
-@prefix dc: <http://purl.org/dc/elements/1.1/> .
-@prefix frbr: <http://purl.org/vocab/frbr/core#> .
-@prefix prism: <http://prismstandard.org/namespaces/basic/2.0> .
-@prefix doco: <http://purl.org/spar/doco/> .
-@prefix po: <http://www.essepuntato.it/2008/12/pattern#> .
-@prefix co: <http://purl.org/co/> .
-@prefix trt: <http://plazi.org/treatment#> .
-@prefix c4o: <http://purl.org/spar/c4o/> .
-@prefix dwciri: <http://rs.tdwg.org/dwc/iri/> .
-@prefix nomen: <http://www.semanticweb.org/dmitriev/ontologies/2013/8/untitled-ontology-6#> .
-@prefix dwc: <http://rs.tdwg.org/dwc/terms/> .
-@prefix sro: <http://salt.semanticauthoring.org/ontologies/sro#> .
-@prefix deo: <http://purl.org/spar/deo/> .
-@prefix pext: <http://proton.semanticweb.org/protonue#> .
-@prefix ptop: <http://proton.semanticweb.org/protont#> .
-@prefix pkm: <http://proton.semanticweb.org/protonkm#> .
-@prefix : <http://openbiodiv.net/> .
-@
-```
-
-**Types of entities that OpenBiodiv manages.** There are two ways to look at
-the types of entities that OpenBiodiv manages. The first way is to look at the
-application domain. OpenBiodiv's application domain is the semantic publishing
-of taxonomic, systematic, biodiversity, genomic, ecologic, and related
-information. Therefore, the entities that OpenBiodiv manages are separated
-across these domains.
+There are two ways to look at the types of entities that OpenBiodiv manages.
+The first way is to look at the application domain. OpenBiodiv's application
+domain is the semantic publishing of taxonomic, systematic, biodiversity,
+genomic, ecologic, and related information. Therefore, the entities that
+OpenBiodiv manages are separated across these domains.
 
 Another way to look at the entities that OpenBiodiv manages is the structural
 way. As the main sources of information for OpenBiodiv are scientific
@@ -242,10 +229,109 @@ treatment on page 5," or "a treatment," or "John."
 When we formally define a concept in OWL and issue an URI to it, we shall
 refer to the URI, as we refer to all URI's in the text with `typewriter font`.
 URI's of classes and vocabularies will be in `MajorCamelCase`. URI's of
-relationships will be in `minorCamelCase`. URI's of individuals `will-be-hyphenated`.
-This seems to generally in accordance with WWW practice.
+relationships will be in `minorCamelCase`. URI's of individuals `will-be-
+hyphenated`. This seems to generally in accordance with WWW practice.
 
-**Examples**
+
+
+## RDF Model
+
+### Ontology Metadata
+
+#### Discussion
+
+The following code snippet, `OpenBiodiv`, is called a *chunk*. In the `noweb` way
+of doing literate programming, we write our source code in chunks. Each chunk
+has a name that is found between the &lt;&lt; and &gt;&gt; and ends in `@`.
+Chunks can contain other chunks and thus the writing of the source code
+becomes hierarchical and non- linear. In this root chunk, we've listed other
+chunks that we'll introduce later and some verbatim code. In order to create
+the ontology we use the `notangle` command from `noweb`.
+
+##### Definition: OpenBiodiv Ontology
+
+```
+<<OpenBiodiv Ontology>>=
+
+<<Prefixes>>
+
+: rdf:type owl:Ontology ;
+  owl:versionInfo "0.3" ;
+  rdfs:comment "Open Biodiversity Knowledge Management System Ontology" ;
+  dc:title "OpenBiodiv Ontology" ;
+  dc:subject "OpenBiodiv Ontology" ;
+  rdfs:label "OpenBiodiv Ontology" ;
+  dc:creator "Viktor Senderov, Terry Catapano, Kiril Simov, Lyubomir Penev" ;
+  dc:rights "CCBY" ;
+  owl:imports <http://phylodiversity.net/dsw/dsw.rdf> ;
+  owl:imports <http://www.essepuntato.it/2008/12/pattern> ;
+  owl:imports <http://purl.org/spar/fabio/> ;
+  owl:imports <http://www.w3.org/2008/05/skos> .
+
+<<Model>>
+<<Vocabulary of Taxonomic Statuses>>
+<<Vocabulary of RCC5 Terms>>
+@
+```
+
+##### Prefixes
+
+Our data model is a natural extension of existing data models (see
+[previous section](#data-models)). Therefore, we incorporate several external ontologies
+or parts of existing ontologies into ours. We try to include these ontologies
+via `owl:imports`. Where a URL does not resolve, or we want to import only a
+specific subset of an ontology or a specific version, we directly introduce
+the needed RDF into our model in the code-chunk `Borrowed Parts from External
+Ontologies`. In addition to that we've downloaded the RDF for everything that
+we've borrowed in the `imports` sub-subdirectory in case the URL's become
+unavailable in the future. There is a catalog of this directory under
+[Catalog of imported ontologies](imports/Catalog.md), which is, however, still a work
+in progress.
+
+Here, we list all the prefixes which are needed for those data models. In
+OpenBiodiv prefixes are stored in a YAML configuration file called
+
+[`prefix_db.yml`](../R/obkms/inst/prefix_db.yml)
+
+The following Turtle code can be extracted from the prefix database with
+`obkms::prefix_ttl()` command:
+
+```
+<<Prefixes>>=
+
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix pensoft: <http://id.pensoft.net/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix pro: <http://purl.org/spar/pro/> .
+@prefix scoro: <http://purl.org/spar/scoro/> .
+@prefix ti: <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#> .
+@prefix tvc: <http://www.essepuntato.it/2012/04/tvc/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix fabio: <http://purl.org/spar/fabio/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix frbr: <http://purl.org/vocab/frbr/core#> .
+@prefix prism: <http://prismstandard.org/namespaces/basic/2.0/> .
+@prefix doco: <http://purl.org/spar/doco/> .
+@prefix po: <http://www.essepuntato.it/2008/12/pattern#> .
+@prefix co: <http://purl.org/co/> .
+@prefix trt: <http://plazi.org/treatment#> .
+@prefix c4o: <http://purl.org/spar/c4o/> .
+@prefix dwciri: <http://rs.tdwg.org/dwc/iri/> .
+@prefix nomen: <http://www.semanticweb.org/dmitriev/ontologies/2013/8/untitled-ontology-6#> .
+@prefix dwc: <http://rs.tdwg.org/dwc/terms/> .
+@prefix sro: <http://salt.semanticauthoring.org/ontologies/sro#> .
+@prefix deo: <http://purl.org/spar/deo/> .
+@prefix pext: <http://proton.semanticweb.org/protonue#> .
+@prefix ptop: <http://proton.semanticweb.org/protont#> .
+@prefix pkm: <http://proton.semanticweb.org/protonkm#> .
+@prefix : <http://openbiodiv.net/> .
+@
+```
+
+##### Examples
+
 
 ```
 <<Examples>>=
@@ -253,9 +339,9 @@ This seems to generally in accordance with WWW practice.
 @
 ```
 
-## RDF Model
-
 ### The Publishing Domain
+
+#### Discussion 
 
 The publishing domain is described in our model using the Semantic Publishing
 and Referencing Ontologies, a.k.a. [SPAR Ontologies](http://www.sparontologies.net/).
@@ -268,11 +354,7 @@ publishing domain that are *not found* in the SPAR ontologies. The central new
 class in OpenBiodiv not found in SPAR is the `trt:Treatment` class, borrowed
 from the [Treatment Ontologies](https://github.com/plazi/TreatmentOntologies).
 
-#### Changes to SPAR
-
-##### Changes to SPAR
-
-###### Changes to SPAR
+##### Definition: 'contains'
 
 We have mentioned before that when we extract bibliographic elements from the XML,
 we make use of the `po:contains` SPAR property. For example, an article can 
@@ -280,16 +362,28 @@ we make use of the `po:contains` SPAR property. For example, an article can
 In our view, this means that also the article contains the (sub-)section. Thefore
 we define `po:contains` as a transitive property.
 
-**Def. ('contains'):**
 ```
-
-<<Model of the Publishing Domain>>=
+<<Model>>=
 
 po:contains rdf:type owl:TransitiveProperty .
 @
 ```
 
-#### Article Metadata
+##### Definition: Publisher
+
+The publisher of a journal, a type of `foaf:Agent`.
+
+```
+<<Model>>=
+
+:Publisher rdf:type owl:Class ;
+  rdfs:label "Publisher"@en ;
+  rdfs:comment "The publisher of a journal, a type of `foaf:Agent`."@en ;
+  rdfs:subClassOf foaf:Agent .
+@
+```
+
+##### Example: article metadata
 
 The main objects of information extraction and retrieval of OpenBiodiv in the
 first stage of its development are scientific journal articles from the
@@ -298,16 +392,14 @@ journals [Biodiversity Data Journal](http://bdj.pensoft.net/) and
 We model the bibliographic objects around Journal Article, such as Publisher,
 and Journal using SPAR.
 
-**Example:**
-
 ```
 <<Examples>>=
 
 :biodiversity-data-journal rdf:type fabio:Journal ;
   skos:prefLabel "Biodiversity Data Journal" ;
   skos:altLabel  "BDJ" ;
-  <http://prismstandard.org/namespaces/basic/2.0/issn>     "1314-2836" ;
-  <http://prismstandard.org/namespaces/basic/2.0/eIssn>    "1314-2828" ;
+  prism:issn    "1314-2836" ;
+  prism:eIssn   "1314-2828" ;
   dcterms:publisher "Pensoft Publishers" ;
   frbr:part <http://dx.doi.org/10.3897/BDJ.4.e10095> . 
 
@@ -319,9 +411,9 @@ and Journal using SPAR.
 
 :pensoft-publishers rdf:type foaf:Agent ;
   skos:prefLabel "Pensoft Publishers" ;
-  pro:holdsRoleInTime :pensoft-publishes-bdj . 
+  pro:holdsRoleInTime :cc6bcae3-6c8a-4515-b98b-90880ae97b04 . 
 
-:pensoft-publishes-bdj rdf:type pro:RoleInTime ;
+:cc6bcae3-6c8a-4515-b98b-90880ae97b04 rdf:type pro:RoleInTime ;
   pro:relatesToDocument :biodiversity-data-journal . 
 @
 ```
@@ -332,6 +424,16 @@ Note that in this example `:biodiversity-data-journal` is non-structural
 entity, as it doesn't denote part of the manuscript, but rather something
 external, i.e. a journal. This means that creating it, requires of the step of
 named entity identification.
+
+##### Recommendation: identifiers for `fabio:Journal`'s, `:Publishers`
+
+In order to facilitate disambiguation of journal identifiers, we use data-driven
+identifiers. We lower-case the `skos:prefLabel` and substitute spaces
+for dashes.
+
+##### Recommendation: identifers for `fabio:JournalArticles`
+
+Prepend the prefix `http://dx.doi.org/` to the DOI, given by `prism:doi`.
 
 #### Taxonomic Treatment
 
@@ -737,6 +839,9 @@ defined for scientific names."@en.
 ```
 
 ##### Now we define some rules for names
+
+TODO: create example for the rules
+TODO: Above nesting with 5-hashesh is wrong
 
 **Rule 1 for Names:** *If there is no taxonomic name usage with the status
 `:UnavailableName` mentioning a taxonomic name X, or there does exist a TNU Y
