@@ -1,6 +1,4 @@
 
- #' These are the examples for the OpenBiodiv data model.
-
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix pensoft: <http://id.pensoft.net/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -14,7 +12,7 @@
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
 @prefix frbr: <http://purl.org/vocab/frbr/core#> .
-@prefix prism: <http://prismstandard.org/namespaces/basic/2.0> .
+@prefix prism: <http://prismstandard.org/namespaces/basic/2.0/> .
 @prefix doco: <http://purl.org/spar/doco/> .
 @prefix po: <http://www.essepuntato.it/2008/12/pattern#> .
 @prefix co: <http://purl.org/co/> .
@@ -33,8 +31,8 @@
 :biodiversity-data-journal rdf:type fabio:Journal ;
   skos:prefLabel "Biodiversity Data Journal" ;
   skos:altLabel  "BDJ" ;
-  <http://prismstandard.org/namespaces/basic/2.0/issn>     "1314-2836" ;
-  <http://prismstandard.org/namespaces/basic/2.0/eIssn>    "1314-2828" ;
+  prism:issn    "1314-2836" ;
+  prism:eIssn   "1314-2828" ;
   dcterms:publisher "Pensoft Publishers" ;
   frbr:part <http://dx.doi.org/10.3897/BDJ.4.e10095> . 
 
@@ -46,9 +44,9 @@
 
 :pensoft-publishers rdf:type foaf:Agent ;
   skos:prefLabel "Pensoft Publishers" ;
-  pro:holdsRoleInTime :pensoft-publishes-bdj . 
+  pro:holdsRoleInTime :cc6bcae3-6c8a-4515-b98b-90880ae97b04 . 
 
-:pensoft-publishes-bdj rdf:type pro:RoleInTime ;
+:cc6bcae3-6c8a-4515-b98b-90880ae97b04 rdf:type pro:RoleInTime ;
   pro:relatesToDocument :biodiversity-data-journal . 
 
 :heser-stoevi-treatment

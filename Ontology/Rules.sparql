@@ -1,6 +1,6 @@
 
 # rules need to be evaluated in the order here
-# I. set all names that have not been made unavailabel to available
+# I. set all names that have not been made unavailable to available
 INSERT {
   ?a dwciri:taxonomicStatus :AvailableName .
 }
@@ -60,7 +60,7 @@ WHERE {
   FILTER ( ?d1 > ?d0 )
 }
 
-# II. Link replacement names
+ # II. Link replacement names
 INSERT {
     ?a trt:replacementName ?b .
 }
@@ -76,8 +76,8 @@ WHERE {
                                  dwciri:taxonomicStatus :UnavailableName ].
 }
 
-# III. if two names are mentioned in the same nomenclature
-# section then they are related
+ # III. if two names are mentioned in the same nomenclature
+ # section then they are related
 
 INSERT {
     ?a trt:relatedName ?b .
@@ -90,7 +90,7 @@ WHERE {
                            [ pkm:mentions ?b ].
 }
 
-# IV. Conserved names
+ # IV. Conserved names
 
 INSERT {
     ?a dwciri:taxonomicStatus :ConservedName .
@@ -101,7 +101,7 @@ WHERE {
      pkm:mentions ?a
      dwciri:taxonomicStatus :ConservedName .
 
-# V. Conserved names
+ # V. Conserved names
 
 INSERT {
     ?name1 owl:sameAs ?name2 .
