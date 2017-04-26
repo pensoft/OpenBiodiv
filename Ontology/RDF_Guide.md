@@ -433,7 +433,17 @@ for dashes.
 
 ##### Recommendation: identifers for `fabio:JournalArticles`
 
-Prepend the prefix `http://dx.doi.org/` to the DOI, given by `prism:doi`.
+Prepend the prefix `http://dx.doi.org/` to the DOI, given by `prism:doi` if it exists
+and unique. Otherwise, use `:` prefix and preferred label.
+
+##### Rule: Uniqueness of DOI
+
+If an article has multiple DOI, then mark it as problematic, or rename them to 
+`skos:altLabel`. 
+
+##### Rule: Uniqueness of SKOS:prefLabel
+
+<table><tr><td>same thing</td></tr></table>
 
 #### Taxonomic Treatment
 
