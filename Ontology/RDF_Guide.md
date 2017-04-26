@@ -441,9 +441,14 @@ and unique. Otherwise, use `:` prefix and preferred label.
 If an article has multiple DOI, then mark it as problematic, or rename them to 
 `skos:altLabel`. 
 
+TODO implement
+
 ##### Rule: Uniqueness of SKOS:prefLabel
 
-<table><tr><td>same thing</td></tr></table>
+<table><tr><td>same thing</td></tr>
+<tr><td>html tables seem to work</td></tr></table>
+
+TODO implement
 
 #### Taxonomic Treatment
 
