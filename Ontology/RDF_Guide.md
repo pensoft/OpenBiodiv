@@ -463,7 +463,7 @@ not everything here is a structural element.
 a rhetorical element of a taxonomic publication:*
 
 ```
-<<Model of the Publishing Domain>>=
+<<Model>>=
 
 trt:Treatment a owl:Class ;
   rdfs:label "Taxonomic Treatment"@en ;
@@ -521,7 +521,7 @@ nomenclatural acts are published and nomenclatural statements are made.
 Nomenclature is a subsection of Treatment.
 
 ```
-<<Model of the Publishing Domain>>=
+<<Model>>=
 
 trt:Nomenclature a owl:Class ;
   rdfs:subClassOf deo:DiscourseElement ,
@@ -604,7 +604,7 @@ together with possibly a taxonomic status, bearing further information about
 the name:*
 
 ```
-<<Model of the Publishing Domain>>=
+<<Model>>=
 
 :TaxonomicNameUsage rdf:type owl:Class ;
   rdfs:subClassOf  pext:Mention ;
@@ -706,7 +706,7 @@ Name, Scientific Name, and Vernacular Name are introduced as their NOMEN
 equivalents.*
 
 ```
-<<Model of Biological Systematics>>=
+<<Model>>=
 
 :BiologicalName rdf:type owl:Class ;
     rdfs:label "Biological Name"@en ;
@@ -768,7 +768,7 @@ class of names.
 **Def. (has biological name, has scientific name, has vernacular name):**.
 
 ```
-<<Model of Biological Systematics>>=
+<<Model>>=
 
 dwciri:scientificName rdf:type owl:ObjectProperty ;
   rdfs:label "scientific name"@en;
@@ -815,7 +815,7 @@ relationship is purposefully vague as to encompass all situations where two
 biological names co-occur in a text. It is transitive and reflexive.*
 
 ```
-<<Model of Biological Systematics>>=
+<<Model>>=
 
 :relatedName rdf:type owl:ObjectProperty, owl:TransitiveProperty, owl:ReflexiveProperty ;
   rdfs:label "has related name"@en ;
@@ -837,7 +837,7 @@ given the information that system currently holds. This property is only
 defined for scientific names.*
 
 ```
-<<Model of Biological Systematics>>=
+<<Model>>=
 
 :replacementName rdf:type owl:ObjectProperty ,
                           owl:TransitiveProperty ;
@@ -1140,7 +1140,7 @@ database, etc.), where the circumscription is properly defined.
 **Def. (Taxon Concept):**
 
 ```
-<<Model of Biological Systematics>>=
+<<Model>>=
 
 :TaxonConcept rdf:type owl:Class ;
   owl:equivalentClass dwc:Taxon ;
@@ -1328,7 +1328,7 @@ but we will not copy any of the `:havePedipals` or `:haveSpinnerts` to the other
 **Def.: *A set of properties describing RCC-5 relations.*
 
 ```
-<<Model of Biological Systematics>>=
+<<Model>>=
 
 :RCC5Statement rdf:type owl:Class ;
   rdfs:label "RCC5 Statement" ;
