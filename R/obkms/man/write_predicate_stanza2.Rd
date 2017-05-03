@@ -5,7 +5,12 @@
 \title{takes care of the predicates, but with the triple structure a list}
 \usage{
 write_predicate_stanza2(predicate, triples)
+
+write_predicate_stanza2(predicate, triples)
 }
 \description{
 takes care of the predicates, but with the triple structure a list
+
+takes care of the predicates, but with the triple structure a list
 }
+

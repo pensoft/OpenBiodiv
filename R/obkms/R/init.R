@@ -26,7 +26,7 @@ init_env = function ( server_access_options,
                       xml_source = "file",
                       xml_type = "taxpub" ) {
 
-    stopifnot ( is.character( server_access_options$userpwd)  )
+  if (! is.character( server_access_options$userpwd)  ) warning ( "No password supplied!")
 
   if (!exists('obkms')) {
     obkms <<- new.env()

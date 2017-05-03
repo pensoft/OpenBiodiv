@@ -5,7 +5,12 @@
 \title{does it with lists}
 \usage{
 write_end_stanza2(object, triples)
+
+write_end_stanza2(object, triples)
 }
 \description{
 does it with lists
+
+does it with lists
 }
+

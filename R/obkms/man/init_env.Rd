@@ -23,3 +23,4 @@ In order not to have to parameterize each function with the database access
 information, the access options are stored in an environment, which is then
 utilzed by the individual package functions. It also enriches the options
 }
+

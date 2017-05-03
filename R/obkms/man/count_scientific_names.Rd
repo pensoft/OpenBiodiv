@@ -12,3 +12,4 @@ number of names
 \description{
 Count how many distinct names there are
 }
+

@@ -5,7 +5,12 @@
 \title{Converts a matrix of triple to Turtle statements, given a context.}
 \usage{
 triples2turtle(context, triples)
+
+triples2turtle(context, triples)
 }
 \description{
 Uses the Trig syntax.
+
+Uses the Trig syntax.
 }
+

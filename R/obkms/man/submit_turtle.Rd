@@ -12,3 +12,4 @@ submit_turtle(rdf)
 \description{
 Submits RDF string (in Turtle syntax) to OBKMS
 }
+

@@ -5,7 +5,12 @@
 \title{Writes a single couplet for the given subejct}
 \usage{
 write_couplet(subject, triples)
+
+write_couplet(subject, triples)
 }
 \description{
 Writes a single couplet for the given subejct
+
+Writes a single couplet for the given subejct
 }
+

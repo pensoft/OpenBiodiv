@@ -11,7 +11,7 @@ xml2rdf(resource_locator, resource_type = "FILE",
 \item{resource_locator}{address/ location of the XML resource}
 
 \item{resource_format}{XML schema of the XML resource;
-one of "TAXPUB"}
+one of { "TAXPUB", "REFBANK_XML" }}
 
 \item{serialization_format}{output serialization format of the RDF;
 one of "TURTLE"}
@@ -25,3 +25,4 @@ Convert an XML document to RDF
 \author{
 Viktor Senderov
 }
+

@@ -5,8 +5,15 @@
 \title{Semantic quote. Function to quote literals for use in RDF}
 \usage{
 squote(literal, postfixes = "")
+
+squote(literal, postfixes = "")
 }
 \arguments{
+\item{literal}{the string that needs to be quoted}
+
+\item{postfixes}{everything that needs to be concatendated at the end of the
+string (e.g. things like @en, or xsd:date)}
+
 \item{literal}{the string that needs to be quoted}
 
 \item{postfixes}{everything that needs to be concatendated at the end of the
@@ -14,4 +21,7 @@ string (e.g. things like @en, or xsd:date)}
 }
 \description{
 Semantic quote. Function to quote literals for use in RDF
+
+Semantic quote. Function to quote literals for use in RDF
 }
+

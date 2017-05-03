@@ -6,8 +6,14 @@
 with triples in a list}
 \usage{
 write_couplet2(subject, triples)
+
+write_couplet2(subject, triples)
 }
 \description{
 Writes a single couplet for the given subejct
 with triples in a list
+
+Writes a single couplet for the given subejct
+with triples in a list
 }
+

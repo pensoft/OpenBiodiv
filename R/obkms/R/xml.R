@@ -25,7 +25,9 @@ xml2rdf = function( resource_locator, resource_type = "FILE",
   stopifnot ( is.character(resource_type), resource_type == "FILE" )
   stopifnot ( is.character(resource_format), resource_format %in% c( "TAXPUB", "REFBANK_XML" ) )
   stopifnot ( is.character(serialization_format), serialization_format == "TURTLE" )
-  # load xpath
+
+
+
   if ( resource_format == "TAXPUB" ) {
     # load xpath for taxpub XML format
     xlit = yaml::yaml.load_file( obkms$config$literals_db_xpath )

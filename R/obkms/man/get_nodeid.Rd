@@ -17,3 +17,4 @@ We need a helper function to get or create an node (id) for the network given a 
 \examples{
 \dontrun{}
 }
+

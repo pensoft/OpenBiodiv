@@ -17,3 +17,4 @@ find_related_names(sci_name_label)
 Finds all related names to a given name
 TODO : modify prepend_prefixes function to do both turtle and SPARQL
 }
+

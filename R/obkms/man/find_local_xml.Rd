@@ -19,3 +19,4 @@ find_local_xml(xml, local_entities, local_entities_xpath)
 \description{
 Finds the XML nodes corresponding to semantic entities
 }
+

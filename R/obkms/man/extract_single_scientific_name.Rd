@@ -19,3 +19,4 @@ TODO also do authorship, etc.
 \description{
 Extracts only one scientific name from an XML node
 }
+

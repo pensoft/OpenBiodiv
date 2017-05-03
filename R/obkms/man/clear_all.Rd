@@ -12,3 +12,4 @@ status of query
 \description{
 Remove all graphs
 }
+

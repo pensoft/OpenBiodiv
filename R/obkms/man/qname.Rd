@@ -6,11 +6,18 @@
 Minimizes a URI to a Qname.}
 \usage{
 qname(uri)
+
+qname(uri)
 }
 \arguments{
+\item{uri}{the full URI to minimize}
+
 \item{uri}{the full URI to minimize}
 }
 \description{
 ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 Minimizes a URI to a Qname.
+
+Minimizes a URI to a Qname.
 }
+

@@ -12,3 +12,4 @@ extract.metadata(xml, xlit)
 \description{
 Extract metadata from an XML document but return value is a list
 }
+
