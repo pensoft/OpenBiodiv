@@ -1,0 +1,3016 @@
+@prefix : <http://lod.taxonconcept.org/ontology/txn.owl#> .
+@prefix cc: <http://creativecommons.org/ns#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix gn: <http://www.geonames.org/ontology#> .
+@prefix vs: <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix wo: <http://purl.org/ontology/wo/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix bibo: <http://purl.org/ontology/bibo/> .
+@prefix biol: <http://purl.org/NET/biol/ns#> .
+@prefix core: <http://purl.uniprot.org/core/> .
+@prefix doap: <http://usefulinc.com/ns/doap#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix voaf: <http://labs.mondeca.com/vocab/voaf#> .
+@prefix void: <http://rdfs.org/ns/void#> .
+@prefix event: <http://purl.org/NET/c4dm/event.owl#> .
+@prefix taxon: <http://purl.org/biodiversity/taxon/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix gs_void: <http://lod.geospecies.org/ontology/void#> .
+@prefix owl2xml: <http://www.w3.org/2006/12/owl2-xml#> .
+@prefix dwc_area: <http://lod.taxonconcept.org/ontology/dwc_area.owl#> .
+@prefix txn_void: <http://lod.taxonconcept.org/ontology/void#> .
+@prefix dwc_terms: <http://rs.tdwg.org/dwc/terms/index.htm#> .
+@prefix wgs84_pos: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix txn_people: <http://lod.taxonconcept.org/ontology/people.owl#> .
+@prefix ia_mdb_void: <http://ia_mdb.geospecies.org/ontology/void#> .
+@prefix usda_plants: <http://lod.taxonconcept.org/ontology/usda_plants.owl#> .
+@prefix uniprot_resource: <http://bio2rdf.org/uniprot_resource:> .
+@base <http://lod.taxonconcept.org/ontology/txn.owl> .
+
+<http://lod.taxonconcept.org/ontology/txn.owl> rdf:type owl:Ontology ;
+                                                rdfs:seeAlso <http://lod.taxonconcept.org/ontology/doc/index.html> ;
+                                                rdfs:label "TaxonConcept Ontology"@en ;
+                                                rdfs:seeAlso <http://labs.mondeca.com/dataset/lov/details/vocabulary_txn.html> ;
+                                                rdfs:comment "Version 0.976 Added additional GenusNameID, SubfamilyNameID and FamilyNameID for NLP project"@en ;
+                                                rdfs:seeAlso <http://lod.taxonconcept.org/ontology/void.rdf> ,
+                                                             foaf: ,
+                                                             <http://www.w3.org/TR/skos-reference/skos-owl1-dl.rdf> ,
+                                                             <http://purl.org/NET/biol/ns> ,
+                                                             <http://vocab.deri.ie/void> ;
+                                                vann:preferredNamespaceUri "http://lod.taxonconcept.org/ontology/txn.owl#" ;
+                                                rdfs:seeAlso bibo: ;
+                                                dcterms:creator txn_people:Peter_J_DeVries ;
+                                                dcterms:title "TaxonConcept Ontology"@en ;
+                                                vann:preferredNamespacePrefix "txn" ;
+                                                owl:versionInfo 0.976 .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/elements/1.1/date
+dc:date rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/description
+dc:description rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/title
+dc:title rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/creator
+dcterms:creator rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/issued
+dcterms:issued rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/title
+dcterms:title rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/vocab/vann/preferredNamespacePrefix
+vann:preferredNamespacePrefix rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/vocab/vann/preferredNamespaceUri
+vann:preferredNamespaceUri rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2000/01/rdf-schema#comment
+rdfs:comment rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2000/01/rdf-schema#isDefinedBy
+rdfs:isDefinedBy rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2000/01/rdf-schema#label
+rdfs:label rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2000/01/rdf-schema#seeAlso
+rdfs:seeAlso rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2002/07/owl#versionInfo
+owl:versionInfo rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2003/06/sw-vocab-status/ns#term_status
+vs:term_status rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#acceptedNameID
+:acceptedNameID rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf :taxonNameID ;
+                owl:inverseOf :acceptedTaxonNameID_Of ;
+                rdfs:range :TaxonNameID ;
+                rdfs:comment "The URI to the Accepted Name String, should only be one." ;
+                rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                rdfs:label "acceptedNameID" ;
+                vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#acceptedTaxonNameID_Of
+:acceptedTaxonNameID_Of rdf:type owl:ObjectProperty ;
+                        rdfs:subPropertyOf :taxonNameID_Of ;
+                        rdfs:domain :TaxonNameID ;
+                        rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                        rdfs:label "acceptedTaxonNameID_Of" ;
+                        vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#altAcceptedNameID
+:altAcceptedNameID rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf :taxonNameID ;
+                   rdfs:range :TaxonNameID ;
+                   rdfs:comment "The URI to an Alternative Accepted Name String" ;
+                   rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                   rdfs:label "altAcceptedNameID" ;
+                   vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#altAcceptedNameID_Of
+:altAcceptedNameID_Of rdf:type owl:ObjectProperty ;
+                      rdfs:subPropertyOf :taxonNameID_Of ;
+                      owl:inverseOf :originalNameID ;
+                      rdfs:domain :TaxonNameID ;
+                      rdfs:comment "The URI to an Alternative Accepted Name String" ;
+                      rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                      rdfs:label "altAcceptedNameID_Of" ;
+                      vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#areaHasIndividual
+:areaHasIndividual rdf:type owl:ObjectProperty ;
+                   rdfs:comment "Links an Area to an Individual" ;
+                   rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                   rdfs:label "areaHasIndividual" ;
+                   vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#areaHasObservedSpeciesConcept
+:areaHasObservedSpeciesConcept rdf:type owl:ObjectProperty ;
+                               rdfs:comment "Links an Area to a Species Concept" ;
+                               rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                               rdfs:label "areaHasObservedSpeciesConcept" ;
+                               vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#areaHasOccurrence
+:areaHasOccurrence rdf:type owl:ObjectProperty ;
+                   rdfs:comment "Links an Area to an Occurrence" ;
+                   rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                   rdfs:label "areaHasOccurrence" ;
+                   vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#areaInCounty
+:areaInCounty rdf:type owl:ObjectProperty ;
+              rdfs:comment "Links an Area to Geonames County URI" ;
+              rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+              rdfs:label "areaInCounty" ;
+              vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#areaInStateProvince
+:areaInStateProvince rdf:type owl:ObjectProperty ;
+                     rdfs:comment "Links an Area to Geonames State/Province URI" ;
+                     rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                     rdfs:label "areaInStateProvince" ;
+                     vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#areaWithInFeature
+:areaWithInFeature rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf dcterms:partOf ;
+                   owl:inverseOf :featureContainsArea ;
+                   rdfs:domain :Area ;
+                   rdfs:range gn:Feature ;
+                   rdfs:comment "This is used to connect geo areas to geoname features" ;
+                   rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                   rdfs:label "areaWithInFeature" ;
+                   vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#basisOfRecord
+:basisOfRecord rdf:type owl:ObjectProperty ;
+               rdfs:comment "Assumed to be equivalent to TDWG Basis of Record" ;
+               rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+               rdfs:label "basisOfRecord" ;
+               vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#canonicalFormID
+:canonicalFormID rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf :relatedTaxonNameID ;
+                 rdfs:domain :TaxonNameID ;
+                 rdfs:range :TaxonNameID ;
+                 rdfs:comment "The URI ID for the canonical form of the name i.e. Puma concolor or Felidae, for name to name mapping" ;
+                 rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/taxon.owl> ;
+                 rdfs:label "canonicalFormID" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#canonicalFormID_Of
+:canonicalFormID_Of rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf :relatedTaxonNameID ;
+                    rdfs:domain :TaxonNameID ;
+                    rdfs:range :TaxonNameID ;
+                    rdfs:comment "The URI ID for the scientific name with authorship form of the name i.e. Puma concolor Linnaeus 1758, for name to name mapping" ;
+                    rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/taxon.owl> ;
+                    rdfs:label "canonicalFormID Of" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#conceptStatus
+:conceptStatus rdf:type owl:ObjectProperty ;
+               rdfs:comment "The Links to the Status of the TaxonConcept" ;
+               rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+               rdfs:label "conceptStatus" ;
+               vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#descYear
+:descYear rdf:type owl:ObjectProperty ;
+          owl:inverseOf :descYearOf ;
+          rdfs:range :Year ;
+          rdfs:comment "This is the year of the description" ;
+          rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+          rdfs:label "descYear" ;
+          vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#descYearOf
+:descYearOf rdf:type owl:ObjectProperty ;
+            rdfs:domain :Year ;
+            rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+            rdfs:label "descYearOf" ;
+            vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#featureContainsArea
+:featureContainsArea rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf dcterms:hasPart ;
+                     rdfs:domain gn:Feature ;
+                     rdfs:range :Area ;
+                     rdfs:comment "This is used to link a geonames feature to a geo area. For example geo:44.86528100,-87.23147800;u=10" ;
+                     rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                     rdfs:label "featureContainsArea" ;
+                     vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#firstAuthorID
+:firstAuthorID rdf:type owl:ObjectProperty ;
+               rdfs:domain :TaxonNameID ;
+               rdfs:range :Taxonomist ;
+               rdfs:comment "The URI to the First Author" ;
+               rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+               rdfs:label "firstAuthorID" ;
+               vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#georeferenceProtocol
+:georeferenceProtocol rdf:type owl:ObjectProperty ;
+                      rdfs:comment "The method used to determine the latitude, longitude as a URI" ;
+                      rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                      rdfs:label "georeferenceProtocol" ;
+                      vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#georeferenceVerificationStatus
+:georeferenceVerificationStatus rdf:type owl:ObjectProperty ;
+                                rdfs:comment "Was this location verified, controlled choices URI" ;
+                                rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                                rdfs:label "georeferenceVerificationStatus" ;
+                                vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#habitat
+:habitat rdf:type owl:ObjectProperty ;
+         owl:equivalentProperty wo:habitat ;
+         rdfs:comment "associates a taxon with a habitat in which it may typically be found" ;
+         rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+         rdfs:label "habitat" ;
+         vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#hasADWPage
+:hasADWPage rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf foaf:page ;
+            rdfs:range bibo:Webpage ;
+            rdfs:comment "The range is a page on the Animal Diversity Web site." ;
+            rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+            rdfs:label "hasADWPage" ;
+            vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#hasBBCPage
+:hasBBCPage rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf foaf:page ;
+            rdfs:range bibo:Webpage ;
+            rdfs:comment "The range is a page on the BBC site." ;
+            rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+            rdfs:label "hasBBCPage" ;
+            vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#hasBOLDPage
+:hasBOLDPage rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf foaf:page ;
+             rdfs:range bibo:Webpage ;
+             rdfs:comment "A page at boldsystems.org"@en ;
+             rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+             rdfs:label "hasBOLDPage" ;
+             vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#hasBioimagesPage
+:hasBioimagesPage rdf:type owl:ObjectProperty ;
+                  rdfs:subPropertyOf foaf:page ;
+                  owl:inverseOf :isBioimagesPageOf ;
+                  rdfs:range bibo:Webpage ;
+                  rdfs:comment "The range is a page on the Bioimages site." ;
+                  rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                  rdfs:label "hasBioimagesPage" ;
+                  vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#hasBugGuidePage
+:hasBugGuidePage rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf foaf:page ;
+                 owl:inverseOf :isBugGuidePageOf ;
+                 rdfs:range bibo:Webpage ;
+                 rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                 rdfs:label "hasBugGuidePage" ;
+                 vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#hasCitation
+:hasCitation rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf foaf:page ;
+             rdfs:range core:Citation ;
+             rdfs:comment "The range is a uniprot pubmed uri for example http://purl.uniprot.org/pubmed/1083304 " ;
+             rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+             rdfs:label "hasCitation" ;
+             vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#hasCollector
+:hasCollector rdf:type owl:ObjectProperty ;
+              rdfs:domain :Occurrence ;
+              rdfs:range foaf:Person ;
+              rdfs:comment "The occurrence observer or specimen collector, hasCollector?" ;
+              rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+              rdfs:label "hasCollector" ;
+              vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#hasDLPage
+:hasDLPage rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf foaf:page ;
+           rdfs:range bibo:Webpage ;
+           rdfs:comment "The range is a page on the DiscoverLife.org site." ;
+           rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+           rdfs:label "hasDLPage" ;
+           vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#hasDiscoverLifePage
+:hasDiscoverLifePage rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf foaf:page ;
+                     rdfs:range bibo:Webpage ;
+                     rdfs:comment "The range is a page on the Discover Life Web site." ,
+                                  "The range is a page on the http://www.discoverlife.org/ site." ;
+                     rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                     rdfs:label "hasDiscoverLifePage" ;
+                     vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#hasEOLPage
+:hasEOLPage rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf foaf:page ;
+            rdfs:range bibo:Webpage ;
+            rdfs:comment "The range is a page on the Encyclopedia of Life site." ;
+            rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+            rdfs:label "hasEOLPage" ;
+            vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#hasEUNISPage
+:hasEUNISPage rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf foaf:page ;
+              rdfs:range bibo:Webpage ;
+              rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+              rdfs:label "hasEUNISPage" ;
+              vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#hasEtypePage
+:hasEtypePage rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf foaf:page ;
+              rdfs:range bibo:Webpage ;
+              rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+              rdfs:label "hasEtypePage" ;
+              vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#hasExpectationOf
+:hasExpectationOf rdf:type owl:ObjectProperty ;
+                  owl:inverseOf :isExpectedIn ;
+                  rdfs:comment "This is to link between a geographical area and a taxon-like entity. The doman and range are left blank so this can be used with different kinds of geographic vocabularies and different kinds of taxon concept vocabularies. It should not be used to indicate that a location has the expectation of a specific individual specimen, but to indicate that the location has an expectation of a specific class of organisms. For instance, it would be used to indicate that a geographic location has an expectation of a particular species. The use should approximate assertions similar to what one might find in a state or country checklist." ;
+                  rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                  rdfs:label "hasExpectationOf" ;
+                  vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#hasGBIFMap
+:hasGBIFMap rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf :hasMapImage ;
+            rdfs:range :MapImage ;
+            rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+            rdfs:label "hasGBIFmap" ;
+            vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#hasGBIFPage
+:hasGBIFPage rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf foaf:page ;
+             rdfs:range bibo:Webpage ;
+             rdfs:comment "A page at GBIF.org"@en ;
+             rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+             rdfs:label "hasGBIFPage" ;
+             vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#hasITISPage
+:hasITISPage rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf foaf:page ;
+             rdfs:range bibo:Webpage ;
+             rdfs:comment "The range is a page on the ITIS.gov site." ;
+             rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+             rdfs:label "hasITISPage" ;
+             vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#hasImage
+:hasImage rdf:type owl:ObjectProperty ;
+          owl:equivalentProperty foaf:depiction ;
+          rdfs:comment "Superproperty of all the links to images" ;
+          rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+          rdfs:label "hasImage" ;
+          vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#hasMapImage
+:hasMapImage rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf foaf:depiction ;
+             rdfs:range :MapImage ;
+             rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+             rdfs:label "hasMapImage" ;
+             vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#hasUSDAPlantsPage
+:hasUSDAPlantsPage rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf foaf:page ;
+                   rdfs:range bibo:Webpage ;
+                   rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                   rdfs:label "hasUSDAPlantsPage" ;
+                   vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#hasUnknownExpectationOf
+:hasUnknownExpectationOf rdf:type owl:ObjectProperty ;
+                         owl:inverseOf :isUnknownAboutIn ;
+                         rdfs:comment "This is to link between a geographical area and a taxon-like entity. Where the association is not known. The doman and range are left blank so this can be used with different kinds of geographic vocabularies and different kinds of taxon concept vocabularies. It should not be used to indicate that a location has the expectation of a specific individual specimen, but to indicate that the location has an expectation of a specific class of organisms. For instance, it would be used to indicate that a geographic location has an expectation of a particular species. The use should approximate assertions similar to what one might find in a state or country checklist." ;
+                         rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                         rdfs:label "hasUnknownExpectationOf" ;
+                         vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#hasWikipediaArticle
+:hasWikipediaArticle rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf foaf:page ;
+                     owl:inverseOf :isWikipediaArticleOf ;
+                     rdfs:range bibo:Webpage ;
+                     rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                     rdfs:label "hasWikipediaArticle" ;
+                     vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#hasWikipediaMap
+:hasWikipediaMap rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf :hasMapImage ;
+                 rdfs:range :MapImage ;
+                 rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                 rdfs:label "hasWikipediaMap" ;
+                 vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#hasWikispeciesArticle
+:hasWikispeciesArticle rdf:type owl:ObjectProperty ;
+                       rdfs:subPropertyOf foaf:page ;
+                       owl:inverseOf :isWikispeciesArticleOf ;
+                       rdfs:range bibo:Webpage ;
+                       rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                       rdfs:label "hasWikispeciesArticle" ;
+                       vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#hasWildObsPage
+:hasWildObsPage rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf foaf:page ;
+                rdfs:range bibo:Webpage ;
+                rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                rdfs:label "hasWildObsPage" ;
+                vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#heterochresonymID
+:heterochresonymID rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf :synonymID ;
+                   rdfs:range :TaxonNameID ;
+                   rdfs:comment "The URI to the Heterochresonym Name String" ;
+                   rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                   rdfs:label "heterochresonymID" ;
+                   vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#heterotypicNameID
+:heterotypicNameID rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf :synonymID ;
+                   rdfs:range :TaxonNameID ;
+                   rdfs:comment "The URI to the HeterotypicName Name String" ;
+                   rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                   rdfs:label "heterotypicNameID" ;
+                   vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#homotypicNameID
+:homotypicNameID rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf :synonymID ;
+                 rdfs:range :TaxonNameID ;
+                 rdfs:comment "The URI to the HomotypicName Name String" ;
+                 rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                 rdfs:label "homotypicNameID" ;
+                 vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#identificationHasLabelImage
+:identificationHasLabelImage rdf:type owl:ObjectProperty ;
+                             rdfs:subPropertyOf :hasImage ;
+                             rdfs:domain :Identification ;
+                             rdfs:range :Image ;
+                             rdfs:comment "The image of the identification label on a specimen" ;
+                             rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                             rdfs:label "identificationHasLabelImage" ;
+                             vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#identificationHasOcccurrence
+:identificationHasOcccurrence rdf:type owl:ObjectProperty ;
+                              rdfs:domain :Identification ;
+                              rdfs:comment "The link between an Identification and an Occurrence" ;
+                              rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                              rdfs:label "identificationHasOcccurrence" ;
+                              vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#identificationHasSpeciesConcept
+:identificationHasSpeciesConcept rdf:type owl:ObjectProperty ;
+                                 rdfs:comment "The link between an Identification and Species Concept, redundant with identifiedAs" ;
+                                 rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                                 rdfs:label "identificationHasSpeciesConcept" ;
+                                 vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#identificationMethod
+:identificationMethod rdf:type owl:ObjectProperty ;
+                      rdfs:domain :Identification ;
+                      rdfs:comment "Method used to identify the individual, as a URI" ;
+                      rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                      rdfs:label "identificationMethod" ;
+                      vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#identificationOfIndividual
+:identificationOfIndividual rdf:type owl:ObjectProperty ;
+                            rdfs:domain :Identification ;
+                            rdfs:comment "Links an identification to an individual" ;
+                            rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                            rdfs:label "identificationOfIndividual" ;
+                            vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#identificationReference
+:identificationReference rdf:type owl:ObjectProperty ;
+                         rdfs:comment "Links an identification to the URI for the reference used." ;
+                         rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                         rdfs:label "identificationReference" ;
+                         vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#identifiedBy
+:identifiedBy rdf:type owl:ObjectProperty ;
+              rdfs:domain :Identification ;
+              rdfs:range foaf:Person ;
+              rdfs:comment "Links an identification to the URI a human that made the identification as URI" ;
+              rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+              rdfs:label "identifiedBy" ;
+              vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#inClass
+:inClass rdf:type owl:ObjectProperty ;
+         rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+         rdfs:label "inClass" ;
+         vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#inCoLClass
+:inCoLClass rdf:type owl:ObjectProperty ;
+            rdfs:comment "Links a species concept to a Catalog of Life Class in an ontology" ;
+            rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+            rdfs:label "inCoLClass" ;
+            vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#inCoLFamily
+:inCoLFamily rdf:type owl:ObjectProperty ;
+             rdfs:comment "Links a species concept to a Catalog of Life Family in an ontology" ;
+             rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+             rdfs:label "inCoLFamily" ;
+             vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#inCoLKingdom
+:inCoLKingdom rdf:type owl:ObjectProperty ;
+              rdfs:comment "Links a species concept to a Catalog of Life Kingdom in an ontology" ;
+              rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+              rdfs:label "inCoLKingdom" ;
+              vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#inCoLOrder
+:inCoLOrder rdf:type owl:ObjectProperty ;
+            rdfs:comment "Links a species concept to a Catalog of Life Order in an ontology" ;
+            rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+            rdfs:label "inCoLOrder" ;
+            vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#inCoLPhylum
+:inCoLPhylum rdf:type owl:ObjectProperty ;
+             rdfs:comment "Links a species concept to a Catalog of Life Phylum in an ontology" ;
+             rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+             rdfs:label "inCoLPhylum" ;
+             vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#inDBpediaClade
+:inDBpediaClade rdf:type owl:ObjectProperty ;
+                rdfs:comment "Links a species concept to a clade in the DBpedia ontology" ;
+                rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                rdfs:label "inDBpediaClade" ;
+                vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#inFamily
+:inFamily rdf:type owl:ObjectProperty ;
+          rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+          rdfs:label "inFamily" ;
+          vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#inGenus
+:inGenus rdf:type owl:ObjectProperty ;
+         rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+         rdfs:label "inGenus" ;
+         vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#inInfraclass
+:inInfraclass rdf:type owl:ObjectProperty ;
+              rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+              rdfs:label "inInfraclass" ;
+              vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#inKingdom
+:inKingdom rdf:type owl:ObjectProperty ;
+           rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+           rdfs:label "inKingdom" ;
+           vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#inOrder
+:inOrder rdf:type owl:ObjectProperty ;
+         rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+         rdfs:label "inOrder" ;
+         vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#inPhylum
+:inPhylum rdf:type owl:ObjectProperty ;
+          rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+          rdfs:label "inPhylum" ;
+          vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#inSubclass
+:inSubclass rdf:type owl:ObjectProperty ;
+            rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+            rdfs:label "inSubclass" ;
+            vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#inSubfamily
+:inSubfamily rdf:type owl:ObjectProperty ;
+             rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+             rdfs:label "inSubfamily" ;
+             vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#inSuborder
+:inSuborder rdf:type owl:ObjectProperty ;
+            rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+            rdfs:label "inSuborder" ;
+            vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#inSuperfamily
+:inSuperfamily rdf:type owl:ObjectProperty ;
+               rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+               rdfs:label "inSuperfamily" ;
+               vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#inSuperorder
+:inSuperorder rdf:type owl:ObjectProperty ;
+              rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+              rdfs:label "inSuperorder" ;
+              vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#individualHasCurrrentIdentificationAssertion
+:individualHasCurrrentIdentificationAssertion rdf:type owl:ObjectProperty ;
+                                              rdfs:domain :SpeciesIndividual ;
+                                              rdfs:comment "Links an individual to the most appropriate identification. Should be one." ;
+                                              rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                                              rdfs:label "individualHasCurrrentIdentificationAssertion" ;
+                                              vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#individualHasObservedArea
+:individualHasObservedArea rdf:type owl:ObjectProperty ;
+                           rdfs:domain :SpeciesIndividual ;
+                           rdfs:range :Area ;
+                           rdfs:comment "Links an individual to an Area" ;
+                           rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                           rdfs:label "individualHasObservedArea" ;
+                           vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#individualHasOccurrence
+:individualHasOccurrence rdf:type owl:ObjectProperty ;
+                         rdfs:domain :SpeciesIndividual ;
+                         rdfs:comment "Links an individual to an Occurrence, correct" ;
+                         rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                         rdfs:label "individualHasOccurrence" ;
+                         vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#individualHasPreviousIdentificationAssertion
+:individualHasPreviousIdentificationAssertion rdf:type owl:ObjectProperty ;
+                                              rdfs:domain :SpeciesIndividual ;
+                                              rdfs:comment "Links an individual to the most appropriate identification. Zero to many" ;
+                                              rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                                              rdfs:label "individualHasPreviousIdentificationAssertion" ;
+                                              vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#individualHasSpeciesConcept
+:individualHasSpeciesConcept rdf:type owl:ObjectProperty ;
+                             rdfs:domain :SpeciesIndividual ;
+                             rdfs:comment "Links an individual a Species Concept" ;
+                             rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                             rdfs:label "individualHasSpeciesConcept" ;
+                             vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#individualStatus
+:individualStatus rdf:type owl:ObjectProperty ;
+                  rdfs:domain :SpeciesIndividual ;
+                  rdfs:comment "Links from an individual to a controlled vocabulary of URI's for the current status of that individual" ;
+                  rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                  rdfs:label "individualStatus" ;
+                  vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#individualhasImage
+:individualhasImage rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf :hasImage ;
+                    rdfs:domain :SpeciesIndividual ;
+                    rdfs:comment "Intended to link an individual to a image. Should be subproperty of foaf:depiction" ;
+                    rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                    rdfs:label "individualhasImage" ;
+                    vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#isBioimagesPageOf
+:isBioimagesPageOf rdf:type owl:ObjectProperty ;
+                   rdfs:domain bibo:Webpage ;
+                   rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                   rdfs:label "isBioimagesPageOf" ;
+                   vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#isBugGuidePageOf
+:isBugGuidePageOf rdf:type owl:ObjectProperty ;
+                  rdfs:domain bibo:Webpage ;
+                  rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                  rdfs:label "isBugGuidePageOf" ;
+                  vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#isEOLPageOf
+:isEOLPageOf rdf:type owl:ObjectProperty ;
+             rdfs:domain bibo:Webpage ;
+             rdfs:comment "The range is a page on the Encyclopedia of Life site." ;
+             rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+             rdfs:label "isEOLPageOf" ;
+             vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#isExpectedIn
+:isExpectedIn rdf:type owl:ObjectProperty ;
+              rdfs:comment "This is to link between a taxon-like entity and a geographical area. The doman and range are left blank so this can be used with different kinds of geographic vocabularies and different kinds of taxon concept vocabularies. It should not be used to indicate that a particular individual organism is expecten in a geographical area, but to indicate that the species etc. is expected in a particular geographical area. For instance, it would be used to indicate that a species is expected in a particular state or province. The use should approximate assertions similar to what one might find in a state or country checklist." ;
+              rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+              rdfs:label "isExpectedIn" ;
+              vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#isTaxonNameID_Of
+:isTaxonNameID_Of rdf:type owl:ObjectProperty .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#isUnknownAboutIn
+:isUnknownAboutIn rdf:type owl:ObjectProperty ;
+                  rdfs:comment "Links a species concept to a Geonames URI where the relationship is unknown" ;
+                  rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                  rdfs:label "isUnknownAboutIn" ;
+                  vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#isWikipediaArticleOf
+:isWikipediaArticleOf rdf:type owl:ObjectProperty ;
+                      rdfs:domain bibo:Webpage ;
+                      rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                      rdfs:label "isWikipediaArticleOf" ;
+                      vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#isWikispeciesArticleOf
+:isWikispeciesArticleOf rdf:type owl:ObjectProperty ;
+                        rdfs:domain bibo:Webpage ;
+                        rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                        rdfs:label "isWikispeciesArticleOf" ;
+                        vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#lastAuthorID
+:lastAuthorID rdf:type owl:ObjectProperty ;
+              rdfs:domain :TaxonNameID ;
+              rdfs:range :Taxonomist ;
+              rdfs:comment "The URI to the Last Author" ;
+              rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+              rdfs:label "lastAuthorID" ;
+              vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#nameYear
+:nameYear rdf:type owl:ObjectProperty ;
+          owl:inverseOf :nameYearOf ;
+          rdfs:domain :TaxonNameID ;
+          rdfs:range :Year ;
+          rdfs:comment "The year that a name was published" ;
+          rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+          rdfs:label "nameYear"@en ;
+          vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#nameYearOf
+:nameYearOf rdf:type owl:ObjectProperty ;
+            rdfs:domain :Year ;
+            rdfs:range :TaxonNameID ;
+            rdfs:comment "Inverse of The year that a name was published" ;
+            rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+            rdfs:label "nameYear"@en ;
+            vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#ncbiGenus
+:ncbiGenus rdf:type owl:ObjectProperty ;
+           rdfs:comment "Links to the most appropriate NCBI Genus" ;
+           rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+           rdfs:label "NCBI Genus" ;
+           vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#ncbiSpecies
+:ncbiSpecies rdf:type owl:ObjectProperty ;
+             rdfs:comment "Links to the most appropriate NCBI Species" ;
+             rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+             rdfs:label "NCBI Species" ;
+             vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#occurrenceHasArea
+:occurrenceHasArea rdf:type owl:ObjectProperty ;
+                   rdfs:domain :Occurrence ;
+                   rdfs:range :Area ;
+                   rdfs:comment "Links an occurrence to an area" ;
+                   rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                   rdfs:label "occurrenceHasArea" ;
+                   vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#occurrenceHasIndividual
+:occurrenceHasIndividual rdf:type owl:ObjectProperty ;
+                         rdfs:domain :Occurrence ;
+                         rdfs:comment "Links an occurrence to an individual" ;
+                         rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                         rdfs:label "occurrenceHasIndividual" ;
+                         vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#occurrenceHasLabelImage
+:occurrenceHasLabelImage rdf:type owl:ObjectProperty ;
+                         rdfs:subPropertyOf :hasImage ;
+                         rdfs:domain :Occurrence ;
+                         rdfs:range :Image ;
+                         rdfs:comment "The image of the occurrence label on a specimen" ;
+                         rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                         rdfs:label "occurrenceHasLabelImage" ;
+                         vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#occurrenceHasSpeciesConcept
+:occurrenceHasSpeciesConcept rdf:type owl:ObjectProperty ;
+                             rdfs:domain :Occurrence ;
+                             rdfs:range :SpeciesConcept ;
+                             rdfs:comment "Links an occurrence to a species concept" ;
+                             rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                             rdfs:label "occurrenceHasSpeciesConcept" ;
+                             vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#occurrenceInContinent
+:occurrenceInContinent rdf:type owl:ObjectProperty ;
+                       rdfs:domain :Occurrence ;
+                       rdfs:range gn:Feature ;
+                       rdfs:comment "Links an Occurrence to Geonames Continent URI" ;
+                       rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                       rdfs:label "occurrenceInContinent" ;
+                       vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#occurrenceInCounty
+:occurrenceInCounty rdf:type owl:ObjectProperty ;
+                    rdfs:domain :Occurrence ;
+                    rdfs:range gn:Feature ;
+                    rdfs:comment "Links an Occurrence to Geonames County URI" ;
+                    rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                    rdfs:label "occurrenceInCounty" ;
+                    vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#occurrenceInFeature
+:occurrenceInFeature rdf:type owl:ObjectProperty ;
+                     rdfs:domain :Occurrence ;
+                     rdfs:range gn:Feature ;
+                     rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                     rdfs:label "occurrenceInFeature" ;
+                     vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#occurrenceInStateProvince
+:occurrenceInStateProvince rdf:type owl:ObjectProperty ;
+                           rdfs:domain :Occurrence ;
+                           rdfs:range gn:Feature ;
+                           rdfs:comment "Links an Occurrence to Geonames StateProvince URI" ;
+                           rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                           rdfs:label "occurrenceInStateProvince" ;
+                           vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#originalNameID
+:originalNameID rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf :taxonNameID ;
+                owl:inverseOf :originalNameID_Of ;
+                rdfs:range :TaxonNameID ;
+                rdfs:comment "The URI to the Original Name String" ;
+                rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                rdfs:label "originalNameID" ;
+                vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#originalNameID_Of
+:originalNameID_Of rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf :taxonNameID_Of ;
+                   rdfs:domain :TaxonNameID ;
+                   rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                   rdfs:label "originalNameID_Of" ;
+                   vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#orthochresonymID
+:orthochresonymID rdf:type owl:ObjectProperty ;
+                  rdfs:subPropertyOf :synonymID ;
+                  rdfs:range :TaxonNameID ;
+                  rdfs:comment "The URI to the Orthochresonym Name String" ;
+                  rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                  rdfs:label "orthochresonymID" ;
+                  vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#pubYearOf
+:pubYearOf rdf:type owl:ObjectProperty ;
+           owl:inverseOf :yearPub ;
+           rdfs:domain :Year ;
+           rdfs:range bibo:Document ;
+           rdfs:comment "The year that document was pub" ;
+           rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+           rdfs:label "pubYearOf"@en ;
+           vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#relatedTaxonNameID
+:relatedTaxonNameID rdf:type owl:ObjectProperty ;
+                    rdfs:domain :TaxonNameID ;
+                    rdfs:range :TaxonNameID ;
+                    rdfs:comment "The URI to the Taxon Name String" ;
+                    rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                    rdfs:label "relatedTaxonNameID" ;
+                    vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#samplingProtocol
+:samplingProtocol rdf:type owl:ObjectProperty ;
+                  rdfs:domain :Occurrence ;
+                  rdfs:comment "Links an Occurrence to a standard vocabulary of sampling protocols as URI's" ;
+                  rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                  rdfs:label "samplingProtocol" ;
+                  vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#sodHasTypeSpecimen
+:sodHasTypeSpecimen rdf:type owl:ObjectProperty ;
+                    owl:inverseOf :typeSpecimenHasSod ;
+                    rdfs:comment "Links an original description to a species type specimen" ;
+                    rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                    rdfs:label "sodHasTypeSpecimen" ;
+                    vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#speciesConceptBasedOn
+:speciesConceptBasedOn rdf:type owl:ObjectProperty ;
+                       rdfs:domain :SpeciesConcept ;
+                       rdfs:comment "This describes the theoretical models behind the species concept. All species concepts are at least based on an Objective Model. In addition the may also be based on a Biological Species Model and or a Phylogenetic Species Model. A species concept could be based on all three of these. This is to reflect that there are several criteria used to support a species concept. It also allows one to create a species concept for the domestic cat that is separate from its wild relative. If one followed a strict phylogentic species model, than the domestic cat would be considered to be a subclass of the species Felis sylvestris. This would result in observations or references about the domestic cat being interpreted as observations or references of the African Wildcat Felis sylvestris." ;
+                       rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                       rdfs:label "speciesConceptBasedOn" ;
+                       vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#speciesConceptHasObservedArea
+:speciesConceptHasObservedArea rdf:type owl:ObjectProperty ;
+                               rdfs:domain :SpeciesConcept ;
+                               rdfs:range :Area ;
+                               rdfs:comment "Links a species to an area. Should be speciesConcept?" ;
+                               rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                               rdfs:label "speciesConceptHasObservedArea" ;
+                               vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#speciesConceptHasOcccurrence
+:speciesConceptHasOcccurrence rdf:type owl:ObjectProperty ;
+                              rdfs:domain :SpeciesConcept ;
+                              rdfs:comment "Links a species to an occurrence. Should be speciesConcept?" ;
+                              rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                              rdfs:label "speciesConceptHasOcccurrence" ;
+                              vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#speciesConcepthasVaritypeSpecimen
+:speciesConcepthasVaritypeSpecimen rdf:type owl:ObjectProperty ;
+                                   owl:inverseOf :varitypeSpecimenHasSpeciesConcept ;
+                                   rdfs:comment "Links a species concept to a varitype specimen" ;
+                                   rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                                   rdfs:label "speciesConcepthasVaritypeSpecimen" ;
+                                   vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#synonymID
+:synonymID rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf :relatedTaxonNameID ;
+           rdfs:range :TaxonNameID ;
+           rdfs:comment "The URI to a synonymID of the TaxonNameID" ;
+           rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+           rdfs:label "synonymID" ;
+           vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#taxonNameGroupID
+:taxonNameGroupID rdf:type owl:ObjectProperty ;
+                  owl:inverseOf :taxonNameGroupID_Of ;
+                  rdfs:comment "The URI to the Taxon Name Group String" ;
+                  rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                  rdfs:label "taxonNameGroupID" ;
+                  vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#taxonNameGroupID_Of
+:taxonNameGroupID_Of rdf:type owl:ObjectProperty ;
+                     rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                     rdfs:label "taxonNameGroupID_Of" ;
+                     vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#taxonNameID
+:taxonNameID rdf:type owl:ObjectProperty ;
+             rdfs:range :TaxonNameID ;
+             rdfs:comment "The URI to the Taxon Name String" ;
+             rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+             rdfs:label "taxonNameID" ;
+             vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#taxonNameID_Of
+:taxonNameID_Of rdf:type owl:ObjectProperty ;
+                rdfs:domain :TaxonNameID ;
+                rdfs:comment "The URI to the Taxon Name String" ;
+                rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                rdfs:label "taxonNameID_Of" ;
+                vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#thumbnail
+:thumbnail rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf foaf:depiction ;
+           rdfs:range :Image ;
+           rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+           rdfs:label "thumbnail" ;
+           vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#thumbnailOf
+:thumbnailOf rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf foaf:depicts ;
+             rdfs:domain :Image ;
+             rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+             rdfs:label "thumbnailOf" ;
+             vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#typeSpecimenHasSod
+:typeSpecimenHasSod rdf:type owl:ObjectProperty ;
+                    rdfs:comment "Links specimen to an original species description" ;
+                    rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                    rdfs:label "typeSpecimenHasSod" ;
+                    vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#uniprotClass
+:uniprotClass rdf:type owl:ObjectProperty ;
+              rdfs:range core:Taxon ;
+              rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/taxon.owl> ;
+              rdfs:label "uniprotClass"@en .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#uniprotFamily
+:uniprotFamily rdf:type owl:ObjectProperty ;
+               rdfs:range core:Taxon ;
+               rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/taxon.owl> ;
+               rdfs:label "uniprotFamily"@en .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#uniprotGenus
+:uniprotGenus rdf:type owl:ObjectProperty ;
+              rdfs:range core:Taxon ;
+              rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/taxon.owl> ;
+              rdfs:label "uniprotGenus"@en .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#uniprotKingdom
+:uniprotKingdom rdf:type owl:ObjectProperty ;
+                rdfs:range core:Taxon ;
+                rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/taxon.owl> ;
+                rdfs:label "uniprotKingdom"@en .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#uniprotOrder
+:uniprotOrder rdf:type owl:ObjectProperty ;
+              rdfs:range core:Taxon ;
+              rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/taxon.owl> ;
+              rdfs:label "uniprotOrder"@en .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#uniprotPhylum
+:uniprotPhylum rdf:type owl:ObjectProperty ;
+               rdfs:range core:Taxon ;
+               rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/taxon.owl> ;
+               rdfs:label "uniprotPhylum"@en .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#uniprotSpecies
+:uniprotSpecies rdf:type owl:ObjectProperty ;
+                rdfs:range core:Taxon ;
+                rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/taxon.owl> ;
+                rdfs:label "uniprotSpecies"@en .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#varitypeSpecimenHasSpeciesConcept
+:varitypeSpecimenHasSpeciesConcept rdf:type owl:ObjectProperty ;
+                                   rdfs:comment "Links a varitype specimen to a  species concept" ;
+                                   rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                                   rdfs:label "varitypeSpecimenHasSpeciesConcept" ;
+                                   vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#yearBorn
+:yearBorn rdf:type owl:ObjectProperty ;
+          rdfs:domain foaf:Person ;
+          rdfs:range :Year ;
+          rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+          rdfs:label "yearBorn" ;
+          vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#yearDied
+:yearDied rdf:type owl:ObjectProperty ;
+          rdfs:domain foaf:Person ;
+          rdfs:range :Year ;
+          rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+          rdfs:label "yearDied" ;
+          vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#yearPub
+:yearPub rdf:type owl:ObjectProperty ;
+         rdfs:domain bibo:Document ;
+         rdfs:range :Year ;
+         rdfs:comment "The year that document was pub" ;
+         rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+         rdfs:label "yearPub"@en ;
+         vs:term_status "testing" .
+
+
+###  http://purl.org/dc/terms/hasPart
+dcterms:hasPart rdf:type owl:ObjectProperty .
+
+
+###  http://purl.org/dc/terms/partOf
+dcterms:partOf rdf:type owl:ObjectProperty .
+
+
+###  http://purl.org/dc/terms/publisher
+dcterms:publisher rdf:type owl:ObjectProperty .
+
+
+###  http://purl.org/dc/terms/spatial
+dcterms:spatial rdf:type owl:ObjectProperty .
+
+
+###  http://purl.org/ontology/wo/habitat
+wo:habitat rdf:type owl:ObjectProperty .
+
+
+###  http://rs.tdwg.org/dwc/terms/index.htm#acceptedNameUsageID
+dwc_terms:acceptedNameUsageID rdf:type owl:ObjectProperty .
+
+
+###  http://rs.tdwg.org/dwc/terms/index.htm#originalNameUsageID
+dwc_terms:originalNameUsageID rdf:type owl:ObjectProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#broader
+skos:broader rdf:type owl:ObjectProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#closeMatch
+skos:closeMatch rdf:type owl:ObjectProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#narrower
+skos:narrower rdf:type owl:ObjectProperty .
+
+
+###  http://www.w3.org/2006/time#after
+<http://www.w3.org/2006/time#after> rdf:type owl:ObjectProperty .
+
+
+###  http://www.w3.org/2006/time#before
+<http://www.w3.org/2006/time#before> rdf:type owl:ObjectProperty .
+
+
+###  http://xmlns.com/foaf/0.1/depiction
+foaf:depiction rdf:type owl:ObjectProperty .
+
+
+###  http://xmlns.com/foaf/0.1/depicts
+foaf:depicts rdf:type owl:ObjectProperty .
+
+
+###  http://xmlns.com/foaf/0.1/page
+foaf:page rdf:type owl:ObjectProperty .
+
+
+###  http://xmlns.com/foaf/0.1/publications
+foaf:publications rdf:type owl:ObjectProperty .
+
+
+###  http://xmlns.com/foaf/0.1/schoolHomepage
+foaf:schoolHomepage rdf:type owl:ObjectProperty .
+
+
+###  http://xmlns.com/foaf/0.1/workInfoHomepage
+foaf:workInfoHomepage rdf:type owl:ObjectProperty .
+
+
+###  http://xmlns.com/foaf/0.1/workplaceHomepage
+foaf:workplaceHomepage rdf:type owl:ObjectProperty .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://dbpedia.org/property/binomial
+<http://dbpedia.org/property/binomial> rdf:type owl:DatatypeProperty .
+
+
+###  http://dbpedia.org/property/classis
+<http://dbpedia.org/property/classis> rdf:type owl:DatatypeProperty .
+
+
+###  http://dbpedia.org/property/familia
+<http://dbpedia.org/property/familia> rdf:type owl:DatatypeProperty .
+
+
+###  http://dbpedia.org/property/genus
+<http://dbpedia.org/property/genus> rdf:type owl:DatatypeProperty .
+
+
+###  http://dbpedia.org/property/ordo
+<http://dbpedia.org/property/ordo> rdf:type owl:DatatypeProperty .
+
+
+###  http://dbpedia.org/property/phylum
+<http://dbpedia.org/property/phylum> rdf:type owl:DatatypeProperty .
+
+
+###  http://dbpedia.org/property/regnum
+<http://dbpedia.org/property/regnum> rdf:type owl:DatatypeProperty .
+
+
+###  http://dbpedia.org/property/species
+<http://dbpedia.org/property/species> rdf:type owl:DatatypeProperty .
+
+
+###  http://dbpedia.org/property/synonym
+<http://dbpedia.org/property/synonym> rdf:type owl:DatatypeProperty .
+
+
+###  http://dbpedia.org/property/trinomial
+<http://dbpedia.org/property/trinomial> rdf:type owl:DatatypeProperty .
+
+
+###  http://lod.taxonconcept.org/ontology/dwc_area.owl#radius
+dwc_area:radius rdf:type owl:DatatypeProperty .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#acceptedName
+:acceptedName rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf skos:prefLabel ;
+              rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+              rdfs:label "acceptedName" ;
+              vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#authority
+:authority rdf:type owl:DatatypeProperty ;
+           owl:equivalentProperty biol:authority ;
+           rdfs:comment "The author and year of the species description publication i.e (Baker, 1899)" ;
+           rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+           rdfs:label "authority" ;
+           vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#behavioralNote
+:behavioralNote rdf:type owl:DatatypeProperty ;
+                rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                rdfs:label "behavioralNote" ;
+                vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#binomial
+:binomial rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf taxon:binomial ;
+          rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+          rdfs:label "binomial" ;
+          vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#botanyAuthorName
+:botanyAuthorName rdf:type owl:DatatypeProperty ;
+                  rdfs:subPropertyOf foaf:nick ;
+                  rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                  rdfs:label "botany author abbreviation" ;
+                  vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#catalogCode
+:catalogCode rdf:type owl:DatatypeProperty ;
+             rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+             rdfs:label "catalogCode" ;
+             vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#class
+:class rdf:type owl:DatatypeProperty ;
+       owl:equivalentProperty biol:class ;
+       rdfs:subPropertyOf :scientificName ;
+       rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+       rdfs:label "class" ;
+       vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#collectionCode
+:collectionCode rdf:type owl:DatatypeProperty ;
+                rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                rdfs:label "collectionCode" ;
+                vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#commonName
+:commonName rdf:type owl:DatatypeProperty ;
+            rdfs:subPropertyOf taxon:commonName ;
+            rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+            rdfs:label "commonName" ;
+            vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#continent
+:continent rdf:type owl:DatatypeProperty ;
+           rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+           rdfs:label "continent" ;
+           vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#country
+:country rdf:type owl:DatatypeProperty ;
+         rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+         rdfs:label "country" ;
+         vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#countryCode
+:countryCode rdf:type owl:DatatypeProperty ;
+             rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+             rdfs:label "countryCode" ;
+             vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#county
+:county rdf:type owl:DatatypeProperty ;
+        rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+        rdfs:label "county" ;
+        vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#endDate
+:endDate rdf:type owl:DatatypeProperty ;
+         rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+         rdfs:label "endDate" ;
+         vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#family
+:family rdf:type owl:DatatypeProperty ;
+        rdfs:subPropertyOf :scientificName ;
+        rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+        rdfs:label "family" ;
+        vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#genus
+:genus rdf:type owl:DatatypeProperty ;
+       rdfs:subPropertyOf :scientificName ;
+       rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+       rdfs:label "genus" ;
+       vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#hasAcceptedName
+:hasAcceptedName rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf skos:prefLabel ;
+                 rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                 rdfs:label "hasAcceptedName" ;
+                 vs:term_status "deprecated" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#hasBOLD
+:hasBOLD rdf:type owl:DatatypeProperty ;
+         rdfs:comment "The Barcode of Life Integer ID" ;
+         rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+         rdfs:label "hasBOLD" ;
+         vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#hasEOL
+:hasEOL rdf:type owl:DatatypeProperty ;
+        rdfs:comment "The Encyclopedia of Life Integer ID" ;
+        rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+        rdfs:label "hasEOL" ;
+        vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#hasEbird
+:hasEbird rdf:type owl:DatatypeProperty ;
+          rdfs:comment "eBird Species Code" ;
+          rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+          rdfs:label "hasEbird" ;
+          vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#hasGBIF
+:hasGBIF rdf:type owl:DatatypeProperty ;
+         rdfs:comment "The Global Biodiversity Information Facility integer ID" ;
+         rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+         rdfs:label "hasGBIF" ;
+         vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#hasITIS
+:hasITIS rdf:type owl:DatatypeProperty ;
+         rdfs:comment "The ITIS ID" ;
+         rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+         rdfs:label "hasITIS" ;
+         vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#hasNCBI
+:hasNCBI rdf:type owl:DatatypeProperty ;
+         rdfs:comment "The NCBI Taxonomy ID" ;
+         rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+         rdfs:label "hasNCBI" ;
+         vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#hasOriginalName
+:hasOriginalName rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf skos:altLabel ;
+                 rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                 rdfs:label "hasOriginalName" ;
+                 vs:term_status "deprecated" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#hasSpeciesConceptID
+:hasSpeciesConceptID rdf:type owl:DatatypeProperty ;
+                     rdfs:domain :SpeciesConcept ;
+                     rdfs:comment "This is for a string urn type identifier" ;
+                     rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                     rdfs:label "hasSpeciesConceptID" ;
+                     vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#hybrid
+:hybrid rdf:type owl:DatatypeProperty ;
+        rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+        rdfs:label "hybrid" ;
+        vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#identificationDate
+:identificationDate rdf:type owl:DatatypeProperty ;
+                    rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                    rdfs:label "identificationDate" ;
+                    vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#identificationNote
+:identificationNote rdf:type owl:DatatypeProperty ;
+                    rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                    rdfs:label "identificationNote" ;
+                    vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#infraspecificEpithet
+:infraspecificEpithet rdf:type owl:DatatypeProperty ;
+                      rdfs:subPropertyOf :scientificName ;
+                      rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                      rdfs:label "infraspecificEpithet" ;
+                      vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#institutionCode
+:institutionCode rdf:type owl:DatatypeProperty ;
+                 rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                 rdfs:label "institutionCode" ;
+                 vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#kingdom
+:kingdom rdf:type owl:DatatypeProperty ;
+         rdfs:subPropertyOf :scientificName ;
+         rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+         rdfs:label "kingdom" ;
+         vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#localityText
+:localityText rdf:type owl:DatatypeProperty ;
+              rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+              rdfs:label "localityText" ;
+              vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#locationName
+:locationName rdf:type owl:DatatypeProperty ;
+              rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+              rdfs:label "locationName" ;
+              vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#order
+:order rdf:type owl:DatatypeProperty ;
+       owl:equivalentProperty biol:order ;
+       rdfs:subPropertyOf :scientificName ;
+       rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+       rdfs:label "order" ;
+       vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#originalName
+:originalName rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf skos:altLabel ;
+              rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+              rdfs:label "originalName" ;
+              vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#phylum
+:phylum rdf:type owl:DatatypeProperty ;
+        rdfs:subPropertyOf :scientificName ;
+        rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+        rdfs:label "phylum" ;
+        vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#radius
+:radius rdf:type owl:DatatypeProperty ;
+        rdfs:domain :Area ;
+        rdfs:comment "The radius in meters from a particular latitude, longitude point from within which a thing was observed or collected." ;
+        rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+        rdfs:label "radius" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#scientificName
+:scientificName rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf taxon:scientificName ;
+                rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                rdfs:label "scientificName" ;
+                vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#scientificNameAuthorship
+:scientificNameAuthorship rdf:type owl:DatatypeProperty ;
+                          owl:equivalentProperty biol:authority ;
+                          rdfs:comment "The author and year of the species description publication i.e (Baker, 1899)" ;
+                          rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                          rdfs:label "scientificNameAuthorship" ;
+                          vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#scientificNameWithAuthor
+:scientificNameWithAuthor rdf:type owl:DatatypeProperty ;
+                          rdfs:subPropertyOf skos:prefLabel ;
+                          rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                          rdfs:label "scientificNameWithAuthor" ;
+                          vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#specificEpithet
+:specificEpithet rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf :scientificName ;
+                 rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                 rdfs:label "Specific epithet" ;
+                 vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#startDate
+:startDate rdf:type owl:DatatypeProperty ;
+           rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+           rdfs:label "startDate" ;
+           vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#stateProvince
+:stateProvince rdf:type owl:DatatypeProperty ;
+               rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+               rdfs:label "stateProvince" ;
+               vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#surrogateName
+:surrogateName rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf skos:altLabel ;
+               rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+               rdfs:label "surrogateName" ;
+               vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#synonymName
+:synonymName rdf:type owl:DatatypeProperty ;
+             rdfs:subPropertyOf skos:hiddenLabel ;
+             rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+             rdfs:label "synonymName" ;
+             vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#taxonRank
+:taxonRank rdf:type owl:DatatypeProperty ;
+           rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+           rdfs:label "taxonRank" ;
+           vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#trinomial
+:trinomial rdf:type owl:DatatypeProperty ;
+           rdfs:subPropertyOf taxon:trinomial ;
+           rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+           rdfs:label "trinomial" ;
+           vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#yearDescribed
+:yearDescribed rdf:type owl:DatatypeProperty ;
+               rdfs:comment "The year that the species was originally described" ;
+               rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+               rdfs:label "yearDescribed" ;
+               vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#zoologyAuthorName
+:zoologyAuthorName rdf:type owl:DatatypeProperty ;
+                   rdfs:subPropertyOf foaf:nick ;
+                   rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                   rdfs:label "zoology author abbreviation" ;
+                   vs:term_status "testing" .
+
+
+###  http://purl.org/NET/biol/ns#authority
+biol:authority rdf:type owl:DatatypeProperty .
+
+
+###  http://purl.org/NET/biol/ns#class
+biol:class rdf:type owl:DatatypeProperty .
+
+
+###  http://purl.org/NET/biol/ns#commonName
+biol:commonName rdf:type owl:DatatypeProperty .
+
+
+###  http://purl.org/NET/biol/ns#division
+biol:division rdf:type owl:DatatypeProperty .
+
+
+###  http://purl.org/NET/biol/ns#family
+biol:family rdf:type owl:DatatypeProperty .
+
+
+###  http://purl.org/NET/biol/ns#genus
+biol:genus rdf:type owl:DatatypeProperty .
+
+
+###  http://purl.org/NET/biol/ns#kingdom
+biol:kingdom rdf:type owl:DatatypeProperty .
+
+
+###  http://purl.org/NET/biol/ns#order
+biol:order rdf:type owl:DatatypeProperty .
+
+
+###  http://purl.org/NET/biol/ns#phylum
+biol:phylum rdf:type owl:DatatypeProperty .
+
+
+###  http://purl.org/NET/biol/ns#rank
+biol:rank rdf:type owl:DatatypeProperty .
+
+
+###  http://purl.org/NET/biol/ns#species
+biol:species rdf:type owl:DatatypeProperty .
+
+
+###  http://purl.org/biodiversity/taxon/authority
+taxon:authority rdf:type owl:DatatypeProperty .
+
+
+###  http://purl.org/biodiversity/taxon/binomial
+taxon:binomial rdf:type owl:DatatypeProperty .
+
+
+###  http://purl.org/biodiversity/taxon/commonName
+taxon:commonName rdf:type owl:DatatypeProperty .
+
+
+###  http://purl.org/biodiversity/taxon/scientificName
+taxon:scientificName rdf:type owl:DatatypeProperty .
+
+
+###  http://purl.org/biodiversity/taxon/trinomial
+taxon:trinomial rdf:type owl:DatatypeProperty .
+
+
+###  http://purl.org/dc/terms/description
+dcterms:description rdf:type owl:DatatypeProperty .
+
+
+###  http://purl.org/dc/terms/issued
+dcterms:issued rdf:type owl:DatatypeProperty .
+
+
+###  http://purl.org/dc/terms/modified
+dcterms:modified rdf:type owl:DatatypeProperty .
+
+
+###  http://purl.org/dc/terms/title
+dcterms:title rdf:type owl:DatatypeProperty .
+
+
+###  http://rs.tdwg.org/dwc/terms/index.htm#acceptedNameUsage
+dwc_terms:acceptedNameUsage rdf:type owl:DatatypeProperty .
+
+
+###  http://rs.tdwg.org/dwc/terms/index.htm#originalNameUsage
+dwc_terms:originalNameUsage rdf:type owl:DatatypeProperty .
+
+
+###  http://rs.tdwg.org/dwc/terms/index.htm#vernacularName
+dwc_terms:vernacularName rdf:type owl:DatatypeProperty .
+
+
+###  http://www.uniprot.org/core/scientificName
+<http://www.uniprot.org/core/scientificName> rdf:type owl:DatatypeProperty .
+
+
+###  http://www.w3.org/2002/07/owl#topDataProperty
+owl:topDataProperty rdf:type owl:DatatypeProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#altLabel
+skos:altLabel rdf:type owl:DatatypeProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#hiddenLabel
+skos:hiddenLabel rdf:type owl:DatatypeProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#prefLabel
+skos:prefLabel rdf:type owl:DatatypeProperty .
+
+
+###  http://www.w3.org/2006/time#year
+<http://www.w3.org/2006/time#year> rdf:type owl:DatatypeProperty .
+
+
+###  http://xmlns.com/foaf/0.1/name
+foaf:name rdf:type owl:DatatypeProperty .
+
+
+###  http://xmlns.com/foaf/0.1/nick
+foaf:nick rdf:type owl:DatatypeProperty .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://bio2rdf.org/uniprot_resource:Taxon
+uniprot_resource:Taxon rdf:type owl:Class .
+
+
+###  http://dbpedia.org/ontology/Scientist
+<http://dbpedia.org/ontology/Scientist> rdf:type owl:Class ;
+                                        owl:equivalentClass :Scientist .
+
+
+###  http://labs.mondeca.com/vocab/voaf#Vocabulary
+voaf:Vocabulary rdf:type owl:Class .
+
+
+###  http://lod.taxonconcept.org/ontology/dwc_area.owl#Area
+dwc_area:Area rdf:type owl:Class .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#Area
+:Area rdf:type owl:Class ;
+      rdfs:subClassOf wgs84_pos:SpatialThing ;
+      rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+      rdfs:label "Area" ;
+      vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#BinomialNameID
+:BinomialNameID rdf:type owl:Class ;
+                rdfs:subClassOf :ScientificNameID ;
+                rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                rdfs:label "BinomialNameID" ;
+                vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#CommonNameID
+:CommonNameID rdf:type owl:Class ;
+              rdfs:subClassOf :TaxonNameID ;
+              rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+              rdfs:label "CommonNameID" ;
+              vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#DataObject
+:DataObject rdf:type owl:Class ;
+            rdfs:subClassOf taxon:DataObject ;
+            rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+            rdfs:label "DataObject"@en .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#FamilyNameID
+:FamilyNameID rdf:type owl:Class ;
+              rdfs:subClassOf :MonomialNameID ;
+              rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+              rdfs:label "FamilyNameID" ;
+              vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#FreshwaterHabitat
+:FreshwaterHabitat rdf:type owl:Class ;
+                   owl:equivalentClass wo:FreshwaterHabitat ;
+                   rdfs:subClassOf :Habitat ;
+                   rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                   rdfs:label "FreshwaterHabitat" ;
+                   vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#Gallery
+:Gallery rdf:type owl:Class ;
+         rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+         rdfs:label "Gallery" ;
+         vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#GenusNameID
+:GenusNameID rdf:type owl:Class ;
+             rdfs:subClassOf :MonomialNameID ;
+             rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+             rdfs:label "GenusNameID" ;
+             vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#Habitat
+:Habitat rdf:type owl:Class ;
+         owl:equivalentClass wo:Habitat ;
+         rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+         rdfs:label "Habitat" ;
+         vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#Identification
+:Identification rdf:type owl:Class ;
+                rdfs:subClassOf event:Event ;
+                rdfs:comment "An identification action. The identification of a specimen." ;
+                rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                rdfs:label "Identification" ;
+                vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#Image
+:Image rdf:type owl:Class ;
+       owl:equivalentClass foaf:Image ;
+       rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+       rdfs:label "Image" ;
+       vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#MapImage
+:MapImage rdf:type owl:Class ;
+          rdfs:subClassOf :Image ;
+          rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+          rdfs:label "MapImage" ;
+          vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#MarineHabitat
+:MarineHabitat rdf:type owl:Class ;
+               owl:equivalentClass wo:MarineHabitat ;
+               rdfs:subClassOf :Habitat ;
+               rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+               rdfs:label "FreshwaterHabitat" ;
+               vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#MonomialNameID
+:MonomialNameID rdf:type owl:Class ;
+                rdfs:subClassOf :ScientificNameID ;
+                rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                rdfs:label "MonomialNameID" ;
+                vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#Occurrence
+:Occurrence rdf:type owl:Class ;
+            rdfs:subClassOf event:Event ;
+            rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+            rdfs:label "Occurrence" ;
+            vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#OccurrenceSpecimenTag
+:OccurrenceSpecimenTag rdf:type owl:Class ;
+                       rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                       vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#OccurrenceTaxonTag
+:OccurrenceTaxonTag rdf:type owl:Class ;
+                    rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                    vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#OpenCycTaxon
+:OpenCycTaxon rdf:type owl:Class ;
+              rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+              rdfs:label "OpenCycTaxon" ;
+              vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankClass
+:RankClass rdf:type owl:Class .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankDivision
+:RankDivision rdf:type owl:Class .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankDomain
+:RankDomain rdf:type owl:Class .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankFamily
+:RankFamily rdf:type owl:Class .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankGenus
+:RankGenus rdf:type owl:Class .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankInfraclass
+:RankInfraclass rdf:type owl:Class .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankInfrakingdom
+:RankInfrakingdom rdf:type owl:Class .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankInfraorder
+:RankInfraorder rdf:type owl:Class .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankKingdom
+:RankKingdom rdf:type owl:Class .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankOrder
+:RankOrder rdf:type owl:Class .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankParvorder
+:RankParvorder rdf:type owl:Class .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankPhylum
+:RankPhylum rdf:type owl:Class .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankSpecies
+:RankSpecies rdf:type owl:Class .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankSubclass
+:RankSubclass rdf:type owl:Class .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankSubdivision
+:RankSubdivision rdf:type owl:Class .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankSubdomain
+:RankSubdomain rdf:type owl:Class .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankSubfamily
+:RankSubfamily rdf:type owl:Class .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankSubgenus
+:RankSubgenus rdf:type owl:Class .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankSubkingdom
+:RankSubkingdom rdf:type owl:Class .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankSuborder
+:RankSuborder rdf:type owl:Class .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankSubpecies
+:RankSubpecies rdf:type owl:Class .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankSubphylum
+:RankSubphylum rdf:type owl:Class .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankSubspecificAggregate
+:RankSubspecificAggregate rdf:type owl:Class .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankSuperclass
+:RankSuperclass rdf:type owl:Class .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankSuperdivision
+:RankSuperdivision rdf:type owl:Class .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankSuperfamily
+:RankSuperfamily rdf:type owl:Class .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankSuperkingdom
+:RankSuperkingdom rdf:type owl:Class .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankSuperorder
+:RankSuperorder rdf:type owl:Class .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankSuperphylum
+:RankSuperphylum rdf:type owl:Class .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankTribe
+:RankTribe rdf:type owl:Class .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankVariety
+:RankVariety rdf:type owl:Class .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#ScientificAuthorPerson
+:ScientificAuthorPerson rdf:type owl:Class ;
+                        rdfs:subClassOf :Scientist ;
+                        rdfs:comment "Someone who has authored a scientific article." ;
+                        rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                        rdfs:label "ScientificAuthorPerson" ;
+                        vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#ScientificCollectorPerson
+:ScientificCollectorPerson rdf:type owl:Class ;
+                           rdfs:subClassOf :Scientist ;
+                           rdfs:comment "Someone who has collected a scientific sample or specimen." ;
+                           rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                           rdfs:label "ScientificCollectorPerson" ;
+                           vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#ScientificDataCuratorPerson
+:ScientificDataCuratorPerson rdf:type owl:Class ;
+                             rdfs:subClassOf :Scientist ;
+                             rdfs:comment "Someone who has curated or entered data into a scientific data set." ;
+                             rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                             rdfs:label "ScientificDataCuratorPerson" ;
+                             vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#ScientificIdentifierPerson
+:ScientificIdentifierPerson rdf:type owl:Class ;
+                            rdfs:subClassOf :Scientist ;
+                            rdfs:comment "Someone who has identified a specimen." ;
+                            rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                            rdfs:label "ScientificIdentifierPerson" ;
+                            vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#ScientificNameID
+:ScientificNameID rdf:type owl:Class ;
+                  rdfs:subClassOf :TaxonNameID ;
+                  rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                  rdfs:label "ScientificNameID" ;
+                  vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#ScientificNameWithAuthorID
+:ScientificNameWithAuthorID rdf:type owl:Class ;
+                            rdfs:subClassOf :TaxonNameID ;
+                            rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                            rdfs:label "ScientificNameWithAuthorID" ;
+                            vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#Scientist
+:Scientist rdf:type owl:Class ;
+           rdfs:subClassOf foaf:Person ;
+           rdfs:comment "Class for Scientist a foaf:Person"@en ;
+           rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+           rdfs:label "Scientist"@en ;
+           vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#Sex
+:Sex rdf:type owl:Class ;
+     rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+     rdfs:label "Sex" ;
+     vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#Sex_female
+:Sex_female rdf:type owl:Class .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#Sex_hermaphrodite
+:Sex_hermaphrodite rdf:type owl:Class .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#Sex_male
+:Sex_male rdf:type owl:Class .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#Sex_undetermined
+:Sex_undetermined rdf:type owl:Class .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#Sex_unknowable
+:Sex_unknowable rdf:type owl:Class .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#SpeciesConcept
+:SpeciesConcept rdf:type owl:Class ;
+                rdfs:subClassOf :TaxonConcept ;
+                rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                rdfs:label "SpeciesConcept" ;
+                vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#SpeciesImageTag
+:SpeciesImageTag rdf:type owl:Class ;
+                 rdfs:comment "A tag like entity that can be used to indicate that an image is associated with a specific species concept. Instances of SpeciesImageTag take the form of the species concept URI with the fragment of #Image rather than #Species." ;
+                 rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                 rdfs:label "SpeciesImageTag" ;
+                 vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#SpeciesIndividual
+:SpeciesIndividual rdf:type owl:Class ;
+                   rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                   rdfs:label "SpeciesIndividual" ;
+                   vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#SpeciesIndividualTag
+:SpeciesIndividualTag rdf:type owl:Class ;
+                      rdfs:comment "A tag like entity that can be used to indicate that an individual organism is an associated with a particular species concept. Instances of SpeciesIndividualTag take the form of the species concept URI with the fragment of #Individual rather than #Species." ;
+                      rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                      rdfs:label "SpeciesIndividualTag" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#SpeciesModel
+:SpeciesModel rdf:type owl:Class ;
+              rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+              rdfs:label "SpeciesModel" ;
+              vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#SpeciesOriginalDescription
+:SpeciesOriginalDescription rdf:type owl:Class ;
+                            rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                            rdfs:label "SpeciesOriginalDescription" ;
+                            vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#SpeciesTaxonomyNCBI
+:SpeciesTaxonomyNCBI rdf:type owl:Class ;
+                     rdfs:comment "A tag like entity for the NCBI Taxonomic Classification." ;
+                     rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                     rdfs:label "SpeciesTaxonomyNCBI" ;
+                     vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#Specimen
+:Specimen rdf:type owl:Class ;
+          rdfs:comment "A organismal specimen that is related to a specific organism, parts of an individual organism, or a collection of these from several organisms. It should be used for the smallest entity in a specimen database. Ideally there should be at least one specimen per individual organism. Specimens consisting of multiple individuals or multiple species often complicate analysis. If one photo contains multiple entities, document these as separate specimens all linked to the same photo." ;
+          rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+          rdfs:label "Specimen" ;
+          vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#SubfamilyNameID
+:SubfamilyNameID rdf:type owl:Class ;
+                 rdfs:subClassOf :MonomialNameID ;
+                 rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                 rdfs:label "SubfamilyNameID" ;
+                 vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#SurrogateNameID
+:SurrogateNameID rdf:type owl:Class ;
+                 rdfs:subClassOf :TaxonNameID ;
+                 rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                 rdfs:label "SurrogateNameID" ;
+                 vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#TaxonConcept
+:TaxonConcept rdf:type owl:Class ;
+              rdfs:comment "A particular taxonomic concept. Currently only species concepts are implemented, however theoretically there could be additional subclasses of GenusConcepts, FamilyConcepts etc. A SubspeciesConcept and lower are considered to be subclasses of SpeciesConcepts, but one persons subspecies is often anothers species. My current thinking is to represent individuals and observations of subspecies as individuals and observations of the larger species concept. It has yet to be implemented but I am considering recording these as observations and individuals of a given species \"in the form of\" their subspecies indentifier or name." ;
+              rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+              rdfs:label "TaxonConcept" ;
+              vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#TaxonNameGroupID
+:TaxonNameGroupID rdf:type owl:Class ;
+                  rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                  rdfs:label "TaxonNameGroupID" ;
+                  vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#TaxonNameID
+:TaxonNameID rdf:type owl:Class ;
+             rdfs:subClassOf taxon:TaxonNameID ;
+             rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+             rdfs:label "TaxonNameID" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#TaxonOntology
+:TaxonOntology rdf:type owl:Class ;
+               rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+               rdfs:label "TaxonOntology" ;
+               vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#TaxonRank
+:TaxonRank rdf:type owl:Class ;
+           rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+           rdfs:label "TaxonRank" ;
+           vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#Taxonomist
+:Taxonomist rdf:type owl:Class ;
+            rdfs:subClassOf :Scientist ;
+            rdfs:comment "Class for a Taxonomist a subclass of dbpedia-owl:Scientist"@en ;
+            rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+            rdfs:label "Taxonomist"@en ;
+            vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#TerrestrialHabitat
+:TerrestrialHabitat rdf:type owl:Class ;
+                    owl:equivalentClass wo:TerrestrialHabitat ;
+                    rdfs:subClassOf :Habitat ;
+                    rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                    rdfs:label "TerrestrialHabitat" ;
+                    vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#TrinomialNameID
+:TrinomialNameID rdf:type owl:Class ;
+                 rdfs:subClassOf :ScientificNameID ;
+                 rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                 rdfs:label "TrinomialNameID" ;
+                 vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#Year
+:Year rdf:type owl:Class ;
+      rdfs:subClassOf <http://www.w3.org/2006/time#DateTimeDescription> ;
+      rdfs:comment "Class for the Concept Year"@en ;
+      rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+      rdfs:label "Year"@en ;
+      vs:term_status "testing" .
+
+
+###  http://purl.org/NET/c4dm/event.owl#Event
+event:Event rdf:type owl:Class .
+
+
+###  http://purl.org/biodiversity/taxon/DataObject
+taxon:DataObject rdf:type owl:Class .
+
+
+###  http://purl.org/biodiversity/taxon/Taxon
+taxon:Taxon rdf:type owl:Class .
+
+
+###  http://purl.org/biodiversity/taxon/TaxonNameID
+taxon:TaxonNameID rdf:type owl:Class .
+
+
+###  http://purl.org/ontology/bibo/Collection
+bibo:Collection rdf:type owl:Class .
+
+
+###  http://purl.org/ontology/bibo/Document
+bibo:Document rdf:type owl:Class .
+
+
+###  http://purl.org/ontology/bibo/Webpage
+bibo:Webpage rdf:type owl:Class .
+
+
+###  http://purl.org/ontology/wo/FreshwaterHabitat
+wo:FreshwaterHabitat rdf:type owl:Class .
+
+
+###  http://purl.org/ontology/wo/Habitat
+wo:Habitat rdf:type owl:Class .
+
+
+###  http://purl.org/ontology/wo/MarineHabitat
+wo:MarineHabitat rdf:type owl:Class .
+
+
+###  http://purl.org/ontology/wo/TerrestrialHabitat
+wo:TerrestrialHabitat rdf:type owl:Class .
+
+
+###  http://purl.uniprot.org/core/Citation
+core:Citation rdf:type owl:Class .
+
+
+###  http://purl.uniprot.org/core/Taxon
+core:Taxon rdf:type owl:Class .
+
+
+###  http://www.geonames.org/ontology#Feature
+gn:Feature rdf:type owl:Class .
+
+
+###  http://www.w3.org/2002/07/owl#Thing
+owl:Thing rdf:type owl:Class .
+
+
+###  http://www.w3.org/2003/01/geo/wgs84_pos#Point
+wgs84_pos:Point rdf:type owl:Class .
+
+
+###  http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing
+wgs84_pos:SpatialThing rdf:type owl:Class .
+
+
+###  http://www.w3.org/2004/02/skos/core#Concept
+skos:Concept rdf:type owl:Class .
+
+
+###  http://www.w3.org/2004/02/skos/core#ConceptScheme
+skos:ConceptScheme rdf:type owl:Class .
+
+
+###  http://www.w3.org/2006/time#DateTimeDescription
+<http://www.w3.org/2006/time#DateTimeDescription> rdf:type owl:Class .
+
+
+###  http://xmlns.com/foaf/0.1/Image
+foaf:Image rdf:type owl:Class .
+
+
+###  http://xmlns.com/foaf/0.1/Organization
+foaf:Organization rdf:type owl:Class .
+
+
+###  http://xmlns.com/foaf/0.1/Person
+foaf:Person rdf:type owl:Class .
+
+
+###  http://xmlns.com/foaf/0.1/Project
+foaf:Project rdf:type owl:Class .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://lod.taxonconcept.org/ontology/txn.owl
+<http://lod.taxonconcept.org/ontology/txn.owl> rdf:type owl:NamedIndividual ,
+                                                        voaf:Vocabulary ;
+                                               dcterms:publisher :TaxonConcept_Knowledge_Base_Project ;
+                                               dcterms:description "Version 0.976 This is an ontology for dealing with data related to species including observations, specimens, images etc. Traditionally species have been identified by the combination of a genus and specific epithet, for example Puma concolor. However these names change frequently as new information moves a given species into a different genus etc. Most of the time the species concept itself is unchanged. This leads a lot of confusion and difficulty connecting data relating to a given species concept together. This ontology and the related TaxonConcept data set avoids this by minting identifiers that are tied to a specific species concept which can have several names and classifications. The RDF descriptions of each species concept provides some guide as to what is the best species concept for a given specimen or observation, and links together data sets containing additional information about that concept. Since some of these related data sets entail specific names or classifications they are loosely linked using skos:closeMatch etc. Depending on your particular needs, you might want to merge these in your own knowledge base as sameAs or simply merge those properties that you think are appropriate."@en ;
+                                               dcterms:modified "2013-05-19" .
+
+
+###  http://lod.taxonconcept.org/ontology/people.owl#Peter_J_DeVries
+txn_people:Peter_J_DeVries rdf:type owl:NamedIndividual ,
+                                    foaf:Person .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankClass
+:RankClass rdf:type owl:NamedIndividual ,
+                    :TaxonRank ;
+           skos:broader :RankSuperclass ;
+           skos:narrower :RankSubclass .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankDivision
+:RankDivision rdf:type owl:NamedIndividual ,
+                       :TaxonRank .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankDomain
+:RankDomain rdf:type owl:NamedIndividual ,
+                     :TaxonRank ;
+            skos:narrower :RankSubdomain .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankFamily
+:RankFamily rdf:type owl:NamedIndividual ,
+                     :TaxonRank ;
+            skos:broader :RankSuperfamily ;
+            skos:narrower :RankSubfamily .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankGenus
+:RankGenus rdf:type owl:NamedIndividual ,
+                    :TaxonRank ;
+           skos:broader :RankTribe ;
+           skos:narrower :RankSubgenus .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankInfraclass
+:RankInfraclass rdf:type owl:NamedIndividual ,
+                         :TaxonRank ;
+                skos:broader :RankSubclass ;
+                skos:narrower :RankSuperorder .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankInfrakingdom
+:RankInfrakingdom rdf:type owl:NamedIndividual ,
+                           :TaxonRank ;
+                  skos:broader :RankSubkingdom ;
+                  skos:narrower :RankSuperphylum .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankInfraorder
+:RankInfraorder rdf:type owl:NamedIndividual ,
+                         :TaxonRank ;
+                skos:broader :RankSuborder ;
+                skos:narrower :RankParvorder .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankKingdom
+:RankKingdom rdf:type owl:NamedIndividual ,
+                      :TaxonRank ;
+             skos:broader :RankSuperkingdom ;
+             skos:narrower :RankSubkingdom .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankOrder
+:RankOrder rdf:type owl:NamedIndividual ,
+                    :TaxonRank ;
+           skos:broader :RankSuperorder ;
+           skos:narrower :RankSuborder .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankParvorder
+:RankParvorder rdf:type owl:NamedIndividual ,
+                        :TaxonRank ;
+               skos:broader :RankInfraorder ;
+               skos:narrower :RankSuperfamily .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankPhylum
+:RankPhylum rdf:type owl:NamedIndividual ,
+                     :TaxonRank ;
+            skos:broader :RankSuperphylum ;
+            skos:narrower :RankSubphylum .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankSpecies
+:RankSpecies rdf:type owl:NamedIndividual ,
+                      :TaxonRank ;
+             skos:broader :RankSubgenus ;
+             skos:narrower :RankSubpecies .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankSubclass
+:RankSubclass rdf:type owl:NamedIndividual ,
+                       :TaxonRank ;
+              skos:broader :RankClass ;
+              skos:narrower :RankInfraclass .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankSubdivision
+:RankSubdivision rdf:type owl:NamedIndividual ,
+                          :TaxonRank .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankSubdomain
+:RankSubdomain rdf:type owl:NamedIndividual ,
+                        :TaxonRank ;
+               skos:broader :RankDomain ;
+               skos:narrower :RankSuperkingdom .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankSubfamily
+:RankSubfamily rdf:type owl:NamedIndividual ,
+                        :TaxonRank ;
+               skos:broader :RankFamily ;
+               skos:narrower :RankTribe .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankSubgenus
+:RankSubgenus rdf:type owl:NamedIndividual ,
+                       :TaxonRank ;
+              skos:broader :RankGenus ;
+              skos:narrower :RankSpecies .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankSubkingdom
+:RankSubkingdom rdf:type owl:NamedIndividual ,
+                         :TaxonRank ;
+                skos:broader :RankKingdom ;
+                skos:narrower :RankInfrakingdom .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankSuborder
+:RankSuborder rdf:type owl:NamedIndividual ,
+                       :TaxonRank ;
+              skos:broader :RankOrder ;
+              skos:narrower :RankInfraorder .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankSubpecies
+:RankSubpecies rdf:type owl:NamedIndividual ,
+                        :TaxonRank ;
+               skos:broader :RankSpecies .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankSubphylum
+:RankSubphylum rdf:type owl:NamedIndividual ,
+                        :TaxonRank ;
+               skos:broader :RankPhylum ;
+               skos:narrower :RankSuperclass .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankSubspecificAggregate
+:RankSubspecificAggregate rdf:type owl:NamedIndividual ,
+                                   :TaxonRank ;
+                          skos:broader :RankSpecies .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankSuperclass
+:RankSuperclass rdf:type owl:NamedIndividual ,
+                         :TaxonRank ;
+                skos:broader :RankSubphylum ;
+                skos:narrower :RankClass .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankSuperdivision
+:RankSuperdivision rdf:type owl:NamedIndividual ,
+                            :TaxonRank .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankSuperfamily
+:RankSuperfamily rdf:type owl:NamedIndividual ,
+                          :TaxonRank ;
+                 skos:broader :RankParvorder ;
+                 skos:narrower :RankFamily .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankSuperkingdom
+:RankSuperkingdom rdf:type owl:NamedIndividual ,
+                           :TaxonRank ;
+                  skos:broader :RankSubdomain ;
+                  skos:narrower :RankKingdom .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankSuperorder
+:RankSuperorder rdf:type owl:NamedIndividual ,
+                         :TaxonRank ;
+                skos:broader :RankInfraclass ;
+                skos:narrower :RankOrder .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankSuperphylum
+:RankSuperphylum rdf:type owl:NamedIndividual ,
+                          :TaxonRank ;
+                 skos:broader :RankInfrakingdom ;
+                 skos:narrower :RankPhylum .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankTribe
+:RankTribe rdf:type owl:NamedIndividual ,
+                    :TaxonRank ;
+           skos:broader :RankSubfamily ;
+           skos:narrower :RankGenus .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#RankVariety
+:RankVariety rdf:type owl:NamedIndividual ,
+                      :TaxonRank ;
+             skos:broader :RankSpecies .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#Sex_female
+:Sex_female rdf:type owl:NamedIndividual ,
+                     :Sex ;
+            dcterms:description "Female (♀) is the sex of an organism, or a part of an organism, which produces mobile ova (egg cells)."@en .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#Sex_hermaphrodite
+:Sex_hermaphrodite rdf:type owl:NamedIndividual ,
+                            :Sex ;
+                   dcterms:description "one organism having both male and female sexual characteristics and organs; at birth an unambiguous assignment of male or female cannot be made"@en .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#Sex_male
+:Sex_male rdf:type owl:NamedIndividual ,
+                   :Sex ;
+          dcterms:description "Male (♂) refers to the sex of an organism, or part of an organism, which produces small mobile gametes, called spermatozoa."@en .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#Sex_undetermined
+:Sex_undetermined rdf:type owl:NamedIndividual ,
+                           :Sex .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#Sex_unknowable
+:Sex_unknowable rdf:type owl:NamedIndividual ,
+                         :Sex .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#Status_Preliminary
+:Status_Preliminary rdf:type owl:NamedIndividual ,
+                             skos:Concept ;
+                    rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                    rdfs:label "Status_Preliminary" ;
+                    vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#Status_Testing
+:Status_Testing rdf:type owl:NamedIndividual ,
+                         skos:Concept ;
+                rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                rdfs:label "Status_Testing" ;
+                vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#TDWG2010_BioBlitz_Project
+:TDWG2010_BioBlitz_Project rdf:type owl:NamedIndividual ,
+                                    foaf:Project ;
+                           rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                           rdfs:label "TDWG2010 BioBlitz Project" ;
+                           vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#TaxonConcept_Knowledge_Base_Project
+:TaxonConcept_Knowledge_Base_Project rdf:type owl:NamedIndividual ,
+                                              foaf:Organization ,
+                                              foaf:Project ;
+                                     rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                                     rdfs:label "TaxonConcept_Knowledge_Base_Project" ;
+                                     vs:term_status "testing" .
+
+
+###  http://lod.taxonconcept.org/ontology/txn.owl#TaxonConcept_Scheme
+:TaxonConcept_Scheme rdf:type owl:NamedIndividual ,
+                              skos:Concept ;
+                     rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                     rdfs:label "TaxonConcept_Scheme" ;
+                     vs:term_status "testing" .
+
+
+#################################################################
+#    Annotations
+#################################################################
+
+:RankClass rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+           vs:term_status "testing" ;
+           rdfs:label "Rank Class" .
+
+
+:RankDivision vs:term_status "testing" ;
+              rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+              rdfs:label "Rank Division" .
+
+
+:RankDomain rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+            rdfs:label "Rank Domain" ;
+            vs:term_status "testing" .
+
+
+:RankFamily rdfs:label "Rank Family" ;
+            rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+            vs:term_status "testing" .
+
+
+:RankGenus rdfs:label "Rank Genus" ;
+           rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+           vs:term_status "testing" .
+
+
+:RankInfraclass rdfs:label "Rank Infraclass" ;
+                vs:term_status "testing" ;
+                rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> .
+
+
+:RankInfrakingdom rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                  vs:term_status "testing" ;
+                  rdfs:label "Rank Infrakingdom" .
+
+
+:RankInfraorder vs:term_status "testing" ;
+                rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                rdfs:label "Rank Infraorder" .
+
+
+:RankKingdom rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+             rdfs:label "Rank Kingdom" ;
+             vs:term_status "testing" .
+
+
+:RankOrder rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+           vs:term_status "testing" ;
+           rdfs:label "Rank Order" .
+
+
+:RankParvorder rdfs:label "Rank Parvorder" ;
+               vs:term_status "testing" ;
+               rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> .
+
+
+:RankPhylum vs:term_status "testing" ;
+            rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+            rdfs:label "Rank Phylum" .
+
+
+:RankSpecies vs:term_status "testing" ;
+             rdfs:label "Rank Species" ;
+             rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> .
+
+
+:RankSubclass rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+              rdfs:label "Rank Subclass" ;
+              vs:term_status "testing" .
+
+
+:RankSubdivision vs:term_status "testing" ;
+                 rdfs:label "Rank Subdivision" ;
+                 rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> .
+
+
+:RankSubdomain rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+               rdfs:label "Rank Subdomain" ;
+               vs:term_status "testing" .
+
+
+:RankSubfamily rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+               rdfs:label "Rank Subfamily" ;
+               vs:term_status "testing" .
+
+
+:RankSubgenus vs:term_status "testing" ;
+              rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+              rdfs:label "Rank Subgenus" .
+
+
+:RankSubkingdom rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                vs:term_status "testing" ;
+                rdfs:label "Rank Subkingdom" .
+
+
+:RankSuborder rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+              rdfs:label "Rank Suborder" ;
+              vs:term_status "testing" .
+
+
+:RankSubpecies vs:term_status "testing" ;
+               rdfs:label "Rank Subpecies" ;
+               rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> .
+
+
+:RankSubphylum vs:term_status "testing" ;
+               rdfs:label "Rank Subphylum" ;
+               rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> .
+
+
+:RankSubspecificAggregate vs:term_status "testing" ;
+                          rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                          rdfs:label "Rank SubspecificAggregate" .
+
+
+:RankSuperclass rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                vs:term_status "testing" ;
+                rdfs:label "Rank Superclass" .
+
+
+:RankSuperdivision vs:term_status "testing" ;
+                   rdfs:label "Rank Superdivision" ;
+                   rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> .
+
+
+:RankSuperfamily rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                 rdfs:label "Rank Superfamily" ;
+                 vs:term_status "testing" .
+
+
+:RankSuperkingdom rdfs:label "Rank Superkingdom" ;
+                  vs:term_status "testing" ;
+                  rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> .
+
+
+:RankSuperorder rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                rdfs:label "Rank Superorder" ;
+                vs:term_status "testing" .
+
+
+:RankSuperphylum vs:term_status "testing" ;
+                 rdfs:label "Rank Superphylum" ;
+                 rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> .
+
+
+:RankTribe rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+           vs:term_status "testing" ;
+           rdfs:label "Rank Tribe" .
+
+
+:RankVariety rdfs:label "Rank Variety" ;
+             vs:term_status "testing" ;
+             rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> .
+
+
+:Sex_female rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+            rdfs:label "female"@en ;
+            vs:term_status "testing" .
+
+
+:Sex_hermaphrodite rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                   rdfs:label "hermaphrodite"@en ;
+                   vs:term_status "testing" .
+
+
+:Sex_male rdfs:label "male"@en ;
+          vs:term_status "testing" ;
+          rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> .
+
+
+:Sex_undetermined rdfs:label "Sex Undetermined" ;
+                  rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> ;
+                  vs:term_status "testing" .
+
+
+:Sex_unknowable vs:term_status "testing" ;
+                rdfs:label "Sex Unknowable" ;
+                rdfs:isDefinedBy <http://lod.taxonconcept.org/ontology/txn.owl> .
+
+
+#################################################################
+#    General axioms
+#################################################################
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Sex_female
+                        :Sex_hermaphrodite
+                        :Sex_male
+                        :Sex_undetermined
+                        :Sex_unknowable
+                      )
+] .
+
+
+###  Generated by the OWL API (version 4.2.5.20160517-0735) https://github.com/owlcs/owlapi

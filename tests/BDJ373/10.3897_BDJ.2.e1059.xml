@@ -1,0 +1,566 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//TaxonX//DTD Taxonomic Treatment Publishing DTD v0 20100105//EN" "tax-treatment-NS0.dtd">
+<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tp="http://www.plazi.org/taxpub" article-type="research-article">
+  <front id="10b18d9c-833e-403c-a5d7-09acf6e76bc9">
+    <journal-meta>
+      <journal-id journal-id-type="pmc">Biodiversity Data Journal</journal-id>
+      <journal-id journal-id-type="publisher-id">Biodiversity Data Journal</journal-id>
+      <journal-title-group>
+        <journal-title xml:lang="en">Biodiversity Data Journal</journal-title>
+        <abbrev-journal-title xml:lang="en">BDJ</abbrev-journal-title>
+      </journal-title-group>
+      <issn pub-type="ppub">1314-2836</issn>
+      <issn pub-type="epub">1314-2828</issn>
+      <publisher>
+        <publisher-name>Pensoft Publishers</publisher-name>
+      </publisher>
+    </journal-meta>
+    <article-meta>
+      <article-id pub-id-type="publisher-id">Biodiversity Data Journal</article-id>
+      <article-id pub-id-type="doi">10.3897/BDJ.2.e1059</article-id>
+      <article-id pub-id-type="other">3177</article-id>
+      <article-categories>
+        <subj-group subj-group-type="heading">
+          <subject>Software description</subject>
+        </subj-group>
+        <subj-group subj-group-type="Subject classification">
+          <subject>Bioinformatics</subject>
+          <subject>Data Management</subject>
+        </subj-group>
+      </article-categories>
+      <title-group>
+        <article-title id="bc36adc3-25a8-4576-afc9-c51a25620a2c">Open source data logger for low-cost environmental monitoring</article-title>
+      </title-group>
+      <contrib-group content-type="authors">
+        <contrib contrib-type="author" corresp="yes">
+          <name name-style="western">
+            <surname>Baker</surname>
+            <given-names>Ed</given-names>
+            <prefix>Mr</prefix>
+          </name>
+          <email xlink:type="simple">edwbaker@gmail.com</email>
+          <xref ref-type="aff" rid="A1">†</xref>
+        </contrib>
+      </contrib-group>
+      <aff id="A1">
+        <label>†</label>
+        <addr-line>The Natural History Museum, London, United Kingdom</addr-line>
+      </aff>
+      <author-notes>
+        <fn fn-type="corresp">
+          <p>Corresponding author: Ed Baker (<email xlink:type="simple">edwbaker@gmail.com</email>).</p>
+        </fn>
+        <fn fn-type="edited-by">
+          <p>Academic editor: Neil Caithness.</p>
+        </fn>
+      </author-notes>
+      <pub-date pub-type="collection">
+        <year>2014</year>
+      </pub-date>
+      <pub-date pub-type="epub">
+        <day>11</day>
+        <month>02</month>
+        <year>2014</year>
+      </pub-date>
+      <issue>2</issue>
+      <elocation-id>e1059</elocation-id>
+      <history>
+        <date date-type="received">
+          <day>22</day>
+          <month>01</month>
+          <year>2014</year>
+        </date>
+        <date date-type="accepted">
+          <day>08</day>
+          <month>02</month>
+          <year>2014</year>
+        </date>
+      </history>
+      <permissions>
+        <copyright-statement>Ed Baker</copyright-statement>
+        <license license-type="creative-commons-attribution" xlink:href="http://creativecommons.org/licenses/by/4.0" xlink:type="simple">
+          <license-p>This is an open access article distributed under the terms of the Creative Commons Attribution License 4.0 (CC-BY), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.</license-p>
+        </license>
+      </permissions>
+      <abstract id="03930be6-02de-4cd0-9a93-ca481adcdfc8">
+        <label>Abstract</label>
+        <p>The increasing transformation of biodiversity  into a data-intensive science has seen numerous independent systems linked and aggregated into the current landscape of biodiversity informatics. This paper outlines how we can move forward with this programme, incorporating real time environmental monitoring into our methodology using low-power and low-cost computing platforms.</p>
+      </abstract>
+      <kwd-group>
+        <label>Keywords</label>
+        <kwd>Arduino</kwd>
+        <kwd>open source</kwd>
+        <kwd>open hardware</kwd>
+        <kwd>environmental monitoring</kwd>
+        <kwd>big data</kwd>
+        <kwd>internet of things</kwd>
+        <kwd>temperature</kwd>
+        <kwd>humidity</kwd>
+        <kwd>Ethernet</kwd>
+      </kwd-group>
+      <counts>
+        <fig-count count="19"/>
+        <table-count count="0"/>
+        <ref-count count="4"/>
+      </counts>
+    </article-meta>
+  </front>
+  <body id="4a8cb094-8a2e-4ad0-b4cc-4f0acc596e72">
+    <sec sec-type="Introduction">
+      <title>Introduction</title>
+      <p>Low power and cheap computational projects such as Arduino and Raspberry Pi have brought the use of small computers and micro-controllers to the masses, and their use in fields related to biodiversity science is increasing (e.g. <ext-link ext-link-type="uri" xlink:href="http://apan.net/meetings/Daejeon2013/Session/Agri/Hirafuji-APAN_Daejeon2013.pdf">this presentation</ext-link> by Hirafuji shows the use of Arduino in agriculture). There is a large amount of potential in using automated tools for monitoring environments and identifying species based on these emerging hardware platforms, but to be truly useful we must integrate the data they generate with our existing systems. This paper describes the construction of an open source environmental data logger based on the Arduino platform and its integration with the web content management system Drupal which is used as the basis for Scratchpads (<xref ref-type="bibr" rid="B501528">Smith et al. 2011</xref>) among other biodiversity tools. The Drupal platform uses familiar open source standards while the Arduino hardware uses the emerging open hardware licences (see below). It is assumed that most biodiversity scientists are not familiar with the construction of electronic devices, so this paper is presented more in the style of a 'how to guide' rather than a straightforward functional description. It is hoped that people will make use of the technologies described here and adapt them to the needs of their own interests and projects.</p>
+      <sec sec-type="Open hardware?">
+        <title>Open hardware?</title>
+        <p>The open source hardware movement extends the familiar licences of open access and open source software to physical objects. The aim is to create an ecosystem of projects and products much like the community that develops around open source software. To be open hardware, all materials needed to construct the hardware (schematics, printed circuit board (PCB) layouts, bills of materials) and the software required (on device and ideally to interface with the device) must be released under a permissive '<ext-link ext-link-type="uri" xlink:href="http://en.wikipedia.org/wiki/Copyleft">copyleft</ext-link>' licence. More information about open hardware can be found at the <ext-link ext-link-type="uri" xlink:href="http://www.oshwa.org/">Open Source Hardware Association</ext-link>.</p>
+      </sec>
+      <sec sec-type="Citizen Engineers">
+        <title>Citizen Engineers</title>
+        <p>The introduction of easy-to-use micro-controller devices such as the Arduino brought working with digital electronics to a broader audience. The <ext-link ext-link-type="uri" xlink:href="http://arduino.cc">Arduino</ext-link> project (and similar initiatives) has generated a number of books and a plethora of web pages detailing the basic use of the devices and the use of sensors (ideal for data-logging), writing to SD cards (<ext-link ext-link-type="uri" xlink:href="http://en.wikipedia.org/wiki/Secure_Digital">Secure Digital</ext-link>: a format of memory card widely used in digital cameras) and interfacing with the Internet (e.g. <xref ref-type="bibr" rid="B501339">McRoberts (2010)</xref>, <xref ref-type="bibr" rid="B501357">McEwen and Cassimally (2014)</xref>. Additionally, there are a wide range of books describing the basics of electronics, <xref ref-type="bibr" rid="B501348">Scherz (2007)</xref> is recommended as a reference text due to its comprehensive approach and detailed theory but one of the many electronics 'primer' books may be a better introduction. There is great potential for the biodiversity community if we collaborate with knowledgeable '<ext-link ext-link-type="uri" xlink:href="http://en.wikipedia.org/wiki/Hacker_%28hobbyist%29">hackers</ext-link>' and '<ext-link ext-link-type="uri" xlink:href="http://en.wikipedia.org/wiki/Maker_culture">makers</ext-link>' as citizen engineers in the same way we interact with knowledgeable amateur natural historians as citizen scientists.</p>
+      </sec>
+    </sec>
+    <sec sec-type="Project description">
+      <title>Project description</title>
+      <sec sec-type="Design description">
+        <title>Design description</title>
+        <p>The device constructed is intended both as a functional device capable of generating useful environmental datasets and also as a demonstration to the biodiversity community of what is possible using the Arduino system as a base. This project aims to be as easy as possible to construct and use for those with no experience in electronic devices, and for this reason we have steered away from the use of custom PCBs or other materials. The use of a prototyping board rather than a custom PCB also allows for the project to be extended more easily and assembled without soldering. The author would encourage anybody who wishes to release a custom PCB layout for this project to do so.</p>
+      </sec>
+      <sec sec-type="Funding">
+        <title>Funding</title>
+        <p>This project was supported by the European Union funded ViBRANT project (Contract no. RI-261532).</p>
+      </sec>
+    </sec>
+    <sec sec-type="Web location (URIs)">
+      <title>Web location (URIs)</title>
+      <p>Homepage: <ext-link ext-link-type="uri" xlink:href="http://ebaker.me.uk/project-role/open-source-data-logger">http://ebaker.me.uk/project-role/open-source-data-logger</ext-link></p>
+      <p>Bug database: <ext-link ext-link-type="uri" xlink:href="https://github.com/edwbaker/environment-data-logger/issues">https://github.com/edwbaker/environment-data-logger/issues</ext-link></p>
+    </sec>
+    <sec sec-type="Technical specification">
+      <title>Technical specification</title>
+      <p>Platform: Arduino / Drupal</p>
+      <p>Programming language: C / PHP</p>
+      <p>Operational system: Arduino / Linux (can also run on Windows/OS X)</p>
+    </sec>
+    <sec sec-type="Repository">
+      <title>Repository</title>
+      <p>Type: Git</p>
+      <p>Browse URI: <ext-link ext-link-type="uri" xlink:href="https://github.com/edwbaker/environment-data-logger">https://github.com/edwbaker/environment-data-logger</ext-link></p>
+    </sec>
+    <sec sec-type="Usage rights">
+      <title>Usage rights</title>
+      <sec sec-type="Use license">
+        <title>Use license</title>
+        <p>Other</p>
+      </sec>
+      <sec sec-type="IP rights notes">
+        <title>IP rights notes</title>
+        <p>The Drupal code and Arduino code are released under the GNU General Public License version 2 or later.</p>
+      </sec>
+    </sec>
+    <sec sec-type="Implementation">
+      <title>Implementation</title>
+      <sec sec-type="Implements specification">
+        <title>Implements specification</title>
+        <p>The requirements for the device, and the server software (Drupal) that receives the data were specified as follows:</p>
+        <p>
+          <bold>Data Logger</bold>
+        </p>
+        <list list-type="bullet">
+          <list-item>
+            <p>Be able to record the temperature and humidity at a regular time interval (e.g. every 5 minutes)</p>
+          </list-item>
+          <list-item>
+            <p>Record the data collected to a micro-SD card</p>
+          </list-item>
+          <list-item>
+            <p>Submit data collected automatically and in real time to a Drupal website (using an Ethernet connection)</p>
+          </list-item>
+          <list-item>
+            <p>Have a real time clock (RTC) – the Arduino internal clock counts milliseconds since the micro-controller was turned on, we need to record the actual time of measurement</p>
+          </list-item>
+          <list-item>
+            <p>Use standard and readily-available components</p>
+          </list-item>
+          <list-item>
+            <p>Be able to run off readily-available batteries (e.g. AA) for at least 8 hours</p>
+          </list-item>
+        </list>
+        <p>
+          <bold>Server software</bold>
+        </p>
+        <list list-type="bullet">
+          <list-item>
+            <p>Be able to receive data from a device or more than one device and save it as a Drupal node (content item)</p>
+          </list-item>
+          <list-item>
+            <p>Be able to generate code for the Arduino to assist others in using this software to post data</p>
+          </list-item>
+        </list>
+      </sec>
+      <sec sec-type="Audience">
+        <title>Audience</title>
+        <p>This project should be useful to a wide range of biodiversity scientists, some possible study scenarios are</p>
+        <list list-type="bullet">
+          <list-item>
+            <p>using a single device alongside a light, malaise or pitfall trap to collect abiotic data over the study period</p>
+          </list-item>
+          <list-item>
+            <p>using multiple devices to study small climatic differences between different micro-habitats</p>
+          </list-item>
+          <list-item>
+            <p>using devices over a long period to compliment studies on organism phenology</p>
+          </list-item>
+        </list>
+        <p>It is hoped that the publication of this device will encourage biodiversity scientists to collaborate outside of their discipline, whether it be with citizen engineers or professional academics. A work by Baker, Bennett and Chesmore (University of York) in 2013 (in prep) expands the concept of using electronic devices from monitoring environments to automated species identification using the acoustics of orthoptera. Where reliable identification of species can be performed by machines, the potential for collecting high quality, high precision and long-term datasets on species abundance alongside environmental variables becomes a possibility.</p>
+      </sec>
+    </sec>
+    <sec sec-type="Additional information">
+      <title>Additional information</title>
+      <sec sec-type="Sourcing of components">
+        <title>Sourcing of components</title>
+        <p>This project uses standard components which can be sourced from specialist electronics suppliers (e.g. <ext-link ext-link-type="uri" xlink:href="http://www.maplin.co.uk/">Maplin</ext-link>, <ext-link ext-link-type="uri" xlink:href="http://uk.rs-online.com/">RS</ext-link>, <ext-link ext-link-type="uri" xlink:href="http://www.rapidonline.com/">Rapid Electronics</ext-link> in the UK). A number of online shops serve the needs of the hacker and maker communities including <ext-link ext-link-type="uri" xlink:href="https://www.adafruit.com/">Adafruit</ext-link> in the US and <ext-link ext-link-type="uri" xlink:href="http://www.coolcomponents.co.uk/">Cool Compnents</ext-link> in the UK. Generic online retailers such as eBay and Amazon will also have listings for most, if not all, of the materials required.</p>
+      </sec>
+      <sec sec-type="Assembly of the device">
+        <title>Assembly of the device</title>
+        <p>The data logging device uses the <ext-link ext-link-type="uri" xlink:href="http://arduino.cc/en/Main/arduinoBoardMega2560">Arduino Mega</ext-link> board (Fig. <xref ref-type="fig" rid="F496561">1</xref>) which encompasses an <ext-link ext-link-type="uri" xlink:href="http://www.atmel.com/devices/atmega2560.aspx">ATmega2560</ext-link> micro-controller and associated hardware to provide a clock signal, regulate power to the board and to allow the micro-controller to be programmed via the USB interface. A number of analogue input and digital input/output pins are exposed on the board for the attachment of other electronic devices for input or output (these connectors are known as 'headers'). The Arduino Mega is an expanded version of the standard <ext-link ext-link-type="uri" xlink:href="http://arduino.cc/en/Main/arduinoBoardUno">Arduino Uno</ext-link> which has a greater number of input/output connections and also a larger programmable memory. The code and libraries required for this project exceed the Arduino Uno's capacity, but an Arduino Uno may be used if some functionality (e.g. the real-time clock or Ethernet libraries) is removed. You will need to download the Arduino Integrated Development Environment (IDE) software from the <ext-link ext-link-type="uri" xlink:href="http://arduino.cc/en/main/software">Arduino website</ext-link>. The Arduino platform is favoured over the Raspberry Pi in this instance due to its lower power consumption allowing the device to run longer on battery power (the Raspberry Pi is a low-power Linux computer and has capabilities well beyond what is needed for this project).</p>
+        <p>Several expansion boards are available for the Arduino, which have pins allowing them to attach to the black connectors on the main Arduino board. These expansion boards are known as 'shields' and two different ones have been used in this project. The first, the <ext-link ext-link-type="uri" xlink:href="http://arduino.cc/en/Main/ArduinoEthernetShield">Arduino Ethernet Shield</ext-link> (Fig. <xref ref-type="fig" rid="F496563">2</xref>), provides both an Ethernet interface (allowing the Arduino to communicate over a local network or the Internet) and allows a micro-SD card to be inserted (allowing data to be saved locally). Both of these shields expose the full set of Arduino headers – allowing the shields to be stacked on each other for additional functionality. Standard software libraries for the Arduino are available to provide easy access in code to this hardware. The second shield used is one of the available '<ext-link ext-link-type="uri" xlink:href="http://learn.adafruit.com/adafruit-proto-shield-arduino">prototyping shields</ext-link>' – an electronics <ext-link ext-link-type="uri" xlink:href="http://en.wikipedia.org/wiki/Breadboard">breadboard</ext-link> that allows for the prototyping of different circuitry without having to make permanent soldered connections (Fig. <xref ref-type="fig" rid="F496566">3</xref>). While for a production product a custom printed circuit board (PCB) would be much better than a temporary prototype shield it is used here, as one of the hopes of this paper is that readers will take the work presented and once familiar with the principles modify or extend it to meet the requirements of their projects.</p>
+        <p>By stacking first the Ethernet shield and then the prototyping shield on top of the Arduino Mega the central core of the data logger is formed. This central system controls reading data from the sensors, processing that data into standard units of measurement if needed, then recording them to a micro-SD card and/or submitting them to a website. What we have is a small, low power and low cost Internet-connected computational device. Systems using these components are often used for 'Internet of Things' projects (<xref ref-type="bibr" rid="B501357">McEwen and Cassimally 2014</xref>).</p>
+        <p>The temperature and humidity measurements are made using a DHT22 digital sensor (a digital output sensor sold packaged in plastic housing as <ext-link ext-link-type="uri" xlink:href="https://www.adafruit.com/datasheets/DHT22.pdf">AM2303</ext-link>; Fig. <xref ref-type="fig" rid="F501499">4</xref>). These sensors communicate with the Arduino using a DHT22 library (this abstracts the details of communicating directly with the sensor). You will need to download this library and add it to your Arduino Integrated Development Environment (IDE) before trying to compile the code for this project (see <ext-link ext-link-type="uri" xlink:href="http://arduino.cc/en/Guide/Libraries">Installing Additional Arduino Libraries</ext-link>). For ease of (re/de)assembly male-female connecting wires (Fig. <xref ref-type="fig" rid="F501501">5</xref>) are used to attach the sensor to the Arduino. With the sensor facing you the pins are numbered left to right from 1 to 4. Pin 1 should be connected to the 5 V supply from the Arduino, pin 2 from the sensor should be attached to digital (not analogue) pin 2 on the Arduino – this is the line of communication between the devices. Finally pin 4 should be attached to the Arduino ground (GND) – pin 3 is not used.</p>
+        <p>The device uses a battery powered real time clock (RTC) to maintain an internal measurement of Universal Coordinated Time (UTC). The RTC chip used is a standard <ext-link ext-link-type="uri" xlink:href="http://datasheets.maximintegrated.com/en/ds/DS1307.pdf">DS1307</ext-link> in a dual-in line (DIL) package (Fig. <xref ref-type="fig" rid="F501503">6</xref>) and we make use of the <ext-link ext-link-type="uri" xlink:href="https://github.com/kachok/arduino-libraries/tree/master/Time_root/DS1307RTC">DS1307RTC Arduino library</ext-link>. You may prefer to invest in some basic tools for handling DIL packages (Fig. <xref ref-type="fig" rid="F501505">7</xref>). In addition to the DS1307 chip we also need a 32.768 kHz crystal (used by the DS1307 to maintain accurate time; Fig. <xref ref-type="fig" rid="F501503">6</xref>) and a 3 V Lithium cell and cell holder (a CR2032 cell is used here; Fig. <xref ref-type="fig" rid="F501507">8</xref>). These Lithium cells are widely known as "coin" or "watch" cells. The cell provides a power source for the DS1307 and crystal circuit when the Arduino power is removed (when the device is turned off). The DS1307 has very low power requirements and a CR2032 cell should last for several years.</p>
+        <p>The Arduino uses the <ext-link ext-link-type="uri" xlink:href="http://en.wikipedia.org/wiki/I%C2%B2C">I<sup>2</sup>C</ext-link> (Inter-Integrated Circuit) bus to communicate with the DS1307. There is a standard pin numbering system for DIL packages: with the chip pins down and the notch to the left, the bottom left pin is number 1. Pins are numbered anti-clockwise from pin 1, so that on the DS1307 the pin at top left is numbered 8. The 32.768 kHz crystal is connected between pins 1 and 2. The positive connection to the Lithium cell is made to pin 3 (the negative is connected to the Arduino's ground (GND) connector). Pin 4 is connected to the Arduino ground (GND). Pin 5 is connected to the Arduino's SDA connector (pin 20 on the mega) and pin 6 to the Arduino's SCL (pin 21 on the Mega). It should be noted that these connectors are on the Arduino board and are not part of the headers made available via the Ethernet and prototyping shields. SCL stands for 'serial clock' and is used to control when data is sent, the data is sent over the SDA line ('serial data'). Pin 7 of the DS1307 provides a square-wave output that is not used here. Pin 8 should be attached to the Arduino's 5 V. A schematic and photograph of a real circuit are shown in Fig. <xref ref-type="fig" rid="F501581">9</xref>.</p>
+        <p>In order to set the clock we use the SetTime example sketch that comes with the library (a sketch in Arduino is the source code for the software uploaded to and run on the device). When this sketch is uploaded to the Arduino, it uses the time on the computer programming the Arduino to set the internal clock of the DS1307. Any sketch uploaded after this will be able to request the current time from the DS1307 as long as the Lithium cell is providing backup power. The sketch can be found in the Arduino IDE (once the library has been installed, see above) from File &gt; Examples &gt; DS1307RTC &gt; SetTime. Connect the Arduino to the computer using the USB cable and upload the sketch (program) to the device using the Upload button. The Upload button will compile the sketch and then upload it to the Arduino. As soon as the Arduino has been programmed it will start to run the sketch. As this sketch has no obvious outputs you may wish to open the serial monitor (Tools &gt; Serial Monitor) to view the output. Assuming the hardware has been connected properly (the serial monitor will inform you otherwise) you may then open and upload the other example sketch, ReadTime. ReadTime will output the current date and time, as known to the DS1307, to the serial monitor.</p>
+        <p>The final non-standard library used by this project is <ext-link ext-link-type="uri" xlink:href="https://github.com/n0m1/Sleep_n0m1">Sleep_n0m1</ext-link>. This library handles putting the Arduino micro-controller into a low power state for a specified number of seconds between readings. This low-power mode will allow the data logger to function for a longer time period between battery changes.</p>
+        <p>Finally an LED (light emitting dioide) is attached between pin 9 and ground. This will be used to indicate when a reading is made (single flash) or an error condition (rapid blinking).</p>
+        <p>Now that the hardware assembly is complete it is time to upload the code from this project's GitHub repository to the data logger using the Arduino IDE. Both the edl.ino and lta_struct.h files must be present for the code to compile and function.</p>
+        <p>The device uses custom error handling routines using a custom C struct called 'error' defined in lta_struct.h (from this project's GitHub repository). A struct in the C programming language is a collection of variables grouped together under a single name (and accessed via a single pointer). When an error is encountered an instance of error is created including a warning message and an integer representing the severity of the error. The function calling the error then parses the error to the function error_condition(error). This function is responsible for the handling of all errors and has the responsibility of deciding how they should be output or recorded (e.g. if we are logging data to an SD card we can append them to an error log file). The most basic output is flashing the LED indicator in a way that indicates an error has occurred (rapid flashes) and the severity of that condition (the number of flashes in quick succession).</p>
+        <p>The data logger is now fully functional but would not last long in an outdoor setting. In order to make it more weatherproof we must package the components into a suitable enclosure. There are a number of suitable ABS (Acrylonitrile butadiene styrene) plastic enclosures available, the dimensions of the one used here are 165×125×75 mm. When packaging an electronic device there are considerations to be made about how watertight the case can be. Components such as the humidity sensor must be placed outside of the device, and having some components such as a power switch and LED indicator on the outside will prevent having to unscrew the enclosure too regularly. Each device perforating the enclosure is a possible source of weather failure however, so it will likely pay to keep the number of external controls minimal. Risk can be minimised by choosing weatherproof connectors, and where possible sealing other connections using glue or sealant.</p>
+        <p>The enclosure will now need to be prepared to receive the device. The Arduino board and battery holder will need to be secured to the enclosure using screws (and the screw mounts in the case) or using self-attaching plastic PCB mounts. Holes will then need to be drilled for the power switch, LED indicator, Ethernet socket and the sensor. The sensor is not circular unlike the other components so will need a hole drilled, and then either expanded using a hacksaw or file to the desired size. The power switch and Ethernet connector (Fig. <xref ref-type="fig" rid="F501577">10</xref>) are both secured using the nut and thread provided. The power switch should be mounted on the postive lead between the batteries and the Arduino (this will likely involve cutting the wire and inserting the switch). The LED is mounted using an LED mount and glued in place. The sensor is pushed through from the inside (so the connecting pins are inside the enclosure) and glued in place. For extra security and to maintain neatness inside the enclosure cables may be secured using screws and thin sheets of flexible plastic. The enclosure ready for the Arduino board is shown in Fig. <xref ref-type="fig" rid="F501509">11</xref>.</p>
+        <p>The connection between the Arduino's Ethernet shield and the weatherproof Ethernet connection requires a short length of Ethernet cable (Fig. <xref ref-type="fig" rid="F501513">12</xref>). For neatness I created a short (c. 12 cm) cable using CAT V cable, two Ethernet sockets and the appropriate crimping tool. This cable should be in the 'patch' rather than crossover configuration (see, e.g.: <ext-link ext-link-type="uri" xlink:href="http://www.learningelectronics.net/circuits/home-network-for-adsl.html">http://www.learningelectronics.net/circuits/home-network-for-adsl.html</ext-link>). A short commercially available length of Ethernet cable will be less neat but equally functional.</p>
+        <p>Until this point it is likely you have been powering the device using the USB interface. Now that it is ready for use as a stand-alone data logger an alternative power source is needed. The Arduino has an in-built power regulator circuit that protects the delicate electronics from damage, and allows it to operate on a range of power supply voltages. It is possible to use 4 or 6 AA batteries to power the device. In order to use the built-in regulator this power must be supplied through the circular power adaptor on the board. This connector has a diameter of 2.1 mm and is centre pin positive. Battery holders with this connector can be purchased (Fig. <xref ref-type="fig" rid="F501526">13</xref>) or built from a standard battery pack and power connector (available from electronic component retailers).</p>
+        <p>A completed device, in an enclosure, is shown in Fig. <xref ref-type="fig" rid="F496547">14</xref> and Fig. <xref ref-type="fig" rid="F496559">15</xref>.</p>
+      </sec>
+      <sec sec-type="Use of the Scratchpads/Drupal module (basic)">
+        <title>Use of the Scratchpads/Drupal module (basic)</title>
+        <p>The <ext-link ext-link-type="uri" xlink:href="http://drupal.org/project/arduino">Arduino module</ext-link> for Drupal can be installed in the standard way for that platform, there are no other module dependencies. The settings for this software once installed can be found in the Configuration menu.</p>
+        <p>For a device to submit data to the website it must first be registered: from Configuration &gt; Arduino select 'Add Device' (Fig. <xref ref-type="fig" rid="F496238">16</xref>). This forms allows you to name the device, choose what Drupal content type the device will post data to (most likely the user will need to create a new custom content type for the data) and the Drupal user name of a user on the site. Once the device is saved a unique token is generated that uniquely identifies this device. This token is used by the device to identify itself to the website when it posts data.</p>
+        <p>The 'Devices' page (Configuration &gt; Arduino; Fig. <xref ref-type="fig" rid="F496240">17</xref>) lists all of the devices that have been registered with the system, and also lists the generated tokens that the devices must use to submit data to this website.</p>
+        <p>Clicking on the 'Server Info' button will give a page with details the device will need to connect to the website it is being run on. These values, along with a token generated from the same website can be copy and pasted into the Arduino application downloaded from the repository for a quick setup.</p>
+        <p>Once the code (with modified values based on your server install) is uploaded to the Arduino the device will begin posting data to the server when it is turned on.</p>
+        <p>The information posted to the website from the device is now standard Drupal content and can be processed using standard Drupal modules. The most useful is likely to be the <ext-link ext-link-type="uri" xlink:href="http://drupal.org/project/views">Views</ext-link> module which provides many options for querying and displaying content (Fig. <xref ref-type="fig" rid="F496247">18</xref>).</p>
+      </sec>
+      <sec sec-type="Use of the Scratchpads/Drupal module (advanced)">
+        <title>Use of the Scratchpads/Drupal module (advanced)</title>
+        <p>This section describes advanced use of the Drupal Arduino module that is not needed if you just wish to build the data logger and use it as described here. However if you wish to use the Drupal module as a tool for recording data from many sensors the 'virtual systems' section may be of use. If you wish to create your own custom Arduino project then the section 'Austomatic code generation' describes how the Arduino Drupal module can help you by generating the Arduino code needed to post to a Drupal content type from your device.</p>
+        <p><bold>Virtual systems</bold> While most users of this software will just require the above configuration of one device posting data to one website the system is designed to allow greater flexibility than this. It is easy to give each device two or more different tokens so that they may post to several websites, or post as separate devices to one website. It is also possible to give multiple devices the same token and have them report data to one website. All devices sharing a token can be considered a virtual system with it's output as the website that generated that token. These virtual systems allow the same hardware to participate in multiple virtual systems. In most cases the device will not be continuously monitoring all variables, for example temperature measurements every couple of minutes is usually satisfactory. Instead of just performing empty cycles the device could be programmed to also perform data collection for another project using a different token (e.g. measuring the temperature, total dissolved solids, and light intensity at the bottom of a nearby pool of water).</p>
+        <p><bold>Automatic code generation</bold> If you wish to add the ability to post to a Drupal website to your own Arduino project this function of the Arduino module is designed to save you time and effort. The function is available for every device that you create on the Drupal site and automatically generates Arduino code for a suitable data structure and the code required to post data from the Arduino to Drupal. The automatic code generation function (Fig. <xref ref-type="fig" rid="F496243">19</xref>) is available form the main 'Devices' page for every device created on the site. The code generator runs through the following processes to generate code that can be copy and pasted into the Arduino IDE:</p>
+        <list list-type="bullet">
+          <list-item>
+            <p>Find the definition of the Drupal content type associated with the device</p>
+          </list-item>
+          <list-item>
+            <p>Generate a list of fields that can be posted to from the device</p>
+          </list-item>
+          <list-item>
+            <p>For numeric fields check for min/max values and identify the smallest Arduino variable type that can be used (to save memory)</p>
+          </list-item>
+          <list-item>
+            <p>Define a C struct in Arduino for holding the required information</p>
+          </list-item>
+          <list-item>
+            <p>Generate an example program that accepts a populated C struct of the type defined above and posts it to the website that generated the code</p>
+          </list-item>
+        </list>
+        <p>To use the example code two files should be created in the Arduino IDE. One contains the struct definition and must use the file name ending in. h supplied in the example code. The other is the main application and can have any file name. Example application (Suppl. material <xref ref-type="supplementary-material" rid="S496245">1</xref>) and header (Suppl. material <xref ref-type="supplementary-material" rid="S496246">2</xref>) files are provided.</p>
+      </sec>
+    </sec>
+  </body>
+  <back id="7d1b6f0d-f37c-44ed-ac15-90e00d248c75">
+    <ack id="71d603d6-5bd4-49a4-a8e8-00e1efa030b9">
+      <title>Acknowledgements</title>
+      <p>This paper is the result of discussions at the Biodiversity Informatics Horizons conference (Rome, Italy 2013). The author presented a five minute lightning talk <ext-link ext-link-type="uri" xlink:href="http://www.slideshare.net/edwbaker/new-tools-25909203">New tools for monitoring biodiversity and environments</ext-link> and the discussions after focussed on how we might use the Biodiversity Data Journal as a platform for publishing details of the construction, use and integration of such devices (as well as how one might go about automatically weighing geese). I would like to thank Sarah Faulwetter, Kirsten Miller and Christiana Christodoulou for reviewing this work.</p>
+    </ack>
+    <ref-list id="309bb25a-33fa-44d2-aa72-a87d79f626f0">
+      <title>References</title>
+      <ref id="B501357">
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>McEwen</surname>
+              <given-names>Adrian</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Cassimally</surname>
+              <given-names>Hakim</given-names>
+            </name>
+          </person-group>
+          <year>2014</year>
+          <source>Designing the Internet of Things</source>
+          <publisher-name>Wiley</publisher-name>
+          <size units="page">324</size>
+          <uri>http://eu.wiley.com/WileyCDA/WileyTitle/productCd-111843062X.html</uri>
+          <isbn>978-1-118-43062-0</isbn>
+        </element-citation>
+      </ref>
+      <ref id="B501339">
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>McRoberts</surname>
+              <given-names>Michael</given-names>
+            </name>
+          </person-group>
+          <year>2010</year>
+          <source>Beginning Arduino</source>
+          <publisher-name>Apress</publisher-name>
+          <size units="page">433</size>
+          <uri>http://www.apress.com/9781430232407</uri>
+          <isbn>978-1-4302-3240-7</isbn>
+        </element-citation>
+      </ref>
+      <ref id="B501348">
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Scherz</surname>
+              <given-names>Paul</given-names>
+            </name>
+          </person-group>
+          <year>2007</year>
+          <source>Practical Electronics for Inventors</source>
+          <edition>2</edition>
+          <publisher-name>McGraw-Hill</publisher-name>
+          <size units="page">952</size>
+        </element-citation>
+      </ref>
+      <ref id="B501528">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Smith</surname>
+              <given-names>Vincent</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Rycroft</surname>
+              <given-names>Simon</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Brake</surname>
+              <given-names>Irina</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Scott</surname>
+              <given-names>Ben</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Baker</surname>
+              <given-names>Ed</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Livermore</surname>
+              <given-names>Laurence</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Blagoderov</surname>
+              <given-names>Vladimir</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Roberts</surname>
+              <given-names>David</given-names>
+            </name>
+          </person-group>
+          <year>2011</year>
+          <article-title>Scratchpads 2.0: a Virtual Research Environment supporting scholarly collaboration, communication and data publication in biodiversity science</article-title>
+          <source>ZooKeys</source>
+          <volume>150</volume>
+          <fpage>53</fpage>
+          <uri>http://www.pensoft.net/journals/zookeys/article/2193/abstract/scratchpads-20-a-virtual-research-environment-supporting-scholarly-collaboration-communication-and-data-publication-in-b</uri>
+          <pub-id pub-id-type="doi">10.3897/zookeys.150.2193</pub-id>
+        </element-citation>
+      </ref>
+    </ref-list>
+  </back>
+  <floats-group>
+    <fig id="F496561" position="float" orientation="portrait">
+      <label>Figure 1.</label>
+      <caption id="3f7b71aa-fa1c-4fbd-9c4e-f149a169f026">
+        <p>An Arduino Mega board. The board can be powered and programmed using the USB connector (top left) or powered as a standalone device using the circular power connector (bottom left).</p>
+      </caption>
+      <graphic xlink:href="biodiversity_data_journal-2-e1059-g001.jpg" position="float" orientation="portrait" xlink:type="simple"/>
+    </fig>
+    <fig id="F496563" position="float" orientation="portrait">
+      <label>Figure 2.</label>
+      <caption id="18f04d35-de64-48f1-8822-db9882dc8d01">
+        <p>The Arduino Ethernet Shield attached to the Arduino Uno. The Ethernet socket (left) and micro-SD socket (right) are indicated.</p>
+      </caption>
+      <graphic xlink:href="biodiversity_data_journal-2-e1059-g002.jpg" position="float" orientation="portrait" xlink:type="simple"/>
+    </fig>
+    <fig id="F496566" position="float" orientation="portrait">
+      <label>Figure 3.</label>
+      <caption id="5527ec31-6b88-4f88-9d6a-b6f6bae968be">
+        <p>The Arduino Mega (bottom), Ethernet shield (middle) and prototyping shield (top) stacked as the core of the data logger. Some of the other components of the device are being assembled using the solder-less breadboard on the prototyping shield.</p>
+      </caption>
+      <graphic xlink:href="biodiversity_data_journal-2-e1059-g003.jpg" position="float" orientation="portrait" xlink:type="simple"/>
+    </fig>
+    <fig id="F501499" position="float" orientation="portrait">
+      <label>Figure 4.</label>
+      <caption id="9cdf66ac-9869-4975-9422-e9647984eb27">
+        <p>DHT22 digital temperature and humidity sensor in AM2303 package. From left to right the pins are VDD (power supply), DATA, unused and GRD (ground).</p>
+      </caption>
+      <graphic xlink:href="biodiversity_data_journal-2-e1059-g004.jpg" position="float" orientation="portrait" xlink:type="simple"/>
+    </fig>
+    <fig id="F501501" position="float" orientation="portrait">
+      <label>Figure 5.</label>
+      <caption id="083c858e-da6b-40ac-a6b6-189d56e39249">
+        <p>Male-Female connecting wires make it easy to attach sensors to the Arduino board while prototyping.</p>
+      </caption>
+      <graphic xlink:href="biodiversity_data_journal-2-e1059-g005.jpg" position="float" orientation="portrait" xlink:type="simple"/>
+    </fig>
+    <fig id="F501503" position="float" orientation="portrait">
+      <label>Figure 6.</label>
+      <caption id="8464480c-82b2-4fa9-b70f-b4f1a6b1b05d">
+        <p>DS1307 RTC and 32.768 kHz crystal.</p>
+      </caption>
+      <graphic xlink:href="biodiversity_data_journal-2-e1059-g006.jpg" position="float" orientation="portrait" xlink:type="simple"/>
+    </fig>
+    <fig id="F501505" position="float" orientation="portrait">
+      <label>Figure 7.</label>
+      <caption id="6fd923e4-3a39-466b-beda-f7db03cb237f">
+        <p>Tools for manipulating DIL integrated circuit packages such as the DS1307. On the left is an extraction tool which helps to remove DIL packaged chips from a breadboard, on the right is a tool to assist in straightening any bent pins on the package.</p>
+      </caption>
+      <graphic xlink:href="biodiversity_data_journal-2-e1059-g007.jpg" position="float" orientation="portrait" xlink:type="simple"/>
+    </fig>
+    <fig id="F501507" position="float" orientation="portrait">
+      <label>Figure 8.</label>
+      <caption id="8088486b-8929-446f-8581-8e35efffbad9">
+        <p>Clip for a Lithium coin cell: empty (left) and with cell inserted (right). The clip has pins for insertion into a breadboard or PCB on the reverse.</p>
+      </caption>
+      <graphic xlink:href="biodiversity_data_journal-2-e1059-g008.jpg" position="float" orientation="portrait" xlink:type="simple"/>
+    </fig>
+    <fig-group id="F501581" position="float" orientation="portrait">
+      <caption id="b488fd46-8a68-4ee3-96ab-7ae1da89f562">
+        <p>The setup of the DS1307 real time clock.</p>
+      </caption>
+      <fig id="F501586" position="float" orientation="portrait">
+        <label>Figure 9a.</label>
+        <caption id="f9327259-57ac-49b5-9984-fd20f52a15fe">
+          <p>Schematic created using Fritzing.</p>
+        </caption>
+        <graphic xlink:href="biodiversity_data_journal-2-e1059-g009_a.jpg" xlink:type="simple" position="float" orientation="portrait"/>
+      </fig>
+      <fig id="F501587" position="float" orientation="portrait">
+        <label>Figure 9b.</label>
+        <caption id="dede8d95-051c-4a05-a92d-8bdb9fd2738a">
+          <p>A real circuit created on the prototyping shield.</p>
+        </caption>
+        <graphic xlink:href="biodiversity_data_journal-2-e1059-g009_b.jpg" xlink:type="simple" position="float" orientation="portrait"/>
+      </fig>
+    </fig-group>
+    <fig id="F501577" position="float" orientation="portrait">
+      <label>Figure 10.</label>
+      <caption id="313fa231-d4c4-442a-a238-17ffe34e3409">
+        <p>Weatherproof Ethernet panel mount connector (top) and panel mount toggle switch (bottom).</p>
+      </caption>
+      <graphic xlink:href="biodiversity_data_journal-2-e1059-g010.jpg" position="float" orientation="portrait" xlink:type="simple"/>
+    </fig>
+    <fig id="F501509" position="float" orientation="portrait">
+      <label>Figure 11.</label>
+      <caption id="0a56963b-dd66-4c98-a1d5-39d9f0c14fc9">
+        <p>The enclosure with external components mounted.
+          <list list-type="order">
+            <list-item>
+              <p>Single pole single throw toggle switch (panel mount).</p>
+            </list-item>
+            <list-item>
+              <p>LED in LED panel mount.</p>
+            </list-item>
+            <list-item>
+              <p>Weatherproof panel mount Ethernet connector.</p>
+            </list-item>
+            <list-item>
+              <p>Temperature and humidity sensor mounted through enclosure. The cables are routed and secured using film plastic attached to the enclosure with screws.</p>
+            </list-item>
+            <list-item>
+              <p>Sockets for screwing components inside the device.</p>
+            </list-item>
+          </list>
+        </p>
+      </caption>
+      <graphic xlink:href="biodiversity_data_journal-2-e1059-g011.jpg" position="float" orientation="portrait" xlink:type="simple"/>
+    </fig>
+    <fig id="F501513" position="float" orientation="portrait">
+      <label>Figure 12.</label>
+      <caption id="fa5e27fe-4405-4400-bf02-d5d4dfd5774f">
+        <p>Custom made short Ethernet cable for connecting the Arduino Ethernet shield to the weatherproof Ethernet connector.</p>
+      </caption>
+      <graphic xlink:href="biodiversity_data_journal-2-e1059-g012.jpg" position="float" orientation="portrait" xlink:type="simple"/>
+    </fig>
+    <fig id="F501526" position="float" orientation="portrait">
+      <label>Figure 13.</label>
+      <caption id="b13a433a-102f-4da1-8990-7fb661803abf">
+        <p>Battery holder for 6 AA batteries with Xmm connector for attaching to Arduino board.</p>
+      </caption>
+      <graphic xlink:href="biodiversity_data_journal-2-e1059-g013.jpg" position="float" orientation="portrait" xlink:type="simple"/>
+    </fig>
+    <fig id="F496547" position="float" orientation="portrait">
+      <label>Figure 14.</label>
+      <caption id="1de1b32d-a522-42d7-adcb-3507924d9490">
+        <p>A completed device packaged in a watertight enclosure (with lid removed).</p>
+      </caption>
+      <graphic xlink:href="biodiversity_data_journal-2-e1059-g014.jpg" position="float" orientation="portrait" xlink:type="simple"/>
+    </fig>
+    <fig id="F496559" position="float" orientation="portrait">
+      <label>Figure 15.</label>
+      <caption id="b11dc3dc-c70f-4e46-9b06-b68b4eacc4d5">
+        <p>A complete unit monitoring the environment in the Wildlife Garden of the Natural History Museum, London.</p>
+      </caption>
+      <graphic xlink:href="biodiversity_data_journal-2-e1059-g015.jpg" position="float" orientation="portrait" xlink:type="simple"/>
+    </fig>
+    <fig id="F496238" position="float" orientation="portrait">
+      <label>Figure 16.</label>
+      <caption id="6a590841-f842-4bef-9388-b862aac19f22">
+        <p>The 'Add Device' page for the Drupal module. The user must enter a human-readable name for the device (e.g. "Environment Monitor 1"), the Drupal content type that the data should be stored in, and the user name of a registered user on that site. Posts from the device will be recorded as being made from this user. As the new device is saved a machine-readable token is generated that uniquely identifies the device.</p>
+      </caption>
+      <graphic xlink:href="biodiversity_data_journal-2-e1059-g016.png" position="float" orientation="portrait" xlink:type="simple"/>
+    </fig>
+    <fig id="F496240" position="float" orientation="portrait">
+      <label>Figure 17.</label>
+      <caption id="f71463d3-b5fc-4f92-ae90-dfada0fdaacc">
+        <p>The 'Devices' page lists the devices registered with the website, the token they must use to submit data to this website, the content type that the data they submit should be stored in, the unique user identification of the user the devices will post content as and a link to get automatically generated Arduino code.</p>
+      </caption>
+      <graphic xlink:href="biodiversity_data_journal-2-e1059-g017.png" position="float" orientation="portrait" xlink:type="simple"/>
+    </fig>
+    <fig id="F496247" position="float" orientation="portrait">
+      <label>Figure 18.</label>
+      <caption id="8386d645-4469-4e5d-8fad-05c5c175961d">
+        <p>Table display of information posted from an Arduino to a Drupal website using the code and hardware described in this paper. The table display uses the Drupal <ext-link ext-link-type="uri" xlink:href="http://drupal.org/project/views">Views</ext-link> module.</p>
+      </caption>
+      <graphic xlink:href="biodiversity_data_journal-2-e1059-g018.png" position="float" orientation="portrait" xlink:type="simple"/>
+    </fig>
+    <fig id="F496243" position="float" orientation="portrait">
+      <label>Figure 19.</label>
+      <caption id="45ec91e4-f829-4389-8262-10af7250959e">
+        <p>The code generated by the Drupal module's 'Get Code' functionality showing the full struct definition file (in this case Pond_Monitor_struct.h) and the start of the example code for the main application.</p>
+      </caption>
+      <graphic xlink:href="biodiversity_data_journal-2-e1059-g019.png" position="float" orientation="portrait" xlink:type="simple"/>
+    </fig>
+    <supplementary-material id="S496245" orientation="portrait" position="float" xlink:type="simple">
+      <label>Supplementary material 1</label>
+      <caption id="cfb73283-fbfe-4069-a820-f697a58ab591">
+        <p>Example Arduino application generated by the 'Get Code' functionality</p>
+      </caption>
+      <p>Data type: Arduino source code</p>
+      <p>File: oo_5573.ino</p>
+      <media xlink:href="biodiversity_data_journal-2-e1059-s001.ino" mimetype="ino file" mime-subtype="ino" position="float" orientation="portrait" xlink:type="simple"/>
+      <attrib specific-use="authors">Ed Baker</attrib>
+    </supplementary-material>
+    <supplementary-material id="S496246" orientation="portrait" position="float" xlink:type="simple">
+      <label>Supplementary material 2</label>
+      <caption id="fbc3bb2e-a57b-4468-99c1-6ce4254f5de4">
+        <p>Example Arduino struct header file generated by the 'Get Code' functionality</p>
+      </caption>
+      <p>Data type: Arduino source code</p>
+      <p>File: oo_5574.h</p>
+      <media xlink:href="biodiversity_data_journal-2-e1059-s002.h" mimetype="h file" mime-subtype="h" position="float" orientation="portrait" xlink:type="simple"/>
+      <attrib specific-use="authors">Ed Baker</attrib>
+    </supplementary-material>
+  </floats-group>
+</article>

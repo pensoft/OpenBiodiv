@@ -1,0 +1,803 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//TaxonX//DTD Taxonomic Treatment Publishing DTD v0 20100105//EN" "tax-treatment-NS0.dtd">
+<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tp="http://www.plazi.org/taxpub" article-type="research-article">
+  <front>
+    <journal-meta>
+      <journal-id journal-id-type="pmc">Biodiversity Data Journal</journal-id>
+      <journal-id journal-id-type="publisher-id">Biodiversity Data Journal</journal-id>
+      <journal-title-group>
+        <journal-title xml:lang="en">Biodiversity Data Journal</journal-title>
+        <abbrev-journal-title xml:lang="en">BDJ</abbrev-journal-title>
+      </journal-title-group>
+      <issn pub-type="ppub">1314-2836</issn>
+      <issn pub-type="epub">1314-2828</issn>
+      <publisher>
+        <publisher-name>Pensoft Publishers</publisher-name>
+      </publisher>
+    </journal-meta>
+    <article-meta>
+      <article-id pub-id-type="publisher-id">Biodiversity Data Journal</article-id>
+      <article-id pub-id-type="doi">10.3897/BDJ.4.e7644</article-id>
+      <article-id pub-id-type="other">3930</article-id>
+      <article-categories>
+        <subj-group subj-group-type="heading">
+          <subject>Software Description</subject>
+        </subj-group>
+        <subj-group subj-group-type="Subject classification">
+          <subject>Bioinformatics</subject>
+          <subject>Ecological Informatics</subject>
+          <subject>Ecological Modelling</subject>
+          <subject>Cartography, Remote Sensing and GIS</subject>
+          <subject>Data Management</subject>
+          <subject>Data analysis &amp; modelling</subject>
+        </subj-group>
+        <subj-group subj-group-type="Geographical classification">
+          <subject>Europe</subject>
+          <subject>Northern Europe</subject>
+          <subject>Scandinavia</subject>
+          <subject>Sweden</subject>
+        </subj-group>
+      </article-categories>
+      <title-group>
+        <article-title>The Analysis Portal and the Swedish LifeWatch e-infrastructure for biodiversity research</article-title>
+      </title-group>
+      <contrib-group content-type="authors">
+        <contrib contrib-type="author" corresp="yes">
+          <name name-style="western">
+            <surname>Leidenberger</surname>
+            <given-names>Sonja</given-names>
+          </name>
+          <email xlink:type="simple">sonja.leidenberger@slu.se</email>
+          <xref ref-type="aff" rid="A1">‡</xref>
+        </contrib>
+        <contrib contrib-type="author" corresp="no">
+          <name name-style="western">
+            <surname>Käck</surname>
+            <given-names>Martin</given-names>
+          </name>
+          <xref ref-type="aff" rid="A1">‡</xref>
+        </contrib>
+        <contrib contrib-type="author" corresp="no">
+          <name name-style="western">
+            <surname>Karlsson</surname>
+            <given-names>Björn</given-names>
+          </name>
+          <xref ref-type="aff" rid="A1">‡</xref>
+        </contrib>
+        <contrib contrib-type="author" corresp="no">
+          <name name-style="western">
+            <surname>Kindvall</surname>
+            <given-names>Oskar</given-names>
+          </name>
+          <xref ref-type="aff" rid="A1">‡</xref>
+        </contrib>
+      </contrib-group>
+      <aff id="A1">
+        <label>‡</label>
+        <addr-line>ArtDatabanken, Swedish Species Information Centre, SLU, Uppsala, Sweden</addr-line>
+      </aff>
+      <author-notes>
+        <fn fn-type="corresp">
+          <p>Corresponding author: Sonja Leidenberger (<email xlink:type="simple">sonja.leidenberger@slu.se</email>).</p>
+        </fn>
+        <fn fn-type="edited-by">
+          <p>Academic editor: Dmitry Schigel</p>
+        </fn>
+      </author-notes>
+      <pub-date pub-type="collection">
+        <year>2016</year>
+      </pub-date>
+      <pub-date pub-type="epub">
+        <day>23</day>
+        <month>03</month>
+        <year>2016</year>
+      </pub-date>
+      <issue>4</issue>
+      <elocation-id>e7644</elocation-id>
+      <history>
+        <date date-type="received">
+          <day>28</day>
+          <month>12</month>
+          <year>2015</year>
+        </date>
+        <date date-type="accepted">
+          <day>22</day>
+          <month>03</month>
+          <year>2016</year>
+        </date>
+      </history>
+      <permissions>
+        <copyright-statement>Sonja Leidenberger, Martin Käck, Björn Karlsson, Oskar Kindvall</copyright-statement>
+        <license license-type="creative-commons-attribution" xlink:href="http://creativecommons.org/licenses/by/4.0" xlink:type="simple">
+          <license-p>This is an open access article distributed under the terms of the Creative Commons Attribution License 4.0 (CC-BY), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.</license-p>
+        </license>
+      </permissions>
+      <abstract>
+        <label>Abstract</label>
+        <sec sec-type="background">
+          <title>Background</title>
+          <p>During the last years, more and more online portals were generated and are now available for ecologists to run advanced models with extensive data sets. Some examples are the Biodiversity Virtual e-Laboratory (BioVel) Portal (<ext-link ext-link-type="uri" xlink:href="https://portal.biovel.eu">https://portal.biovel.eu</ext-link>) for ecological niche modelling and the Mobyle SNAP Workbench (<ext-link ext-link-type="uri" xlink:href="https://snap.hpc.ncsu.edu">https://snap.hpc.ncsu.edu</ext-link>) for evolutionary and population genetics analysis. Such portals have the main goal to facilitate the run of advanced models, through access to large-capacity computers or servers. In this study, we present the Analysis Portal (<ext-link ext-link-type="uri" xlink:href="http://www.analysisportal.se">www.analysisportal.se</ext-link>), which is a part of the Swedish LifeWatch e-infrastructure for biodiversity research that combines a variety of Swedish web services to perform different kinds of dataprocessing.</p>
+        </sec>
+        <sec sec-type="new information">
+          <title>New information</title>
+          <p>For the first time, the Swedish Analysis Portal for integrated analysis of species occurrence data is described in detail. It was launched in 2013 and today, over 60 Million Swedish species observation records can be assessed, visualized and analyzed via the portal. Datasets can be assembled using sophisticated filtering tools, and combined with environmental and climatic data from a wide range of providers. Different validation tools, for example the official Swedish taxon concept database Dyntaxa, ensure high data quality. Results can be downloaded in different formats as maps, tables, diagrams and reports.</p>
+        </sec>
+      </abstract>
+      <kwd-group>
+        <label>Keywords</label>
+        <kwd>Analysis Portal</kwd>
+        <kwd>biodiversity informatics</kwd>
+        <kwd>e-infrastructure</kwd>
+        <kwd>e-sciences</kwd>
+        <kwd>Swedish LifeWatch</kwd>
+        <kwd>web services</kwd>
+      </kwd-group>
+      <funding-group>
+        <award-group>
+          <funding-source>Swedish Research Council</funding-source>
+        </award-group>
+      </funding-group>
+      <counts>
+        <fig-count count="6"/>
+        <table-count count="0"/>
+        <ref-count count="16"/>
+      </counts>
+    </article-meta>
+  </front>
+  <body>
+    <sec sec-type="Introduction">
+      <title>Introduction</title>
+      <p>Biodiversity informatics is a young discipline. The term was probably firstly used in 1996 by J.L Edwards in an unpublished document by the OECD Working Group on Biological Informatics – 1<sup>st</sup> meeting, notes on the draft agenda, Washington (see <ext-link ext-link-type="uri" xlink:href="http://www.bgbm.org/BioDivInf/TheTermn.htm">www.bgbm.org/BioDivInf/TheTermn.htm</ext-link>). It encompasses information techniques for all kinds of biodiversity information and a framework for data sharing to address questions in the field of conservation management and ecosystem services. <xref ref-type="bibr" rid="B1609126">Bisby 2000</xref> and <xref ref-type="bibr" rid="B1609136">Edwards et al. 2000</xref> presented one of the first accessible databases, like GBIF (<ext-link ext-link-type="uri" xlink:href="http://www.gibif.org">www.gbif.org</ext-link>), Species2000/ITIS Catalogue of Life (<ext-link ext-link-type="uri" xlink:href="http://www.sp2000.org">www.sp2000.org</ext-link>), FishBase (<ext-link ext-link-type="uri" xlink:href="http://www.fishbase.org">www.fishbase.org</ext-link>) and others, that they called the ´silent digital revolution` and which became accessible on everybody’s desktop. The terms bioinformatics, eco-informatics and biodiversity informatics are frequently used today, but often lead to confusion and misunderstanding. Traditionally, bioinformatics is connected to the molecular biology, while eco-informatics are dealing with environmental factors, such as climate and abiotic measurements. Globally, the LTER-network (Long Term Ecological Research Network; <ext-link ext-link-type="uri" xlink:href="http://www.lternet.edu">http://www.lternet.edu</ext-link>), DataONE (Data Observation Network on Earth, <ext-link ext-link-type="uri" xlink:href="https://www.dataone.org">https://www.dataone.org</ext-link>) and GEO BON (Group on Earth Observations Biodiversity Observation Network, <ext-link ext-link-type="uri" xlink:href="http://geobon.org">http://geobon.org</ext-link>) are more focused on eco-informatics, while GBIF is more focused on biodiversity informatics. The term includes taxonomic databases as well as databases of species observation records and in a broader context even species distribution modelling.</p>
+      <p><xref ref-type="bibr" rid="B1578631">Hardisty et al. 2013</xref> realised the basic necessity to link existing biodiversity infrastructures to more effective systems, so-called electronic infrastructures (e-infrastructures), across sub-disciplines that can be shared by business people, citizen scientists, policy-makers and researchers. In general, research infrastructures (RIs) funded by the European Commission through the 7th Framework Programme (<ext-link ext-link-type="uri" xlink:href="http://cordis.europa.eu/fp7/home_en.html">http://cordis.europa.eu/fp7/home_en.html</ext-link>), have the goal of offering research services, shaping scientific communities and supporting stakeholders in decision-making processes (ESFRI - European Strategy Forum on Research Infrastructure; <ext-link ext-link-type="uri" xlink:href="http://ec.europa.eu/research/infrastructures/index_en.cfm?pg=esfri">http://ec.europa.eu/research/infrastructures/index_en.cfm?pg=esfri</ext-link>). One of numerous European RIs is LifeWatch.</p>
+      <p>The LifeWatch concept was begun to build an e-Science European infrastructure for biodiversity and ecosystem research in January 2011, where representatives from Hungary, Italy, the Netherlands, Romania and Spain signed the first Memorandum of Understanding. The idea was to construct a European research e-infrastructure project for biodiversity science and ecosystems research (<ext-link ext-link-type="uri" xlink:href="http://www.lifewatch.eu">www.lifewatch.eu</ext-link>). The LifeWatch architecture is described in detail elsewhere (<xref ref-type="bibr" rid="B1609162">Giddy et al. 2009</xref>, <xref ref-type="bibr" rid="B1591495">Basset and Los 2012</xref>, <xref ref-type="bibr" rid="B1597479">Fuentes and Fiore 2014</xref>, <xref ref-type="bibr" rid="B1224689">Gärdenfors et al. 2014</xref>). Some of the main tasks of the concept are 1) <italic>Information and communication technology (ICT) support creating access to open interfaces hosting data and tools</italic>, 2) <italic>Virtual e-Laboratories where users can create and share their analyses and models</italic>, and 3) <italic>Capacity <italic>building</italic> and support through trainee workshops on the usefulness of and approach to all services</italic>. A number of European countries (Belgium, Greece, The Netherlands, Italy, Romania, Portugal and Spain) have agreed to apply to the European Commission to form a European Research Infrastructure Consortium (ERIC). Some countries (Finland, France, Hungary, Slovakia, Slovenia and Sweden) have decided to initially connect to the ERIC as observers. Sweden was the first European country to begin to build a national LifeWatch e-infrastructure for biodiversity data.</p>
+      <p>The Swedish LifeWatch consortium was founded in 2010 and is a national collaboration between four universities (the Swedish University of Agricultural Sciences (SLU), the University of Gothenburg (GU), Lund University (LU) and Umeå University (UMU)), the Swedish Meteorological and Hydrological Institute (SMHI) and the Swedish Museum of Natural History (SMNH), including the Swedish GBIF node. The project is coordinated by the Swedish Species Information Centre (ArtDatabanken) at SLU and financed by the Swedish Research Council (VR) and the Swedish Environmental Protection Agency.</p>
+      <p>The principal aim was to create a national web service oriented e-infrastructure for biodiversity data covering terrestrial, freshwater and marine habitats, and where all components are accessible through open web services (<xref ref-type="bibr" rid="B1224689">Gärdenfors et al. 2014</xref>). The idea was not to collect new data or create a new database, but provide one single entry point to existing databases in Sweden and enable free access to biodiversity and environmental data. The graphical user interface representing that entry point was named the Analysis Portal (<ext-link ext-link-type="uri" xlink:href="http://www.analysisportal.se">www.analysisportal.se</ext-link>). This web application offers a range of analytical and visualisation services like a species richness grid map, time series and species observation maps. The first version of the Analysis Portal was put into operation in December 2013 (Fig. <xref ref-type="fig" rid="F1578204">1</xref>). Since the official release of the AP the total number of users has increased over the years (2014: 2,025, 2015: 6,231), similar the web page views, that rose from 52,050 (2014) to 77,382 (2015) (PV - Google analytics). Most of the users came from Sweden (2014: 84.5%, 2015: 55.2%).</p>
+      <p>This article describes the Analysis Portal (version 1.0.5821.25115, release date: 09/12/2015), which is a part of the Swedish national e-infrastructure of biodiversity data. In this software description, we refer to the current version named above. We describe the structure of this web application and the functionality of its different components. We also give a detailed presentation of all the web services the Analysis Portal is built upon (Supplementary materials 1-3).</p>
+    </sec>
+    <sec sec-type="Project description">
+      <title>Project description</title>
+      <sec sec-type="Title">
+        <title>Title</title>
+        <p>Swedish LifeWatch Analysis Portal - a national e-infrastructure for biodiversity research</p>
+      </sec>
+      <sec sec-type="Study area description">
+        <title>Study area description</title>
+        <p>The Analysis Portal (AP) (Fig. <xref ref-type="fig" rid="F3067416">2</xref>) is a part of the Swedish LifeWatch e-infrastructure for biodiversity research that combines a variety of Swedish web services to perform different kinds of data processing. One of the services, the Analysis Service, can process the species observation data that are harvested on daily bases from several data providers. The various kinds of functions that are used include calculations of species richness and numbers of observations for defined sets of taxa, polygons, grids or time series. The Analysis Service can also perform calculations on grid based summary statistics on specified WFS data layers. The inputs to the portal are species observation data, climate and environmental data as layers (WFS) and maps (WMS), drawn polygons and uploaded GeoJSON files. The user can visualise and download different kinds of data tables, maps, histograms and diagrams on species observation, species richness and time series of species records as output. The users of the AP are researchers and students, biologists and ecologists at authorities and consult companies as well as citizen scientists.</p>
+      </sec>
+      <sec sec-type="Design description">
+        <title>Design description</title>
+        <p>
+          <bold>Data providers</bold>
+        </p>
+        <p>Numerous biodiversity occurrence databases are connected to the Analysis Portal via the Taxon Observation Service. The AP offers an entry node to all of these databases, currently providing access to around 60 million species observation records (Fig. <xref ref-type="fig" rid="F1458847">3</xref>).</p>
+        <p>The most comprehensive database on Swedish biodiversity data is the Swedish Species Observation System (<ext-link ext-link-type="uri" xlink:href="http://www.artportalen.se">http://www.artportalen.se</ext-link>) financed by the Swedish Environmental Protection Agency. Since 2000 it has been an internet-based, freely accessible reporting system and data repository for geo-referenced species observations of the major organisms, i.e. animals, plants and fungi. Today it provides more than 50,000,000 observations of 28,660 different species (<xref ref-type="bibr" rid="B1224689">Gärdenfors et al. 2014</xref>). Around 5,000,000 new observations are added to the database every year. The data come from citizen science, environmental monitoring programmes and research projects.</p>
+        <p>The Swedish Species Observation Centre also collaborates on the observation database of red-listed species with around 1 million occurrence data. The database contains only protected species and permission is required to have access to it. This is handled by the UserAdministration (see below: Data Management and Cleaning) where the rapporteur (<ext-link ext-link-type="uri" xlink:href="http://www.artportalen.se/Home/TermsOfUse">http://www.artportalen.se/Home/TermsOfUse</ext-link>) and the user have to follow a certain policy formulated by the Swedish Species Information Centre (<ext-link ext-link-type="uri" xlink:href="http://www.artdatabanken.se/verksamhet-och-uppdrag/arter-kunskapsinsamling/fynd-av-arter/skyddsklassade-arter/">http://www.artdatabanken.se/verksamhet-och-uppdrag/arter-kunskapsinsamling/fynd-av-arter/skyddsklassade-arter/</ext-link>). In future, this data set will be integrated into the Swedish Species Observation System. A similar integration is planned for the freshwater fish database PIKE (Umeå University; <ext-link ext-link-type="uri" xlink:href="http://www.emg.umu.se/english/research/research-projects/pike/?languageId=1#">http://www.emg.umu.se/english/research/research-projects/pike/?languageId=1#</ext-link>).</p>
+        <p>Another extensive database that is available via the AP is the national register of survey test-fishing (NORS, <ext-link ext-link-type="uri" xlink:href="http://www.slu.se/en/departments/aquatic-resources/databases/national-register-of-survey-test-fishing-nors/">http://www.slu.se/en/departments/aquatic-resources/databases/national-register-of-survey-test-fishing-nors/</ext-link>) with more than 2,000,000 records on caught fish dating back to the 1950s. The standardized test-fishing with Nordic multi-mesh gillnets (12 mesh sizes) became a European standard (EN 14757) in 2005 and gives a good overview of species occurrence and abundance of fish fauna in lakes. For rivers, the Swedish Electrofishing RegiSter (SERS, <ext-link ext-link-type="uri" xlink:href="http://www.slu.se/en/faculties/nl/about-the-faculty/departments/department-of-aquatic-resources/databases/database-for-testfishing-in-streams/">http://www.slu.se/en/faculties/nl/about-the-faculty/departments/department-of-aquatic-resources/databases/database-for-testfishing-in-streams/</ext-link>) exists in Sweden. The database was begun in 1989 and most electric fishing is ordered by the Swedish Environmental Protection Agency and Swedish Agency for Marine and Water Management, that also finance part of data hosting. Both fish databases provide fairly good predictions of absence data. The coastal fish database (KUL, <ext-link ext-link-type="uri" xlink:href="http://www.slu.se/en/departments/aquatic-resources/databases/database-for-coastal-fish-kul/">http://www.slu.se/en/departments/aquatic-resources/databases/database-for-coastal-fish-kul/</ext-link>) is currently in line to be linked to the AP. The data consist of fish catches with net and fyke net in Swedish coastal waters. The Department of Aquatic Resources at the Swedish University of Agricultural Sciences and the Swedish Agency for Marine and Water Management host the data.</p>
+        <p>Marine environmental monitoring data are represented by the Swedish Ocean Archive, the so-called SHARK database (<ext-link ext-link-type="uri" xlink:href="http://www.sharkdata.se">www.sharkdata.se</ext-link>), with around 70,000 species occurrence data of zoo- and phytoplankton recorded by the Swedish Meteorological and Hydrological Institute (SMHI). Species observations on freshwater species are represented by the environmental data web service MVM (<ext-link ext-link-type="uri" xlink:href="http://miljodata.slu.se/mvm/">http://miljodata.slu.se/mvm/</ext-link>) linked with nearly 500,000 species occurrence data to the AP. The Department of Aquatic Sciences and Assessment at the Swedish University of Agricultural Sciences is the data host for inland waters and the MVM database containing data on national and regional monitoring of phytoplankton, benthic diatoms, macrophytes, zooplankton and benthic fauna.</p>
+        <p>Historical data sets are also linked to the AP through DINA (Digital Information system for Natural history collections; <ext-link ext-link-type="uri" xlink:href="http://www.dina-web.net/naturarv/">www.dina-web.net/naturarv/</ext-link>), a Swedish system for digitalization of natural history collections in Stockholm (Swedish Museum of Natural History, SMNH) and Gothenburg (Göteborg Natural History Museum, GNHH). At the moment, more than 20,000 objects with coordinates are linked to the AP, but digitalization will increase substantially in the near future.</p>
+        <p>By using the GBIF web service (<ext-link ext-link-type="uri" xlink:href="http://www.gbif.org">www.gbif.org</ext-link>), several databases of different Swedish museums (e.g. the herbariums of the Oskarshamn Botanical Museum and Umeå University) are available with all geo-referenced records in the AP. Furthermore, the Swedish database on harbour porpoises (SMNH) (&gt; 2,000) is linked to the AP. The Swedish bird ring centre´s (SMNH) species occurrence records, numbering approx. 5 million, has recently be linked.</p>
+        <p>Wireless Remote Animal Monitoring (WRAM) is a national e-infrastructure for automatic reception, long-time storage, sharing and analysing biotelemetry sensor data from animals like mammals, birds and fish (<xref ref-type="bibr" rid="B1458836">Dettki et al. 2014</xref>). Around 100 million data records come from biotelemetry sensors mounted on animal-borne tags and collars that record the location of the animal but also include data on physiology and behaviour. At the present the database is not accessible to the public, but the position records of the animals should be linked to the AP in the near future.</p>
+        <p>The long-time goal is to connect all national and regional Swedish databases to the AP via the Artportalen or directly to the Swedish Species Observation Service to make them accessible to researchers, policy-makers and citizen scientists through a single entry point. The number of occurrence reports in most of the databases increases substantially every year. Additionally, numerous Swedish databases at different host institutes are not connected today, for example national databases on seals, butterflies, hedgehog, moose and other game animals, as well as databases on invasive species, mussels, freshwater jellyfish and crayfish or the tree portal.</p>
+        <p>
+          <bold>Data Management and Cleaning</bold>
+        </p>
+        <p>The biodiversity data are structured in very different ways in the various databases that are connected to the Swedish LifeWatch e-infrastructure. In order to make all the data searchable at one single focal point, the data have to be restructured. Many of the data sources are sample-based and only contain partial information on taxon-specific occurrences. Darwin Terms (TDWG, <ext-link ext-link-type="uri" xlink:href="http://rs.tdwg.org/dwc/terms/index.htm">http</ext-link><ext-link ext-link-type="uri" xlink:href="http://rs.tdwg.org/dwc/terms/index.htm">://rs.tdwg</ext-link><ext-link ext-link-type="uri" xlink:href="http://rs.tdwg.org/dwc/terms/index.htm">.or</ext-link><ext-link ext-link-type="uri" xlink:href="http://rs.tdwg.org/dwc/terms/index.htm">g/dwc/terms/index.htm</ext-link>) provide a practical format suitable for sharing data on species observations and it is the main format adopted by the GBIF. For the Swedish LifeWatch e-infrastructure, a data model was constructed that could handle an infinite number of classes and data properties, including the set defined in Darwin Core (<xref ref-type="bibr" rid="B3048974">Wieczorek et al. 2012</xref>). This solution enables a flexible generic structure for handling all types of species observation data either strictly as Darwin Core or in any other way. So far we have succeeded in using the Darwin Core classes and their sets of properties with only a few minor additions (<xref ref-type="bibr" rid="B2207742">Swedish LifeWatch 2015</xref>; see SwedishSpeciesObservationService - Darwin Core). The SOAP (Simple Object Access Protocol) Service interface for this implementation is illustrated on this webpage.</p>
+        <p>The process of restructuring the data to fit Darwin Core and to enable a uniform search mechanism is supported by a set of web services. Each provider has published a web service where data can be retrieved according to the Darwin Core format. Regarding the taxonomic information only taxon id and the verbatim form of the scientific name, if available, is retrieved from the providers. Based on the taxon ids, the rest of the taxon-related information is retrieved directly from the Taxon Service, i.e. the SOAP-based web service behind the web application Dyntaxa (<ext-link ext-link-type="uri" xlink:href="http://www.Dyntaxa.se">www.Dyntaxa.se</ext-link>). This solution ensures that the taxon-related search mechanisms provided by the Swedish LifeWatch focal point services are always based on taxon hierarchies and naming that is up to date irrespective of the status of local providers. As Dyntaxa is used when administrating changes of taxon concepts, the Taxon Service can provide the necessary information to resolve effects of lumps and splits in a correct manner.</p>
+        <p>A specific service named the Species Observation Harvest Service has been constructed in order to perform the harvesting and data processing necessary for compiling a unified dataset fulfilling all the requirements set by Swedish LifeWatch based on what is retrieved from each provider. The Harvest Service has methods to start and cancel harvests of single providers. To connect a new data provider service, one only needs to specify a mapping protocol that determines which field(s) in the Darwin Core set should correspond to the properties in the provider´s interface. Sometimes, data from the provider needs processing and sometimes default values are set for a single provider for certain fields.</p>
+        <p>The Harvest Service cleans the data in various ways by checking the content of each data field. If a data field contains values that do not correspond to the rules specified, the record is discarded and logged as erroneous. The error logs is a useful source of information in the process of increasing the quality of the harvesting mechanisms (Fig. <xref ref-type="fig" rid="F1605361">4</xref>).</p>
+        <p>The user administration provides the user options for personalized settings and allows certain search enquiries to be saved and reused. The login is not necessary. The same user administration system is used for the Swedish Species Observation System (Artportalen), Dyntaxa and the AP. For each user, over 90% of observations are publicly accessible; exceptions exist only for a few sensitive species (<ext-link ext-link-type="uri" xlink:href="http://www.artdatabanken.se/media/2157/skyddsklassade-arter-artdatabanken-150505.pdf">http://www.artdatabanken.se/media/2157/skyddsklassade-arter-artdatabanken-150505.pdf</ext-link>). Access to sensitive species is subject to certain user requirements and permissions are handled via the user administration system (<xref ref-type="bibr" rid="B2207742">Swedish LifeWatch 2015</xref>; see Applications - UserAdmin).</p>
+        <p>
+          <bold>Systems architecture</bold>
+        </p>
+        <p>The AP is a web application that has been constructed according to the Model-View-Controller (MVC) design pattern using ASP.NET MVC. The application is not connected directly to any database; all data retrieval mechanisms, statistical calculations, and aggregations are instead performed by various web services (Fig. <xref ref-type="fig" rid="F1605361">4</xref>). This implies that functionality presented in the AP is not uniquely provided by that software. In fact, the same functionality may in the future be incorporated in a vast array of applications specially designed for specific user groups. The number of applications that utilize the same services in different ways is increasing. To facilitate this development process, a reusable code package (.NET-dll in Fig. <xref ref-type="fig" rid="F1605361">4</xref>) can be downloaded from the SLW home page (<xref ref-type="bibr" rid="B2207742">Swedish LifeWatch 2015</xref>). This code represents an object-orientated data model that handles all data types handled by the core web services in Swedish LifeWatch.</p>
+        <p>Another implication of the service-oriented architecture is that the software is only loosely dependent on the underlying data sources. It should be possible to connect the AP to another set of services providing data from another region. Actually, if for example the GBIF web services were to be complemented with corresponding functionality, the AP could work on a global scale without much reconfiguration. This is an interesting idea indeed, as some of the most powerful methods provided by the AP or rather its underlying web services, would in many cases require uploads of hundreds of millions of records in order to perform the statistical processing based on the functions available in the RESTful web service API currently provided by GBIF. This is of course not really a feasible solution. However, by adding a couple of analytical functions (Table 1, Suppl. material <xref ref-type="supplementary-material" rid="S3049489">1</xref>) which can retrieve spatial and temporal summary statistics of different kinds (e.g. counts of occurrences and species) and a somewhat greater set of search criteria (Table 2, Suppl. material <xref ref-type="supplementary-material" rid="S3067328">2</xref>) to the existing GBIF web service API, it would be a simple task to replace the current web service connections of the AP with connections to the GBIF web service API.</p>
+        <p>
+          <bold>Services</bold>
+        </p>
+        <p>The AP currently uses three types of service. Two belong to the suite of standardized OGC (Open Geospatial Consortium <ext-link ext-link-type="uri" xlink:href="http://www.opengeospatial.org">http://www.opengeospatial.org</ext-link>) services, i.e. the Web Feature Service (WFS), which is suitable for retrieving geo-referenced data of any kind, and the Web Map Service (WMS), which provides raster representations of the data. The third type of web service that the AP uses is a set of very specific SOAP services that are considered to be the core services in the Swedish LifeWatch e-infrastructure for biodiversity data.</p>
+        <p>The generic REST-based interoperability of the OGC Services makes them easy to integrate dynamically in web applications using, for example, Open Layers. In the AP, this was done mainly for the purpose of giving the users the flexibility of adding whatever environmental or climatic data and maps that are made available by data providers all over the world. To find detailed information about these services, we recommend a set of Swedish metadata portals (<ext-link ext-link-type="uri" xlink:href="http://www.smhi.se/ecds">Environment Climate Data Sweden, ECDS</ext-link>; <ext-link ext-link-type="uri" xlink:href="https://www.geodata.se/en/">the Geodata Portal</ext-link>; the <ext-link ext-link-type="uri" xlink:href="http://opendata-catalog.smhi.se/explore/">Swedish Metereological and Hydrological Institute, SMHI Open Data Catalogue</ext-link>; <ext-link ext-link-type="uri" xlink:href="http://www.sgugeolagret.se/GeoLagret/">Geological Survey of Sweden, SGU Open Data Catalogue</ext-link>) (Fig. <xref ref-type="fig" rid="F1629443">5</xref>). All these portals handle metadata according to the <ext-link ext-link-type="uri" xlink:href="http://www.opengeospatial.org/standards/cat">OGC Catalogue Service</ext-link> Standard.</p>
+        <p>The medium-term ambition is to implement support for all major OGC services in the AP, including direct searches for data using the Catalogue Services mentioned above. Currently, the AP only supports OGC for connecting environmental data via the OGC Web Feature Service (WFS) and as background maps using the OGC Web Map Services (WMS). Most available OGC types of services that are relevant for the LifeWatch community are provided by organizations that do not belong to the Swedish LifeWatch Consortium and the services have been published for quite different reasons. Many of them have been published due to the INSPIRE directive (<ext-link ext-link-type="uri" xlink:href="http://inspire.ec.europa.eu">http://inspire.ec.europa.eu</ext-link>). Swedish LifeWatch, however, does also publish some data, e.g. WFS. One of the layers SLW provides consists of all public species observations as Darwin Core (<ext-link ext-link-type="uri" xlink:href="http://slwgeo.artdata.slu.se:8080/geoserver/web/?wicket:bookmarkablePage=:org.geoserver.web.demo.MapPreviewPage">http://slwgeo.artdata.slu.se:8080/geoserver/web/?wicket:bookmarkablePage=:org.geoserver.web.demo.MapPreviewPage</ext-link>).</p>
+        <p>As the Core Services are totally essential for the functionality in the AP, we describe each of them briefly below. We will also explain in detail the web service functions that are actually used in the current version of the AP in Table 1 (Suppl. material <xref ref-type="supplementary-material" rid="S3049489">1</xref>) and the user manual (Suppl. material <xref ref-type="supplementary-material" rid="S3067590">3</xref>). As the core services include more functions than listed in Table 1 we recommend consulting the full interface documentation for more information (<ext-link ext-link-type="uri" xlink:href="https://Doc.ArtDatabankenSOA.se">ArtDatabankenSOA https://Doc.ArtDatabankenSOA.se</ext-link>).</p>
+        <p>In general, there exist six main services:</p>
+        <p>1) <italic>User Service</italic></p>
+        <p>Url: <ext-link ext-link-type="uri" xlink:href="https://user.artdatabankensoa.se/UserService.svc?wsdl">https://user.artdatabankensoa.se/UserService.svc?wsdl​</ext-link></p>
+        <p>This is the main service used by the web application UserAdmin (<ext-link ext-link-type="uri" xlink:href="https://UserAdmin.ArtDatabanken.se">https://UserAdmin.ArtDatabanken.se</ext-link>), which is the main administration tool for authorization within the Swedish LifeWatch. The service supports generic construction of application specific authority objects and user roles which can be used in order to regulate which users are allowed to retrieve or edit data of different kinds. The service supports regulation of data handling based on taxonomic, temporal and spatial specifications. It also supports delegation of authorization in a rather simple and effective way, making it possible, for example, for certain members of the Swedish County Administrations to authorize their own trusted employees to handle sensitive data within their geographical region.</p>
+        <p>The User Service is used by all other core services for authentication and in order to check the user’s roles and authorizations.</p>
+        <p>2) <italic>Taxon Service</italic></p>
+        <p>Url: <ext-link ext-link-type="uri" xlink:href="https://taxon.artdatabankensoa.se/TaxonService.svc?wsdl">https://taxon.artdatabankensoa.se/TaxonService.svc?wsdl​</ext-link></p>
+        <p>This is the main service used by the web application Dyntaxa (<ext-link ext-link-type="uri" xlink:href="http://www.dyntaxa.se">www.dyntaxa.se</ext-link>) to search and present taxonomic information on practically all multicellular taxa naturally occurring in Sweden. This service also provides all methods utilized by Dyntaxa for all editing of the content in the Swedish Taxonomic Database. Taxon Service provides the infrastructure with globally unique identifiers of all the taxonomic concepts that are handled by the core web services within Swedish LifeWatch. The Dyntaxa taxon id, which is the name of the taxon concept id in Dyntaxa, is the main link between the different data types essential for biodiversity in Sweden, such as species observations, taxon names and hierarchies, taxon traits and other attributes, as well as information on legislation and Red List status.</p>
+        <p>3) <italic>Taxon Attribute Service</italic></p>
+        <p>Url: <ext-link ext-link-type="uri" xlink:href="https://taxonattribute.artdatabankensoa.se/TaxonAttributeService.svc?wsdl">https://taxonattribute.artdatabankensoa.se/TaxonAttributeService.svc?wsdl​</ext-link></p>
+        <p>This service has the potential to handle all generalizations about taxa including habitat and substrate preferences and usage, interspecific interactions, life history traits, threats, Red List classification, and legislation. It handles more than 2,000 factors that are evaluated in relation to the Swedish taxa provided by the Taxon Service. In the scope of LifeWatch, the service is mainly used for retrieving taxon lists determined by different factors or combinations of factors and taxonomic hierarchies.</p>
+        <p>4) <italic>Geo Reference Service</italic></p>
+        <p>Url: <ext-link ext-link-type="uri" xlink:href="https://georeference.artdatabankensoa.se/GeoReferenceService.svc?wsdl">https://georeference.artdatabankensoa.se/GeoReferenceService.svc?wsdl​</ext-link></p>
+        <p>This service provides information on existing Swedish regions of different kinds, e.g. counties and municipalities.</p>
+        <p>5) <italic>Swedish Species Observation Service</italic></p>
+        <p>Url: <ext-link ext-link-type="uri" xlink:href="https://swedishspeciesobservation.artdatabankensoa.se/SwedishSpeciesObservationService.svc?wsdl">https://swedishspeciesobservation.artdatabankensoa.se/SwedishSpeciesObservationService.svc?wsdl​</ext-link></p>
+        <p>This service constitutes the main focal point of Swedish biodiversity data in terms of species observations and occurrence data. It provides a couple of methods that can be used in order to retrieve species observations originating from several data sources, e.g. Darwin Core records. In addition to the methods (9-16) listed in Table 1 Suppl. material <xref ref-type="supplementary-material" rid="S3049489">1</xref>, it has methods that support incremental harvesting of observation data. One of these methods is used by the GBIF in order to harvest public occurrence data from Sweden.</p>
+        <p>6) <italic>Analysis Service</italic></p>
+        <p>Url: <ext-link ext-link-type="uri" xlink:href="https://analysis.artdatabankensoa.se/AnalysisService.svc?wsdl">https://analysis.artdatabankensoa.se/AnalysisService.svc?wsdl</ext-link></p>
+        <p>In contrast to the other services, this service does not handle a particular type of data. Instead, it is dedicated for all sorts of data processing or data retrieval tasks that involve transformations of data types from their basic representation to something else (<xref ref-type="bibr" rid="B2207742">Swedish LifeWatch 2015</xref>; see Analysis Service). Most functions are related to species observations in one way or another and many of these functions are controlled using the same search criteria (WebSpeciesObservationSearchCriteria) as those used when retrieving species observations or Darwin Core records from the Swedish Species Observation Service. Instead of the record <italic>per se</italic> the Analysis Service delivers summary statistics of species observations aggregated taxonomically (Functions no. 19-20, Table 1), temporally (no. 21, Table 1) or spatially (no. 22-23, Table 1) (Suppl. material <xref ref-type="supplementary-material" rid="S3049489">1</xref>).</p>
+        <p>The Analysis Service also includes a number of processing methods that act on data from OGC WFS. These methods can be used for calculating grid statistics based on the features in a specified data layer (Functions no. 25-26, Table 1, Suppl. material <xref ref-type="supplementary-material" rid="S3049489">1</xref>).</p>
+        <p>More information on the usage of the SLW Core Service can be obtained from the Swedish LifeWatch homepages (SLW Data Management, 2015 or <ext-link ext-link-type="uri" xlink:href="http://www.servicecentrelifewatch.eu/products">www.servicecentrelifewatch.eu/products</ext-link>).</p>
+        <p>
+          <bold>Portal functionalities</bold>
+        </p>
+        <p>The AP has numerous functionalities. Species occurrence records can, for example, be filtered by present and absence data, or after taxa name, polygon, time and red listed category. Different environmental layers (WMS, WFS) can be uploaded to the AP and combined with species observation records. All functionalities of the current version are described in the user manual (Suppl. material <xref ref-type="supplementary-material" rid="S3067590">3</xref>). The user manual also refers to Table 1 (Core Web Service Methods, Suppl. material <xref ref-type="supplementary-material" rid="S3049489">1</xref>) and Table 2 (List of criteria that can be specified when searching for species observations, Suppl. material <xref ref-type="supplementary-material" rid="S3067328">2</xref>) where more technical details are available and linked to each of the described functionality.</p>
+        <p>
+          <bold>Users</bold>
+        </p>
+        <p>At present, the AP has three different kinds of main users: researchers, biologists at the county/municipality/other administrations and consulting companies (Fig. <xref ref-type="fig" rid="F1930912">6</xref>). Researchers mostly download data sets for further analysis to work with in their own software environments (e.g. QGIS, R, Taverna). More and more data sets accessible through data centres and online portals are being used in science and published, e.g. in the context of species distribution modelling (e.g. <xref ref-type="bibr" rid="B1633387">Bellamy and Altringham 2015</xref>, <xref ref-type="bibr" rid="B1631005">Leidenberger et al. 2015</xref>). Although the catalogue of WMF layers often helps PhD students, for example, to get a first overview of available layers and their providers in Sweden and find the desired layer(s) and resolution for the analysis.</p>
+        <p>Ecologists and biologists working for an authority or a consulting company, working with environmental impact analysis and decision-making processes, often use the taxon id filter function to download, for example, red-listed species in a certain area (polygon filter). User administration handles access to protected species, where different authorities have access to several existing protection levels (1-5) of the species, depending on their responsibilities in the decision-making processes.</p>
+        <p>Today, 2 years since the release of the AP, it is not clear to what extent citizen scientists use the portal. From Artportalen, an important Swedish data provider, it is known that numerous ornithologists, members of entomological and botanical associations report to and use the database to compare and share local species information. In future, it is hoped that these user groups will join the company of the AP to run simple analyses for their target species.</p>
+        <p>In the future, many analyses can be run through the portal and the use of the available data in the AP may lead to further ideas, observations and investigations of species distribution patterns. <xref ref-type="bibr" rid="B1224689">Gärdenfors et al. 2014</xref> give some examples of how a user can investigate biodiversity of species with the help of the AP.</p>
+        <p>On-going research that use the AP includes, for example, phenology studies on birds and effects of habitat restorations on wetland bird trends. Another study is attempting to identify forest regions based on species composition in order to make regionalized conservation recommendations. Studies have already been published that have been done on the SLW infrastructure (<ext-link ext-link-type="uri" xlink:href="http://www.svenskalifewatch.se/sv/publicerat/">http://www.svenskalifewatch.se/sv/publicerat/</ext-link>). One recently published study deals with the identification of candidate responsibility species that are of particular interest in connection with the planning of road and railway constructions (<xref ref-type="bibr" rid="B1930927">Helldin et al. 2015</xref>). Another study presents an algorithm to display the lack and bias in sampling efforts through so-called ignorance maps (<xref ref-type="bibr" rid="B2214077">Ruete 2015</xref>).</p>
+        <p>
+          <bold>Outlook</bold>
+        </p>
+        <p>The Analysis Portal described in this paper is a first national step towards making biodiversity data free available to scientists, companies and decision-makers dealing with questions of and related to nature conservation management (Fig. <xref ref-type="fig" rid="F1930912">6</xref>). The SLW e-infrastructure of web services is used in different contexts and several user backgrounds have varying needs for such a portal. The first version of the AP tried to combine as much functions as possible on biodiversity data and was built on the basis of users` feedback.</p>
+        <p>The AP will continue to be developed in response to users` feedbacks and requests. An interesting idea would be to adjust the AP to function on a global scale instead of only for Sweden. Practically, this could, for example, be done by complementing the GBIF web service with the functionalities listed in Table 1, Suppl. material <xref ref-type="supplementary-material" rid="S3049489">1</xref>.</p>
+        <p>One vision of Swedish LifeWatch is that all Swedish biodiversity data, or at least those that are produced with taxpayers` money, are freely accessible via a portal like the AP that is based on numerous web services. Today, the technical know-how is available, but co-operation between all institutes, universities, scientists and other responsible people is still under development. Perhaps it also needs a generation shift, where younger scientists grow up with a better data-sharing mentality. Bio(diversity)informatics is in demand to be taught more at university level (<xref ref-type="bibr" rid="B1640360">Severin 2011</xref>). Trainee workshops for user groups outside the universities and support for the use of biodiversity e-infrastructure in general are also necessary and has to increase in the near future.</p>
+        <p>Following the basic concept of LifeWatch, Swedish LifeWatch is actively working on capacity building, giving trainee workshops and support, and building up a Nordic LifeWatch co-operation between the Scandinavian countries to combine existing e-infrastructures into a Nordic network, similar to the AP. Long-term perspectives might be to create related e-infrastructures on biodiversity data on the European level. <xref ref-type="bibr" rid="B2237551">Canhos et al. 2015</xref> realised that biodiversity e-infrastructures are important frameworks for national and international collaborations as well as key facilities in shared data and knowledge between scientific development, policies and decision support systems.</p>
+        <p>Species do not stop in front of political borders and successful biodiversity research and management therefore need more free access and availability of data on a national and international level. This can push collaboration forward and will help us solve prospective challenges in the field of nature conservation management in future.</p>
+      </sec>
+      <sec sec-type="Funding">
+        <title>Funding</title>
+        <p>Swedish LifeWatch is funded by the Swedish government through the Environmental Protection Agency and the Swedish Research Council (grant no. 829-2009-6278).</p>
+      </sec>
+    </sec>
+    <sec sec-type="Web location (URIs)">
+      <title>Web location (URIs)</title>
+      <p>Homepage: <ext-link ext-link-type="uri" xlink:href="https://www.analysisportal.se/">https://www.analysisportal.se/</ext-link></p>
+    </sec>
+    <sec sec-type="Usage rights">
+      <title>Usage rights</title>
+      <sec sec-type="Use license">
+        <title>Use license</title>
+        <p>Creative Commons Public Domain Waiver (CC-Zero)</p>
+      </sec>
+    </sec>
+  </body>
+  <back>
+    <ref-list>
+      <title>References</title>
+      <ref id="B1591495">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Basset</surname>
+              <given-names>A.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Los</surname>
+              <given-names>W.</given-names>
+            </name>
+          </person-group>
+          <year>2012</year>
+          <article-title>Biodiversity e‐Science: LifeWatch, the European infrastructure on biodiversity and ecosystem research</article-title>
+          <source>Plant Biosystems - An International Journal Dealing with all Aspects of Plant Biology</source>
+          <volume>146</volume>
+          <issue>4</issue>
+          <fpage>780</fpage>
+          <lpage>782</lpage>
+          <uri>http://dx.doi.org/10.1080/11263504.2012.740091</uri>
+          <pub-id pub-id-type="doi">10.1080/11263504.2012.740091</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B1633387">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Bellamy</surname>
+              <given-names>Chloe</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Altringham</surname>
+              <given-names>Johan</given-names>
+            </name>
+          </person-group>
+          <year>2015</year>
+          <article-title>Predicting Species Distributions Using Record Centre Data: Multi-Scale Modelling of Habitat Suitability for Bat Roosts.</article-title>
+          <source>PLoS One</source>
+          <volume>10</volume>
+          <issue>6</issue>
+          <fpage>1/17</fpage>
+          <lpage>17/17</lpage>
+          <pub-id pub-id-type="doi">10.1371/journal.pone.0128440</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B1609126">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Bisby</surname>
+              <given-names>F. A.</given-names>
+            </name>
+          </person-group>
+          <year>2000</year>
+          <article-title>The Quiet Revolution: Biodiversity Informatics and the Internet</article-title>
+          <source>Science</source>
+          <volume>289</volume>
+          <issue>5488</issue>
+          <fpage>2309</fpage>
+          <lpage>2312</lpage>
+          <uri>http://dx.doi.org/10.1126/science.289.5488.2309</uri>
+          <pub-id pub-id-type="doi">10.1126/science.289.5488.2309</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B2237551">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Canhos</surname>
+              <given-names>Dora A. L.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Sousa-Baena</surname>
+              <given-names>Mariane S.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Souza</surname>
+              <given-names>Sidnei de</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Maia</surname>
+              <given-names>Leonor C.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Stehmann</surname>
+              <given-names>João R.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Canhos</surname>
+              <given-names>Vanderlei P.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Giovanni</surname>
+              <given-names>Renato De</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Bonacelli</surname>
+              <given-names>Maria B. M.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Los</surname>
+              <given-names>Wouter</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Peterson</surname>
+              <given-names>A. Townsend</given-names>
+            </name>
+          </person-group>
+          <year>2015</year>
+          <article-title>The Importance of Biodiversity E-infrastructures for Megadiverse Countries</article-title>
+          <source>PLOS Biology</source>
+          <volume>13</volume>
+          <issue>7</issue>
+          <fpage>e1002204</fpage>
+          <uri>http://dx.doi.org/10.1371/journal.pbio.1002204</uri>
+          <pub-id pub-id-type="doi">10.1371/journal.pbio.1002204</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B1458836">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Dettki</surname>
+              <given-names>Holger</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Brode</surname>
+              <given-names>Michel</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Clegg</surname>
+              <given-names>Ivan</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Giles</surname>
+              <given-names>Tmothey</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Hallgren</surname>
+              <given-names>Jerry</given-names>
+            </name>
+          </person-group>
+          <year>2014</year>
+          <article-title>Wireless remote animal monitoring (WRAM) - A new international database e-infrastructure for management and sharing of telemetry sensor data from fish and wildlife.</article-title>
+          <source>International Environmental Modelling and Software Society</source>
+          <volume>2014-proceedings</volume>
+          <fpage>122</fpage>
+          <lpage>128</lpage>
+          <uri>http://www.iemss.org/sites/iemss2014/papers/Volume_1_iEMSs2014_pp_1-602.pdf</uri>
+        </element-citation>
+      </ref>
+      <ref id="B1609136">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Edwards</surname>
+              <given-names>J. L.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Lane</surname>
+              <given-names>M. A.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Nielsen</surname>
+              <given-names>E. S.</given-names>
+            </name>
+          </person-group>
+          <year>2000</year>
+          <article-title>Interoperability of Biodiversity Databases: Biodiversity Information on Every Desktop</article-title>
+          <source>Science</source>
+          <volume>289</volume>
+          <issue>5488</issue>
+          <fpage>2312</fpage>
+          <lpage>2314</lpage>
+          <uri>http://dx.doi.org/10.1126/science.289.5488.2312</uri>
+          <pub-id pub-id-type="doi">10.1126/science.289.5488.2312</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B1597479">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Fuentes</surname>
+              <given-names>Daniel</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Fiore</surname>
+              <given-names>Nicola</given-names>
+            </name>
+          </person-group>
+          <year>2014</year>
+          <article-title>The LifeWatch approach to the exploration of distributed species information</article-title>
+          <source>ZooKeys</source>
+          <volume>463</volume>
+          <fpage>133</fpage>
+          <lpage>148</lpage>
+          <uri>http://dx.doi.org/10.3897/zookeys.463.8397</uri>
+          <pub-id pub-id-type="doi">10.3897/zookeys.463.8397</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B1224689">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Gärdenfors</surname>
+              <given-names>Ulf</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Jönsson</surname>
+              <given-names>Mari</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Obst</surname>
+              <given-names>Matthias</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Wremp</surname>
+              <given-names>Anna Maria</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Kindvall</surname>
+              <given-names>Oskar</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Nilsson</surname>
+              <given-names>Johan</given-names>
+            </name>
+          </person-group>
+          <year>2014</year>
+          <article-title>Swedish LifeWatch ─ a biodiversity infrastructure integrating and reusing data from citizen science, monitoring and research</article-title>
+          <source>Human Computation</source>
+          <volume>1</volume>
+          <issue>2</issue>
+          <fpage>147</fpage>
+          <uri>http://dx.doi.org/10.15346/hc.v1i2.6</uri>
+          <pub-id pub-id-type="doi">10.15346/hc.v1i2.6</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B1609162">
+        <element-citation publication-type="software">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Giddy</surname>
+              <given-names>J.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Hardisty</surname>
+              <given-names>A.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Hernandez-Ernst</surname>
+              <given-names>V.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Poigné</surname>
+              <given-names>A.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Voss</surname>
+              <given-names>A.</given-names>
+            </name>
+          </person-group>
+          <year>2009</year>
+          <article-title>LifeWatch Reference Model Version 0.4. LifeWatch e-Science and technology infrastructrues for biodiversity data and observatories.</article-title>
+          <publisher-name>EU FP7 Infrastructures Project 211372. INFRA-2007-2.2-01</publisher-name>
+          <date-in-citation content-type="released">2009-02-01T00:00:00+02:00</date-in-citation>
+          <comment content-type="Version">0.4</comment>
+        </element-citation>
+      </ref>
+      <ref id="B1578631">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Hardisty</surname>
+              <given-names>A.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Roberts</surname>
+              <given-names>D.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Community</surname>
+              <given-names>The Biodiversity Informatics</given-names>
+            </name>
+          </person-group>
+          <year>2013</year>
+          <article-title>A decadal view of biodiversity informatics: challenges and priorities</article-title>
+          <source>BMC Ecology</source>
+          <volume>13</volume>
+          <issue>1</issue>
+          <fpage>16</fpage>
+          <uri>http://dx.doi.org/10.1186/1472-6785-13-16</uri>
+          <pub-id pub-id-type="doi">10.1186/1472-6785-13-16</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B1930927">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Helldin</surname>
+              <given-names>Jan-Olof</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Wissman</surname>
+              <given-names>Jörgen</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Lennartsson</surname>
+              <given-names>Tommy</given-names>
+            </name>
+          </person-group>
+          <year>2015</year>
+          <article-title>Abundance of red-listed species in infrastructure habitats – ”responsibility species” as a priority-setting tool for transportation agencies´ conservation action</article-title>
+          <source>Nature Conservation</source>
+          <volume>11</volume>
+          <fpage>143</fpage>
+          <lpage>158</lpage>
+          <uri>http://dx.doi.org/10.3897/natureconservation.11.4433</uri>
+          <pub-id pub-id-type="doi">10.3897/natureconservation.11.4433</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B1631005">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Leidenberger</surname>
+              <given-names>Sonja</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Obst</surname>
+              <given-names>Matthias</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Kulawik</surname>
+              <given-names>Robert</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Stelzer</surname>
+              <given-names>Kerstin</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Heyer</surname>
+              <given-names>Karin</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Hardisty</surname>
+              <given-names>Alex</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Bourlat</surname>
+              <given-names>Sarah J.</given-names>
+            </name>
+          </person-group>
+          <year>2015</year>
+          <article-title>Evaluating the potential of ecological niche modelling as a component in marine non-indigenous species risk assessments</article-title>
+          <source>Marine Pollution Bulletin</source>
+          <volume>97</volume>
+          <issue>1</issue>
+          <fpage>470</fpage>
+          <lpage>487</lpage>
+          <uri>http://dx.doi.org/10.1016/j.marpolbul.2015.04.033</uri>
+          <pub-id pub-id-type="doi">10.1016/j.marpolbul.2015.04.033</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B2214077">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Ruete</surname>
+              <given-names>Alejandro</given-names>
+            </name>
+          </person-group>
+          <year>2015</year>
+          <article-title>Ignorance Maps: Simple algorithms to display ignorance maps of raw data accessed from species observation databases.</article-title>
+          <source>Zenodo</source>
+          <volume>3</volume>
+          <fpage>e5361</fpage>
+          <uri>http://dx.doi.org/10.5281/ZENODO.17593</uri>
+          <pub-id pub-id-type="doi">10.5281/ZENODO.17593</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B1640360">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Severin</surname>
+              <given-names>A. J.</given-names>
+            </name>
+          </person-group>
+          <year>2011</year>
+          <article-title>Dealing with Data: Training New Scientists</article-title>
+          <source>Science</source>
+          <volume>331</volume>
+          <issue>6024</issue>
+          <fpage>1516</fpage>
+          <lpage>1516</lpage>
+          <uri>http://dx.doi.org/10.1126/science.331.6024.1516-a</uri>
+          <pub-id pub-id-type="doi">10.1126/science.331.6024.1516-a</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B2207742">
+        <element-citation publication-type="website">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>LifeWatch</surname>
+              <given-names>Swedish</given-names>
+            </name>
+          </person-group>
+          <article-title>SLW Data management</article-title>
+          <uri>http://www.svenskalifewatch.se/en/data-management</uri>
+          <date-in-citation content-type="access-date">2015-11-16T00:00:00+02:00</date-in-citation>
+        </element-citation>
+      </ref>
+      <ref id="B3048974">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Wieczorek</surname>
+              <given-names>John</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Bloom</surname>
+              <given-names>David</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Guralnick</surname>
+              <given-names>Robert</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Blum</surname>
+              <given-names>Stan</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Döring</surname>
+              <given-names>Markus</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Giovanni</surname>
+              <given-names>Renato</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Robertson</surname>
+              <given-names>Tim</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Vieglais</surname>
+              <given-names>David</given-names>
+            </name>
+          </person-group>
+          <year>2012</year>
+          <article-title>Darwin Core: An Evolving Community-Developed Biodiversity Data Standard</article-title>
+          <source>PLoS ONE</source>
+          <volume>7</volume>
+          <issue>1</issue>
+          <fpage>e29715</fpage>
+          <uri>http://dx.doi.org/10.1371/journal.pone.0029715</uri>
+          <pub-id pub-id-type="doi">10.1371/journal.pone.0029715</pub-id>
+        </element-citation>
+      </ref>
+    </ref-list>
+  </back>
+  <floats-group>
+    <fig id="F1578204" position="float" orientation="portrait">
+      <label>Figure 1.</label>
+      <caption>
+        <p>The time schedule of the Analysis Portal. From the start-up in 2011 over a three-years construction phase including its release, to a new operational phase and further construction.</p>
+      </caption>
+      <graphic xlink:href="biodiversity_data_journal-4-e7644-g001.png" position="float" id="oo_70045.png" orientation="portrait" xlink:type="simple"/>
+    </fig>
+    <fig id="F3067416" position="float" orientation="portrait">
+      <label>Figure 2.</label>
+      <caption>
+        <p>Start page of the Analysis portal.</p>
+      </caption>
+      <graphic xlink:href="biodiversity_data_journal-4-e7644-g002.png" position="float" id="oo_82030.png" orientation="portrait" xlink:type="simple"/>
+    </fig>
+    <fig id="F1458847" position="float" orientation="portrait">
+      <label>Figure 3.</label>
+      <caption>
+        <p>Overview of the connected national databases and their occurrence records to which the Analysis Portal offers access.</p>
+      </caption>
+      <graphic xlink:href="biodiversity_data_journal-4-e7644-g003.png" position="float" id="oo_82031.png" orientation="portrait" xlink:type="simple"/>
+    </fig>
+    <fig id="F1605361" position="float" orientation="portrait">
+      <label>Figure 4.</label>
+      <caption>
+        <p>Overview of the web services used in the AP. The core web services (SOAP) are shown in blue boxes. Two of them handle species observations harvested from a number of data provider services (white boxes). Environmental data, maps and metadata of different kinds are connected to OGC services (WFS, WMS, CSW).</p>
+      </caption>
+      <graphic xlink:href="biodiversity_data_journal-4-e7644-g004.png" position="float" id="oo_65284.png" orientation="portrait" xlink:type="simple"/>
+    </fig>
+    <fig id="F1629443" position="float" orientation="portrait">
+      <label>Figure 5.</label>
+      <caption>
+        <p>Overview of linked metadata search functions of the AP.</p>
+      </caption>
+      <graphic xlink:href="biodiversity_data_journal-4-e7644-g005.png" position="float" id="oo_66623.png" orientation="portrait" xlink:type="simple"/>
+    </fig>
+    <fig id="F1930912" position="float" orientation="portrait">
+      <label>Figure 6.</label>
+      <caption>
+        <p>The three different user groups and their connection: 1) Researchers that combine data from the portal with their own data, running models and publishing the results; 2) Consulting companies getting the order to analyse a certain area for environmental effects or have to inventorise red-listed species. Beside writing reports, scientific publishing can be found as well (e.g. <xref ref-type="bibr" rid="B1930927">Helldin et al. 2015</xref>). Decision-makers are interested in following up the distribution of red-listed species or the species diversity in a certain region. They have to taken into account the published work of the other two user groups.</p>
+      </caption>
+      <graphic xlink:href="biodiversity_data_journal-4-e7644-g006.png" position="float" id="oo_58997.png" orientation="portrait" xlink:type="simple"/>
+    </fig>
+    <supplementary-material id="S3049489" orientation="portrait" position="float" xlink:type="simple">
+      <label>Supplementary material 1</label>
+      <caption>
+        <p>Core Web Service Methods</p>
+      </caption>
+      <p>Data type: pdf</p>
+      <p>Brief description: A list of all core web service methods used in the AP. Here, the published methods name includes the name of the SOAP service. The functional description gives details about what can be arbieved with each method.</p>
+      <p>File: oo_82227.pdf</p>
+      <media xlink:href="biodiversity_data_journal-4-e7644-s001.pdf" mimetype="Adobe Acrobat Document" mime-subtype="pdf" position="float" orientation="portrait" xlink:type="simple"/>
+      <attrib specific-use="authors">Leidenberger et al. 2016</attrib>
+    </supplementary-material>
+    <supplementary-material id="S3067328" orientation="portrait" position="float" xlink:type="simple">
+      <label>Supplementary material 2</label>
+      <caption>
+        <p>List of criteria that can be specified when searching for species observations</p>
+      </caption>
+      <p>Data type: pdf</p>
+      <p>Brief description: List of criteria that can be specified when searching for species observations in the Swedish LifeWatch e-infrastructure core web services, i.e. the Analysis Service and the Swedish Species Observation Service.</p>
+      <p>File: oo_81905.pdf</p>
+      <media xlink:href="biodiversity_data_journal-4-e7644-s002.pdf" mimetype="Adobe Acrobat Document" mime-subtype="pdf" position="float" orientation="portrait" xlink:type="simple"/>
+      <attrib specific-use="authors">Leidenberger et al. 2016</attrib>
+    </supplementary-material>
+    <supplementary-material id="S3067590" orientation="portrait" position="float" xlink:type="simple">
+      <label>Supplementary material 3</label>
+      <caption>
+        <p>The Analysis Portal - user manual</p>
+      </caption>
+      <p>Data type: pdf</p>
+      <p>Brief description: User manual - portal functionalities.</p>
+      <p>File: oo_82233.pdf</p>
+      <media xlink:href="biodiversity_data_journal-4-e7644-s003.pdf" mimetype="Adobe Acrobat Document" mime-subtype="pdf" position="float" orientation="portrait" xlink:type="simple"/>
+      <attrib specific-use="authors">Leidenberger et al. 2016</attrib>
+    </supplementary-material>
+  </floats-group>
+</article>
+

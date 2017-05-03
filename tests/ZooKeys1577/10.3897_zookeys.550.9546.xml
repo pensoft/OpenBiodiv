@@ -1,0 +1,805 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//TaxonX//DTD Taxonomic Treatment Publishing DTD v0 20100105//EN" "tax-treatment-NS0.dtd">
+<article xmlns:tp="http://www.plazi.org/taxpub" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" article-type="research-article" dtd-version="3.0" xml:lang="en">
+  <front>
+    <journal-meta>
+      <journal-id journal-id-type="publisher-id">ZooKeys</journal-id>
+      <journal-title-group>
+        <journal-title xml:lang="en">ZooKeys</journal-title>
+        <abbrev-journal-title xml:lang="en">ZooKeys</abbrev-journal-title>
+      </journal-title-group>
+      <issn pub-type="ppub">1313-2989</issn>
+      <issn pub-type="epub">1313-2970</issn>
+      <publisher>
+        <publisher-name>Pensoft Publishers</publisher-name>
+      </publisher>
+    </journal-meta>
+    <article-meta>
+      <article-id pub-id-type="doi">10.3897/zookeys.550.9546</article-id>
+      <article-categories>
+        <subj-group subj-group-type="heading"><subject>Research Article</subject></subj-group>
+      </article-categories>
+      <title-group>
+        <article-title>The use and limits of scientific names in biological informatics</article-title>
+      </title-group>
+      <contrib-group>
+        <contrib contrib-type="author" xlink:type="simple">
+          <name name-style="western">
+            <surname>Remsen</surname>
+            <given-names>David</given-names>
+          </name>
+          <xref ref-type="aff" rid="A1">1</xref>
+        </contrib>
+      </contrib-group>
+      <aff id="A1">
+        <label>1</label>
+        <addr-line>Department of Marine Resources, Marine Biological Laboratory, 7 MBL Street, Woods Hole, MA 02543</addr-line>
+      </aff>
+      <author-notes>
+        <fn fn-type="corresp">
+          <p>Corresponding author: David Remsen (<email xlink:type="simple">dremsen@mbl.edu</email>)</p>
+        </fn>
+        <fn fn-type="edited-by">
+          <p>Academic editor: E. Michel</p>
+        </fn>
+      </author-notes>
+      <pub-date pub-type="collection">
+        <year>2016</year>
+      </pub-date>
+      <pub-date pub-type="epub">
+        <day>7</day>
+        <month>1</month>
+        <year>2016</year>
+      </pub-date>
+      <issue>550</issue>
+      <fpage>207</fpage>
+      <lpage>223</lpage>
+      <history>
+        <date date-type="received">
+          <day>6</day>
+          <month>3</month>
+          <year>2015</year>
+        </date>
+        <date date-type="accepted">
+          <day>9</day>
+          <month>3</month>
+          <year>2015</year>
+        </date>
+      </history>
+      <permissions>
+        <copyright-statement>David Remsen</copyright-statement>
+        <license license-type="creative-commons-attribution" xlink:href="http://creativecommons.org/licenses/by/4.0" xlink:type="simple">
+          <license-p>This is an open access article distributed under the terms of the Creative Commons Attribution License (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.</license-p>
+        </license>
+      </permissions>
+      <self-uri content-type="zoobank" xlink:type="simple">http://zoobank.org/A812E05B-5DC3-4BE0-9551-79A80A3B99C8</self-uri>
+      <abstract>
+        <label>Abstract</label>
+        <p>Scientific names serve to label biodiversity information: information related to species. Names, and their underlying taxonomic definitions, however, are unstable and ambiguous. This negatively impacts the utility of names as identifiers and as effective indexing tools in biological informatics where names are commonly utilized for searching, retrieving and integrating information about species. Semiotics provides a general model for describing the relationship between taxon names and taxon concepts. It distinguishes syntactics, which governs relationships among names, from semantics, which represents the relations between those labels and the taxa to which they refer. In the semiotic context, changes in semantics (i.e., taxonomic circumscription) do not consistently result in a corresponding and reflective change in syntax. Further, when syntactic changes do occur, they may be in response to semantic changes or in response to syntactic rules. This lack of consistency in the cardinal relationship between names and taxa places limits on how scientific names may be used in biological informatics in initially anchoring, and in the subsequent retrieval and integration, of relevant biodiversity information. Precision and recall are two measures of relevance. In biological taxonomy, recall is negatively impacted by changes or ambiguity in syntax while precision is negatively impacted when there are changes or ambiguity in semantics. Because changes in syntax are not correlated with changes in semantics, scientific names may be used, singly or conflated into synonymous sets, to improve recall in pattern recognition or search and retrieval. Names cannot be used, however, to improve precision. This is because changes in syntax do not uniquely identify changes in circumscription.</p>
+        <p>These observations place limits on the utility of scientific names within biological informatics applications that rely on names as identifiers for taxa. Taxonomic systems and services used to organize and integrate information about taxa must accommodate the inherent semantic ambiguity of scientific names. <!--PageBreak-->The capture and articulation of circumscription differences (i.e., multiple taxon concepts) within such systems must be accompanied with distinct concept identifiers that can be employed in association with, or in replacement of, traditional scientific names.</p>
+      </abstract>
+      <kwd-group>
+        <label>Keywords</label>
+        <kwd>Taxonomic name services</kwd>
+        <kwd>taxon concepts</kwd>
+        <kwd>identifiers</kwd>
+        <kwd>relevance</kwd>
+        <kwd>search and retrieval</kwd>
+      </kwd-group>
+    </article-meta>
+    <notes>
+      <sec sec-type="Citation">
+        <title>Citation</title>
+        <p>Remsen D (2016) The use and limits of scientific names in biological informatics. In: Michel E (Ed.) Anchoring Biodiversity Information: From Sherborn to the 21<sup>st</sup> century and beyond. ZooKeys 550: 207–223. doi: <ext-link xlink:type="simple" ext-link-type="doi" xlink:href="10.3897/zookeys.550.9546">10.3897/zookeys.550.9546</ext-link></p>
+      </sec>
+    </notes>
+  </front>
+  <body>
+    <sec sec-type="Introduction">
+      <title>Introduction</title>
+      <p>Scientific names are labels for taxa that are governed by formalized rules of nomenclature. These rules were introduced to establish clarity, stability, economy and uniqueness to the fragmented landscape of pre-Linnaean nomenclature (<xref ref-type="bibr" rid="B27">Mayr 1991</xref>). Sherborn’s <abbrev><def><p><italic>Index Animalium</italic>  </p></def>(IA)</abbrev> represents a monumental attempt to capture key data elements regarding the source and orthography of (nearly) all zoological names for species from the beginning of formalized Linnaean zoological nomenclature in 1758 through 1850. An index, in the sense of <italic>Index Animalium</italic>, is a list of terms linked to, or pointing to, a greater volume of values, data, information or knowledge that pertain to the term. <italic>Index Animalium</italic> links zoological names to their originating bibliographic citation. (<xref ref-type="bibr" rid="B36">Pilsk et al. 2016</xref>) It also links two separate records when a species described with one name was subsequently moved to a new genus and established a new binomial name. The primary function, of the more than 9,000 pages, however, is as an authoritative reference that provides the correct spelling of a name and pointer to its original description (<xref ref-type="bibr" rid="B8">CWR 1903</xref>, <xref ref-type="bibr" rid="B1">Alonso-Zarazaga et al. 2016</xref>). Much of the value and respect that <abbrev xlink:title="Index Animalium">IA</abbrev> has received is derived from the enormous amount of work required to compile and verify the names and associated publications. Biologists rely on this reference when they need to consult the original work (<xref ref-type="bibr" rid="B15">Evenhuis 2016</xref>).</p>
+      <p>The use and value of <abbrev xlink:title="Index Animalium">IA</abbrev>, however, extends beyond its referential value and, in an age of increasingly vast amounts of digitized biodiversity information being accessible online, serves as an immensely valuable resource in establishing order within a substantially larger index of biodiversity information: the entire corpus of recorded biodiversity knowledge.</p>
+      <p>Throughout the past 250 years, nearly all information about taxonomic groups such as species has been linked through a name, nearly always a scientific name. (<xref ref-type="bibr" rid="B21">Grimaldi and Engel 2005</xref>). Scientific names are not the sole means to label species information. Informal and provisional names also play supporting roles (<xref ref-type="bibr" rid="B29">Murray and Stackebrandt 1995</xref>) but only when their use can be unambiguously linked to a species through a scientific name. Practically speaking, scientific names form the basis for referring to species and they label biodiversity information across the entire spectrum of biodiversity knowledge (<xref ref-type="bibr" rid="B47">Thompson and Pape 2016</xref>).</p>
+      <p>Names label voucher specimens in natural history museums, for instance, and are used to identify biological observations at all scales, from molecules to ecosystems, providing the key biological context to associated metacontent such as the observation locality and date Figure <xref ref-type="fig" rid="F1">1</xref>. Scientific names are used in all manner of publications and <!--PageBreak-->communications be they scientific, agricultural, commercial, medical, legislative or social. Increasingly, these communications are taking place online and in digital environments and legacy information is being retrospectively digitized and also placed in online data stores (<xref ref-type="bibr" rid="B33">Patterson et al. 2010</xref>). Without a name associated with an information or data object, the taxonomic link is effectively lost.</p>
+      <fig id="F1" position="float" orientation="portrait">
+        <label>Figure 1.</label>
+        <caption>
+          <p>Scientific names label information about species.</p>
+        </caption>
+        <graphic xlink:href="zookeys-550-e6234-g001.jpg" position="float" orientation="portrait" xlink:type="simple" id="oo_72165.jpg"/>
+      </fig>
+    </sec>
+    <sec sec-type="Discussion">
+      <title>Discussion</title>
+      <p>Given the ubiquitous linkage between biodiversity information and scientific names, there must exist an enormous and virtual super-index of names tied to the world’s species information. Such an index, assembled and presented within a Sherborn-like data store, would, in principle, link to all, or nearly all, information related to all described species. This implies a far more important and central role for names as mediators to biodiversity <!--PageBreak-->information. As more and more retrospective and prospective information is placed in online data stores, such an index is becoming increasingly realistic (<xref ref-type="bibr" rid="B38">Pyle 2016</xref>).</p>
+      <p>Indexing and search engines like Google and Yahoo generate billions of dollars in revenue by processing countless electronic data stores and producing searchable indexes (<xref ref-type="bibr" rid="B51">Varian 2007</xref>). An index of names, such as provided through <italic>Index Animalium</italic>, combined with similar technologies could, in principal, provide access to whatever online information is associated with the names in the index. Broaden the list through the consolidation of similar indexes within the zoological, microbial and botanical domains, and it’s not inconceivable that a comprehensive list of names could be assembled. Such a collection would provide the means to discover and access the complete wealth of recorded biodiversity knowledge (<xref ref-type="bibr" rid="B33">Patterson et al. 2010</xref>). The legacy of Linneaus and Sherborn appear to have provided the framework for the systematic organization and delivery of biodiversity knowledge in the digital age (<xref ref-type="bibr" rid="B35">Patterson et al. 2006</xref>).</p>
+      <p>There are limits to this utility however, and these limits are inherent within biological nomenclature and its relationship to the taxa they label. <italic>Index Animalium</italic> and other similar compilations represent a list of names, not lists of species. This distinction has ramifications that place limits on helping us utilize their ubiquity in labeling biodiversity information. Semiotics refers to the study of how we use signs or symbols, such as names, to confer meaning to objects in the real world and provides a broader framework to this understanding. Semiotics is divided into several sub-domains that include:</p>
+      <list list-type="bullet">
+        <list-item>
+          <p><italic>Semantics</italic>, which refers to the relationship between signs and the things to which they refer; their meaning.</p>
+        </list-item>
+        <list-item>
+          <p><italic>Syntactics</italic>, which refers to the relationships among signs or symbols within formal structures.</p>
+        </list-item>
+      </list>
+      <p>These two terms have analogs in taxonomy. Nomenclature, particularly formalized scientific nomenclature governs much of the syntax domain while semantics is the realm of taxonomy, which links names with taxon definitions or <italic>circumscriptions</italic> (<xref ref-type="bibr" rid="B53">Witteveen 2014</xref>, <xref ref-type="bibr" rid="B12">Dubois 2005</xref>, <xref ref-type="bibr" rid="B20">Franz et al. 2008</xref>).</p>
+      <p>The triangle of reference, or semiotic triangle (<xref ref-type="bibr" rid="B31">Ogden and Richards 1923</xref>), is a model of how syntax and semantics are related to the objects they represent (<xref ref-type="bibr" rid="B50">van Rijsbergen 1979</xref>).</p>
+      <p>In the model (Figure <xref ref-type="fig" rid="F3">3</xref>), there is no direct relationship (dotted line) between symbols (i.e., <italic>names</italic>) and the real-world objects (the <italic>referent</italic>) they represent (A). Meaning, or the relationship between the name and the object, is conveyed only through a concept that exists in the mind of the user of the name. In taxonomy, a biologist (B) determines a specimen is sufficiently distinct to constitute a new species and documents the concept or idea of this novelty to a publication and assigns a name to it. Another person (C) subsequently reading the name, perhaps as a label on a specimen, evokes the concept originally described by the biologist, to refer to the specimen. Accurate communication occurs when there is congruence between both concepts among the writer and the reader.</p>
+      <fig id="F2" position="float" orientation="portrait">
+        <label>Figure 2.</label>
+        <caption>
+          <p>All information of a species is linked by a name.</p>
+        </caption>
+        <graphic xlink:href="zookeys-550-e6234-g002.jpg" position="float" orientation="portrait" xlink:type="simple" id="oo_72166.jpg"/>
+      </fig>
+      <fig id="F3" position="float" orientation="portrait">
+        <label>Figure 3.</label>
+        <caption>
+          <p>The semiotic triangle describes how names communicate meaning.</p>
+        </caption>
+        <graphic xlink:href="zookeys-550-e6234-g003.jpg" position="float" orientation="portrait" xlink:type="simple" id="oo_72167.jpg"/>
+      </fig>
+      <!--PageBreak-->
+      <p>In biological taxonomy, a species name refers to a concept anchored by a specimen but created in the mind of a biologist. The function of the name is to facilitate communication. Communication is facilitated, however, only when the concepts (not the objects) are approximately congruent. Success is not black and white, but can be partial – whether partial is good enough is contingent on context-specific inference needs that the reciprocal concept alignment must fulfill. Thus, two persons look at the same avocado and one declares it a fruit, because it is derived from floral ovaries, while another declares it is not a fruit because it is not sweet. This conflict occurs when there is no congruency in the concepts invoked through the use of the name. Similar issues occur within taxonomy. In the simple case above, the term ‘fruit’ is associated with two definitions, or, more formally, the <italic>cardinality</italic> between syntax and semantics is one-to-two, or more generally, one-to-many (1:N). The same object evokes the same name but refers to two concepts according to two individuals. It is the relationship between the name and the concept that is important. Cardinality between syntax and semantics has a direct impact on the use and limits of scientific names as identifiers in biological informatics (Franz NM 2014).</p>
+      <p>Identifiers such as names have utility in information discovery and retrieval that is directly proportional to the degree of correlation between the term and the associated meaning or, in the semiotic context, in the correlation between syntax and semantics. Laypersons may think of scientific names as stable and unique, where a single Latin binomial name refers to one species and remains that way for all time. In other words, that there is a stable one-to-one relationship between a name (syntax) and the taxon (semantics) that it labels (<xref ref-type="bibr" rid="B44">Stringer 2002</xref>). This is an important informatics pre-condition if we are to rely on names as a means to search for and retrieve relevant information related to taxa (<xref ref-type="bibr" rid="B45">Thau et al. 2010</xref>).</p>
+      <p>Relevance in information retrieval is measured as a combination of two factors: precision and recall (<xref ref-type="bibr" rid="B50">van Rijsbergen 1979</xref>). Precision refers to the exactness, or quality in an information retrieval instance. Recall is a measure of quantity or completeness. For example, in Figure <xref ref-type="fig" rid="F4">4</xref>, below, a search for articles on ants misses some relevant articles but also accidentally returns articles on plants.</p>
+      <fig id="F4" position="float" orientation="portrait">
+        <label>Figure 4.</label>
+        <caption>
+          <p>Precision vs. recall in search results.</p>
+        </caption>
+        <graphic xlink:href="zookeys-550-e6234-g004.jpg" position="float" orientation="portrait" xlink:type="simple" id="oo_72168.jpg"/>
+      </fig>
+      <!--PageBreak-->
+      <p>A search result, therefore, can produce two kinds of relevance errors.</p>
+      <list list-type="bullet">
+        <list-item>
+          <p>A false positive error occurs when the system returns a result that is non-relevant. This is an error of precision.</p>
+        </list-item>
+        <list-item>
+          <p>A false negative error occurs when the system fails to return a relevant result. This is an error of recall.</p>
+        </list-item>
+      </list>
+      <sec sec-type="Perfect identifiers">
+        <title>Perfect identifiers</title>
+        <p>Based on the above, we can define a perfect identifier as one that returns 100% relevant results; that is, zero false positive, and zero false negative, results. This is easy to understand in a relational database system that uses internal unique identifiers to ensure that all relevant records are returned in queries. Relational integrity within a database management system relies on a 1:1 relationship between a primary key and the object it represents. Integrity would be lost if two identifiers referred to the same object or if the same identifier referred to two objects. For an identifier to be a perfect identifier both the cardinality and correlation between syntax and semantics is exactly 1:1. From a taxonomic standpoint, this would require a single, unique name to refer to a single, distinct taxon. Any change or difference in semantics should be linked to a corresponding change in syntax (<xref ref-type="bibr" rid="B25">Lepage et al. 2014</xref>). This is not, however, the reality of biological taxonomy (<xref ref-type="bibr" rid="B20">Franz et al. 2008</xref>, <xref ref-type="bibr" rid="B3">Berendsohn and Geoffroy 2007</xref>).</p>
+        <p>Laypersons are often surprised to learn that scientific names are neither stable nor unique identifiers for taxa. The underlying causes for this instability have their roots in both syntax and semantics (<xref ref-type="bibr" rid="B53">Witteveen 2014</xref>) but the common consequence is a departure from the tight 1:1 correlation that is required to maintain the relational integrity between a name and the taxon to which it refers. This cardinal relationship dictates the utility and application of scientific names within biological information retrieval. It <!--PageBreak-->is this relationship between syntax and semantics that dictates whether the impact on relevance will fall on precision or on recall, or on both.</p>
+        <p>There are four cardinal relationships possible between syntax (names) and semantics (taxa) in this regard and they are summarized in Table <xref ref-type="table" rid="T1">1</xref> below.</p>
+        <table-wrap id="T1" position="float" orientation="portrait">
+          <label>Table 1.</label>
+          <caption>
+            <p>Summary of cardinal relationships between names and taxa.</p>
+          </caption>
+          <table id="TID0ETUAG" rules="all">
+            <tbody>
+              <tr>
+                <th rowspan="1" colspan="4"/>
+                <th rowspan="1" colspan="2">Impact</th>
+              </tr>
+              <tr>
+                <th rowspan="1" colspan="1">Cardinality</th>
+                <th rowspan="1" colspan="1">Abbrev.</th>
+                <th rowspan="1" colspan="1">Diagram</th>
+                <th rowspan="1" colspan="1">Example</th>
+                <th rowspan="1" colspan="1">Recall</th>
+                <th rowspan="1" colspan="1">Precision</th>
+              </tr>
+              <tr>
+                <td rowspan="1" colspan="1">One to One</td>
+                <td rowspan="1" colspan="1">1:1</td>
+                <td rowspan="1" colspan="1">
+                  <graphic xlink:href="zookeys-550-e6234-i001.jpg" position="float" orientation="portrait" xlink:type="simple" id="oo_72170.jpg"/>
+                </td>
+                <td rowspan="1" colspan="1">Stable taxon</td>
+                <td rowspan="1" colspan="1">No</td>
+                <td rowspan="1" colspan="1">No</td>
+              </tr>
+              <tr>
+                <td rowspan="1" colspan="1">Many-to-One</td>
+                <td rowspan="1" colspan="1">N:1</td>
+                <td rowspan="1" colspan="1">
+                  <graphic xlink:href="zookeys-550-e6234-i002.jpg" position="float" orientation="portrait" xlink:type="simple" id="oo_72172.jpg"/>
+                </td>
+                <td rowspan="1" colspan="1">Synonyms</td>
+                <td rowspan="1" colspan="1">Yes</td>
+                <td rowspan="1" colspan="1">No</td>
+              </tr>
+              <tr>
+                <td rowspan="1" colspan="1">One-to-Many</td>
+                <td rowspan="1" colspan="1">1:N</td>
+                <td rowspan="1" colspan="1">
+                  <graphic xlink:href="zookeys-550-e6234-i003.jpg" position="float" orientation="portrait" xlink:type="simple" id="oo_72173.jpg"/>
+                </td>
+                <td rowspan="1" colspan="1">Homonyms/ Polysemes</td>
+                <td rowspan="1" colspan="1">No</td>
+                <td rowspan="1" colspan="1">Yes</td>
+              </tr>
+              <tr>
+                <td rowspan="1" colspan="1">Many-to-Many</td>
+                <td rowspan="1" colspan="1">N:N</td>
+                <td rowspan="1" colspan="1">
+                  <graphic xlink:href="zookeys-550-e6234-i004.jpg" position="float" orientation="portrait" xlink:type="simple" id="oo_72174.jpg"/>
+                </td>
+                <td rowspan="1" colspan="1">Taxon Concept</td>
+                <td rowspan="1" colspan="1">Yes</td>
+                <td rowspan="1" colspan="1">Yes</td>
+              </tr>
+            </tbody>
+          </table>
+        </table-wrap>
+        <p>The relationship between a scientific name and the taxon to which it refers always falls into one of the four conditions in this table. Each of these conditions is represented within biological taxonomy and imposes informatics challenges that, in many cases, may be mitigated.</p>
+        <table-wrap id="T2" position="anchor" orientation="portrait">
+          <label>One-to-One</label>
+          <table id="TID0EH1AG" rules="all">
+            <tbody>
+              <tr>
+                <th rowspan="1" colspan="1">One-to-One (1:1)</th>
+                <th rowspan="1" colspan="2">Cardinality</th>
+                <th rowspan="1" colspan="1">Impact</th>
+                <th rowspan="1" colspan="1">Result</th>
+              </tr>
+              <tr>
+                <td rowspan="2" colspan="1">
+                  <graphic xlink:href="zookeys-550-e6234-i005.jpg" position="float" orientation="portrait" xlink:type="simple" id="oo_72175.jpg"/>
+                </td>
+                <td rowspan="1" colspan="1">Syntax</td>
+                <td rowspan="1" colspan="1">Semantics</td>
+                <td rowspan="2" colspan="1">No impact on precision/recall</td>
+                <td rowspan="2" colspan="1">Maximum relevance</td>
+              </tr>
+              <tr>
+                <td rowspan="1" colspan="1">One Name</td>
+                <td rowspan="1" colspan="1">One Meaning</td>
+              </tr>
+            </tbody>
+          </table>
+        </table-wrap>
+        <!--PageBreak-->
+        <p>The perfect identifier, as defined above, returns no false positive or false negative results when applied in a search. Thus, a search by name returns all and only the relevant related objects. In biology, there are many taxa that are so under-studied that they are only known from their original description and none or very few subsequent references (<xref ref-type="bibr" rid="B46">Thessen et al. 2012</xref>). The name alone, so long as it is a unique name, is sufficient to locate all related material. As noted, under these conditions:</p>
+        <list list-type="bullet">
+          <list-item>
+            <p>Recall – A single name will ensure no false negatives will be missed</p>
+          </list-item>
+          <list-item>
+            <p>Precision – A single taxon labeled with the name will ensure no false positives are included in the results.</p>
+          </list-item>
+        </list>
+        <p>In reality Latinized scientific names are complex and easily misspelled such that this pure one-to-one condition is not as easily met. When this occurs, multiple synonyms refer to the same taxon.</p>
+        <table-wrap id="T3" position="anchor" orientation="portrait">
+          <label>Many-to-One</label>
+          <table id="TID0E33AG" rules="all">
+            <tbody>
+              <tr>
+                <th rowspan="1" colspan="1">Many-to-One (N:1)</th>
+                <th rowspan="1" colspan="2">Cardinality</th>
+                <th rowspan="1" colspan="1">Impacts</th>
+                <th rowspan="1" colspan="1">Result</th>
+              </tr>
+              <tr>
+                <td rowspan="2" colspan="1">
+                  <graphic xlink:href="zookeys-550-e6234-i006.jpg" position="float" orientation="portrait" xlink:type="simple" id="oo_72176.jpg"/>
+                </td>
+                <td rowspan="1" colspan="1">Syntax</td>
+                <td rowspan="1" colspan="1">Semantics</td>
+                <td rowspan="2" colspan="1">Recall</td>
+                <td rowspan="2" colspan="1">False negatives</td>
+              </tr>
+              <tr>
+                <td rowspan="1" colspan="1">Multiple names</td>
+                <td rowspan="1" colspan="1">One meaning</td>
+              </tr>
+            </tbody>
+          </table>
+        </table-wrap>
+        <p>Synonyms are multiple names associated with a single taxon. Rules of nomenclature dictate that only one name is the correct label for a taxon. Any others must be “sunk” in synonymy (<xref ref-type="bibr" rid="B10">Del Hoyo and Pedrola-Monfort 2010</xref>). When this occurs it is clear that a single name may no longer be used to retrieve all information related to the taxon. This has the following impact on relevance.</p>
+        <list list-type="bullet">
+          <list-item>
+            <p>Recall – Synonyms impact recall because the use of a single name will result in false negative results.</p>
+          </list-item>
+          <list-item>
+            <p>Precision – Synonyms in a N:1 condition do not impact precision because, by definition, only a single concept is involved. Thus, false positive results are not possible through matching any of the names.</p>
+          </list-item>
+        </list>
+        <p>
+          <bold>Synonyms fall into several classes based on their origin</bold>:</p>
+        <p>Orthographic or lexical synonyms</p>
+        <p>Variations in spelling represent one class of synonyms although they are often not formally referred as such. The names “<italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Loligo</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">pealeii</tp:taxon-name-part></tp:taxon-name></italic>,” “<italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Loligo</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">pealei</tp:taxon-name-part></tp:taxon-name></italic>” and “<italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Loligo</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">pealii</tp:taxon-name-part></tp:taxon-name></italic>” for example, have all been used to refer to a particular species of squid (<italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Loligo</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">pealeii</tp:taxon-name-part></tp:taxon-name></italic> Laseur, 1821) although only the first spelling is correct. “<italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Pomatomus</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">saltator</tp:taxon-name-part></tp:taxon-name></italic>” and “<italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Pomatomus</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">saltatrix</tp:taxon-name-part></tp:taxon-name></italic>” represent variants based on differences in Latin gender applied to the species name. While only one is syntactically correct, they are both regularly used (<xref ref-type="bibr" rid="B9">David and Gosselin 2002</xref>). (Welter-Schultes et al. 2015) This conflation of syntax impacts recall when data stores containing variant orthographies are searched.</p>
+        <p>Nomenclatural synonyms</p>
+        <p>Nomenclatural synonyms represent a syntactic change without an associated change in semantics. This may occur when two names are discovered to refer to the same original publication or to the specimens that form the basis for the description. For example, the name <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Taraxacum</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">officianale</tp:taxon-name-part></tp:taxon-name></italic> F.H. Wigg shares the same type specimen as the name <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Leontodon</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">taraxacum</tp:taxon-name-part></tp:taxon-name></italic> L. The two names therefore, refer to the same taxon (<xref ref-type="bibr" rid="B24">Kirschner and Štěpánek 2011</xref>).</p>
+        <p>The binomial name of scientific names result in a change in syntax when a taxon is moved to a different genus or if a name is not published according to formal nomenclatu<!--PageBreak-->ral rules (<xref ref-type="bibr" rid="B4">Blackwelder 1967</xref>, <xref ref-type="bibr" rid="B13">Dubois 2000</xref>, <xref ref-type="bibr" rid="B23">International Commission on Zoological Nomenclature 1999</xref>, <xref ref-type="bibr" rid="B28">McNeill et al. 2005</xref>). When <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Drosophila</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">melanogaster</tp:taxon-name-part></tp:taxon-name></italic> was proposed to belong within the genus <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Sophophora</tp:taxon-name-part></tp:taxon-name></italic>, a new binomial, <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Sophophora</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">melanogaster</tp:taxon-name-part></tp:taxon-name></italic> was created. These syntactic changes are not reflective of a change in taxonomic circumscription (<xref ref-type="bibr" rid="B49">van der Linde and Yassin 2010</xref>).</p>
+      </sec>
+      <sec sec-type="Taxonomic synonyms">
+        <title>Taxonomic synonyms</title>
+        <p>Taxonomic synonyms are the result of a change in circumscription that occurs when two, formerly distinct taxa, are merged. This may occur due to broad variation within a species giving rise to multiple, correctly published species descriptions that are ultimately deemed to belong to the same taxon. For example, <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Antilocapra</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">anteflexa</tp:taxon-name-part></tp:taxon-name></italic> Gray, 1855, is an antelope who’s description was based on a pair of horns. It has since been determined, and is now generally accepted to be, a variant of a previously-described species, <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Antilocapra</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">americana</tp:taxon-name-part></tp:taxon-name></italic> Ord, 1815 (<xref ref-type="bibr" rid="B30">O. Gara 1978</xref>). Syntactic and pragmatic rules result in one name being applied to the newly merged taxon while other names, which may include orthographic variants and nomenclatural synonyms linked to the grouped taxa, fall into synonymy (<xref ref-type="bibr" rid="B37">Polaszek 2008</xref>).</p>
+        <p>In all of these cases, information tied to a single taxon may be labeled with multiple different labels. This will result in false negative results in search and retrieval across data stores containing multiple names for the taxon.</p>
+      </sec>
+      <sec sec-type="Mitigation of synonyms">
+        <title>Mitigation of synonyms</title>
+        <p>Different approaches have been applied to overcome the impact on recall inherent to synonymy.</p>
+        <list list-type="bullet">
+          <list-item>
+            <p>“Fuzzy” name-matching services are used to group orthographic variants and misspellings (<xref ref-type="bibr" rid="B40">Rees 2014</xref>).</p>
+          </list-item>
+          <list-item>
+            <p>Taxonomic names servers, such as provided by uBio, iPlant and ITIS offer thesaurus-like services that provide the list of related names that can be used to conflate a search and improve recall (<xref ref-type="bibr" rid="B41">Remsen 2014</xref>, <xref ref-type="bibr" rid="B6">Boyle et. al. 2013</xref>) (<xref ref-type="bibr" rid="B22">Integrated Taxonomic Information System 2014</xref>).</p>
+          </list-item>
+        </list>
+      </sec>
+      <sec sec-type="Homonyms">
+        <title>Homonyms</title>
+        <table-wrap id="T4" position="anchor" orientation="portrait">
+          <label>One-to-Many</label>
+          <table id="TID0EN6AG" rules="all">
+            <tbody>
+              <tr>
+                <th rowspan="1" colspan="1">One-to-Many (1:N)</th>
+                <th rowspan="1" colspan="2">Cardinality</th>
+                <th rowspan="1" colspan="1">Impacts</th>
+                <th rowspan="1" colspan="1">Result</th>
+              </tr>
+              <tr>
+                <td rowspan="2" colspan="1">
+                  <graphic xlink:href="zookeys-550-e6234-i007.jpg" position="float" orientation="portrait" xlink:type="simple" id="oo_72177.jpg"/>
+                </td>
+                <td rowspan="1" colspan="1">Syntax</td>
+                <td rowspan="1" colspan="1">Semantics</td>
+                <td rowspan="2" colspan="1">Precision</td>
+                <td rowspan="2" colspan="1">False positives</td>
+              </tr>
+              <tr>
+                <td rowspan="1" colspan="1">One name</td>
+                <td rowspan="1" colspan="1">Multiple meanings</td>
+              </tr>
+            </tbody>
+          </table>
+        </table-wrap>
+        <!--PageBreak-->
+        <p>Homonyms are two identically-spelled names that refer to two distinct taxa. For example, the genus <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Aotus</tp:taxon-name-part></tp:taxon-name></italic> refers to both a legume and a primate (<xref ref-type="bibr" rid="B42">Remsen and Patterson 2010</xref>). The species <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Agathis</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">montana</tp:taxon-name-part></tp:taxon-name></italic> may be either a wasp or a conifer (<xref ref-type="bibr" rid="B14">Encyclopedia of Life 2014</xref>). Secondary homonyms are a consequence of transferring a species to a new genus that already contains the constructed binomial (<xref ref-type="bibr" rid="B11">Dickinson 2016</xref>).</p>
+        <p>The word <italic>homograph</italic> is similarly used to refer to two identically-spelled words and broadens the definition outside of biological taxonomy. <italic>Cancer</italic>, for example, is both a genus of crab and a medical condition. The result, however is the same: a one-to-many (1:N) relationship between syntax (one name) and semantics (two taxa). This has the following impact on relevance:</p>
+        <list list-type="bullet">
+          <list-item>
+            <p>Recall – Homonyms do not impact recall in this condition, because, by definition, only a single name is relevant and false negative matches are not possible.</p>
+          </list-item>
+          <list-item>
+            <p>Precision – Homonyms impact precision because the name is ambiguous and can produce false positive results when a match is made to a non-target taxon.</p>
+          </list-item>
+        </list>
+      </sec>
+      <sec sec-type="Mitigation of homonyms">
+        <title>Mitigation of homonyms</title>
+        <p>There are two ways to improve precision when a name is too ambiguous; syntactic and pragmatic. The syntactic approach is to change the cardinality between the names and taxa from one-to-many to one-to-one. This is achieved by changing the syntax to two distinct forms. In the case of <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Aotus</tp:taxon-name-part></tp:taxon-name></italic> for example, the legume may be formally referred to as <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Aotus</tp:taxon-name-part></tp:taxon-name></italic> Smith, 1805 while the primate is <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Aotus</tp:taxon-name-part></tp:taxon-name></italic> Illiger, 1811. While the name components remain identical, the appended authorship information renders them distinct. The usage of this form of the name improves precision, effectively moving the burden of relevance to recall. The use of the more precise term supports the distinction of the two taxa but results in the minting of a synonym. The result would be fewer false positive but a potential increase in false negatives as the use of the more refined name would miss relevant results labeled only with the homonym. In general, improvements in precision result in a decrease in recall and vice-versa; Resolving this would require changing all the retrospective ambiguous use of the name <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Aotus</tp:taxon-name-part></tp:taxon-name></italic> with the more precise amended form (<xref ref-type="bibr" rid="B39">Rees 2012</xref>).</p>
+        <p>The pragmatic approach relies on analytic techniques that try to identify context to disambiguate the term. For example, the term “monkey” or “pea” in the vicinity of the use of the name <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Aotus</tp:taxon-name-part></tp:taxon-name></italic>, could help disambiguate the usage and improve precision (<xref ref-type="bibr" rid="B5">Boulis and Ostendorf 2005</xref>).</p>
+        <table-wrap id="T5" position="anchor" orientation="portrait">
+          <label>One-to-Many</label>
+          <table id="TID0E5BBG" rules="all">
+            <tbody>
+              <tr>
+                <th rowspan="1" colspan="1">One-to-Many</th>
+                <th rowspan="1" colspan="2">Cardinality</th>
+                <th rowspan="1" colspan="1">Impacts</th>
+                <th rowspan="1" colspan="1">Result</th>
+              </tr>
+              <tr>
+                <td rowspan="2" colspan="1">
+                  <graphic xlink:href="zookeys-550-e6234-i008.jpg" position="float" orientation="portrait" xlink:type="simple" id="oo_72178.jpg"/>
+                </td>
+                <td rowspan="1" colspan="1">Syntax</td>
+                <td rowspan="1" colspan="1">Semantics</td>
+                <td rowspan="2" colspan="1">Precision</td>
+                <td rowspan="2" colspan="1">False positives</td>
+              </tr>
+              <tr>
+                <td rowspan="1" colspan="1">One name</td>
+                <td rowspan="1" colspan="1">Multiple meanings</td>
+              </tr>
+            </tbody>
+          </table>
+        </table-wrap>
+        <!--PageBreak-->
+        <p>Polysemy (literally “many meanings”) is a condition similar to homonymy and refers to a single name that refers to two taxa. Instead of consisting of entirely distinct taxa, however, the circumscriptions overlap. This occurs when taxa are lumped and split and result in two or more taxon concepts (<xref ref-type="bibr" rid="B42">Remsen and Patterson 2010</xref>) (<xref ref-type="bibr" rid="B18">Franz and Cardona-Duque 2013</xref>). A polyseme impacts relevance in a manner similar to a homonym but is much more common. Impacts on relevance are as follows:</p>
+        <list list-type="bullet">
+          <list-item>
+            <p>Recall – Recall is not impacted. Syntactic ambiguity is not a factor here as there is only a single name.</p>
+          </list-item>
+          <list-item>
+            <p>Precision – Polysemes impact precision because a single taxon name refers to two or more different circumscriptions for a taxon.</p>
+          </list-item>
+        </list>
+        <p>
+          <italic>
+            <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Pneumocystis</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">carinii</tp:taxon-name-part></tp:taxon-name>
+          </italic> Delanoe &amp; Delanoe, 1912, is a fungal pathogen responsible for a deadly pneumonia (PCP) in HIV-infected patients. It was originally described in dogs and rats and later found to occur in humans. In 2002 genetic analysis determined that the human pathogen was distinct from the one that infects dogs. A new name, <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Pneumocystis</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">jiroveci</tp:taxon-name-part></tp:taxon-name></italic>, was applied to the human pathogen (<xref ref-type="bibr" rid="B44">Stringer 2002</xref>). The result was a taxonomic split where the original name, <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Pneumocystis</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">carinii</tp:taxon-name-part></tp:taxon-name></italic> subsequently referred to just part of the original circumscription and the new name <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Pneumocystis</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">jiroveci</tp:taxon-name-part></tp:taxon-name></italic>, to the remaining part. Figure <xref ref-type="fig" rid="F5">5</xref> illustrates this split.</p>
+        <fig id="F5" position="float" orientation="portrait">
+          <label>Figure 5.</label>
+          <caption>
+            <p>A polyseme is a single name referring to more than one overlapping or included concept.</p>
+          </caption>
+          <graphic xlink:href="zookeys-550-e6234-g005.jpg" position="float" orientation="portrait" xlink:type="simple" id="oo_72169.jpg"/>
+        </fig>
+        <p>The name, <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Pneumocystis</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">carinii</tp:taxon-name-part></tp:taxon-name></italic>, now refers to two different circumscriptions; one that contains dog and human pathogens and one that contains only dog pathogens. A search using the name can return results that may refer to either use of the name, corresponding to false positives that impact precision.</p>
+      </sec>
+      <sec sec-type="Mitigation of polysemes">
+        <title>Mitigation of polysemes</title>
+        <p>Rules of nomenclature do not support reflective syntax changes due to changes in circumscription. When a taxon is split, the original name is carried on to refer to one of the resultant parts.</p>
+        <!--PageBreak-->
+        <p>(Berendsohn W. G. 1995) has suggested that the name be concatenated with the annotation “sensu” followed by the author of the split to denote the circumscription reference with a unique label. In this case, the taxon would be known by two names:</p>
+        <list list-type="bullet">
+          <list-item>
+            <p>“<italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Pneumocystis</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">carinii</tp:taxon-name-part></tp:taxon-name></italic> Delanöe &amp; Delanöe, 1912” (original) or plain “<italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Pneumocystis</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">carinii</tp:taxon-name-part></tp:taxon-name></italic>”.</p>
+          </list-item>
+          <list-item>
+            <p>“<italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Pneumocystis</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">carinii</tp:taxon-name-part></tp:taxon-name></italic> sensu Stringer, 2002” (new).</p>
+          </list-item>
+        </list>
+        <p>This syntax would provide the means to distinguish the two circumscriptions in any future application but it leaves all previous applications ambiguous since the earlier application of the name can, in the context of the subsequent split, refer to either of the two new concepts. Any previous applications of the name would have to be re-assessed and re-labeled for any retrospective precision improvements. In some cases, this can be inferred through re-inspection and reasoning, using both manual and automated methods (<xref ref-type="bibr" rid="B25">Lepage et al. 2014</xref>). For example, pre-2002 medical literature referring to <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Pneumocystis</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">carinii</tp:taxon-name-part></tp:taxon-name></italic> in human patients can be reasonably inferred to refer to the more precise taxon, <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Pneumocystis</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">jiroveci</tp:taxon-name-part></tp:taxon-name></italic>.</p>
+        <table-wrap id="T6" position="anchor" orientation="portrait">
+          <label>Many-to-Many</label>
+          <table id="TID0EEFBG" rules="all">
+            <tbody>
+              <tr>
+                <th rowspan="1" colspan="1">Many-to-Many</th>
+                <th rowspan="1" colspan="2">Cardinality</th>
+                <th rowspan="1" colspan="1">Impact</th>
+                <th rowspan="1" colspan="1">Result</th>
+              </tr>
+              <tr>
+                <td rowspan="2" colspan="1">
+                  <graphic xlink:href="zookeys-550-e6234-i009.jpg" position="float" orientation="portrait" xlink:type="simple" id="oo_72179.jpg"/>
+                </td>
+                <td rowspan="1" colspan="1">Syntax</td>
+                <td rowspan="1" colspan="1">Semantics</td>
+                <td rowspan="2" colspan="1">Precision &amp; Recall</td>
+                <td rowspan="2" colspan="1">False positives False negatives</td>
+              </tr>
+              <tr>
+                <td rowspan="1" colspan="1">Many</td>
+                <td rowspan="1" colspan="1">Many</td>
+              </tr>
+            </tbody>
+          </table>
+        </table-wrap>
+        <!--PageBreak-->
+        <p>Polysemes were introduced as referring to a single name referring to multiple, related taxa; a condition that results from splitting a taxon concept into two or more new circumscriptions. Polysemy, however, is not the only result of semantic changes. When <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Pneumocystis</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">carinii</tp:taxon-name-part></tp:taxon-name></italic> was divided into the human pathogen, <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Pneumocystis</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">jiroveci</tp:taxon-name-part></tp:taxon-name></italic> and a reduced, non-human-infecting <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Pneumocystis</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">carinii</tp:taxon-name-part></tp:taxon-name></italic>, the net result was three distinct circumscriptions labeled with two names.</p>
+        <table-wrap id="T7" position="float" orientation="portrait">
+          <label>Table 2.</label>
+          <caption>
+            <p>The result of a taxonomic split on syntax and semantics.</p>
+          </caption>
+          <table id="TID0EZHBG" rules="all">
+            <tbody>
+              <tr>
+                <th rowspan="1" colspan="1">Syntax</th>
+                <th rowspan="1" colspan="1"/>
+                <th rowspan="1" colspan="1"/>
+              </tr>
+              <tr>
+                <td rowspan="2" colspan="1">
+              <italic>
+                <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Pneumocystis</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">carinii</tp:taxon-name-part></tp:taxon-name>
+              </italic>
+            </td>
+                <td rowspan="1" colspan="1">
+                  <graphic xlink:href="zookeys-550-e6234-i010.jpg" position="float" orientation="portrait" xlink:type="simple" id="oo_72180.jpg"/>
+                </td>
+                <td rowspan="1" colspan="1">Original taxon that infects both dogs and humans</td>
+              </tr>
+              <tr>
+                <td rowspan="1" colspan="1">
+                  <graphic xlink:href="zookeys-550-e6234-i011.jpg" position="float" orientation="portrait" xlink:type="simple" id="oo_72181.jpg"/>
+                </td>
+                <td rowspan="1" colspan="1">New taxon that only infects dogs</td>
+              </tr>
+              <tr>
+                <td rowspan="1" colspan="1">
+              <italic>
+                <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Pneumocystis</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">jiroveci</tp:taxon-name-part></tp:taxon-name>
+              </italic>
+            </td>
+                <td rowspan="1" colspan="1">
+                  <graphic xlink:href="zookeys-550-e6234-i012.jpg" position="float" orientation="portrait" xlink:type="simple" id="oo_72182.jpg"/>
+                </td>
+                <td rowspan="1" colspan="1">New taxon that only infects humans</td>
+              </tr>
+            </tbody>
+          </table>
+        </table-wrap>
+        <p>The relationship between the names and the circumscriptions corresponds to a many-to-many (N:N). The two names and three concepts are all inter-related (Franz N. M. 2014).</p>
+        <p>The net result of the split, and the resultant impact on relevance in search, is summarized in Table <xref ref-type="table" rid="T8">3</xref> above. Synonymy can be used to positively improve precision and recall for the lumped taxon when applied to search and retrieval. When taxa are split, synonymy may improve recall by retrieving otherwise false negative results tied to the use of synonyms. As one of the names is a polyseme, however, synonymy cannot improve precision.</p>
+        <table-wrap id="T8" position="float" orientation="portrait">
+          <label>Table 3.</label>
+          <caption>
+            <p>Lumped and split taxon and use of names to impact relevance where P=Precision and R=Relevance.</p>
+          </caption>
+          <table id="TID0EPKBG" rules="all">
+            <tbody>
+              <tr>
+                <th rowspan="1" colspan="1">Taxon infects</th>
+                <th rowspan="1" colspan="1">Names</th>
+                <th rowspan="1" colspan="1">Semantics</th>
+                <th rowspan="1" colspan="1">P</th>
+                <th rowspan="1" colspan="1">R</th>
+              </tr>
+              <tr>
+                <td rowspan="1" colspan="1">
+              <italic>Dogs and humans</italic>
+            </td>
+                <td rowspan="1" colspan="1">
+              <bold>
+                <italic>
+                  <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Pneumocystis</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">carinii</tp:taxon-name-part></tp:taxon-name>
+                </italic>
+              </bold>
+              <break/> - Synonym: <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Pneumocystis</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">jiroveci</tp:taxon-name-part></tp:taxon-name></italic></td>
+                <td rowspan="1" colspan="1">
+                  <graphic xlink:href="zookeys-550-e6234-i013.jpg" position="float" orientation="portrait" xlink:type="simple" id="oo_72183.jpg"/>
+                </td>
+                <td rowspan="1" colspan="1">Y</td>
+                <td rowspan="1" colspan="1">Y</td>
+              </tr>
+              <tr>
+                <td rowspan="1" colspan="1">
+              <italic>Dogs only</italic>
+            </td>
+                <td rowspan="1" colspan="1">
+              <bold>
+                <italic>
+                  <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Pneumocystis</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">carinii</tp:taxon-name-part></tp:taxon-name>
+                </italic>
+              </bold>
+              <break/> - Syn.: <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Pneumocystis</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">carinii</tp:taxon-name-part></tp:taxon-name></italic> (part)</td>
+                <td rowspan="1" colspan="1">
+                  <graphic xlink:href="zookeys-550-e6234-i014.jpg" position="float" orientation="portrait" xlink:type="simple" id="oo_72184.jpg"/>
+                </td>
+                <td rowspan="1" colspan="1">N</td>
+                <td rowspan="1" colspan="1">Y</td>
+              </tr>
+              <tr>
+                <td rowspan="1" colspan="1">Humans only</td>
+                <td rowspan="1" colspan="1">
+              <bold>
+                <italic>
+                  <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Pneumocystis</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">jiroveci</tp:taxon-name-part></tp:taxon-name>
+                </italic>
+              </bold>
+              <break/> - Syn.: <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Pneumocystis</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">carinii</tp:taxon-name-part></tp:taxon-name></italic> (part)</td>
+                <td rowspan="1" colspan="1">
+                  <graphic xlink:href="zookeys-550-e6234-i015.jpg" position="float" orientation="portrait" xlink:type="simple" id="oo_72185.jpg"/>
+                </td>
+                <td rowspan="1" colspan="1">N</td>
+                <td rowspan="1" colspan="1">Y</td>
+              </tr>
+            </tbody>
+          </table>
+        </table-wrap>
+      </sec>
+    </sec>
+    <sec sec-type="Summary">
+      <title>Summary</title>
+      <p>Scientific names link nearly all information related to a species but the relationship between nomenclatural syntax and taxonomic semantics is inherently ambiguous. Informatics processes that rely on data-gathering methods linked to taxon names are susceptible to this ambiguity and run the risk of providing imprecise or incomplete sets of data to subsequent downstream processes.</p>
+      <p>Sets of related scientific names may be used, as in today’s array of taxonomic name servers, to improve recall in search and retrieval for information tied to a taxon. The ambiguity of scientific names that occurs when the same name refers to two distinct, or overlapping taxa, however means that, in many cases, a single name returns an imprecise result and this is something that cannot be rectified through the use of name services.</p>
+      <p>Comprehensive taxonomic thesauri are required to model the relationships between names and taxa. Nomenclatural databases that currently capture the objective syntactic properties of names could improve their relevance by cataloging nomenclatural synonyms, as attempted in Index Animalium. Effectively modeling semantics requires a clean division between these syntactic aspects of taxonomy and the subsequent subjective processes that result in changes in circumscription (<xref ref-type="bibr" rid="B25">Lepage et al. 2014</xref>). An ideal system enables the identification, modeling and exposure of a complete array of circumscription changes for any and all taxa and are coupled with services that allow these to be embedded within informatics processes (<xref ref-type="bibr" rid="B7">Chem et al. 2014</xref>, <xref ref-type="bibr" rid="B48">Tuominen et al. 2011</xref>).</p>
+      <!--PageBreak-->
+    </sec>
+  </body>
+  <back>
+    <ack>
+      <title>Acknowledgements</title>
+      <p>The author would like to extend his thanks and graditude to reviewers, Nico M Franz, Ph.D., Associate Professor and Curator of Insects, Arizona State University, and John Todd, Ph.D., Curator of Molluscs, Natural History Museum, London. An additional thanks to Dr. Ellinor Michel, ICZN Executive Secretary, for serving as general editor and expediting the whole Sherborn publication process.</p>
+    </ack>
+    <ref-list>
+      <title>References</title>
+      <ref id="B1">
+        <mixed-citation xlink:type="simple">
+          <person-group><name name-style="western"><surname>Alonso-Zarazaga</surname> <given-names>MA</given-names></name><name name-style="western"><surname>Fautin</surname> <given-names>DG</given-names></name><name name-style="western"><surname>Michel</surname> <given-names>E</given-names></name></person-group> (<year>2016</year>) <article-title>The List of Available Names (LAN): A new generation for stable taxonomic names in zoology?</article-title> In: <person-group><name name-style="western"><surname>Michel</surname> <given-names>E</given-names></name></person-group> (<role>Ed.</role>) <issue-title>Anchoring Biodiversity Information: From Sherborn to the 21st century and beyond.</issue-title> <source>ZooKeys</source> <volume>550</volume>: <fpage>225</fpage>–<lpage>232</lpage>. doi: <ext-link xlink:type="simple" ext-link-type="doi" xlink:href="10.3897/zookeys.550.10043">10.3897/zookeys.550.10043</ext-link></mixed-citation>
+      </ref>
+      <ref id="B2">
+        <mixed-citation xlink:type="simple">
+          <person-group><name name-style="western"><surname>Berendsohn</surname> <given-names>WG</given-names></name></person-group> (<year>1995</year>) <article-title>The concept of “potential taxa” in databases.</article-title> <source>Taxon</source> <volume>44</volume>: <fpage>207</fpage>–<lpage>212</lpage>. doi: <ext-link xlink:type="simple" ext-link-type="doi" xlink:href="10.2307/1222443">10.2307/1222443</ext-link></mixed-citation>
+      </ref>
+      <ref id="B3">
+        <mixed-citation xlink:type="simple">
+          <person-group><name name-style="western"><surname>Berendsohn</surname> <given-names>WG</given-names></name><name name-style="western"><surname>Geoffroy</surname> <given-names>M</given-names></name></person-group> (<year>2007</year>) <article-title>Networking taxonomic concepts – uniting without ‘unitary-ism.</article-title> In: <person-group><name name-style="western"><surname>Curry</surname> <given-names>GB</given-names></name><name name-style="western"><surname>Humphries</surname> <given-names>CJ</given-names></name></person-group> (<role>Eds</role>) <source>Biodiversity Databases: Techniques, Politics, and Applications</source>. <source>Systematics Association Special</source> <volume>Volume 73</volume>. <publisher-name>CRC Press</publisher-name>, <publisher-loc>Boca Raton</publisher-loc>, <fpage>13</fpage>–<lpage>22</lpage>. doi: <ext-link xlink:type="simple" ext-link-type="doi" xlink:href="10.1201/9781439832547.ch3">10.1201/9781439832547.ch3</ext-link></mixed-citation>
+      </ref>
+      <ref id="B4">
+        <mixed-citation xlink:type="simple">
+          <person-group><name name-style="western"><surname>Blackwelder</surname> <given-names>RA</given-names></name></person-group> (<year>1967</year>) <source>Taxonomy: A text and reference book.</source> <publisher-name>Wiley</publisher-name>, <publisher-loc>New York</publisher-loc>, <size units="page">714 pp</size>.</mixed-citation>
+      </ref>
+      <ref id="B5">
+        <mixed-citation xlink:type="simple">
+          <person-group><name name-style="western"><surname>Boulis</surname> <given-names>C</given-names></name><name name-style="western"><surname>Ostendorf</surname> <given-names>M</given-names></name></person-group> (<year>2005</year>) <article-title>Text classification by augmenting the bag-of-words representation with redundancy-compensated bigrams. Feature Selection in Data Mining</article-title>. <conf-name>SIAM conference on Data Mining</conf-name>.</mixed-citation>
+      </ref>
+      <ref id="B6">
+        <mixed-citation xlink:type="simple">
+          <person-group><name name-style="western"><surname>Boyle</surname> <given-names>B</given-names></name><name name-style="western"><surname>Hopkins</surname> <given-names>N</given-names></name><name name-style="western"><surname>Lu</surname> <given-names>Z</given-names></name><name name-style="western"><surname>Garay</surname> <given-names>JA</given-names></name><name name-style="western"><surname>Mozzherin</surname> <given-names>D</given-names></name><name name-style="western"><surname>Rees</surname> <given-names>T</given-names></name><name name-style="western"><surname>Matasci</surname> <given-names>N</given-names></name><name name-style="western"><surname>Narro</surname> <given-names>ML</given-names></name><name name-style="western"><surname>Piel</surname> <given-names>WH</given-names></name><name name-style="western"><surname>Mckay</surname> <given-names>SJ</given-names></name><name name-style="western"><surname>Lowry</surname> <given-names>S</given-names></name></person-group> (<year>2013</year>) <article-title>The taxonomic name resolution service: an online tool for automated standardization of plant names.</article-title> <source>BMC Bioinformatics</source> <volume>14</volume>(<issue>16</issue>): <fpage>14</fpage>–<lpage>16</lpage>. doi: <ext-link xlink:type="simple" ext-link-type="doi" xlink:href="10.1186/1471-2105-14-16">10.1186/1471-2105-14-16</ext-link></mixed-citation>
+      </ref>
+      <ref id="B7">
+        <mixed-citation xlink:type="simple">
+          <person-group><name name-style="western"><surname>Chem</surname> <given-names>M</given-names></name><name name-style="western"><surname>Yu</surname> <given-names>S</given-names></name><name name-style="western"><surname>Franz</surname> <given-names>N</given-names></name><name name-style="western"><surname>Bowers</surname> <given-names>S</given-names></name><name name-style="western"><surname>Ludäscher</surname> <given-names>B</given-names></name></person-group> (<year>2014</year>) <article-title>Euler/X: A Toolkit for Logic-based Taxonomy Integration.</article-title> <ext-link xlink:type="simple" ext-link-type="uri" xlink:href="http://arxiv.org/abs/1402.1992">http://arxiv.org/abs/1402.1992</ext-link> [<date-in-citation content-type="access-date">Retrieved 10 21, 2014</date-in-citation>]</mixed-citation>
+      </ref>
+      <ref id="B8">
+        <mixed-citation xlink:type="simple">
+          <institution>CWR</institution> (<year>1903</year>) <article-title>Review of Sherborns <italic>Index Animalium</italic>.</article-title> <source>The Auk</source> <volume>20</volume>(<issue>4</issue>): <fpage>448</fpage>–<lpage>450</lpage>.</mixed-citation>
+      </ref>
+      <ref id="B9">
+        <mixed-citation xlink:type="simple">
+          <person-group><name name-style="western"><surname>David</surname> <given-names>N</given-names></name><name name-style="western"><surname>Gosselin</surname> <given-names>M</given-names></name></person-group> (<year>2002</year>) <article-title>Gender agreement of avian species-group names under Article 31.2.2 of the ICZN Code.</article-title> <source>Bulletin of the British Ornithologists Club</source> <volume>122</volume>(<issue>1</issue>): <fpage>14</fpage>–<lpage>49</lpage>.</mixed-citation>
+      </ref>
+      <ref id="B10">
+        <mixed-citation xlink:type="simple">
+          <person-group><name name-style="western"><surname>Del Hoyo</surname> <given-names>A</given-names></name><name name-style="western"><surname>Pedrola-Monfort</surname> <given-names>J</given-names></name></person-group> (<year>2010</year>) <article-title>Taxonomic clarification in W Mediterranean <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Androcymbium</tp:taxon-name-part></tp:taxon-name></italic> (<tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Colchicaceae</tp:taxon-name-part></tp:taxon-name>): <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">A.</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">wyssianum</tp:taxon-name-part></tp:taxon-name></italic> sunk in the synonymy of <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">A.</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">gramineum</tp:taxon-name-part></tp:taxon-name></italic> and <italic><tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">A.</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">europaeum</tp:taxon-name-part></tp:taxon-name></italic> restored.</article-title> <source>Willdenowia</source> <volume>40</volume>(<issue>1</issue>): <fpage>47</fpage>–<lpage>53</lpage>. doi: <ext-link xlink:type="simple" ext-link-type="doi" xlink:href="10.3372/wi.40.40103">10.3372/wi.40.40103</ext-link></mixed-citation>
+      </ref>
+      <ref id="B11">
+        <mixed-citation xlink:type="simple">
+          <person-group><name name-style="western"><surname>Dickinson</surname> <given-names>EC</given-names></name></person-group> (<year>2016</year>) <article-title>Reinforcing the foundations of ornithological nomenclature: Filling the gaps in Sherborn’s and Richmond’s historical legacy of bibliographic exploration.</article-title> In: <person-group><name name-style="western"><surname>Michel</surname> <given-names>E</given-names></name></person-group> (<role>Ed.</role>) <issue-title>Anchoring Biodiversity Information: From Sherborn to the 21st century and beyond.</issue-title> <source>ZooKeys</source> <volume>550</volume>: <fpage>107</fpage>–<lpage>134</lpage>. doi: <ext-link xlink:type="simple" ext-link-type="doi" xlink:href="10.3897/zookeys.550.10170">10.3897/zookeys.550.10170</ext-link></mixed-citation>
+      </ref>
+      <!--PageBreak-->
+      <ref id="B12">
+        <mixed-citation xlink:type="simple">
+          <person-group><name name-style="western"><surname>Dubois</surname> <given-names>A</given-names></name></person-group> (<year>2005</year>) <article-title>Proposed Rules for the incorporation of nomina of higher-ranked zoological taxa in the International Code of Zoological Nomenclature. 1. Some general questions, concepts and terms of biological nomenclature.</article-title> <source>Zoosystema</source> <volume>27</volume>(<issue>2</issue>): <fpage>365</fpage>–<lpage>426</lpage>.</mixed-citation>
+      </ref>
+      <ref id="B13">
+        <mixed-citation xlink:type="simple">
+          <person-group><name name-style="western"><surname>Dubois</surname> <given-names>A</given-names></name></person-group> (<year>2000</year>) <article-title>Synonymies and related lists in zoology: general proposals, with examples in herpetology.</article-title> <source>Dumerilia</source> <volume>4</volume>(<issue>2</issue>): <fpage>33</fpage>–<lpage>98</lpage>.</mixed-citation>
+      </ref>
+      <ref id="B14">
+        <mixed-citation xlink:type="simple">
+          <institution xlink:type="simple">Encyclopedia of Life</institution> (<year>2014</year>) <source>Homonyms on EoL</source>. <ext-link xlink:type="simple" ext-link-type="uri" xlink:href="http://eol.org/collections/6375">http://eol.org/collections/6375</ext-link> [<date-in-citation content-type="access-date">retrieved 10 20 2014</date-in-citation>]</mixed-citation>
+      </ref>
+      <ref id="B15">
+        <mixed-citation xlink:type="simple">
+          <person-group><name name-style="western"><surname>Evenhuis</surname> <given-names>NL</given-names></name></person-group> (<year>2016</year>) <article-title>Charles Davies Sherborn and the “Indexer’s Club”.</article-title> In: <person-group><name name-style="western"><surname>Michel</surname> <given-names>E</given-names></name></person-group> (<role>Ed.</role>) <issue-title>Anchoring Biodiversity Information: From Sherborn to the 21st century and beyond.</issue-title> <source>ZooKeys</source> <volume>550</volume>: <fpage>13</fpage>–<lpage>32</lpage>. doi: <ext-link xlink:type="simple" ext-link-type="doi" xlink:href="10.3897/zookeys.550.9697">10.3897/zookeys.550.9697</ext-link></mixed-citation>
+      </ref>
+      <ref id="B16">
+        <mixed-citation xlink:type="simple">
+          <person-group><name name-style="western"><surname>Franz</surname> <given-names>NM</given-names></name></person-group> (<year>2014</year>) <article-title>Explaining taxonomy’s legacy to computers – how and why?</article-title> <date-in-citation content-type="access-date">Retrieved 10 20, 2014</date-in-citation>, from Slide Share web presentation: <ext-link xlink:type="simple" ext-link-type="uri" xlink:href="http://www.slideshare.net/taxonbytes/franz-2014-explaining-taxonomys-legacy-to-computers-how-and-why">http://www.slideshare.net/taxonbytes/franz-2014-explaining-taxonomys-legacy-to-computers-how-and-why</ext-link></mixed-citation>
+      </ref>
+      <ref id="B17">
+        <mixed-citation xlink:type="simple">
+          <person-group><name name-style="western"><surname>Franz</surname> <given-names>NM</given-names></name></person-group> (<year>2014</year>) <article-title>Names Are Not Good Enough: Reasoning over Taxonomic Change in the Andropogon Complex.</article-title> <source>Semantic Web Journal</source>, <volume>25</volume>.</mixed-citation>
+      </ref>
+      <ref id="B18">
+        <mixed-citation xlink:type="simple">
+          <person-group><name name-style="western"><surname>Franz</surname> <given-names>NM</given-names></name><name name-style="western"><surname>Cardona-Duque</surname> <given-names>J</given-names></name></person-group> (<year>2013</year>) <article-title>Description of two new species and phylogenetic reassessment of Perelleschus Wibmer &amp; O’Brien, 1986 (<tp:taxon-name><tp:taxon-name-part taxon-name-part-type="order">Coleoptera</tp:taxon-name-part></tp:taxon-name>: <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="family">Curculionidae</tp:taxon-name-part></tp:taxon-name>), with a complete taxonomic concept history of Perelleschus sec. Franz &amp; Cardona-Duque, 2013.</article-title> <source>Systematics and Biodiversity</source> <volume>11</volume>: <fpage>209</fpage>–<lpage>236</lpage>. doi: <ext-link xlink:type="simple" ext-link-type="doi" xlink:href="10.1080/14772000.2013.806371">10.1080/14772000.2013.806371</ext-link></mixed-citation>
+      </ref>
+      <ref id="B19">
+        <mixed-citation xlink:type="simple">
+          <person-group><name name-style="western"><surname>Franz</surname> <given-names>NM</given-names></name><name name-style="western"><surname>Chen</surname> <given-names>M</given-names></name><name name-style="western"><surname>Yu</surname> <given-names>S</given-names></name><name name-style="western"><surname>Bowers</surname> <given-names>S</given-names></name><name name-style="western"><surname>Ludäscher</surname> <given-names>B</given-names></name></person-group> (<year>2014</year>) <article-title>Names Are Not Good Enough: Reasoning over Taxonomic Change in the Andopogon Complex.</article-title> <ext-link xlink:type="simple" ext-link-type="uri" xlink:href="http://www.semantic-web-journal.net/content/names-are-not-good-enough-reasoning-over-taxonomic-change-andropogon-complex">http://www.semantic-web-journal.net/content/names-are-not-good-enough-reasoning-over-taxonomic-change-andropogon-complex</ext-link> [<date-in-citation content-type="access-date">retrieved October 15, 2014</date-in-citation>]</mixed-citation>
+      </ref>
+      <ref id="B20">
+        <mixed-citation xlink:type="simple">
+          <person-group><name name-style="western"><surname>Franz</surname> <given-names>NM</given-names></name><name name-style="western"><surname>Peet</surname> <given-names>RK</given-names></name><name name-style="western"><surname>Weakley</surname> <given-names>AS</given-names></name></person-group> (<year>2008</year>) <article-title>On the use of taxomomic concepts in support of biodiversity research and taxonomy.</article-title> In: <person-group><name name-style="western"><surname>Wheeler</surname> <given-names>QD</given-names></name></person-group> (<role>Ed.</role>) <issue-title>The New Taxonomy.</issue-title> <source>Systematics Association Special</source> <volume-series>Volume Series 74</volume-series>, <publisher-name>Taylor and Francis</publisher-name>, <publisher-loc>Boca Raton</publisher-loc>, <fpage>63</fpage>–<lpage>86</lpage>. doi: <ext-link xlink:type="simple" ext-link-type="doi" xlink:href="10.1201/9781420008562.ch5">10.1201/9781420008562.ch5</ext-link></mixed-citation>
+      </ref>
+      <ref id="B21">
+        <mixed-citation xlink:type="simple">
+          <person-group><name name-style="western"><surname>Grimaldi</surname> <given-names>D</given-names></name><name name-style="western"><surname>Engel</surname> <given-names>MS</given-names></name></person-group> (<year>2005</year>) <source>Evolution of the insects (Cambridge Evolution Series).</source> <publisher-name>Cambridge University Press</publisher-name>, <publisher-loc>Cambridge</publisher-loc>, <size units="page">772 pp</size>.</mixed-citation>
+      </ref>
+      <ref id="B22">
+        <mixed-citation xlink:type="simple">
+          <institution xlink:type="simple">Integrated Taxonomic Information System</institution> (<year>2014</year>) <source>Integrated Taxonomic Information System</source>. <ext-link xlink:type="simple" ext-link-type="uri" xlink:href="http://www.itis.gov">http://www.itis.gov</ext-link> [<date-in-citation content-type="access-date">retrieved Sept 29, 2014</date-in-citation>]</mixed-citation>
+      </ref>
+      <ref id="B23">
+        <mixed-citation xlink:type="simple">
+          <institution xlink:type="simple">ICZN</institution> (<year>1999</year>) <source>International Code of Zoological Nomenclature</source> (<edition>4th ed.</edition>). <publisher-name>The International Trust for Zoological Nomenclature</publisher-name>, <publisher-loc>London</publisher-loc>.</mixed-citation>
+      </ref>
+      <ref id="B24">
+        <mixed-citation xlink:type="simple">
+          <person-group><name name-style="western"><surname>Kirschner</surname> <given-names>J</given-names></name><name name-style="western"><surname>Štěpánek</surname> <given-names>J</given-names></name></person-group> (<year>2011</year>) <article-title>Typification of <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Leontodon</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">taraxacum</tp:taxon-name-part></tp:taxon-name> L. (≡ <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Taraxacum</tp:taxon-name-part></tp:taxon-name> officinale F.H. Wigg.) and the generic name <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Taraxacum</tp:taxon-name-part></tp:taxon-name>: A review and a new typification proposal.</article-title> <source>Taxon</source> <volume>60</volume>(<issue>1</issue>): <fpage>216</fpage>–<lpage>220</lpage>.</mixed-citation>
+      </ref>
+      <ref id="B25">
+        <mixed-citation xlink:type="simple">
+          <person-group><name name-style="western"><surname>Lepage</surname> <given-names>D</given-names></name><name name-style="western"><surname>Vaidya</surname> <given-names>G</given-names></name><name name-style="western"><surname>Guralnick</surname> <given-names>R</given-names></name></person-group> (<year>2014</year>) <article-title>Avibase – a database system for managing and organizing taxonomic concepts.</article-title> <source>ZooKeys</source> <volume>420</volume>: <fpage>117</fpage>–<lpage>135</lpage>. doi: <ext-link xlink:type="simple" ext-link-type="doi" xlink:href="10.3897/zookeys.420.7089">10.3897/zookeys.420.7089</ext-link></mixed-citation>
+      </ref>
+      <ref id="B26">
+        <mixed-citation xlink:type="simple">
+          <person-group><name name-style="western"><surname>Linnaeus</surname> <given-names>C</given-names></name></person-group> (<year>1758</year>) <source>Systema naturae per regna tria naturae: secundum classes, ordines, genera, species, cum characteribus, differentiis, synonymis, locis</source>. In: <person-group><name name-style="western"><surname>Salvius</surname> <given-names>L</given-names></name></person-group> (<role>Ed.</role>) <ext-link xlink:type="simple" ext-link-type="uri" xlink:href="http://www.biodiversitylibrary.org/bibliography/542">http://www.biodiversitylibrary.org/bibliography/542</ext-link> [<date-in-citation content-type="access-date">retrieved Febr 18, 2013</date-in-citation>]</mixed-citation>
+      </ref>
+      <ref id="B27">
+        <mixed-citation xlink:type="simple">
+          <person-group><name name-style="western"><surname>Mayr</surname> <given-names>E</given-names></name></person-group> (<year>1991</year>) <source>Principles of Systematic Zoology.</source> <publisher-name>McGraw-Hill</publisher-name>, <publisher-loc>New York</publisher-loc>, <size units="page">475 pp</size>.</mixed-citation>
+      </ref>
+      <!--PageBreak-->
+      <ref id="B28">
+        <mixed-citation xlink:type="simple">
+          <person-group><name name-style="western"><surname>McNeill</surname> <given-names>J</given-names></name><name name-style="western"><surname>Barrie</surname> <given-names>FR</given-names></name><name name-style="western"><surname>Burdet</surname> <given-names>HM</given-names></name><name name-style="western"><surname>Demoulin</surname> <given-names>V</given-names></name></person-group> (<year>2005</year>) <source>International code of botanical nomenclature (Vienna Code) adopted by the seventeenth International Botanical Congress, Vienna, Austria, July 2005</source>. <publisher-name>International Association for Plant Taxonomy</publisher-name>, <publisher-loc>Vienna, AT</publisher-loc>, <size units="page">568 pp</size>.</mixed-citation>
+      </ref>
+      <ref id="B29">
+        <mixed-citation xlink:type="simple">
+          <person-group><name name-style="western"><surname>Murray</surname> <given-names>RG</given-names></name><name name-style="western"><surname>Stackebrandt</surname> <given-names>E</given-names></name></person-group> (<year>1995</year>) <article-title>Taxonomic Note: Implementation of the Provisional Status Candidatus for Incompletely Described Procaryotes.</article-title> <source>International Journal of Systematic and Evolutionary Microbiology</source> <volume>45</volume>(<issue>1</issue>): <fpage>186</fpage>–<lpage>187</lpage>. doi: <ext-link xlink:type="simple" ext-link-type="doi" xlink:href="10.1099/00207713-45-1-186">10.1099/00207713-45-1-186</ext-link></mixed-citation>
+      </ref>
+      <ref id="B30">
+        <mixed-citation xlink:type="simple">
+          <person-group><name name-style="western"><surname>O'Gara</surname> <given-names>BW</given-names></name></person-group> (<year>1978</year>) <article-title>Mammalian Species.</article-title> <source>The American Society of Mammalogists</source> <volume>90</volume>: <fpage>1</fpage>–<lpage>7</lpage>.</mixed-citation>
+      </ref>
+      <ref id="B31">
+        <mixed-citation xlink:type="simple">
+          <person-group><name name-style="western"><surname>Ogden</surname> <given-names>CK</given-names></name><name name-style="western"><surname>Richards</surname> <given-names>IA</given-names></name></person-group> (<year>1923</year>) <source>The Meaning of Meaning: A Study of the Influence of Language upon Thought and of the Science of Symbolism</source>. <publisher-name>Harcourt</publisher-name>, <publisher-loc>San Diego</publisher-loc>, <size units="page">363 pp</size>.</mixed-citation>
+      </ref>
+      <ref id="B32">
+        <mixed-citation xlink:type="simple">
+          <person-group><name name-style="western"><surname>Page</surname> <given-names>RD</given-names></name></person-group> (<year>2008</year>) <article-title>Biodiversity informatics: the challenge of linking data and the role of shared identifiers.</article-title> <source>Briefings in Bioinformatics</source> <volume>9</volume>(<issue>5</issue>): <fpage>345</fpage>–<lpage>354</lpage>. doi: <ext-link xlink:type="simple" ext-link-type="doi" xlink:href="10.1093/bib/bbn022">10.1093/bib/bbn022</ext-link></mixed-citation>
+      </ref>
+      <ref id="B33">
+        <mixed-citation xlink:type="simple">
+          <person-group><name name-style="western"><surname>Patterson</surname> <given-names>DJ</given-names></name><name name-style="western"><surname>Cooper</surname> <given-names>J</given-names></name><name name-style="western"><surname>Kirk</surname> <given-names>PM</given-names></name><name name-style="western"><surname>Pyle</surname> <given-names>RL</given-names></name><name name-style="western"><surname>Remsen</surname> <given-names>DP</given-names></name></person-group> (<year>2010</year>) <article-title>Names are key to the big new biology.</article-title> <source>Trends in Ecology and Evolution</source> <volume>25</volume>(<issue>12</issue>): <fpage>686</fpage>–<lpage>691</lpage>. doi: <ext-link xlink:type="simple" ext-link-type="doi" xlink:href="10.1016/j.tree.2010.09.004">10.1016/j.tree.2010.09.004</ext-link></mixed-citation>
+      </ref>
+      
+      <ref id="B35">
+        <mixed-citation xlink:type="simple">
+          <person-group><name name-style="western"><surname>Patterson</surname> <given-names>DJ</given-names></name><name name-style="western"><surname>Remsen</surname> <given-names>DP</given-names></name><name name-style="western"><surname>Marino</surname> <given-names>WA</given-names></name><name name-style="western"><surname>Norton</surname> <given-names>C</given-names></name></person-group> (<year>2006</year>) <article-title>Taxonomic Indexing - Extending the role of taxonomy.</article-title> <source>Systematic Biology</source> <volume>55</volume>(<issue>3</issue>): <fpage>367</fpage>–<lpage>373</lpage>. doi <ext-link xlink:type="simple" ext-link-type="doi" xlink:href="10.1080/10635150500541680">10.1080/10635150500541680</ext-link></mixed-citation>
+      </ref>
+      <ref id="B36">
+        <mixed-citation xlink:type="simple">
+          <person-group><name name-style="western"><surname>Pilsk</surname> <given-names>SC</given-names></name><name name-style="western"><surname>Kalfatovic</surname> <given-names>MR</given-names></name><name name-style="western"><surname>Richard</surname> <given-names>JM</given-names></name></person-group> (<year>2016</year>) <article-title>Unlocking <italic>Index Animalium</italic>: From paper slips to bytes and bits.</article-title> In: <person-group><name name-style="western"><surname>Michel</surname> <given-names>E</given-names></name></person-group> (<role>Ed.</role>) <issue-title>Anchoring Biodiversity Information: From Sherborn to the 21st century and beyond.</issue-title> <source>ZooKeys</source> <volume>550</volume>: <fpage>153</fpage>–<lpage>171</lpage>. doi: <ext-link xlink:type="simple" ext-link-type="doi" xlink:href="10.3897/zookeys.550.9673">10.3897/zookeys.550.9673</ext-link></mixed-citation>
+      </ref>
+      <ref id="B37">
+        <mixed-citation xlink:type="simple">
+          <person-group><name name-style="western"><surname>Polaszek</surname> <given-names>A</given-names></name></person-group> (<year>2008</year>) <article-title>Comments on the proposed conservation of the usage of the generic name of <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Drosophila</tp:taxon-name-part></tp:taxon-name> Fallén, 1823 (<tp:taxon-name><tp:taxon-name-part taxon-name-part-type="class">Insecta</tp:taxon-name-part></tp:taxon-name>, <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="order">Diptera</tp:taxon-name-part></tp:taxon-name>) 1 (Case 3407).</article-title> <source>Bulletin of Zoological Nomenclature</source> <volume>65</volume>(<issue>1</issue>): <lpage>55</lpage>.</mixed-citation>
+      </ref>
+      <ref id="B38">
+        <mixed-citation xlink:type="simple">
+          <person-group><name name-style="western"><surname>Pyle</surname> <given-names>RL</given-names></name></person-group> (<year>2016</year>) <article-title>Towards a Global Names Architecture: The future of indexing scientific names.</article-title> In: <person-group><name name-style="western"><surname>Michel</surname> <given-names>E</given-names></name></person-group> (<role>Ed.</role>) <issue-title>Anchoring Biodiversity Information: From Sherborn to the 21st century and beyond.</issue-title> <source>ZooKeys</source> <volume>550</volume>: <fpage>261</fpage>–<lpage>281</lpage>. doi: <ext-link xlink:type="simple" ext-link-type="doi" xlink:href="10.3897/zookeys.550.10009">10.3897/zookeys.550.10009</ext-link></mixed-citation>
+      </ref>
+      <ref id="B39">
+        <mixed-citation xlink:type="simple">
+          <person-group><name name-style="western"><surname>Rees</surname> <given-names>T</given-names></name></person-group> (<year>2012</year>) <source>IRMNG Homonyms</source>. <publisher-name>CSIRO, Producer</publisher-name>. <ext-link xlink:type="simple" ext-link-type="uri" xlink:href="http://www.cmar.csiro.au/datacentre/irmng/homonyms.htm">http://www.cmar.csiro.au/datacentre/irmng/homonyms.htm</ext-link> [<date-in-citation content-type="access-date">retrieved Febr 21, 2013</date-in-citation>]</mixed-citation>
+      </ref>
+      <ref id="B40">
+        <mixed-citation xlink:type="simple">
+          <person-group><name name-style="western"><surname>Rees</surname> <given-names>T</given-names></name></person-group> (<year>2014</year>) <article-title>Taxamatch, an Algorithm for Near (‘Fuzzy’) Matching of Scientific Names in Taxonomic Databases.</article-title> <source>PLoS ONE</source> <volume>9</volume>(<issue>9</issue>): <elocation-id>e107510</elocation-id>. doi: <ext-link xlink:type="simple" ext-link-type="doi" xlink:href="10.1371/journal.pone.0107510">10.1371/journal.pone.0107510</ext-link></mixed-citation>
+      </ref>
+      <ref id="B41">
+        <mixed-citation xlink:type="simple">
+          <person-group><name name-style="western"><surname>Remsen</surname> <given-names>DP</given-names></name></person-group> (<year>2014</year>) <source>uBIo Project</source>. uBio Project: <ext-link xlink:type="simple" ext-link-type="uri" xlink:href="http://www.ubio.org">http://www.ubio.org</ext-link> [<date-in-citation content-type="access-date">retrieved Sept 29, 2014</date-in-citation>]</mixed-citation>
+      </ref>
+      <ref id="B42">
+        <mixed-citation xlink:type="simple">
+          <person-group><name name-style="western"><surname>Remsen</surname> <given-names>DP</given-names></name><name name-style="western"><surname>Patterson</surname> <given-names>D</given-names></name></person-group> (<year>2010</year>) <article-title>The All-Genera Index: Strategies for Managing the BIG Index of All Scientific Names.</article-title> In: <person-group><name name-style="western"><surname>Polaszek</surname> <given-names>A</given-names></name></person-group> (<role>Ed.</role>) <source>Systema Naturae 250 – The Linnaean Ark</source>. <publisher-name>CRC Press</publisher-name>, <publisher-loc>Boca Raton</publisher-loc>, <fpage>149</fpage>–<lpage>162</lpage>. doi: <ext-link xlink:type="simple" ext-link-type="doi" xlink:href="10.1201/EBK1420095012-c14">10.1201/EBK1420095012-c14</ext-link></mixed-citation>
+      </ref>
+      <ref id="B43">
+        <mixed-citation xlink:type="simple">
+          <person-group><name name-style="western"><surname>Remsen</surname> <given-names>DP</given-names></name><name name-style="western"><surname>Norton</surname> <given-names>C</given-names></name><name name-style="western"><surname>Patterson</surname> <given-names>DJ</given-names></name></person-group> (<year>2006</year>) <article-title>Taxonomic Informatics Tools for the Electronic Nomenclator Zoologicus.</article-title> <source>Biological Bulletin</source> <volume>210</volume>: <fpage>18</fpage>–<lpage>24</lpage>. doi: <ext-link xlink:type="simple" ext-link-type="doi" xlink:href="10.2307/4134533">10.2307/4134533</ext-link></mixed-citation>
+      </ref>
+      <ref id="B44">
+        <mixed-citation xlink:type="simple">
+          <person-group><name name-style="western"><surname>Stringer</surname> <given-names>JR</given-names></name></person-group> (<year>2002</year>) <article-title>A New Name for <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Pneumocystis</tp:taxon-name-part></tp:taxon-name> from Humans and New Perspectives on the Host-Pathogen Relationship.</article-title> <source>Emerging Infectious Diseases</source> <volume>8</volume>(<issue>9</issue>): <fpage>891</fpage>–<lpage>896</lpage>. doi: <ext-link xlink:type="simple" ext-link-type="doi" xlink:href="10.3201/eid0809.020096">10.3201/eid0809.020096</ext-link></mixed-citation>
+      </ref>
+      <!--PageBreak-->
+      <ref id="B45">
+        <mixed-citation xlink:type="simple">
+          <person-group><name name-style="western"><surname>Thau</surname> <given-names>D</given-names></name><name name-style="western"><surname>Bowers</surname> <given-names>S</given-names></name><name name-style="western"><surname>Ludäscher</surname> <given-names>B</given-names></name></person-group> (<year>2010</year>) <source>Towards Best-Effort Merge of Taxonomically Organized Data – ICDE Workshops</source>. <publisher-name>IEEE</publisher-name>, <publisher-loc>Long Beach</publisher-loc>, <fpage>151</fpage>–<lpage>154</lpage>.</mixed-citation>
+      </ref>
+      <ref id="B46">
+        <mixed-citation xlink:type="simple">
+          <person-group><name name-style="western"><surname>Thessen</surname> <given-names>AE</given-names></name><name name-style="western"><surname>Patterson</surname> <given-names>DJ</given-names></name><name name-style="western"><surname>Murray</surname> <given-names>SA</given-names></name></person-group> (<year>2012</year>) <article-title>The Taxonomic Significance of Species That Have Only Been Observed Once: The Genus Gymnodinium (<tp:taxon-name><tp:taxon-name-part taxon-name-part-type="phylum">Dinoflagellata</tp:taxon-name-part></tp:taxon-name>) as an Example.</article-title> <source>PLoS ONE</source> <volume>7</volume>(<issue>8</issue>): <elocation-id>e44015</elocation-id>. doi: <ext-link xlink:type="simple" ext-link-type="doi" xlink:href="10.1371/journal.pone.0044015">10.1371/journal.pone.0044015</ext-link></mixed-citation>
+      </ref>
+      <ref id="B47">
+        <mixed-citation xlink:type="simple">
+          <person-group><name name-style="western"><surname>Thompson</surname> <given-names>CF</given-names></name><name name-style="western"><surname>Pape</surname> <given-names>T</given-names></name></person-group> (<year>2016</year>) <article-title>Sherborn’s influence on <italic>Systema Dipterorum</italic>.</article-title> In: <person-group><name name-style="western"><surname>Michel</surname> <given-names>E</given-names></name></person-group> (<role>Ed.</role>) <issue-title>Anchoring Biodiversity Information: From Sherborn to the 21st century and beyond.</issue-title> <source>ZooKeys</source> <volume>550</volume>: <fpage>135</fpage>–<lpage>152</lpage>. doi: <ext-link xlink:type="simple" ext-link-type="doi" xlink:href="10.3897/zookeys.550.9447">10.3897/zookeys.550.9447</ext-link></mixed-citation>
+      </ref>
+      <ref id="B48">
+        <mixed-citation xlink:type="simple">
+          <person-group><name name-style="western"><surname>Tuominen</surname> <given-names>J</given-names></name><name name-style="western"><surname>Laurenne</surname> <given-names>N</given-names></name><name name-style="western"><surname>Hyvönen</surname> <given-names>E</given-names></name></person-group> (<year>2011</year>) <article-title>Biological Names and Taxonomies on the Semantic Web – Managing the Change in Scientific Conception.</article-title> <source>The Semanic Web: Research and Applications Lecture Notes in Computer Science</source> <volume>6644</volume>: <fpage>255</fpage>–<lpage>269</lpage>.</mixed-citation>
+      </ref>
+      <ref id="B49">
+        <mixed-citation xlink:type="simple">
+          <person-group><name name-style="western"><surname>van der Linde</surname> <given-names>K</given-names></name><name name-style="western"><surname>Yassin</surname> <given-names>A</given-names></name></person-group> (<year>2010</year>) <article-title>The fruit fly formerly know as <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Drosophila</tp:taxon-name-part></tp:taxon-name>.</article-title> <source>New Scientist</source> <volume>206</volume>(<issue>2765</issue>): <fpage>24</fpage>–<lpage>25</lpage>. doi: <ext-link xlink:type="simple" ext-link-type="doi" xlink:href="10.1016/S0262-4079(10)61485-6">10.1016/S0262-4079(10)61485-6</ext-link></mixed-citation>
+      </ref>
+      <ref id="B50">
+        <mixed-citation xlink:type="simple">
+          <person-group><name name-style="western"><surname>van Rijsbergen</surname> <given-names>CJ</given-names></name></person-group> (<year>1979</year>) <source>Information Retrieval</source> (<edition>2nd Edition</edition>). <publisher-name>University of Glasgow</publisher-name>, <publisher-loc>Glasgow</publisher-loc>, <size units="page">224 pp</size>.</mixed-citation>
+      </ref>
+      <ref id="B51">
+        <mixed-citation xlink:type="simple">
+          <person-group><name name-style="western"><surname>Varian</surname> <given-names>HR</given-names></name></person-group> (<year>2007</year>) <article-title>The Economics of Internet Search.</article-title> <source>‘Angelo Costa’ Lectures</source> <series>Serie 7</series>: <lpage>17</lpage>.</mixed-citation>
+      </ref>
+      <ref id="B52">
+        <mixed-citation xlink:type="simple">
+          <person-group><name name-style="western"><surname>Welter-Schultes</surname> <given-names>F</given-names></name><name name-style="western"><surname>Görlich</surname> <given-names>A</given-names></name><name name-style="western"><surname>Lutze</surname> <given-names>A</given-names></name></person-group> (<year>2016</year>) <article-title>Sherborn’s <italic>Index Animalium</italic>: New names, systematic errors and availability of names in the light of modern nomenclature.</article-title> In: <person-group><name name-style="western"><surname>Michel</surname> <given-names>E</given-names></name></person-group> (<role>Ed.</role>) <issue-title>Anchoring Biodiversity Information: From Sherborn to the 21st century and beyond.</issue-title> <source>ZooKeys</source> <volume>550</volume>: <fpage>173</fpage>–<lpage>183</lpage>. doi: <ext-link xlink:type="simple" ext-link-type="doi" xlink:href="10.3897/zookeys.550.10041">10.3897/zookeys.550.10041</ext-link></mixed-citation>
+      </ref>
+      <ref id="B53">
+        <mixed-citation xlink:type="simple">
+          <person-group><name name-style="western"><surname>Witteveen</surname> <given-names>J</given-names></name></person-group> (<year>2014</year>) <article-title>Naming and contingency: the type method of biological taxonomy.</article-title> <date-in-citation content-type="access-date">Retrieved 10 19, 2014</date-in-citation>, from Archive for Preprints in Philosophy of Science: <ext-link xlink:type="simple" ext-link-type="uri" xlink:href="http://philsci-archive.pitt.edu/id/eprint/10890">http://philsci-archive.pitt.edu/id/eprint/10890</ext-link></mixed-citation>
+      </ref>
+    </ref-list>
+  </back>
+</article>

@@ -1,0 +1,331 @@
+@prefix doco: <http://purl.org/spar/doco/> .
+@prefix trt: <http://plazi.org/treatment#> .
+@prefix dwc: <http://rs.tdwg.org/dwc/terms/> .
+@prefix occ: <http://rs.tdwg.org/ontology/voc/OccurrenceRecord#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix core: <http://rs.tdwg.org/ontology/Core#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dwcFP: <http://filteredpush.org/ontologies/FP/2.0/dwcFP#> .
+@prefix dwcIRI: <http://rs.tdwg.org/dwc/iri/> .
+@prefix dwcOwl: <http://filteredpush.org/ontologies/oa/dwcFP#> .
+@base <http://plazi.org/treatment#> .
+
+<http://plazi.org/treatment#> rdf:type owl:Ontology ;
+                               owl:versionIRI <http://plazi.org/treatment-0.0.1> ;
+                               owl:imports dwcFP: ;
+                               rdfs:isDefinedBy "Perhaps a github branch name, or a github File" ,
+                                                "" .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://plazi.org/treatment#definedByTreatment
+trt:definedByTreatment rdf:type owl:ObjectProperty ;
+                    owl:inverseOf :definesTaxon ;
+                    rdfs:domain dwcFP:Taxon ;
+                    rdfs:range :Treatment .
+
+
+###  http://plazi.org/treatment#definesTaxon
+trt:definesTaxon rdf:type owl:ObjectProperty ;
+              rdfs:domain :Treatment ;
+              rdfs:range dwcFP:Taxon ;
+              rdfs:comment "should be removed in favor of definesTaxonConcept" .
+
+
+###  http://plazi.org/treatment#definesTaxonConcept
+trt:definesTaxonConcept rdf:type owl:ObjectProperty ;
+                     rdfs:domain :Treatment ;
+                     rdfs:range dwcFP:Taxon .
+
+
+###  http://plazi.org/treatment#hasBiology
+trt:hasBiology rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf :hasInformation ;
+            rdfs:domain :Treatment ;
+            rdfs:range :Biology ;
+            rdfs:comment "BiologyEcologyFrom biological parts of div enumeration:BiologyEcology"^^rdfs:Literal .
+
+
+###  http://plazi.org/treatment#hasCitation
+trt:hasCitation rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf owl:topObjectProperty ;
+             rdfs:domain :Treatment ;
+             rdfs:range :Citation ;
+             rdfs:comment """In practice a (part of?) a Nomenclature object is used as though it is a URI for a Treatment. For modelling, hasCitation refers to the Treatment itself,  and serializations may need to extract the Nomenclature object.
+
+?Normally, within a Treatment, a citation is attached to a Nomenclature object."""^^rdfs:Literal .
+
+
+###  http://plazi.org/treatment#hasDescription
+trt:hasDescription rdf:type owl:ObjectProperty ;
+                rdfs:domain :Treatment ;
+                rdfs:range :Description ;
+                rdfs:comment "Should have Taxon as subject" .
+
+
+###  http://plazi.org/treatment#hasDiagnosis
+trt:hasDiagnosis rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf :hasInformation ;
+              rdfs:domain :Treatment ;
+              rdfs:range :Diagnosis ;
+              rdfs:comment "should perhaps be hasDiagnosis if" .
+
+
+###  http://plazi.org/treatment#hasDistribution
+trt:hasDistribution rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf :hasInformation ;
+                 rdfs:domain :Treatment ;
+                 rdfs:range :Distribution .
+
+
+###  http://plazi.org/treatment#hasEtymology
+trt:hasEtymology rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf :hasInformation ;
+              rdfs:domain :Treatment ;
+              rdfs:range :Etymology .
+
+
+###  http://plazi.org/treatment#hasInformation
+trt:hasInformation rdf:type owl:ObjectProperty ;
+                rdfs:domain :Treatment .
+
+
+###  http://plazi.org/treatment#hasKey
+trt:hasKey rdf:type owl:ObjectProperty ;
+        rdfs:subPropertyOf :hasInformation ;
+        rdfs:range :Key .
+
+
+###  http://plazi.org/treatment#hasMaterialExamined
+trt:hasMaterialExamined rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf owl:topObjectProperty ;
+                     rdfs:domain :Treatment ;
+                     rdfs:range :Material ;
+                     rdfs:comment "material_examined is intended to be applied to a Treatment object and take values in the class Material." .
+
+
+###  http://plazi.org/treatment#hasMaterialsMethods
+trt:hasMaterialsMethods rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf :hasInformation ;
+                     rdfs:domain :Treatment ;
+                     rdfs:range :MaterialsMethods .
+
+
+###  http://plazi.org/treatment#hasPublicationCitation
+trt:hasPublicationCitation rdf:type owl:ObjectProperty ;
+                        rdfs:subPropertyOf :hasCitation ;
+                        rdfs:domain :Treatment ;
+                        rdfs:range :Publication ;
+                        rdfs:seeAlso dwc:namePublishedIn .
+
+
+###  http://plazi.org/treatment#hasScope
+trt:hasScope rdf:type owl:ObjectProperty ;
+          rdfs:range :ScopeState .
+
+
+###  http://plazi.org/treatment#hasSubDescription
+trt:hasSubDescription rdf:type owl:ObjectProperty ;
+                   rdfs:range :Description .
+
+
+###  http://plazi.org/treatment#hasTreatmentCitation
+trt:hasTreatmentCitation rdf:type owl:ObjectProperty ;
+                      rdfs:subPropertyOf :hasCitation ;
+                      rdfs:range :Treatment ;
+                      rdfs:comment "Perhaps better to just put an rdf:type on the object of citation?  Ditto for other sub props of citation.  Subprops should mainly be for inheritance of property constraints and KR."^^rdfs:Literal .
+
+
+###  http://plazi.org/treatment#name
+trt:name rdf:type owl:ObjectProperty ;
+      rdfs:domain :Treatment ;
+      rdfs:range :Nomenclature ;
+      rdfs:seeAlso dwc:scientificName ,
+                   dwc:scientificNameAuthorship .
+
+
+###  http://plazi.org/treatment#publishedIn
+trt:publishedIn rdf:type owl:ObjectProperty .
+
+
+###  http://plazi.org/treatment#relatedTreatment
+trt:relatedTreatment rdf:type owl:ObjectProperty ;
+                  rdfs:domain :Treatment ;
+                  rdfs:range :Treatment ;
+                  rdfs:comment """E.g. a Treatment for a species might be deemed related to the Treatment for a particular Genus.  hasRelatedTreatment might need subProperties, e.g. hasOriginalGenus. Or a treatment of a species might be publishedWith Gid, where Gid is the URI of the genus whose original publication contains the genus treatment and the species treatment.
+
+Analagous to the recursive \"treatment\" element of \"treatment\" in taxonx.
+""" .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://plazi.org/treatment#descriptiveProperty
+trt:descriptiveProperty rdf:type owl:DatatypeProperty .
+
+
+###  http://plazi.org/treatment#synopsis
+trt:synopsis rdf:type owl:DatatypeProperty ;
+          rdfs:range rdfs:Literal .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://filteredpush.org/ontologies/FP/2.0/dwcFP#Taxon
+dwcFP:Taxon rdf:type owl:Class .
+
+
+###  http://plazi.org/treatment#Author
+trt:Author rdf:type owl:Class ;
+        rdfs:subClassOf owl:Thing .
+
+
+###  http://plazi.org/treatment#Biology
+trt:Biology rdf:type owl:Class .
+
+
+###  http://plazi.org/treatment#Citation
+trt:Citation rdf:type owl:Class .
+
+
+###  http://plazi.org/treatment#Description
+trt:Description rdf:type owl:Class .
+
+
+###  http://plazi.org/treatment#Diagnosis
+trt:Diagnosis rdf:type owl:Class .
+
+
+###  http://plazi.org/treatment#Distribution
+trt:Distribution rdf:type owl:Class .
+
+
+###  http://plazi.org/treatment#Etymology
+trt:Etymology rdf:type owl:Class .
+
+
+###  http://plazi.org/treatment#Key
+trt:Key rdf:type owl:Class .
+
+
+###  http://plazi.org/treatment#LifeStage
+trt:LifeStage rdf:type owl:Class ;
+           rdfs:subClassOf :ScopeState .
+
+
+###  http://plazi.org/treatment#Material
+trt:Material rdf:type owl:Class .
+
+
+###  http://plazi.org/treatment#MaterialsMethods
+trt:MaterialsMethods rdf:type owl:Class .
+
+
+###  http://plazi.org/treatment#Nomenclature
+trt:Nomenclature rdf:type owl:Class .
+
+
+###  http://plazi.org/treatment#Publication
+trt:Publication rdf:type owl:Class .
+
+
+###  http://plazi.org/treatment#ScopeState
+trt:ScopeState rdf:type owl:Class ;
+            rdfs:comment "Should the subclasses be named something like Scope_Sex rather than just Sex, which might have other uses? Or is it good to let the general thing live here?" ,
+                         "Should there be disjointness axioms on the indivituals that are scopes?" ,
+                         "These should have a some well kown instances. As of 9/11/2015, these are individuals that model types given by LifeState, Season, and Sex, all children of class ScopeState" .
+
+
+###  http://plazi.org/treatment#Season
+trt:Season rdf:type owl:Class ;
+        rdfs:subClassOf :ScopeState .
+
+
+###  http://plazi.org/treatment#Sex
+trt:Sex rdf:type owl:Class ;
+     rdfs:subClassOf :ScopeState .
+
+
+###  http://plazi.org/treatment#SubDescription
+trt:SubDescription rdf:type owl:Class ;
+                rdfs:subClassOf :Description .
+
+
+###  http://plazi.org/treatment#Treatment
+trt:Treatment rdf:type owl:Class .
+           rdf:rdfs:subClassOf doco:Section .
+
+
+###  http://rs.tdwg.org/ontology/voc/OccurrenceRecord#OccurrenceRecord
+occ:OccurrenceRecord rdf:type owl:Class .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://plazi.org/treatment#adult
+trt:adult rdf:type owl:NamedIndividual ,
+                :LifeStage .
+
+
+###  http://plazi.org/treatment#anyLifeStage
+trt:anyLifeStage rdf:type owl:NamedIndividual ,
+                       :LifeStage .
+
+
+###  http://plazi.org/treatment#anySeason
+trt:anySeason rdf:type owl:NamedIndividual ,
+                    :Season .
+
+
+###  http://plazi.org/treatment#anySex
+trt:anySex rdf:type owl:NamedIndividual ,
+                 :Sex .
+
+
+###  http://plazi.org/treatment#autumn
+trt:autumn rdf:type owl:NamedIndividual ,
+                 :Season .
+
+
+###  http://plazi.org/treatment#female
+trt:female rdf:type owl:NamedIndividual ,
+                 :Sex .
+
+
+###  http://plazi.org/treatment#juvenile
+trt:juvenile rdf:type owl:NamedIndividual ,
+                   :LifeStage .
+
+
+###  http://plazi.org/treatment#male
+trt:male rdf:type owl:NamedIndividual ,
+               :Sex .
+
+
+###  http://plazi.org/treatment#spring
+trt:spring rdf:type owl:NamedIndividual ,
+                 :Season .
+
+
+###  http://plazi.org/treatment#summer
+trt:summer rdf:type owl:NamedIndividual ,
+                 :Season .
+
+
+###  http://plazi.org/treatment#winter
+trt:winter rdf:type owl:NamedIndividual ,
+                 :Season .
+
+
+###  Generated by the OWL API (version 4.2.5.20160517-0735) https://github.com/owlcs/owlapi

@@ -1,0 +1,3586 @@
+# Saved by TopBraid on Tue Apr 13 12:23:44 EEST 2010
+# baseURI: http://proton.semanticweb.org/proton
+# imports: http://proton.semanticweb.org/protons
+# imports: http://proton.semanticweb.org/protont
+# imports: http://proton.semanticweb.org/protonu
+# imports: http://proton.semanticweb.org/protonue
+
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix psys:    <http://proton.semanticweb.org/protons#> .
+@prefix ptop:    <http://proton.semanticweb.org/protont#> .
+@prefix pupp:    <http://proton.semanticweb.org/protonu#> .
+@prefix p-ext:   <http://proton.semanticweb.org/protonue#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix pkm:     <http://proton.semanticweb.org/protonkm#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix pbio:    <http://proton.semanticweb.org/protonbs#> .
+@prefix pcon:    <http://proton.semanticweb.org/protonc#> .
+@prefix phbp:    <http://proton.semanticweb.org/protonhbp#> .
+@prefix ptmp:    <http://proton.semanticweb.org/protonta#> .
+@prefix plob:    <http://proton.semanticweb.org/protonlo#> .
+@prefix ppub:    <http://proton.semanticweb.org/protonpm#> .
+@prefix pmed:    <http://proton.semanticweb.org/protonm#> .
+@prefix pinf:    <http://proton.semanticweb.org/protoni#> .
+@prefix pbus:    <http://proton.semanticweb.org/protonb#> .
+@prefix pevt:    <http://proton.semanticweb.org/protonev#> .
+@prefix psoc:    <http://proton.semanticweb.org/protonsa#> .
+@prefix porg:    <http://proton.semanticweb.org/protono#> .
+@prefix ploc:    <http://proton.semanticweb.org/protonl#> .
+@prefix geo-ont:  <http://www.geonames.org/ontology#> .
+@prefix dbp:     <http://dbpedia.org/ontology/> .
+@prefix dbp-prop:<http://dbpedia.org/property/> .
+@prefix pfb:     <http://proton.semanticweb.org/prot_fb#> .
+@prefix fb:      <http://rdf.freebase.com/ns/> .
+
+
+<http://proton.semanticweb.org/protonext>
+      rdf:type owl:Ontology ;
+      rdfs:comment "PROTON (Proto Ontology), Upper module" ;
+      owl:imports <http://proton.semanticweb.org/protonsys.n3> , <http://proton.semanticweb.org/protontop.n3> ;
+      owl:versionInfo "0.7" .
+
+
+####################
+#Biological Substance module
+####################
+
+p-ext:BiologicalSubstance
+      rdf:type owl:Class ;
+      rdfs:comment """Any substance or element which has biological nature ot origine. """ ;
+      rdfs:label "biological substance"@en ;
+      rdfs:subClassOf ptop:Object .
+
+ p-ext:Protein
+       rdf:type owl:Class ;
+       rdfs:comment """Denotes any protein as a biological substance.""" ;
+       rdfs:label "Protein"@en ;
+       rdfs:subClassOf p-ext:BiologicalSubstance .
+
+#Contact Information module
+
+pupp:PhoneNumber
+      rdf:type owl:Class ;
+      rdfs:label "Phone Number" ;
+      rdfs:subClassOf ptop:ContactInformation .
+   p-ext:FaxNumber
+      rdf:type owl:Class ;
+      rdfs:label "Fax number" ;
+      rdfs:subClassOf pupp:PhoneNumber .
+
+pupp:Address
+      rdf:type owl:Class ;
+      rdfs:comment "Any sort of address, specifying how to locate something somewhere." ;
+      rdfs:label "Address" ;
+      rdfs:subClassOf ptop:ContactInformation .
+ pupp:PostalAddress
+      rdf:type owl:Class ;
+      rdfs:label "Postal Address" ;
+      rdfs:subClassOf pupp:Address .
+# the model of parts of the address is questionable introduced March 14 2011
+    p-ext:StreetName
+      rdf:type owl:Class ;
+      rdfs:comment "Part of a postal address denoting the street name." ;
+      rdfs:label "street name" ;
+      rdfs:subClassOf ptop:ContactInformation . # pupp:PostalAddress .
+    p-ext:StreetNumber
+      rdf:type owl:Class ;
+      rdfs:comment "Part of a postal address denoting the street number." ;
+      rdfs:label "street number" ;
+      rdfs:subClassOf ptop:ContactInformation . # pupp:PostalAddress .
+    p-ext:ZipCode
+      rdf:type owl:Class ;
+      rdfs:comment "Part of a postal address denoting the zip code." ;
+      rdfs:label "zipcode" ;
+      rdfs:subClassOf ptop:ContactInformation . # pupp:PostalAddress .
+    p-ext:partOfPostalAddress
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment """Relation between the part of the postal address and a given postal address.""" ;
+      rdfs:domain ptop:ContactInformation ;
+      rdfs:label "part of postal address " ;
+      rdfs:range pupp:PostalAddress .
+
+  pupp:InternetAddress
+      rdf:type owl:Class ;
+      rdfs:label "Internet Address" ;
+      rdfs:subClassOf pupp:Address . # ptop:ContactInformation .
+    pupp:EMail
+      rdf:type owl:Class ;
+      rdfs:label "E-mail" ;
+      rdfs:subClassOf pupp:InternetAddress .
+    pupp:InternetDomain
+      rdf:type owl:Class ;
+      rdfs:label "Internet Domain" ;
+      rdfs:subClassOf pupp:InternetAddress .
+    pupp:IPAddress
+      rdf:type owl:Class ;
+      rdfs:label "IP Address" ;
+      rdfs:subClassOf pupp:InternetAddress .
+    pupp:WebPage
+      rdf:type owl:Class ;
+      rdfs:label "Web Page" ;
+      rdfs:subClassOf pupp:InternetAddress .
+    pupp:HomePage
+      rdf:type owl:Class ;
+      rdfs:label "Homepage" ;
+      rdfs:subClassOf pupp:WebPage .
+
+#######################
+#Human Body Part module
+#######################
+
+p-ext:HumanBodyPart
+      rdf:type owl:Class ;
+      rdfs:comment """Any part of the human body""" ;
+      rdfs:label "human body part"@en ;
+      rdfs:subClassOf ptop:Object .
+
+ p-ext:Artery
+       rdf:type owl:Class ;
+       rdfs:comment """Any artery as a part of the human body.""" ;
+       rdfs:label "artery"@en ;
+       rdfs:subClassOf p-ext:HumanBodyPart .
+
+ p-ext:Bone
+       rdf:type owl:Class ;
+       rdfs:comment """Any bone as a part of the human body.""" ;
+       rdfs:label "bone"@en ;
+       rdfs:subClassOf p-ext:HumanBodyPart .
+
+ p-ext:Brain
+       rdf:type owl:Class ;
+       rdfs:comment """Any brain as a part of the human body.""" ;
+       rdfs:label "brain"@en ;
+       rdfs:subClassOf p-ext:HumanBodyPart .
+
+ p-ext:EmbryoBodyPart
+       rdf:type owl:Class ;
+       rdfs:comment """Embryology is a science which studies the development of the embryo. this class denotes different composing substances/elements of the embryo and related body parts, and hence is referred to as a human body part. It is inspired form DBPedia Embryology/AnatomicalStructure, which has instances as Blastocyst, Amniotic cavity, Vitelline membrane, etc.""" ;
+       rdfs:label "embryo body part"@en ;
+       rdfs:subClassOf p-ext:HumanBodyPart .
+
+ p-ext:LymphNode
+       rdf:type owl:Class ;
+       rdfs:comment """Lymph is a general concept gathering all lymph nodes of the humen body.""" ;
+       rdfs:label "lymphatic node"@en ;
+       rdfs:subClassOf p-ext:HumanBodyPart .
+
+ p-ext:Muscle
+       rdf:type owl:Class ;
+       rdfs:comment """Any muscle of the human body.""" ;
+       rdfs:label "muscle"@en ;
+       rdfs:subClassOf p-ext:HumanBodyPart .
+
+ p-ext:Nerve
+       rdf:type owl:Class ;
+       rdfs:comment """Nerve is a general concept gathering all nerves of the human body.""" ;
+       rdfs:label "nerve"@en ;
+       rdfs:subClassOf p-ext:HumanBodyPart .
+
+ p-ext:Vein
+       rdf:type owl:Class ;
+       rdfs:comment """Vein is a general concept gathering all veins of the humen body.""" ;
+       rdfs:label "Vein"@en ;
+       rdfs:subClassOf p-ext:HumanBodyPart .
+
+#########################
+#Temporal info module
+#########################
+
+pupp:TemporalAbstraction
+      rdf:type owl:Class ;
+      rdfs:comment "Any sort of abstraction used to refer to specific periods of time. Thus, the month of September is an instance of this class, while Sept 1989 is not (it is a specific TimeInterval, and thus not abstract)" ;
+      rdfs:label "Temporal Abstraction" ;
+      rdfs:subClassOf ptop:Abstract .
+
+#subClassOf pupp:TemporalAbstraction :
+pupp:CalendarMonth
+      rdf:type owl:Class ;
+      rdfs:comment "A specific month of the year, such as: Jan., Feb., etc." ;
+      rdfs:label "Calendar Month" ;
+      rdfs:subClassOf pupp:TemporalAbstraction .
+
+pupp:DayOfMonth
+      rdf:type owl:Class ;
+      rdfs:label "Day of Month" ;
+      rdfs:subClassOf pupp:TemporalAbstraction .
+
+pupp:DayOfWeek
+      rdf:type owl:Class ;
+      rdfs:comment "(day)" ;
+      rdfs:label "Day of Week" ;
+      rdfs:subClassOf pupp:TemporalAbstraction .
+
+pupp:DayTime
+      rdf:type owl:Class ;
+      rdfs:comment "Specific time (point) during the day, when the day is not specified. Like in \"the supermarket is closing 20:30 p.m.\"" ;
+      rdfs:label "Daytime" ;
+      rdfs:subClassOf pupp:TemporalAbstraction .
+
+pupp:Season
+      rdf:type owl:Class ;
+      rdfs:label "Season" ;
+      rdfs:subClassOf pupp:TemporalAbstraction .
+
+pupp:TimeZone
+      rdf:type owl:Class ;
+      rdfs:label "Time Zone" ;
+      rdfs:subClassOf pupp:TemporalAbstraction .
+
+######################
+#Living Object module (This module is added to complete the coverage of PROTON. It is inspired from DBPedia classes.)
+######################
+
+p-ext:LivingObject
+      rdf:type owl:Class ;
+      rdfs:comment """Living object is any organism which is living, e.g. breathing and regular lifecycle.""" ;
+      rdfs:label "living object"@en ;
+      rdfs:subClassOf ptop:Object .
+
+p-ext:Animal
+      rdf:type owl:Class ;
+      rdfs:comment """Animals are a major group of multicellular, eukaryotic organisms. Their body plan eventually becomes fixed as they develop. Most animals are motile. (Wikipedia) """ ;
+      rdfs:label "animal"@en ;
+      rdfs:subClassOf p-ext:LivingObject .
+
+p-ext:Plant
+      rdf:type owl:Class ;
+      rdfs:comment """Plants are living organisms. They include familiar organisms such as trees, flowers, herbs, bushes, grasses, vines, ferns, mosses, and green algae. (Wikipedia)""" ;
+      rdfs:label "plant"@en ;
+      rdfs:subClassOf p-ext:LivingObject .
+
+p-ext:Fungus
+      rdf:type owl:Class ;
+      rdfs:comment """Fungus is a member of a large group of eukaryotic organisms that includes microorganisms such as yeasts and molds (Wikipedia)""" ;
+      rdfs:label "fungus"@en ;
+      rdfs:subClassOf p-ext:LivingObject .
+
+p-ext:Bacteria
+      rdf:type owl:Class ;
+      rdfs:comment """Bacteria is a single-celled, prokaryote microorganisms, typically a few micrometres in length (Wikipedia)""" ;
+      rdfs:label "bacteria"@en ;
+      rdfs:subClassOf p-ext:LivingObject .
+
+p-ext:Archaea
+      rdf:type owl:Class ;
+      rdfs:comment """Archaea (archeon) are a group of single-celled microorganisms without a cell nucleus or any other membrane-bound organelles (Wikipedia)""" ;
+      rdfs:label "archaea"@en ;
+      rdfs:subClassOf p-ext:LivingObject .
+
+ p-ext:Amphibian
+       rdf:type owl:Class ;
+       rdfs:comment """Amphibian denotes animals such as frogs, salamanders, and caecilians, that are ectothermic (or cold-blooded) animals and metamorphose from a juvenile water-breathing form, either to an adult air-breathing form, or to a paedomorph that retains some juvenile characteristics. (Wikipedia)""" ;
+       rdfs:label "amphibian"@en ;
+       rdfs:subClassOf p-ext:Animal .
+
+ p-ext:Arachnid
+       rdf:type owl:Class ;
+       rdfs:comment """Arachnid denotes a class of joint-legged invertebrate animals in the subphylum Chelicerata. All arachnids have eight legs, although in some species the front pair may convert to a sensory function. (Wikipedia) """ ;
+       rdfs:label "arachnid"@en ;
+       rdfs:subClassOf p-ext:Animal .
+
+ p-ext:Bird
+       rdf:type owl:Class ;
+       rdfs:comment """Bird denotes feathered, winged, bipedal, endothermic (warm-blooded), egg-laying, vertebrate animals. (Wikipedia) """ ;
+       rdfs:label "bird"@en ;
+       rdfs:subClassOf p-ext:Animal .
+
+ p-ext:Crustacean
+       rdf:type owl:Class ;
+       rdfs:comment """Crustaceans denotes a group of arthropods animals, which includes crabs, lobsters, crayfish, shrimp, krill and barnacles. (Wikipedia) """ ;
+       rdfs:label "crustacean"@en ;
+       rdfs:subClassOf p-ext:Animal .
+
+ p-ext:Fish
+       rdf:type owl:Class ;
+       rdfs:comment """A fish is any gill-bearing aquatic vertebrate (or craniate) animal that lacks limbs with digits. (Wikipedia) """ ;
+       rdfs:label "fish"@en ;
+       rdfs:subClassOf p-ext:Animal .
+
+ p-ext:Insect
+       rdf:type owl:Class ;
+       rdfs:comment """Insects are a class within the arthropods that have a chitinous exoskeleton, a three-part body (head, thorax, and abdomen), three pairs of jointed legs, compound eyes, and two antennae. (Wikipedia)""" ;
+       rdfs:label "insect"@en ;
+       rdfs:subClassOf p-ext:Animal .
+
+ p-ext:Mammal
+       rdf:type owl:Class ;
+       rdfs:comment """Mammals are members of a class of air-breathing vertebrate animals characterized by the possession of hair, three middle ear bones, and mammary glands functional in mothers with young. Most mammals also possess sweat glands and specialized teeth, and the largest group of mammals, the placentals, have a placenta which feeds the offspring during gestation. (Wikipedia)""" ;
+       rdfs:label "mammal"@en ;
+       rdfs:subClassOf p-ext:Animal .
+
+    p-ext:Human
+       rdf:type owl:Class ;
+       rdfs:comment """Human is a mammal referred to Primate. Also of the sort of hommo sapiens. It has two subClasses: Man and Woman.""" ;
+       rdfs:label "human"@en ;
+       rdfs:subClassOf p-ext:Mammal .
+
+ p-ext:Mollusca
+       rdf:type owl:Class ;
+       rdfs:comment """Mollusca is a large phylum of invertebrate animals. This is the largest marine phylum, comprising about 23% of all the named marine organisms. Numerous molluscs also live in freshwater and terrestrial habitats. Molluscs are highly diverse, not only in size and in anatomical structure, but also in behaviour and in habitat. (Wikipedia)""" ;
+       rdfs:label "Mollusca"@en ;
+       rdfs:subClassOf p-ext:Animal .
+
+ p-ext:Reptile
+       rdf:type owl:Class ;
+       rdfs:comment """Reptiles are animals in the class Reptilia. They are characterized by breathing air, laying shelled eggs, and having skin covered in scales and/or scutes. Reptiles are classically viewed as having a "cold-blooded" metabolism. They are tetrapods. Modern reptiles inhabit every continent with the exception of Antarctica. Example of an reptile is the crocodile. (Wikipedia) """ ;
+       rdfs:label "Reptile"@en ;
+       rdfs:subClassOf p-ext:Animal .
+
+##################################
+#Published material (sub)module
+##################################
+
+pupp:PublishedMaterial
+      rdf:type owl:Class ;
+      rdfs:comment "A document which is published or intended for publishing" ;
+      rdfs:label "Published Material" ;
+      rdfs:subClassOf pupp:MediaProduct , ptop:Document .
+ pupp:datePublished
+      rdf:type owl:DatatypeProperty ;
+      rdfs:comment """Typically, associated with the creation or availability of the resource. Recommended best practice for encoding the date value is defined in a profile of ISO 8601 [W3CDTF] and includes (among others) dates of the form YYYY-MM-DD.""" ;
+      rdfs:domain pupp:PublishedMaterial ;
+      rdfs:label "Date Published" ;
+      rdfs:subPropertyOf ptop:hasDate .
+ pupp:hasPublisher
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment """An entity responsible for making the resource available.
+Examples of Publisher include a person, an organization, or a service.  (DC2003ISO)""" ;
+      rdfs:domain pupp:PublishedMaterial ;
+      rdfs:label "has Publisher" ;
+      rdfs:range ptop:Agent .
+ pupp:Announcement
+      rdf:type owl:Class ;
+      rdfs:comment "A formal public statement; \"the government made an announcement about changes in the drug war\"; \"a declaration of independence\".) WordNet 1.7.1" ;
+      rdfs:label "Announcement" ;
+      rdfs:subClassOf pupp:PublishedMaterial .
+ pupp:Article
+      rdf:type owl:Class ;
+      rdfs:comment "A relatively short document publishes as a part of Resource Collection." ;
+      rdfs:label "Article" ;
+      rdfs:subClassOf pupp:PublishedMaterial .
+  pupp:publishedWithin
+      rdf:type owl:ObjectProperty ;
+      rdfs:domain pupp:Article ;
+      rdfs:label "Published within" ;
+      rdfs:range pupp:ResourceCollection .
+
+ pupp:Book
+      rdf:type owl:Class ;
+      rdfs:comment "A relatively large published document. It may or may not have chapters. There could be series of books considered as volumes of a single one." ;
+      rdfs:label "Book" ;
+      rdfs:subClassOf pupp:PublishedMaterial .
+  pupp:ISBN
+      rdf:type owl:DatatypeProperty ;
+      rdfs:comment "The ISBN (International Standard Book Number) is a unique machine-readable identification number, which marks any book unmistakably." ;
+      rdfs:domain pupp:Book ;
+      rdfs:label "ISBN" ;
+      rdfs:subPropertyOf ptop:informationResourceIdentifier .
+  pupp:MeetingProceedings
+      rdf:type owl:Class ;
+      rdfs:comment "A collection of articles or presentations published as a book." ;
+      rdfs:label "Meeting Proceedings" ;
+      rdfs:subClassOf pupp:Book , pupp:ResourceCollection .
+
+ pupp:IssueOfPeriodical
+      rdf:type owl:Class ;
+      rdfs:comment "A specific issue, number, and/or volume of periodical publication such as magazine." ;
+      rdfs:label "Issue of Periodical" ;
+      rdfs:subClassOf pupp:PublishedMaterial .
+  pupp:issueOf
+      rdf:type owl:ObjectProperty ;
+      rdfs:domain pupp:IssueOfPeriodical ;
+      rdfs:label "Issue of" ;
+      rdfs:range pupp:PeriodicalPublication .
+  pupp:MagazineIssue
+      rdf:type owl:Class ;
+      rdfs:comment "A specific issue of a magazine, journal or digest." ;
+      rdfs:label "Magazine Issue" ;
+      rdfs:subClassOf pupp:IssueOfPeriodical , pupp:ResourceCollection .
+  pupp:NewspaperIssue
+      rdf:type owl:Class ;
+      rdfs:label "Newspaper Issue" ;
+      rdfs:subClassOf pupp:IssueOfPeriodical , pupp:ResourceCollection .
+
+#subClassOf pupp:MediaBrand   - subClassOf pupp:Brand
+#subClassOf pupp:MediaProduct - subClassOf ptop:ProductModel
+
+pupp:MediaBrand
+      rdf:type owl:Class ;
+      rdfs:label "Media Brand" ;
+      rdfs:subClassOf pupp:Brand .
+ pupp:RadioStation
+      rdf:type owl:Class ;
+      rdfs:label "Radio Station" ;
+      rdfs:subClassOf pupp:MediaBrand .
+ pupp:TVChannel
+      rdf:type owl:Class ;
+      rdfs:label "TV Channel" ;
+      rdfs:subClassOf pupp:MediaBrand .
+ pupp:PeriodicalPublication
+      rdf:type owl:Class ;
+      rdfs:comment "A periodical publication, disregarding its specific issues, numbers, volumes, etc." ;
+      rdfs:label "Periodical Publication" ;
+      rdfs:subClassOf pupp:MediaBrand .
+  pupp:ISSN
+      rdf:type owl:DatatypeProperty ;
+      rdfs:comment "The ISSN (International Standard Serial Number) is an eight-digit number which identifies periodical publications as such, including electronic serials. More than one million ISSN numbers have so far been assigned." ;
+      rdfs:domain pupp:PeriodicalPublication ;
+      rdfs:label "ISSN" ;
+      rdfs:subPropertyOf ptop:informationResourceIdentifier .
+  pupp:Magazine
+      rdf:type owl:Class ;
+      rdfs:comment "A periodic paperback publication; \"it takes several years before a magazine starts to break even or make money\"), WordNet 1.7.1. This includes also journals and digests. The specific issues typically contain number of different articles." ;
+      rdfs:label "Magazine" ;
+      rdfs:subClassOf pupp:PeriodicalPublication .
+  pupp:Newspaper
+      rdf:type owl:Class ;
+      rdfs:comment "A newspaper abstracted from its organizational and ownership aspects as well as from specific issue or paper body." ;
+      rdfs:label "Newspaper" ;
+      rdfs:subClassOf pupp:PeriodicalPublication .
+
+pupp:MediaProduct
+      rdf:type owl:Class ;
+      rdfs:comment "A mass media product (for instance a newspaper) abstracted from its organizational and ownership aspects (i.e. from its publisher) and considered more as a social phenomenon, partly a brand." ;
+      rdfs:label "Media Product" ;
+      rdfs:subClassOf ptop:ProductModel .
+
+#subClassOf pupp:MediaProduct :
+pupp:Movie
+      rdf:type owl:Class ;
+      rdfs:label "Movie" ;
+      rdfs:subClassOf pupp:MediaProduct .
+
+pupp:MusicalComposition
+      rdf:type owl:Class ;
+      rdfs:label "Musical Composition" ;
+      rdfs:subClassOf pupp:MediaProduct .
+ pupp:AudioRecording
+      rdf:type owl:Class ;
+      rdfs:label "Audio Recording" ;
+      rdfs:subClassOf pupp:MusicalComposition .
+  pupp:Song
+      rdf:type owl:Class ;
+      rdfs:label "Song" ;
+      rdfs:subClassOf pupp:AudioRecording .
+  pupp:Album
+      rdf:type owl:Class ;
+      rdfs:label "Album" ;
+      rdfs:subClassOf pupp:AudioRecording .
+   p-ext:SingleSongOrAlbum
+      rdf:type owl:Class ;
+      rdfs:comment """Any Single Song and Album""" ;
+      rdfs:label "Single"@en ;
+      rdfs:subClassOf pupp:AudioRecording .
+   p-ext:SingleSong
+      rdf:type owl:Class ;
+      rdfs:comment """Any Single Song""" ;
+      rdfs:label "Single"@en ;
+      rdfs:subClassOf pupp:Song ;
+      rdfs:subClassOf p-ext:SingleSongOrAlbum .
+   p-ext:SingleAlbum
+      rdf:type owl:Class ;
+      rdfs:comment """Any Single Album""" ;
+      rdfs:label "Single"@en ;
+      rdfs:subClassOf pupp:Album  ;
+      rdfs:subClassOf p-ext:SingleSongOrAlbum .
+
+#includes protonPm :
+#pupp:PublishedMaterial - rdfs:subClassOf pupp:MediaProduct , ptop:Document .
+
+p-ext:TelevisionProduct
+      rdf:type owl:Class ;
+      rdfs:comment """Denotes programms produced in the television and for television airing.""" ;
+      rdfs:label "television product"@en ;
+      rdfs:subClassOf pupp:MediaProduct .
+ p-ext:TelevisionShow
+      rdf:type owl:Class ;
+      rdfs:comment """Any television show""" ;
+      rdfs:label "television show"@en ;
+      rdfs:subClassOf p-ext:TelevisionProduct .
+ p-ext:TelevisionEpisode
+      rdf:type owl:Class ;
+      rdfs:comment """Denotes any episod of any television series.""" ;
+      rdfs:label "television episode"@en ;
+      rdfs:subClassOf p-ext:TelevisionProduct .
+
+#############################
+#InformationResource module
+#############################
+
+#subClassOf ptop:Statement :
+#ptop:InformationResource - subClassOf ptop:Document(subClassOf ptop:InformationResource) :
+pupp:Offer
+      rdf:type owl:Class ;
+      rdfs:comment "Something offered (as a proposal or bid), WordNet 1.7.1. An offer is a statement made by the offerer to a specific agent or without recepient." ;
+      rdfs:label "Offer" ;
+      rdfs:subClassOf ptop:Statement .
+pupp:Order
+      rdf:type owl:Class ;
+      rdfs:label "Order" ;
+      rdfs:subClassOf ptop:Statement .
+
+#subClassOf ptop:InformationResource(subClassOf ptop:Statement) :
+ pupp:compliantWithSchema
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "links a dataset with a schema it complies to" ;
+      rdfs:domain ptop:InformationResource ;
+      rdfs:label "Compliant with Schema" ;
+      rdfs:range pupp:DataSchema .
+ pupp:DataSchema
+      rdf:type owl:Class ;
+      rdfs:comment "A particular notation for representation, standardization, and/or structuring of infomation. It can range from db schema, through ontology, to any sort of taxonomies, nomenclatures and subject hierarchies. Examples are Dublin Core, KIMO, SIC, XML, RDFS" ;
+      rdfs:label "Data Schema" ;
+      rdfs:subClassOf ptop:InformationResource .
+ pupp:Dataset
+      rdf:type owl:Class ;
+      rdfs:comment """A dataset is information encoded in a defined structure (for example, lists, tables, and databases), intended to be useful for direct machine processing (DCMI Type.)
+Somehow structured and interrelated body of information, data, or knowledge. This includes databases, knowledge bases, catalogues, registries, specific lists, etc. All tangible aspects (like media or host) are irrelevant for this class - it only considers the abstract information. What can be considered as a single document is outside the scope of this class, although it can be comprehensive in terms of size and structure.""" ;
+      rdfs:label "Dataset" ;
+      rdfs:subClassOf ptop:InformationResource .
+ pupp:Legislation
+      rdf:type owl:Class ;
+      rdfs:comment "Various sorts of legislative documents, including consitutions, laws, etc." ;
+      rdfs:label "Legislation" ;
+      rdfs:subClassOf ptop:InformationResource .
+ pupp:Patent
+      rdf:type owl:Class ;
+      rdfs:comment "A registered (or awaiting registration) patent for specific invention or design." ;
+      rdfs:label "Patent" ;
+      rdfs:subClassOf ptop:InformationResource .
+ pupp:ResourceCollection
+      rdf:type owl:Class ;
+      rdfs:comment "A collection is an aggregation of information resources. The term collection means that the resource is described as a group; its parts may be separately described and navigated. (DCMI type Collection)" ;
+      rdfs:label "Resource Collection" ;
+      rdfs:subClassOf ptop:InformationResource .
+  #pupp:MagazineIssue     - subClassOf pupp:IssueOfPeriodical , pupp:ResourceCollection .  expanded in ProtonPm(imports)
+  #pupp:MeetingProceedings- subClassOf pupp:Book ,         pupp:ResourceCollection .
+  #pupp:NewspaperIssue    - subClassOf pupp:IssueOfPeriodical , pupp:ResourceCollection .
+
+ #subClassOf ptop:Document(subClassOf ptop:InformationResource) :
+  pupp:Contract
+      rdf:type owl:Class ;
+      rdfs:comment "Any sort of contract or treaty, as well, as other documents signed or otherwise accepted by more than one agent." ;
+      rdfs:label "Contract" ;
+      rdfs:subClassOf ptop:Document .
+  pupp:Message
+      rdf:type owl:Class ;
+      rdfs:comment "A written message, including various postings in newspapers or public sources, job position adverts, etc." ;
+      rdfs:label "Message" ;
+      rdfs:subClassOf ptop:Document .
+  pupp:Report
+      rdf:type owl:Class ;
+      rdfs:label "Report" ;
+      rdfs:subClassOf ptop:Document .
+  #pupp:PublishedMaterial - subClassOf pupp:MediaProduct , ptop:Document .
+   #subClasses expanded by ProtonPm(imports) ...
+
+#########################
+#Proton system module
+#########################
+
+
+######################################
+# Proton Knowledge Management Module
+######################################
+
+
+#Business module
+#Only pupp: members, p-ext: members not included should be double-checked
+
+pupp:BusinessAbstraction
+      rdf:type owl:Class ;
+      rdfs:label "Business Abstraction" ;
+      rdfs:subClassOf ptop:Abstract .
+
+ pupp:IndustrySector
+      rdf:type owl:Class ;
+      rdfs:comment " " ;
+      rdfs:label "Industry Sector" ;
+      rdfs:subClassOf pupp:BusinessAbstraction .
+  pupp:hasCode
+      rdf:type owl:DatatypeProperty ;
+      rdfs:comment "Denotes that the Sector has the specified SIC code" ;
+      rdfs:domain pupp:IndustrySector ;
+      rdfs:label "has Code" .
+  pupp:subSectorOf
+      rdf:type owl:TransitiveProperty , owl:ObjectProperty ;
+      rdfs:comment "The general part-of relation which takes place between a whole and each of its parts. It has number of specializations." ;
+      rdfs:domain pupp:IndustrySector ;
+      rdfs:label "Subsector of" ;
+      rdfs:range pupp:IndustrySector ;
+      rdfs:subPropertyOf ptop:partOf .
+
+ pupp:Market
+      rdf:type owl:Class ;
+      rdfs:comment """In contrast to IndustrySector, the
+market is determined by the customers instead of the business or the manifacturers. The market can be defined in terms of types of goods/services, geographic region,
+price levels and typical customer behaviours. Corresponding to the third sense in WordNet 1.7.1 \"the customers for a particular product or service\".""" ;
+      rdfs:label "Market" ;
+      rdfs:subClassOf pupp:BusinessAbstraction .
+
+pupp:Account
+      rdf:type owl:Class ;
+      rdfs:comment """An explicit agreement between agents. Typically, service providers (e.g. banks or ISPs) provide accounts to their customers or users, which are considered account owners. The existence of the account depends on the provider, even though the user owns it in some metaphoric sense. Examples could be bank, ISP, e-Commerce, ICQ, email accounts. The accounts are usually aligned with a sort of contract.""" ;
+      rdfs:label "Account" ;
+      rdfs:subClassOf ptop:Object .
+
+pupp:Brand
+      rdf:type owl:Class ;
+      rdfs:comment "Like Dodge and Milka" ;
+      rdfs:label "Brand" ;
+      rdfs:subClassOf ptop:Object .
+
+pupp:Currency
+      rdf:type owl:Class ;
+      rdfs:comment "Specific currency, usually national" ;
+      rdfs:label "Currency" ;
+      rdfs:subClassOf ptop:Object .
+
+#subClassOf ptop:ProductModel :
+pupp:AirplaneModel
+      rdf:type owl:Class ;
+      rdfs:label "Airplane Model" ;
+      rdfs:subClassOf ptop:ProductModel .
+
+pupp:CarModel
+      rdf:type owl:Class ;
+      rdfs:comment "Such as Ford-T or BMW Z3." ;
+      rdfs:label "Car Model" ;
+      rdfs:subClassOf ptop:ProductModel .
+
+pupp:ChemicalCompound
+      rdf:type owl:Class ;
+      rdfs:comment "A specific chemical compound, such as H2O or Zarin." ;
+      rdfs:label "Chemical Compound" ;
+      rdfs:subClassOf ptop:ProductModel .
+ pupp:Drug
+      rdf:type owl:Class ;
+      rdfs:comment "Such as Viagra." ;
+      rdfs:label "Drug" ;
+      rdfs:subClassOf pupp:ChemicalCompound .
+ pupp:Beverage
+      rdf:type owl:Class ;
+      rdfs:comment "Any liquid suitable for drinking (WordNet, 1.7). The instances of this class are types of drinks, specific receipts. For instance: Diet Coke, Bacardi Spice." ;
+      rdfs:label "Beverage" ;
+      rdfs:subClassOf pupp:ChemicalCompound .
+  pupp:AlcoholicBeverage
+      rdf:type owl:Class ;
+      rdfs:comment "A type (specific receipe) for a beverage. For instance: Guiness Beer, Absolut Currant, etc." ;
+      rdfs:label "Alcoholic Beverage" ;
+      rdfs:subClassOf pupp:Beverage .
+  pupp:NonAlcoholicBeverage
+      rdf:type owl:Class ;
+      rdfs:comment "A type (specific receipe) for a beverage. For instance: Coca Cola, Schweppes, Apple Juice, etc." ;
+      rdfs:label "Non Alcoholic Beverage" ;
+      rdfs:subClassOf pupp:Beverage .
+
+pupp:WeaponModelOrSystem
+      rdf:type owl:Class ;
+      rdfs:comment "Such as Patriot, SU-28, and Kalashnikov." ;
+      rdfs:label "Weapon Model or System" ;
+      rdfs:subClassOf ptop:ProductModel .
+
+p-ext:Machine
+      rdf:type owl:Class ;
+      rdfs:comment """Any produced device with particular purpose that uses energy to perform some activity. The device has parts that perform or assist in performing any type of work. (Wikipedia) """ ;
+      rdfs:label "device"@en ;
+      rdfs:subClassOf ptop:ProductModel .
+
+p-ext:AutomobileEngine
+      rdf:type owl:Class ;
+      rdfs:comment """Engines of automobiles""" ;
+      rdfs:label "automobile engine"@en ;
+      rdfs:subClassOf p-ext:Machine .
+
+p-ext:AirplaneEngine
+      rdf:type owl:Class ;
+      rdfs:comment """Engines of airplanes""" ;
+      rdfs:label "airplane engine"@en ;
+      rdfs:subClassOf p-ext:Machine .
+
+p-ext:Musical
+      rdf:type owl:Class ;
+      rdfs:comment """Musical is a form of theatre or movie combining music, songs, spoken dialogue and dance. (Wikipedia) """ ;
+      rdfs:label "musical"@en ;
+      rdfs:subClassOf ptop:ProductModel .
+
+p-ext:Software
+      rdf:type owl:Class ;
+      rdfs:comment """Software is a collection of computer programs and related data that provide the instructions telling a computer what to do. (Wikipedia)""" ;
+      rdfs:label "software"@en ;
+      rdfs:subClassOf ptop:ProductModel .
+
+p-ext:VideoGame
+      rdf:type owl:Class ;
+      rdfs:comment """Any electronic game that involves interaction with a user interface to generate visual feedback on a video device. (Wikipedia)""" ;
+      rdfs:label "video game"@en ;
+      rdfs:subClassOf p-ext:Software .
+
+# added at the request of the KIM team (09.06.2010)
+
+p-ext:StockExchangeIndex
+      rdf:type owl:Class ;
+      rdfs:comment """A stock exchange/market index is a method of measuring a section of the stock market. (Wikipedia)""" ;
+      rdfs:label "Stock Exchange Index"@en ;
+      rdfs:subClassOf pupp:BusinessAbstraction .
+
+## 15.06.2010 Modigliani
+
+p-ext:Artwork
+      rdf:type owl:Class ;
+      rdfs:comment "Any artwork. This can be (a) A work of art in the visual arts. (b) A piece of conceptual art. (c) In publishing, printing and advertising, any visual as opposed to textual material, usually in the context of preparing for printing, including: Cover art, the illustration or photograph on the outside of a published product such as a book, magazine, comic book, product package, video game, DVD, CD, videotape, or esp. album art. Illustration the original imagery that was used as a basis for illustration. (d) films, (e) books, etc. ";
+      rdfs:label "Artwork" ;
+      rdfs:subClassOf ptop:ProductModel .
+
+p-ext:Possession
+   rdf:type owl:Class ;
+   rdfs:comment "Any property, e.g. possessions, the situation of owning an object.";
+   rdfs:label "Possessions" ;
+   rdfs:subClassOf pupp:BusinessAbstraction .
+
+p-ext:author
+   rdf:type owl:ObjectProperty ;
+   rdfs:comment "Any author of a product. Links any object to its author (producer)." ;
+      rdfs:domain ptop:Object;
+      rdfs:label "author";
+      rdfs:range ptop:Agent .
+
+p-ext:ownership
+   rdf:type owl:ObjectProperty ;
+   rdfs:comment "The relationship between an object being a property/possessions of somebody." ;
+   rdfs:domain ptop:Object;
+   rdfs:label "ownership";
+   rdfs:range p-ext:Possession .
+
+p-ext:owner
+   rdf:type owl:ObjectProperty ;
+   rdfs:comment "The relationship between an object and an agent who owns it." ;
+   rdfs:domain ptop:Object;
+   rdfs:label "ownership";
+   rdfs:range ptop:Agent .
+
+## 17.06.2010 LDSR demo queries
+p-ext:product
+   rdf:type owl:ObjectProperty ;
+   rdfs:comment "The relation between a producer and the product produced. The producer is restricted to an organization, like Microsoft, Ford, GM, etc." ;
+   rdfs:domain ptop:Organization;
+   rdfs:label "product";
+   rdfs:range ptop:ProductModel .
+
+p-ext:industry
+   rdf:type owl:ObjectProperty ;
+   rdfs:comment "The relation between an organization and the industry sector it is active in." ;
+   rdfs:domain ptop:Organization;
+   rdfs:label "industry";
+   rdfs:range pupp:IndustrySector .
+
+p-ext:carAssembly
+   rdf:type owl:ObjectProperty ;
+   rdfs:comment "the relation between a car model and a country it is assembled in." ;
+   rdfs:domain pupp:CarModel;
+   rdfs:label "industry";
+   rdfs:range pupp:Country .
+
+##############
+#Event module
+##############
+
+#rdfs:subClassOf ptop:Event :
+
+pupp:Accident
+      rdf:type owl:Class ;
+      rdfs:label "Accident" ;
+      rdfs:subClassOf ptop:Event .
+
+pupp:Acquirement
+      rdf:type owl:Class ;
+      rdfs:comment """The event of the acquiring of one organization by another.""" ;
+      rdfs:label "Acquirement" ;
+      rdfs:subClassOf ptop:Event .    ##subClassOf ptop:Situation
+ pupp:acquired                #/business/acquisition/company_acquired
+      rdf:type owl:ObjectProperty ;
+      rdfs:domain pupp:Acquirement ;
+      rdfs:label "acquired" ;
+      rdfs:range ptop:Organization .
+ pupp:acquirer                #/business/acquisition/acquiring_company
+      rdf:type owl:ObjectProperty ;
+      rdfs:domain pupp:Acquirement ;
+      rdfs:label "acquirer" ;
+      rdfs:range ptop:Organization .
+ #startTime: /business/acquisition/date
+pupp:ArtPerformance
+      rdf:type owl:Class ;
+      rdfs:comment "A specific performance taking place at some moment, somewhere. Quite often starting at 19:00 in the theatre, stadium, etc." ;
+      rdfs:label "Art Performance" ;
+      rdfs:subClassOf ptop:Event .
+ pupp:Concert
+      rdf:type owl:Class ;
+      rdfs:label "Concert" ;
+      rdfs:subClassOf pupp:ArtPerformance .
+ pupp:OperaPerformance
+      rdf:type owl:Class ;
+      rdfs:label "Opera Performance" ;
+      rdfs:subClassOf pupp:ArtPerformance .
+ pupp:TheatrePerformance
+      rdf:type owl:Class ;
+      rdfs:label "Theatre Performance" ;
+      rdfs:subClassOf pupp:ArtPerformance .
+
+pupp:Meeting
+      rdf:type owl:Class ;
+      rdfs:label "Meeting" ;
+      rdfs:subClassOf ptop:Event .
+ pupp:BoardMeeting
+      rdf:type owl:Class ;
+      rdfs:label "Board Meeting" ;
+      rdfs:subClassOf pupp:Meeting .
+ pupp:OfficialPoliticalMeeting
+      rdf:type owl:Class ;
+      rdfs:label "Official Political Meeting" ;
+      rdfs:subClassOf pupp:Meeting .
+
+pupp:MilitaryConflict
+      rdf:type owl:Class ;
+      rdfs:label "Military Conflict" ;
+      rdfs:subClassOf ptop:Event .
+ p-ext:conflictCombatant
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "The relation between a military organization, which participates as a combatant in a military conflict" ;
+      rdfs:domain pupp:MilitaryConflict ;
+      rdfs:label "Combatant" ;
+      rdfs:range p-ext:MilitaryOrganization ; #p-ext:MilitaryUnit ; #
+      rdfs:subPropertyOf p-ext:hasParticipant .
+
+ p-ext:hasRole
+      owl:inverseOf ptop:roleIn .
+
+ #p-ext:isCommanderIn
+ #     owl:inverseOf p-ext:commanderIn ;
+ #     rdf:type owl:ObjectProperty ;
+ #     rdfs:comment "A commander is commander in military conflict" ;
+ #     rdfs:domain pupp:MilitaryConflict ;
+ #     rdfs:label "Commander in" ;
+ #     rdfs:range  ptop:Person .
+      # p-ext:Commander .
+      # [owl:intersectionOf(ptop:Agent
+       # [ rdf:type owl:Restriction ;
+       #   owl:allValuesFrom [owl:intersectionOf(ptop:JobPosition
+    #                    [ rdf:type owl:Restriction ;
+        #                        owl:allValuesFrom p-ext:Commander ;
+    #                    owl:onProperty pupp:hasTitle])
+    #             ] ;
+        #  owl:onProperty ptop:involvedIn
+        #])] .
+ #p-ext:isCommanderIn
+ #     owl:inverseOf commanderIn .
+
+pupp:Project
+      rdf:type owl:Class ;
+      rdfs:label "Project" ;
+      rdfs:subClassOf ptop:Event .
+
+pupp:SportEvent
+      rdf:type owl:Class ;
+      rdfs:label "Sport Event" ;
+      rdfs:subClassOf ptop:Event .
+ pupp:OlympicGamesOccurrence
+      rdf:type owl:Class ;
+      rdfs:comment "a specific issue of the games, like Athens 2004" ;
+      rdfs:label "Olympic Games" ;
+      rdfs:subClassOf pupp:SportEvent .
+
+ p-ext:OlympicGames
+      rdf:type owl:Class ;
+      rdfs:comment "The institution of Olympic Games held every 4 years" ;
+      rdfs:label "Olympic Games" ;
+      rdfs:subClassOf p-ext:RecurringEvent .
+
+ pupp:SportGame
+      rdf:type owl:Class ;
+      rdfs:comment "A sport game is any instance of a sport event, where teams or individual gather to play according to particular predetermined rules, such as soccer match, tennis match, car race, etc. It can also denote the actovity of playiing a particular sport game." ;
+      rdfs:label "Sport Game" ;
+      rdfs:subClassOf pupp:SportEvent, p-ext:Game .
+  #props: teams(hasParticipant), points(goas)
+  p-ext:hasPoint
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "The relation between a gicen sport game event and a point scored in it." ;
+      rdfs:domain pupp:SportGame ;
+      rdfs:range p-ext:SportGamePoint ;
+      rdfs:label "point scorred in a sport game" .
+
+##subClassOf ptop:Situation
+  p-ext:SportGamePoint
+      rdf:type owl:Class ;
+      rdfs:comment "Denotes a point scored in a given sport game." ;
+      rdfs:label "Sport Game Point" ;
+      rdfs:subClassOf ptop:Situation .
+   p-ext:pointAwardedTo
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "The relation between the scored point in a sport game and the sport clud who won it.";
+      rdfs:label   "awarded sport club" ;
+      rdfs:domain p-ext:SportGamePoint ;
+      rdfs:range pupp:SportClub .
+
+ pupp:TournamentOccurrence
+      rdf:type owl:Class ;
+      rdfs:comment "A Tournament held at a particular time" ;
+      rdfs:label "tournament" ;
+      rdfs:subClassOf pupp:SportEvent .
+
+ p-ext:Tournament
+      rdf:type owl:Class ;
+      rdfs:comment "A Tournament which is held regularly at particular time intervals, every year, every week, etc." ;
+      rdfs:label "Tournament" ;
+      rdfs:subClassOf p-ext:RecurringEvent .
+
+ p-ext:FilmFestival
+      rdf:type owl:Class ;
+      rdfs:comment """Any Film Festival.""" ;
+      rdfs:label "film festival"@en ;
+      rdfs:subClassOf pupp:Festival .
+ p-ext:MusicFestival
+      rdf:type owl:Class ;
+      rdfs:comment """Any Music Festival.""" ;
+      rdfs:label "music festival"@en ;
+      rdfs:subClassOf pupp:Festival .
+
+p-ext:LegalCases
+      rdf:type owl:Class ;
+      rdfs:comment """Denotes concrete legal cases, such as Dennis v. United States, Francis v. Resweber, United_States v. Virginia, etc.""" ;
+      rdfs:label "legal cases"@en ;
+      rdfs:subClassOf ptop:Event .
+
+p-ext:ElectionOccurrence  #3.6 Kiril
+      rdf:type owl:Class ;
+      rdfs:comment """Election happening at a particular date.""" ;
+      rdfs:label "election"@en ;
+      rdfs:subClassOf ptop:Event .
+
+p-ext:Election  #3.6
+      rdf:type owl:Class ;
+      rdfs:comment """Generic concept of Election which is normally held at regular periods of time, president elections of the US, municipal elections, etc..""" ;
+      rdfs:label "election"@en ;
+      rdfs:subClassOf p-ext:RecurringEvent .
+
+p-ext:SpaceMission
+      rdf:type owl:Class ;
+      rdfs:comment """Any Mission in space in which space shuttles or space crafts are involved. """ ;
+      rdfs:label "space mission"@en ;
+      rdfs:subClassOf ptop:Event .
+
+p-ext:RecurringEvent
+      rdf:type owl:Class ;
+      rdfs:comment "Recurring sequence of events, such as \"running\" or \"a concert\"." ;
+      rdfs:label "recurring event" ;
+      rdfs:subClassOf ptop:Happening .
+ p-ext:currentFrequency
+      rdf:type owl:DatatypeProperty ;
+      rdfs:comment "The relation between a recurring event and its frequency." ;
+      rdfs:domain p-ext:RecurringEvent ;
+      rdfs:label "Current frequency" .
+ p-ext:finalOccuranceDate
+      rdf:type owl:DatatypeProperty ;
+      rdfs:comment "The date of the last occurrence of a recurring event." ;
+      rdfs:domain p-ext:RecurringEvent ;
+      rdfs:label "date of last occurance" ;
+      rdfs:subPropertyOf ptop:endTime .
+ p-ext:firstOccuranceDate
+      rdf:type owl:DatatypeProperty ;
+      rdfs:comment "The date of the first occurrence of a recurring event." ;
+      rdfs:domain p-ext:RecurringEvent ;
+      rdfs:label "date of first occurance" ;
+      rdfs:subPropertyOf ptop:startTime .
+ p-ext:hasRecurringEventInstance
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "The relation between a particular event as an element of a recurring event." ;
+      rdfs:domain p-ext:RecurringEvent ;
+      rdfs:range ptop:Event ;
+      rdfs:label "recurring event instance" .
+
+pupp:Festival
+      rdf:type owl:Class ;
+      rdfs:comment "Any widely recognized festival or holiday, such as, Christmas or St. Valentine's Day." ;
+      rdfs:label "Festival" ;
+      rdfs:subClassOf p-ext:RecurringEvent .  # former ptop:TempralAbstraction . 08032011
+
+p-ext:FestivalOccurrence
+      rdf:type owl:Class ;
+      rdfs:comment "An occurrence of a Festival or holiday, Sofia Film Festival 2011, Christmas of 2010 or St. Valentine's Day of 2011." ;
+      rdfs:label "Festival held at a particular time" ;
+      rdfs:subClassOf ptop:Event .
+
+ p-ext:Sale       #DBP3.5
+      rdf:type owl:Class ;
+      rdfs:comment """Any act of Sales""" ;
+      rdfs:label "Sale"@en ;
+      rdfs:subClassOf ptop:Event .
+
+
+
+######################
+# PROTON Upper module
+######################
+
+################
+#Person module:
+################
+
+ pupp:hasProfession
+      rdf:type owl:ObjectProperty ;
+      rdfs:domain ptop:Person ;
+      rdfs:label "has Profession" ;
+      rdfs:range pupp:Profession .
+ pupp:Man
+      rdf:type owl:Class ;
+      rdfs:label "Man" ;
+      rdfs:subClassOf p-ext:Human , ptop:Person . # (08032011)
+ pupp:Woman
+      rdf:type owl:Class ;
+      rdfs:label "Woman" ;
+      rdfs:subClassOf p-ext:Human , ptop:Person .  # (08032011)
+
+pupp:CalendarYear
+      rdf:type owl:Class ;
+      rdfs:comment "A specific year, such as 2000, taken as a time interval" ;
+      rdfs:label "Calendar Year" ;
+      rdfs:subClassOf ptop:TimeInterval .
+
+pupp:Date
+      rdf:type owl:Class ;
+      rdfs:comment "A specific date, as 12th of April, 1956, as the time period (the 24 hours of the day)" ;
+      rdfs:label "Date" ;
+      rdfs:subClassOf ptop:TimeInterval .
+
+pupp:Disease
+      rdf:type owl:Class ;
+      rdfs:comment "A specific sort of desease, such as AIDS, SARS, Parcinson, etc. The instances of those class can often by considered as terms instead of entities, but in all cases, those are the general phenomena, not the particular situations when somebody is suffering the disease." ;
+      rdfs:label "Disease" ;
+      rdfs:subClassOf ptop:Event .  # pupp:NaturalPhenomenon . 08032011
+
+pupp:Month
+      rdf:type owl:Class ;
+      rdfs:comment "A specific month, like Dec 2000, as a time period." ;
+      rdfs:label "Month" ;
+      rdfs:subClassOf ptop:TimeInterval .
+
+pupp:NaturalPhenomenon
+      rdf:type owl:Class ;
+      rdfs:comment "Such as particular disease, the Gulfstream and other similar natural abstractions. The particular events or objects which could instantiate an abstract natural phenomena (i.e. specific sickness event caused by a disease) are not instances of this class." ;
+      rdfs:label "Natural Phenomenon" ;
+      rdfs:subClassOf ptop:Abstract .
+
+pupp:Percent
+      rdf:type owl:Class ;
+      rdfs:comment "A specific percent value" ;
+      rdfs:label "Percent" ;
+      rdfs:subClassOf ptop:Number .
+
+pupp:PieceOfArt
+      rdf:type owl:Class ;
+      rdfs:comment "An artifact, namely a piece of art, usually, matterial object. Typical instances are paintings and sculptures. Corresponds to the Wordnet 1.7.1 synset \"art, fine art -  the products of human creativity; works of art collectively; \"an art exhibition\"; \"a fine collection of art\")\"" ;
+      rdfs:label "Piece of Art" ;
+      rdfs:subClassOf ptop:Object .
+
+pupp:Quarter
+      rdf:type owl:Class ;
+      rdfs:comment "A specific quarter of a specific year, such as Q4 1999" ;
+      rdfs:label "Quarter" ;
+      rdfs:subClassOf ptop:TimeInterval .
+
+pupp:Ship
+      rdf:type owl:Class ;
+      rdfs:label "Ship" ;
+      rdfs:subClassOf pupp:Vehicle .
+
+pupp:Spacecraft
+      rdf:type owl:Class ;
+      rdfs:comment "[WN1.7] Space vehicle - a craft capable of traveling in outer space; technically a satellite around the sun." ;
+      rdfs:label "Spacecraft" ;
+      rdfs:subClassOf pupp:Vehicle .
+
+p-ext:Car
+      rdf:type owl:Class ;
+      rdfs:comment "Any automoabile car." ;
+      rdfs:label "car" ;
+      rdfs:subClassOf pupp:Vehicle .
+
+pupp:Vehicle
+      rdf:type owl:Class ;
+      rdfs:comment "Any sort of specific vehicle, mean of transportation." ;
+      rdfs:label "Vehicle" ;
+      rdfs:subClassOf ptop:Object .
+
+pupp:Week
+      rdf:type owl:Class ;
+      rdfs:comment "A specific week of a specific year (say the 41st of 2001)" ;
+      rdfs:label "Week" ;
+      rdfs:subClassOf ptop:TimeInterval .
+
+pupp:OfficialPosition
+      rdf:type owl:Class ;
+      rdfs:label "Official Position" ;
+      rdfs:subClassOf ptop:JobPosition .
+
+# abstract Position in Organization with two properties, introduced 23.02.2011
+p-ext:PositionOrganization
+      rdf:type owl:Class ;
+      rdfs:comment "The situation of a job position which is available in particular organization, such as CEO, CTO, executive assistant, etc." ;
+      rdfs:label "position in organization" ;
+      rdfs:subClassOf ptop:Situation .
+
+ p-ext:positionWithinOrganization
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "The relation between the job position and the organization it is available in. The organization where the job position is available." ;
+      rdfs:label   "position within organization" ;
+      rdfs:domain p-ext:PositionOrganization ;
+      rdfs:range ptop:Organization .
+
+ p-ext:appointmentFor
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "A concrete job position which is assigned to the position available in a given organization. " ;
+      rdfs:label "posision" ;
+      rdfs:domain ptop:JobPosition ;
+      rdfs:range p-ext:PositionOrganization .
+
+pupp:accountProvider
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "a relation between an account and the Agent (usually organization) providing and managing it" ;
+      rdfs:domain pupp:Account ;
+      rdfs:label "Account Provider" ;
+      rdfs:range ptop:Agent .
+
+pupp:hasAddress
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "Relates address to an Agent. Will be used for URL, email and other addresses." ;
+      rdfs:label "has Address" ;
+      rdfs:range pupp:Address ;
+      rdfs:subPropertyOf ptop:hasContactInfo .
+
+pupp:hasBrother
+      rdf:type owl:ObjectProperty ;
+      rdfs:label "has Brother" ;
+      rdfs:range pupp:Man ;
+      rdfs:subPropertyOf ptop:hasSibling .
+
+pupp:hasDaughter
+      rdf:type owl:ObjectProperty ;
+      rdfs:label "has Daughter" ;
+      rdfs:range pupp:Woman ;
+      rdfs:subPropertyOf ptop:hasChild .
+
+pupp:hasEMail
+      rdf:type owl:ObjectProperty ;
+      rdfs:label "has E-mail" ;
+      rdfs:range pupp:EMail ;
+      rdfs:subPropertyOf pupp:hasInternetAddress .
+
+pupp:hasFather
+      rdf:type owl:ObjectProperty ;
+      rdfs:label "has Father" ;
+      rdfs:range pupp:Man ;
+      rdfs:subPropertyOf ptop:hasParent .
+
+pupp:hasFax
+      rdf:type owl:ObjectProperty ;
+      rdfs:label "has Fax" ;
+      rdfs:range p-ext:FaxNumber ;
+      rdfs:subPropertyOf ptop:hasContactInfo .
+
+pupp:hasHusband
+      rdf:type owl:ObjectProperty ;
+      rdfs:domain pupp:Woman ;
+      rdfs:label "has Husband" ;
+      rdfs:range pupp:Man ;
+      rdfs:subPropertyOf ptop:hasSpouse .
+
+pupp:hasInternetAddress
+      rdf:type owl:ObjectProperty ;
+      rdfs:label "has Internet Address" ;
+      rdfs:range pupp:InternetAddress ;
+      rdfs:subPropertyOf ptop:hasContactInfo .
+
+pupp:hasMobilePhone
+      rdf:type owl:ObjectProperty ;
+      rdfs:label "has Mobile Phone" ;
+      rdfs:subPropertyOf pupp:hasPhone .
+
+pupp:hasMother
+      rdf:type owl:ObjectProperty ;
+      rdfs:label "has Mother" ;
+      rdfs:range pupp:Woman ;
+      rdfs:subPropertyOf ptop:hasParent .
+
+pupp:hasPhone
+      rdf:type owl:ObjectProperty ;
+      rdfs:label "has Phone" ;
+      rdfs:range pupp:PhoneNumber ;
+      rdfs:subPropertyOf ptop:hasContactInfo .
+
+pupp:hasSister
+      rdf:type owl:ObjectProperty ;
+      rdfs:label "has Sister" ;
+      rdfs:range pupp:Woman ;
+      rdfs:subPropertyOf ptop:hasSibling .
+
+pupp:hasSon
+      rdf:type owl:ObjectProperty ;
+      rdfs:label "has Son" ;
+      rdfs:range pupp:Man ;
+      rdfs:subPropertyOf ptop:hasChild .
+
+pupp:hasStationaryPhone
+      rdf:type owl:ObjectProperty ;
+      rdfs:label "has Stationary Phone" ;
+      rdfs:subPropertyOf pupp:hasPhone .
+
+pupp:hasTitle
+      rdf:type owl:ObjectProperty ;
+      rdfs:domain ptop:JobPosition ;
+      rdfs:label "has Title" ;
+      rdfs:range pupp:JobTitle .
+
+pupp:hasUnit
+      rdf:type owl:DatatypeProperty ;
+      rdfs:domain pupp:Currency ;
+      rdfs:label "has Unit" .
+
+pupp:hasWebPage
+      rdf:type owl:ObjectProperty ;
+      rdfs:label "has Web Page" ;
+      rdfs:range pupp:WebPage ;
+      rdfs:subPropertyOf pupp:hasInternetAddress .
+
+pupp:hasWife
+      rdf:type owl:ObjectProperty ;
+      rdfs:domain pupp:Man ;
+      rdfs:label "has Wife" ;
+      rdfs:range pupp:Woman ;
+      rdfs:subPropertyOf ptop:hasSpouse .
+
+pupp:officialPositionIn
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "This property models the Person->hasPosition->Location." ;
+      rdfs:domain pupp:OfficialPosition ;
+      rdfs:label "Official Position in" ;
+      rdfs:range ptop:Location .
+
+rdfs:comment
+      rdf:type owl:AnnotationProperty .
+
+rdfs:label
+      rdf:type owl:AnnotationProperty .
+
+owl:versionInfo
+      rdf:type owl:AnnotationProperty .
+
+##########################
+# PROTON Extension module
+##########################
+
+#Person module:(ext)
+p-ext:birthDate
+      rdf:type owl:DatatypeProperty ;
+      rdfs:comment "The relation between a person and the date he is born." ;
+      rdfs:domain ptop:Person ;
+      rdfs:label "Birthday" .
+      #rdfs:subPropertyOf ptop:startTime .
+p-ext:birthPlace
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "The relation between a person and the place he is born." ;
+      rdfs:domain ptop:Person ;
+      rdfs:range ptop:Location ;
+      rdfs:label "Place of Birth" .
+p-ext:deathDate
+      rdf:type owl:DatatypeProperty ;
+      rdfs:comment "The relation between a person and the date he died. " ;
+      rdfs:domain ptop:Person ;
+      rdfs:label "Deathday" .
+      #rdfs:subPropertyOf ptop:endTime .
+p-ext:deathPlace
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "The relation between a person and the place he died." ;
+      rdfs:domain ptop:Person ;
+      rdfs:range ptop:Location ;
+      rdfs:label "Place of Death" .
+
+p-ext:presidencyNumber
+      rdf:type owl:DatatypeProperty ;
+      rdfs:comment "The relation between a person who is a president and the sequential number of his presidency, pertaining to US president. (introduced because of the mapping with Freebase)" ;
+      rdfs:domain ptop:Person ;
+      rdfs:label "presidency number" .
+
+### Extension
+p-ext:FictionalCharacter
+      rdf:type owl:Class ;
+      rdfs:comment """The characters in fictional artwork like movies, books, etc""" ;
+      rdfs:label "fictional character"@en ;
+      rdfs:subClassOf ptop:Person .
+
+p-ext:EthnicGroup
+      rdf:type owl:Class ;
+      rdfs:comment """Any ethnic group. A group of people whose members identify with each other, through a common heritage, often consisting of a common language, a common culture (often including a shared religion) and an ideology that stresses common ancestry or endogamy. (Wikipedia). """ ;
+      rdfs:label "ethnic group"@en ;
+      rdfs:subClassOf ptop:Group .
+
+#kept from previous version for reference
+#
+#p-ext:MilitaryPerson
+#      rdf:type owl:Class ;
+#      rdfs:subClassOf
+#              [ rdf:type owl:Restriction ;
+#                owl:allValuesFrom pupp:MilitaryConflict ;
+#                owl:onProperty ptop:involvedIn
+#              ] ;
+#      rdfs:comment """Any Military Person""" ;
+#      rdfs:label "Military Person"@en ;
+#      rdfs:subClassOf p-ext:Professional .
+
+p-ext:Genre
+      rdf:type owl:Class ;
+      rdfs:comment """Any Genre. Denotes any category of literature  as well as various other forms of art or culture, e.g., music, based on some loose set of stylistic criteria. Genres are formed by conventions that change over time as new genres are invented and the use of old ones are discontinued. (Wikipedia)""" ;
+      rdfs:label "genre"@en ;
+      rdfs:subClassOf ptop:Abstract .
+
+p-ext:MusicGenre
+      rdf:type owl:Class ;
+      rdfs:comment """Any genre which pertians to music, e.g. classical, folk, pop, etc.""" ;
+      rdfs:label "music genre"@en ;
+      rdfs:subClassOf p-ext:Genre .
+
+p-ext:SpaceShuttle
+      rdf:type owl:Class ;
+      rdfs:comment """A Spaceshuttle is a reusable launch system and orbital spacecraft operated by the U.S. National Aeronautics and Space Administration (NASA) (Wikipedia). """ ;
+      rdfs:label "Space shuttle"@en ;
+      rdfs:subClassOf pupp:Spacecraft .
+
+p-ext:SpaceStation
+      rdf:type owl:Class ;
+      rdfs:comment """Any Spacestation. A space station (also called an orbital station) is a manned satellite designed to remain in space. (Wikipedia)""" ;
+      rdfs:label "Space station"@en ;
+      rdfs:subClassOf pupp:Spacecraft .
+
+p-ext:Award
+      rdf:type owl:Class ;
+      rdfs:comment """Any award. An award is something given to a person or a group of people to recognize excellence in a certain field; a certificate of excellence, for example trophies, titles, medals, badges, etc.""" ;
+      rdfs:label "award"@en ;
+      rdfs:subClassOf ptop:Abstract .
+
+p-ext:districtRepresented
+     rdf:type owl:ObjectProperty ;
+      rdfs:comment "the relation between an official position, usually political and the location it represents. The district represented by an official position, usually political." ;
+      rdfs:domain ptop:OfficialPosition ;
+      rdfs:label "represented district" ;
+      rdfs:range ptop:Location .
+
+p-ext:appointedBy
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "A concrete job position appointed by a given person." ;
+      rdfs:domain ptop:JobPosition ;
+      rdfs:label "appointed by" ;
+      rdfs:range ptop:Person .
+
+p-ext:Activity   #DBP3.5
+      rdf:type owl:Class ;
+      rdfs:comment """Any activity""" ;
+      rdfs:label "activity"@en ;
+      rdfs:subClassOf ptop:Happening .
+
+p-ext:Game      #DBP3.5
+      rdf:type owl:Class ;
+      rdfs:comment """Game. Activity involving participants usually divided in teams, which obeyx particualr rules, and has often a winner.""" ;
+      rdfs:label "Game"@en ;
+      rdfs:subClassOf p-ext:Activity .
+
+p-ext:Colour      #DBP3.5
+      rdf:type owl:Class ;
+      rdfs:comment """Any colour, a visual perceptual property, e.g. red, blue, yellow, etc. (Wikipedia)""" ;
+      rdfs:label "Colour"@en ;
+      rdfs:subClassOf ptop:Abstract .
+
+### 17.06.2010 demo LDSR queries
+p-ext:musicInstrument
+   rdf:type owl:ObjectProperty ;
+   rdfs:comment "The relation between a musician and the instrument he plays" ;
+      rdfs:domain ptop:Person ;
+      rdfs:label "instrument" ;
+      rdfs:range p-ext:MusicalInstrument .
+
+p-ext:MusicalInstrument
+      rdf:type owl:Class ;
+      rdfs:comment """Musical Instrument, a device created or adapted for the purpose of making musical sounds. (Wikipedia)""" ;
+      rdfs:label "Musical Instrument"@en ;
+      rdfs:subClassOf ptop:Object .
+
+p-ext:genreOfAgent
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "The relation between an agent and the genre he is occupied in." ;
+      rdfs:domain ptop:Agent ;
+      rdfs:label "genre" ;
+      rdfs:range p-ext:Genre .
+
+p-ext:locationName
+      rdf:type owl:DatatypeProperty ;
+      rdfs:comment "The name of a georgaphic region." ;
+      rdfs:domain ptop:Location ;
+      rdfs:label "location name" ;
+      rdfs:label "name" .
+
+p-ext:containsLocation
+      rdf:type owl:TransitiveProperty, owl:ObjectProperty ;
+      rdfs:comment "a Location contains a different Location" ;
+      rdfs:domain ptop:Location ;
+      rdfs:label "contains" ;
+      rdfs:range ptop:Location ;
+      owl:inverseOf ptop:subRegionOf . #ptop:locatedIn .
+
+p-ext:architect
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "a relation between a facility and its architect. " ;
+      rdfs:domain pupp:Facility ;
+      rdfs:label "architect" ;
+      rdfs:range [ rdf:type owl:Restriction ;
+                            owl:onProperty  pupp:hasProfession ;
+                            owl:hasValue p-ext:Architect ] .
+p-ext:designerOfFacility
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "Any author of engineering and architecture designs. The relation between an author and the facility he has designed." ;
+      rdfs:domain ptop:Agent ;
+      rdfs:label "designs";
+      rdfs:range pupp:Facility .
+
+p-ext:nationality
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "The nationality of a person. The relation between a person and his nationality." ;
+      rdfs:domain ptop:Person ;
+      rdfs:label "nationality";
+      rdfs:range p-ext:Nationality .
+
+p-ext:Nationality
+      rdf:type owl:Class ;
+      rdfs:comment "Any nationality. In most cases it is connected with a country name, but there are notionalities withour countries - Kurd, etc." ;
+      rdfs:label "nationality"  ;
+      rdfs:subClassOf ptop:Abstract .
+
+p-ext:isBirthPlaceOf
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "A place where a person is born. The relation between a location and a person who is born in this location." ;
+      rdfs:domain ptop:Location ;
+      rdfs:label "is a birth place of"@en ;
+      rdfs:range ptop:Person ;
+      owl:inverseOf p-ext:birthPlace .
+
+p-ext:Death
+      rdf:type owl:Class ;
+      rdfs:comment """The event to die.""" ;
+      rdfs:label "death"@en ;
+      rdfs:subClassOf ptop:Event .
+
+p-ext:causeOfDeath
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "Any cause of death. The relation between a person and the cause of his death." ;
+      rdfs:domain ptop:Person ;
+      rdfs:label "cause of death" @en;
+      rdfs:range ptop:Event .
+
+###############################
+#Social abstr, jobTitle module
+###############################
+
+pupp:SocialAbstraction
+      rdf:type owl:Class ;
+      rdfs:comment "Any sort of general social phenomenon, such as particular sort of art or science" ;
+      rdfs:label "Social Abstraction" ;
+      rdfs:subClassOf ptop:Abstract .
+
+#rdfs:subClassOf pupp:SocialAbstraction :
+pupp:Art
+      rdf:type owl:Class ;
+      rdfs:label "Art" ;
+      rdfs:subClassOf pupp:SocialAbstraction .
+
+pupp:Money
+      rdf:type owl:Class ;
+      rdfs:comment "A specific amount of money in specific currency" ;
+      rdfs:label "Money" ;
+      rdfs:subClassOf pupp:SocialAbstraction .
+
+pupp:Profession
+      rdf:type owl:Class ;
+      rdfs:label "Profession" ;
+      rdfs:subClassOf p-ext:SocialFunction .
+
+  p-ext:Architect
+        # rdf:type owl:Class ;
+        rdfs:comment """Any architect, a profession of planning, design and oversight of the construction of buildings. (Wikipedia)""" ;
+        rdfs:label "architect"@en ;
+        rdf:type pupp:Profession . # rdfs:subClassOf pupp:Profession .
+
+  p-ext:Journalist
+        # rdf:type owl:Class ;
+        rdfs:comment """Any journalist, a profession of collecting and disseminating information about current events, people, trends, and issues. (Wikipedia)""" ;
+        rdfs:label "journalist"@en ;
+        rdf:type pupp:Profession .  #rdfs:subClassOf pupp:Profession .
+
+  p-ext:Judge
+        # rdf:type owl:Class ;
+        rdfs:comment """Any judge, a profession of presiding over a court of law, either alone or as part of a panel of judges. (Wikipedia)""" ;
+        rdfs:label "judge"@en ;
+        rdf:type pupp:Profession .   #rdfs:subClassOf pupp:Profession .
+
+  p-ext:MilitaryPerson
+        # rdf:type owl:Class ;
+        rdfs:comment """Any occupation involving service in the military.""" ;
+        rdfs:label "military person"@en ;
+        rdf:type pupp:Profession .     #rdfs:subClassOf pupp:Profession .
+
+ p-ext:Artist
+        # rdf:type owl:Class ;
+        rdfs:comment """Any artist a profession engaging in a broad spectrum of activities related to creating art, practicing the arts and/or demonstrating an art. (Wikipedia)""" ;
+        rdfs:label "artist"@en ;
+        rdf:type pupp:Profession .     #rdfs:subClassOf pupp:Profession .
+
+    p-ext:Actor
+          # rdf:type owl:Class ;
+          rdfs:comment """Any actor acts in a dramatic production and who works in film, television, theatre, or radio in that capacity. (Wikipedia)""" ;
+          rdfs:label "actor"@en ;
+          rdf:type pupp:Profession .    #rdfs:subClassOf p-ext:Artist .
+
+    p-ext:Musician
+          # rdf:type owl:Class ;
+          rdfs:comment """Any musician, a profession of writing, performing, or making music. (Wikipedia)""" ;
+          rdfs:label "musician"@en ;
+      rdf:type pupp:Profession .    #rdfs:subClassOf p-ext:Artist .
+
+    p-ext:Writer
+          # rdf:type owl:Class ;
+          rdfs:comment """Any writer, a profession of producing literary content. (Wikipedia)""" ;
+          rdfs:label "writer"@en ;
+          rdf:type pupp:Profession .    #rdfs:subClassOf p-ext:Artist .
+
+  p-ext:Astronaut
+        # rdf:type owl:Class ;
+        rdfs:comment """Any astronaut, a profession allowing to command, pilot, or serve as a crew member of a spacecraft. (Wikipedia) """ ;
+        rdfs:label "astronaut"@en ;
+        rdf:type pupp:Profession .  #rdfs:subClassOf pupp:Profession .
+
+  p-ext:Athlete
+        # rdf:type owl:Class ;
+        rdfs:comment """Any athlete, a profession involving sport activities.""" ;
+        rdfs:label "athlete"@en ;
+        rdf:type pupp:Profession .    #rdfs:subClassOf pupp:Profession .
+
+  p-ext:Model
+        # rdf:type owl:Class ;
+        rdfs:comment """Any model, a profession involving posing to draw attention to a particualr object or cause.""" ;
+        rdfs:label "model"@en ;
+        rdf:type pupp:Profession .    #rdfs:subClassOf pupp:Profession .
+
+  p-ext:Philosopher
+        # rdf:type owl:Class ;
+        rdfs:comment """Any philosopher, a profession of studying of general and fundamental problems, such as those connected with existence, knowledge, values, reason, mind, and language.""" ;
+        rdfs:label "philosopher"@en ;
+        rdf:type pupp:Profession .    #rdfs:subClassOf pupp:Profession .
+
+  p-ext:Scientist
+        # rdf:type owl:Class ;
+        rdfs:comment """Any scientist, a profession of studying and making research on a particualr subject.""" ;
+        rdfs:label "scientist"@en ;
+        rdf:type pupp:Profession .    #rdfs:subClassOf pupp:Profession .
+
+  p-ext:Politician
+        # rdf:type owl:Class ;
+        rdfs:comment """Any Politician, a profession of participating in the political life of a given society.""" ;
+        rdfs:label "politician"@en ;
+        rdf:type pupp:Profession .     #rdfs:subClassOf pupp:Profession .
+
+  p-ext:Commander
+        # rdf:type owl:Class ;
+        rdfs:comment """Any commander, title of being commander or having a leading role in a military unit or other organization.""" ;
+        rdfs:label "commander"@en ;
+        rdf:type pupp:JobTitle .   #rdfs:subClassOf pupp:JobTitle .
+
+  p-ext:Lieutenant
+        # rdf:type owl:Class ;
+        rdfs:comment """Any lieutenant, title in a military unit.""" ;
+        rdfs:label "lieutenant"@en ;
+        rdf:type pupp:JobTitle .   #rdfs:subClassOf pupp:JobTitle .
+
+  p-ext:Chancellor
+        # rdf:type owl:Class ;
+        rdfs:comment """Any Chancellor, a title of various official positions in the governments of many nations. (Wikipedia)""" ;
+        rdfs:label "Chancellor"@en ;
+        rdf:type pupp:JobTitle .     #rdfs:subClassOf pupp:JobTitle .
+
+  p-ext:Congressman
+        # rdf:type owl:Class ;
+        rdfs:comment """Any Congressman, a title of a position in congress.""" ;
+        rdfs:label "Congressman"@en ;
+        rdf:type pupp:JobTitle .     #rdfs:subClassOf pupp:JobTitle .
+
+  p-ext:Governor
+        # rdf:type owl:Class ;
+        rdfs:comment """Any Governor, a title of Governor of a district.""" ;
+        rdfs:label "Governor"@en ;
+        rdf:type pupp:JobTitle .    #rdfs:subClassOf pupp:JobTitle .
+
+  p-ext:Mayor
+        # rdf:type owl:Class ;
+        rdfs:comment """Any Mayor, a title of the head of a municipality.""" ;
+        rdfs:label "Mayor"@en ;
+        rdf:type pupp:JobTitle .     #rdfs:subClassOf pupp:JobTitle .
+
+  p-ext:Senator
+        # rdf:type owl:Class ;
+        rdfs:comment """Any Senator, a title of the member of the senat. """ ;
+        rdfs:label "Senator"@en ;
+        rdf:type pupp:JobTitle .     #rdfs:subClassOf pupp:JobTitle .
+
+  p-ext:MemberOfParliament
+        # rdf:type owl:Class ;
+        rdfs:comment """Any member of parliament, a title of a member of parliament.""" ;
+        rdfs:label "member of parliament"@en ;
+        rdf:type pupp:JobTitle .     #rdfs:subClassOf pupp:JobTitle .
+
+  p-ext:President
+        # rdf:type owl:Class ;
+        rdfs:comment """Any president, a title of a president of a country or an organization.""" ;
+        rdfs:label "president"@en ;
+        rdf:type pupp:JobTitle .      #rdfs:subClassOf pupp:JobTitle .
+
+  p-ext:PrimeMinister
+        # rdf:type owl:Class ;
+        rdfs:comment """Any prime minister, a title Prime minister of a country.""" ;
+        rdfs:label "prime minister"@en ;
+        rdf:type pupp:JobTitle .    #rdfs:subClassOf pupp:JobTitle .
+
+  p-ext:CEO
+        # rdf:type owl:Class ;
+        rdfs:comment """Any CEO, a title of a chief executive officer of an organization.""" ;
+        rdfs:label "CEO"@en ;
+        rdf:type pupp:JobTitle .    #rdfs:subClassOf pupp:JobTitle .
+
+  p-ext:BoardMember
+        # rdf:type owl:Class ;
+        rdfs:comment """Any board member, a title of the member of the board of any board""" ;
+        rdfs:label "board member"@en ;
+        rdf:type pupp:JobTitle .  #rdfs:subClassOf pupp:JobTitle .
+
+p-ext:NobeltyTitle
+      rdf:type owl:Class ;
+      rdfs:comment """The social function of a nobelty. """ ;
+      rdfs:label "nobelty"@en ;
+      rdfs:subClassOf p-ext:SocialFunction .
+
+   p-ext:hasNobeltyTitle
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment """The relation between the social position and the social title of nobelty. """ ;
+      rdfs:domain p-ext:Nobelty ;
+      rdfs:label "has Nobetlty Title" ;
+      rdfs:range p-ext:NobeltyTitle .
+
+  p-ext:Monarch
+        # rdf:type owl:Class ;
+        rdfs:comment """Any Monarch, a title of a head of state in a monarchy.""" ;
+        rdfs:label "monarch"@en ;
+        rdf:type p-ext:NobeltyTitle .   #rdfs:subClassOf p-ext:Nobelty .
+
+  p-ext:BritishRoyalty
+        # rdf:type owl:Class ;
+        rdfs:comment """Any British Royalty, a title of a memebr of the British royal family.""" ;
+        rdfs:label "British royalty"@en ;
+        rdf:type p-ext:NobeltyTitle .   #rdfs:subClassOf p-ext:Nobelty .
+
+p-ext:CelebrityTitle
+      rdf:type owl:Class ;
+      rdfs:comment """The social function of celebrity, a status of notoriety in the society.""" ;
+      rdfs:label "celebrity"@en ;
+      rdfs:subClassOf p-ext:SocialFunction .
+
+   p-ext:hasCelebrityTitle
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment """The relation between the status of celebrity and its celebrity title of notoriety in the society.""" ;
+      rdfs:domain p-ext:Celebrity ;
+      rdfs:label "has celebrity title" ;
+      rdfs:range p-ext:CelebrityTitle .
+
+p-ext:OutOfLawsTitle
+      rdf:type owl:Class ;
+      rdfs:comment """Criminal, the social function of a person who has committed a crime and is out of the law.""" ;
+      rdfs:label "criminal"@en ;
+      rdfs:subClassOf p-ext:SocialFunction .
+
+   p-ext:hasOutOfLawsTitle
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment """The relation between the status of a criminal, and title, for instance a prisoner.""" ;
+      rdfs:domain p-ext:OutOfLaws ;
+      rdfs:label "has OutOfLaws Title" ;
+      rdfs:range p-ext:OutOfLawsTitle .
+
+p-ext:ClericTitle
+      rdf:type owl:Class ;
+      rdfs:comment """The social function of a cleric, involving the church.""" ;
+      rdfs:label "cleric"@en ;
+      rdfs:subClassOf p-ext:SocialFunction .
+
+   p-ext:hasClericTitle
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment """The relation between a Cleric and its cleric title, like Bishop, Pole, etc.""" ;
+      rdfs:domain p-ext:Cleric ;
+      rdfs:label "has Cleric Title" ;
+      rdfs:range p-ext:ClericTitle .
+
+  p-ext:Pope
+        # rdf:type owl:Class ;
+        rdfs:comment """Any Pope. the head of the Roman-Catholic church.""" ;
+        rdfs:label "pope"@en ;
+        rdf:type p-ext:ClericTitle .   #rdfs:subClassOf pupp:JobTitle .
+
+  p-ext:Cardinal
+        # rdf:type owl:Class ;
+        rdfs:comment """Any Cardinal, a high official in the Roman-Catholic church.""" ;
+        rdfs:label "cardinal"@en ;
+        rdf:type p-ext:ClericTitle .    #rdfs:subClassOf pupp:JobTitle .
+
+  p-ext:Bishop
+        # rdf:type owl:Class ;
+        rdfs:comment """Any bishop, an official in the Roman-Catholic church.""" ;
+        rdfs:label "bishop"@en ;
+        rdf:type p-ext:ClericTitle .    #rdfs:subClassOf pupp:JobTitle .
+
+  p-ext:Ambassador     #DBP3.5
+        # rdf:type owl:Class ;
+        rdfs:comment """Any ambassador, a title of a position of representing a country abroad""" ;
+        rdfs:label "ambassador"@en ;
+        rdf:type pupp:JobTitle .      # rdfs:subClassOf pupp:JobTitle .
+
+    p-ext:GridironFootballPlayer     #DBP3.5
+          # rdf:type owl:Class ;
+          rdfs:comment """Any player of a gridilon football.""" ;
+          rdfs:label "gridilon football player"@en ;
+          rdf:type pupp:Profession . #rdf:type p-ext:Athlete .   #rdfs:subClassOf p-ext:Athlete .
+
+      p-ext:CanadianFootballPlayer     #DBP3.5
+            # rdf:type owl:Class ;
+            rdfs:comment """Any player of Canadian football.""" ;
+            rdfs:label "Canadian football player"@en ;
+            rdf:type pupp:Profession . #rdf:type p-ext:Athlete .  #rdfs:subClassOf p-ext:GridilonFootballPlayer .
+
+      p-ext:AmericanFootballPlayer     #DBP3.5
+            # rdf:type owl:Class ;
+            rdfs:comment """Any player of American football.""" ;
+            rdfs:label "American football player"@en ;
+            rdf:type pupp:Profession . #rdf:type p-ext:Athlete .   #rdfs:subClassOf p-ext:GridilonFootballPlayer .
+
+     p-ext:GolfPlayer  #DBP3.6
+          # rdf:type owl:Class ;
+            rdfs:comment """Any player of Golf.""" ;
+            rdfs:label "Golf player"@en ;
+            rdf:type pupp:Profession . #rdf:type p-ext:Athlete .
+
+  p-ext:VicePresident     #DBP3.5
+        # rdf:type owl:Class ;
+        rdfs:comment """Any Vice President, the title of a vice president in a country or in an organization.""" ;
+        rdfs:label "Vice President"@en ;
+        rdf:type pupp:JobTitle .   #rdfs:subClassOf pupp:JobTitle .
+
+  p-ext:VicePrimeMinister     #DBP3.5
+        # rdf:type owl:Class ;
+        rdfs:comment """Any Vice Prime Minister, the title of a vice prime minister in a country.""" ;
+        rdfs:label "Vice Prime Minister"@en ;
+        rdf:type pupp:JobTitle .   #rdfs:subClassOf pupp:JobTitle .
+
+  pupp:Manager     #DBP3.5
+        # rdf:type owl:Class ;
+        rdfs:comment """Any manager, the title of a management position in an organization.""" ;
+        rdfs:label "manager"@en ;
+        rdf:type pupp:JobTitle .   #rdfs:subClassOf pupp:JobTitle .
+
+    p-ext:SoccerManager     #DBP3.5
+         # rdf:type owl:Class ;
+          rdfs:comment """Any soccer manager the title of a manager of a soccer team. """ ;
+          rdfs:label "soccer manager"@en ;
+          rdf:type pupp:JobTitle .       #rdfs:subClassOf pupp:Manager . rdf:type pupp:Manager .
+
+pupp:ResearchArea
+      rdf:type owl:Class ;
+      rdfs:comment "Specific research area, topic or field." ;
+      rdfs:label "Research Area" ;
+      rdfs:subClassOf pupp:SocialAbstraction .
+ pupp:Science
+      rdf:type owl:Class ;
+      rdfs:comment "A well established, big research area" ;
+      rdfs:label "Science" ;
+      rdfs:subClassOf pupp:ResearchArea .
+
+pupp:Sport
+      rdf:type owl:Class ;
+      rdfs:comment "A specific type of sport game" ;
+      rdfs:label "Sport" ;
+      rdfs:subClassOf pupp:SocialAbstraction .
+
+pupp:JobTitle
+      rdf:type owl:Class ;
+      rdfs:comment "The name of the position which a person holds within an organization." ;
+      rdfs:label "Job Title" ;
+      rdfs:subClassOf p-ext:SocialFunction .
+
+p-ext:SocialFunction
+      rdf:type owl:Class ;
+      rdfs:comment "The name of a function a person has in the society like nobely, job title, celebrity, etc." ;
+      rdfs:label "Social Function" ;
+      rdfs:subClassOf pupp:SocialAbstraction .
+
+
+######################
+#Organisation module
+######################
+
+pupp:Division
+      rdf:type owl:Class ;
+      rdfs:comment "Branch, division, department, laboratory, etc. within an organisation. Usually, not a legal agent and not independent." ;
+      rdfs:label "Division" ;
+      rdfs:subClassOf ptop:Organization .
+pupp:InternationalOrganization
+      rdf:type owl:Class ;
+      rdfs:comment "Legal international organization. Legal in this case means officially recognized by more than one government." ;
+      rdfs:label "International Organization" ;
+      rdfs:subClassOf ptop:Organization .
+pupp:ReligiousOrganization
+      rdf:type owl:Class ;
+      rdfs:comment "Organization which offers ideas and opinions about life. Just joking." ;
+      rdfs:label "Religious Organization" ;
+      rdfs:subClassOf ptop:Organization .
+pupp:StockExchange
+      rdf:type owl:Class ;
+      rdfs:comment "Stock Exchange where public companies are traded, e. g. Nasdaq, NYSE, etc." ;
+      rdfs:label "Stock Exchange" ;
+      rdfs:subClassOf ptop:Organization .
+pupp:Team
+      rdf:type owl:Class ;
+      rdfs:comment "A group of people gathered for some task, say a project. Teams are usually not formally established and not meant to perform as a single agent for purposes outside the scope of their task. Teams may \"live\" within organizations, spread between multiple organizations, or be independent form any organization." ;
+      rdfs:label "Team" ;
+      rdfs:subClassOf ptop:Organization .
+pupp:GovernmentOrganization
+      rdf:type owl:Class ;
+      rdfs:comment "The government of a country, i.e. the authorized  country administration, without account for a specific government elected and being in power for some period. This notion of government groups all the administration, including any sort of ministries, agencies, commissions, etc." ;
+      rdfs:label "Government Organization" ;
+      rdfs:subClassOf ptop:Organization .
+ pupp:Government
+      rdf:type owl:Class ;
+      rdfs:comment "The governmental cabinet" ;
+      rdfs:label "Government" ;
+      rdfs:subClassOf pupp:GovernmentOrganization .
+ pupp:ofCountry
+      rdf:type owl:ObjectProperty ;
+      rdfs:domain pupp:GovernmentOrganization ;
+      rdfs:label "of Country" ;
+      rdfs:range pupp:Country ;
+      rdfs:subPropertyOf ptop:locatedIn .
+ pupp:Ministry
+      rdf:type owl:Class ;
+      rdfs:comment "(Department) A specific ministry or department, structural unit of the government of specific country with focus and authority on specific problems of the country." ;
+      rdfs:label "Ministry" ;
+      rdfs:subClassOf pupp:GovernmentOrganization .
+  pupp:hasMinister
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "" ;
+      rdfs:domain pupp:Ministry ;
+      rdfs:label "has Minister" ;
+      rdfs:range ptop:Person ;
+      rdfs:subPropertyOf ptop:hasEmployee .
+  pupp:hasPrimeMinister
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "" ;
+      rdfs:label "has Prime Minister" ;
+      rdfs:subPropertyOf pupp:hasMinister .
+pupp:PoliticalEntity
+      rdf:type owl:Class ;
+      rdfs:label "Political Entity" ;
+      rdfs:subClassOf ptop:Organization .
+ pupp:Parliament
+      rdf:type owl:Class ;
+      rdfs:comment "A legislative assembly representative at national or regional level. It can also be called Senate, etc." ;
+      rdfs:label "Parliament" ;
+      rdfs:subClassOf pupp:PoliticalEntity .
+ pupp:PoliticalParty
+      rdf:type owl:Class ;
+      rdfs:comment """An organization to gain political power. Definition taken from
+WordNet 1.7""" ;
+      rdfs:label "Political Party" ;
+      rdfs:subClassOf pupp:PoliticalEntity .
+
+pupp:ResearchOrganization
+      rdf:type owl:Class ;
+      rdfs:label "Research Organization" ;
+      rdfs:subClassOf ptop:Organization .
+ pupp:Institute
+      rdf:type owl:Class ;
+      rdfs:label "Institute" ;
+      rdfs:subClassOf pupp:ResearchOrganization .
+ pupp:University
+     rdf:type owl:Class ;
+     rdfs:label "University" ;
+     rdfs:subClassOf pupp:EducationalOrganization , pupp:ResearchOrganization .
+
+pupp:SportOrganization
+      rdf:type owl:Class ;
+      rdfs:comment "An organization (local, national or international) which main activity is related to one or more sports. Those could be clubs, as well, as all the sorts of federations." ;
+      rdfs:label "Sport Organization" ;
+      rdfs:subClassOf ptop:Organization .
+ pupp:SportsFederation
+      rdf:type owl:Class ;
+      rdfs:label "Sports Federation" ;
+      rdfs:subClassOf pupp:SportOrganization .
+ pupp:SportClub
+      rdfs:subClassOf pupp:Company , pupp:SportOrganization .
+   pupp:SoccerClub
+      rdfs:subClassOf pupp:SportClub .
+
+pupp:EducationalOrganization
+      rdf:type owl:Class ;
+      rdfs:label "Educational Organization" ;
+      rdfs:subClassOf ptop:Organization .
+ pupp:School
+      rdf:type owl:Class ;
+      rdfs:label "School" ;
+      rdfs:subClassOf pupp:EducationalOrganization .
+ pupp:University
+      rdf:type owl:Class ;
+      rdfs:label "University" ;
+      rdfs:subClassOf pupp:EducationalOrganization , pupp:ResearchOrganization .
+ p-ext:College
+      rdf:type owl:Class ;
+      rdfs:comment """College""" ;
+      rdfs:label "college"@en ;
+      rdfs:subClassOf pupp:EducationalOrganization .
+
+pupp:CommercialOrganization
+      rdf:type owl:Class ;
+      rdfs:comment "Organization which buys or sells goods or services for a profit. It may also be a Business or it may merely be a sub-organization of a Business entity." ;
+      rdfs:label "Commercial Organization" ;
+      rdfs:subClassOf ptop:Organization .
+ pupp:activeInSector
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "Denotes that the organization is active within the industry sector" ;
+      rdfs:domain pupp:CommercialOrganization ;
+      rdfs:label "Active in Sector" ;
+      rdfs:range pupp:IndustrySector ;
+      psys:transitiveOver pupp:subSectorOf .
+ pupp:hasShareholder
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "" ;
+      rdfs:domain pupp:CommercialOrganization ;
+      rdfs:label "has Shareholder" ;
+      rdfs:subPropertyOf ptop:hasMember .
+ pupp:fiscalNetIncome
+      rdf:type owl:DatatypeProperty ;
+      rdfs:comment "Net Income last year." , "fiscalNetIncome" ;
+      rdfs:domain pupp:CommercialOrganization .
+ pupp:fiscalSales
+      rdf:type owl:DatatypeProperty ;
+      rdfs:comment "Sales last year." , "fiscalSales" ;
+      rdfs:domain pupp:CommercialOrganization .
+ pupp:Company
+      rdf:type owl:Class ;
+      rdfs:comment "A private, legal, corporate entity with the legal rights to own property, manage itself, and sue or be sued. It is established by a charter or registration granted by the government." ;
+      rdfs:label "Company" ;
+      rdfs:subClassOf pupp:CommercialOrganization .
+  pupp:Airline
+      rdf:type owl:Class ;
+      rdfs:label "Airline" ;
+      rdfs:subClassOf pupp:Company .
+  pupp:Bank
+      rdf:type owl:Class ;
+      rdfs:label "Bank" ;
+      rdfs:subClassOf pupp:Company .
+  pupp:InsuranceCompany
+      rdf:type owl:Class ;
+      rdfs:label "Insurance Company" ;
+      rdfs:subClassOf pupp:Company .
+  pupp:Telecom
+      rdf:type owl:Class ;
+      rdfs:comment "A telecommunications company" ;
+      rdfs:label "Telecom" ;
+      rdfs:subClassOf pupp:Company .
+  pupp:PublicCompany
+      rdf:type owl:Class ;
+      rdfs:comment "Company which is publicly traded on a Stock Exchange." ;
+      rdfs:label "Public Company" ;
+      rdfs:subClassOf pupp:Company .
+   pupp:stockExchangeIndex
+      rdf:type owl:DatatypeProperty ;
+      rdfs:comment "Name of the company on the Stock Exchange, where it is traded. At present, if a company is traded on two SEs with different indices, there is no way to encode which of them is applicable where." ;
+      rdfs:domain pupp:PublicCompany ;
+      rdfs:label "Stock Exchange Index" .
+   pupp:tradedOn
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "Relates the Public Company to the Stock Exchange where it is traded" ;
+      rdfs:domain pupp:PublicCompany ;
+      rdfs:label "Traded on" .
+
+  pupp:MediaCompany
+      rdf:type owl:Class ;
+      rdfs:label "Media Company" ;
+      rdfs:subClassOf pupp:Company .
+   pupp:NewsAgency
+      rdf:type owl:Class ;
+      rdfs:label "News Agency" ;
+      rdfs:subClassOf pupp:MediaCompany .
+   pupp:TVCompany
+      rdf:type owl:Class ;
+      rdfs:label "TV Company" ;
+      rdfs:subClassOf pupp:MediaCompany .
+   pupp:PublishingCompany
+      rdf:type owl:Class ;
+      rdfs:comment "An organization which main activity is mass publishing of information. Often, the publishers issue periodic and/or non-periodic documents on paper media. While on-line publishing is considered a typical activity for publishers, the streaming electronic media such as TV and Radio Stations are not." ;
+      rdfs:label "Publishing Company" ;
+      rdfs:subClassOf pupp:MediaCompany .
+
+  pupp:SportClub
+      rdf:type owl:Class ;
+      rdfs:comment "A sports club, football club or F1 team. Those should be considered commercial although in many cases they are not run for profit." ;
+      rdfs:label "Sport Club" ;
+      rdfs:subClassOf pupp:Company , pupp:SportOrganization .
+   pupp:SoccerClub
+      rdf:type owl:Class ;
+      rdfs:comment "A soccer (football) team" ;
+      rdfs:label "Soccer Club" ;
+      rdfs:subClassOf pupp:SportClub .
+
+  p-ext:EntertainmentCompany
+      rdf:type owl:Class ;
+      rdfs:comment """Any Entertainment Company, a company involved in the entertainment business, e.g. Warner Brothers, MTV, Lido, etc.""" ;
+      rdfs:label "Entertainment Company"@en ;
+      rdfs:subClassOf pupp:Company .
+   p-ext:MusicCompany
+      rdf:type owl:Class ;
+      rdfs:comment """Any Musical company, a company involved in the music business, e.g. sells compositions, recordings and performances of music, like Sonu Music Entertainment.""" ;
+      rdfs:label "musical company"@en ;
+      rdfs:subClassOf p-ext:EntertainmentCompany .
+
+p-ext:Band
+      rdf:type owl:Class ;
+      rdfs:comment """Any band, a group performing music or other activity together.""" ;
+      rdfs:label "band"@en ;
+      rdfs:subClassOf ptop:Organization .
+p-ext:TradeUnion
+      rdf:type owl:Class ;
+      rdfs:comment """Any Trade Union, an organisation of workers that have banded together to achieve common goals such as better working conditions. (Wikipedia)""" ;
+      rdfs:label "trade union"@en ;
+      rdfs:subClassOf ptop:Organization .
+
+p-ext:Non-ProfitOrganisation
+      rdf:type owl:Class ;
+      rdfs:comment """Any Non-Profit Organisation, an organization that does not distribute its surplus funds to owners or shareholders, but instead uses them to help pursue its goals. (Wikipedia)""" ;
+      rdfs:label "non-profit organisation"@en ;
+      rdfs:subClassOf ptop:Organization .
+ pupp:Charity
+      rdf:type owl:Class ;
+      rdfs:comment """Any Charity, an organization involved in practice of benevolent giving and caring. (Wikipedia)""" ;
+      rdfs:label "charity"@en ;
+      rdfs:subClassOf p-ext:Non-ProfitOrganisation .
+
+p-ext:MilitaryOrganization
+      rdf:type owl:Class ;
+      rdfs:comment """Any military organisation, the structuring of the armed forces of a state so as to offer military capability required by the national defence policy. (Wikipedia)""" ;
+      rdfs:label "military organisation"@en ;
+      rdfs:subClassOf ptop:Organization .
+ p-ext:MilitaryUnit
+      rdf:type owl:Class ;
+      rdfs:comment """Any military unit, a smaller military organization.""" ;
+      rdfs:label "military unit"@en ;
+      rdfs:subClassOf p-ext:MilitaryOrganization .
+# *.pie rule is necessary here
+  p-ext:hasCommander
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "The relation between a military unit and the person who commands it.";
+      rdfs:domain p-ext:MilitaryUnit ;
+      rdfs:label "Commander" ;
+      rdfs:range ptop:Person;
+      rdfs:subPropertyOf ptop:hasLeader .
+ p-ext:combatantFrom
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "the relation between a military unit and the organization it represents in a military conflict. " ;
+      rdfs:domain p-ext:MilitaryUnit ;
+      rdfs:label "Combatant from" ;
+      rdfs:range ptop:Organization;
+      rdfs:subPropertyOf ptop:partOf .
+  p-ext:MilitaryCommand
+      rdf:type owl:Class ;
+      rdfs:comment """Any military command, the organization which has a commanding role in a military organization.""" ;
+      rdfs:label "military command"@en ;
+      rdfs:subClassOf p-ext:MilitaryUnit .
+
+p-ext:GeopoloticalOrganisation    #DBP3.5
+      rdf:type owl:Class ;
+      rdfs:comment """Any geopolitical organisation, an organization based on geo-political principles.""" ;
+      rdfs:label "geopolitical organisation"@en ;
+      rdfs:subClassOf ptop:Organization .
+
+p-ext:SportsLeague     #DBP3.5
+      rdf:type owl:Class ;
+      rdfs:comment """Any sports league, a group of sports teams or individual athletes that compete against each other in a specific sport. (Wikipedia)""" ;
+      rdfs:label "sports league"@en ;
+      rdfs:subClassOf pupp:SportOrganization .
+
+ p-ext:AmericanFootballLeague     #DBP3.5
+      rdf:type owl:Class ;
+      rdfs:comment """Any American football league""" ;
+      rdfs:label "American football league"@en ;
+      rdfs:subClassOf p-ext:SportsLeague .
+
+ p-ext:AustralianFootballLeague     #DBP3.5
+      rdf:type owl:Class ;
+      rdfs:comment """Any Australian football league""" ;
+      rdfs:label "Australian football league"@en ;
+      rdfs:subClassOf p-ext:SportsLeague .
+
+ p-ext:AutoRacingLeague     #DBP3.5
+      rdf:type owl:Class ;
+      rdfs:comment """Any Auto Racing league""" ;
+      rdfs:label "Auto Racing league"@en ;
+      rdfs:subClassOf p-ext:SportsLeague .
+
+ p-ext:BaseballLeague     #DBP3.5
+      rdf:type owl:Class ;
+      rdfs:comment """Any Baseball league""" ;
+      rdfs:label "Baseball league"@en ;
+      rdfs:subClassOf p-ext:SportsLeague .
+
+ p-ext:BasketballLeague     #DBP3.5
+      rdf:type owl:Class ;
+      rdfs:comment """Any Basketball league""" ;
+      rdfs:label "Basketball league"@en ;
+      rdfs:subClassOf p-ext:SportsLeague .
+
+ p-ext:BoxingLeague     #DBP3.5
+      rdf:type owl:Class ;
+      rdfs:comment """Any Boxing league""" ;
+      rdfs:label "Boxing league"@en ;
+      rdfs:subClassOf p-ext:SportsLeague .
+
+ p-ext:CanadianFootballLeague     #DBP3.5
+      rdf:type owl:Class ;
+      rdfs:comment """Any Canadian Football league""" ;
+      rdfs:label "Canadian Football league"@en ;
+      rdfs:subClassOf p-ext:SportsLeague .
+
+ p-ext:CricketLeague     #DBP3.5
+      rdf:type owl:Class ;
+      rdfs:comment """Any Cricket league""" ;
+      rdfs:label "Cricket league"@en ;
+      rdfs:subClassOf p-ext:SportsLeague .
+
+ p-ext:CurlingLeague     #DBP3.5
+      rdf:type owl:Class ;
+      rdfs:comment """Any Curling league""" ;
+      rdfs:label "Curling league"@en ;
+      rdfs:subClassOf p-ext:SportsLeague .
+
+ p-ext:FieldHockeyLeague     #DBP3.5
+      rdf:type owl:Class ;
+      rdfs:comment """Any Field Hockey league""" ;
+      rdfs:label "Field Hockey league"@en ;
+      rdfs:subClassOf p-ext:SportsLeague .
+
+ p-ext:GolfLeague     #DBP3.5
+      rdf:type owl:Class ;
+      rdfs:comment """Any Golf league""" ;
+      rdfs:label "Golf league"@en ;
+      rdfs:subClassOf p-ext:SportsLeague .
+
+ p-ext:HandballLeague     #DBP3.5
+      rdf:type owl:Class ;
+      rdfs:comment """Any Handball league""" ;
+      rdfs:label "Handball league"@en ;
+      rdfs:subClassOf p-ext:SportsLeague .
+
+ p-ext:IceHockeyLeague     #DBP3.5
+      rdf:type owl:Class ;
+      rdfs:comment """Any Ice Hockey league""" ;
+      rdfs:label "Ice Hockey league"@en ;
+      rdfs:subClassOf p-ext:SportsLeague .
+
+ p-ext:InlineHockeyLeague     #DBP3.5
+      rdf:type owl:Class ;
+      rdfs:comment """Any Inline Hockey league""" ;
+      rdfs:label "Inline Hockey league"@en ;
+      rdfs:subClassOf p-ext:SportsLeague .
+
+ p-ext:LacrosseLeague     #DBP3.5
+      rdf:type owl:Class ;
+      rdfs:comment """Any Lacrosse league""" ;
+      rdfs:label "Lacrosse league"@en ;
+      rdfs:subClassOf p-ext:SportsLeague .
+
+ p-ext:MixedMartialArtsLeague     #DBP3.5
+      rdf:type owl:Class ;
+      rdfs:comment """Any Mixed Martial Arts league""" ;
+      rdfs:label "Mixed Martial Arts league"@en ;
+      rdfs:subClassOf p-ext:SportsLeague .
+
+ p-ext:MotorcycleRacingLeague     #DBP3.5
+      rdf:type owl:Class ;
+      rdfs:comment """Any Motorcycle Racing league""" ;
+      rdfs:label "Motorcycle Racing league"@en ;
+      rdfs:subClassOf p-ext:SportsLeague .
+
+ p-ext:PaintballLeague     #DBP3.5
+      rdf:type owl:Class ;
+      rdfs:comment """Any Paintball league""" ;
+      rdfs:label "Paintball league"@en ;
+      rdfs:subClassOf p-ext:SportsLeague .
+
+ p-ext:PoloLeague     #DBP3.5
+      rdf:type owl:Class ;
+      rdfs:comment """Any Polo league""" ;
+      rdfs:label "Polo league"@en ;
+      rdfs:subClassOf p-ext:SportsLeague .
+
+ p-ext:RadioControlledRacingLeague     #DBP3.5
+      rdf:type owl:Class ;
+      rdfs:comment """Any Radio Controlled Racing league""" ;
+      rdfs:label "Radio Controlled Racing league"@en ;
+      rdfs:subClassOf p-ext:SportsLeague .
+
+ p-ext:RugbyLeague     #DBP3.5
+      rdf:type owl:Class ;
+      rdfs:comment """Any Rugby league""" ;
+      rdfs:label "Rugby league"@en ;
+      rdfs:subClassOf p-ext:SportsLeague .
+
+ p-ext:SoccerLeague     #DBP3.5
+      rdf:type owl:Class ;
+      rdfs:comment """Any Soccer league""" ;
+      rdfs:label "Soccer league"@en ;
+      rdfs:subClassOf p-ext:SportsLeague .
+
+ p-ext:SoftballLeague     #DBP3.5
+      rdf:type owl:Class ;
+      rdfs:comment """Any Softball league""" ;
+      rdfs:label "Softball league"@en ;
+      rdfs:subClassOf p-ext:SportsLeague .
+
+ p-ext:SpeedwayLeague     #DBP3.5
+      rdf:type owl:Class ;
+      rdfs:comment """Any Speedway league""" ;
+      rdfs:label "Speedway league"@en ;
+      rdfs:subClassOf p-ext:SportsLeague .
+
+ p-ext:TennisLeague     #DBP3.5
+      rdf:type owl:Class ;
+      rdfs:comment """Any Tennis league""" ;
+      rdfs:label "Tennis league"@en ;
+      rdfs:subClassOf p-ext:SportsLeague .
+
+ p-ext:VideogamesLeague     #DBP3.5
+      rdf:type owl:Class ;
+      rdfs:comment """Any Videogames league""" ;
+      rdfs:label "Videogames league"@en ;
+      rdfs:subClassOf p-ext:SportsLeague .
+
+ p-ext:VolleyballLeague     #DBP3.5
+      rdf:type owl:Class ;
+      rdfs:comment """Any Volleyball league""" ;
+      rdfs:label "Volleyball league"@en ;
+      rdfs:subClassOf p-ext:SportsLeague .
+
+p-ext:CanadianFootballTeam     #DBP3.5
+      rdf:type owl:Class ;
+      rdfs:comment """Any Canadian Football team""" ;
+      rdfs:label "Canadian Football team"@en ;
+      rdfs:subClassOf pupp:Team .
+
+p-ext:AmericanFootballTeam     #DBP3.5
+      rdf:type owl:Class ;
+      rdfs:comment """Any American Football team""" ;
+      rdfs:label "American Football team"@en ;
+      rdfs:subClassOf pupp:Team .
+
+p-ext:HockeyTeam     #DBP3.5
+      rdf:type owl:Class ;
+      rdfs:comment """Any Hockey team""" ;
+      rdfs:label "hockey team"@en ;
+      rdfs:subClassOf pupp:Team .
+
+
+
+### ldsr4 demo queries, this may change with the introduction of the abstract PositionOrganization class
+
+p-ext:organizationPosition
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "The relation between an organization and a concrete job position in it." ;
+      rdfs:domain ptop:Organization ;
+      rdfs:label "within Organization" ;
+      rdfs:range ptop:JobPosition ;
+      owl:inverseOf ptop:withinOrganization .
+
+
+# inserted as a result of SocialPosition
+p-ext:Cleric
+      rdf:type owl:Class ;
+      rdfs:comment "The situation of holding a position in society as cleric." ;
+      rdfs:label "Cleric" ;
+      rdfs:subClassOf p-ext:SocialPosition .
+
+     p-ext:hasSocialPositionCleric
+        rdf:type owl:ObjectProperty ;
+    rdfs:comment "The relation between a person and the social position of Cleric he has. " ;
+        rdfs:domain ptop:Person ;
+        rdfs:label "has social position cleric" ;
+        rdfs:range p-ext:Cleric ;
+        owl:inverseOf p-ext:socialPositionCleric ;
+    rdfs:subPropertyOf p-ext:socialPositionHolder .
+
+     p-ext:socialPositionCleric
+        rdf:type owl:ObjectProperty ;
+    rdfs:comment "The relation between a social position of Cleric and the person who has it. " ;
+        rdfs:domain p-ext:Cleric ;
+        rdfs:label "social position cleric" ;
+        rdfs:range ptop:Person ;
+        owl:inverseOf p-ext:hasSocialPositionCleric ;
+    rdfs:subPropertyOf p-ext:hasSocialPosition .
+
+p-ext:Celebrity
+      rdf:type owl:Class ;
+      rdfs:comment "The situation of holding a position in society as celebrity." ;
+      rdfs:label "Celebrity" ;
+      rdfs:subClassOf p-ext:SocialPosition .
+
+     p-ext:hasSocialPositionCelebrity
+        rdf:type owl:ObjectProperty ;
+        rdfs:comment "The relation between a person and the social position of Celebrity he has. " ;
+        rdfs:domain ptop:Person ;
+        rdfs:label "has social position celebrity" ;
+        rdfs:range p-ext:Celebrity ;
+        owl:inverseOf p-ext:socialPositionCelebrity ;
+    rdfs:subPropertyOf p-ext:socialPositionHolder .
+
+     p-ext:socialPositionCelebrity
+        rdf:type owl:ObjectProperty ;
+    rdfs:comment "The relation between a social position of Celebrity and the person who has it. " ;
+        rdfs:domain p-ext:Celebrity ;
+        rdfs:label "social position holder celebrity" ;
+        rdfs:range ptop:Person ;
+        owl:inverseOf p-ext:hasSocialPositionCelebrity ;
+    rdfs:subPropertyOf p-ext:hasSocialPosition .
+
+p-ext:Nobelty
+      rdf:type owl:Class ;
+      rdfs:comment "The situation of holding a position in society as nobelty." ;
+      rdfs:label "Nobelty" ;
+      rdfs:subClassOf p-ext:SocialPosition .
+
+     p-ext:hasSocialPositionNobelty
+        rdf:type owl:ObjectProperty ;
+        rdfs:comment "The relation between a person and the social position of Nobelty he has. " ;
+        rdfs:domain ptop:Person ;
+        rdfs:label "has social position Nobelty" ;
+        rdfs:range p-ext:Nobelty ;
+        owl:inverseOf p-ext:socialPositionNobelty ;
+    rdfs:subPropertyOf p-ext:socialPositionHolder .
+
+     p-ext:socialPositionNobelty
+        rdf:type owl:ObjectProperty ;
+    rdfs:comment "The relation between a social position of Nobelty and the person who has it. " ;
+        rdfs:domain p-ext:Nobelty ;
+        rdfs:label "social position holder Nobelty" ;
+        rdfs:range ptop:Person ;
+        owl:inverseOf p-ext:hasSocialPositionNobelty ;
+    rdfs:subPropertyOf p-ext:hasSocialPosition .
+
+p-ext:OutOfLaws
+      rdf:type owl:Class ;
+      rdfs:comment "The situation of holding a position in society as out of law." ;
+      rdfs:label "OutOfLaws" ;
+      rdfs:subClassOf p-ext:SocialPosition .
+
+     p-ext:hasSocialPositionOutOfLaws
+        rdf:type owl:ObjectProperty ;
+        rdfs:comment "The relation between a person and the social position of OutOfLaws he has. " ;
+        rdfs:domain ptop:Person ;
+        rdfs:label "has social position OutOfLaws" ;
+        rdfs:range p-ext:OutOfLaws ;
+        owl:inverseOf p-ext:socialPositionOutOfLaws ;
+    rdfs:subPropertyOf p-ext:socialPositionHolder .
+
+     p-ext:socialPositionCleric
+        rdf:type owl:ObjectProperty ;
+    rdfs:comment "The relation between a social position of OutOfLaws and the person who has it. " ;
+        rdfs:domain p-ext:OutOfLaws ;
+        rdfs:label "social position holder OutOfLaws" ;
+        rdfs:range ptop:Person ;
+        owl:inverseOf p-ext:hasSocialPositionOutOfLaws ;
+    rdfs:subPropertyOf p-ext:hasSocialPosition .
+
+
+##################
+#Location module
+##################
+
+#rdfs:subClassOf ptop:Location :
+pupp:AstronomicalObject
+      rdf:type owl:Class ;
+      rdfs:comment "Any object studied by astronomers, (usually quite large natural and inanimate) object that is located in the physical universe and is not on the surface of the Earth. Definition partly derived from OpenCyc 0.7" ;
+      rdfs:label "Astronomical Object" ;
+      rdfs:subClassOf ptop:Location .
+pupp:Facility
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT: Manmade Features, no def) Any regions and locations determined artificially, as a result of human activity. Many of the ADL sub-classes are omitted. NIMA GNS - no direct equivalent, although many sub-types are defined as classes (S, R) and designators.""" ;
+      rdfs:label "Facility" ;
+      rdfs:subClassOf ptop:Location .
+pupp:GlobalRegion
+      rdf:type owl:Class ;
+      rdfs:comment "Things like Southeastern Europe, Middle East, Oceania are global regions" ;
+      rdfs:label "Global Region" ;
+      rdfs:subClassOf ptop:Location .
+pupp:LandRegion
+      rdf:type owl:Class ;
+      rdfs:comment """Any sort of land regions which are sort of natural, i.e. excluding urban areas, political and administrative regions. It combines number of ADL feature types under Physiographic features and Regions. Omitted ADL sub-classes: Badlands, Bars, Basins, Bight, Cirques, Cliffs, Dunes, Flats, Karst areas. Ledges, Massifs, Mineral deposit areas, Moraines, Natural rock formations, Arches, Playas, Seafloor Features, Tectonic features, Volcanic features (Volcano put under Mountain), Subcontinents. NIMA GNS designators FSR, FURU, HMCK, PLDR, RKFL, SINK, SLID, SLP, SLPU, TERU, TRR.""" ;
+      rdfs:label "Land Region" ;
+      rdfs:subClassOf ptop:Location .
+pupp:NonGeographicLocation
+      rdf:type owl:Class ;
+      rdfs:comment "A non-geographic region in some 3D space. The Longitude and Latitude properties for such objects could be void." ;
+      rdfs:label "Non-geographic Location" ;
+      rdfs:subClassOf ptop:Location .
+pupp:PoliticalRegion
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL, Political Entity) We use this category for commonwealths; for dependent political entities; for freely associated states; for independent political entities; for oblasts; for political entities; and for semi-independent political entities. Sub-classes omitted: Countries, 4th order divisions. NIMA GNS class: A, Administrative Boundary Features.""" ;
+      rdfs:label "Political Region" ;
+      rdfs:subClassOf ptop:Location .
+ pupp:hasCapital            #/location/country/capital
+      rdf:type owl:ObjectProperty ;
+      rdfs:domain pupp:PoliticalRegion ;
+      rdfs:label "has Capital" ;
+      rdfs:range pupp:Capital .
+pupp:PopulatedPlace
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT) Places or areas with clustered or scattered buildings and a permanent human population. ... We use this category for agricultural colonies; for communes; for communities; for hamlets; for homesteads; for locales; for localities; for metropolitan areas; for populated localities; for ppl; for pueblos; for settlements; for suburbs; for villages; and with religious facilities for religious populated places. NIMA GNS designator PPL, PPL(x)""" ;
+      rdfs:label "Populated Place" ;
+      rdfs:subClassOf ptop:Location .
+pupp:WaterRegion
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT: Hydrographic Features) For natural bodies of water. For constructed waterways, reservoirs, and such, use 'hydrographic structures'. We use this category for bodies of water; for eddies; for fluvial features; for marine features; for overfalls; for upwellings; for water bodies; for waterholes; and for whirlpools. Many of the ADL hydrographic features ignored. NIMA GNS class H.""" ;
+      rdfs:label "Water Region" ;
+      rdfs:subClassOf ptop:Location .
+
+p-ext:WineRegion
+      rdf:type owl:Class ;
+      rdfs:comment """Any Wine Region, a region where wine is produced.""" ;
+      rdfs:label "wine region"@en ;
+      rdfs:subClassOf ptop:Location .
+p-ext:SkiArea
+      rdf:type owl:Class ;
+      rdfs:comment """Any Ski Area, a mounatain area (usually) where there re ski resorts or one can ski.""" ;
+      rdfs:label "ski area"@en ;
+      rdfs:subClassOf ptop:Location .
+p-ext:LocationOfSpecialInterest
+      rdf:type owl:Class ;
+      rdfs:comment """Any place with some particular value, which triggers interest.""" ;
+      rdfs:label "world heritage site"@en ;
+      rdfs:subClassOf ptop:Location .
+ p-ext:WorldHeritageSite
+      rdf:type owl:Class ;
+      rdfs:comment """Any world heritage site, a old site with historic value of world magnitude to be preserved.""" ;
+      rdfs:label "world heritage site"@en ;
+      rdfs:subClassOf p-ext:LocationOfSpecialInterest .
+ p-ext:ProtectedArea
+      rdf:type owl:Class ;
+      rdfs:comment """Any Protected Area, an area which benefits of special attention and is with limited access or protected in other ways.""" ;
+      rdfs:label "protected area"@en ;
+      rdfs:subClassOf p-ext:LocationOfSpecialInterest .
+ p-ext:HistoricPlace
+      rdf:type owl:Class ;
+      rdfs:comment """Any Historic Place, an old place with historic value.""" ;
+      rdfs:label "historic place"@en ;
+      rdfs:subClassOf p-ext:LocationOfSpecialInterest .
+ p-ext:SiteOfSpecialScientificInterest
+      rdf:type owl:Class ;
+      rdfs:comment """Any sites of special scientific interest, a place with scientific value, where some scientific activities or experiments are carried out, or which is observed for scientific reasons.""" ;
+      rdfs:label "Site of special scientific interest"@en ;
+      rdfs:subClassOf p-ext:LocationOfSpecialInterest .
+
+#rdfs:subClassOf pupp:AstronomicalObject :
+pupp:Galaxy
+      rdf:type owl:Class ;
+      rdfs:label "Galaxy" ;
+      rdfs:subClassOf pupp:AstronomicalObject .
+pupp:Planet
+      rdf:type owl:Class ;
+      rdfs:comment "Any of the celestial bodies (other than comets or satellites) that revolve around the sun in the solar system. Definition partly derived from WordNet 1.7" ;
+      rdfs:label "Planet" ;
+      rdfs:subClassOf pupp:AstronomicalObject .
+pupp:Star
+      rdf:type owl:Class ;
+      rdfs:comment "An astronomic object of hot gases that radiates energy derived from thermonuclear reactions in the interior. Definition partly derived from WordNet 1.7" ;
+      rdfs:label "Star" ;
+      rdfs:subClassOf pupp:AstronomicalObject .
+pupp:Satellite
+      rdf:type owl:Class ;
+      rdfs:comment "An astronomic object orbiting around a planet or star. Definition partly derived from WordNet 1.7" ;
+      rdfs:label "Satellite" ;
+      rdfs:subClassOf pupp:AstronomicalObject .
+pupp:NaturalSatellite
+      rdf:type owl:Class ;
+      rdfs:comment "A satellite which is not a direct result of human activity" ;
+      rdfs:label "Natural Satellite" ;
+      rdfs:subClassOf pupp:Satellite .
+pupp:ArtificialSatellite
+      rdf:type owl:Class ;
+      rdfs:comment "A satellite created by humans" ;
+      rdfs:label "Artificial Satellite" ;
+      rdfs:subClassOf pupp:Satellite .
+
+#rdfs:subClassOf pupp:Facility :
+pupp:Building
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT) Permanent constructions that are roofed and usually walled. [USGS Circ 1048] We use this category for administrative facilities; for administrative facilities; for animal pounds; for animal shelters; for aquariums; for barns; for border posts; for cabins; for castles; for city halls; for civic centers; for civil buildings; for club houses; for coast guard stations; for commissaries; for community centers; for community houses; for conference facilities; for consulates; for convention centers; for customs houses; for customs posts; for depots; for embassy buildings; for exhibition buildings; for facilities; for facility centers; for fire stations; for firehouses; for forest stations; for government buildings; for guard stations; for halls; for headquarters; for hostels; for hotels; for houses; for inns; for inspection stations; for legation buildings; for lodges; for missions; for motels; for neighborhood centers; for offices; for park headquarters; for patrol posts; for pavilions; for planetariums; for plazas; for police posts; for public buildings; for ranger stations; for restaurants; for shelters; for shops; for stations; for structures; for student unions; for studios; for substations; for taverns; for town halls; for trading posts; for treatment plants; for United States Government establishments; for visitor centers; for walls; and for warehouses NIMA GNS designator BLDG.""" ;
+      rdfs:label "Building" ;
+      rdfs:subClassOf pupp:Facility .
+ pupp:Hotel
+      rdf:type owl:Class ;
+      rdfs:label "Hotel" ;
+      rdfs:subClassOf pupp:Building .
+
+ #pupp:PerformanceSite- rdfs:subClassOf pupp:Building , pupp:RecreationalFacility .
+ #pupp:SportBuilding  - rdfs:subClassOf pupp:Building , pupp:SportFacility .
+  #pupp:Stadium
+
+ pupp:Tower
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT)  Manmade structures, higher than their diameter, generally used for observation, storage, or electronic transmission. We use this category for carillons; for fire lookouts; and for pagodas. NIMA GNS designator TOWR.""" ;
+      rdfs:label "Tower" ;
+      rdfs:subClassOf pupp:Building .
+
+ p-ext:HistoricBuilding
+      rdf:type owl:Class ;
+      rdfs:comment """Any Historic Building, an old building with historic value.""" ;
+      rdfs:label "Historic Building"@en ;
+      rdfs:subClassOf pupp:Building .
+ p-ext:Hospital
+      rdf:type owl:Class ;
+      rdfs:comment """Any Hospital, a building which is a hospital.""" ;
+      rdfs:label "Hospital"@en ;
+      rdfs:subClassOf pupp:Building .
+ p-ext:ShoppingMall
+      rdf:type owl:Class ;
+      rdfs:comment """Any Shopping Mall, a building which is a shopping mall""" ;
+      rdfs:label "Shopping Mall"@en ;
+      rdfs:subClassOf pupp:Building .
+ p-ext:Skyscraper
+      rdf:type owl:Class ;
+      rdfs:comment """Any Skyscraper, a highrise building, usually in downtown city areas.""" ;
+      rdfs:label "Skyscraper"@en ;
+      rdfs:subClassOf pupp:Building .
+  p-ext:Station
+      rdf:type owl:Class ;
+      rdfs:comment """Any station, a place where busses, trains, sheeps, boats, etc. stop, like railway station, bussstop, etc.""" ;
+      rdfs:label "station"@en ;
+      rdfs:subClassOf pupp:Building .
+
+pupp:HydrographicStructure
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT) For constructed bodies of water. For natural water bodies, use 'hydrographic features'. We use this category for boat landings; for boat launches; for boat ramps; for sluices; and for water mills. Many sub-classes omitted; those considered are also made sub-classes of WaterRegion. NIMA GNS ... no direct equivalent.""" ;
+      rdfs:label "Hydrographic Structure" ;
+      rdfs:subClassOf pupp:Facility .
+
+ #pupp:Canal    -rdfs:subClassOf pupp:Channel , pupp:HydrographicStructure .
+ #pupp:Harbor   -rdfs:subClassOf pupp:WaterRegion , pupp:HydrographicStructure .
+ #pupp:Lock     -rdfs:subClassOf pupp:HydrographicStructure , pupp:TransportFacility .
+ #pupp:Reservoir-rdfs:subClassOf pupp:Lake , pupp:HydrographicStructure .
+
+pupp:MineSite
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT) Places or areas from which commercial minerals are or were removed by excavation from the Earth. [Adapted from USGS Feature Class Definitions <http://mapping.usgs.gov/www/ti/GNIS/gnis_users_guide_appendixc.html>] We use this category for adits (mine sites); for chrome mines; for coal mines; for collieries; for copper mines; for diatomite mines; for gold mines; for gravel pits; for iron mines; for lead mines; for mine entrances; for mine shafts; for mines; for mining areas; for mining camps; for nickel mines; for open pit mines; for placer mines; for quarries; for salt mines; for strip mines; and for tin mines. NIMA GNS designators MN, MNA, MNAU, MNC, MNCR, MNDT, MNCU, MNFE, MNN, MNNI, MNPB, MNPL. MNQ, MNSN.""" ;
+      rdfs:label "Mine Site" ;
+      rdfs:subClassOf pupp:Facility .
+pupp:Monument
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT) Structures erected as memorials. [Adapted from American Heritage Dic. of the English Language, 4th ed.] We use this category for cairns; for landmarks (monuments); for memorials; for national monuments; for pyramids; for shrines; for statues; and for tombs. NIMA GNS designators MNMT, PYR, PYRS, CARN.""" ;
+      rdfs:label "Monument" ;
+      rdfs:subClassOf pupp:Facility .
+pupp:OilField
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT) Areas with reserves of recoverable petroleum or where petroleum has been removed from the Earth. ... We use this category for gas fields; for gasfields; for oilfields; for petroleum fields; and for storage fields (petroleum). NIMA GNS designator CMPO, OILF, OILQ, OILW, PMPO, GASF.""" ;
+      rdfs:label "Oil Field" ;
+      rdfs:subClassOf pupp:Facility .
+pupp:Park
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT) Places or areas developed for public use or recreation. [USGS Circ 1048] We use this category for arboretums; for botanical gardens; for commemorative areas; for commons; for gardens; for marine parks; for national forests; for national parks; for national seashores; for park gates; for picnic areas; for playgrounds; for provincial parks; for public use areas; for recreation areas; for rest areas; for scenic areas; for state forests; for state parks; for urban parks; for village squares; for wilderness areas; for zoological gardens; and for zoos. Omitted sub-classes: Viewing locations. NIMA GNS designators PRK, PRKHQ, PRKGT""" ;
+      rdfs:label "Park" ;
+      rdfs:subClassOf pupp:Facility .
+pupp:RecreationalFacility
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT)  We use this category for access areas; for access sites; for boardwalks; for casinos; for clubs (recreational); for country clubs; for fairgrounds; for fishing areas; for fishing lodges; for fitness centers; for gun clubs; for hunt posts; for hunting lodges; for ice skating rinks; for playgrounds; for recreation sites; for resorts; for riding stables; for spas; for sportsman lodges; for stables; for yacht clubs; for youth centers; and for youth facilities. NIMA GNS designators - no direct equivalents.""" ;
+      rdfs:label "Recreational Facility" ;
+      rdfs:subClassOf pupp:Facility .
+ pupp:AmusementPark
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT) Commercially operated enterprises that offer rides, games, and other forms of entertainment. NIMA GNS designator - no equivalents.""" ;
+      rdfs:label "Amusement Park" ;
+      rdfs:subClassOf pupp:RecreationalFacility .
+ pupp:Camp
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT)  Designated areas on which primitive structure(s) are erected for temporary shelter or where recreational vehicles are temporarily parked. [USGS Circ 1048] We use this category for campgrounds; for camping sites; for logging camps; for oil camps; for refugee camps; for RV parks; and for trailer parks (recreational). NIMA GNS designators CMP, CMPL, CMPLA, CMPO, CMPQ, CMPRF.""" ;
+      rdfs:label "Camp" ;
+      rdfs:subClassOf pupp:RecreationalFacility .
+ pupp:PerformanceSite
+      rdf:type owl:Class ;
+      rdfs:comment """Buildings where cultural events are presented before an audience. We use this category for amphitheaters; for amphitheatres; for auditoriums; for bowls (performance); for coliseums; for concert halls; for opera houses; for playhouses; for recital halls; for stages (performance); for symphony halls; for theaters; and for theatres. NIMA GNS designator AMTH.""" ;
+      rdfs:label "Performance Site" ;
+      rdfs:subClassOf pupp:Building , pupp:RecreationalFacility .
+ pupp:SportFacility
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT) Fields, centers, or open areas maintained for the purpose of holding sporting events and activities. [USGS Circ 1048] We use this category for aquatic centers; for arenas; for athletic complexes; for athletic fields; for ball parks; for baseball fields; for dragways; for equestrian centers; for fields; for football fields; for golf clubs; for golf courses; for gymnasiums; for natatoriums; for physical education facilities; for pistol ranges (sport); for polo fields; for pools, swimming; for race tracks; for racecourses; for racetracks; for raceways; for rifle ranges; for rodeo grounds; for shooting ranges (sport); for skeet shooting ranges; for ski areas; for ski facilities; for ski trails; for speedways; for stadiums; for swim clubs; for swimming pools; for tennis clubs; and for tennis courts. NIMA GNS designators RECG, RECR, #STDM, ATHF.""" ;
+      rdfs:label "Sport Facility" ;
+      rdfs:subClassOf pupp:RecreationalFacility .
+  pupp:RaceCourse
+      rdf:type owl:Class ;
+      rdfs:label "Race Course" ;
+      rdfs:subClassOf pupp:SportFacility .
+  pupp:SportBuilding
+      rdf:type owl:Class ;
+      rdfs:label "Sport Building" ;
+      rdfs:subClassOf pupp:Building , pupp:SportFacility .
+   pupp:Stadium
+      rdf:type owl:Class ;
+      rdfs:comment "A special sort of sport building, usually for open-air sports such as soccer." ;
+      rdfs:label "Stadium" ;
+      rdfs:subClassOf pupp:SportBuilding .
+pupp:ReferenceLocation
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT)  We use this category for astronomical stations; for beacons; for bench marks; for boundaries; for boundary markers; for buoys; for control points; for geodectic stations; for geographic centers; for landmarks (reference locations); for light houses; for light stations; for lighthouses; for markers; for milestones; for plaques; for poles (sphere); for triangulation stations; and for walls. NIMNA GNS designators LTHSE, BP, TRIG.""" ;
+      rdfs:label "Reference Location" ;
+      rdfs:subClassOf pupp:Facility .
+pupp:ReligiousLocation
+      rdf:type owl:Class ;
+      rdfs:comment "Things like Monastery, Church" ;
+      rdfs:label "Religious Location" ;
+      rdfs:subClassOf pupp:Facility .
+pupp:Reserve
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT) Areas set aside for the preservation of fauna, flora, and their natural habitats. [Macmillan Encyc., 2001] We use this category for agricultural reserves; for conservation areas; for demonstration areas; for environmental areas; for forest reserves; for game management areas; for hunting reserves; for management areas (reserves); for natural areas; for nature reserves; for palm tree reserves; for preserves; for primitive areas; for protected areas; for reservations (nature sites); for road less areas; for sanctuaries (wildlife); for wildlife areas; for wildlife refuges; and for wildlife reserves. NIMA GNS designators RES, RESA, RESF, RESH, RESN, RESP, RESV, RESW.""" ;
+      rdfs:label "Reserve" ;
+      rdfs:subClassOf pupp:Facility .
+pupp:TelecomFacility
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT: Telecommunication Features)  We use this category for antenna field sites; for communication centers; for radio stations; for television stations; and for transmission lines. NIMA GNS designators COMC, STNR, STNS.""" ;
+      rdfs:label "Telecom Facility" ;
+      rdfs:subClassOf pupp:Facility .
+pupp:TransportFacility
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT: Transportation Features)  We use this category for air routes; for caravan routes; for corridors; for crossings; for depots; for ferries; for fords (crossings); for fuel depots; for gates (manmade); for halting places (transportation); for highway maintenance sites; for portages; for rest houses; for routes; for ship tracks; for stock routes; for terminals (transportation); and for transit facilities. Omitted sub-classes: Aqueducts, Cableways, Parking Sites. NIMA GNS designator - no direct equivalents.""" ;
+      rdfs:label "Transport Facility" ;
+      rdfs:subClassOf pupp:Facility .
+ pupp:Airport
+      rdf:type owl:Class ;
+      rdfs:comment """An airport, including heliports. NIMA GNS designators AIRP, AIRH.""" ;
+      rdfs:label "Airport" ;
+      rdfs:subClassOf pupp:TransportFacility .
+ pupp:Bridge
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT) Structures erected over a depression or obstacle to carry traffic. [USGS Circ 1048] We use this category for covered bridges; for drawbridges; for overpasses; for trestles; and for viaducts. NIMA GNS designator BDG, BDGQ.""" ;
+      rdfs:label "Bridge" ;
+      rdfs:subClassOf pupp:TransportFacility .
+ pupp:LaunchFacility
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT) Areas from which rockets/missiles may be housed and projected, usually equipped with associated buildings and facilities. [USGS Circ 1048] We use this category for missile sites. NIMA GNS designator - no equivalent.""" ;
+      rdfs:label "Launch Facility" ;
+      rdfs:subClassOf pupp:TransportFacility .
+ pupp:Lock
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT) Stretches of water in canals, streams, or docks, enclosed by gates at each end, and used in raising and lowering boats as they pass from one water level to another. NIMA GNS designator LOCK.""" ;
+      rdfs:label "Lock" ;
+      rdfs:subClassOf pupp:HydrographicStructure , pupp:TransportFacility .
+ pupp:Pipeline
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT)  Tubular conduits of substantial length, with pumps, valves, and control devices, for conveying fluids, gases, or finely divided solids. [USGS Circ 1048] We use this category for compressor stations; for gas pipelines; for oil pipeline junctions; for oil pipeline terminals; for oil pipelines; for oil pumping stations; for pump houses; for pumphouses; for pumping stations; and for water pumping stations. NIMA GNS designators OILP, OILJ, TRMO, PMPO, PMPW.""" ;
+      rdfs:label "Pipeline" ;
+      rdfs:subClassOf pupp:TransportFacility .
+ pupp:RailroadFacility
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT: Railroad Features)  We use this category for metro rail stations; for railroad junctions; for railroad sidings; for railroad spurs; for railroad stations; for railroad stops; for railroad switches; for railroad yards; for railways; for subway stations; for switches (railroad); and for tramways. NIMA GNS designator RJCT, RR, RRQ, RSD, RSGNL, RSTN, RSTNQ, RSTP, RSTPQ, RYD.""" ;
+      rdfs:label "Railroad Facility" ;
+      rdfs:subClassOf pupp:TransportFacility .
+
+ pupp:Roadway
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT) Open ways for passage of vehicles. [USGS Circ 1048] We use this category for caravan routes; for causeways; for drives; for highways; for intersections; for parkways; for road bends; for road cuts; for road junctions; for roads; for streets; and for traffic circles. NIMA GNS designators CSWY, CSWYQ, RD, RDA, RDB, RDCUT, RDJCT, RDST, RTE, STKR.""" ;
+      rdfs:label "Roadway" ;
+      rdfs:subClassOf pupp:TransportFacility .
+  pupp:Street
+      rdf:type owl:Class ;
+      rdfs:comment """The general notion for a roadway within a city or village, often, surrounded by buildings. We put here boulevards, streets, avenues, etc. NIMA GNS designator - missing.""" ;
+      rdfs:label "Street" ;
+      rdfs:subClassOf pupp:Roadway .
+ pupp:Tunnel
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT) Underground or underwater passages. [USGS Circ 1048] We use this category for canal tunnels; for railroad tunnels; and for road tunnels. NIMA GNS designator TNL, TNLC, TNLN, TNLRD, TNLS""" ;
+      rdfs:label "Tunnel" ;
+      rdfs:subClassOf pupp:TransportFacility .
+  pupp:RailroadTunnel
+      rdf:type owl:Class ;
+      rdfs:comment "NIMA GNS designator RTNL." ;
+      rdfs:label "Railroad Tunnel" ;
+      rdfs:subClassOf pupp:RailroadFacility , pupp:Tunnel .
+
+#rdfs:subClassOf pupp:LandRegion :
+pupp:Beach
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT)  Sloping shores along a body of water that is washed by waves or tides and is usually covered by sand or gravel. ... We use this category for sandy areas; and for strands. NIMA GNS designator BCH, BCHS.""" ;
+      rdfs:label "Beach" ;
+      rdfs:subClassOf pupp:LandRegion .
+pupp:BiogeographicRegion
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT)  Geographic regions characterized chiefly by the dominant forms of plant life and the prevailing climate. [Adapted from American Heritage Dict. of the English Language, 4th ed.] We use this category for biomes; for ecoregions; and for vegetation. Omitted ADL sub-classes: Barren lands, Grasslands, Habitats, Snow Regions, Wetlands. NIMA GNS designator - no equivalent. Some correspondence to class Hypsographic Features.""" ;
+      rdfs:label "Biogeographic Region" ;
+      rdfs:subClassOf pupp:LandRegion .
+ pupp:Desert
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT) Regions rendered barren or partially barren by environmental extremes, especially by low rainfall. [USGS Circ 1048] We use this category for arid regions; for bajadas; for rock deserts; for sandy areas; for sandy deserts; and for stony deserts. NIMA GNS designators DSRT, ERG, HMDA, REG.""" ;
+      rdfs:label "Desert" ;
+      rdfs:subClassOf pupp:BiogeographicRegion .
+ pupp:Forest
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT) Dense growths of trees, plants, and underbrush covering a large area. [American Heritage Dic. of the English Language, 4th ed.] We use this category for forest reserves; and for national forests. Omitted ADL sub-classes: Petrified forests, Rain forests, Woods (the sub-classes collapsed here). NIMA GNS designator FRST, FRSTF, GDVC, GRVO, GRVP, GRVPN, TREE.""" ;
+      rdfs:label "Forest" ;
+      rdfs:subClassOf pupp:BiogeographicRegion .
+ pupp:Jungle
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT) Tropical regions of wild, tangled, dense vegetation. NIMA GNS designator - no equivalent.""" ;
+      rdfs:label "Jungle" ;
+      rdfs:subClassOf pupp:BiogeographicRegion .
+ pupp:Oasis
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT)  Fertile, vegetated areas in the midst of a desert, where the water table has come close enough to the surface for wells and springs or seepages to exist, thus making them suitable for human habitation. NIMA GNS designator  OAS.""" ;
+      rdfs:label "Oasis" ;
+      rdfs:subClassOf pupp:BiogeographicRegion .
+ pupp:Tundra
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT)  Treeless, level, or gently rolling plains characteristic of arctic or subarctic regions, having a permanently frozen subsoil, and usually supporting low growing vegetation such as lichens, mosses, and stunted shrubs. [USGS Circ 1048] We use this category for Arctic land. NIMA GNS designator TUND, LAND.""" ;
+      rdfs:label "Tundra" ;
+      rdfs:subClassOf pupp:BiogeographicRegion .
+pupp:Cape
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT)  Projection of land extending into a body of water that prominently marks a change in or interrupts the coastal trend of that water body. We use this category for headlands; for peninsulas; for points (physiographic); and for promontories. NIMA GNS designator CAPE, HDLD, PROM.""" ;
+      rdfs:label "Cape" ;
+      rdfs:subClassOf pupp:LandRegion .
+pupp:Cave
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT) Natural underground passageways or chambers, or hollowed out cavities in the side of a cliff. ... We use this category for cave entrances; for caverns; for grottoes; for natural tunnels; and for underground lakes. NIMA GNS designator CAVE.""" ;
+      rdfs:label "Cave" ;
+      rdfs:subClassOf pupp:LandRegion .
+pupp:Coast
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT: Coastal Zones)  Strips of land (of indefinite width) that extend from the low-tide line inland to the first major change in landform features. [Adapted from Glossary of Geology, 4th ed.] We use this category for coastal plains; for coasts; for intertidal zones; for offshore areas; for shorelines; and for shores. NIMA GNS designators CST, SHOR.""" ;
+      rdfs:label "Coast" ;
+      rdfs:subClassOf pupp:LandRegion .
+pupp:Continent
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT) Earth's major land masses, including both dry land and continental shelves. NIMA GNS designator - no equivalent.""" ;
+      rdfs:label "Continent" ;
+      rdfs:subClassOf pupp:LandRegion , pupp:PopulatedPlace .
+pupp:Crater
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT)  Circular-shaped depressions at the summit of a volcanic core or on the surface of the land caused by the impact of a meteorite; man-made depressions caused by an explosion. ... We use this category for calderas. NIMA GNS designator CRTR, CLDA.""" ;
+      rdfs:label "Crater" ;
+      rdfs:subClassOf pupp:LandRegion .
+pupp:Delta
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT) Flat plains formed by alluvial deposits at the mouth of a stream. NIMA GNS designator DLTA.""" ;
+      rdfs:label "Delta" ;
+      rdfs:label "Delta of a river" ;
+      rdfs:subClassOf pupp:LandRegion .
+pupp:Gap
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT) Ravines or gorges cut deeply through mountain ridges, or between hills or mountains. We use this category for cols; for defiles; for passes; for saddles (physiographic); and for sills (physiographic). NIMA GNS designator GAP, GAPU, GAPF, PASS, SILL, SILU.""" ;
+      rdfs:label "Gap" ;
+      rdfs:subClassOf pupp:LandRegion .
+pupp:Island
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT) Tracts of land smaller than a continent, surrounded by the water of an ocean, sea, lake or stream. [Glossary of Geology, 4th ed.] We use this category for atolls; for cays; for island arcs; for isles; for islets; for keys (islands); for land-tied islands; and for mangrove islands. NIMA GNS designator ISL, ISLF, ISLM, ISLS, ISLT, ISLX""" ;
+      rdfs:label "Island" ;
+      rdfs:subClassOf pupp:LandRegion .
+
+ #pupp:Archipelago - rdfs:subClassOf pupp:Island , pupp:WaterRegion .
+
+pupp:Isthmus
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT) Narrow sections of land in a body of water connecting two larger land areas. NIMA GNS designator ISTH.""" ;
+      rdfs:label "Isthmus" ;
+      rdfs:subClassOf pupp:LandRegion .
+pupp:Mountain
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT) Landmasses that project conspicuously above their surroundings. [USGS Circ 1048] We use this category for cerros; for cordilleras; for foothills; for hills; for knolls; for mounds; and for mounts. Omitted ADL sub-classes: Continental divides. NIMA GNS designator MT, MTS, MTSU, MTU, MND, KNLU, KNSU, CDAU, HLL, HLLS, HLLU, HLSU.""" ;
+      rdfs:label "Mountain" ;
+      rdfs:subClassOf pupp:LandRegion .
+ pupp:MountainRange
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT) (a) Chains of hills or mountains; (b) somewhat linear, complex mountainous or hilly areas. ... We use this category for ranges (physiographic); and for sierra. NIMA GNS designator RNGU.""" ;
+      rdfs:label "Mountain Range" ;
+      rdfs:subClassOf pupp:Mountain .
+ pupp:MountainSummit
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT) Peaks of mountains. [USGS Circ 1048] We use this category for ahus; for mountain crests; for nunataks; for peaks; and for summits. NIMA GNS designators PK, PKS, PKSU, PKU.""" ;
+      rdfs:label "Mountain Summit" ;
+      rdfs:subClassOf pupp:Mountain .
+ pupp:Ridge
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT) Elevations with a narrow, elongated crest which can be part of a hill or mountain. ... We use this category for aretes; for beach ridges; for cuestas; for eskers; for hogbacks; for icecap ridges; for rises (seafloor); and for spurs (physiographic). Omitted ADL sub-classes: Drumlin. NIMA GNS designators RDGB, RDGE, RDGG, RDGU, RISU, SPRU, SPUR.""" ;
+      rdfs:label "Ridge" ;
+      rdfs:subClassOf pupp:Mountain .
+ pupp:Volcano
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT)  Vents in the surface of the Earth through which magma and associated gases erupt; also, the forms or structures, usually conical, that are produced by the erupted material. NIMA GNS designator VLC.""" ;
+      rdfs:label "Volcano" ;
+      rdfs:subClassOf pupp:Mountain .
+pupp:Peninsula
+      rdf:type owl:Class ;
+      rdfs:comment "NIMA GNS designator PEN, PENX." ;
+      rdfs:label "Peninsula" ;
+      rdfs:subClassOf pupp:LandRegion .
+pupp:Plain
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT) Regions of general uniform slope, comparatively level and of considerable extent. [USGS Circ 1048] We use this category for interfluves; and for llanos. NIMA GNS designators PLN, PLNU, PLNX, INTF.""" ;
+      rdfs:label "Plain" ;
+      rdfs:subClassOf pupp:LandRegion .
+pupp:Plateau
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT)  Comparatively flat areas of great extent and elevation; specif. extensive land regions considerably above the adjacent country or above sea level; commonly limited on at least one side by an abrupt descent, have flat or nearly smooth surfaces but are often dissected by deep valleys and surmounted by high hills or mountains, and have a large part of their total surface at or near the summit level. We use this category for table mountains; and for tablelands. The ADL type Mesas, collapsed here. NIMA GNS designators  PLAT, PLTX, PLTU, MESA, MESU, TMSU, TMST.""" ;
+      rdfs:label "Plateau" ;
+      rdfs:subClassOf pupp:LandRegion .
+pupp:Reef
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT) Chains of rocks or coral at or near the surface of water. [USGS Circ 1048] We use this category for barrier reefs; and for fringing reefs. Collapsed ADL sub-class: Coral Reefs. NIMA GNS designator RF, RFSU, RFU, RFC, H.RFX.""" ;
+      rdfs:label "Reef" ;
+      rdfs:subClassOf pupp:LandRegion .
+pupp:Valley
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT)  Low-lying land bordered by higher ground; especially elongate, relatively large gently sloping depressions of the Earth's surface, commonly situated between two mountains or between ranges of hills or mountains, and often containing a stream with an outlet. [Glossary of Geology, 4th ed.] We use this category for forks (physiographic features); for glens; for hanging valleys; for hollows; for median valleys; and for shelf valleys (seafloor). NIMA GNS designators VAL, VALG, VALU, VALS, VALX, VLSU, FRKU, FRSU, MDVU, SHVU.""" ;
+      rdfs:label "Valley" ;
+      rdfs:subClassOf pupp:LandRegion .
+ pupp:Canyon
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT)  Relatively narrow, deep depressions with steep sides, the bottom of which generally has a continuous slope ... We use this category for barrancas; for chasms; for flumes (natural); for gorges; for gulches; for quebradas; and for ravines. NIMA GNS designator CNSU, CNYN, CNYU, GRGE, RAVU, RVN.""" ;
+      rdfs:label "Canyon" ;
+      rdfs:subClassOf pupp:Valley .
+pupp:WaterBank
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT: Banks)  Sloping margins of, or the ground bordering, a stream, and serving to confine the water to the natural channel during the normal course of flow. [Glossary of Geology, 4th ed.] We use this category for stream banks. NIMA GNS designator BKSU, BNK, BNKR, BNKU, BNKX.""" ;
+      rdfs:label "Water Bank" ;
+      rdfs:subClassOf pupp:LandRegion .
+pupp:Waterfalls
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT) Perpendicular or very steep falls of water in the course of a stream. ... We use this category for cascades; for cataracts; and for falls. NIMA GNS designator FLLS, FLLSX""" ;
+      rdfs:label "Waterfalls" ;
+      rdfs:subClassOf pupp:LandRegion .
+
+
+#rdfs:subClassOf pupp:PoliticalRegion :
+pupp:Country
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FTT) Territory occupied by a large group of people organized under a single, usually independent government, and recognized internationally as a country. [Adapted from American Heritage Dic. of the English Language, 4th ed.] We use this category for nations; and for republics. NIMA GNS designators PCL, PCLD, PCLF, PCLI, PCLS. FIPS 10-4 is applicable, difining: Basic geopolitical entities assigned country codes include the following categories: (a) independent states; (b) dependent areas; (c) areas of quasi-independence, non-contiguous territories, possessions without populations, areas with special sovereignty associations, areas without sovereignty; (d) political regimes not recognized by the United States; and (e) outlying areas of the United States. The list of basic entities provides complete coverage of the land areas of the world without overlap or duplication.""" ;
+      rdfs:label "Country" ;
+      rdfs:subClassOf pupp:PoliticalRegion, pupp:PopulatedPlace . #DBP3.5
+ pupp:hasCurrency            #/location/country/currency_used
+      rdf:type owl:ObjectProperty ;
+      rdfs:domain pupp:Country ;
+      rdfs:label "has Currency" ;
+      rdfs:range pupp:Currency .
+ pupp:hasGovernment            #?/location/country/form_of_government
+      rdf:type owl:ObjectProperty ;    #inverseOf /government/government/government_for - !limited data
+      rdfs:domain pupp:Country ;
+      rdfs:label "has Government" ;
+      rdfs:range pupp:GovernmentOrganization .
+
+pupp:County
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT: Countries, 2nd order divisions) Second-order divisions of a nation such as parishes, boroughs, counties, municipios, or judicial divisions, and independent cities such as those in Maryland, Missouri, Nevada, and Virginia. [Adapted from USGS Circ 1048] We use this category for boroughs; for counties; for judicial divisions; for municipios; for parishes; and for second-order administrative divisions. NIMA GNS designator ADM2.""" ;
+      rdfs:label "County" ;
+      rdfs:subClassOf pupp:PoliticalRegion .
+pupp:MilitaryAreas
+      rdf:type owl:Class ;
+      rdfs:comment "(ADL FTT) We use this category for air force bases; for army facilities; for arsenals; for artillery ranges; for barracks; for bases (military); for camps (military); for forts; for infantry camps; for maneuver areas; for military bases; for military installations; for national guard facilities; and for naval bases. The following NIMA designators fit here: MILB, INSM, SCHM. The following ADL types are skipped as irrelevant: Cadastral areas," ;
+      rdfs:label "Military Areas" ;
+      rdfs:subClassOf pupp:PoliticalRegion .
+pupp:Province
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT: Countries, 1st Order Divisions) First-order divisions of a nation. [USGS Circ 1048] We use this category for cantons; for first-order administrative divisions; for provinces; for states; and for territories. NIMA GNS designator ADM1. Also corresponds to the FIPS 10-4 principal administrative division defined as \"an administrative area directly subordinate to the pertinent governing authority \" NIMA GNS designator ADM1.""" ;
+      rdfs:label "Province" ;
+      rdfs:subClassOf pupp:PoliticalRegion .
+pupp:UrbanDistrict
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT: Countries, 3rd order divisions) Minor civil units. [USGS Circ 1048] We use this category for barrios; for precincts; for third-order administrative divisions; and for townships. NIMA GNS designator ADM3.""" ;
+      rdfs:label "Urban District" ;
+      rdfs:subClassOf pupp:PoliticalRegion .
+
+#rdfs:subClassOf pupp:PopulatedPlace :
+p-ext:Parish
+      rdf:type owl:Class ;
+      rdfs:comment """A district of religious land. NIMA GNS designator A.PRSH.""" ;
+      rdfs:label "Parish" ;
+      rdfs:subClassOf pupp:PopulatedPlace .
+
+pupp:City
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT) For smaller, less formally established communities, use 'populated places'. For independent cities, use 'countries, 2nd order divisions. Incorporated populated places. [Adapted from USGS Circ 1048] We use this category for municipalities; for towns; and for urban areas. NIMA GNS designator PPL.""" ;
+      rdfs:label "City" ;
+      rdfs:subClassOf pupp:PopulatedPlace .
+ pupp:hasAirport            #inverseOf /aviation/airport/serves , ? dbp-ont?-prop/location ?
+      rdf:type owl:ObjectProperty ;
+      rdfs:domain pupp:City ;
+      rdfs:label "has Airport" ;
+      rdfs:range pupp:Airport .
+ pupp:Capital
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT) Towns or cities that are the official seats of government in a political entity, such as a state or nation. [American Heritage Dic. of the English Language, 4th ed.] We use this category for county seats; for national capitals; and for state capitals. NIMA GNS designators PPLC, PPLA""" ;
+      rdfs:label "Capital" ;
+      rdfs:subClassOf pupp:City .
+  pupp:CountryCapital
+      rdf:type owl:Class ;
+      rdfs:comment """A capital of a Country. NIMA GNS designator PPLC.""" ;
+      rdfs:label "Country Capital" ;
+      rdfs:subClassOf pupp:Capital .
+  pupp:LocalCapital
+      rdf:type owl:Class ;
+      rdfs:comment """A capital of a Province or smaller administrative region. NIMA GNS designator PPLA.""" ;
+      rdfs:label "Local Capital" ;
+      rdfs:subClassOf pupp:Capital .
+
+#rdfs:subClassOf pupp:WaterRegion :
+pupp:Archipelago
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT) Seas or areas in a sea that contain numerous islands; also, the island groups themselves. NIMA GNS designator - no equivalent.""" ;
+      rdfs:label "Archipelago" ;
+      rdfs:subClassOf pupp:LandRegion . # pupp:Island , pupp:WaterRegion .
+pupp:Bay
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT) Indentations of a coastline or shoreline enclosing a part of a body of water; bodies of water partly surrounded by land. We use this category for bahias; for coves; and for embayments. NIMA GNS designators BAY, BAYS.""" ;
+      rdfs:label "Bay" ;
+      rdfs:subClassOf pupp:WaterRegion .
+ pupp:Fjord
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT) Long narrow glacially-eroded inlets of the sea, U-shaped and steep-walled, generally several hundred meters deep, between high rocky cliffs or slopes along a mountainous coast. ... We use this category for fiords; and for lochs. NIMA GNS designator FJD, FJDS.""" ;
+      rdfs:label "Fjord" ;
+      rdfs:subClassOf pupp:Bay .
+pupp:Channel
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT) (a) Relatively narrow seas or stretches of water between two close landmasses and connecting two larger bodies of water; (b) Deeper parts of a moving body of water (as bays, estuaries, or straits) through which the main current flows or which affords the best passage through an area otherwise too shallow to navigate. ... We use this category for chutes (hydrographic); for cutoffs (hydrographic); for inlets; for lake channels; for marine channels; for narrows (hydrographic); for navigation channels; for reaches (hydrographic); for sounds (bodies of water); and for straits. NIMA GNS designators   CHN, CHNL, CHNM, CHNN, STRT.""" ;
+      rdfs:label "Channel" ;
+      rdfs:subClassOf pupp:Canal . # pupp:WaterRegion .
+ pupp:Canal
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT) Artificial waterways with no flow or a controlled flow used for navigation (canal), or for draining or irrigating land (ditch). We use this category for canal bends; for canalized streams; for ditch mouths; for ditches; for drainage canals; for drainage ditches; for drains (channels); for flumes (manmade); for irrigation canals; for irrigation ditches; for irrigation systems; for laterals; for navigation canals; and for underground irrigation canals. NIMA GNS designators CNL,CNLA, CNLB, CNLD, CNLI, CNLN, CNLQ, CNLSB, CNLX.""" ;
+      rdfs:label "Canal" ;
+      rdfs:subClassOf pupp:WaterRegion , pupp:HydrographicStructure . # pupp:Channel
+ p-ext:Ditch
+      rdf:type owl:Class ;
+      rdfs:comment """http://www.eionet.europa.eu/gemet/concept/2276. NIMA GNS designators H.DTCH, H.DTCHD, H.DTCHI, H.DTCHM.""" ;
+      rdfs:label "Ditch" ;
+      rdfs:subClassOf pupp:Canal , pupp:HydrographicStructure .
+
+pupp:Creek
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT: Guts) Relatively small coastal waterways connecting larger bodies of water or other waterways. NIMA GNS designator CRKT, INLT.""" ;
+      rdfs:label "Creek" ;
+      rdfs:subClassOf pupp:WaterRegion .
+pupp:Gulf
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT) Largest of various forms of inlets of the sea; usually larger, more enclosed, and more deeply indented than bays. NIMA GNS designator GULF.""" ;
+      rdfs:label "Gulf" ;
+      rdfs:subClassOf pupp:Bay . # pupp:WaterRegion .
+pupp:Harbor
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT) Sheltered areas of water where ships or other watercraft can anchor or dock. We use this category for anchorages; for anclajes; for boat yards; for boatyards; for dock yards; for docking basins; for dockyards; for dry docks; for harbors; for marine terminals; for moorings; for ports; for roadsteads (anchorages); and for turning basins. The following sub-classes included (i.e. not-distinguishable): Marinas, Piers. NIMA GNS designators HBR, HBRX, MAR, BTYD, PIER, DCK, DCKB, DCKY, PRT, AIRS.""" ;
+      rdfs:label "Harbor" ;
+      rdfs:subClassOf pupp:WaterRegion , pupp:HydrographicStructure .
+pupp:Lake
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT) Use 'reservoirs' for human engineered lakes. Natural inland bodies of standing water, generally of appreciable size, occupying a depression in the Earth's surface. [Adapted from Glossary of Geology, 4th ed.] We use this category for beaver ponds; for crater lakes; for dry lakes; for fish ponds; for fishponds; for inland seas; for intermittent lakes; for intermittent oxbow lakes; for intermittent ponds; for intermittent pools; for intermittent salt lakes; for intermittent salt ponds; for lagoons; for laguna; for lake beds; for lochs; for millponds; for oxbow lakes; for ponds; for pools (water bodies); for salt evaporation ponds; for salt lakes; for salt ponds; and for tarns. NIMA GNS designators LBED, LK, LKC, LKI, LKN, LKNI, LKO, LKOI, LKS, LKSB, LKSC, LKSI, LKSN, LKSNI, LKX""" ;
+      rdfs:label "Lake" ;
+      rdfs:subClassOf pupp:WaterRegion .
+ pupp:Reservoir
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT) Artificially impounded bodies of water. We use this category for covered reservoirs; and for intermittent reservoirs. (incl. dams) NIMA GNS designator RSV, RSVI.""" ;
+      rdfs:label "Reservoir" ;
+      rdfs:subClassOf pupp:Lake , pupp:HydrographicStructure .
+pupp:Sea
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT) Large bodies of salt water. NIMA GNS designator SEA""" ;
+      rdfs:label "Sea" ;
+      rdfs:subClassOf pupp:WaterRegion .
+ pupp:Ocean
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT) Continuous salt-water bodies that surround the continents and fill the Earth's great depressions. NIMA GNS designator OCN""" ;
+      rdfs:label "Ocean" ;
+      rdfs:subClassOf pupp:Sea .
+pupp:Stream
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT) Linear bodies of water flowing on the Earth's surface. We use this category for anabranches; for brooks; for burns (hydrographic); for confluences; for creeks; for distributaries; for dry stream beds; for forks (physiographic features); for intermittent streams; for lost rivers; for meanders; for stream bends; for stream mouths; for tidal creeks; for tributaries; and for watercourses. NIMA GNS designators STM, STMA, STMB, STMC, STMD, STMH, STMI, STMIX, STMM, STMQ, STMS, STMSB, STMX""" ;
+      rdfs:label "Stream" ;
+      rdfs:subClassOf pupp:WaterRegion .
+ pupp:River
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT) Natural freshwater surface streams of considerable volume and a permanent or seasonal flow, moving in a definite channel toward a sea, lake, or another river; any large streams, or ones larger than brooks or creeks, such as the trunk stream and larger branches of a drainage system. We use this category for rios. NIM GNS designators ... no direct equivalents!""" ;
+      rdfs:label "River" ;
+      rdfs:subClassOf pupp:Stream .
+ pupp:Spring
+      rdf:type owl:Class ;
+      rdfs:comment """(ADL FT) Places where underground water flows naturally to the surface of the Earth. ... We use this category for mineral springs; and for sulfur springs. NIMA GNS designators SPNG, SPNS, SPNT.""" ;
+      rdfs:label "Spring" ;
+      rdfs:subClassOf pupp:WaterRegion . # pupp:Stream .
+p-ext:Bog
+      rdf:type owl:Class ;
+      rdfs:comment """http://www.eionet.europa.eu/gemet/concept?ns=1&cp=12161. NIMA GNS designator H.BOG.""" ;
+      rdfs:label "Bog" ;
+      rdfs:subClassOf pupp:WaterRegion .
+p-ext:Confluence
+      rdf:type owl:Class ;
+      rdfs:comment """in geography, describes the meeting of two or more bodies of water. The opposite of a watershed. NIMA GNS designator H.CNFL.""" ;
+      rdfs:label "Confluence" ;
+      rdfs:subClassOf pupp:WaterRegion .
+p-ext:Cove
+      rdf:type owl:Class ;
+      rdfs:comment """a small type of bay or coastal inlet. http://www.eionet.europa.eu/gemet/concept/10142 NIMA GNS designator H.COVE.""" ;
+      rdfs:label "Cove" ;
+      rdfs:subClassOf pupp:Bay . # pupp:WaterRegion , pupp:LandRegion .
+p-ext:WaterCurrent
+      rdf:type owl:Class ;
+      rdfs:comment """http://www.eionet.europa.eu/gemet/concept/5792 A net transport of ocean water along a definable path. NIMA GNS designator H.CRNT.""" ;
+      rdfs:label "Current" ;
+      rdfs:subClassOf pupp:WaterRegion .
+p-ext:RiverCutoff
+      rdf:type owl:Class ;
+      rdfs:comment """A new channel cut by a river across the neck of an oxbow.  NIMA GNS designator H.CUTF.""" ;
+      rdfs:label "Cutoff" ;
+      rdfs:subClassOf pupp:WaterRegion .
+p-ext:Estuary
+      rdf:type owl:Class ;
+      rdfs:comment """a partly enclosed coastal body of water with one or more rivers or streams flowing into it, and with a free connection to the open sea.  NIMA GNS designator H.ESTY.""" ;
+      rdfs:label "Estuary" ;
+      rdfs:subClassOf pupp:WaterRegion .
+p-ext:FishingArea
+      rdf:type owl:Class ;
+      rdfs:comment """a bank or area where fishermen go to catch fish.  NIMA GNS designator H.FISH.""" ;
+      rdfs:label "Fishing Area" ;
+      rdfs:subClassOf pupp:WaterRegion .
+p-ext:Gulf
+      rdf:type owl:Class ;
+      rdfs:comment """a large bay that is an arm of an ocean or sea. http://www.eionet.europa.eu/gemet/concept?ns=1&cp=3800. NIMA GNS designator H.GULF.""" ;
+      rdfs:label "Gulf" ;
+      rdfs:subClassOf pupp:WaterRegion .
+p-ext:Geyser
+      rdf:type owl:Class ;
+      rdfs:comment """a spring characterized by intermittent discharge of water ejected turbulently and accompanied by a vapour phase (steam).  NIMA GNS designator H.GYSR.""" ;
+      rdfs:label "Geyser" ;
+      rdfs:subClassOf pupp:Spring . # pupp:WaterRegion .
+p-ext:Lagoon
+      rdf:type owl:Class ;
+      rdfs:comment """A body of water cut off from the open sea by coral reefs or sand bars. http://www.eionet.europa.eu/gemet/concept/4589.  NIMA GNS designator H.LGN, H.LGNS, H.LGNX.""" ;
+      rdfs:label "Lagoon" ;
+      rdfs:subClassOf pupp:WaterRegion .
+p-ext:Pond
+      rdf:type owl:Class ;
+      rdfs:comment """http://www.eionet.europa.eu/gemet/concept/6507.  NIMA GNS designator H.PND, H.PNDI, H.PNDN, H.PNDNI, H.PNDS, H.PNDSF, H.PNDSI, H.PNDSN, H.MFGN.""" ;
+      rdfs:label "Pond" ;
+      rdfs:subClassOf pupp:WaterRegion .
+p-ext:Narrows
+      rdf:type owl:Class ;
+      rdfs:comment """a tidal strait.  NIMA GNS designator H.NRWS.""" ;
+      rdfs:label "Narrows" ;
+      rdfs:subClassOf pupp:WaterRegion .
+p-ext:Overfalls
+      rdf:type owl:Class ;
+      rdfs:comment """an area of breaking waves caused by the meeting of currents or by waves moving against the current.  NIMA GNS designator H.OVF.""" ;
+      rdfs:label "Overfalls" ;
+      rdfs:subClassOf pupp:WaterRegion .
+p-ext:Pool
+      rdf:type owl:Class ;
+      rdfs:comment """a small and comparatively still, deep part of a larger body of water.  NIMA GNS designator H.POOL, H.POOLI.""" ;
+      rdfs:label "Pool" ;
+      rdfs:subClassOf pupp:WaterRegion .
+p-ext:WaterReach
+      rdf:type owl:Class ;
+      rdfs:comment """a straight section of a navigable stream or channel between two bends.  NIMA GNS designator H.RCH.""" ;
+      rdfs:label "Reach" ;
+      rdfs:subClassOf pupp:WaterRegion .
+p-ext:Rapids
+      rdf:type owl:Class ;
+      rdfs:comment """a turbulent section of a stream associated with a steep, irregular stream bed.  NIMA GNS designator H.RPDS.""" ;
+      rdfs:label "Rapids" ;
+      rdfs:subClassOf pupp:WaterRegion .
+p-ext:WaterTank
+      rdf:type owl:Class ;
+      rdfs:comment """a contained pool or tank of water at, below, or above ground level.  NIMA GNS designator H.RSVT.""" ;
+      rdfs:label "Water Tank" ;
+      rdfs:subClassOf pupp:WaterRegion , pupp:HydrographicStructure .
+p-ext:SeaSound
+      rdf:type owl:Class ;
+      rdfs:comment """a long arm of the sea forming a channel between the mainland and an island or islands; or connecting two larger bodies of water.  NIMA GNS designator H.SD.""" ;
+      rdfs:label "Sound" ;
+      rdfs:subClassOf pupp:WaterRegion .
+p-ext:IrrigationSystem
+      rdf:type owl:Class ;
+      rdfs:comment """a network of ditches and one or more of the following elements: water supply, reservoir, canal, pump, well, drain, etc.  NIMA GNS designator H.SYSI.""" ;
+      rdfs:label "Irrigation System" ;
+      rdfs:subClassOf pupp:WaterRegion .
+p-ext:Wadi
+      rdf:type owl:Class ;
+      rdfs:comment """a valley or ravine, bounded by relatively steep banks.  NIMA GNS designator H.WAD, H.WADB, H.WADJ, H.WADM, H.WADS, H.WADX.""" ;
+      rdfs:label "Wadi" ;
+      rdfs:subClassOf pupp:LandRegion .
+p-ext:Whirlpool
+      rdf:type owl:Class ;
+      rdfs:comment """a turbulent, rotating movement of water in a stream.  NIMA GNS designator H.WHRL.""" ;
+      rdfs:label "Whirlpool" ;
+      rdfs:subClassOf pupp:WaterRegion .
+p-ext:Well
+      rdf:type owl:Class ;
+      rdfs:comment """a cylindrical hole, pit, or tunnel drilled or dug down to a depth from which water, oil, or gas can be pumped or brought to the surface.  NIMA GNS designator H.WLL, H.WLLQ, H.WLLS.""" ;
+      rdfs:label "Well" ;
+      rdfs:subClassOf pupp:WaterRegion , pupp:HydrographicStructure .
+p-ext:Watercourse
+      rdf:type owl:Class ;
+      rdfs:comment """a natural, well-defined channel produced by flowing water, or an artificial channel designed to carry flowing water.  NIMA GNS designator H.WTRC.""" ;
+      rdfs:label "Watercourse" ;
+      rdfs:subClassOf pupp:WaterRegion , pupp:HydrographicStructure .
+p-ext:Waterhole
+      rdf:type owl:Class ;
+      rdfs:comment """a natural hole, hollow, or small depression that contains water, used by man and animals, especially in arid areas.  NIMA GNS designator H.WTRH.""" ;
+      rdfs:label "Waterhole" ;
+      rdfs:subClassOf pupp:WaterRegion .
+
+
+p-ext:AgriculturalColony
+      rdf:type owl:Class ;
+      rdfs:comment """a tract of land set aside for agricultural settlement.  NIMA GNS designator L.AGRC.""" ;
+      rdfs:label "Agricultural Colony" ;
+      rdfs:subClassOf pupp:NonGeographicLocation .
+p-ext:LandArea
+      rdf:type owl:Class ;
+      rdfs:comment """a tract of land without homogeneous character or boundaries.  NIMA GNS designator L.AREA.""" ;
+      rdfs:label "Area" ;
+      rdfs:subClassOf pupp:LandRegion .
+p-ext:DrainageBasin
+      rdf:type owl:Class ;
+      rdfs:comment """an area drained by a stream.  NIMA GNS designator L.BSND.""" ;
+      rdfs:label "Drainage Basin" ;
+      rdfs:subClassOf pupp:LandRegion .
+p-ext:PetroleumBasin
+      rdf:type owl:Class ;
+      rdfs:comment """an area underlain by an oil-rich structural basin.  NIMA GNS designator L.BSNP.""" ;
+      rdfs:label "Petroleum Basin" ;
+      rdfs:subClassOf pupp:OilField .
+p-ext:Battlefield
+      rdf:type owl:Class ;
+      rdfs:comment """a site of a land battle of historical importance.  NIMA GNS designator L.BTL.""" ;
+      rdfs:label "Battlefield" ;
+      rdfs:subClassOf p-ext:HistoricPlace .
+p-ext:ForestClearing
+      rdf:type owl:Class ;
+      rdfs:comment """an area in a forest with trees removed.  NIMA GNS designator L.CLG.""" ;
+      rdfs:label "Clearing" ;
+      rdfs:subClassOf pupp:BiogeographicRegion .
+p-ext:Vineyard
+      rdf:type owl:Class ;
+      rdfs:comment "plantings of grapevines" ;
+      rdfs:label "Vineyard" ;
+      rdfs:subClassOf pupp:BiogeographicRegion .
+p-ext:Scrubland
+      rdf:type owl:Class ;
+      rdfs:comment "an area of low trees, bushes, and shrubs stunted by some environmental limitation" ;
+      rdfs:label "Scrubland" ;
+      rdfs:subClassOf pupp:BiogeographicRegion .
+p-ext:Orchard
+      rdf:type owl:Class ;
+      rdfs:comment "a planting of fruit or nut trees" ;
+      rdfs:label "Orchard" ;
+      rdfs:subClassOf pupp:BiogeographicRegion .
+p-ext:Meadow
+      rdf:type owl:Class ;
+      rdfs:comment "a small, poorly drained area dominated by grassy vegetation" ;
+      rdfs:label "Meadow" ;
+      rdfs:subClassOf pupp:BiogeographicRegion .
+p-ext:Heath
+      rdf:type owl:Class ;
+      rdfs:comment "an upland moor or sandy area dominated by low shrubby vegetation including heather" ;
+      rdfs:label "Heath" ;
+      rdfs:subClassOf pupp:BiogeographicRegion .
+p-ext:CoconutGrove
+      rdf:type owl:Class ;
+      rdfs:comment "a planting of coconut trees" ;
+      rdfs:label "Coconut grove" ;
+      rdfs:subClassOf pupp:BiogeographicRegion .
+p-ext:Grassland
+      rdf:type owl:Class ;
+      rdfs:comment "an area dominated by grass vegetation" ;
+      rdfs:label "Grassland" ;
+      rdfs:subClassOf pupp:BiogeographicRegion .
+p-ext:CultivatedArea
+      rdf:type owl:Class ;
+      rdfs:comment "an area under cultivation" ;
+      rdfs:label "Cultivated area" ;
+      rdfs:subClassOf pupp:BiogeographicRegion .
+p-ext:BushLand
+      rdf:type owl:Class ;
+      rdfs:comment "a small clump of conspicuous bushes in an otherwise bare area" ; ## v znachenie na hrastalak
+      rdfs:label "Bush" ;
+      rdfs:subClassOf pupp:BiogeographicRegion .
+p-ext:SeaTrench
+      rdf:type owl:Class ;
+      rdfs:comment "a long, narrow, characteristically very deep and asymmetrical depression of the sea floor, with relatively steep sides" ;
+      rdfs:label "Trench" ;
+      rdfs:subClassOf pupp:LandRegion .
+p-ext:SeaTrough
+      rdf:type owl:Class ;
+      rdfs:comment "a long depression of the sea floor characteristically flat bottomed and steep sided, and normally shallower than a trench" ;
+      rdfs:label "Trough" ;
+      rdfs:subClassOf pupp:LandRegion .
+p-ext:SeaTongue
+      rdf:type owl:Class ;
+      rdfs:comment "an elongate (tongue-like) extension of a flat sea floor into an adjacent higher feature" ;
+      rdfs:label "Tongue" ;
+      rdfs:subClassOf pupp:LandRegion .
+p-ext:Guyot
+      rdf:type owl:Class ;
+      rdfs:comment "a seamount having a comparatively smooth, flat top" ;
+      rdfs:label "Guyot" ;
+      rdfs:label "Tablemount" ;
+      rdfs:subClassOf pupp:LandRegion .
+p-ext:Seamount
+      rdf:type owl:Class ;
+      rdfs:comment "an elevation rising generally more than 1,000 meters and of limited extent across the summit. (U.SMSU; U.SMU)" ;
+      rdfs:label "Seamount" ;
+      rdfs:subClassOf pupp:LandRegion .
+p-ext:Shoal
+      rdf:type owl:Class ;
+      rdfs:comment "hazards to surface navigation composed of unconsolidated material. (U.SHSU; U.SHLU)" ;
+      rdfs:label "Shoal" ;
+      rdfs:subClassOf pupp:LandRegion .
+p-ext:ContinentalShelf
+      rdf:type owl:Class ;
+      rdfs:comment "a zone adjacent to a continent (or around an island) that extends from the low water line to a depth at which there is usually a marked increase of slope towards oceanic depths" ;
+      rdfs:label "Shelf" ;
+      rdfs:subClassOf pupp:LandRegion .
+p-ext:Saddleback
+      rdf:type owl:Class ;
+      rdfs:comment "a low part, resembling in shape a saddle, in a ridge or between contiguous seamounts" ;
+      rdfs:label "Saddle" ;
+      rdfs:subClassOf pupp:LandRegion .
+p-ext:Seachannels
+      rdf:type owl:Class ;
+      rdfs:comment "continuously sloping, elongated depressions commonly found in fans or plains and customarily bordered by levees on one or two sides (U.SCSU; U.SCSU)" ;
+      rdfs:label "Seachannels" ;
+      rdfs:subClassOf pupp:LandRegion .
+p-ext:Ramp
+      rdf:type owl:Class ;
+      rdfs:comment "a gentle slope connecting areas of different elevations" ;
+      rdfs:label "Ramp" ;
+      rdfs:subClassOf pupp:LandRegion .
+
+#  DBPedia 3.5
+
+p-ext:Territory #DBP3.5
+      rdf:type owl:Class ;
+      rdfs:comment """(http://www.eionet.europa.eu/gemet/concept?ns=1&cp=8401. NIMA GNS designator A.TERR.""" ;
+      rdfs:label "Territory" ;
+      rdfs:subClassOf pupp:NonGeographicLocation .
+
+p-ext:Zone  #DBP3.5
+      rdf:type owl:Class ;
+      rdfs:comment """(NIMA GNS designator A.ZN, A.ZNB.""" ;
+      rdfs:label "Zone" ;
+      rdfs:subClassOf pupp:NonGeographicLocation .
+
+p-ext:MountainPass     #DBP3.5
+      rdf:type owl:Class ;
+      rdfs:comment """Any mountain pass. NIMA GNS designators - no direct equivalents""" ;
+      rdfs:label "mountain pass"@en ;
+      rdfs:subClassOf pupp:LandRegion .
+
+p-ext:AdministrativeRegion     #DBP3.5
+      rdf:type owl:Class ;
+      rdfs:comment """Any administrative region. NIMA GNS designators - PCLIX""" ;
+      rdfs:label "administrative region"@en ;
+      rdfs:subClassOf pupp:PopulatedPlace .
+
+## pupp:Island     #DBP3.5
+##      rdfs:subClassOf pupp:PopulatedPlace .
+
+p-ext:Town     #DBP3.5
+      rdf:type owl:Class ;
+      rdfs:comment """Any town""" ;
+      rdfs:label "town"@en ;
+      rdfs:subClassOf pupp:PopulatedPlace .
+
+p-ext:Village     #DBP3.5
+      rdf:type owl:Class ;
+      rdfs:comment """Any village""" ;
+      rdfs:label "village"@en ;
+      rdfs:subClassOf pupp:PopulatedPlace .
+
+### ldsr4 demo queries for Geonames
+p-ext:GeographicRegion  #DBP3.5
+      rdf:type owl:Class ;
+      rdfs:comment """Any Geographic Region with lattitude and longitude coordinates""" ;
+      rdfs:label "geographic region"@en ;
+      rdfs:subClassOf ptop:Location .
+
+p-ext:region  #DBP3.5
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "any region" ;
+      rdfs:domain p-ext:SpatialThing ;
+      rdfs:label "region";
+      rdfs:range  p-ext:GeographicRegion .
+
+# DBPedia 3.6
+
+p-ext:Arena     #DBP3.6
+      rdf:type owl:Class ;
+      rdfs:comment """Any arena""" ;
+      rdfs:label "arena"@en ;
+      rdfs:subClassOf pupp:Building .  # former pupp:SportFacility . 08032011
+
+p-ext:Atoll     #DBP3.6
+      rdf:type owl:Class ;
+      rdfs:comment """Any atoll""" ;
+      rdfs:label "atoll"@en ;
+      rdfs:subClassOf pupp:Island .
+
+p-ext:BasketballTeam    #DBP3.6
+      rdf:type owl:Class ;
+      rdfs:comment """Any basketball team""" ;
+      rdfs:label "basketball team"@en ;
+      rdfs:subClassOf pupp:Team .
+
+p-ext:Locomotive #DBP3.6
+      rdf:type owl:Class ;
+      rdfs:comment """Locomotive, a railway vehicle that provides the motive power for a train. (Wikipedia)""" ;
+      rdfs:label "Locomotive" ;
+      rdfs:subClassOf pupp:Vehicle .
+
+p-ext:Museum     #DBP3.6
+      rdf:type owl:Class ;
+      rdfs:comment """Any museum, an institution that houses and cares for a collection of artifacts and other objects of scientific, artistic, or historical importance and makes them available for public viewing through exhibits that may be permanent or temporary. (Wikipedia)""" ;
+      rdfs:label "museum"@en ;
+      rdfs:subClassOf pupp:Building .
+
+p-ext:Priest
+        # rdf:type owl:Class ;
+        rdfs:comment """Any priest, a professsion of a person who is authorized to perform the sacred rites of a religion. (Wikipedia)""" ;
+        rdfs:label "priest"@en ;
+        rdf:type pupp:Profession .   #how about pupp:JobTitle   ?
+
+p-ext:Restaurant     #DBP3.6
+      rdf:type owl:Class ;
+      rdfs:comment """Any restaurant, a place where food, drink and dessert to customers is prepared and served in return for money. (Wikipedia)""" ;
+      rdfs:label "restaurant"@en ;
+      rdfs:subClassOf pupp:Building .
+
+p-ext:Sculpture     #DBP3.6
+      rdf:type owl:Class ;
+      rdfs:comment """Any sculpture, three-dimensional artwork created by shaping or combining hard materials. (Wikipedia)""" ;
+      rdfs:label "sculpture"@en ;
+      rdfs:subClassOf pupp:PieceOfArt .
+
+p-ext:Painting     #added to complete p-ext:Sculpture as a subClassOf PieceOfArt
+      rdf:type owl:Class ;
+      rdfs:comment """Any painting, the results of a practice of applying paint, pigment, color or other medium[1] to a surface (support base). (Wikipedia) """ ;
+      rdfs:label "painting"@en ;
+      rdfs:subClassOf pupp:PieceOfArt .
+
+# Geonames 2.2.1
+
+p-ext:Map   #GN 2.2.1
+      rdf:type owl:Class ;
+      rdfs:comment """A webpage of a map""" ;
+      rdfs:label "map"@en ;
+      rdfs:subClassOf ptop:Document .
+
+p-ext:locationMap  #GN 2.2.1
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "The relation between a geographic region and a map depicting its location" ;
+      rdfs:domain p-ext:GeographicRegion ;
+      rdfs:label "location map";
+      rdfs:range  p-ext:Map .
+
+p-ext:nearby  #GN 2.2.1
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "The relation of a location nearby another location" ;
+      rdfs:domain p-ext:GeographicRegion ;
+      rdfs:label "location nearby another location";
+      rdfs:range  p-ext:GeographicRegion .
+
+p-ext:neighbour   #GN 2.2.1
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "The relation of a location sharing a common location with another location" ;
+      rdfs:domain p-ext:GeographicRegion ;
+      rdfs:label "location sharing a common location with another location";
+      rdfs:range  p-ext:GeographicRegion .
+
+p-ext:neighbouringGeographicRegions
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "The relation between an RDF document containing the descriptions of locations that share a common border" ;
+      rdfs:domain p-ext:GeographicRegion ;
+      rdfs:label "RDF document containing the descriptions of locations that share a common border";
+      rdfs:range  pupp:Dataset .
+
+p-ext:isWrittenAbout
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "The relation between an RDF document containing the descriptions of locations that share a common border" ;
+      rdfs:domain p-ext:GeographicRegion ;
+      rdfs:label "RDF document containing the descriptions of locations that share a common border";
+      rdfs:range  pupp:Article .
+
+p-ext:SpatialThing
+      rdf:type owl:Class ;
+      rdfs:comment """Anything with spatial extent, i.e. size, shape, or position. e.g. people, places, bowling balls, as well as abstract areas like cubes. (from Geonames)""" ;
+      rdfs:label "SpatialThing"@en ;
+      rdfs:subClassOf ptop:Object .
+
+p-ext:spatialThing
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "A spatial thing defined as a geographic region. In Geonames: Type of the feature, as defined in geonames taxonomy. " ;
+      rdfs:domain p-ext:SpatialThing ;
+      rdfs:label "Spatial thing - geographic region";
+      rdfs:range  p-ext:GeographicRegion .
+
+
+## Codes from Geonames v 2.2.1
+
+p-ext:Bight
+      rdf:type owl:Class ;
+      rdfs:comment """an open body of water forming a slight recession in a coastline""" ;
+      rdfs:label "bight"@en ;
+      rdfs:subClassOf pupp:LandRegion .
+
+p-ext:Icecap
+      rdf:type owl:Class ;
+      rdfs:comment """a dome-shaped mass of glacial ice covering an area of mountain summits or other high lands; smaller than an ice sheet""" ;
+      rdfs:label "icecap"@en ;
+      rdfs:subClassOf pupp:LandRegion .
+
+p-ext:MudFlat
+      rdf:type owl:Class ;
+      rdfs:comment """ a relatively level area of mud either between high and low tide lines, or subject to flooding; a large flat area of mud or sand attached to the shore and alternately covered and uncovered by the tide; a tropical tidal mud flat characterized by mangrove vegetation   """ ;
+      rdfs:label "mud flat"@en ;
+      rdfs:subClassOf pupp:NonGeographicLocation .
+
+p-ext:Glacier
+      rdf:type owl:Class ;
+      rdfs:comment """ a mass of ice, usually at high latitudes or high elevations, with sufficient thickness to flow away from the source area in lobes, tongues, or masses  """ ;
+      rdfs:label "glacier"@en ;
+      rdfs:subClassOf pupp:NonGeographicLocation .
+
+p-ext:FInlet
+      rdf:type owl:Class ;
+      rdfs:comment """ an inlet which has been filled in, or blocked by deposits """ ;
+      rdfs:label "former inlet"@en ;
+      rdfs:subClassOf pupp:NonGeographicLocation .
+
+p-ext:Marsh
+      rdf:type owl:Class ;
+      rdfs:comment """ an area of open ground overlaid with wet peaty soils; a wetland dominated by grass-like vegetation; a flat area, subject to periodic salt water inundation, dominated by grassy salt-tolerant plants; a salt flat or salt encrusted plain subject to periodic inundation from flooding or high tides """ ;
+      rdfs:label "marsh"@en ;
+      rdfs:subClassOf pupp:NonGeographicLocation .
+
+p-ext:GovernmentBuilding
+      rdf:type owl:Class ;
+      rdfs:comment """ a government building, a building which serve the government, or where government officials work. """ ;
+      rdfs:label "government building"@en ;
+      rdfs:subClassOf pupp:Building .
+
+p-ext:AgriculturalFacility
+      rdf:type owl:Class ;
+      rdfs:comment """ agricultural facility; a building and/or tract of land used for improving agriculture """ ;
+      rdfs:label "agricultural facility"@en ;
+      rdfs:subClassOf pupp:Facility .
+
+p-ext:Airbase
+      rdf:type owl:Class ;
+      rdfs:comment """ an area used to store supplies, provide barracks for air force personnel, hangars and runways for aircraft, and from which operations are initiated """ ;
+      rdfs:label "airbase"@en ;
+      rdfs:subClassOf pupp:MilitaryAreas .
+
+p-ext:Arch
+      rdf:type owl:Class ;
+      rdfs:comment """ a natural or man-made structure in the form of an arch """ ;
+      rdfs:label "arch"@en ;
+      rdfs:subClassOf pupp:NonGeographicLocation .
+
+p-ext:ATM
+      rdf:type owl:Class ;
+      rdfs:comment """ An unattended electronic machine in a public place, connected to a data system and related equipment and activated by a bank customer to obtain cash withdrawals and other banking services. """ ;
+      rdfs:label "automatic teller machine (ATM)"@en ;
+      rdfs:subClassOf pupp:TelecomFacility .
+
+p-ext:Bank
+      rdf:type owl:Class ;
+      rdfs:comment """ A business establishment in which money is kept for saving or commercial purposes or is invested, supplied for loans, or exchanged. """ ;
+      rdfs:label "bank"@en ;
+      rdfs:subClassOf pupp:Building .
+
+p-ext:Beacon
+      rdf:type owl:Class ;
+      rdfs:comment """ a fixed artificial navigation mark """ ;
+      rdfs:label "beacon"@en ;
+      rdfs:subClassOf pupp:Facility .
+
+p-ext:Barracks
+      rdf:type owl:Class ;
+      rdfs:comment """ a building for lodging military personnel """ ;
+      rdfs:label "barracks"@en ;
+      rdfs:subClassOf pupp:MilitaryAreas .
+
+p-ext:Breakwater
+      rdf:type owl:Class ;
+      rdfs:comment """ a structure erected to break the force of waves at the entrance to a harbor or port """ ;
+      rdfs:label "breakwater"@en ;
+      rdfs:subClassOf pupp:Facility .
+
+#p-ext:ConcessionArea
+#p-ext:Coalfield
+#p-ext:BusinessCenter
+#p-ext:HousingDevelopment
+#p-ext:Fields
+#p-ext:IrrigatedFields
+#p-ext:GrazingArea
+#p-ext:GravelArea
+#p-ext:IndustrialArea
+#p-ext:EconomicRegion
+#p-ext:LakeRegion
+#p-ext:AbandonedPopulatedPlace
+#p-ext:DestroyedPopulatedPlace
+#p-ext:Promenade
+#p-ext:Trail
+#p-ext:Grave (p-ext:BurialCave(s) .)
+#p-ext:BusStation
+#p-ext:EducationalFacility
+#p-ext:Cemetery
+#p-ext:Casino
+#p-ext:Castle
+#p-ext:CustomsHouse
+#p-ext:Courthouse
+#p-ext:ResearchFacility
+#p-ext:SpaceCenter
+#p-ext:Dam
+#p-ext:Depot
+#p-ext:Estate
+#p-ext:Plantation
+#p-ext:Workshop
+#p-ext:Gate
+#p-ext:Garden
+#p-ext:House
+#p-ext:Plant
+#p-ext:Parking
+#p-ext:MedicalFacility
+#p-ext:Hut
+#p-ext:Port
+#p-ext:Library
+#p-ext:Mall
+#p-ext:Market
+
+
+### PTOP

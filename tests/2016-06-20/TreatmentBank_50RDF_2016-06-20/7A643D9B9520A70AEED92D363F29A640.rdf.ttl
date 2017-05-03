@@ -1,0 +1,54 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix dwc: <http://rs.tdwg.org/dwc/terms/> .
+@prefix cnt: <http://www.w3.org/2011/content#> .
+@prefix spm: <http://rs.tdwg.org/ontology/voc/SpeciesProfileModel> .
+@prefix bibo: <http://purl.org/ontology/bibo/> .
+@prefix sdo: <http://schema.org/> .
+@prefix trt: <http://plazi.org/vocab/treatment#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix fabio: <http://purl.org/spar/fabio/> .
+@prefix cito: <http://purl.org/spar/cito/> .
+@prefix sdd: <http://tdwg.org/sdd#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dwcFP: <http://filteredpush.org/ontologies/oa/dwcFP#> .
+
+<http://dx.doi.org/10.3897/BDJ.2.e1557>
+    dc:creator "Franca, Diogo", "Paprocki, Henrique" ;
+    dc:date "2014" ;
+    dc:title "Brazilian Trichoptera Checklist II" ;
+    bibo:endPage "1557" ;
+    bibo:journal "Biodiversity Data Journal" ;
+    bibo:startPage "1557" ;
+    bibo:volume "2" ;
+    a <fabio:JournalArticle> .
+
+<http://taxon-concept.plazi.org/id/7A643D9B9520A70AEED92D363F29A640>
+    <http://digir.net/schema/conceptual/darwin/2003/1.0class> "Insecta" ;
+    <http://digir.net/schema/conceptual/darwin/2003/1.0family> "Hydroptilidae" ;
+    <http://digir.net/schema/conceptual/darwin/2003/1.0genus> "Metrichia" ;
+    <http://digir.net/schema/conceptual/darwin/2003/1.0higherTaxonomySource> "CoL" ;
+    <http://digir.net/schema/conceptual/darwin/2003/1.0kingdom> "Animalia" ;
+    <http://digir.net/schema/conceptual/darwin/2003/1.0lsidName> "Metrichia sp." ;
+    <http://digir.net/schema/conceptual/darwin/2003/1.0order> "Trichoptera" ;
+    <http://digir.net/schema/conceptual/darwin/2003/1.0pageId> "0" ;
+    <http://digir.net/schema/conceptual/darwin/2003/1.0pageNumber> "1557" ;
+    <http://digir.net/schema/conceptual/darwin/2003/1.0phylum> "Arthropoda" ;
+    <http://digir.net/schema/conceptual/darwin/2003/1.0rank> "species" ;
+    <http://digir.net/schema/conceptual/darwin/2003/1.0species> "sp." ;
+    a dwcFP:TaxonConcept .
+
+<http://treatment.plazi.org/id/7A643D9B9520A70AEED92D363F29A640>
+    trt:definesTaxonConcept <http://taxon-concept.plazi.org/id/7A643D9B9520A70AEED92D363F29A640> ;
+    trt:publishedIn <http://dx.doi.org/10.3897/BDJ.2.e1557> ;
+    spm:hasInformation <http://treatment.plazi.org/id/7A643D9B9520A70AEED92D363F29A640#section_1>, <http://treatment.plazi.org/id/7A643D9B9520A70AEED92D363F29A640#section_2> ;
+    a trt:Treatment .
+
+<http://treatment.plazi.org/id/7A643D9B9520A70AEED92D363F29A640#section_1>
+    spm:hasContent " Distribution Amazonas, Goias, Rio de Janeiro, Rio Grande do Sul, Sao Paulo" ;
+    a <spm:InfoItem> .
+
+<http://treatment.plazi.org/id/7A643D9B9520A70AEED92D363F29A640#section_2>
+    spm:hasContent " Notes  Pes et al. 2005, Spies et al. 2006, Martins-Silva et al. 2008, Spies and Froehlich 2009, Dumas and Nessimian 2012" ;
+    a <spm:InfoItem> .
+

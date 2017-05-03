@@ -1,0 +1,63 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix dwc: <http://rs.tdwg.org/dwc/terms/> .
+@prefix cnt: <http://www.w3.org/2011/content#> .
+@prefix spm: <http://rs.tdwg.org/ontology/voc/SpeciesProfileModel> .
+@prefix bibo: <http://purl.org/ontology/bibo/> .
+@prefix sdo: <http://schema.org/> .
+@prefix trt: <http://plazi.org/vocab/treatment#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix fabio: <http://purl.org/spar/fabio/> .
+@prefix cito: <http://purl.org/spar/cito/> .
+@prefix sdd: <http://tdwg.org/sdd#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dwcFP: <http://filteredpush.org/ontologies/oa/dwcFP#> .
+
+<http://dx.doi.org/http://doi.org/10.11646/zootaxa.4112.1.1>
+    dc:creator "Britto, Erika P. J.", "De, Gilberto J.", "De, Jefferson L.", "Halliday, Bruce" ;
+    dc:date "2016" ;
+    dc:title "Catalogue of the mite families Ascidae Voigts & Oudemans, Blattisociidae Garman and Melicharidae Hirschmann (Acari: Mesostigmata)" ;
+    bibo:endPage "299" ;
+    bibo:issue "1" ;
+    bibo:journal "Zootaxa" ;
+    bibo:startPage "1" ;
+    bibo:volume "4112" ;
+    a <fabio:JournalArticle> .
+
+<http://taxon-concept.plazi.org/id/03D0C70AFFC7D319C89162A3CCB89DE8>
+    dwc:authority "Evans & Hyatt, 1960" ;
+    dwc:authorityName "Evans & Hyatt" ;
+    dwc:authorityYear "1960" ;
+    dwc:box "[151,605,1183,1208]" ;
+    dwc:class "Arachnida" ;
+    dwc:family "Ascidae" ;
+    dwc:genus "Xenoseius" ;
+    dwc:higherTaxonomySource "GBIF" ;
+    dwc:kingdom "Animalia" ;
+    dwc:order "Mesostigmata" ;
+    dwc:pageId "126" ;
+    dwc:pageNumber "127" ;
+    dwc:phylum "Arthropoda" ;
+    dwc:rank "species" ;
+    dwc:species "clayi" ;
+    a dwcFP:TaxonConcept .
+
+<http://treatment.plazi.org/id/03D0C70AFFC7D319C89162A3CCB89DE8>
+    trt:definesTaxonConcept <http://taxon-concept.plazi.org/id/03D0C70AFFC7D319C89162A3CCB89DE8> ;
+    trt:publishedIn <http://dx.doi.org/http://doi.org/10.11646/zootaxa.4112.1.1> ;
+    cito:cites "Xenoseius clayi", " Cheiroseius ( Cheiroseius ) clayi ", " Evans & Hyatt, 1960  : 73 ", " Karg, 1981  : 63 ", "  Lindquist & Evans, 1965  : 62 " ;
+    spm:hasInformation <http://treatment.plazi.org/id/03D0C70AFFC7D319C89162A3CCB89DE8#section_1>, <http://treatment.plazi.org/id/03D0C70AFFC7D319C89162A3CCB89DE8#section_2>, <http://treatment.plazi.org/id/03D0C70AFFC7D319C89162A3CCB89DE8#section_3> ;
+    a trt:Treatment .
+
+<http://treatment.plazi.org/id/03D0C70AFFC7D319C89162A3CCB89DE8#section_1>
+    spm:hasContent "   Sejus clayi  Evans & Hyatt, 1960: 73." ;
+    a <spm:InfoItem> .
+
+<http://treatment.plazi.org/id/03D0C70AFFC7D319C89162A3CCB89DE8#section_2>
+    spm:hasContent "    Xenoseius clayi.—   Lindquist& Evans, 1965: 62.  Cheiroseius( Cheiroseius) clayi.—  Karg, 1981: 63." ;
+    a <spm:InfoItem> .
+
+<http://treatment.plazi.org/id/03D0C70AFFC7D319C89162A3CCB89DE8#section_3>
+    spm:hasContent "   TYPEDEPOSITORY: British Museum (Natural History), London, England; accession number 1959.I. 20.120.  TYPE LOCALITY AND HABITAT: Chungtang, Sikkim,  India, on leaves and leaf-mould." ;
+    a <spm:InfoItem> .
+

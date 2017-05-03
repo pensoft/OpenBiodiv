@@ -1,0 +1,50 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix dwc: <http://rs.tdwg.org/dwc/terms/> .
+@prefix cnt: <http://www.w3.org/2011/content#> .
+@prefix spm: <http://rs.tdwg.org/ontology/voc/SpeciesProfileModel> .
+@prefix bibo: <http://purl.org/ontology/bibo/> .
+@prefix sdo: <http://schema.org/> .
+@prefix trt: <http://plazi.org/vocab/treatment#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix fabio: <http://purl.org/spar/fabio/> .
+@prefix cito: <http://purl.org/spar/cito/> .
+@prefix sdd: <http://tdwg.org/sdd#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dwcFP: <http://filteredpush.org/ontologies/oa/dwcFP#> .
+
+<http://publication.plazi.org/id/EE0D5159B7D5473827B4D3499CE3FE8C>
+    dc:creator "Bernard, F." ;
+    dc:date "1953" ;
+    dc:title "La reserve naturelle integrale du Mt Nimba. XI. Hymenopteres Formicidae." ;
+    bibo:endPage "270" ;
+    bibo:journal "Memoires de l'Institut Francais d'Afrique Noire" ;
+    bibo:startPage "165" ;
+    bibo:volume "19" ;
+    a <fabio:JournalArticle> .
+
+<http://taxon-concept.plazi.org/id/A368D228C24DD27B5FD981CE0233C661>
+    dwc:LSID-HNS "urn:lsid:biosci.ohio-state.edu:33995" ;
+    dwc:class "Insecta" ;
+    dwc:family "Formicidae" ;
+    dwc:genus "Pheidole" ;
+    dwc:higherTaxonomySource "CoL" ;
+    dwc:kingdom "Animalia" ;
+    dwc:lsidName-HNS "Pheidole sculpturata Mayr" ;
+    dwc:order "Hymenoptera" ;
+    dwc:pageNumber "224" ;
+    dwc:phylum "Arthropoda" ;
+    dwc:rank "species" ;
+    dwc:species "sculpturata" ;
+    a dwcFP:TaxonConcept .
+
+<http://treatment.plazi.org/id/A368D228C24DD27B5FD981CE0233C661>
+    trt:definesTaxonConcept <http://taxon-concept.plazi.org/id/A368D228C24DD27B5FD981CE0233C661> ;
+    trt:publishedIn <http://publication.plazi.org/id/EE0D5159B7D5473827B4D3499CE3FE8C> ;
+    spm:hasInformation <http://treatment.plazi.org/id/A368D228C24DD27B5FD981CE0233C661#section_1> ;
+    a trt:Treatment .
+
+<http://treatment.plazi.org/id/A368D228C24DD27B5FD981CE0233C661#section_1>
+    spm:hasContent " Sept ouvrieres de N'Zo appartiennent surement a cette forme, frequente depuis le Congo jusqu'au Transvaal, et seraient voisines de la race berthoudi FOREL var. particeps Sant(Nyanza). Encore une espece d'Afrique centrale, nouvelle pour la Guinee. Corps tres mat, tete subcarree." ;
+    a <spm:InfoItem> .
+

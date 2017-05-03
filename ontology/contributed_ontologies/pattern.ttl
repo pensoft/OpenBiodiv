@@ -1,0 +1,975 @@
+@prefix : <http://www.essepuntato.it/2008/12/pattern#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix swrl: <http://www.w3.org/2003/11/swrl#> .
+@base <http://www.essepuntato.it/2008/12/pattern> .
+
+<http://www.essepuntato.it/2008/12/pattern> rdf:type owl:Ontology ;
+                                             dc:description """The idea of using patterns to produce reusable and high-quality assets is not new in the literature. Software engineers, architects (as Alexander who first introduced this term) and designers very often use – or rather reuse – patterns to handle problems which recur over and over. Patterns have also been studied to modularize and customize web ontologies (http://ontologydesignpatterns.org). They guarantee the flexibility and maintainability of concepts and solutions in several heterogeneous scenarios.
+
+We've been investigating patterns for XML documents for some time. The overall goal of this research is to understand how the structure of digital documents can be segmented into atomic components, that can be manipulated independently and re-flowed in different contexts. Instead of defining a large number of complex and diversified structures, we have identified a small number of structures/patterns that are sufficient to express what most users need. Our idea is that a low number of patterns are enough to capture the most relevant document structures."""@en ;
+                                             dc:date "2013-07-16" ;
+                                             dc:title """The Pattern Ontology
+Describing documents by means of their structural components"""@en ;
+                                             dc:creator "Silvio Peroni"^^xsd:string ;
+                                             owl:backwardCompatibleWith <http://dwellonit.svn.sourceforge.net/viewvc/dwellonit/StructuralPattern/Pattern-1_4.owl> ;
+                                             dc:creator "Angelo Di Iorio"^^xsd:string ;
+                                             owl:versionInfo "1.4.2"^^xsd:string ;
+                                             dc:creator "Fabio Vitali"^^xsd:string .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/elements/1.1/creator
+dc:creator rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/date
+dc:date rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/description
+dc:description rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/title
+dc:title rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2000/01/rdf-schema#comment
+rdfs:comment rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2000/01/rdf-schema#label
+rdfs:label rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2002/07/owl#versionInfo
+owl:versionInfo rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.essepuntato.it/2008/12/pattern#contains
+:contains rdf:type owl:ObjectProperty ;
+          owl:inverseOf :isContainedBy ;
+          rdfs:domain :Structured ;
+          rdfs:comment "A structured element contains another generic element."@en ;
+          rdfs:label "contains"@en .
+
+
+###  http://www.essepuntato.it/2008/12/pattern#containsAsHeader
+:containsAsHeader rdf:type owl:ObjectProperty ;
+                  rdfs:subPropertyOf :contains ;
+                  owl:inverseOf :isContainedByAsHeader ;
+                  rdfs:comment "A structured element contains another generic element as part of its header."@en ;
+                  rdfs:label "contains as header"@en .
+
+
+###  http://www.essepuntato.it/2008/12/pattern#isContainedBy
+:isContainedBy rdf:type owl:ObjectProperty ;
+               rdfs:comment "An element that is contained by another structured element."@en ;
+               rdfs:label "is contained by"@en .
+
+
+###  http://www.essepuntato.it/2008/12/pattern#isContainedByAsHeader
+:isContainedByAsHeader rdf:type owl:ObjectProperty ;
+                       rdfs:subPropertyOf :isContainedBy ;
+                       rdfs:comment "An element is contained by another structured element as part of its header."@en ;
+                       rdfs:label "is contained by as header"@en .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.essepuntato.it/2008/12/pattern#canContainHeteronymousElements
+:canContainHeteronymousElements rdf:type owl:DatatypeProperty ,
+                                         owl:FunctionalProperty ;
+                                rdfs:domain :Structured ;
+                                rdfs:range xsd:boolean ;
+                                rdfs:comment "A hierarchical-based entity contains al least two entities having different names."@en ;
+                                rdfs:label "can contain heteronymous elements"@en .
+
+
+###  http://www.essepuntato.it/2008/12/pattern#canContainHomonymousElements
+:canContainHomonymousElements rdf:type owl:DatatypeProperty ,
+                                       owl:FunctionalProperty ;
+                              rdfs:domain :Structured ;
+                              rdfs:range xsd:boolean ;
+                              rdfs:comment "A hierarchical-based entity contains al least two entities that share the same name."@en ;
+                              rdfs:label "can contain homonymous elements"@en .
+
+
+###  http://www.essepuntato.it/2008/12/pattern#hasName
+:hasName rdf:type owl:DatatypeProperty ,
+                  owl:FunctionalProperty ;
+         rdfs:range xsd:string ;
+         rdfs:comment "The name of a particular element."@en ;
+         rdfs:label "has name"@en .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.essepuntato.it/2008/12/pattern#Atom
+:Atom rdf:type owl:Class ;
+      owl:equivalentClass [ owl:intersectionOf ( :Flat
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty :isContainedBy ;
+                                                   owl:allValuesFrom [ rdf:type owl:Class ;
+                                                                       owl:unionOf ( :Block
+                                                                                     :Inline
+                                                                                   )
+                                                                     ]
+                                                 ]
+                                               ) ;
+                            rdf:type owl:Class
+                          ] ;
+      rdfs:subClassOf [ rdf:type owl:Restriction ;
+                        owl:onProperty :isContainedBy ;
+                        owl:someValuesFrom [ rdf:type owl:Class ;
+                                             owl:unionOf ( :Block
+                                                           :Inline
+                                                         )
+                                           ]
+                      ] ;
+      owl:disjointWith :Field ;
+      rdfs:comment "This class is defined to describe literal text that is part of the document body. Moreover, similarly to Inline, elements following the Atom pattern can only be contained within block or inline elements (and consequently they also cannot be used as root elements of documents). It can contain textual content and no other elements."@en ;
+      rdfs:label "atom element"@en .
+
+
+###  http://www.essepuntato.it/2008/12/pattern#Block
+:Block rdf:type owl:Class ;
+       owl:equivalentClass [ owl:intersectionOf ( :Mixed
+                                                  [ rdf:type owl:Restriction ;
+                                                    owl:onProperty :isContainedBy ;
+                                                    owl:allValuesFrom [ rdf:type owl:Class ;
+                                                                        owl:unionOf ( :Container
+                                                                                      :Popup
+                                                                                    )
+                                                                      ]
+                                                  ]
+                                                ) ;
+                             rdf:type owl:Class
+                           ] ;
+       rdfs:subClassOf [ rdf:type owl:Restriction ;
+                         owl:onProperty :contains ;
+                         owl:allValuesFrom [ rdf:type owl:Class ;
+                                             owl:unionOf ( :Atom
+                                                           :Inline
+                                                           :Milestone
+                                                           :Popup
+                                                         )
+                                           ]
+                       ] ;
+       owl:disjointWith :Inline ;
+       rdfs:comment "This class organise the document content as a sequence of nestable elements and text nodes. In particular, elements following this pattern can contain text and other elements compliant with the patterns Inline, Atom, Milestones and Popup, which will be introduced in the following. Furthermore, it is a requirement that block elements are contained only by container and popup elements"@en ;
+       rdfs:label "block element"@en .
+
+
+###  http://www.essepuntato.it/2008/12/pattern#Bucket
+:Bucket rdf:type owl:Class ;
+        rdfs:subClassOf :NonTextual ,
+                        :Structured ;
+        owl:disjointWith :Marker ;
+        rdfs:comment "The class of elements that can contain other elements but no text nodes."@en ;
+        rdfs:label "bucket element"@en .
+
+
+###  http://www.essepuntato.it/2008/12/pattern#Container
+:Container rdf:type owl:Class ;
+           owl:equivalentClass [ owl:intersectionOf ( :Bucket
+                                                      [ rdf:type owl:Restriction ;
+                                                        owl:onProperty :isContainedBy ;
+                                                        owl:allValuesFrom [ rdf:type owl:Class ;
+                                                                            owl:unionOf ( :Container
+                                                                                          :Popup
+                                                                                        )
+                                                                          ]
+                                                      ]
+                                                    ) ;
+                                 rdf:type owl:Class
+                               ] ;
+           rdfs:subClassOf [ rdf:type owl:Restriction ;
+                             owl:onProperty :contains ;
+                             owl:allValuesFrom [ rdf:type owl:Class ;
+                                                 owl:unionOf ( :Block
+                                                               :Container
+                                                               :Field
+                                                               :Meta
+                                                             )
+                                               ]
+                           ] ;
+           owl:disjointWith :Popup ;
+           rdfs:comment "This class concerns the structural organization of a document. Elements following this pattern contain no textual content and contain only elements compliant with the patterns: Meta, Field, Block and any subtype of Container. It is disjointed with the pattern Popup, although they share the same content model."@en ;
+           rdfs:label "container element"@en .
+
+
+###  http://www.essepuntato.it/2008/12/pattern#Field
+:Field rdf:type owl:Class ;
+       owl:equivalentClass [ owl:intersectionOf ( :Flat
+                                                  [ rdf:type owl:Restriction ;
+                                                    owl:onProperty :isContainedBy ;
+                                                    owl:allValuesFrom [ rdf:type owl:Class ;
+                                                                        owl:unionOf ( :Container
+                                                                                      :Popup
+                                                                                    )
+                                                                      ]
+                                                  ]
+                                                ) ;
+                             rdf:type owl:Class
+                           ] ;
+       rdfs:comment "This class is defined to describe literal metadata or text that is not really part of the document body, contrarily to its disjointed sibling Atom. Its main difference with Meta is that Field can contain textual content."@en ;
+       rdfs:label "field element"@en .
+
+
+###  http://www.essepuntato.it/2008/12/pattern#Flat
+:Flat rdf:type owl:Class ;
+      rdfs:subClassOf :NonStructured ,
+                      :Textual ;
+      owl:disjointWith :Mixed ;
+      rdfs:comment "The class of elements that can contain text nodes but no elements."@en ;
+      rdfs:label "flat element"@en .
+
+
+###  http://www.essepuntato.it/2008/12/pattern#HeadedContainer
+:HeadedContainer rdf:type owl:Class ;
+                 rdfs:subClassOf [ owl:intersectionOf ( :Container
+                                                        [ rdf:type owl:Restriction ;
+                                                          owl:onProperty :containsAsHeader ;
+                                                          owl:allValuesFrom :Block
+                                                        ]
+                                                      ) ;
+                                   rdf:type owl:Class
+                                 ] ;
+                 rdfs:comment "This class describes container elements whose content model need to begin with one or more block elements (the heading), specified through the property containsAsHeader."@en ;
+                 rdfs:label "headed-container element"@en .
+
+
+###  http://www.essepuntato.it/2008/12/pattern#Inline
+:Inline rdf:type owl:Class ;
+        owl:equivalentClass [ owl:intersectionOf ( :Mixed
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty :isContainedBy ;
+                                                     owl:allValuesFrom [ rdf:type owl:Class ;
+                                                                         owl:unionOf ( :Block
+                                                                                       :Inline
+                                                                                     )
+                                                                       ]
+                                                   ]
+                                                 ) ;
+                              rdf:type owl:Class
+                            ] ;
+        rdfs:subClassOf [ rdf:type owl:Restriction ;
+                          owl:onProperty :isContainedBy ;
+                          owl:someValuesFrom [ rdf:type owl:Class ;
+                                               owl:unionOf ( :Block
+                                                             :Inline
+                                                           )
+                                             ]
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty :contains ;
+                          owl:allValuesFrom [ rdf:type owl:Class ;
+                                              owl:unionOf ( :Atom
+                                                            :Inline
+                                                            :Milestone
+                                                            :Popup
+                                                          )
+                                            ]
+                        ] ;
+        rdfs:comment """This class has the same use and content model of the pattern Block, but differing primarily because a) inline elements can contain other elements compliant with the same pattern while block elements cannot, and b) inline elements must always be contained by other block or inline elements and by no other type of element.
+
+These constraints also imply that inline elements cannot be used as root elements of documents and that the class Block is disjoint with the class Inline (i.e., a markup element cannot be a block and an inline at the same time)."""@en ;
+        rdfs:label "inline element"@en .
+
+
+###  http://www.essepuntato.it/2008/12/pattern#Marker
+:Marker rdf:type owl:Class ;
+        rdfs:subClassOf :NonStructured ,
+                        :NonTextual ;
+        rdfs:comment "The class of elements that can contain neither text nodes nor elements."@en ;
+        rdfs:label "marker element"@en .
+
+
+###  http://www.essepuntato.it/2008/12/pattern#Meta
+:Meta rdf:type owl:Class ;
+      owl:equivalentClass [ owl:intersectionOf ( :Marker
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty :isContainedBy ;
+                                                   owl:someValuesFrom [ rdf:type owl:Class ;
+                                                                        owl:unionOf ( :Container
+                                                                                      :Popup
+                                                                                    )
+                                                                      ]
+                                                 ]
+                                               ) ;
+                            rdf:type owl:Class
+                          ] ;
+      owl:disjointWith :Milestone ;
+      rdfs:comment "This class describes elements that contain neither other elements nor textual content. Contrarily to the pattern Milestone, which was meant to describe markup elements that impact the document because of their location, the main feature of its disjoint sibling is the mere existence, independently from the position it has within the document. Meta elements convey metadata information about the document or part of it, independently of where they are. Thus, meta elements can be contained only within container elements."@en ;
+      rdfs:label "meta element"@en .
+
+
+###  http://www.essepuntato.it/2008/12/pattern#Milestone
+:Milestone rdf:type owl:Class ;
+           owl:equivalentClass [ owl:intersectionOf ( :Marker
+                                                      [ rdf:type owl:Restriction ;
+                                                        owl:onProperty :isContainedBy ;
+                                                        owl:allValuesFrom [ rdf:type owl:Class ;
+                                                                            owl:unionOf ( :Block
+                                                                                          :Inline
+                                                                                        )
+                                                                          ]
+                                                      ]
+                                                    ) ;
+                                 rdf:type owl:Class
+                               ] ;
+           rdfs:subClassOf [ rdf:type owl:Restriction ;
+                             owl:onProperty :isContainedBy ;
+                             owl:someValuesFrom [ rdf:type owl:Class ;
+                                                  owl:unionOf ( :Block
+                                                                :Inline
+                                                              )
+                                                ]
+                           ] ;
+           rdfs:comment """This class describe elements that contain neither other elements nor textual content. Moreover, similarly to Inline, elements following the Milestone pattern can only be contained within block or inline elements (and consequently they also cannot be used as root elements of documents).
+
+The distinctive characteristic of the pattern Milestone is the location it assumes within the document."""@en ;
+           rdfs:label "milestone element"@en .
+
+
+###  http://www.essepuntato.it/2008/12/pattern#Mixed
+:Mixed rdf:type owl:Class ;
+       rdfs:subClassOf :Structured ,
+                       :Textual ;
+       rdfs:comment "The class of elements that can contain other elements and text nodes."@en ;
+       rdfs:label "mixed element"@en .
+
+
+###  http://www.essepuntato.it/2008/12/pattern#NonStructured
+:NonStructured rdf:type owl:Class ;
+               owl:equivalentClass [ rdf:type owl:Class ;
+                                     owl:complementOf :Structured
+                                   ] ;
+               rdfs:subClassOf :Pattern ;
+               owl:disjointWith :Structured ;
+               rdfs:comment "The class of elements that cannot contain other elements."@en ;
+               rdfs:label "non-structured element"@en .
+
+
+###  http://www.essepuntato.it/2008/12/pattern#NonTextual
+:NonTextual rdf:type owl:Class ;
+            owl:equivalentClass [ rdf:type owl:Class ;
+                                  owl:complementOf :Textual
+                                ] ;
+            rdfs:subClassOf :Pattern ;
+            owl:disjointWith :Textual ;
+            rdfs:comment "The class of elements that cannot have textual content in their content models."@en ;
+            rdfs:label "non-textual element"@en .
+
+
+###  http://www.essepuntato.it/2008/12/pattern#Pattern
+:Pattern rdf:type owl:Class ;
+         rdfs:subClassOf owl:Thing ;
+         rdfs:comment """A structural pattern is an atomic component of a document, that is able to capture a recurrent and well knwon structure of a document.
+
+Any entity belonging to this class is compliant with exactly one structural pattern."""@en ;
+         rdfs:label "pattern-based element"@en .
+
+
+###  http://www.essepuntato.it/2008/12/pattern#Popup
+:Popup rdf:type owl:Class ;
+       owl:equivalentClass [ owl:intersectionOf ( :Bucket
+                                                  [ rdf:type owl:Restriction ;
+                                                    owl:onProperty :isContainedBy ;
+                                                    owl:allValuesFrom [ rdf:type owl:Class ;
+                                                                        owl:unionOf ( :Block
+                                                                                      :Inline
+                                                                                    )
+                                                                      ]
+                                                  ]
+                                                ) ;
+                             rdf:type owl:Class
+                           ] ;
+       rdfs:subClassOf [ rdf:type owl:Restriction ;
+                         owl:onProperty :isContainedBy ;
+                         owl:someValuesFrom [ rdf:type owl:Class ;
+                                              owl:unionOf ( :Block
+                                                            :Inline
+                                                          )
+                                            ]
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :contains ;
+                         owl:allValuesFrom [ rdf:type owl:Class ;
+                                             owl:unionOf ( :Block
+                                                           :Container
+                                                           :Field
+                                                           :Meta
+                                                         )
+                                           ]
+                       ] ;
+       rdfs:comment "This class defines bucket elements that are only present within block and inline elements. Popup elements are used whenever complex structures need to be placed within content elements such as paragraphs. "@en ;
+       rdfs:label "popup element"@en .
+
+
+###  http://www.essepuntato.it/2008/12/pattern#Record
+:Record rdf:type owl:Class ;
+        owl:equivalentClass [ owl:intersectionOf ( :Container
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty :canContainHeteronymousElements ;
+                                                     owl:hasValue "true"^^xsd:boolean
+                                                   ]
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty :canContainHomonymousElements ;
+                                                     owl:hasValue "false"^^xsd:boolean
+                                                   ]
+                                                 ) ;
+                              rdf:type owl:Class
+                            ] ;
+        rdfs:comment "This class describes container elements that can only contain heterogeneous and non repeatable elements."@en ;
+        rdfs:label "record element"@en .
+
+
+###  http://www.essepuntato.it/2008/12/pattern#Structured
+:Structured rdf:type owl:Class ;
+            rdfs:subClassOf :Pattern ;
+            rdfs:comment "The class of elements that can contain other elements."@en ;
+            rdfs:label "structured element"@en .
+
+
+###  http://www.essepuntato.it/2008/12/pattern#Table
+:Table rdf:type owl:Class ;
+       owl:equivalentClass [ owl:intersectionOf ( :Container
+                                                  [ rdf:type owl:Restriction ;
+                                                    owl:onProperty :canContainHeteronymousElements ;
+                                                    owl:hasValue "false"^^xsd:boolean
+                                                  ]
+                                                  [ rdf:type owl:Restriction ;
+                                                    owl:onProperty :canContainHomonymousElements ;
+                                                    owl:hasValue "true"^^xsd:boolean
+                                                  ]
+                                                ) ;
+                             rdf:type owl:Class
+                           ] ;
+       rdfs:comment "This class describes container elements that must contain only homogeneous elements (but they can be repeated)."@en ;
+       rdfs:label "table element"@en .
+
+
+###  http://www.essepuntato.it/2008/12/pattern#Textual
+:Textual rdf:type owl:Class ;
+         rdfs:subClassOf :Pattern ;
+         rdfs:comment "The class of elements that can have textual content in their content models."@en ;
+         rdfs:label "textual element"@en .
+
+
+###  http://www.w3.org/2002/07/owl#Thing
+owl:Thing rdf:type owl:Class .
+
+
+#################################################################
+#    Annotations
+#################################################################
+
+<http://www.essepuntato.it/2008/12/pattern> rdfs:comment "An ontology defining formally patterns for segmenting a document into atomic components, in order to be manipulated independently and re-flowed in different contexts."@en ;
+                                            rdfs:label "pattern ontology"@en ;
+                                            owl:priorVersion <http://dwellonit.svn.sourceforge.net/viewvc/dwellonit/StructuralPattern/Pattern-1_4.owl> .
+
+
+#################################################################
+#    General axioms
+#################################################################
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :HeadedContainer
+                :Record
+                :Table
+              )
+] .
+
+
+#################################################################
+#    Rules
+#################################################################
+
+:x rdf:type swrl:Variable .
+
+:s rdf:type swrl:Variable .
+
+:y rdf:type swrl:Variable .
+
+:g rdf:type swrl:Variable .
+
+:z rdf:type swrl:Variable .
+
+:p rdf:type swrl:Variable .
+
+:t rdf:type swrl:Variable .
+
+<urn:swrl#p> rdf:type swrl:Variable .
+
+<urn:swrl#x> rdf:type swrl:Variable .
+
+<urn:swrl#y> rdf:type swrl:Variable .
+
+<urn:swrl#s> rdf:type swrl:Variable .
+
+[ rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate :Block ;
+                           swrl:argument1 :x
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                      swrl:propertyPredicate :hasName ;
+                                      swrl:argument1 :x ;
+                                      swrl:argument2 :s
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                 swrl:propertyPredicate :hasName ;
+                                                 swrl:argument1 :y ;
+                                                 swrl:argument2 :s
+                                               ] ;
+                                     rdf:rest rdf:nil
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate :Block ;
+                           swrl:argument1 :y
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate :Container ;
+                           swrl:argument1 :x
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                      swrl:propertyPredicate :hasName ;
+                                      swrl:argument1 :x ;
+                                      swrl:argument2 :s
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                 swrl:propertyPredicate :hasName ;
+                                                 swrl:argument1 :y ;
+                                                 swrl:argument2 :s
+                                               ] ;
+                                     rdf:rest rdf:nil
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate :Container ;
+                           swrl:argument1 :y
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate :Field ;
+                           swrl:argument1 :x
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                      swrl:propertyPredicate :hasName ;
+                                      swrl:argument1 :x ;
+                                      swrl:argument2 :s
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                 swrl:propertyPredicate :hasName ;
+                                                 swrl:argument1 :y ;
+                                                 swrl:argument2 :s
+                                               ] ;
+                                     rdf:rest rdf:nil
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate :Field ;
+                           swrl:argument1 :y
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate :Inline ;
+                           swrl:argument1 :x
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                      swrl:propertyPredicate :hasName ;
+                                      swrl:argument1 :x ;
+                                      swrl:argument2 :s
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                 swrl:propertyPredicate :hasName ;
+                                                 swrl:argument1 :y ;
+                                                 swrl:argument2 :s
+                                               ] ;
+                                     rdf:rest rdf:nil
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate :Inline ;
+                           swrl:argument1 :y
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate :Meta ;
+                           swrl:argument1 :x
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                      swrl:propertyPredicate :hasName ;
+                                      swrl:argument1 :x ;
+                                      swrl:argument2 :s
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                 swrl:propertyPredicate :hasName ;
+                                                 swrl:argument1 :y ;
+                                                 swrl:argument2 :s
+                                               ] ;
+                                     rdf:rest rdf:nil
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate :Meta ;
+                           swrl:argument1 :y
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate :Milestone ;
+                           swrl:argument1 :x
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                      swrl:propertyPredicate :hasName ;
+                                      swrl:argument1 :x ;
+                                      swrl:argument2 :s
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                 swrl:propertyPredicate :hasName ;
+                                                 swrl:argument1 :y ;
+                                                 swrl:argument2 :s
+                                               ] ;
+                                     rdf:rest rdf:nil
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate :Milestone ;
+                           swrl:argument1 :y
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate :Pattern ;
+                           swrl:argument1 :y
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:ClassAtom ;
+                                      swrl:classPredicate :Textual ;
+                                      swrl:argument1 :x
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                 swrl:propertyPredicate :hasName ;
+                                                 swrl:argument1 :x ;
+                                                 swrl:argument2 :g
+                                               ] ;
+                                     rdf:rest [ rdf:type swrl:AtomList ;
+                                                rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                            swrl:propertyPredicate :hasName ;
+                                                            swrl:argument1 :y ;
+                                                            swrl:argument2 :g
+                                                          ] ;
+                                                rdf:rest rdf:nil
+                                              ]
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate :Textual ;
+                           swrl:argument1 :y
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate :Record ;
+                           swrl:argument1 :x
+                         ] ;
+               rdf:rest rdf:nil
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                           swrl:propertyPredicate :canContainHomonymousElements ;
+                           swrl:argument1 :x ;
+                           swrl:argument2 "false"^^xsd:boolean
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate :Record ;
+                           swrl:argument1 :x
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                      swrl:propertyPredicate :hasName ;
+                                      swrl:argument1 :x ;
+                                      swrl:argument2 :s
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                 swrl:propertyPredicate :hasName ;
+                                                 swrl:argument1 :y ;
+                                                 swrl:argument2 :s
+                                               ] ;
+                                     rdf:rest rdf:nil
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate :Record ;
+                           swrl:argument1 :y
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate :Table ;
+                           swrl:argument1 :x
+                         ] ;
+               rdf:rest rdf:nil
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                           swrl:propertyPredicate :canContainHeteronymousElements ;
+                           swrl:argument1 :x ;
+                           swrl:argument2 "false"^^xsd:boolean
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate :Table ;
+                           swrl:argument1 :x
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                      swrl:propertyPredicate :contains ;
+                                      swrl:argument1 :x ;
+                                      swrl:argument2 :y
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                 swrl:propertyPredicate :contains ;
+                                                 swrl:argument1 :x ;
+                                                 swrl:argument2 :z
+                                               ] ;
+                                     rdf:rest [ rdf:type swrl:AtomList ;
+                                                rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                            swrl:propertyPredicate :hasName ;
+                                                            swrl:argument1 :z ;
+                                                            swrl:argument2 :s
+                                                          ] ;
+                                                rdf:rest rdf:nil
+                                              ]
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                           swrl:propertyPredicate :hasName ;
+                           swrl:argument1 :y ;
+                           swrl:argument2 :s
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate :Table ;
+                           swrl:argument1 :x
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                      swrl:propertyPredicate :hasName ;
+                                      swrl:argument1 :x ;
+                                      swrl:argument2 :s
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                 swrl:propertyPredicate :hasName ;
+                                                 swrl:argument1 :y ;
+                                                 swrl:argument2 :s
+                                               ] ;
+                                     rdf:rest rdf:nil
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate :Table ;
+                           swrl:argument1 :y
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                           swrl:propertyPredicate :contains ;
+                           swrl:argument1 :p ;
+                           swrl:argument2 :x
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                      swrl:propertyPredicate :contains ;
+                                      swrl:argument1 :p ;
+                                      swrl:argument2 :y
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                 swrl:propertyPredicate :hasName ;
+                                                 swrl:argument1 :x ;
+                                                 swrl:argument2 :s
+                                               ] ;
+                                     rdf:rest [ rdf:type swrl:AtomList ;
+                                                rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                            swrl:propertyPredicate :hasName ;
+                                                            swrl:argument1 :y ;
+                                                            swrl:argument2 :t
+                                                          ] ;
+                                                rdf:rest [ rdf:type swrl:AtomList ;
+                                                           rdf:first [ rdf:type swrl:BuiltinAtom ;
+                                                                       swrl:builtin <http://www.w3.org/2003/11/swrlb#notEqual> ;
+                                                                       swrl:arguments ( :s
+                                                                                        :t
+                                                                                      )
+                                                                     ] ;
+                                                           rdf:rest rdf:nil
+                                                         ]
+                                              ]
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                           swrl:propertyPredicate :canContainHeteronymousElements ;
+                           swrl:argument1 :p ;
+                           swrl:argument2 "true"^^xsd:boolean
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                           swrl:propertyPredicate :contains ;
+                           swrl:argument1 <urn:swrl#p> ;
+                           swrl:argument2 <urn:swrl#x>
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                      swrl:propertyPredicate :contains ;
+                                      swrl:argument1 <urn:swrl#p> ;
+                                      swrl:argument2 <urn:swrl#y>
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                 swrl:propertyPredicate :hasName ;
+                                                 swrl:argument1 <urn:swrl#x> ;
+                                                 swrl:argument2 <urn:swrl#s>
+                                               ] ;
+                                     rdf:rest [ rdf:type swrl:AtomList ;
+                                                rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                            swrl:propertyPredicate :hasName ;
+                                                            swrl:argument1 <urn:swrl#y> ;
+                                                            swrl:argument2 <urn:swrl#s>
+                                                          ] ;
+                                                rdf:rest rdf:nil
+                                              ]
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                           swrl:propertyPredicate :canContainHomonymousElements ;
+                           swrl:argument1 <urn:swrl#p> ;
+                           swrl:argument2 "true"^^xsd:boolean
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+###  Generated by the OWL API (version 4.2.6.20160910-2108) https://github.com/owlcs/owlapi
