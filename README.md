@@ -62,3 +62,7 @@ This initialization also adds the dump directory mentioned above to the OBKMS en
 The data model for generating RDF is found in the
 
 * [OpenBiodiv RDF Guide](Ontology/RDF_Guide.md)
+
+## RDF-ization
+
+[BDJ RDF-izer](input/bdj.R)
