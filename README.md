@@ -41,7 +41,21 @@ In practice the system is populated from files.
 
 Please run this in your R shell, befire running any of the OpenBiodivScripts. The configuration files contains the directory where all harvested journals will be dumped during an initial dump.
 
+2. To run the OBKMS functions, you need access to the a GraphDB (or other compatible) database. The GraphDB access credentials can be read from a YAML file. At the moment this file is:
 
+```{r}
+Sys.setenv("OBKMS_CONFIGURATION_FILE = "/home/viktor/Work/OBKMS/etc/graphdb8_test.yml"
+```
+
+and initialization goes like this:
+
+```{r}
+configuration_file = Sys.getenv("OBKMS_CONFIGURATION_FILE")
+server_access_options = yaml::yaml.load_file( configuration_file )
+init_env(server_access_options)
+```
+
+This initialization also adds the dump directory mentioned above to the OBKMS environment and additional variables needed for the normal operation of the database.
 
 ## Data model
 
