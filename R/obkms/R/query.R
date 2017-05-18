@@ -58,6 +58,67 @@ get_nodeid = function( label = "", explicit_node_id = "", allow_multiple = FALSE
   return ( paste( "http://id.pensoft.net/", uuid::UUIDgenerate() , sep = "") )
 }
 
+
+#' Lookup an Identifier in OBKMS
+#'
+#' This function is similar to `get_nodeid`, but allows more flexibility.
+#' Its most basic form is when the user specifies a `preferred_label`
+#' and the system searches for all entities in the graph database that match
+#' this preferred label exactly.
+#'
+#' @param label a vector of labels for which to look , the first one is preferred, all other ones are alternative;
+#' doesn't have to specified. lookup can done only thru the ...
+#' @param trim if TRUE reduces multiple table, new lines, spaces to just one space
+#' @param ignore_case if TRUE lowercases everything
+#' @param best_match if TRUE will return only one best match
+#' @param generate_on_fail if TRUE if no match is found, a new ID is generated
+#' @param ... a list of additional things that can be used for look-up . read documentaiton carefully
+#'
+#' @return a vector of ID's that match, NULL if nothing has matched
+#'
+#' @examples
+#' \dontrun{}
+#' @export
+
+lookup_id = function( label, trim = TRUE, ignore_case = TRUE, best_match = TRUE, generate_on_fail = TRUE, ...)
+{
+  stopifnot( exists( "obkms", mode = "environment" ) )
+
+        # now start iterating along the labels to look for solution
+  if ( !missing( label ) && is.character( label ) && ( length( label ) > 0 ) )
+  {
+    if ( trim )
+    {
+      label = gsub("[\t]+", " ", label)
+      label = gsub("[\n]+", " ", label)
+      label = gsub("[ ]+", " ", label)
+    }
+    if ( ignore_case )
+    {
+      # TODO will implement later
+    }
+    for ( l in label )
+    {
+      query.template =
+        "PREFIX skos: %skosns SELECT ?id WHERE { ?id skos:prefLabel %label . }"
+      # query substitution
+      query.template = gsub( "%label", paste( '\"', l, '\"', sep = "" ), query.template )
+      query = gsub( "%skosns", obkms$prefixes$skos, query.template )
+      # query execution
+      res = rdf4jr::POST_query( obkms$server_access_options , obkms$server_access_options$repository, query, "CSV" )
+      # we want the results to be a list (data frame), we hava a match (multiple matches)
+      if ( is.data.frame( res ) && nrow ( res ) > 0 )
+      {
+        if (best_match) return ( as.character( res$id )[1] )
+        else return(  as.character( res$id ) )
+      }
+    }
+  }
+  if ( generate_on_fail ) {
+    return ( qname( paste0( strip_angle( obkms$prefixes$`_base` ), uuid::UUIDgenerate( ) ) ) )
+  }
+}
+
 #' Gets the graph name of an article of it exists
 #' TODO needs review
 #' @param doi the DOI of the article the context of which we are looking for
@@ -85,6 +146,7 @@ get_context_of = function ( doi ) {
   #detach ( obkms )
   return ( paste( "http://id.pensoft.net/", uuid::UUIDgenerate() , sep = "") )
 }
+
 
 
 #' Submits RDF string (in Turtle syntax) to OBKMS

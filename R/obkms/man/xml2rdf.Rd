@@ -2,25 +2,28 @@
 % Please edit documentation in R/xml.R
 \name{xml2rdf}
 \alias{xml2rdf}
-\title{Convert an XML document to RDF}
+\title{Convert an XML Document to RDF}
 \usage{
 xml2rdf(resource_locator, resource_type = "FILE",
   resource_format = "TAXPUB", serialization_format = "TURTLE")
 }
 \arguments{
-\item{resource_locator}{address/ location of the XML resource}
+\item{resource_locator}{locator, e.g. file path or URL, of the XML resource}
 
-\item{resource_format}{XML schema of the XML resource;
-one of { "TAXPUB", "REFBANK_XML" }}
+\item{resource_format}{XML schema of the XML resource; one of c( "TAXPUB", "PLAZI" );
+default is "TAXPUB"}
 
-\item{serialization_format}{output serialization format of the RDF;
-one of "TURTLE"}
+\item{serialization_format}{output serialization format for the RDF; one of c( "TURTLE" );
+default is "TURTLE"}
 
-\item{resouce_type}{type of location of the XML resource;
-one of "FILE"}
+\item{locator_type}{type of the locator; one of c("FILE", "URL"); default is "FILE"}
 }
 \description{
-Convert an XML document to RDF
+The function ought to work on different types of XML documents. It tackes
+care of error checking and calling the correct top-level extractor.
+}
+\details{
+This function is exported and can be called from the user.
 }
 \author{
 Viktor Senderov

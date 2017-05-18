@@ -1,3 +1,22 @@
+#' Dumps all of the BDJ up to the present date in a predefined directory
+#' @export
+bdj_dumper = function () {
+  archive = paste0( obkms$initial_dump_configuration$initial_dump_directory, "archive.zip")
+  rdata = paste0( obkms$initial_dump_configuration$initial_dump_directory, ".Rdata")
+  response = httr::GET( obkms$initial_dump_configuration$bdj_endpoint )
+  zip = httr::content(response, "raw")
+  writeBin( zip, archive)
+  unzip(archive, exdir = obkms$initial_dump_configuration$initial_dump_directory )
+  file.remove ( archive )
+  dump_list = list.files(  obkms$initial_dump_configuration$initial_dump_directory,
+                           full.names = TRUE )
+  dump_date = Sys.Date()
+  save( dump_date, dump_list, file = rdata )
+  # TODO but this doesnot work save( Sys.Date(), file = date_file )
+}
+
+
+
 #' Initialize package parameters upon loading.
 #'
 #' The package contains a database of semantic web prefixes, stored in a yaml
@@ -23,6 +42,7 @@ init_env = function ( server_access_options,
                       entities_db =  paste0( path.package ( 'obkms' ) , "/", "semantic_entities_db.yml" ),
                       literals_db_xpath = paste0( path.package ( 'obkms' ) , "/", "literals_db_xpath.yml" ),
                       non_literals_db_xpath = paste0( path.package ( 'obkms' ) , "/", "non_literals_db_xpath.yml" ),
+                      initial_dump_configuration = paste0( path.package ( 'obkms' ) , "/", "initial_dump_configuration.yml") ,
                       xml_source = "file",
                       xml_type = "taxpub" ) {
 
@@ -32,6 +52,8 @@ init_env = function ( server_access_options,
     obkms <<- new.env()
   }
   obkms$server_access_options = server_access_options
+
+  obkms$initial_dump_configuration = yaml::yaml.load_file ( initial_dump_configuration )
 
   obkms$prefixes = yaml::yaml.load_file(prefix_db)
   obkms$entities = yaml::yaml.load_file ( entities_db )

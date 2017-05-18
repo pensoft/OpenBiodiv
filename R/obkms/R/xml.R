@@ -1,296 +1,318 @@
-#                 _ ____          _  __
-# __  ___ __ ___ | |___ \ _ __ __| |/ _|
-# \ \/ / '_ ` _ \| | __) | '__/ _` | |_
-#  >  <| | | | | | |/ __/| | | (_| |  _|
-# /_/\_\_| |_| |_|_|_____|_|  \__,_|_|
-#
-#' Convert an XML document to RDF
+#' Convert an XML Document to RDF
+#'
+#' The function ought to work on different types of XML documents. It tackes
+#' care of error checking and calling the correct top-level extractor.
+#'
+#' This function is exported and can be called from the user.
+#'
 #' @author Viktor Senderov
 #' @param resource_locator
-#'        address/ location of the XML resource
-#' @param resouce_type
-#'        type of location of the XML resource;
-#'        one of "FILE"
+#'        locator, e.g. file path or URL, of the XML resource
+#' @param locator_type
+#'        type of the locator; one of c("FILE", "URL"); default is "FILE"
 #' @param resource_format
-#'        XML schema of the XML resource;
-#'        one of { "TAXPUB", "REFBANK_XML" }
+#'        XML schema of the XML resource; one of c( "TAXPUB", "PLAZI" );
+#'        default is "TAXPUB"
 #' @param serialization_format
-#'        output serialization format of the RDF;
-#'        one of "TURTLE"
+#'        output serialization format for the RDF; one of c( "TURTLE" );
+#'        default is "TURTLE"
+#'
 #' @export
-xml2rdf = function( resource_locator, resource_type = "FILE",
-                    resource_format = "TAXPUB", serialization_format = "TURTLE")
+#'
+xml2rdf = function( resource_locator,
+                    resource_type = "FILE",
+                    resource_format = "TAXPUB",
+                    serialization_format = "TURTLE")
 {
-  # checks
+  # checks, if not FILE, cannot write back
   stopifnot ( is.character(resource_type), resource_type == "FILE" )
-  stopifnot ( is.character(resource_format), resource_format %in% c( "TAXPUB", "REFBANK_XML" ) )
-  stopifnot ( is.character(serialization_format), serialization_format == "TURTLE" )
+  stopifnot ( is.character(resource_format), resource_format %in%
+                c( "TAXPUB", "REFBANK_XML" ) )
+  stopifnot (
+    is.character(serialization_format), serialization_format == "TURTLE" )
 
+  # load the XML document
+  xml = xml2::read_xml( resource_locator , options = c()) # both a document and a node
+  # fetch or set the id for the XML document
+  context = get_or_set_obkms_id( xml , fullname = TRUE )
+
+  # Call the top-level extractors depending on the type
   if ( resource_format == "TAXPUB" ) {
-    # load xpath for taxpub XML format
-    xlit = yaml::yaml.load_file( obkms$config$literals_db_xpath )
-    xnonlit = yaml::yaml.load_file( obkms$config$non_literals_db_xpath )
-  }
-  # load XML
-  if ( resource_type == "FILE" ){
-    xml = xml2::read_xml( resource_locator , options = c())
-    # doi of the article: needed to set the context later
-    doi = xml2::xml_text( xml2::xml_find_all( xml, xlit$doi ) [[1]] )
-    context = qname( get_context_of ( doi ) )
-  }
+    triples = taxpub_extractor( xml, xlit, xnonlit ) # will return a triples object (TODO S3 or S4??)
 
-  # construct list of triples lists
-  triples = extract_information( xml, xlit, xnonlit )
-  # serialize
-  serialization = c()
-  if (serialization_format == "TURTLE") {
-    serialization = turtle_prepend_prefixes()
-    serialization = c ( serialization, triples2turtle2 ( context, triples$article ), "\n\n" )
-   # serialization = c( serialization, triples2turtle2( "pensoft:Nomenclature", triples$nomenclature))
+
+    # serialize
+    serialization = c()
+    if (serialization_format == "TURTLE") {
+      serialization = turtle_prepend_prefixes()
+      serialization = c ( serialization, triples2turtle2 ( context, triples ), "\n\n" )
+      #serialization = c ( serialization, triples2turtle2 ( context, triples$article ), "\n\n" )
+     # serialization = c( serialization, triples2turtle2( "pensoft:Nomenclature", triples$nomenclature))
+    }
+    # context need to be cleared
+    clear_context( context )
+    # return the return string as a string
+    xml2::write_xml( xml, resource_locator )
   }
-  # context need to be cleared
-  clear_context( context )
-  # return the return string as a string
-  xml2::write_xml( xml, resource_locator )
   return ( do.call(paste, as.list( serialization )))
 }
 
-
-#===============================================================================
-#            _                  _       _        __                            _   _
-#   _____  _| |_ _ __ __ _  ___| |_    (_)_ __  / _| ___  _ __ _ __ ___   __ _| |_(_) ___  _ __
-#  / _ \ \/ / __| '__/ _` |/ __| __|   | | '_ \| |_ / _ \| '__| '_ ` _ \ / _` | __| |/ _ \| '_ \
-# |  __/>  <| |_| | | (_| | (__| |_    | | | | |  _| (_) | |  | | | | | | (_| | |_| | (_) | | | |
-#  \___/_/\_\\__|_|  \__,_|\___|\__|___|_|_| |_|_|  \___/|_|  |_| |_| |_|\__,_|\__|_|\___/|_| |_|
-#                                 |_____|
-#' Top level extractor
-#' @param xml \emph{XML2} object
-#' @param xlit \emph{list} of XPATH locations of literals entities
-#' @return \emph{list} of named triples lists, the name corresponds to the
-#' context
+#' Top Level Function to Convert TaxPub to Triples
+#'
+#' @param xml an XML2 document
+#' @param xlit a of XPATH locations of literals entities (atoms) of a TaxPub document
+#' @param xdoco list of XPATH locations of connected entities (not atoms) that ought to be processed via lower level extractors
+#' @return list of named triples lists, the name corresponds to the context TODO check what's actually retuerned
 #' @export
-extract_information = function( xml, xlit, xdoco ) {
-  # all the entity generating functions can return NULL
-  # in this case the triple constructing function will return an empty triple
-  # Literals
+#'
+taxpub_extractor = function( xml, xlit, xdoco ) {
+
+  xlit = yaml::yaml.load_file( obkms$config$literals_db_xpath ) # atom locations
+  xnonlit = yaml::yaml.load_file( obkms$config$non_literals_db_xpath )
+                                # connected entities to be processed separately
+
+  # All the entity generating functions can return NUL.
+  # In this case the triple constructing function will return an empty triple.
+
+  # Literals: this takes care of the atoms.
   literals = as.list( find_literals( xml, xlit ) )
-  # Entities
-  # we use the word local to denote abstract entities
-  local = list()
-  local_xml = list()
-  local[['article']] = qname ( get_nodeid ( literals$doi ) )
+
+  # related enetities
+  # we used to use the word local to denote identifiers (not-literals)
+  # that are specific to the document
+  # there are two types of entities: bibliographic and abstract
+  # for bibliographic elements we use get_or_set_obkms_id (purely XML based, does not require any lookup)
+  identifier = list()
+  identifier[['article']] = get_or_set_obkms_id( xml , fullname = TRUE )
+  #local[['article']] = qname ( get_nodeid ( literals$doi ) )
   #local[['front_matter']] = qname ( get_nodeid(  ) )
   #local[['title']] = qname ( get_nodeid() )
   #local[['abstract']] = qname ( get_nodeid() )
-  local[['publisher']] = qname ( get_nodeid( literals$publisher_name ) )
-  local[['publisher_role']] = qname( get_nodeid () )
-  local[['journal']] = qname ( get_nodeid( literals$journal_title))
-  # Document component entities
-  doco = find_document_component_entities ( xml, xdoco )
 
+  # for abstract entities, we need to do a look-up in the database.
+  # we used to use the function get_nodeit, but now we use
+  # a family of lookup functions
 
+  identifier[['publisher']] = qname ( lookup_id( literals$publisher_name ) )
 
-  # Triples
-  # we have several contexts: article related triples
-  # and nomenclature_triples
-  #nomenclature_triples = list()
-  attach(obkms, warn.conflicts = FALSE)
-  triples = list(
-    #publisher
-    triple( local$publisher,      entities$a,                   entities$agent ),
-    triple( local$publisher,      entities$pref_label,          squote ( literals$publisher_name ) ) ,
-    triple( local$publisher,      entities$holds_role_in_time,  local$publisher_role ),
-    triple( local$publisher_role, entities$a,                   entities$role_in_time ),
-    triple( local$publisher_role, entities$with_role,           entities$publisher ),
-    triple( local$publisher_role, entities$relates_to_document, local$journal ),
-	#journal
-    triple( local$journal,        entities$a,                   entities$journal ),
-    triple( local$journal,        entities$pref_label,          squote ( literals$journal_title ) ),
-    triple( local$journal,        entities$alt_label,           squote ( literals$abbrev_journal_title ) ),
-    triple( local$journal,        entities$issn,                squote ( literals$issn ) ),
-    triple( local$journal,        entities$eissn,               squote ( literals$eissn ) ),
-    triple( local$journal,        entities$dcpublisher,         squote ( literals$publisher_name ) ),
-    triple( local$journal,        entities$frbr_haspart,        local$article ),
-    #TODO fabio:hasSubjectTerm
-    #TODO fabio:hasDiscipline
-    #TODO dcterms:creator
-	# article
-    triple( local$article,        entities$a,                   entities$journal_article ),
-    triple( local$article,        entities$pref_label,          squote( literals$doi ) ),
-    triple( local$article,        entities$prism_doi,           squote( literals$doi ) ),
-    triple( local$article,        entities$has_publication_year, squote( literals$pub_date, "^^xsd:gYear" ) ) ,
-    triple( local$article,        entities$title,               squote(literals$article_title, "@en-us")),
-    triple( local$article,           entities$contains, doco$front_matter[[1]]$id),
-	triple( local$article,           entities$contains, doco$body[[1]]$id),
-	triple( local$article,           entities$contains, doco$back_matter[[1]]$id),
-	# front matter
-    triple( doco$front_matter[[1]]$id,      entities$a,        entities$front_matter ),
-    triple( doco$front_matter[[1]]$id,      entities$contains, doco$title[[1]]$id),
-    triple( doco$front_matter[[1]]$id,      entities$contains, doco$abstract[1][[1]]$id),
-    triple( doco$front_matter[[1]]$id,      entities$first_item,
-                                      list( triple("", entities$item_content, doco$title[[1]]$id),
-                                            triple("", entities$next_item,
-                                                list( triple( "", entities$item_content, doco$front_matter[[1]]$id))))),
-    triple( doco$title[[1]]$id,         entities$a,                      entities$doco_title),
-    triple( doco$title[[1]]$id,         entities$has_content,            squote(literals$article_title, "@en-us"   )),
-    triple( doco$abstract[1][[1]]$id,    entities$a,               entities$sro_abstract),
-  ## all of the following things are in the back matter
-  # a document should have one back matter
-  # back-matter
-	  triple( doco$body[[1]]$id,          entities$a,              entities$body),
-	  triple( doco$back_matter[[1]]$id, entities$a, 				entities$back_matter ),
-    triple( doco$back_matter[[1]]$id, entities$contains, 		doco$acknowledgement[1][[1]]$id ),
-  # all of the next ones are contained in the back matter
-  # TODO load the ontology to materialize transitive property of journal->backmaterr->stuff
-  # describe afterword (acknolwedgement)
-  # TODO check whether it is OK to use afterword = acknowledgement
-  # acknoledgement trick needed to avoid empty values [1]
-    triple( doco$acknowledgement[1][[1]]$id, entities$a, 			entities$acknowledgement ))
-  # figures
-  for ( fig in doco$figures ) {
-    triples = c( triples, list(
-	triple( fig$id, 					 entities$a, 			entities$figure ),
-    triple( doco$back_matter[[1]]$id,    entities$contains, 	fig$id ) ) )
-  }
-  # how should captions be processed? During the first pass they should be
-  # extracted in the doco structure. Then during the second pass they should be
-  # connected to their parent object via the parent identifier
-  for ( caption in doco$captions ) {
-    parent = xml2::xml_parent( caption$xml )
-    id = xml2::xml_attr(parent, "id")
-    # TODO do not hardcode the pensoft prefix anywhere!!!
-    obkms_node = qname( paste0( "<http://id.pensoft.net/", id, ">") )
-    triples.new = list(
-      triple( caption$id , entities$a,        entities$caption ),
-      triple( caption$id , entities$has_content, squote( xml2::xml_text( caption$xml, trim = TRUE ) ) ),
-      triple( obkms_node, entities$contains,  caption$id )
-    )
-    triples = c( triples, triples.new )
-  }
+  # similar to get_nodeid, if a default arg is set, lookup_id returns a new id
 
-  # describe plates, a special kind of figure consisting of multiple figures
-  # it is not part of doco, that's why we've created an object for it in pensoft
-  # TODO Ontology define plate class and derive it from figure
-  # plates
-  for ( plate in doco$plates ) {
-    triples = c( triples, list(
-	triple( plate$id, 					entities$a,				 entities$figure ),
-    triple( plate$id, 					entities$a, 			 entities$plate ) ,
-    triple( doco$back_matter[1][[1]]$id, 	entities$contains, 		 plate$id ) ) )
-    # TODO add figure-plate relationships!
-  }
-  # describe tables
-  for ( table in doco$tables ) {
-    triples = c( triples, list(
-	triple( table$id, 					entities$a, 			entities$table ),
-    triple( doco$back_matter[1][[1]]$id,   entities$contains,      table$id ) ) )
-  }
-  # describe reference list
-  for ( ref_list in doco$reference_list) {
-    triples = c( triples, list(
-	triple( ref_list$id,                entities$a,             entities$reference_list ),
-    triple( doco$back_matter[1][[1]]$id,   entities$contains,      ref_list$id ) ) )
-  }
-  # describe individual references
-  # TODO there is no reference class in Doco, need to extend it
-  for ( reference in doco$reference) {
-    triples = c( triples, list(
-	triple( reference$id,               entities$a,            entities$reference ),
-    triple( doco$back_matter[1][[1]]$id,    entities$contains,    reference$id ) ) )
-  }
-  # describe individual nomenclature sections
+  identifier[['publisher_role']] = qname( lookup_id () )
+  identifier[['journal']] = qname ( lookup_id( literals$journal_title))
 
-  # Process taxa in different parts of the manuscript
-  # we need to do two things
-  # 1 create bibliographic (attachment) entities for the things
-  # 2 look for the TNU's in the XML that correspond to these entities
-  # submit if needed new names to OBKMS
-  # 3 connect attachment entities to names via TNU's
-  # look for taxa in the title and attach them
-  # in the case of the title, we have already defined the attachment entity
-  # and we have only one xml node where to look
-  # idea: for all local entities, we will store the xml node of the entity in a list
-  # the keys will be the nodeids found in the local list
-  # the xpath for the corresponding entity is usually found in the non-literal
-  # xml path file
-  # there are two cases: when the local entity is a single entity and when the
-  # this function finds the xml nodes of the local entities/// better
-  # document component entities
-  # every paper contains certain document component such as titles, abstract, etc
-  # every document component can have an id which is given by the id attribute
-  # in the XML
-  # we want to do the following thing: we want to list the document components
-  # in a yaml file. then we want to open the yaml file, iterate over the
-  # document components and generate semantic entities for them.
-   # now we want to iterate over the local entit
-  for (entity_list in doco) {
-    for (document_entity in entity_list) {
-      names_used = extract_scientific_names_used( document_entity$xml )
-      new_triples = construct_tnu_triples( document_entity$id, names_used )
-      triples = c( triples, new_triples )
-    }
-  }
+  triples = list (
+    triple( identifier$article,  obkms$entities$a,   obkms$entities$journal_article ),
+    triple( identifier$article,  obkms$entities$pref_label,    squote( literals$doi ) ) )
 
-  # extract nomenclaute
-  for (nomen in doco$nomenclature) {
-    # TODO do them as parts of treatments in the future
-    doco_triples = list(
-    triple( doco$body[[1]]$id,          entities$contains,       nomen$id),
-    triple( nomen$id, entities$a,            entities$nomenclature) )
-    #triple( nomen$id, entities$has_content,  xml2::xml_text(nomen$xml)))
-    valid_name = extract_valid_name( nomen$xml )
-    nomen_citations = extract_nomen_citations ( nomen$xml )
-    new_triples = construct_nomen_triples( nomen$id, valid_name, nomen_citations)
-    triples = c( triples, doco_triples, new_triples )
-  }
+  return ( triples )
 
-
-
-  # # local entity is list
-  # local_xml[[ local$title ]] = xml2::xml_find_all( xml, xnonlit$title )[[1]]
-  # names_used = extract_scientific_names_used( local_xml[[ local$title ]] )
-  # new_triples = construct_tnu_triples( local$title, names_used )
-  # triples = c( triples, new_triples )
-  # # look for taxa in the abstract
-  # local_xml[[ local$abstract ]] = xml2::xml_find_all( xml, xnonlit$abstract )[[1]]
-  # names_used = extract_scientific_names_used( local_xml[[ local$abstract ]] )
-  # new_triples = construct_tnu_triples( local$abstract , names_used )
-  # triples = c( triples, new_triples )
-
-
-
-    #look for taxa in figures
-  # this includes figs in captions
-  #a figure is something tagged by <fig></fig>
-  #it may or may not be wrapped in a figure group
-  #xpath expressions must be stored in another group (non-literal)
-  #non-literals ideally already have an id in the XML
-  #start with free standing figs
-  #local_figs is a list of the new fig entitites
-  #fig_tnus are the Taxon Name Usages (taxa and rdf) per fig
-  # local[['figures']] = list()
-  #   free_standing_figs_ns = xml2::xml_find_all( xml, xnonlit$free_standing_figs)
-  # j = 1
-  # for ( figure_node in free_standing_figs_ns ) {
-  #   id = xml2::xml_text( xml2::xml_find_all ( figure_node, xnonlit$rel_figid ) )
-  #   local$figures[[j]] = qname( get_nodeid( "", id ) )
-  #   triples = c(triples,
-  #              list( triple ( local$article, entities$contains, local$figures[[j]] )))
-  #   triples = c(triples,
-  #                  list(  triple( local$figures[[j]], entities$a, entities$figure) ))
-  #   new_triples =
-  #               construct_tnu_triples( figure_node, local$figures[[j]] )
-  #   triples = c( triples, new_triples$article)
-  #   nomenclature_triples = c(nomenclature_triples, new_triples$nomenclature)
-  # }
-  # look for taxa in plates captions
-  # ...
-
-  detach( obkms )
-  # prep return values
-  triples = list(article = triples )
-
-  return(  triples )
+  # TODO commented everything from here on, needs reworking
+  # Document component entities (sub-article level entities )
+# doco = find_document_component_entities ( xml, xdoco )
+#
+#   local_xml = list()
+#
+#   # Triples
+#   # we have several contexts: article related triples
+#   # and nomenclature_triples
+#   #nomenclature_triples = list()
+#   attach(obkms, warn.conflicts = FALSE)
+#   triples = list(
+#     #publisher
+#     triple( local$publisher,      entities$a,                   entities$agent ),
+#     triple( local$publisher,      entities$pref_label,          squote ( literals$publisher_name ) ) ,
+#     triple( local$publisher,      entities$holds_role_in_time,  local$publisher_role ),
+#     triple( local$publisher_role, entities$a,                   entities$role_in_time ),
+#     triple( local$publisher_role, entities$with_role,           entities$publisher ),
+#     triple( local$publisher_role, entities$relates_to_document, local$journal ),
+# 	#journal
+#     triple( local$journal,        entities$a,                   entities$journal ),
+#     triple( local$journal,        entities$pref_label,          squote ( literals$journal_title ) ),
+#     triple( local$journal,        entities$alt_label,           squote ( literals$abbrev_journal_title ) ),
+#     triple( local$journal,        entities$issn,                squote ( literals$issn ) ),
+#     triple( local$journal,        entities$eissn,               squote ( literals$eissn ) ),
+#     triple( local$journal,        entities$dcpublisher,         squote ( literals$publisher_name ) ),
+#     triple( local$journal,        entities$frbr_haspart,        local$article ),
+#     #TODO fabio:hasSubjectTerm
+#     #TODO fabio:hasDiscipline
+#     #TODO dcterms:creator
+# 	# article
+#     triple( local$article,        entities$a,                   entities$journal_article ),
+#     triple( local$article,        entities$pref_label,          squote( literals$doi ) ),
+#     triple( local$article,        entities$prism_doi,           squote( literals$doi ) ),
+#     triple( local$article,        entities$has_publication_year, squote( literals$pub_date, "^^xsd:gYear" ) ) ,
+#     triple( local$article,        entities$title,               squote(literals$article_title, "@en-us")),
+#     triple( local$article,           entities$contains, doco$front_matter[[1]]$id),
+# 	triple( local$article,           entities$contains, doco$body[[1]]$id),
+# 	triple( local$article,           entities$contains, doco$back_matter[[1]]$id),
+# 	# front matter
+#     triple( doco$front_matter[[1]]$id,      entities$a,        entities$front_matter ),
+#     triple( doco$front_matter[[1]]$id,      entities$contains, doco$title[[1]]$id),
+#     triple( doco$front_matter[[1]]$id,      entities$contains, doco$abstract[1][[1]]$id),
+#     triple( doco$front_matter[[1]]$id,      entities$first_item,
+#                                       list( triple("", entities$item_content, doco$title[[1]]$id),
+#                                             triple("", entities$next_item,
+#                                                 list( triple( "", entities$item_content, doco$front_matter[[1]]$id))))),
+#     triple( doco$title[[1]]$id,         entities$a,                      entities$doco_title),
+#     triple( doco$title[[1]]$id,         entities$has_content,            squote(literals$article_title, "@en-us"   )),
+#     triple( doco$abstract[1][[1]]$id,    entities$a,               entities$sro_abstract),
+#   ## all of the following things are in the back matter
+#   # a document should have one back matter
+#   # back-matter
+# 	  triple( doco$body[[1]]$id,          entities$a,              entities$body),
+# 	  triple( doco$back_matter[[1]]$id, entities$a, 				entities$back_matter ),
+#     triple( doco$back_matter[[1]]$id, entities$contains, 		doco$acknowledgement[1][[1]]$id ),
+#   # all of the next ones are contained in the back matter
+#   # TODO load the ontology to materialize transitive property of journal->backmaterr->stuff
+#   # describe afterword (acknolwedgement)
+#   # TODO check whether it is OK to use afterword = acknowledgement
+#   # acknoledgement trick needed to avoid empty values [1]
+#     triple( doco$acknowledgement[1][[1]]$id, entities$a, 			entities$acknowledgement ))
+#   # figures
+#   for ( fig in doco$figures ) {
+#     triples = c( triples, list(
+# 	triple( fig$id, 					 entities$a, 			entities$figure ),
+#     triple( doco$back_matter[[1]]$id,    entities$contains, 	fig$id ) ) )
+#   }
+#   # how should captions be processed? During the first pass they should be
+#   # extracted in the doco structure. Then during the second pass they should be
+#   # connected to their parent object via the parent identifier
+#   for ( caption in doco$captions ) {
+#     parent = xml2::xml_parent( caption$xml )
+#     id = xml2::xml_attr(parent, "id")
+#     # TODO do not hardcode the pensoft prefix anywhere!!!
+#     obkms_node = qname( paste0( "<http://id.pensoft.net/", id, ">") )
+#     triples.new = list(
+#       triple( caption$id , entities$a,        entities$caption ),
+#       triple( caption$id , entities$has_content, squote( xml2::xml_text( caption$xml, trim = TRUE ) ) ),
+#       triple( obkms_node, entities$contains,  caption$id )
+#     )
+#     triples = c( triples, triples.new )
+#   }
+#
+#   # describe plates, a special kind of figure consisting of multiple figures
+#   # it is not part of doco, that's why we've created an object for it in pensoft
+#   # TODO Ontology define plate class and derive it from figure
+#   # plates
+#   for ( plate in doco$plates ) {
+#     triples = c( triples, list(
+# 	triple( plate$id, 					entities$a,				 entities$figure ),
+#     triple( plate$id, 					entities$a, 			 entities$plate ) ,
+#     triple( doco$back_matter[1][[1]]$id, 	entities$contains, 		 plate$id ) ) )
+#     # TODO add figure-plate relationships!
+#   }
+#   # describe tables
+#   for ( table in doco$tables ) {
+#     triples = c( triples, list(
+# 	triple( table$id, 					entities$a, 			entities$table ),
+#     triple( doco$back_matter[1][[1]]$id,   entities$contains,      table$id ) ) )
+#   }
+#   # describe reference list
+#   for ( ref_list in doco$reference_list) {
+#     triples = c( triples, list(
+# 	triple( ref_list$id,                entities$a,             entities$reference_list ),
+#     triple( doco$back_matter[1][[1]]$id,   entities$contains,      ref_list$id ) ) )
+#   }
+#   # describe individual references
+#   # TODO there is no reference class in Doco, need to extend it
+#   for ( reference in doco$reference) {
+#     triples = c( triples, list(
+# 	triple( reference$id,               entities$a,            entities$reference ),
+#     triple( doco$back_matter[1][[1]]$id,    entities$contains,    reference$id ) ) )
+#   }
+#   # describe individual nomenclature sections
+#
+#   # Process taxa in different parts of the manuscript
+#   # we need to do two things
+#   # 1 create bibliographic (attachment) entities for the things
+#   # 2 look for the TNU's in the XML that correspond to these entities
+#   # submit if needed new names to OBKMS
+#   # 3 connect attachment entities to names via TNU's
+#   # look for taxa in the title and attach them
+#   # in the case of the title, we have already defined the attachment entity
+#   # and we have only one xml node where to look
+#   # idea: for all local entities, we will store the xml node of the entity in a list
+#   # the keys will be the nodeids found in the local list
+#   # the xpath for the corresponding entity is usually found in the non-literal
+#   # xml path file
+#   # there are two cases: when the local entity is a single entity and when the
+#   # this function finds the xml nodes of the local entities/// better
+#   # document component entities
+#   # every paper contains certain document component such as titles, abstract, etc
+#   # every document component can have an id which is given by the id attribute
+#   # in the XML
+#   # we want to do the following thing: we want to list the document components
+#   # in a yaml file. then we want to open the yaml file, iterate over the
+#   # document components and generate semantic entities for them.
+#    # now we want to iterate over the local entit
+#   for (entity_list in doco) {
+#     for (document_entity in entity_list) {
+#       names_used = extract_scientific_names_used( document_entity$xml )
+#       new_triples = construct_tnu_triples( document_entity$id, names_used )
+#       triples = c( triples, new_triples )
+#     }
+#   }
+#
+#   # extract nomenclaute
+#   for (nomen in doco$nomenclature) {
+#     # TODO do them as parts of treatments in the future
+#     doco_triples = list(
+#     triple( doco$body[[1]]$id,          entities$contains,       nomen$id),
+#     triple( nomen$id, entities$a,            entities$nomenclature) )
+#     #triple( nomen$id, entities$has_content,  xml2::xml_text(nomen$xml)))
+#     valid_name = extract_valid_name( nomen$xml )
+#     nomen_citations = extract_nomen_citations ( nomen$xml )
+#     new_triples = construct_nomen_triples( nomen$id, valid_name, nomen_citations)
+#     triples = c( triples, doco_triples, new_triples )
+#   }
+#
+#
+#
+#   # # local entity is list
+#   # local_xml[[ local$title ]] = xml2::xml_find_all( xml, xnonlit$title )[[1]]
+#   # names_used = extract_scientific_names_used( local_xml[[ local$title ]] )
+#   # new_triples = construct_tnu_triples( local$title, names_used )
+#   # triples = c( triples, new_triples )
+#   # # look for taxa in the abstract
+#   # local_xml[[ local$abstract ]] = xml2::xml_find_all( xml, xnonlit$abstract )[[1]]
+#   # names_used = extract_scientific_names_used( local_xml[[ local$abstract ]] )
+#   # new_triples = construct_tnu_triples( local$abstract , names_used )
+#   # triples = c( triples, new_triples )
+#
+#
+#
+#     #look for taxa in figures
+#   # this includes figs in captions
+#   #a figure is something tagged by <fig></fig>
+#   #it may or may not be wrapped in a figure group
+#   #xpath expressions must be stored in another group (non-literal)
+#   #non-literals ideally already have an id in the XML
+#   #start with free standing figs
+#   #local_figs is a list of the new fig entitites
+#   #fig_tnus are the Taxon Name Usages (taxa and rdf) per fig
+#   # local[['figures']] = list()
+#   #   free_standing_figs_ns = xml2::xml_find_all( xml, xnonlit$free_standing_figs)
+#   # j = 1
+#   # for ( figure_node in free_standing_figs_ns ) {
+#   #   id = xml2::xml_text( xml2::xml_find_all ( figure_node, xnonlit$rel_figid ) )
+#   #   local$figures[[j]] = qname( get_nodeid( "", id ) )
+#   #   triples = c(triples,
+#   #              list( triple ( local$article, entities$contains, local$figures[[j]] )))
+#   #   triples = c(triples,
+#   #                  list(  triple( local$figures[[j]], entities$a, entities$figure) ))
+#   #   new_triples =
+#   #               construct_tnu_triples( figure_node, local$figures[[j]] )
+#   #   triples = c( triples, new_triples$article)
+#   #   nomenclature_triples = c(nomenclature_triples, new_triples$nomenclature)
+#   # }
+#   # look for taxa in plates captions
+#   # ...
+#
+#   detach( obkms )
+#   # prep return values
+#   triples = list(article = triples )
+#
+#   return(  triples )
 }
 
 #' Connects one local entity, to a list of the names that have been used
@@ -650,4 +672,32 @@ extract.metadata = function( xml, xlit ) {
   #TODO dcterms:creator
   detach(obkms)
   return(  triples  )
+}
+
+
+
+#' Get the OBKMS Id of an XML node, if not set, set it
+#'
+#' Does not do any database lookups. Is exported.
+#'
+#' @param node the XML node from which to take the ID
+#' @param fullname if TRUE, returns a URI with the OBKMS base prefix
+#'
+#' @export
+#'
+get_or_set_obkms_id = function ( node, fullname = FALSE )
+{
+  if ( is.na( xml2::xml_attr( node, "obkms_id" ) ) )
+  {
+    xml2::xml_attr( node, "obkms_id" ) = uuid::UUIDgenerate()
+  }
+
+  obkms_id = xml2::xml_attr( node, "obkms_id" )
+
+  if ( fullname )
+  {
+    return ( qname( paste0( strip_angle( obkms$prefixes$`_base`) , obkms_id ) ) )
+  }
+
+  else return ( obkms_id )
 }

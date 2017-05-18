@@ -1,32 +1,43 @@
 
-#'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-
-
 #' Minimizes a URI to a Qname.
+#'
+#' E.g. qname("http://openbiodiv.net/leis-papuensis") minimizes to
+#' ":leis-papuensis". The special case here is the `_base` prefixes, as
+#' it minimizes to nothing.
+#'
+#' if the prefix is _base, it is shortened to :
 #'
 #' @param uri        the full URI to minimize
 #' @export
 
-qname = function( uri ) {
-  # first strip angle brackets if there are any
-  uri = strip_angle ( uri )
-  # the idea is to try each of the prefixes
+qname = function( uri )
+{
   stopifnot( exists( 'obkms', mode = 'environment' ) )
-
+  # strip brackets from the uri and from the OBKMS databases of prefixes
+  uri = strip_angle ( uri )
   stripped_prefixes = sapply ( obkms$prefixes, strip_angle )
 
+  # try each of the prefixes, r is logical vector of where the beginning of the
+  # uri matches any of the prefix
   r = sapply( stripped_prefixes , function ( p ) {
     grepl( paste0( "^",  p  ) , uri )
   } )
-  # if found
+  # if found, replace the beginning of the uri with the prefix
   if ( sum( r ) > 0) {
     p = stripped_prefixes[r]
-    n = names(stripped_prefixes)[r]
-    uri = gsub( paste0("^", p), paste0( n, ":" ), uri )
-  }
 
-return (uri)
+    n = names(stripped_prefixes)[r]
+    if ( names(p) == "_base")  # special case of the "_base"
+      {
+        uri = gsub( paste0("^", p), ":" , uri )
+    }
+    else {
+      uri = gsub( paste0("^", p), paste0( n, ":" ), uri )
+    }
+  }
+  return (uri)
 }
+
 
 
 #' A function to strip the angle brackets
@@ -357,31 +368,7 @@ prefix_serializer = function ( reqd_prefixes,
   return ( serialization )
   }
 
-#' Minimizes a URI to a Qname.
-#'
-#' @param uri        the full URI to minimize
-#' @export
 
-qname = function( uri ) {
-  # first strip angle brackets if there are any
-  uri = strip_angle ( uri )
-  # the idea is to try each of the prefixes
-  stopifnot( exists( 'obkms', mode = 'environment' ) )
-
-  stripped_prefixes = sapply ( obkms$prefixes, strip_angle )
-
-  r = sapply( stripped_prefixes , function ( p ) {
-    grepl( paste0( "^",  p  ) , uri )
-  } )
-  # if found
-  if ( sum( r ) > 0) {
-    p = stripped_prefixes[r]
-    n = names(stripped_prefixes)[r]
-    uri = gsub( paste0("^", p), paste0( n, ":" ), uri )
-  }
-
-return (uri)
-}
 
 
 #' A function to strip the angle brackets

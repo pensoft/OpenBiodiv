@@ -10,7 +10,10 @@ init_env(server_access_options, prefix_db = paste0(path.package("obkms"), "/",
   literals_db_xpath = paste0(path.package("obkms"), "/",
   "literals_db_xpath.yml"),
   non_literals_db_xpath = paste0(path.package("obkms"), "/",
-  "non_literals_db_xpath.yml"), xml_source = "file", xml_type = "taxpub")
+  "non_literals_db_xpath.yml"),
+  initial_dump_configuration = paste0(path.package("obkms"), "/",
+  "initial_dump_configuration.yml"), xml_source = "file",
+  xml_type = "taxpub")
 }
 \description{
 The package contains a database of semantic web prefixes, stored in a yaml
