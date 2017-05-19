@@ -4,15 +4,25 @@
 \alias{lookup_id}
 \title{Lookup an Identifier in OBKMS}
 \usage{
-lookup_id(label, allow_multiple = FALSE, ...)
+lookup_id(label, trim = TRUE, ignore_case = TRUE, best_match = TRUE,
+  generate_on_fail = TRUE, ...)
 }
 \arguments{
 \item{label}{a vector of labels for which to look , the first one is preferred, all other ones are alternative;
 doesn't have to specified. lookup can done only thru the ...}
 
-\item{allow_multiple}{whether to allow to return multiple ids}
+\item{trim}{if TRUE reduces multiple table, new lines, spaces to just one space}
+
+\item{ignore_case}{if TRUE lowercases everything}
+
+\item{best_match}{if TRUE will return only one best match}
+
+\item{generate_on_fail}{if TRUE if no match is found, a new ID is generated}
 
 \item{...}{a list of additional things that can be used for look-up . read documentaiton carefully}
+}
+\value{
+a vector of ID's that match, NULL if nothing has matched
 }
 \description{
 This function is similar to `get_nodeid`, but allows more flexibility.

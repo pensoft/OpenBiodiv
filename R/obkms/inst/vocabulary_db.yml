@@ -2,14 +2,28 @@
 # SKOS
 pref_label: skos:prefLabel
 alt_label: skos:altLabel
-# DC Terms and Elements
-dcpublisher: dcterms:publisher
-creator: dcelements:creator
-title: dcterms:title
+
+# Dublin Core
+# http://wiki.dublincore.org/index.php/FAQ/DC_and_DCTERMS_Namespaces
+# http://dublincore.org/documents/2012/06/14/dcmi-terms/?v=terms#terms-publisher
+# http://dublincore.org/documents/dc-citation-guidelines/
+# http://dublincore.org/documents/abstract-model/
+# https://tools.ietf.org/html/rfc3986 URI, URL, and URN
+# https://tools.ietf.org/html/rfc2141 URN
+
+pub: dc:publisher   # publisher as a string
+creator: dc:creator # creator as a string
+title: dc:title
+
+dcterms_pub: dcterms:publisher # publisher as an agent
+dcterms_creator: dcterms:creator # creator as an agent
+
+
 # RDF
 a: rdf:type
 # FOAF
 agent: foaf:Agent
+
 # C40 <http://purl.org/spar/c4o>
 has_content: c4o:hasContent
 # CO <http://purl.org/co/>
@@ -19,9 +33,9 @@ next_item: co:nextItem
 # PRISM
 prism_doi: prism:doi
 # PRO
-holds_role_in_time: pro:holdsRoleInTime
+publisher_role: pro:holdsRoleInTime
 role_type: pro:withRole
-publisher: pro:publisher
+#publisher: pro:publisher
 relates_to_document: pro:relatesToDocument
 role_in_time: pro:RoleInTime
 # PO
@@ -30,6 +44,9 @@ contains: po:contains
 realization_of: frbr:realizationOf
 frbr_haspart: frbr:hasPart
 work: fabio:Work
+is_part_of: frbr:partOf # 'is part of' links journal articles to their journals ()
+
+
 # FABIO
 journal: fabio:Journal
 journal_article: fabio:JournalArticle
@@ -65,3 +82,5 @@ nomenclature: trt:Nomenclature
 act: trt:NomenclaturalAct
 valid_name: trt:ValidName
 nomenclatural_citation: trt:NomenclaturalCitation
+Publisher: _base:Publisher
+

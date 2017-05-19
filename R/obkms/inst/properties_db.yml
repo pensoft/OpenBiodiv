@@ -1,0 +1,127 @@
+# Properties
+
+# General Properties
+type:
+  property: rdf:type
+  comment: is a
+
+preferred_label:
+  property: skos:prefLabel
+  comment: has preferred label
+
+alternate_label:
+  property: skos:altLabel
+  comment: has alternative label
+
+# Metadata
+publisher:
+  property: dc:publisher
+  property2: pro:publisher
+  comment: has publisher
+
+creator:
+  property: dc:creator
+  comment: has creator
+
+title:
+  property: dc:title
+  comment: has title
+
+doi:
+  property: prism:doi
+  comment: has DOI
+  domain_includes:
+    - fabio:JournalArticle
+
+holds_publisher_role_id:
+  property: pro:holdsRoleInTime
+  comment: holds publisher role
+
+publisher_id:
+  property: dcterms:publisher
+  comment: has publisher id
+
+creator_id:
+  property: dcterms:creator
+  comment: has creator id
+
+role_type:
+  property: pro:withRole
+  comment: has role type
+
+# Document properties
+
+character_content:
+  property: c4o:hasContent
+  comment: has character content
+
+relates_to_document:
+  property: pro:relatesToDocument
+
+contains:
+  property: po:contains
+
+realization_of:
+  property: frbr:realizationOf
+
+frbr_haspart:
+  property: frbr:hasPart
+
+is_part_of:
+  property: frbr:partOf
+  comment: is part of (links journal articles to their journals)
+
+issn:
+  property: fabio:issn
+
+eissn:
+  property: fabio:eIssn
+
+publication_year:
+  property: fabio:hasPublicationYear
+  comment: has publication year
+
+scientific_name:
+  property: dwciri:scientificName
+  comment: has scientific name
+
+rank:
+  property: dwc:taxonRank
+  comment: has taxonomic rank
+
+genus:
+  property: dwc:genus
+  comment: has genus
+
+species:
+  property: dwc:specificEpithet
+  comment: has specific epithet
+
+order:
+  property: dwc:order
+  comment: has order
+
+family:
+  property: dwc:family
+  comment: has family
+
+# OBKMS & Treatment
+#reference: doco:Reference
+#tnu: trt:TaxonNameUsage
+#plate: doco:Plate
+#scientific_name: trt:ScientificName
+#nomenclature: trt:Nomenclature
+#act: trt:NomenclaturalAct
+#valid_name: trt:ValidName
+#nomenclatural_citation: trt:NomenclaturalCitation
+#Publisher: _base:Publisher
+
+
+# For collections TODO do we need it???
+# CO <http://purl.org/co/>
+first_item:
+  property: co:firstItem
+item_content:
+  property: co:itemContent
+next_item:
+  property: co:nextItem

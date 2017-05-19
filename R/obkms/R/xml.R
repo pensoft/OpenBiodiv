@@ -38,7 +38,7 @@ xml2rdf = function( resource_locator,
 
   # Call the top-level extractors depending on the type
   if ( resource_format == "TAXPUB" ) {
-    triples = taxpub_extractor( xml, xlit, xnonlit ) # will return a triples object (TODO S3 or S4??)
+    triples = taxpub_extractor( xml ) # will return a triples object (TODO S3 or S4??)
 
 
     # serialize
@@ -57,54 +57,57 @@ xml2rdf = function( resource_locator,
   return ( do.call(paste, as.list( serialization )))
 }
 
-#' Top Level Function to Convert TaxPub to Triples
+#' Top Level Extractor from TaxPub to Triples
 #'
-#' @param xml an XML2 document
-#' @param xlit a of XPATH locations of literals entities (atoms) of a TaxPub document
-#' @param xdoco list of XPATH locations of connected entities (not atoms) that ought to be processed via lower level extractors
-#' @return list of named triples lists, the name corresponds to the context TODO check what's actually retuerned
+#' @param xml an XML document (as parsed by the `xml2` package)
+#' @param xlit XPATH locations of atoms (literals) of a TaxPub document
+#' @param xdoco XPATH locations of document entities (not atoms, identifiers)
+#' @return TODO write what is returned
+#'
 #' @export
 #'
-taxpub_extractor = function( xml, xlit, xdoco ) {
+taxpub_extractor = function( xml, xlit = yaml::yaml.load_file( obkms$config$literals_db_xpath ),
+                             xdoco = yaml::yaml.load_file( obkms$config$non_literals_db_xpath ) )
+{
+                          ## Atom Processing ##
 
-  xlit = yaml::yaml.load_file( obkms$config$literals_db_xpath ) # atom locations
-  xnonlit = yaml::yaml.load_file( obkms$config$non_literals_db_xpath )
-                                # connected entities to be processed separately
+  literals = as.list( find_literals( xml, xlit ) ) # literals is a vector of strings (the individual atoms)
 
-  # All the entity generating functions can return NUL.
-  # In this case the triple constructing function will return an empty triple.
+  # There are two types of identifiers:
+  # - identifiers for document entities (previously known as local entities), e.g. figure
+  # - identifiers for abstract entities (external, or non-local), e.g. scientific name
+  # For document entities we use `get_or_set_obkms_id` that only works on the XML based, does not require any lookup
 
-  # Literals: this takes care of the atoms.
-  literals = as.list( find_literals( xml, xlit ) )
-
-  # related enetities
-  # we used to use the word local to denote identifiers (not-literals)
-  # that are specific to the document
-  # there are two types of entities: bibliographic and abstract
-  # for bibliographic elements we use get_or_set_obkms_id (purely XML based, does not require any lookup)
   identifier = list()
   identifier[['article']] = get_or_set_obkms_id( xml , fullname = TRUE )
+  identifier[['publisher']] = qname ( lookup_id( literals$publisher_name ) ) # looks up the publishers by its label
+  identifier[['publisher_role']] = qname( lookup_id () ) # creates a new identifier for the publisher role
+  identifier[['journal']] = qname ( lookup_id( literals$journal_title)) # looks up the journal by its name
+
   #local[['article']] = qname ( get_nodeid ( literals$doi ) )
   #local[['front_matter']] = qname ( get_nodeid(  ) )
   #local[['title']] = qname ( get_nodeid() )
   #local[['abstract']] = qname ( get_nodeid() )
 
-  # for abstract entities, we need to do a look-up in the database.
-  # we used to use the function get_nodeit, but now we use
-  # a family of lookup functions
-
-  identifier[['publisher']] = qname ( lookup_id( literals$publisher_name ) )
-
-  # similar to get_nodeid, if a default arg is set, lookup_id returns a new id
-
-  identifier[['publisher_role']] = qname( lookup_id () )
-  identifier[['journal']] = qname ( lookup_id( literals$journal_title))
+  # For abstract entities, we need to do a look-up in the database.
+  # We used to use the function get_nodeit, but now we use `lookup_id` that
+  # works roughly in the same way but is more flexible. It first looks
+  # in OBKMS for an identifier of a (labeled) entity, and if it finds one
+  # (or many depending on the usage options), returns it (them). If nothing
+  # is found, and an option is set, a new one is generated.
 
   triples = list (
-    triple( identifier$article,  obkms$entities$a,   obkms$entities$journal_article ),
-    triple( identifier$article,  obkms$entities$pref_label,    squote( literals$doi ) ) )
+    triple( identifier$article,    obkms$properties$type$property,                      obkms$classes$Article$class ),
+    triple( identifier$article,    obkms$properties$preferred_label$property,           squote( literals$doi ) ) ,
+    triple( identifier$article,    obkms$properties$publisher$property,                 squote( literals$publisher_name ) ),
+    triple( identifier$article,    obkms$properties$publisher_id$property,              identifier$publisher ) ,
+    triple( identifier$publisher,  obkms$properties$type$property ,                     obkms$classes$Publisher$class ),
+    triple( identifier$publisher,  obkms$properties$preferred_label$property ,          squote( literals$publisher_name ) ) ,
+    triple( identifier$publisher,  obkms$properties$holds_publisher_role_id$property ,  identifier$publisher_role ))
 
   return ( triples )
+
+  # TODO: YAML nesting is not making things easier. better create functions to extract domainsincludings and comments from the ontology
 
   # TODO commented everything from here on, needs reworking
   # Document component entities (sub-article level entities )
@@ -492,6 +495,7 @@ extract_single_scientific_name = function ( t ) {
 
 
 #' Find literals
+#' @export
 
 find_literals = function( xml, x  ) {
   r =

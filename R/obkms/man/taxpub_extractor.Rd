@@ -2,21 +2,23 @@
 % Please edit documentation in R/xml.R
 \name{taxpub_extractor}
 \alias{taxpub_extractor}
-\title{Top Level Function to Convert TaxPub to Triples}
+\title{Top Level Extractor from TaxPub to Triples}
 \usage{
-taxpub_extractor(xml, xlit, xdoco)
+taxpub_extractor(xml,
+  xlit = yaml::yaml.load_file(obkms$config$literals_db_xpath),
+  xdoco = yaml::yaml.load_file(obkms$config$non_literals_db_xpath))
 }
 \arguments{
-\item{xml}{an XML2 document}
+\item{xml}{an XML document (as parsed by the `xml2` package)}
 
-\item{xlit}{a of XPATH locations of literals entities (atoms) of a TaxPub document}
+\item{xlit}{XPATH locations of atoms (literals) of a TaxPub document}
 
-\item{xdoco}{list of XPATH locations of connected entities (not atoms) that ought to be processed via lower level extractors}
+\item{xdoco}{XPATH locations of document entities (not atoms, identifiers)}
 }
 \value{
-list of named triples lists, the name corresponds to the context TODO check what's actually retuerned
+TODO write what is returned
 }
 \description{
-Top Level Function to Convert TaxPub to Triples
+Top Level Extractor from TaxPub to Triples
 }
 

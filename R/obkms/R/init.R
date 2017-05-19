@@ -39,7 +39,10 @@ bdj_dumper = function () {
 
 init_env = function ( server_access_options,
                       prefix_db = paste0( path.package ( 'obkms' ) , "/", "prefix_db.yml" ),
-                      entities_db =  paste0( path.package ( 'obkms' ) , "/", "semantic_entities_db.yml" ),
+                      #entities_db =  paste0( path.package ( 'obkms' ) , "/", "semantic_entities_db.yml" ),
+                      properties_db =  paste0( path.package ( 'obkms' ) , "/", "properties_db.yml" ),
+                      classes_db =  paste0( path.package ( 'obkms' ) , "/", "classes_db.yml" ),
+                      vocabulary_db =  paste0( path.package ( 'obkms' ) , "/", "vocabulary_db.yml" ),
                       literals_db_xpath = paste0( path.package ( 'obkms' ) , "/", "literals_db_xpath.yml" ),
                       non_literals_db_xpath = paste0( path.package ( 'obkms' ) , "/", "non_literals_db_xpath.yml" ),
                       initial_dump_configuration = paste0( path.package ( 'obkms' ) , "/", "initial_dump_configuration.yml") ,
@@ -56,7 +59,10 @@ init_env = function ( server_access_options,
   obkms$initial_dump_configuration = yaml::yaml.load_file ( initial_dump_configuration )
 
   obkms$prefixes = yaml::yaml.load_file(prefix_db)
-  obkms$entities = yaml::yaml.load_file ( entities_db )
+ # obkms$entities = yaml::yaml.load_file ( entities_db )
+  obkms$properties = yaml::yaml.load_file ( properties_db )
+  obkms$classes = yaml::yaml.load_file ( classes_db )
+  obkms$vocabulary = yaml::yaml.load_file ( vocabulary_db )
 
   obkms$config = list()
   obkms$config['literals_db_xpath'] = literals_db_xpath

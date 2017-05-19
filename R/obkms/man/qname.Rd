@@ -2,22 +2,19 @@
 % Please edit documentation in R/rdf.R
 \name{qname}
 \alias{qname}
-\title{''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-Minimizes a URI to a Qname.}
+\title{Minimizes a URI to a Qname.}
 \usage{
-qname(uri)
-
 qname(uri)
 }
 \arguments{
 \item{uri}{the full URI to minimize}
-
-\item{uri}{the full URI to minimize}
 }
 \description{
-''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-Minimizes a URI to a Qname.
-
-Minimizes a URI to a Qname.
+E.g. qname("http://openbiodiv.net/leis-papuensis") minimizes to
+":leis-papuensis". The special case here is the `_base` prefixes, as
+it minimizes to nothing.
+}
+\details{
+if the prefix is _base, it is shortened to :
 }
 

@@ -5,7 +5,7 @@ library(obkms)
 library(rdf4jr)
 
 # configure access to graphdb server
-configuration_file = Sys.getenv("OBKMS_CONFIGURATION_FILE")
+configuration_file = "/home/viktor/Work/OBKMS/etc/graphdb8_test.yml"
 server_access_options = yaml::yaml.load_file( configuration_file )
 init_env(server_access_options)
 

@@ -1,0 +1,83 @@
+# TODO
+# list all properties of all classes - this could probably be extracted
+# from the ontology
+
+Agent:
+  class: foaf:Agent
+  comment: an agent
+
+Publisher:
+  class: _base:Publisher
+  comment: a publisher
+
+Role:
+  class: pro:RoleInTime
+  comment: a role of agent in time
+
+Work:
+  class: fabio:Work
+  comment: a creative or scientific work
+
+Journal:
+  class: fabio:Journal
+  comment: a science journal
+
+Article:
+  class: fabio:JournalArticle
+  comment: an article in a science journal
+  properties_include:
+    - rdf:type
+    - skos:prefLabel
+    - skos:altLabel
+    - dc:publisher
+
+Abstract:
+  class: sro:Abstract
+  comment: an abstract of a science article
+
+Figure:
+  class: doco:Figure
+  comment: a figure in a science article
+
+Table:
+  class: doco:Table
+  comment: a table in a science article
+
+References:
+  class: doco:BibliographicReferenceList
+  comment: a list of references at the end of a science article
+
+Acknowledgement:
+  class: doco:Afterword
+  comment: an acknowledgement or afterword
+
+BackMatter:
+  class: doco:BackMatter
+  comment: backmatter at the end of a science article
+
+Body:
+  class: doco:BodyMatter
+  comment: body of an article
+
+Title:
+  class: doco:title
+  comment: the title of an article
+
+FrontMatter:
+  class: doco:FrontMatter
+  comment: the front-matter of an article
+
+Caption:
+  class: deo:Caption
+  comment: a caption, e.g. of a figure
+
+#Reference: doco:Reference #
+#tnu: trt:TaxonNameUsage
+#plate: doco:Plate
+#scientific_name: trt:ScientificName
+#nomenclature: trt:Nomenclature
+#act: trt:NomenclaturalAct
+#valid_name: trt:ValidName
+#nomenclatural_citation: trt:NomenclaturalCitation
+
+
