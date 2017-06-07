@@ -46,6 +46,7 @@ init_env = function ( server_access_options,
                       literals_db_xpath = paste0( path.package ( 'obkms' ) , "/", "literals_db_xpath.yml" ),
                       non_literals_db_xpath = paste0( path.package ( 'obkms' ) , "/", "non_literals_db_xpath.yml" ),
                       initial_dump_configuration = paste0( path.package ( 'obkms' ) , "/", "initial_dump_configuration.yml") ,
+                      authors_db_xpath =  paste0( path.package ( 'obkms' ) , "/", "authors_db_xpath.yml" ),
                       xml_source = "file",
                       xml_type = "taxpub" ) {
 
@@ -68,7 +69,10 @@ init_env = function ( server_access_options,
   obkms$config['literals_db_xpath'] = literals_db_xpath
   obkms$config['non_literals_db_xpath'] = non_literals_db_xpath
   obkms$config['prefix_db'] = prefix_db
-  obkms$config['entities_db'] = entities_db
+  #obkms$config['entities_db'] = entities_db
+  obkms$config['properties_db'] = properties_db
+  obkms$config['classes_db'] = classes_db
+  obkms$config['authors_db_xpath'] = authors_db_xpath
 
   obkms$xml_source = xml_source
   obkms$xml_type = xml_type

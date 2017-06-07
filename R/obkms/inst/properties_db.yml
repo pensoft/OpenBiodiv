@@ -2,107 +2,136 @@
 
 # General Properties
 type:
-  property: rdf:type
+  uri: http://www.w3.org/1999/02/22-rdf-syntax-ns#type
   comment: is a
 
 preferred_label:
-  property: skos:prefLabel
+  uri: http://www.w3.org/2004/02/skos/core#prefLabel
   comment: has preferred label
 
 alternate_label:
-  property: skos:altLabel
+  uri: http://www.w3.org/2004/02/skos/core#altLabel
   comment: has alternative label
 
 # Metadata
 publisher:
-  property: dc:publisher
-  property2: pro:publisher
+  uri: http://purl.org/dc/elements/1.1/publisher
+  uri2: http://purl.org/spar/pro/publisher
   comment: has publisher
 
 creator:
-  property: dc:creator
+  uri: http://purl.org/dc/elements/1.1/creator
   comment: has creator
 
+first_name:
+  uri:  http://xmlns.com/foaf/0.1/firstName
+  comment: the first name of a person
+
+surname:
+  uri:  http://xmlns.com/foaf/0.1/surname
+  comment: the surname of a person
+
+email:
+  uri:  http://xmlns.com/foaf/0.1/mbox
+  comment: the email of an agent
+
+affiliation:
+  uri: http://www.w3.org/2006/vcard/ns#hasAddress
+  comment: the address of an agent
+
 title:
-  property: dc:title
+  uri: http://purl.org/dc/elements/1.1/title
   comment: has title
 
 doi:
-  property: prism:doi
+  uri: http://prismstandard.org/namespaces/basic/2.0/doi
   comment: has DOI
   domain_includes:
-    - fabio:JournalArticle
+    - http://purl.org/spar/fabio/JournalArticle
 
 holds_publisher_role_id:
-  property: pro:holdsRoleInTime
+  uri: http://purl.org/spar/pro/holdsRoleInTime
   comment: holds publisher role
 
 publisher_id:
-  property: dcterms:publisher
+  uri: http://purl.org/dc/terms/publisher
   comment: has publisher id
 
 creator_id:
-  property: dcterms:creator
+  uri: http://purl.org/dc/terms/creator
   comment: has creator id
 
 role_type:
-  property: pro:withRole
+  uri: http://purl.org/spar/pro/withRole
   comment: has role type
 
 # Document properties
 
 character_content:
-  property: c4o:hasContent
+  uri: http://purl.org/spar/c4o/hasContent
   comment: has character content
 
 relates_to_document:
-  property: pro:relatesToDocument
+  uri: http://purl.org/spar/pro/relatesToDocument
 
 contains:
-  property: po:contains
+  uri: http://www.essepuntato.it/2008/12/pattern#contains
 
 realization_of:
-  property: frbr:realizationOf
+  uri: http://purl.org/vocab/frbr/core#realizationOf
 
-frbr_haspart:
-  property: frbr:hasPart
+sub_endeavour_id:
+  uri: http://purl.org/vocab/frbr/core#part
+  comment: A part of an endeavour.
 
 is_part_of:
-  property: frbr:partOf
+  uri: http://purl.org/vocab/frbr/core#partOf
   comment: is part of (links journal articles to their journals)
 
 issn:
-  property: fabio:issn
+  uri: http://purl.org/spar/fabio/issn
 
 eissn:
-  property: fabio:eIssn
+  uri: http://purl.org/spar/fabio/eIssn
 
 publication_year:
-  property: fabio:hasPublicationYear
+  uri: http://purl.org/spar/fabio/hasPublicationYear
   comment: has publication year
 
+publication_date::
+  uri: http://prismstandard.org/namespaces/basic/2.0/publicationDate
+  comment: The date on which a resource is published or disclosed.
+
+#The date on which a document or entity is published. The date can be expressed in three different formats:
+#
+#    yyyy-mm-dd (i.e., xsd:date)
+#    yyyy-mm (i.e., xsd:gYearMonth)
+#    yyyy (i.e., xsd:gYear)
+
+
+
 scientific_name:
-  property: dwciri:scientificName
+  uri: http://rs.tdwg.org/dwc/iri/scientificName
   comment: has scientific name
 
 rank:
-  property: dwc:taxonRank
+  uri: http://rs.tdwg.org/dwc/terms/taxonRank
   comment: has taxonomic rank
 
 genus:
-  property: dwc:genus
+  uri: http://rs.tdwg.org/dwc/terms/genus
   comment: has genus
 
 species:
-  property: dwc:specificEpithet
+  uri: http://rs.tdwg.org/dwc/terms/specificEpithet
   comment: has specific epithet
 
 order:
-  property: dwc:order
+  uri: http://rs.tdwg.org/dwc/terms/order
   comment: has order
 
 family:
-  property: dwc:family
+  uri: http://rs.tdwg.org/dwc/terms/family
   comment: has family
 
 # OBKMS & Treatment
@@ -120,8 +149,8 @@ family:
 # For collections TODO do we need it???
 # CO <http://purl.org/co/>
 first_item:
-  property: co:firstItem
+  uri: co:firstItem
 item_content:
-  property: co:itemContent
+  uri: co:itemContent
 next_item:
-  property: co:nextItem
+  uri: co:nextItem

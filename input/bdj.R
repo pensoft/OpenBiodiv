@@ -19,7 +19,9 @@ xml = xml2::read_xml( harmonia_manillana_article , options = c())
 article_id = xml2::xml_text( xml2::xml_find_all( xml, "//@obkms_id" )  )
 
 # run taxpub extractor on them
-xml2rdf(harmonia_manillana_article)
+cat ( xml2rdf(harmonia_manillana_article) )
+
+xml2::write_xml( xml, harmonia_manillana_article)
 
 # Initial population with a new journal or source
 bdj_dumper() # dump all of the BDJ

@@ -50,14 +50,25 @@ strip_angle = function ( uri ) {
 }
 
 #' Semantic quote. Function to quote literals for use in RDF
+#' http://iswc2011.semanticweb.org/fileadmin/iswc/Papers/Workshops/SSWS/Emmons-et-all-SSWS2011.pdf
 #' @param literal the string that needs to be quoted
 #' @param postfixes everything that needs to be concatendated at the end of the
 #' string (e.g. things like @en, or xsd:date)
 #' @export
-squote = function ( literal, postfixes = "" ) {
+squote = function ( literal, type = "String" , lang ) {
+  stopifnot ( type %in% c( "String", "Year", "Date" ) )
   if ( is.null ( literal ) || is.na(literal) || literal == "") return ( NULL )
   literal = gsub("\"", "", literal  )
   literal = gsub("\\\\", "", literal  )
+  if ( type == "String" ) postfixes = c( "^^xsd::string" )
+  else if ( type == "Year" ) postfixes = c( "^^xsd:gYear" )
+  else if ( type == "Date" ) postfixes = c( "^^xsd:date" )
+  if ( !missing( lang ) ) {
+    stopifnot ( lang %in% c( "English" ) )
+    if ( lang == "English") {
+      postfixes = c( "@en" )
+    }
+  }
   paste0 ("\"", literal, "\"", postfixes)
 }
 
@@ -70,12 +81,14 @@ turtle_prepend_prefixes = function ( t = c("turtle") ) {
   if ( t == "turtle" )
   sapply ( obkms$prefixes, function( p ) {
     name = names(obkms$prefixes)[obkms$prefixes == p]
+    name =  sub ( "_base", "" , name )
     paste0("@prefix " , name, ": ", p, " .\n")
   } )
   else if (t == "sparql") {
     #type is SPARQL
     sapply ( obkms$prefixes, function( p ) {
       name = names(obkms$prefixes)[obkms$prefixes == p]
+      name =  sub ( "_base", "" , name )
       paste0("PREFIX " , name, ": ", p, " \n")
     } )
   }
@@ -385,30 +398,30 @@ strip_angle = function ( uri ) {
 #' @param postfixes everything that needs to be concatendated at the end of the
 #' string (e.g. things like @en, or xsd:date)
 #' @export
-squote = function ( literal, postfixes = "" ) {
-  if ( is.null ( literal ) ) return ( NULL )
-  paste0 ("\"", literal, "\"", postfixes)
-}
+# squote = function ( literal, postfixes = "" ) {
+#   if ( is.null ( literal ) ) return ( NULL )
+#   paste0 ("\"", literal, "\"", postfixes)
+# }
 
 #' Use the prefix database to create Turtle statements
 #' @param t the syntax
 #' @export
-turtle_prepend_prefixes = function ( t = c("turtle") ) {
-  stopifnot( exists( 'obkms', mode = 'environment' ) )
-
-  if ( t == "turtle" )
-  sapply ( obkms$prefixes, function( p ) {
-    name = names(obkms$prefixes)[obkms$prefixes == p]
-    paste0("@prefix " , name, ": ", p, " .\n")
-  } )
-  else if (t == "sparql") {
-    #type is SPARQL
-    sapply ( obkms$prefixes, function( p ) {
-      name = names(obkms$prefixes)[obkms$prefixes == p]
-      paste0("PREFIX " , name, ": ", p, " \n")
-    } )
-  }
-}
+# turtle_prepend_prefixes = function ( t = c("turtle") ) {
+#   stopifnot( exists( 'obkms', mode = 'environment' ) )
+#
+#   if ( t == "turtle" )
+#   sapply ( obkms$prefixes, function( p ) {
+#     name = names(obkms$prefixes)[obkms$prefixes == p]
+#     paste0("@prefix " , name, ": ", p, " .\n")
+#   } )
+#   else if (t == "sparql") {
+#     #type is SPARQL
+#     sapply ( obkms$prefixes, function( p ) {
+#       name = names(obkms$prefixes)[obkms$prefixes == p]
+#       paste0("PREFIX " , name, ": ", p, " \n")
+#     } )
+#   }
+# }
 
 #' Converts a matrix of triple to Turtle statements, given a context.
 #'

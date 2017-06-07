@@ -34,7 +34,7 @@ xml2rdf = function( resource_locator,
   # load the XML document
   xml = xml2::read_xml( resource_locator , options = c()) # both a document and a node
   # fetch or set the id for the XML document
-  context = get_or_set_obkms_id( xml , fullname = TRUE )
+  context = qname(  get_or_set_obkms_id( xml , fullname = TRUE ) )
 
   # Call the top-level extractors depending on the type
   if ( resource_format == "TAXPUB" ) {
@@ -61,7 +61,7 @@ xml2rdf = function( resource_locator,
 #'
 #' @param xml an XML document (as parsed by the `xml2` package)
 #' @param xlit XPATH locations of atoms (literals) of a TaxPub document
-#' @param xdoco XPATH locations of document entities (not atoms, identifiers)
+#' @param xdoco XPATH locations of document entities, parts of the document that are not atoms and are identifiers
 #' @return TODO write what is returned
 #'
 #' @export
@@ -73,15 +73,18 @@ taxpub_extractor = function( xml, xlit = yaml::yaml.load_file( obkms$config$lite
 
   literals = as.list( find_literals( xml, xlit ) ) # literals is a vector of strings (the individual atoms)
 
+  # Document component entities (sub-article level entities )
+  doco = find_document_component_entities ( xml, xdoco )
+
   # There are two types of identifiers:
   # - identifiers for document entities (previously known as local entities), e.g. figure
   # - identifiers for abstract entities (external, or non-local), e.g. scientific name
-  # For document entities we use `get_or_set_obkms_id` that only works on the XML based, does not require any lookup
+  # For document entities we use `get_or_set_obkms_id` that only works on the XML, and does not require any lookup
 
   identifier = list()
-  identifier[['article']] = get_or_set_obkms_id( xml , fullname = TRUE )
+  identifier[['article']] = qname( get_or_set_obkms_id( xml , fullname = TRUE ) )
   identifier[['publisher']] = qname ( lookup_id( literals$publisher_name ) ) # looks up the publishers by its label
-  identifier[['publisher_role']] = qname( lookup_id () ) # creates a new identifier for the publisher role
+  #identifier[['publisher_role']] = qname( lookup_id () ) # creates a new identifier for the publisher role
   identifier[['journal']] = qname ( lookup_id( literals$journal_title)) # looks up the journal by its name
 
   #local[['article']] = qname ( get_nodeid ( literals$doi ) )
@@ -97,22 +100,48 @@ taxpub_extractor = function( xml, xlit = yaml::yaml.load_file( obkms$config$lite
   # is found, and an option is set, a new one is generated.
 
   triples = list (
-    triple( identifier$article,    obkms$properties$type$property,                      obkms$classes$Article$class ),
-    triple( identifier$article,    obkms$properties$preferred_label$property,           squote( literals$doi ) ) ,
-    triple( identifier$article,    obkms$properties$publisher$property,                 squote( literals$publisher_name ) ),
-    triple( identifier$article,    obkms$properties$publisher_id$property,              identifier$publisher ) ,
-    triple( identifier$publisher,  obkms$properties$type$property ,                     obkms$classes$Publisher$class ),
-    triple( identifier$publisher,  obkms$properties$preferred_label$property ,          squote( literals$publisher_name ) ) ,
-    triple( identifier$publisher,  obkms$properties$holds_publisher_role_id$property ,  identifier$publisher_role ))
+    # first : what can we tell about the journal
+    # note the publisher of the journal need not be fixed, therefore it should
+    # be expressed as a roleintime. however the publisher of a given article
+    # is fixed. so the relationships (roles) between journals and publishers can be
+    # inferred based on the articles they have published TODO
+
+    triple( identifier$journal,    qname( obkms$properties$type$uri ), qname ( obkms$classes$Journal$uri ) ),
+    triple( identifier$journal,    qname( obkms$properties$preferred_label$uri ), squote ( literals$journal_title, lang = "English" ) ),
+    triple( identifier$journal,    qname( obkms$properties$alternate_label$uri ), squote ( literals$abbrev_journal_title, lang = "English" ) ),
+    triple( identifier$journal,    qname( obkms$properties$issn$uri ), squote ( literals$issn ) ),
+    triple( identifier$journal,    qname( obkms$properties$eissn$uri ), squote ( literals$eissn ) ),
+    triple( identifier$journal,    qname( obkms$properties$sub_endeavour_id$uri ),  identifier$article),
+
+    triple( identifier$article,    qname( obkms$properties$type$uri ),                      qname( obkms$classes$Article$uri ) ),
+    triple( identifier$article,    qname( obkms$properties$preferred_label$uri ),           squote( literals$doi ) ) , # for now the preferred label is the DOI, but it may change to something like author and year
+    triple( identifier$article,    qname( obkms$properties$title$uri ),                     squote( literals$article_title, lang = "English" ) ) ,
+    triple( identifier$article,    qname( obkms$properties$doi$uri ),                       squote( literals$doi ) ) ,
+    triple( identifier$article,    qname( obkms$properties$publisher$uri ),                 squote( literals$publisher_name ) ), # the publisher of an article is clear
+    triple( identifier$article,    qname( obkms$properties$publication_year$uri ),         squote( literals$pub_year, type = "Year" ) ),
+    triple( identifier$article,    qname( obkms$properties$publication_date$uri ),         squote( paste( literals$pub_year, literals$pub_month, literals$pub_day, sep = "-") , type = "Date" ) ),
+
+
+    triple( identifier$article,    qname( obkms$properties$publisher_id$uri ),              identifier$publisher ) ,
+
+    triple( identifier$publisher,  qname( obkms$properties$type$uri ),                     qname( obkms$classes$Publisher$uri ) ),
+    triple( identifier$publisher,  qname( obkms$properties$preferred_label$uri ),          squote( literals$publisher_name, lang = "English" ) ) )
+
+  # now go thru the sub-component level things that can repeat, e.g. authors
+  # TODO first author, second author and so on
+
+  for ( a in doco$authors ) {
+    triples = c ( triples,  authors_extractor( identifier$journal , a$xml, document = xml) )
+  }
+
+
 
   return ( triples )
 
   # TODO: YAML nesting is not making things easier. better create functions to extract domainsincludings and comments from the ontology
 
   # TODO commented everything from here on, needs reworking
-  # Document component entities (sub-article level entities )
-# doco = find_document_component_entities ( xml, xdoco )
-#
+
 #   local_xml = list()
 #
 #   # Triples
@@ -318,6 +347,27 @@ taxpub_extractor = function( xml, xlit = yaml::yaml.load_file( obkms$config$lite
 #   return(  triples )
 }
 
+#' Looks specifically for authors in an XML document
+#' @param article_identifier URI of the article
+#' @param author_xml part of the XML where the author information is found
+
+authors_extractor = function ( article_identifier , author_xml, authors_xpath =  yaml::yaml.load_file( obkms$config$authors_db_xpath ), document ) {
+  literals = as.list( find_literals( author_xml, authors_xpath ) ) # literals is a vector of strings (the individual atoms)
+  identifier = list()
+  identifier[['author']] = qname( lookup_id ( literals$email ) )
+  # for the affiliation we must do some work with xpath
+  literals$affiliation = xml2::xml_text( xml2::xml_find_first(document, paste0( "/article/front/article-meta/aff[@id='", literals$reference, "']/addr-line" ) ) )
+  triples = list (
+    triple( article_identifier,   qname( obkms$properties$creator$uri ), identifier$author ) ,
+    triple( identifier$author,    qname( obkms$properties$type$uri ), qname ( obkms$classes$Person$uri ) ),
+    triple( identifier$author,    qname( obkms$properties$preferred_label$uri ), squote ( literals$email ) ),
+    triple( identifier$author,    qname( obkms$properties$first_name$uri ), squote ( literals$given_name ) ),
+    triple( identifier$author,    qname( obkms$properties$surname$uri ), squote ( literals$surname ) ),
+    triple( identifier$author,    qname( obkms$properties$email$uri ), squote ( literals$email ) ),
+    triple( identifier$author,    qname( obkms$properties$affiliation$uri ), squote ( literals$affiliation, lang = "English" ) )
+  )
+}
+
 #' Connects one local entity, to a list of the names that have been used
 #' via an intermediate class TNU
 #' @param local_entity the local entity which has used the names
@@ -503,7 +553,7 @@ find_literals = function( xml, x  ) {
       ns = xml2::xml_find_all( xml, x[[l]] )
       # ns is a list
       if ( length( ns ) == 0) return ( NULL )
-      else return ( xml2::xml_text( ns[[1]] ) )
+      else return ( xml2::xml_text( ns ) )
     })
 }
 
@@ -532,13 +582,8 @@ find_document_component_entities = function ( xml, document_component_xpath ) {
     doco[[name]] = list()
     j = 1
     for ( xml_node in xml_nodeset ) {
-      pensoft_id = xml2::xml_attr( xml_node, "id" )
-      if ( is.na(pensoft_id) ) {
-        pensoft_id = uuid::UUIDgenerate()
-        xml2::xml_attr( xml_node, "id" ) = pensoft_id
-      }
-      id = qname( get_nodeid( "", pensoft_id) ) # use explicit node id for OBKMS
-      doco[[name]][[j]] = list( id = id, xml = xml_node )
+      obkms_id = get_or_set_obkms_id( xml_node )
+      doco[[name]][[j]] = list( id = obkms_id, xml = xml_node )
       j = j + 1
     }
   }
@@ -689,6 +734,7 @@ extract.metadata = function( xml, xlit ) {
 #'
 #' @export
 #'
+#'
 get_or_set_obkms_id = function ( node, fullname = FALSE )
 {
   if ( is.na( xml2::xml_attr( node, "obkms_id" ) ) )
@@ -700,7 +746,7 @@ get_or_set_obkms_id = function ( node, fullname = FALSE )
 
   if ( fullname )
   {
-    return ( qname( paste0( strip_angle( obkms$prefixes$`_base`) , obkms_id ) ) )
+    return (  paste0( strip_angle( obkms$prefixes$`_base`) , obkms_id ) )
   }
 
   else return ( obkms_id )
