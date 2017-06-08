@@ -38,6 +38,7 @@ bdj_dumper = function () {
 #'@export
 
 init_env = function ( server_access_options,
+                      dbpedia_access_options = paste0( path.package ( 'obkms' ) , "/", "dbpedia_access_options.yml" ) ,
                       prefix_db = paste0( path.package ( 'obkms' ) , "/", "prefix_db.yml" ),
                       #entities_db =  paste0( path.package ( 'obkms' ) , "/", "semantic_entities_db.yml" ),
                       properties_db =  paste0( path.package ( 'obkms' ) , "/", "properties_db.yml" ),
@@ -50,12 +51,16 @@ init_env = function ( server_access_options,
                       xml_source = "file",
                       xml_type = "taxpub" ) {
 
-  if (! is.character( server_access_options$userpwd)  ) warning ( "No password supplied!")
+  if (! is.character( server_access_options$userpwd )  ) {
+    server_access_options$userpwd = Sys.getenv( c("OBKMS_SECRTET") )
+    warning ( "Trying to read password from system variable...")
+  }
 
   if (!exists('obkms')) {
     obkms <<- new.env()
   }
   obkms$server_access_options = server_access_options
+  obkms$dbpedia_access_options = yaml::yaml.load_file ( dbpedia_access_options )
 
   obkms$initial_dump_configuration = yaml::yaml.load_file ( initial_dump_configuration )
 

@@ -2,6 +2,7 @@
 % Please edit documentation in R/rdf.R
 \name{write_couplet}
 \alias{write_couplet}
+\alias{write_couplet}
 \title{Writes a single couplet for the given subejct}
 \usage{
 write_couplet(subject, triples)
@@ -13,4 +14,3 @@ Writes a single couplet for the given subejct
 
 Writes a single couplet for the given subejct
 }
-

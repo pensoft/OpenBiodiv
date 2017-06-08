@@ -15,4 +15,3 @@ status of query
 \description{
 Deletes a named graph named context
 }
-

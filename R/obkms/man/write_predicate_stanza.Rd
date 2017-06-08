@@ -2,6 +2,7 @@
 % Please edit documentation in R/rdf.R
 \name{write_predicate_stanza}
 \alias{write_predicate_stanza}
+\alias{write_predicate_stanza}
 \title{Writes the predicate-object stanza after a subject has been written}
 \usage{
 write_predicate_stanza(predicate, triples)
@@ -13,4 +14,3 @@ Writes the predicate-object stanza after a subject has been written
 
 Writes the predicate-object stanza after a subject has been written
 }
-

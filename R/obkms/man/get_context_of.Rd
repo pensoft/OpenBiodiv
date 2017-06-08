@@ -14,4 +14,3 @@ get_context_of(doi)
 Gets the graph name of an article of it exists
 TODO needs review
 }
-

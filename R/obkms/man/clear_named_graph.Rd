@@ -12,4 +12,3 @@ status of query
 \description{
 Remove named graphs
 }
-

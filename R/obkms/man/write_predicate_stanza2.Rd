@@ -2,6 +2,7 @@
 % Please edit documentation in R/rdf.R
 \name{write_predicate_stanza2}
 \alias{write_predicate_stanza2}
+\alias{write_predicate_stanza2}
 \title{takes care of the predicates, but with the triple structure a list}
 \usage{
 write_predicate_stanza2(predicate, triples)
@@ -13,4 +14,3 @@ takes care of the predicates, but with the triple structure a list
 
 takes care of the predicates, but with the triple structure a list
 }
-

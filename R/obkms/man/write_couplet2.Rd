@@ -2,6 +2,7 @@
 % Please edit documentation in R/rdf.R
 \name{write_couplet2}
 \alias{write_couplet2}
+\alias{write_couplet2}
 \title{Writes a single couplet for the given subejct
 with triples in a list}
 \usage{
@@ -16,4 +17,3 @@ with triples in a list
 Writes a single couplet for the given subejct
 with triples in a list
 }
-

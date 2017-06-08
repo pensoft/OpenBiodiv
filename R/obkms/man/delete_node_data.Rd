@@ -16,4 +16,3 @@ TODO how to return the number of statements
 \description{
 Delete all triples where a given node is a subject or object
 }
-

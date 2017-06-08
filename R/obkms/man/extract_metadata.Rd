@@ -9,4 +9,3 @@ extract_metadata(xml, xlit)
 \description{
 Extract info from the front-matter, data frame based
 }
-

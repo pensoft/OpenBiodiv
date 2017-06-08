@@ -24,4 +24,3 @@ Actually we want to submit nomenclature right away to OBKMS
 so as not have duplicates.
 TODO : this function should be rewritten to use the single name case DRY
 }
-

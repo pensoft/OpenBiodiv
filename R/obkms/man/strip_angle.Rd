@@ -2,6 +2,7 @@
 % Please edit documentation in R/rdf.R
 \name{strip_angle}
 \alias{strip_angle}
+\alias{strip_angle}
 \title{A function to strip the angle brackets}
 \usage{
 strip_angle(uri)
@@ -13,4 +14,3 @@ A function to strip the angle brackets
 
 A function to strip the angle brackets
 }
-

@@ -2,6 +2,7 @@
 % Please edit documentation in R/rdf.R
 \name{write_end_stanza2}
 \alias{write_end_stanza2}
+\alias{write_end_stanza2}
 \title{does it with lists}
 \usage{
 write_end_stanza2(object, triples)
@@ -13,4 +14,3 @@ does it with lists
 
 does it with lists
 }
-

@@ -9,4 +9,3 @@ triple2(S, P, O, blank = FALSE)
 \description{
 do a little bit more
 }
-

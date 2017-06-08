@@ -13,7 +13,7 @@ taxpub_extractor(xml,
 
 \item{xlit}{XPATH locations of atoms (literals) of a TaxPub document}
 
-\item{xdoco}{XPATH locations of document entities (not atoms, identifiers)}
+\item{xdoco}{XPATH locations of document entities, parts of the document that are not atoms and are identifiers}
 }
 \value{
 TODO write what is returned
@@ -21,4 +21,3 @@ TODO write what is returned
 \description{
 Top Level Extractor from TaxPub to Triples
 }
-

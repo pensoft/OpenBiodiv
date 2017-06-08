@@ -134,7 +134,11 @@ taxpub_extractor = function( xml, xlit = yaml::yaml.load_file( obkms$config$lite
     triples = c ( triples,  authors_extractor( identifier$journal , a$xml, document = xml) )
   }
 
-
+  # keyword processing
+  for ( t in literals$taxon_classification ) {
+    identifier$taxon_classification[ length( identifier$taxon_classification ) + 1 ] =
+      qname ( dbpedia_lookup( t, lang = "English" , concept_type = "Taxon" ) )
+  }
 
   return ( triples )
 

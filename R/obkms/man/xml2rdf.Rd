@@ -28,4 +28,3 @@ This function is exported and can be called from the user.
 \author{
 Viktor Senderov
 }
-

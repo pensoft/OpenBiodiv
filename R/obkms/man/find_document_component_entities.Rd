@@ -15,4 +15,3 @@ are found in the corresponding XML schema}
 \description{
 Finds document components id and xml nodes
 }
-

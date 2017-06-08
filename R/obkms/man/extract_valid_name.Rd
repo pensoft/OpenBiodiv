@@ -15,4 +15,3 @@ the OBKMS node of the valid (first name)
 \description{
 Extract the valid name (first citation) from a nomenclatural section in the XML
 }
-

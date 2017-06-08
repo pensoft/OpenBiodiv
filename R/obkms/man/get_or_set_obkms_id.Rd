@@ -14,4 +14,3 @@ get_or_set_obkms_id(node, fullname = FALSE)
 \description{
 Does not do any database lookups. Is exported.
 }
-

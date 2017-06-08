@@ -20,4 +20,3 @@ unless blank is TRUE, then S = ""
 \description{
 Ensure correctness of a triple
 }
-

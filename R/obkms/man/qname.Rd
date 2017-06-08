@@ -17,4 +17,3 @@ it minimizes to nothing.
 \details{
 if the prefix is _base, it is shortened to :
 }
-

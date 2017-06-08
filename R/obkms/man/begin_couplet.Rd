@@ -2,6 +2,7 @@
 % Please edit documentation in R/rdf.R
 \name{begin_couplet}
 \alias{begin_couplet}
+\alias{begin_couplet}
 \title{Probably junk}
 \usage{
 begin_couplet(subject, predicate, object)
@@ -13,4 +14,3 @@ begin_couplet(subject, predicate, object)
 
 #' a function to start an rdf couplet
 }
-

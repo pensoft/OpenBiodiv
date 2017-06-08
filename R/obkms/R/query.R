@@ -281,3 +281,47 @@ WHERE {
   r$id = sapply( r$id, qname )
   return( r )
 }
+
+#' Looks up the id of a concept in dbpedia
+#' @export
+dbpedia_lookup = function ( label, concept_type , best_match = TRUE , lang = "English")
+  {
+  # trim
+  label = gsub("[\t]+", " ", label)
+  label = gsub("[\n]+", " ", label)
+  label = gsub("[ ]+", " ", label)
+
+  # process type
+  stopifnot( concept_type %in% c( "Taxon" ) )
+  if ( concept_type == "Taxon" ) {
+      concept_type = obkms$classes$DbpediaBiologicalThing$uri
+  }
+
+  #construct query
+  query.template =
+
+"SELECT ?resource
+WHERE {
+  ?resource %rdf_type %concept_type .
+  ?resource %label_property %label .
+}"
+
+  query.template = gsub( "%rdf_type", obkms$properties$type$uri, query.template )
+  query.template = gsub( "%concept_type", concept_type, query.template )
+  query.template = gsub( "%label_property", obkms$properties$label$uri, query.template )
+  query.template = gsub( "%label", squote( label, lang = lang),  query.template )
+
+  query = query.template
+
+  # now start iterating along the labels to look for solution
+  for ( l in label )
+  {
+    res = rdf4jr::POST_query( obkms$dbpedia_access_options , obkms$dbpedia_access_options$repository, query, "CSV" )
+    # we want the results to be a list (data frame), we hava a match (multiple matches)
+    if ( is.data.frame( res ) && nrow ( res ) > 0 )
+    {
+      if (best_match) return ( as.character( res$resource )[1] ) #need to use the variable name to index columns
+      else return(  as.character( res$resource ) )
+    }
+  }
+}

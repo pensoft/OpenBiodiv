@@ -2,18 +2,12 @@
 % Please edit documentation in R/rdf.R
 \name{squote}
 \alias{squote}
-\title{Semantic quote. Function to quote literals for use in RDF}
+\title{Semantic quote. Function to quote literals for use in RDF
+http://iswc2011.semanticweb.org/fileadmin/iswc/Papers/Workshops/SSWS/Emmons-et-all-SSWS2011.pdf}
 \usage{
-squote(literal, postfixes = "")
-
-squote(literal, postfixes = "")
+squote(literal, type = "String", lang)
 }
 \arguments{
-\item{literal}{the string that needs to be quoted}
-
-\item{postfixes}{everything that needs to be concatendated at the end of the
-string (e.g. things like @en, or xsd:date)}
-
 \item{literal}{the string that needs to be quoted}
 
 \item{postfixes}{everything that needs to be concatendated at the end of the
@@ -21,7 +15,5 @@ string (e.g. things like @en, or xsd:date)}
 }
 \description{
 Semantic quote. Function to quote literals for use in RDF
-
-Semantic quote. Function to quote literals for use in RDF
+http://iswc2011.semanticweb.org/fileadmin/iswc/Papers/Workshops/SSWS/Emmons-et-all-SSWS2011.pdf
 }
-

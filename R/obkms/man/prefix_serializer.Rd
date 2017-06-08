@@ -19,4 +19,3 @@ prefix_serializer(reqd_prefixes, prefix_db = paste0(path.package("obkms"),
 The individual prefixes may or may not end with ":". If they don't,
 it will be added during function execution.
 }
-

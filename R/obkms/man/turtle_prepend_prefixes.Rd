@@ -5,17 +5,10 @@
 \title{Use the prefix database to create Turtle statements}
 \usage{
 turtle_prepend_prefixes(t = c("turtle"))
-
-turtle_prepend_prefixes(t = c("turtle"))
 }
 \arguments{
-\item{t}{the syntax}
-
 \item{t}{the syntax}
 }
 \description{
 Use the prefix database to create Turtle statements
-
-Use the prefix database to create Turtle statements
 }
-

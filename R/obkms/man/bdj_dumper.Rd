@@ -9,4 +9,3 @@ bdj_dumper()
 \description{
 Dumps all of the BDJ up to the present date in a predefined directory
 }
-
