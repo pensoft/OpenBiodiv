@@ -5,7 +5,7 @@
 \title{Semantic quote. Function to quote literals for use in RDF
 http://iswc2011.semanticweb.org/fileadmin/iswc/Papers/Workshops/SSWS/Emmons-et-all-SSWS2011.pdf}
 \usage{
-squote(literal, type = "String", lang)
+squote(literal, type = "None", lang)
 }
 \arguments{
 \item{literal}{the string that needs to be quoted}

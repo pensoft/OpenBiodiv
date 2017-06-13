@@ -4,7 +4,7 @@
 \alias{bdj_dumper}
 \title{Dumps all of the BDJ up to the present date in a predefined directory}
 \usage{
-bdj_dumper()
+bdj_dumper(journal = "BDJ", fromdate)
 }
 \description{
 Dumps all of the BDJ up to the present date in a predefined directory

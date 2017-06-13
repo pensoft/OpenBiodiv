@@ -12,7 +12,8 @@
 
 qname = function( uri )
 {
-  stopifnot( exists( 'obkms', mode = 'environment' ) )
+  if ( missing (uri) || is.null( uri ) || uri == "" ) return (NULL)
+  stopifnot( exists( 'obkms', mode = 'environment' ))
   # strip brackets from the uri and from the OBKMS databases of prefixes
   uri = strip_angle ( uri )
   stripped_prefixes = sapply ( obkms$prefixes, strip_angle )
@@ -55,12 +56,12 @@ strip_angle = function ( uri ) {
 #' @param postfixes everything that needs to be concatendated at the end of the
 #' string (e.g. things like @en, or xsd:date)
 #' @export
-squote = function ( literal, type = "String" , lang ) {
-  stopifnot ( type %in% c( "String", "Year", "Date" ) )
+squote = function ( literal, type = "None" , lang ) {
+  stopifnot ( type %in% c( "None", "Year", "Date" ) )
   if ( is.null ( literal ) || is.na(literal) || literal == "") return ( NULL )
   literal = gsub("\"", "", literal  )
   literal = gsub("\\\\", "", literal  )
-  if ( type == "String" ) postfixes = c( "^^xsd::string" )
+  if ( type == "None" ) postfixes = c( "" )
   else if ( type == "Year" ) postfixes = c( "^^xsd:gYear" )
   else if ( type == "Date" ) postfixes = c( "^^xsd:date" )
   if ( !missing( lang ) ) {

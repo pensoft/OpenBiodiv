@@ -10,21 +10,21 @@ label:
   comment: generic label property
 
 preferred_label:
-  uri: http://www.w3.org/2004/02/skos/core#prefLabel
+  uri: <http://www.w3.org/2008/05/skos#prefLabel>
   comment: has preferred label
 
 alternate_label:
-  uri: http://www.w3.org/2004/02/skos/core#altLabel
+  uri: <http://www.w3.org/2008/05/skos#altLabel>
   comment: has alternative label
 
 # Metadata
 publisher:
-  uri: http://purl.org/dc/elements/1.1/publisher
+  uri: <http://purl.org/dc/elements/1.1/publisher>
   uri2: http://purl.org/spar/pro/publisher
   comment: has publisher
 
 creator:
-  uri: http://purl.org/dc/elements/1.1/creator
+  uri: http://purl.org/dc/terms/creator
   comment: has creator
 
 first_name:
@@ -44,17 +44,56 @@ affiliation:
   comment: the address of an agent
 
 title:
-  uri: http://purl.org/dc/elements/1.1/title
+  uri: <http://purl.org/dc/elements/1.1/title>
   comment: has title
 
+# for addresses, organizations
+
+is_member_of_organization:
+  uri: http://www.w3.org/ns/org#memberOf
+  comment: Indicates that an agent (person or other organization) is a member of the Organization with no indication of the nature of that membership or the role played. Note that the choice of property name is not meant to limit the property to only formal membership arrangements, it is also intended to cover related concepts such as affiliation or other involvement in the organization. Extensions can specialize this relationship to indicate particular roles within the organization or more nuanced relationships to the organization.
+
+has_affiliation_string:
+  uri: http://openbiodiv.net/affiliation
+  comment: used to denote total affiliations (organization, addresses, countries, etc.)
+
+organization_has_name:
+  uri: http://www.w3.org/2006/vcard/ns#organization-name
+  comment: To specify the organizational name associated with the object
+
+has_address:
+  uri: http://www.w3.org/2006/vcard/ns#hasAddress
+  comment: To specify the components of the delivery address for the object
+
+city:
+  uri: http://www.w3.org/2006/vcard/ns#locality
+  comment: The locality (e.g. city or town) associated with the address of the object
+
+street:
+  uri: http://www.w3.org/2006/vcard/ns#street-address
+  comment: The street address associated with the address of the object
+
+country:
+  uri: http://www.w3.org/2006/vcard/ns#hasCountryName
+  comment: Used to support property parameters for the country name data property
+
+
+keywords:
+  uri: <http://prismstandard.org/namespaces/basic/2.0/keywords>
+  comment: used for literal keywords
+
+subject_term:
+  uri: <http://purl.org/spar/fabio/hasSubjectTerm>
+  comment: has subject term (URI)
+
 doi:
-  uri: http://prismstandard.org/namespaces/basic/2.0/doi
+  uri: <http://prismstandard.org/namespaces/basic/2.0/doi>
   comment: has DOI
   domain_includes:
-    - http://purl.org/spar/fabio/JournalArticle
+    - <http://purl.org/spar/fabio/JournalArticle>
 
 holds_publisher_role_id:
-  uri: http://purl.org/spar/pro/holdsRoleInTime
+  uri: <http://purl.org/spar/pro/holdsRoleInTime>
   comment: holds publisher role
 
 publisher_id:
@@ -148,6 +187,8 @@ family:
 #valid_name: trt:ValidName
 #nomenclatural_citation: trt:NomenclaturalCitation
 #Publisher: _base:Publisher
+
+
 
 
 # For collections TODO do we need it???

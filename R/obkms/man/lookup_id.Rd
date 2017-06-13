@@ -4,8 +4,8 @@
 \alias{lookup_id}
 \title{Lookup an Identifier in OBKMS}
 \usage{
-lookup_id(label, trim = TRUE, ignore_case = TRUE, best_match = TRUE,
-  generate_on_fail = TRUE, ...)
+lookup_id(label, lang = "English", trim = TRUE, ignore_case = TRUE,
+  best_match = TRUE, generate_on_fail = TRUE, ...)
 }
 \arguments{
 \item{label}{a vector of labels for which to look , the first one is preferred, all other ones are alternative;

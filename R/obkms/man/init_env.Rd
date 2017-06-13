@@ -4,14 +4,13 @@
 \alias{init_env}
 \title{Initialize package parameters upon loading.}
 \usage{
-init_env(server_access_options = paste0(path.package("obkms"), "/",
-  "obkms_server.yml"), dbpedia_access_options = paste0(path.package("obkms"),
-  "/", "dbpedia_access_options.yml"),
-  prefix_db = paste0(path.package("obkms"), "/", "prefix_db.yml"),
-  properties_db = paste0(path.package("obkms"), "/", "properties_db.yml"),
-  classes_db = paste0(path.package("obkms"), "/", "classes_db.yml"),
-  vocabulary_db = paste0(path.package("obkms"), "/", "vocabulary_db.yml"),
-  literals_db_xpath = paste0(path.package("obkms"), "/",
+init_env(server_access_options,
+  dbpedia_access_options = paste0(path.package("obkms"), "/",
+  "dbpedia_access_options.yml"), prefix_db = paste0(path.package("obkms"),
+  "/", "prefix_db.yml"), properties_db = paste0(path.package("obkms"), "/",
+  "properties_db.yml"), classes_db = paste0(path.package("obkms"), "/",
+  "classes_db.yml"), vocabulary_db = paste0(path.package("obkms"), "/",
+  "vocabulary_db.yml"), literals_db_xpath = paste0(path.package("obkms"), "/",
   "literals_db_xpath.yml"),
   non_literals_db_xpath = paste0(path.package("obkms"), "/",
   "non_literals_db_xpath.yml"),

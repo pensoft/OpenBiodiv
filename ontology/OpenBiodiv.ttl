@@ -36,11 +36,7 @@
   dc:subject "OpenBiodiv Ontology" ;
   rdfs:label "OpenBiodiv Ontology" ;
   dc:creator "Viktor Senderov, Terry Catapano, Kiril Simov, Lyubomir Penev" ;
-  dc:rights "CCBY" ;
-  owl:imports <http://phylodiversity.net/dsw/dsw.rdf> ;
-  owl:imports <http://www.essepuntato.it/2008/12/pattern> ;
-  owl:imports <http://purl.org/spar/fabio/> ;
-  owl:imports <http://www.w3.org/2008/05/skos> .
+  dc:rights "CCBY" .
 
 
 po:contains rdf:type owl:TransitiveProperty .
@@ -49,6 +45,162 @@ po:contains rdf:type owl:TransitiveProperty .
   rdfs:label "Publisher"@en ;
   rdfs:comment "The publisher of a journal, a type of `foaf:Agent`."@en ;
   rdfs:subClassOf foaf:Agent .
+
+trt:Treatment a owl:Class ;
+  rdfs:label "Taxonomic Treatment"@en ;
+  rdfs:label "Taxonomische Abhandlung"@de ;
+  rdfs:label "Таксономично пояснение"@bg ;
+  rdfs:comment "A taxonomic treatment, or simply a treatment, is a 
+                rhetorical element of a taxonomic publication, i.e. a 
+                specialized section, where taxon circumscription  
+                takes place."@en ;
+  rdfs:comment "Eine taxonomische Abhandlung, oder nur Abhandlung, ist 
+                ein rhetorisches Element eines wissenschaftlichen 
+                taxomischen Artikels, d.h. ein spezialisierter Abschnitt,
+                wo die Umschreibung eines taxonomischen Konzeptes
+                stattfindet."@de ;
+  rdfs:comment "Таксономично пояснение или само Пояснение е риторчна част
+                от таксономичната статия, където се случва описанието
+                на дадена таксономична концепция."@bg ;                  
+  rdfs:subClassOf deo:DiscourseElement .
+
+trt:Nomenclature a owl:Class ;
+  rdfs:subClassOf deo:DiscourseElement ,
+                  [ rdf:type owl:Restriction ;
+                    owl:onProperty po:isContainedBy ;
+                    owl:someValuesFrom trt:Treatment ] ;
+  rdfs:label "Taxonomic Nomenclature Section"@en ;
+  rdfs:comment "A taxonomic nomenclature section, or simply a
+nomenclature, is a rhetorical element of a taxonomic publication where
+nomenclatural acts are published and nomenclatural statements are made.
+Nomenclature is a subsection of Treatment."@en .
+
+trt:NomenclatureHeading a owl:Class ;
+  rdfs:subClassOf deo:DiscourseElement ,
+                  [ rdf:type owl:Restriction ;
+                    owl:onProperty po:isContainedBy ;
+                    owl:someValuesFrom trt:Nomenclature ] ;
+                  rdfs:label "Treatment Title"@en ;
+  rdfs:comment "Inside the taxonomic nomenclature section, we have the treatment title."@en .
+
+trt:NomenclatureCitationList a owl:Class ;
+  rdfs:subClassOf deo:DiscourseElement ,
+                  [ rdf:type owl:Restriction ;
+                    owl:onProperty po:isContainedBy ;
+                    owl:someValuesFrom trt:Nomenclature ] ;
+                  rdfs:label "Taxonomic Nomenclature Citation List"@en ;
+  rdfs:comment "Inside the taxonomic nomenclature section, we have a list
+                of citations."@en .                  
+
+:TaxonomicNameUsage rdf:type owl:Class ;
+  rdfs:subClassOf  pext:Mention ;
+  rdfs:comment "A taxonomic name usage is the mentioning of a
+biological taxonomic name or taxon concept label in a text."@en ;
+  rdfs:label "Taxonomic Name Usage"@en .
+
+dwciri:taxonomicStatus rdf:type owl:ObjectProperty ; 
+  rdfs:label "taxonomic status"@en ;
+  rdfs:comment "the IRI version of the DwC term taxonmic status" .
+
+:BiologicalName rdf:type owl:Class ;
+    rdfs:label "Biological Name"@en ;
+    owl:sameAs nomen:NOMEN_0000030 .
+
+:ScientificName rdf:type owl:Class ;
+    rdfs:subClassOf :BiologicalName ;
+    rdfs:label "Scientific Name"@en ;
+    owl:sameAs  nomen:NOMEN_0000036 .
+    
+:VernacularName a owl:Class ;
+  rdfs:subClassOf :BiologicalName ;
+  rdfs:label "Vernacular Name"@en ;
+  owl:sameAs nomen:NOMEN_0000037 .
+
+dwciri:scientificName rdf:type owl:ObjectProperty ;
+  rdfs:label "scientific name"@en;
+  rdfs:comment "the IRI version of dwc:scientificName"@en .
+
+dwciri:nameAccordingTo rdf:type owl:ObjectProperty ;
+  rdfs:label "name according to" ;
+  rdfs:comment "the IRI version of dwc:scientificName"@en . 
+  
+:biologicalName rdf:type owl:ObjectProperty ;
+  rdfs:subPropertyOf pkm:mentions ;
+        rdfs:label "mentions biological name"@en ;
+        rdfs:range :BiologicalName .
+
+:vernacularName rdf:type owl:ObjectProperty ;
+  rdfs:subPropertyOf :biologicalName ;
+        rdfs:label "mentions vernacular name" @en ;
+        rdfs:range :VernacularName .
+
+:scientificName rdf:type owl:ObjectProperty ;
+  rdfs:subPropertyOf dwciri:scientificName, :biologicalName ;
+  rdfs:label "mentions scientific name"@en ; 
+  rdfs:range :ScientificName ;
+  rdfs:comment "'the scientific name property, derived from ':biologicalName', 'pkm:mentions', and 'dwciri:scientificName"@en .
+
+:taxonConceptLabel rdf:type owl:ObjectProperty ;
+  rdfs:subPropertyOf :biologicalName ;
+  rdfs:label "mentions taxon concept label"@en ;
+  rdfs:range :TaxonConceptLabel .
+
+:nameAccordingTo rdf:type owl:ObjectProperty ;
+  rdfs:label "sec."@en ; 
+  rdfs:range frbr:Expression ;
+  rdfs:comment "The reference to the source in which the specific taxon concept circumscription is defined or implied - traditionally signified by the Latin 'sensu' or 'sec.'' (from secundum, meaning 'according to'). For taxa that are relevantly circumscribed by identifications, a reference to the keys, monographs, experts and other sources should be given. Should only be used with IRI's"@en .
+
+:relatedName rdf:type owl:ObjectProperty, owl:TransitiveProperty, owl:ReflexiveProperty ;
+  rdfs:label "has related name"@en ;
+  rdfs:domain :BiologicalName ;
+  rdfs:range :BiologicalName ;
+  rdfs:comment "'has related name' is an object property that we
+use in order to indicate that two biological names are related somehow. This
+relationship is purposely vague as to encompass all situations where two
+biological names co-occur in a text. It is transitive and reflexive."@en.
+
+
+:replacementName rdf:type owl:ObjectProperty ,
+                          owl:TransitiveProperty ;
+  rdfs:label "has replacement name"@en ;
+  rdfs:domain :ScientificName ;
+  rdfs:range :ScientificName ;
+  rdfs:comment "This is a uni-directional property. Its meaning
+is that one one biological name links to a different biological name via the
+usage of this property, then the object of the triple is the form of the
+biological name the use of which is more accurate and should be preferred
+given the information that system currently holds. This property is only
+defined for scientific names."@en.
+
+:TaxonConcept rdf:type owl:Class ;
+  owl:equivalentClass dwc:Taxon ;
+  rdfs:subClassof frbr:Work , skos:Concept ,
+                  [ rdf:type owl:Restriction ;
+                    owl:onProperty :taxonConceptLabel ;
+                    owl:minCardinality "1" ] .
+
+:RCC5Statement rdf:type owl:Class ;
+  rdfs:label "RCC5 Statement" ;
+  rdfs:comment "A statemnt of RCC-5 relationship" .
+
+:rcc5Property rdf:Type owl:ObjectProperty ;
+  rdfs:domain :RCC5Statement .
+
+:rcc5fromRegion rdf:type owl:ObjectProperty ;
+  rdfs:subPropertyOf :rcc5Property ;
+  rdfs:label "from region" ;
+  rdfs:comment "Connects to the RCC5 statement to the originating region"@en .
+
+:rcc5toRegion rdf:type owl:ObjectProperty ;
+  rdfs:label "to region" ;
+  rdfs:subPropertyOf :rcc5Property ;
+  rdfs:comment "Connects to the RCC5 statement to the target region"@en .
+
+:rcc5RelationType rdf:type owl:ObjectProperty ;
+  rdfs:label "relation type" ;
+  rdfs:subPropertyOf :rcc5Property ;
+  rdfs:range :RCC5Relation ;
+  rdfs:comment "Connects an RCC-5 statement to the type of RCC-5 relation between the regions."@en .
 
 :TaxonomicStatus rdf:type owl:Class ;
   rdfs:subClassOf [ rdf:type owl:Restriction ;

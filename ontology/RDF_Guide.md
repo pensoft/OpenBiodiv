@@ -262,11 +262,7 @@ the ontology we use the `notangle` command from `noweb`.
   dc:subject "OpenBiodiv Ontology" ;
   rdfs:label "OpenBiodiv Ontology" ;
   dc:creator "Viktor Senderov, Terry Catapano, Kiril Simov, Lyubomir Penev" ;
-  dc:rights "CCBY" ;
-  owl:imports <http://phylodiversity.net/dsw/dsw.rdf> ;
-  owl:imports <http://www.essepuntato.it/2008/12/pattern> ;
-  owl:imports <http://purl.org/spar/fabio/> ;
-  owl:imports <http://www.w3.org/2008/05/skos> .
+  dc:rights "CCBY" .
 
 <<Model>>
 <<Vocabulary of Taxonomic Statuses>>
@@ -779,7 +775,7 @@ dwciri:nameAccordingTo rdf:type owl:ObjectProperty ;
   rdfs:comment "the IRI version of dwc:scientificName"@en . 
   
 :biologicalName rdf:type owl:ObjectProperty ;
-  rdfs:subClassOf pkm:mentions ;
+  rdfs:subPropertyOf pkm:mentions ;
 	rdfs:label "mentions biological name"@en ;
 	rdfs:range :BiologicalName .
 

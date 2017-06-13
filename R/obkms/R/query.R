@@ -80,7 +80,7 @@ get_nodeid = function( label = "", explicit_node_id = "", allow_multiple = FALSE
 #' \dontrun{}
 #' @export
 
-lookup_id = function( label, trim = TRUE, ignore_case = TRUE, best_match = TRUE, generate_on_fail = TRUE, ...)
+lookup_id = function( label, lang = "English", trim = TRUE, ignore_case = TRUE, best_match = TRUE, generate_on_fail = TRUE, ...)
 {
   stopifnot( exists( "obkms", mode = "environment" ) )
 
@@ -99,8 +99,14 @@ lookup_id = function( label, trim = TRUE, ignore_case = TRUE, best_match = TRUE,
     }
     for ( l in label )
     {
-      query.template =
-        "PREFIX skos: %skosns SELECT ?id WHERE { ?id skos:prefLabel %label . }"
+      if ( lang == "English" ) {
+        query.template =
+          "PREFIX skos: %skosns SELECT ?id WHERE { ?id skos:prefLabel %label@en . }"
+      }
+      else {
+        query.template =
+          "PREFIX skos: %skosns SELECT ?id WHERE { ?id skos:prefLabel %label . }"
+      }
       # query substitution
       query.template = gsub( "%label", paste( '\"', l, '\"', sep = "" ), query.template )
       query = gsub( "%skosns", obkms$prefixes$skos, query.template )
@@ -284,7 +290,7 @@ WHERE {
 
 #' Looks up the id of a concept in dbpedia
 #' @export
-dbpedia_lookup = function ( label, concept_type , best_match = TRUE , lang = "English")
+dbpedia_lookup = function ( label, concept_type = "none", best_match = TRUE , lang = "English")
   {
   # trim
   label = gsub("[\t]+", " ", label)
@@ -292,9 +298,12 @@ dbpedia_lookup = function ( label, concept_type , best_match = TRUE , lang = "En
   label = gsub("[ ]+", " ", label)
 
   # process type
-  stopifnot( concept_type %in% c( "Taxon" ) )
+  stopifnot( concept_type %in% c( "Taxon", "none" ) )
   if ( concept_type == "Taxon" ) {
       concept_type = obkms$classes$DbpediaBiologicalThing$uri
+  }
+  else {
+      concept_type = obkms$classes$Thing$uri
   }
 
   #construct query
@@ -325,3 +334,124 @@ WHERE {
     }
   }
 }
+
+
+#' @export
+describe_resource = function( uri )
+{
+
+ query.template = "DESCRIBE %uri"
+ query.template = gsub( "%uri", uri , query.template )
+ query = query.template
+ res = rdf4jr::POST_query( obkms$server_access_options , obkms$server_access_options$repository, query, "CSV" )
+ return ( res )
+}
+
+#' Trims a label of extraneous white space characters
+#' @param label what to trim
+#' @return the "label" with traling or leading whitespace removed, and any
+#' extra white space within is removed
+#' @export
+
+trim_label = function ( label , removeLeadingDigits = FALSE, removeLeadingWs = TRUE) {
+  # trimws takes care of traling and leading spaces, but what about extra ws in
+  # the middle?
+  label = base::trimws( label , which = "both" )
+  # the next should take care of it
+  label = gsub("([\t]+)|([\n]+)|([\r]+)", " ", label)
+  label = gsub("[ ]+", " ", label)
+  if (removeLeadingDigits == TRUE) {
+    label = gsub("^[0-9]+", "", label)
+  }
+  if (removeLeadingWs == TRUE){
+    label = gsub("^[ ]+", "", label)
+  }
+  return ( label )
+}
+
+
+#' Looks up an author, given a list of literals
+#' @export
+lookup_author = function ( literals, concept_type = "none", best_match = TRUE , lang = "English")
+{
+  # 1. Is it a collaborative author or not?
+  if ( ! is.null( literals$collab ) ) {
+    non_persons = obkms$authors[ obkms$authors$is_person == FALSE ]
+    # yes, do a fuzzy match of author and exact match of email
+    best_match = which ( agrep( literals$collab, non_persons$author ) )
+    obkms$authors$id [ best_match ]
+    return( obkms$authors$id [ best_match ])
+  }
+
+  # 2. It's a person with an email
+  # (a) fuzzy match of last name
+  # (b) match beginning of first name
+  # and (c) exact match of email
+
+  else if ( !is.null ( literals$email ) ) {
+    mbox_match = grep( literals$email, obkms$authors$mbox )
+    first_letter = substring( literals$given_name, 1, 1 )
+    fname_match = grep( paste0( "^", first_letter ), obkms$authors$first_name )
+    lname_match = agrep( literals$surname, obkms$authors$family_name )
+    best_match = intersect ( intersect( fname_match, lname_match), mbox_match )
+    return ( obkms$authors$id [ best_match ] )
+  }
+
+  # match with city and institution
+  else if ( !is.null( literals$instition ) && !is.null ( literals$city)) {
+    institution_match = agrep( literals$institution, obkms$authors$institution )
+    city_match = agrep( literals$city, obkms$authors$city )
+    fname_match = grep( paste0( "^", first_letter ), obkms$authors$first_name )
+    lname_match = agrep( literals$surname, obkms$authors$family_name )
+    best_match = intersect ( intersect( fname_match, lname_match ), intersect( institution_match, city_match ) )
+    return ( obkms$authors$id [ best_match ] )
+  }
+
+  # no match
+  return( paste0( strip_angle( obkms$prefixes$`_base`) , uuid::UUIDgenerate() ) )
+}
+
+#' Parses an affiliation string
+#' @param current_affiliation unparsed affiliation string as found in the XML
+#' @return a list of three - institution, city, and country
+#' @export
+parse_affiliation = function ( current_affiliation ) {
+  # break down the affiliation in (potential) institution
+  # citt and potential country
+  pattern = "^([^,]*),(.*),([^,]*),([^,]*)$"
+  parsed_content = regmatches(current_affiliation, regexec( pattern, current_affiliation ) )[[1]]
+  potential_institution = trim_label( parsed_content[2], removeLeadingDigits = FALSE )
+  potential_address = trim_label( parsed_content[3], removeLeadingDigits = FALSE )
+  potential_city = trim_label ( parsed_content[4],  removeLeadingDigits = TRUE )
+  potential_country = trim_label( parsed_content[5],  removeLeadingDigits = TRUE )
+
+  return ( list ( institution = potential_institution, city = potential_city, country = potential_country, address = potential_address))
+}
+
+# parse_country = function( current_affiliation ) {
+#   pattern = "^(.*),([^,]*)([^,]*)$"
+#   potential_country_name = regmatches(current_affiliation, regexec( pattern, current_affiliation ) )[[1]][2]
+#   # first try to do an exact match against a list of abbreviations
+#   mysplit = strsplit( potential_country_name, "\\s+")[[1]]
+#   potential_abbrev = mysplit[length(mysplit)]
+#   potential_match = which ( grepl( potential_abbrev, obkms$gazeteer$countries$ISO) )
+#   if ( length( potential_match ) > 0 ) {
+#     return( country = obkms$gazeteer$countries$Country,
+#     country_geonameid = obkms$gazeteer$countries$geonameid )
+#   }
+#   # 1.2 attempt to fuzzy match
+#   potential_match = stringdist::amatch(potential_country_name, obkms$gazeteer$countries$Country, maxDist = 11 )
+#   if ( ! is.na( potential_match ) ) {
+#     country = obkms$gazeteer$countries$Country
+#     country_geonameid = obkms$gazeteer$countries$geonameid
+#   }
+#   else {
+#     # if the first match fails, get the very last token and try to use it
+#     mysplit = strsplit( potential_country_name, "\\s+")[[1]]
+#     potential_abbrev = mysplit[length(mysplit)]
+#     # match against ISO abbreviation
+#     country_match = which ( grepl( potential_abbrev, obkms$gazeteer$countries$ISO) )
+#     if ( length( country_match) > 0 ) # we have a match!
+#   }
+# }
+

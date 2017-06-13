@@ -20,6 +20,7 @@ article_id = xml2::xml_text( xml2::xml_find_all( xml, "//@obkms_id" )  )
 
 # run taxpub extractor on them
 cat ( xml2rdf(harmonia_manillana_article) )
+cat ( xml2rdf( heser_stoevi_article ))
 
 xml2::write_xml( xml, harmonia_manillana_article)
 
