@@ -66,7 +66,7 @@ squote = function ( literal, type = "None" , lang ) {
   else if ( type == "Date" ) postfixes = c( "^^xsd:date" )
   if ( !missing( lang ) ) {
     stopifnot ( lang %in% c( "English" ) )
-    if ( lang == "English") {
+    if ( lang == obkms$parameters$Language$English$label ) {
       postfixes = c( "@en" )
     }
   }
@@ -76,16 +76,16 @@ squote = function ( literal, type = "None" , lang ) {
 #' Use the prefix database to create Turtle statements
 #' @param t the syntax
 #' @export
-turtle_prepend_prefixes = function ( t = c("turtle") ) {
+turtle_prepend_prefixes = function ( t = c("Turtle") ) {
   stopifnot( exists( 'obkms', mode = 'environment' ) )
 
-  if ( t == "turtle" )
+  if ( t == "Turtle" )
   sapply ( obkms$prefixes, function( p ) {
     name = names(obkms$prefixes)[obkms$prefixes == p]
     name =  sub ( "_base", "" , name )
     paste0("@prefix " , name, ": ", p, " .\n")
   } )
-  else if (t == "sparql") {
+  else if (t == "SPARQL") {
     #type is SPARQL
     sapply ( obkms$prefixes, function( p ) {
       name = names(obkms$prefixes)[obkms$prefixes == p]

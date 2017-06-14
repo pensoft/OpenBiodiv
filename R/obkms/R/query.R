@@ -80,7 +80,7 @@ get_nodeid = function( label = "", explicit_node_id = "", allow_multiple = FALSE
 #' \dontrun{}
 #' @export
 
-lookup_id = function( label, lang = "English", trim = TRUE, ignore_case = TRUE, best_match = TRUE, generate_on_fail = TRUE, ...)
+lookup_id = function( label, lang = "English", trim = TRUE, ignore_case = TRUE, best_match = TRUE, generate_on_fail = TRUE, concept_type = FALSE, ...)
 {
   stopifnot( exists( "obkms", mode = "environment" ) )
 
@@ -99,18 +99,30 @@ lookup_id = function( label, lang = "English", trim = TRUE, ignore_case = TRUE, 
     }
     for ( l in label )
     {
+      query.template =
+        "SELECT ?id WHERE
+        { ?id skos:prefLabel %label .
+          ?id rdf:type %concept_type .
+        }"
+
+      # query substitution
       if ( lang == "English" ) {
-        query.template =
-          "PREFIX skos: %skosns SELECT ?id WHERE { ?id skos:prefLabel %label@en . }"
+        query.template = gsub( "%label", paste( '\"', l, '\"@en', sep = "" ), query.template  )
       }
       else {
-        query.template =
-          "PREFIX skos: %skosns SELECT ?id WHERE { ?id skos:prefLabel %label . }"
+        query.template = gsub( "%label", paste( '\"', l, '\"', sep = "" ), query.template  )
       }
-      # query substitution
-      query.template = gsub( "%label", paste( '\"', l, '\"', sep = "" ), query.template )
+      if ( concept_type == "Taxon Keyword" ) {
+        query.template = gsub( "%concept_type", paste( '\"', l, '\"@en', sep = "" ), query.template  )
+      }
+      else {
+        query.template = gsub( "%concept_type", qname( obkms$classes$Thing$uri ), query.template  )
+      }
+
       query = gsub( "%skosns", obkms$prefixes$skos, query.template )
       # query execution
+      query = c( turtle_prepend_prefixes(t = "SPARQL"), query )
+      query = do.call ( paste0, as.list(query))
       res = rdf4jr::POST_query( obkms$server_access_options , obkms$server_access_options$repository, query, "CSV" )
       # we want the results to be a list (data frame), we hava a match (multiple matches)
       if ( is.data.frame( res ) && nrow ( res ) > 0 )
@@ -358,17 +370,16 @@ trim_label = function ( label , removeLeadingDigits = FALSE, removeLeadingWs = T
   # the middle?
   label = base::trimws( label , which = "both" )
   # the next should take care of it
-  label = gsub("([\t]+)|([\n]+)|([\r]+)", " ", label)
+  label = gsub("[[:space:]]+", " ", label)
   label = gsub("[ ]+", " ", label)
   if (removeLeadingDigits == TRUE) {
     label = gsub("^[0-9]+", "", label)
   }
   if (removeLeadingWs == TRUE){
-    label = gsub("^[ ]+", "", label)
+    label = gsub("^\\W+", "", label)
   }
   return ( label )
 }
-
 
 #' Looks up an author, given a list of literals
 #' @export
@@ -409,6 +420,10 @@ lookup_author = function ( literals, concept_type = "none", best_match = TRUE , 
 
   # no match
   return( paste0( strip_angle( obkms$prefixes$`_base`) , uuid::UUIDgenerate() ) )
+}
+
+lookup_institution = function( literals ) {
+
 }
 
 #' Parses an affiliation string

@@ -52,7 +52,8 @@ init_env = function ( server_access_options,
                       #entities_db =  paste0( path.package ( 'obkms' ) , "/", "semantic_entities_db.yml" ),
                       properties_db =  paste0( path.package ( 'obkms' ) , "/", "properties_db.yml" ),
                       classes_db =  paste0( path.package ( 'obkms' ) , "/", "classes_db.yml" ),
-                      vocabulary_db =  paste0( path.package ( 'obkms' ) , "/", "vocabulary_db.yml" ),
+                     # vocabulary_db =  paste0( path.package ( 'obkms' ) , "/", "vocabulary_db.yml" ),
+                      parameters_db =  paste0( path.package ( 'obkms' ) , "/", "parameters_db.yml" ),
                       literals_db_xpath = paste0( path.package ( 'obkms' ) , "/", "literals_db_xpath.yml" ),
                       non_literals_db_xpath = paste0( path.package ( 'obkms' ) , "/", "non_literals_db_xpath.yml" ),
                       initial_dump_configuration = paste0( path.package ( 'obkms' ) , "/", "initial_dump_configuration.yml") ,
@@ -61,7 +62,7 @@ init_env = function ( server_access_options,
                       city_names = paste0( path.package ( 'obkms' ) , "/", "city_names.csv" ) ,
                       xml_source = "file",
                       xml_type = "taxpub" ) {
-
+  # TODO probably don't need vocabulary
   if (! is.character( server_access_options$userpwd )  ) {
     server_access_options$userpwd = Sys.getenv( c("OBKMS_SECRTET") )
     warning ( "Trying to read password from system variable...")
@@ -79,7 +80,9 @@ init_env = function ( server_access_options,
  # obkms$entities = yaml::yaml.load_file ( entities_db )
   obkms$properties = yaml::yaml.load_file ( properties_db )
   obkms$classes = yaml::yaml.load_file ( classes_db )
-  obkms$vocabulary = yaml::yaml.load_file ( vocabulary_db )
+  #obkms$vocabulary = yaml::yaml.load_file ( vocabulary_db )
+
+  obkms$parameters = yaml::yaml.load_file ( parameters_db )
 
   obkms$config = list()
   obkms$config['literals_db_xpath'] = literals_db_xpath
@@ -127,12 +130,13 @@ load_yaml_database = function ( database_path, internal_name ) {
 }
 
 #' Puts author information in the OBKMS environment
+#' @export
 update_authors_db = function() {
   # template
   query = "
     SELECT ?id ?author ?is_person ?first_name ?family_name ?mbox ?institution
     WHERE { [] rdf:type fabio:ResearchPaper ;
-           dc:creator ?id .
+           dcterms:creator ?id .
            ?id  a foaf:Agent ;
                 skos:prefLabel ?author .
     OPTIONAL {
@@ -155,7 +159,7 @@ update_authors_db = function() {
     }
 }"
   # prefixes
-  query = do.call( paste0, as.list( c( turtle_prepend_prefixes(t = c("sparql")), query) ) )
+  query = do.call( paste0, as.list( c( turtle_prepend_prefixes(t = c("SPARQL")), query) ) )
   # execution
   obkms$authors = rdf4jr::POST_query( obkms$server_access_options, obkms$server_access_options$repository, query )
 }

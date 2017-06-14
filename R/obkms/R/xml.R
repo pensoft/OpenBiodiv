@@ -22,14 +22,14 @@
 xml2rdf = function( resource_locator,
                     resource_type = "FILE",
                     resource_format = "TAXPUB",
-                    serialization_format = "TURTLE")
+                    serialization_format = "Turtle")
 {
   # checks, if not FILE, cannot write back
   stopifnot ( is.character(resource_type), resource_type == "FILE" )
   stopifnot ( is.character(resource_format), resource_format %in%
                 c( "TAXPUB", "REFBANK_XML" ) )
   stopifnot (
-    is.character(serialization_format), serialization_format == "TURTLE" )
+    is.character(serialization_format), serialization_format == "Turtle" )
 
   # load the XML document
   xml = xml2::read_xml( resource_locator , options = c()) # both a document and a node
@@ -41,7 +41,7 @@ xml2rdf = function( resource_locator,
     triples = taxpub_extractor( xml ) # will return a triples object (TODO S3 or S4??)
     # serialize
     serialization = c()
-    if (serialization_format == "TURTLE") {
+    if (serialization_format == "Turtle") {
       serialization = turtle_prepend_prefixes()
       serialization = c ( serialization, triples2turtle2 ( context, triples ), "\n\n" )
       #serialization = c ( serialization, triples2turtle2 ( context, triples$article ), "\n\n" )
@@ -50,7 +50,6 @@ xml2rdf = function( resource_locator,
     # context need to be cleared
     clear_context( context )
     # return the return string as a string
-    cat("wrting back to XML")
     xml2::write_xml( xml, resource_locator )
   }
   return ( do.call(paste, as.list( serialization )))
@@ -138,12 +137,18 @@ taxpub_extractor = function( xml, xlit = yaml::yaml.load_file( obkms$config$lite
   }
 
   # keyword processing
-  for ( t in literals$taxon_classification ) {
-    subject_term_id =
-      qname ( dbpedia_lookup( t, lang = "English" , concept_type = "Taxon" ) )
+  for ( taxon_keyword in literals$taxon_classification ) {
+    dbpedia_id = qname ( dbpedia_lookup( t, lang = "English" , concept_type = "Taxon" ) )
+    subject_term_id = qname( lookup_id ( taxon_keyword, concept_type = "Taxon Classification" ) )
+
     triples = c ( triples, list (
-                  triple( identifier$article, qname ( obkms$properties$keywords$uri ), squote ( t, lang = "English" ) ),
-                  triple( identifier$article, qname ( obkms$properties$subject_term$uri ), subject_term_id  ) ) )
+        triple( subject_term_id, qname( obkms$properties$type$uri ), obkms$classes$Subject_Term$uri  ),
+        triple( subject_term_id, qname( obkms$properties$label$uri ), squote( taxon_keyword, lang = obkms$parameters$Language$English$label ) ) ,
+        triple( subject_term_id, qname( obkms$properties$belongs_to_scheme$uri ), qname ( obkms$parameters$Vocabularies$Taxon_Classification_Terms$uri ) ),
+        triple( subject_term_id, qname ( obkms$properties$exact_match$uri), dbpedia_id ) ,
+
+        triple( identifier$article, qname ( obkms$properties$keywords$uri ), squote ( t, lang = obkms$parameters$Language$English$label ) ),
+        triple( identifier$article, qname ( obkms$properties$subject_term$uri ), subject_term_id  ) ) )
   }
 
   # subjects processing
@@ -388,16 +393,19 @@ taxpub_extractor = function( xml, xlit = yaml::yaml.load_file( obkms$config$lite
 author_extractor = function ( paper , author_xml, authors_xpath =  yaml::yaml.load_file( obkms$config$authors_db_xpath ), document ) {
   literals = as.list( find_literals( author_xml, authors_xpath ) )
   # also get the references, a little bit tricky
+  # TODO MULTIPLE AFFILIATIONS DO EXISI!!!
+  literals$affiliation = list()
   for ( r in literals$reference ) {
-    literals$affiliation =
-      trim_label( xml2::xml_text(
+    current_affiliation = trim_label( xml2::xml_text(
         xml2::xml_find_first(document, paste0( "/article/front/article-meta/aff[@id='", r, "']" ) ) ,
                                     trim = TRUE), removeLeadingDigits = TRUE )
-    parsed_affiliation = parse_affiliation ( literals$affiliation )
-    literals$country = trim_label ( parsed_affiliation$country, removeLeadingDigits = TRUE)
-    literals$city = trim_label ( parsed_affiliation$city, removeLeadingDigits = TRUE )
-    literals$street_address =  trim_label( parsed_affiliation$address, removeLeadingDigits = FALSE )
-    literals$institution  = trim_label ( parsed_affiliation$institution, removeLeadingDigits = FALSE )
+    parsed_affiliation = parse_affiliation ( current_affiliation )
+    literals$affiliation[[r]] =
+      list( country = trim_label ( parsed_affiliation$country, removeLeadingDigits = TRUE),
+            city = trim_label ( parsed_affiliation$city, removeLeadingDigits = TRUE ),
+            street_address = trim_label( parsed_affiliation$address, removeLeadingDigits = FALSE ),
+            institution  = trim_label ( parsed_affiliation$institution, removeLeadingDigits = FALSE ),
+            full_affiliation_string = current_affiliation)
   }
 
   # at this point, we have all the literal information and we're ready try to
@@ -424,28 +432,22 @@ author_extractor = function ( paper , author_xml, authors_xpath =  yaml::yaml.lo
       triple( identifier$author,    qname( obkms$properties$email$uri ),           squote ( literals$email ) ) )
   }
 
-  #add the org information
-  triples = c( triples, list(
-      triple( identifier$author,    qname( obkms$properties$has_affiliation_string$uri ), squote( literals$affiliation, lang = "English") ) ,
-      triple( identifier$author,    qname( obkms$properties$is_member_of_organization$uri ), list (
-        triple( "", qname ( obkms$properties$type$uri), qname ( obkms$classes$Organization$uri ) ),
-        triple( "", qname ( obkms$properties$organization_has_name$uri), squote( literals$institution, lang = "English" ) ),
-        triple( "", qname ( obkms$properties$has_address$uri), list(
-          triple( "", qname ( obkms$properties$type$uri), qname ( obkms$classes$Address$uri ) ),
-        triple( "", qname( obkms$properties$country$uri ),  squote( literals$country, lang = "English" ) ) ,
-        triple( "",  qname( obkms$properties$city$uri),      squote( literals$city, lang = "English") ),
-        triple( "",  qname ( obkms$properties$street$uri),    squote( literals$street, lang = "English")))) ) ) ) )
+  # add the org/affiliation information
+  for ( org in literals$affiliation ) {
+    triples = c( triples,
+                 list(
+        triple( identifier$author,    qname( obkms$properties$has_affiliation_string$uri ),
+                                                        squote( org$full_affiliation_string, lang = "English") ) ,
+        triple( identifier$author,    qname( obkms$properties$is_member_of_organization$uri ), list (
+        triple( "", qname( obkms$properties$type$uri),      qname ( obkms$classes$Organization$uri ) ),
+        triple( "", qname( obkms$properties$organization_has_name$uri ), squote( org$institution, lang = "English" ) ),
+        triple( "", qname( obkms$properties$has_address$uri ), list(
+        triple( "", qname( obkms$properties$type$uri),      qname ( obkms$classes$Address$uri ) ),
+        triple( "", qname( obkms$properties$country$uri ),  squote( org$country, lang = "English" ) ) ,
+        triple( "", qname( obkms$properties$city$uri),      squote( org$city, lang = "English" ) ),
+        triple( "", qname( obkms$properties$street$uri),    squote( org$street_address, lang = "English" ) ) ) ) ) ) ) )
 
-
-  # for the affiliation we must do some work with xpath
-  # one author can have multiple references
-  # for ( r in literals$reference ) {
-  #   affiliation = xml2::xml_text( xml2::xml_find_first(document, paste0( "/article/front/article-meta/aff[@id='", r, "']/addr-line" ) ) )
-  #   triples = c( triples, list(
-  #     triple( identifier$author,  qname( obkms$properties$affiliation$uri ), squote ( affiliation, lang = "English" ))
-  #     ))
-  # }
-
+  }
   return ( triples )
 }
 
