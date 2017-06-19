@@ -382,48 +382,102 @@ trim_label = function ( label , removeLeadingDigits = FALSE, removeLeadingWs = T
 }
 
 #' Looks up an author, given a list of literals
+#'
+#' @param literals a list of literals associated with the author
+#' @param identifiers a list of identifiers associated with the author
+#'
+#' @return a URI of an author if it already exists, or mints new one
 #' @export
-lookup_author = function ( literals, concept_type = "none", best_match = TRUE , lang = "English")
+lookup_author = function ( literals, identifiers )
 {
-  # 1. Is it a collaborative author or not?
+  # (1) check to see whether it is a collaborative author
   if ( ! is.null( literals$collab ) ) {
     non_persons = obkms$authors[ obkms$authors$is_person == FALSE ]
     # yes, do a fuzzy match of author and exact match of email
-    best_match = which ( agrep( literals$collab, non_persons$author ) )
+    best_match = grep ( literals$collab, non_persons$author )
     obkms$authors$id [ best_match ]
-    return( obkms$authors$id [ best_match ])
+
+    # TODO not DRY
+    if ( length( best_match ) > 0 ) {
+      resulting = obkms$authors[ best_match, ]
+      aggregated_result =
+        aggregate( resulting, by = list( resulting$id ) , length )
+      return ( resulting[ which( max (aggregated_result$id) == aggregated_result$id ), 1] )
+    }
   }
 
-  # 2. It's a person with an email
+  # (2) check if it is a person with an email
   # (a) fuzzy match of last name
   # (b) match beginning of first name
   # and (c) exact match of email
-
   else if ( !is.null ( literals$email ) ) {
     mbox_match = grep( literals$email, obkms$authors$mbox )
     first_letter = substring( literals$given_name, 1, 1 )
-    fname_match = grep( paste0( "^", first_letter ), obkms$authors$first_name )
+    fname_match = grep ( paste0( "^", first_letter ), obkms$authors$first_name )
     lname_match = agrep( literals$surname, obkms$authors$family_name )
     best_match = intersect ( intersect( fname_match, lname_match), mbox_match )
-    return ( obkms$authors$id [ best_match ] )
+    # TODO not DRY
+    if ( length( best_match ) > 0 ) {
+      resulting = obkms$authors[ best_match, ]
+      aggregated_result =
+        aggregate( resulting, by = list( resulting$id ) , length )
+      return ( resulting[ which( max (aggregated_result$id) == aggregated_result$id ), 1] )
+    }
   }
 
-  # match with city and institution
-  else if ( !is.null( literals$instition ) && !is.null ( literals$city)) {
-    institution_match = agrep( literals$institution, obkms$authors$institution )
-    city_match = agrep( literals$city, obkms$authors$city )
+  # (3) match with institution - replace exact match of mailbox with exact match of institution URI
+  else if ( !is.null( identifier$institution) ) {
+    institution_match =sapply ( unlist( identifier$institution ), grep, x = obkms$authors$institution )
+    first_letter = substring( literals$given_name, 1, 1 )
     fname_match = grep( paste0( "^", first_letter ), obkms$authors$first_name )
     lname_match = agrep( literals$surname, obkms$authors$family_name )
-    best_match = intersect ( intersect( fname_match, lname_match ), intersect( institution_match, city_match ) )
-    return ( obkms$authors$id [ best_match ] )
+    best_match = intersect ( intersect( fname_match, lname_match ),  institution_match )
+
+    # TODO : definitely not DRY
+    if ( length( best_match ) > 0 ) {
+      resulting = obkms$authors[ best_match, ]
+      aggregated_result =
+        aggregate( resulting, by = list( resulting$id ) , length )
+      return ( resulting[ which( max (aggregated_result$id) == aggregated_result$id ), 1] )
+    }
   }
 
-  # no match
-  return( paste0( strip_angle( obkms$prefixes$`_base`) , uuid::UUIDgenerate() ) )
-}
+  # no match, also updates the local authors database
+  authid = ( paste0( strip_angle( obkms$prefixes$`_base`) , uuid::UUIDgenerate() ) )
 
-lookup_institution = function( literals ) {
-
+  if ( ! is.null( literals$collab ) ) {
+    literals =  lapply ( literals, function ( el) {
+      if (is.null ( el )) return(NA)
+      else return( el )
+    })
+    for ( instid in unlist ( identifier$institution ) ) {
+      obkms$authors = rbind( obkms$authors,
+                             data.frame (id = authid,
+                             author = literals$collab,
+                             is_person = FALSE,
+                             first_name = NA,
+                             family_name = NA,
+                             mbox = literals$email,
+                             institution = instid ) )
+    }
+  }
+  else {
+    literals =  lapply ( literals, function ( el) {
+      if (is.null ( el )) return(NA)
+      else return( el )
+    })
+    for ( instid in unlist ( identifier$institution ) ) {
+      obkms$authors = rbind( obkms$authors,
+                             data.frame (id = authid,
+                                         author = paste(literals$given_name, literals$surname),
+                                         is_person = TRUE,
+                                         first_name = literals$given_name,
+                                         family_name = literals$surname,
+                                         mbox = literals$email,
+                                         institution = instid ) )
+    }
+  }
+  return ( authid )
 }
 
 #' Parses an affiliation string
@@ -470,3 +524,41 @@ parse_affiliation = function ( current_affiliation ) {
 #   }
 # }
 
+
+#' Lookup a URI of an institution given an affiliation string.
+#'
+#' Args:
+#'   @param affiliation string to use to find the id of the organization
+#'   @param cluster needed for the computation
+#'
+#' @return URI of the institution if lookup was successful, NULL otherwise
+#' @export
+#'
+lookup_institution = function ( affiliation, cluster ) {
+  # (1) look for an exact match in the affiliation strings
+  exact_matches = integer( length = 0 )
+  exact_matches = which ( parSapply( cluster, obkms$gazetteer$Institutions$Institutions_Only$label,
+  function(pattern, y ) {grepl( pattern, x = y)}, y = affiliation) )
+  if ( length( exact_matches ) > 0 ) {
+    resulting = obkms$gazetteer$Institutions$Institutions_Only[ exact_matches, ]
+    aggregated_result =
+       aggregate( resulting, by = list( resulting$institution ) , length )
+    return ( resulting[ which( max (aggregated_result$institution) == aggregated_result$institution ), 1] )
+  }
+  # (2) look for an approxiamte match in the affiliation string:
+  # (a) approximate match of the institution name and
+  # (b) exact match of the city
+  cat( "in fuzzy match case")
+  fuzzy_matches = integer( length = 0 )
+  inst_matches = which ( parSapply(cluster, obkms$gazetteer$Institutions$Institutions_Cities$label,
+                                   function(pattern, y ) {agrepl( pattern, x = y)}, y = affiliation) )
+  city_matches = which ( parSapply(cluster, obkms$gazetteer$Institutions$Institutions_Cities$city,
+                                   function(pattern, y ) {grepl( pattern, x = y)}, y = affiliation) )
+  fuzzy_matches = intersect( inst_matches, city_matches )
+  if ( length( fuzzy_matches ) > 0 ) {
+    resulting = obkms$gazetteer$Institutions$Institutions_City[ fuzzy_matches, ]
+    aggregated_result =
+      aggregate( resulting, by = list( resulting$institution ) , length )
+    return ( resulting[ which( max (aggregated_result$institution) == aggregated_result$institution ), 1] )
+  }
+}

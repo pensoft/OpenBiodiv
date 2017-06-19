@@ -96,17 +96,25 @@ init_env = function ( server_access_options,
   obkms$xml_source = xml_source
   obkms$xml_type = xml_type
 
-  obkms$gazeteer$countries = read.delim (  "/home/viktor/R/x86_64-pc-linux-gnu-library/3.4/obkms/country_names.csv" , header = FALSE, sep = "\t", comment.char = "~")
-  names( obkms$gazeteer$countries ) = c( "ISO", "ISO3", "ISO-Numeric", "fips", "Country" , "Capital", "Area(in sq km)", "Population",	"Continent", "tld", "CurrencyCode", "CurrencyName", "Phone", "Postal Code Format", "Regex", "Languages", "geonameid", "neighbours", "EquivalentFipsCode")
+  obkms$gazetteer$countries =
+    read.delim (  obkms$initial_dump_configuration$gazetteer$countries , header = FALSE, sep = "\t", comment.char = "~", stringsAsFactors = FALSE)
+  names( obkms$gazetteer$countries ) = c( "ISO", "ISO3", "ISO-Numeric", "fips", "Country" , "Capital", "Area(in sq km)", "Population",	"Continent", "tld", "CurrencyCode", "CurrencyName", "Phone", "Postal Code Format", "Regex", "Languages", "geonameid", "neighbours", "EquivalentFipsCode")
 
   # http://download.geonames.org/export/dump/readme.txt
-  obkms$gazeteer$cities = read.delim (  "/home/viktor/R/x86_64-pc-linux-gnu-library/3.4/obkms/city_names.csv" , header = FALSE, sep = "\t", comment.char = "#")
-  names ( obkms$gazeteer$cities ) = c( "geonameid", "name", "asciiname", "alternatenames", "latitude", "longitude", "feature class", "feature code", "country code", "cc2", "admin1 code", "admin2 code", "admin3 code", "admin4 code", "population",
+  obkms$gazetteer$cities = read.delim ( obkms$initial_dump_configuration$gazetteer$cities , header = FALSE, sep = "\t", comment.char = "#", stringsAsFactors = FALSE)
+  names ( obkms$gazetteer$cities ) = c( "geonameid", "name", "asciiname", "alternatenames", "latitude", "longitude", "feature class", "feature code", "country code", "cc2", "admin1 code", "admin2 code", "admin3 code", "admin4 code", "population",
                                        "elevation", "dem", "timezone", "modification date")
 
   # options to be used with the xml2::read_xml funciton
   obkms$xml_options = c()
-  update_authors_db()
+  #initialize cluster
+  # Calculate the number of cores
+  no_cores <- detectCores() - 1
+  # Initiate cluster
+  obkms$cluster <- makeCluster(no_cores)
+
+  init_authors_db()
+  init_institution_db( fromFile = TRUE )
 }
 
 #' Loads a package database from a yaml file
@@ -131,7 +139,7 @@ load_yaml_database = function ( database_path, internal_name ) {
 
 #' Puts author information in the OBKMS environment
 #' @export
-update_authors_db = function() {
+init_authors_db = function() {
   # template
   query = "
     SELECT ?id ?author ?is_person ?first_name ?family_name ?mbox ?institution
@@ -164,3 +172,139 @@ update_authors_db = function() {
   obkms$authors = rdf4jr::POST_query( obkms$server_access_options, obkms$server_access_options$repository, query )
 }
 
+#' Initializes the educational institutions gazetteer from dbpedia
+#'
+#' Args:
+#'   @param fromFile if TRUE will read from a local file that has been given in
+#'   the initial dump configuraiton
+#'
+#' @return nothing
+#' @export
+
+init_institution_db = function ( fromFile = FALSE, offsetSize = 10000 ) {
+  if ( !fromFile ) {
+    queries = list()
+    queries$label = "Institutions_Cities"
+    queries$institutions_cities$count =
+          "SELECT COUNT (?institution as ?num_of_sol) WHERE { SELECT ?institution ?label ?city WHERE {
+            ?institution a dbo:EducationalInstitution;
+                         rdfs:label ?label ;
+                         dbo:city/rdfs:label ?city .
+          } ORDER BY ?institution }"
+
+    queries$institutions_cities$query = "SELECT  ?institution ?label ?city WHERE { SELECT  ?institution ?label ?city WHERE {
+            ?institution a dbo:EducationalInstitution;
+                         rdfs:label ?label ;
+                         dbo:city/rdfs:label ?city .
+          } ORDER BY ?institution }
+          LIMIT %offsetSize
+          OFFSET %index"
+
+
+    # institutions without city names
+    queries$institutions_only$label = "Institutions_Only"
+    queries$institutions_only$count =
+      "SELECT  COUNT (?institution as ?num_of_sol)  WHERE { SELECT  ?institution ?label WHERE {
+            ?institution a dbo:EducationalInstitution;
+                         rdfs:label ?label .
+          } ORDER BY ?institution }"
+
+    queries$institutions_only$query = "SELECT ?institution ?label WHERE { SELECT  ?institution ?label WHERE {
+            ?institution a dbo:EducationalInstitution;
+                         rdfs:label ?label .
+          } ORDER BY ?institution }
+          LIMIT %offsetSize
+          OFFSET %index"
+
+    obkms$gazetteer$Institutions = list()
+
+    for ( q in queries ) {
+      inst_count = as.numeric ( rdf4jr::POST_query( obkms$dbpedia_access_options,
+                                                    obkms$dbpedia_access_options$repository,
+                                                    query = q$count ) )
+
+      cat("Instances are ")
+      cat( inst_count )
+      cat("\n")
+
+      j  = 1
+      Institutions = vector( mode = 'list', length = ceiling ( inst_count / offsetSize ) )
+
+      for ( index in seq( from = 0, to = inst_count, by = offsetSize ) ) {
+        cat( "index  = ")
+        cat( index )
+        cat( "\n" )
+
+        # nested Q needed because of
+        # https://stackoverflow.com/questions/20937556/how-to-get-all-companies-from-dbpedia
+
+      Q = gsub( "%offsetSize", offsetSize, q$query )
+      Q = gsub( "%index", index, Q )
+
+      Institutions[[j]] = rdf4jr::POST_query( obkms$dbpedia_access_options,
+                                                         obkms$dbpedia_access_options$repository,
+                                                         query = Q )
+      j = j + 1
+    }
+
+    obkms$gazetteer$Institutions[[ q$label ]] = do.call ( rbind, Institutions )
+    obkms$gazetteer$Institutions[[ q$label ]] =
+      obkms$gazetteer$Institutions[[ q$label ]][ !duplicated( obkms$gazetteer$Institutions[[ q$label ]] ) , ]
+
+    }
+
+  # At this point we have two tables - one where institutions are matched with
+    # cities and one when they aren't. We will try to enrich the table
+    # where institutions are not matched with cities with cities through the
+    # gazeteteer and then merge the two tables together
+
+    institutions_with_unknown_cities =
+      setdiff( obkms$gazetteer$Institutions$Institutions_Only$institution ,
+               obkms$gazetteer$Institutions$Institutions_Cities$institution )
+
+    nocity_index = which( as.character(obkms$gazetteer$Institutions$Institutions_Only$institution) %in% as.character( institutions_with_unknown_cities) )
+
+    # subset of the original only cities data from of only those instituions
+    # for which there is no information
+    obkms$gazetteer$Institutions$MoreCities = obkms$gazetteer$Institutions$Institutions_Only[ nocity_index, ]
+
+    matched_institution = function( city_name , true_name ) {
+      if (missing(true_name)) {true_name = city_name}
+      indices = grepl( city_name, obkms$gazetteer$Institutions$MoreCities$label )
+      returnval =
+        obkms$gazetteer$Institutions$MoreCities[
+          indices, ]
+      cbind(returnval, rep(true_name, nrow (returnval)))
+    }
+
+    #try to enrich from gazetteer
+    clusterExport(cl=obkms$cluster, varlist=c("obkms"))
+    Institutions = parLapply( obkms$cluster, obkms$gazetteer$cities$name, matched_institution)
+
+
+    obkms$gazetteer$Institutions$MoreCities = do.call(rbind, Institutions)
+    names(  obkms$gazetteer$Institutions$MoreCities ) = (c( "institution", "label", "city"))
+
+    obkms$gazetteer$Institutions$Institutions_Cities =
+      rbind (obkms$gazetteer$Institutions$Institutions_Cities ,  obkms$gazetteer$Institutions$MoreCities)
+
+    obkms$gazetteer$Institutions$Institutions_Cities =
+      obkms$gazetteer$Institutions$Institutions_Cities[ !duplicated( obkms$gazetteer$Institutions$Institutions_Cities ) , ]
+
+    write.table( obkms$gazetteer$Institutions$Institutions_Cities,
+                 file = obkms$initial_dump_configuration$gazetteer$institutions )
+
+    write.table( obkms$gazetteer$Institutions$Institutions_Only,
+                 file = obkms$initial_dump_configuration$gazetteer$institutions_no_city )
+
+    obkms$gazetteer$Institutions$MoreCities = NULL
+  }
+  else {
+    obkms$gazetteer$Institutions$Institutions_Cities =
+      read.table( obkms$initial_dump_configuration$gazetteer$institutions , stringsAsFactors = FALSE)
+
+    obkms$gazetteer$Institutions$Institutions_Only =
+      read.table( obkms$initial_dump_configuration$gazetteer$institutions_no_city , stringsAsFactors = FALSE)
+
+  }
+}

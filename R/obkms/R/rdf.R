@@ -12,31 +12,34 @@
 
 qname = function( uri )
 {
-  if ( missing (uri) || is.null( uri ) || uri == "" ) return (NULL)
-  stopifnot( exists( 'obkms', mode = 'environment' ))
-  # strip brackets from the uri and from the OBKMS databases of prefixes
-  uri = strip_angle ( uri )
-  stripped_prefixes = sapply ( obkms$prefixes, strip_angle )
+  sapply( uri, function( uri)  {
+    if ( missing (uri) || is.null( uri ) || uri == "" ) return (NULL)
+    stopifnot( exists( 'obkms', mode = 'environment' ))
+    # strip brackets from the uri and from the OBKMS databases of prefixes
+    uri = strip_angle ( uri )
+    stripped_prefixes = sapply ( obkms$prefixes, strip_angle )
 
-  # try each of the prefixes, r is logical vector of where the beginning of the
-  # uri matches any of the prefix
-  r = sapply( stripped_prefixes , function ( p ) {
-    grepl( paste0( "^",  p  ) , uri )
-  } )
-  # if found, replace the beginning of the uri with the prefix
-  if ( sum( r ) > 0) {
-    p = stripped_prefixes[r]
+    # try each of the prefixes, r is logical vector of where the beginning of the
+    # uri matches any of the prefix
+    r = sapply( stripped_prefixes , function ( p ) {
+      grepl( paste0( "^",  p  ) , uri )
+    } )
+    # if found, replace the beginning of the uri with the prefix
+    if ( sum( r ) > 0) {
+      p = stripped_prefixes[r]
 
-    n = names(stripped_prefixes)[r]
-    if ( names(p) == "_base")  # special case of the "_base"
+      n = names(stripped_prefixes)[r]
+      if ( names(p) == "_base")  # special case of the "_base"
       {
         uri = gsub( paste0("^", p), ":" , uri )
+      }
+      else {
+        uri = gsub( paste0("^", p), paste0( n, ":" ), uri )
+      }
     }
-    else {
-      uri = gsub( paste0("^", p), paste0( n, ":" ), uri )
-    }
-  }
-  return (uri)
+    return (uri)
+  })
+
 }
 
 

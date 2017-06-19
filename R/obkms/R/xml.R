@@ -131,7 +131,7 @@ taxpub_extractor = function( xml, xlit = yaml::yaml.load_file( obkms$config$lite
   # TODO first author, second author and so on
   # before we do author processing, we need to update the authors database in
   # memory
-  update_authors_db()
+
   for ( a in doco$authors ) {
     triples = c ( triples,  author_extractor( identifier$paper , a$xml, document = xml) )
   }
@@ -396,24 +396,23 @@ author_extractor = function ( paper , author_xml, authors_xpath =  yaml::yaml.lo
   # TODO MULTIPLE AFFILIATIONS DO EXISI!!!
   literals$affiliation = list()
   for ( r in literals$reference ) {
-    current_affiliation = trim_label( xml2::xml_text(
+    literals$affiliation[[ r ]] = trim_label( xml2::xml_text(
         xml2::xml_find_first(document, paste0( "/article/front/article-meta/aff[@id='", r, "']" ) ) ,
                                     trim = TRUE), removeLeadingDigits = TRUE )
-    parsed_affiliation = parse_affiliation ( current_affiliation )
-    literals$affiliation[[r]] =
-      list( country = trim_label ( parsed_affiliation$country, removeLeadingDigits = TRUE),
-            city = trim_label ( parsed_affiliation$city, removeLeadingDigits = TRUE ),
-            street_address = trim_label( parsed_affiliation$address, removeLeadingDigits = FALSE ),
-            institution  = trim_label ( parsed_affiliation$institution, removeLeadingDigits = FALSE ),
-            full_affiliation_string = current_affiliation)
+
   }
 
   # at this point, we have all the literal information and we're ready try to
   # lookup the author based on the literals
   identifier = list()
 
-  identifier[['author']] = qname( lookup_author ( literals ) ) # what happens if multiple matches are returned??
-  #identifier[['affiliation']] = lookup_id ()
+  identifier$institution = list()
+  for ( affiliation in literals$affiliation ) {
+    identifier$institution[[ affiliation ]] = qname ( lookup_institution( affiliation, obkms$cluster ) )
+      # note: you can have multiple hits per affiliation
+  }
+
+  identifier[['author']] = qname( lookup_author ( literals ) )
 
   if ( !is.null ( literals$collab ) ) {
     triples = list (
@@ -432,21 +431,17 @@ author_extractor = function ( paper , author_xml, authors_xpath =  yaml::yaml.lo
       triple( identifier$author,    qname( obkms$properties$email$uri ),           squote ( literals$email ) ) )
   }
 
-  # add the org/affiliation information
-  for ( org in literals$affiliation ) {
-    triples = c( triples,
-                 list(
-        triple( identifier$author,    qname( obkms$properties$has_affiliation_string$uri ),
-                                                        squote( org$full_affiliation_string, lang = "English") ) ,
-        triple( identifier$author,    qname( obkms$properties$is_member_of_organization$uri ), list (
-        triple( "", qname( obkms$properties$type$uri),      qname ( obkms$classes$Organization$uri ) ),
-        triple( "", qname( obkms$properties$organization_has_name$uri ), squote( org$institution, lang = "English" ) ),
-        triple( "", qname( obkms$properties$has_address$uri ), list(
-        triple( "", qname( obkms$properties$type$uri),      qname ( obkms$classes$Address$uri ) ),
-        triple( "", qname( obkms$properties$country$uri ),  squote( org$country, lang = "English" ) ) ,
-        triple( "", qname( obkms$properties$city$uri),      squote( org$city, lang = "English" ) ),
-        triple( "", qname( obkms$properties$street$uri),    squote( org$street_address, lang = "English" ) ) ) ) ) ) ) )
+  # add the affiliation string
+  for ( affiliation in literals$affiliation ) {
+    triples = c( triples, list (
+    triple( identifier$author,    qname( obkms$properties$has_affiliation_string$uri ),
+          squote( affiliation, lang = "English") ) ) )
+  }
 
+  # add the institution information
+  for ( inst_id in unlist( identifier$institution ) ) {
+    triples = c( triples, list (
+        triple( identifier$author, qname( obkms$properties$is_member_of_organization$uri ), inst_id ) ) )
   }
   return ( triples )
 }

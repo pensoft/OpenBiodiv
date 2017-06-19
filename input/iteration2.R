@@ -3,6 +3,7 @@
 # needed libraries
 library(obkms)
 library(rdf4jr)
+library(parallel)
 
 # configure access to graphdb server
 configuration_file = "/home/viktor/Work/OBKMS/etc/graphdb8_i2.yml"
@@ -42,3 +43,6 @@ bdj_dumper(journal = "ZooKeys", fromdate = "1/1/2017") # dump all of the BDJ
 load (  paste0( obkms$initial_dump_configuration$initial_dump_directory, ".Rdata" ) ) # now dump_list is loaded from the dump directory
 #dump_list = list.files( path = "/media/obkms/XML2", pattern = "zookeys", full.names = TRUE)
 response_zookeys = process_dump_list ( dump_list )
+
+intersect( which( sapply( obkms$gazetteer$Institutions$city, grepl,  x = "Department of Entomology, North Carolina State University, Campus Box 7613, 2301 Gardner Hall, Raleigh, NC 27695-7613 USA") ) , which( sapply( obkms$gazetteer$Institutions$label, grepl,  x = "Department of Entomology, North Carolina State University, Campus Box 7613, 2301 Gardner Hall, Raleigh, NC 27695-7613 USA") ) )
+
