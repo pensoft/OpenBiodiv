@@ -12,7 +12,13 @@
 
 qname = function( uri )
 {
-  sapply( uri, function( uri)  {
+  if ( missing (uri) || is.null( uri ) ) return (NULL)
+
+  unlist ( sapply( uri, function( uri)  {
+    if ( grepl( "^#" , uri ) || grepl( ",", uri ) ) {
+      log_event( paste("bullshit response from dbpedia:", uri ) )
+      return ( NULL ) # clean-up dbpedia shit
+    }
     if ( missing (uri) || is.null( uri ) || uri == "" ) return (NULL)
     stopifnot( exists( 'obkms', mode = 'environment' ))
     # strip brackets from the uri and from the OBKMS databases of prefixes
@@ -38,10 +44,19 @@ qname = function( uri )
       }
     }
     return (uri)
-  })
+  }) )
 
 }
 
+#' @export
+expand_qname = function ( shortname ) {
+  stripped_prefixes = sapply ( obkms$prefixes, strip_angle )
+  r = sapply( names( stripped_prefixes ) , function ( p ) {
+    grepl( p , shortname )
+  } )
+
+  gsub( "^.*:", paste0( stripped_prefixes[r] ), shortname)
+}
 
 
 #' A function to strip the angle brackets

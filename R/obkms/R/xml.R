@@ -82,8 +82,10 @@ taxpub_extractor = function( xml, xlit = yaml::yaml.load_file( obkms$config$lite
   identifier = list()
   identifier[['article']] = qname( get_or_set_obkms_id( xml , fullname = TRUE ) )
   identifier[['paper']] = qname ( get_or_set_obkms_id( fullname = TRUE ) ) # the paper is the "work" of an article
+
   identifier[['publisher']] = qname ( lookup_id( literals$publisher_name ) ) # looks up the publishers by its label
   #identifier[['publisher_role']] = qname( lookup_id () ) # creates a new identifier for the publisher role
+
   identifier[['journal']] = qname ( lookup_id( literals$journal_title)) # looks up the journal by its name
 
   #local[['article']] = qname ( get_nodeid ( literals$doi ) )
@@ -133,43 +135,59 @@ taxpub_extractor = function( xml, xlit = yaml::yaml.load_file( obkms$config$lite
   # memory
 
   for ( a in doco$authors ) {
+
     triples = c ( triples,  author_extractor( identifier$paper , a$xml, document = xml) )
   }
 
   # keyword processing
-  for ( taxon_keyword in literals$taxon_classification ) {
-    dbpedia_id = qname ( dbpedia_lookup( t, lang = "English" , concept_type = "Taxon" ) )
-    subject_term_id = qname( lookup_id ( taxon_keyword, concept_type = "Taxon Classification" ) )
+  for ( keyword in literals$taxon_classification ) {
+    dbpedia_id = qname ( dbpedia_lookup( keyword, lang = "English" , concept_type = "Taxon" ) )
+    subject_term_id = qname( lookup_id ( keyword, concept_type = "Taxon Classification" ) )
 
     triples = c ( triples, list (
-        triple( subject_term_id, qname( obkms$properties$type$uri ), obkms$classes$Subject_Term$uri  ),
-        triple( subject_term_id, qname( obkms$properties$label$uri ), squote( taxon_keyword, lang = obkms$parameters$Language$English$label ) ) ,
+        triple( subject_term_id, qname( obkms$properties$type$uri ), qname( obkms$classes$Subject_Term$uri  ) ),
+        triple( subject_term_id, qname( obkms$properties$label$uri ), squote( keyword, lang = obkms$parameters$Language$English$label ) ) ,
         triple( subject_term_id, qname( obkms$properties$belongs_to_scheme$uri ), qname ( obkms$parameters$Vocabularies$Taxon_Classification_Terms$uri ) ),
         triple( subject_term_id, qname ( obkms$properties$exact_match$uri), dbpedia_id ) ,
 
-        triple( identifier$article, qname ( obkms$properties$keywords$uri ), squote ( t, lang = obkms$parameters$Language$English$label ) ),
+        triple( identifier$article, qname ( obkms$properties$keywords$uri ), squote ( keyword, lang = obkms$parameters$Language$English$label ) ),
         triple( identifier$article, qname ( obkms$properties$subject_term$uri ), subject_term_id  ) ) )
   }
 
   # subjects processing
 
-  for ( t in literals$subject_classification ) {
-    subject_term_id =
-      qname ( dbpedia_lookup( t, lang = "English"  ) )
+  for ( keyword in c( literals$subject_classification, literals$zookeys_keywords ) ) {
+    dbpedia_id = qname ( dbpedia_lookup( keyword, lang = "English" ) )
+    subject_term_id = qname( lookup_id ( keyword  ) )
+
     triples = c ( triples, list (
-      triple( identifier$article, qname ( obkms$properties$keywords$uri ), squote ( t, lang = "English" ) ),
+      triple( subject_term_id, qname( obkms$properties$type$uri ), qname ( obkms$classes$Subject_Term$uri  ) ),
+      triple( subject_term_id, qname( obkms$properties$label$uri ), squote( keyword, lang = obkms$parameters$Language$English$label ) ) ,
+      triple( subject_term_id, qname( obkms$properties$belongs_to_scheme$uri ), qname ( obkms$parameters$Vocabularies$Subject_Classification_Terms$uri ) ),
+      triple( subject_term_id, qname ( obkms$properties$exact_match$uri), dbpedia_id ) ,
+
+      triple( identifier$article, qname ( obkms$properties$keywords$uri ), squote ( keyword, lang = obkms$parameters$Language$English$label ) ),
       triple( identifier$article, qname ( obkms$properties$subject_term$uri ), subject_term_id  ) ) )
   }
 
-  # subjects processing
 
-  for ( t in literals$geographical_classification ) {
-    subject_term_id =
-      qname ( dbpedia_lookup( t, lang = "English"  ) )
-    triples = c ( triples, list (
-      triple( identifier$article, qname ( obkms$properties$keywords$uri ), squote ( t, lang = "English" ) ),
-      triple( identifier$article, qname ( obkms$properties$subject_term$uri ), subject_term_id  ) ) )
-  }
+
+
+   for ( keyword in literals$geographical_classification ) {
+     dbpedia_id = qname ( dbpedia_lookup( keyword, lang = "English" ) )
+     subject_term_id = qname( lookup_id ( keyword  ) )
+
+     triples = c ( triples, list (
+       triple( subject_term_id, qname( obkms$properties$type$uri ), qname( obkms$classes$Subject_Term$uri  ) ),
+       triple( subject_term_id, qname( obkms$properties$label$uri ), squote( keyword, lang = obkms$parameters$Language$English$label ) ) ,
+       triple( subject_term_id, qname( obkms$properties$belongs_to_scheme$uri ), qname ( obkms$parameters$Vocabularies$Geographic_Classification_Terms$uri ) ),
+       triple( subject_term_id, qname ( obkms$properties$exact_match$uri), dbpedia_id ) ,
+
+       triple( identifier$article, qname ( obkms$properties$keywords$uri ), squote ( keyword, lang = obkms$parameters$Language$English$label ) ),
+       triple( identifier$article, qname ( obkms$properties$subject_term$uri ), subject_term_id  ) ) )
+   }
+
+
 
 
   return ( triples )
@@ -411,8 +429,9 @@ author_extractor = function ( paper , author_xml, authors_xpath =  yaml::yaml.lo
     identifier$institution[[ affiliation ]] = qname ( lookup_institution( affiliation, obkms$cluster ) )
       # note: you can have multiple hits per affiliation
   }
+  if (length( identifier$institution == 0)) identifier$institution = NULL
 
-  identifier[['author']] = qname( lookup_author ( literals ) )
+  identifier[['author']] = qname( lookup_author ( literals , identifier ) )
 
   if ( !is.null ( literals$collab ) ) {
     triples = list (

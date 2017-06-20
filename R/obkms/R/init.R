@@ -1,6 +1,8 @@
 #' Dumps all of the BDJ up to the present date in a predefined directory
 #' @export
 bdj_dumper = function ( journal = "BDJ", fromdate ) {
+  if ( missing( fromdate ) ) fromdate = c( "01/01/2010" )
+  log_event ( paste( "begin dumping of", journal, "from date", fromdate ) )
   archive = paste0( obkms$initial_dump_configuration$initial_dump_directory, "archive.zip")
   rdata = paste0( obkms$initial_dump_configuration$initial_dump_directory, ".Rdata")
   if ( journal == "BDJ" ) {
@@ -19,6 +21,7 @@ bdj_dumper = function ( journal = "BDJ", fromdate ) {
   dump_list = paste( obkms$initial_dump_configuration$initial_dump_directory, dump_list, sep = "/")
   dump_date = as.character( format( Sys.Date(), "%d/%m/%y" ) )
   save( dump_date, dump_list, file = rdata )
+  log_event ( paste( "found", length( dump_list ), "new files" ) )
   file.remove ( archive )
   return( dump_list )
   # TODO but this doesnot work save( Sys.Date(), file = date_file )
@@ -107,6 +110,11 @@ init_env = function ( server_access_options,
 
   # options to be used with the xml2::read_xml funciton
   obkms$xml_options = c()
+
+  obkms$log$number_of_events = 0
+  obkms$log$events = list()
+  obkms$log$current_context = c("initialized")
+
   #initialize cluster
   # Calculate the number of cores
   no_cores <- detectCores() - 1
@@ -115,6 +123,7 @@ init_env = function ( server_access_options,
 
   init_authors_db()
   init_institution_db( fromFile = TRUE )
+  log_event("initalization complete")
 }
 
 #' Loads a package database from a yaml file
@@ -162,14 +171,15 @@ init_authors_db = function() {
         ?id rdf:type foaf:Person ;
             foaf:surname ?family_name ;
             foaf:firstName ?first_name ;
-          #  vcard:hasOrganizationName ?institution .
+            org:memberOf ?institution .
             BIND (\"TRUE\" as ?is_person )
     }
 }"
   # prefixes
   query = do.call( paste0, as.list( c( turtle_prepend_prefixes(t = c("SPARQL")), query) ) )
   # execution
-  obkms$authors = rdf4jr::POST_query( obkms$server_access_options, obkms$server_access_options$repository, query )
+  retval = rdf4jr::POST_query( obkms$server_access_options, obkms$server_access_options$repository, query     )
+  obkms$authors = retval[ !duplicated( retval ), ]
 }
 
 #' Initializes the educational institutions gazetteer from dbpedia

@@ -127,12 +127,14 @@ lookup_id = function( label, lang = "English", trim = TRUE, ignore_case = TRUE, 
       # we want the results to be a list (data frame), we hava a match (multiple matches)
       if ( is.data.frame( res ) && nrow ( res ) > 0 )
       {
+        log_event ( paste(  "found matching id for", label ) )
         if (best_match) return ( as.character( res$id )[1] )
         else return(  as.character( res$id ) )
       }
     }
   }
   if ( generate_on_fail ) {
+    log_event ( paste( "failed lookup, generating a new id for ", label) )
     return ( qname( paste0( strip_angle( obkms$prefixes$`_base` ), uuid::UUIDgenerate( ) ) ) )
   }
 }
@@ -399,10 +401,14 @@ lookup_author = function ( literals, identifiers )
 
     # TODO not DRY
     if ( length( best_match ) > 0 ) {
+
       resulting = obkms$authors[ best_match, ]
       aggregated_result =
         aggregate( resulting, by = list( resulting$id ) , length )
-      return ( resulting[ which( max (aggregated_result$id) == aggregated_result$id ), 1] )
+
+      ret_value  = resulting[ which( max (aggregated_result$id) == aggregated_result$id ), 1]
+      log_event( paste( "collab author match found", do.call ( paste, as.list( ret_value ) )) )
+      return ( ret_value )
     }
   }
 
@@ -421,13 +427,15 @@ lookup_author = function ( literals, identifiers )
       resulting = obkms$authors[ best_match, ]
       aggregated_result =
         aggregate( resulting, by = list( resulting$id ) , length )
-      return ( resulting[ which( max (aggregated_result$id) == aggregated_result$id ), 1] )
+      ret_value = resulting[ which( max (aggregated_result$id) == aggregated_result$id ), 1]
+      log_event( paste( "author + mail match found", do.call ( paste, as.list( ret_value ) )) )
+      return ( ret_value )
     }
   }
 
   # (3) match with institution - replace exact match of mailbox with exact match of institution URI
-  else if ( !is.null( identifier$institution) ) {
-    institution_match =sapply ( unlist( identifier$institution ), grep, x = obkms$authors$institution )
+  else if ( !is.null( identifiers$institution) ) {
+    institution_match =sapply ( unlist( expand_qname( identifiers$institution ) ), grep, x = obkms$authors$institution )
     first_letter = substring( literals$given_name, 1, 1 )
     fname_match = grep( paste0( "^", first_letter ), obkms$authors$first_name )
     lname_match = agrep( literals$surname, obkms$authors$family_name )
@@ -438,11 +446,14 @@ lookup_author = function ( literals, identifiers )
       resulting = obkms$authors[ best_match, ]
       aggregated_result =
         aggregate( resulting, by = list( resulting$id ) , length )
-      return ( resulting[ which( max (aggregated_result$id) == aggregated_result$id ), 1] )
+      ret_value = resulting[ which( max (aggregated_result$id) == aggregated_result$id ), 1]
+      log_event( paste( "author + institution match found", do.call ( paste, as.list( ret_value ) )) )
+      return ( ret_value )
     }
   }
 
   # no match, also updates the local authors database
+  log_event( paste( "no match, local db will be updated" , literals$surname) )
   authid = ( paste0( strip_angle( obkms$prefixes$`_base`) , uuid::UUIDgenerate() ) )
 
   if ( ! is.null( literals$collab ) ) {
@@ -450,7 +461,7 @@ lookup_author = function ( literals, identifiers )
       if (is.null ( el )) return(NA)
       else return( el )
     })
-    for ( instid in unlist ( identifier$institution ) ) {
+    for ( instid in unlist ( identifiers$institution ) ) {
       obkms$authors = rbind( obkms$authors,
                              data.frame (id = authid,
                              author = literals$collab,
@@ -458,7 +469,7 @@ lookup_author = function ( literals, identifiers )
                              first_name = NA,
                              family_name = NA,
                              mbox = literals$email,
-                             institution = instid ) )
+                             institution = expand_qname ( instid ) ) )
     }
   }
   else {
@@ -466,7 +477,7 @@ lookup_author = function ( literals, identifiers )
       if (is.null ( el )) return(NA)
       else return( el )
     })
-    for ( instid in unlist ( identifier$institution ) ) {
+    for ( instid in unlist ( identifiers$institution ) ) {
       obkms$authors = rbind( obkms$authors,
                              data.frame (id = authid,
                                          author = paste(literals$given_name, literals$surname),
@@ -474,7 +485,7 @@ lookup_author = function ( literals, identifiers )
                                          first_name = literals$given_name,
                                          family_name = literals$surname,
                                          mbox = literals$email,
-                                         institution = instid ) )
+                                         institution = expand_qname ( instid ) ) )
     }
   }
   return ( authid )
@@ -540,6 +551,7 @@ lookup_institution = function ( affiliation, cluster ) {
   exact_matches = which ( parSapply( cluster, obkms$gazetteer$Institutions$Institutions_Only$label,
   function(pattern, y ) {grepl( pattern, x = y)}, y = affiliation) )
   if ( length( exact_matches ) > 0 ) {
+    log_event( paste( "exact match in affiliation", affiliation))
     resulting = obkms$gazetteer$Institutions$Institutions_Only[ exact_matches, ]
     aggregated_result =
        aggregate( resulting, by = list( resulting$institution ) , length )
@@ -548,7 +560,6 @@ lookup_institution = function ( affiliation, cluster ) {
   # (2) look for an approxiamte match in the affiliation string:
   # (a) approximate match of the institution name and
   # (b) exact match of the city
-  cat( "in fuzzy match case")
   fuzzy_matches = integer( length = 0 )
   inst_matches = which ( parSapply(cluster, obkms$gazetteer$Institutions$Institutions_Cities$label,
                                    function(pattern, y ) {agrepl( pattern, x = y)}, y = affiliation) )
@@ -556,9 +567,12 @@ lookup_institution = function ( affiliation, cluster ) {
                                    function(pattern, y ) {grepl( pattern, x = y)}, y = affiliation) )
   fuzzy_matches = intersect( inst_matches, city_matches )
   if ( length( fuzzy_matches ) > 0 ) {
-    resulting = obkms$gazetteer$Institutions$Institutions_City[ fuzzy_matches, ]
+    log_event( paste( "fuzzy match in affiliation", affiliation))
+    resulting = obkms$gazetteer$Institutions$Institutions_Cities[ fuzzy_matches, ]
     aggregated_result =
       aggregate( resulting, by = list( resulting$institution ) , length )
     return ( resulting[ which( max (aggregated_result$institution) == aggregated_result$institution ), 1] )
   }
+  log_event( paste( "no match for affiliation" , affiliation ) )
+  return ( NULL )
 }
