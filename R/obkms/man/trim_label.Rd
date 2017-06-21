@@ -4,7 +4,7 @@
 \alias{trim_label}
 \title{Trims a label of extraneous white space characters}
 \usage{
-trim_label(label)
+trim_label(label, removeLeadingDigits = FALSE, removeLeadingWs = TRUE)
 }
 \arguments{
 \item{label}{what to trim}

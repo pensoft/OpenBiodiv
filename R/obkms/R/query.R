@@ -20,7 +20,6 @@
 #' @examples
 #' \dontrun{}
 #' @export
-
 get_nodeid = function( label = "", explicit_node_id = "", allow_multiple = FALSE) {
   # this trimming should probably not happen here!!!, it should happen before the function
   # is called,
@@ -79,7 +78,6 @@ get_nodeid = function( label = "", explicit_node_id = "", allow_multiple = FALSE
 #' @examples
 #' \dontrun{}
 #' @export
-
 lookup_id = function( label, lang = "English", trim = TRUE, ignore_case = TRUE, best_match = TRUE, generate_on_fail = TRUE, concept_type = FALSE, ...)
 {
   stopifnot( exists( "obkms", mode = "environment" ) )
@@ -127,14 +125,19 @@ lookup_id = function( label, lang = "English", trim = TRUE, ignore_case = TRUE, 
       # we want the results to be a list (data frame), we hava a match (multiple matches)
       if ( is.data.frame( res ) && nrow ( res ) > 0 )
       {
-        log_event ( paste(  "found matching id for", label ) )
-        if (best_match) return ( as.character( res$id )[1] )
-        else return(  as.character( res$id ) )
+        id = majority_id ( 1:nrow(res), res )
+        if ( !is.null( id ) ) {
+          log_event ( "match", "lookup_id", id )
+          return ( id )
+        }
+        else {
+          log_event ( "no match, multiple id's", "lookup_id", id )
+        }
       }
     }
   }
   if ( generate_on_fail ) {
-    log_event ( paste( "failed lookup, generating a new id for ", label) )
+    log_event ( "generating id", "lookup id", "" )
     return ( qname( paste0( strip_angle( obkms$prefixes$`_base` ), uuid::UUIDgenerate( ) ) ) )
   }
 }
@@ -172,7 +175,6 @@ get_context_of = function ( doi ) {
 #' Submits RDF string (in Turtle syntax) to OBKMS
 #' @param rdf the RDF string
 #' @export
-
 submit_turtle = function ( rdf ) {
   res = rdf4jr::add_data( obkms$server_access_options,
                           obkms$server_access_options$repository, do.call(paste, as.list(rdf) ))
@@ -366,7 +368,6 @@ describe_resource = function( uri )
 #' @return the "label" with traling or leading whitespace removed, and any
 #' extra white space within is removed
 #' @export
-
 trim_label = function ( label , removeLeadingDigits = FALSE, removeLeadingWs = TRUE) {
   # trimws takes care of traling and leading spaces, but what about extra ws in
   # the middle?
@@ -383,109 +384,196 @@ trim_label = function ( label , removeLeadingDigits = FALSE, removeLeadingWs = T
   return ( label )
 }
 
-#' Looks up an author, given a list of literals
+#' Most Frequent Id in a Dataframe
 #'
-#' @param literals a list of literals associated with the author
-#' @param identifiers a list of identifiers associated with the author
+#' Args:
+#'   @param aMatch a numeric of rows matching in the data frame
+#'   @param aFrame the data frame where the matches are sought
+#'   @param idField what is the name of the column where the id's are stored
 #'
-#' @return a URI of an author if it already exists, or mints new one
+#' @return the URI (id) that matched the most rows or NULL if it is impossible
+#' to calculate
+#'
 #' @export
-lookup_author = function ( literals, identifiers )
+majority_id = function ( aMatch, aFrame, idField = "id" )
 {
-  # (1) check to see whether it is a collaborative author
-  if ( ! is.null( literals$collab ) ) {
+  resulting =  aFrame[ aMatch, , drop = FALSE ]
+  aggregated_result = aggregate( resulting, by = list( resulting[[ idField ]] ) , length )
+  ret_value  = resulting[ which( max (aggregated_result[[idField]]) == aggregated_result[[ idField ]]), 1]
+  if ( length( ret_value == 1) ) return ( ret_value )
+  else return ( NULL )
+}
+
+#' Look-up an Author in OBKMS
+#'
+#' This is a rule-based function. The function starts by looking at the most
+#' effective rules and working itself to least effective rules.
+#'
+#' Rule 1: If it is a collaborative author, the function does a direct match
+#' of the author string.
+#'
+#' Rule 2: For persons:
+#'    2.a. fuzzy match of last name, and
+#'    2.b. match beginning of first name,
+#'    2.c. exact match of email.
+#'
+#' Rule 3: match with institution - replace exact match of mailbox with exact match of institution URI
+#'
+#' Rule 4: match with affiliation string
+#'
+#' Args:
+#'   @param aLit a list of literals associated with the author
+  #' @param aId a list of URI's associated with the author
+#'
+#' @return a URI of an author if it already exists, or mints new one if it
+#' doesn't or there are multiple matches and thus an ambiguity.
+#'
+#' @export
+lookup_author = function ( aLit, aId )
+{
+  ## Rule 1 ##
+  if ( !is.null( aLit$collab ) )
+  {
     non_persons = obkms$authors[ obkms$authors$is_person == FALSE ]
-    # yes, do a fuzzy match of author and exact match of email
-    best_match = grep ( literals$collab, non_persons$author )
-    obkms$authors$id [ best_match ]
-
-    # TODO not DRY
-    if ( length( best_match ) > 0 ) {
-
-      resulting = obkms$authors[ best_match, ]
-      aggregated_result =
-        aggregate( resulting, by = list( resulting$id ) , length )
-
-      ret_value  = resulting[ which( max (aggregated_result$id) == aggregated_result$id ), 1]
-      log_event( paste( "collab author match found", do.call ( paste, as.list( ret_value ) )) )
-      return ( ret_value )
+    best_match = pgrep ( cluster, aLit$collab, non_persons )
+    if ( length( best_match ) > 0 )
+    {
+      id = majority_id ( best_match, non_persons )
+      if ( !is.null( id ) ) {
+        log_event( "Rule 1 match (collaborative author)", "lookup_author", id )
+        return ( id )
+      }
+      else {
+        log_event( "Rule 1 fail (collaborative author)", "lookup_author", "multiple matches" )
+        return ( NULL )
+      }
+    }
+    else {
+      log_event( "Rule 1 fail (collaborative author)", "lookup_author", "no matches" )
+      return ( NULL )
     }
   }
 
-  # (2) check if it is a person with an email
-  # (a) fuzzy match of last name
-  # (b) match beginning of first name
-  # and (c) exact match of email
-  else if ( !is.null ( literals$email ) ) {
-    mbox_match = grep( literals$email, obkms$authors$mbox )
-    first_letter = substring( literals$given_name, 1, 1 )
+  ## Rule 2 ##
+  else if ( !is.null ( aLit$email ) ) {
+    mbox_match = grep( aLit$email, obkms$authors$mbox )
+    first_letter = substring( aLit$given_name, 1, 1 )
     fname_match = grep ( paste0( "^", first_letter ), obkms$authors$first_name )
-    lname_match = agrep( literals$surname, obkms$authors$family_name )
+    lname_match = agrep( aLit$surname, obkms$authors$family_name )
     best_match = intersect ( intersect( fname_match, lname_match), mbox_match )
-    # TODO not DRY
     if ( length( best_match ) > 0 ) {
-      resulting = obkms$authors[ best_match, ]
-      aggregated_result =
-        aggregate( resulting, by = list( resulting$id ) , length )
-      ret_value = resulting[ which( max (aggregated_result$id) == aggregated_result$id ), 1]
-      log_event( paste( "author + mail match found", do.call ( paste, as.list( ret_value ) )) )
-      return ( ret_value )
+      id =  majority_id( best_match, obkms$authors )
+      if ( !is.null( id ) ) {
+        log_event( "Rule 2 match (email) ", "lookup_author", id )
+        return ( id )
+      }
+      else {
+        log_event( "Rule 2 fail (email) ", "lookup_author", "multiple matches" )
+        return ( NULL )
+      }
+    }
+    else {
+      log_event( "Rule 2 fail (email)", "lookup_author", "no matches" )
+      return ( NULL )
     }
   }
 
-  # (3) match with institution - replace exact match of mailbox with exact match of institution URI
-  else if ( !is.null( identifiers$institution) ) {
-    institution_match =sapply ( unlist( expand_qname( identifiers$institution ) ), grep, x = obkms$authors$institution )
-    first_letter = substring( literals$given_name, 1, 1 )
+  ## Rule 3 ##
+  else if ( !is.null( aId$institution) ) {
+    institution_match =sapply ( unlist( expand_qname( aId$institution ) ), grep, x = obkms$authors$institution )
+    first_letter = substring( aLit$given_name, 1, 1 )
     fname_match = grep( paste0( "^", first_letter ), obkms$authors$first_name )
-    lname_match = agrep( literals$surname, obkms$authors$family_name )
+    lname_match = agrep( aLit$surname, obkms$authors$family_name )
     best_match = intersect ( intersect( fname_match, lname_match ),  institution_match )
 
-    # TODO : definitely not DRY
     if ( length( best_match ) > 0 ) {
-      resulting = obkms$authors[ best_match, ]
-      aggregated_result =
-        aggregate( resulting, by = list( resulting$id ) , length )
-      ret_value = resulting[ which( max (aggregated_result$id) == aggregated_result$id ), 1]
-      log_event( paste( "author + institution match found", do.call ( paste, as.list( ret_value ) )) )
-      return ( ret_value )
+      id =  majority_id( best_match, obkms$authors )
+      if ( !is.null( id ) ) {
+        log_event( "Rule 3 match (institution id)", "lookup_author", id )
+        return ( id )
+      }
+      else {
+        log_event( "Rule 3 fail (institution id)", "lookup_author", "multiple matches" )
+        return ( NULL )
+      }
+    }
+    else {
+      log_event( "Rule 3 fail (institution id)", "lookup_author", "no matches" )
+      return ( NULL )
     }
   }
 
-  # no match, also updates the local authors database
-  log_event( paste( "no match, local db will be updated" , literals$surname) )
-  authid = ( paste0( strip_angle( obkms$prefixes$`_base`) , uuid::UUIDgenerate() ) )
+  ## Rule 4 (affiliation string) ##
 
-  if ( ! is.null( literals$collab ) ) {
-    literals =  lapply ( literals, function ( el) {
+  else if ( !is.null( aLit$affiliation ) ) {
+    for ( aff in unlist( aLit$affiliation ) ) {
+      # TODO grab also affiliation strings
+      aff_matches = agrep( aff, obkms$authors$affiliation )
+      first_letter = substring( aLit$given_name, 1, 1 )
+      fname_match = grep( paste0( "^", first_letter ), obkms$authors$first_name )
+      lname_match = agrep( aLit$surname, obkms$authors$family_name )
+      best_match = intersect ( intersect( fname_match, lname_match ),  aff_matches )
+
+      if ( length( best_match ) > 0 ) {
+        id =  majority_id( best_match, obkms$authors )
+        if ( !is.null( id ) ) {
+          log_event( "Rule 4 match (fuzzy affiliation)", "lookup_author", id )
+          return ( id )
+        }
+        else {
+          log_event( "Rule 4 fail (fuzzy affiliation) ", "lookup_author", "multiple matches" )
+          return ( NULL )
+        }
+      }
+      else {
+        log_event( "Rule 4 fail (fuzzy affiliation)", "lookup_author", "no matches" )
+        return ( NULL )
+      }
+     }
+    }
+
+
+
+  # no match, also updates the local authors database
+  log_event( "no match", "lookup_author", paste( aLit$surname, aLit$collab ) )
+  authid = ( paste0( strip_angle( obkms$prefixes$`_base`) , uuid::UUIDgenerate() ) )
+  # TODO not very dry
+  if ( ! is.null( aLit$collab ) ) {
+    aLit =  lapply ( aLit, function ( el) {
       if (is.null ( el )) return(NA)
       else return( el )
     })
-    for ( instid in unlist ( identifiers$institution ) ) {
-      obkms$authors = rbind( obkms$authors,
+    for ( instid in unlist ( aId$institution ) ) {
+      for ( aff in unlist( aLit$affiliation ) ) {
+        obkms$authors = rbind( obkms$authors,
                              data.frame (id = authid,
-                             author = literals$collab,
+                             author = aLit$collab,
                              is_person = FALSE,
                              first_name = NA,
                              family_name = NA,
-                             mbox = literals$email,
-                             institution = expand_qname ( instid ) ) )
+                             mbox = aLit$email,
+                             institution = expand_qname ( instid ) ,
+                             affiliation = aff))
+      }
     }
   }
   else {
-    literals =  lapply ( literals, function ( el) {
+    aLit =  lapply ( aLit, function ( el) {
       if (is.null ( el )) return(NA)
       else return( el )
     })
-    for ( instid in unlist ( identifiers$institution ) ) {
+    for ( instid in unlist ( aId$institution ) ) {
+      for ( aff in unlist( aLit$affiliation ) ) {
       obkms$authors = rbind( obkms$authors,
                              data.frame (id = authid,
-                                         author = paste(literals$given_name, literals$surname),
+                                         author = paste(aLit$given_name, aLit$surname),
                                          is_person = TRUE,
-                                         first_name = literals$given_name,
-                                         family_name = literals$surname,
-                                         mbox = literals$email,
-                                         institution = expand_qname ( instid ) ) )
+                                         first_name = aLit$given_name,
+                                         family_name = aLit$surname,
+                                         mbox = aLit$email,
+                                         institution = expand_qname ( instid ) ,
+                                         affiliation = aff) )
+      }
     }
   }
   return ( authid )
@@ -544,18 +632,20 @@ parse_affiliation = function ( current_affiliation ) {
 #'
 #' @return URI of the institution if lookup was successful, NULL otherwise
 #' @export
-#'
 lookup_institution = function ( affiliation, cluster ) {
   # (1) look for an exact match in the affiliation strings
   exact_matches = integer( length = 0 )
   exact_matches = which ( parSapply( cluster, obkms$gazetteer$Institutions$Institutions_Only$label,
   function(pattern, y ) {grepl( pattern, x = y)}, y = affiliation) )
   if ( length( exact_matches ) > 0 ) {
-    log_event( paste( "exact match in affiliation", affiliation))
-    resulting = obkms$gazetteer$Institutions$Institutions_Only[ exact_matches, ]
-    aggregated_result =
-       aggregate( resulting, by = list( resulting$institution ) , length )
-    return ( resulting[ which( max (aggregated_result$institution) == aggregated_result$institution ), 1] )
+    id = majority_id ( exact_matches, obkms$gazetteer$Institutions$Institutions_Only, "institution" )
+    if ( !is.null ( id ) ) {
+      log_event( "Rule 1 match (exact match)", "lookup_institution", id)
+      return ( id )
+    }
+    else {
+      log_event( "Rule 1 fail (exact match)", "lookup_institution", "multiple matches")
+    }
   }
   # (2) look for an approxiamte match in the affiliation string:
   # (a) approximate match of the institution name and
@@ -567,12 +657,15 @@ lookup_institution = function ( affiliation, cluster ) {
                                    function(pattern, y ) {grepl( pattern, x = y)}, y = affiliation) )
   fuzzy_matches = intersect( inst_matches, city_matches )
   if ( length( fuzzy_matches ) > 0 ) {
-    log_event( paste( "fuzzy match in affiliation", affiliation))
-    resulting = obkms$gazetteer$Institutions$Institutions_Cities[ fuzzy_matches, ]
-    aggregated_result =
-      aggregate( resulting, by = list( resulting$institution ) , length )
-    return ( resulting[ which( max (aggregated_result$institution) == aggregated_result$institution ), 1] )
+    id = majority_id( fuzzy_matches, obkms$gazetteer$Institutions$Institutions_Cities, "institution" )
+    if ( !is.null ( id ) ) {
+      log_event( "Rule 2 match (fuzzy match with city)", "lookup_institution", id)
+      return ( id )
+    }
+    else {
+      log_event( "rule 2 fail (fuzzy match with city)", "lookup_institution", "multiple matches")
+    }
   }
-  log_event( paste( "no match for affiliation" , affiliation ) )
+  log_event( "no match" , "lookup_institution", affiliation  )
   return ( NULL )
 }

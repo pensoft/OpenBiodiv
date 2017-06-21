@@ -2,11 +2,34 @@
 % Please edit documentation in R/query.R
 \name{lookup_author}
 \alias{lookup_author}
-\title{Looks up an author, given a list of literals}
+\title{Look-up an Author in OBKMS}
 \usage{
-lookup_author(literals, concept_type = "none", best_match = TRUE,
-  lang = "English")
+lookup_author(literals, identifiers)
+}
+\arguments{
+\item{identifiers}{a list of URI's associated with the author}
+}
+\value{
+a URI of an author if it already exists, or mints new one if it
+doesn't or there are multiple matches and thus an ambiguity.
 }
 \description{
-Looks up an author, given a list of literals
+This is a rule-based function. The function starts by looking at the most
+effective rules and working itself to least effective rules.
+}
+\details{
+Rule 1: If it is a collaborative author, the function does a direct match
+of the author string.
+
+Rule 2: For persons:
+   2.a. fuzzy match of last name, and
+   2.b. match beginning of first name,
+   2.c. exact match of email.
+
+Rule 3: match with institution - replace exact match of mailbox with exact match of institution URI
+
+Rule 4: match with affiliation string
+
+Args:
+  @param literals a list of literals associated with the author
 }

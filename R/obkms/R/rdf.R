@@ -9,14 +9,13 @@
 #'
 #' @param uri        the full URI to minimize
 #' @export
-
 qname = function( uri )
 {
   if ( missing (uri) || is.null( uri ) ) return (NULL)
 
   unlist ( sapply( uri, function( uri)  {
     if ( grepl( "^#" , uri ) || grepl( ",", uri ) ) {
-      log_event( paste("bullshit response from dbpedia:", uri ) )
+      log_event( "URI will be forced to null", "qname", uri )
       return ( NULL ) # clean-up dbpedia shit
     }
     if ( missing (uri) || is.null( uri ) || uri == "" ) return (NULL)
@@ -118,7 +117,6 @@ turtle_prepend_prefixes = function ( t = c("Turtle") ) {
 #' Uses the Trig syntax.
 #'
 #' @export
-
 triples2turtle = function ( context, triples ) {
   turtle = c( paste( context, "{\n" ) )
   # for each unique subject
@@ -412,35 +410,7 @@ strip_angle = function ( uri ) {
     return (uri)
 }
 
-#' Semantic quote. Function to quote literals for use in RDF
-#' @param literal the string that needs to be quoted
-#' @param postfixes everything that needs to be concatendated at the end of the
-#' string (e.g. things like @en, or xsd:date)
-#' @export
-# squote = function ( literal, postfixes = "" ) {
-#   if ( is.null ( literal ) ) return ( NULL )
-#   paste0 ("\"", literal, "\"", postfixes)
-# }
 
-#' Use the prefix database to create Turtle statements
-#' @param t the syntax
-#' @export
-# turtle_prepend_prefixes = function ( t = c("turtle") ) {
-#   stopifnot( exists( 'obkms', mode = 'environment' ) )
-#
-#   if ( t == "turtle" )
-#   sapply ( obkms$prefixes, function( p ) {
-#     name = names(obkms$prefixes)[obkms$prefixes == p]
-#     paste0("@prefix " , name, ": ", p, " .\n")
-#   } )
-#   else if (t == "sparql") {
-#     #type is SPARQL
-#     sapply ( obkms$prefixes, function( p ) {
-#       name = names(obkms$prefixes)[obkms$prefixes == p]
-#       paste0("PREFIX " , name, ": ", p, " \n")
-#     } )
-#   }
-# }
 
 #' Converts a matrix of triple to Turtle statements, given a context.
 #'

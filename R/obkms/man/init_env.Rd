@@ -9,15 +9,17 @@ init_env(server_access_options,
   "dbpedia_access_options.yml"), prefix_db = paste0(path.package("obkms"),
   "/", "prefix_db.yml"), properties_db = paste0(path.package("obkms"), "/",
   "properties_db.yml"), classes_db = paste0(path.package("obkms"), "/",
-  "classes_db.yml"), vocabulary_db = paste0(path.package("obkms"), "/",
-  "vocabulary_db.yml"), literals_db_xpath = paste0(path.package("obkms"), "/",
+  "classes_db.yml"), parameters_db = paste0(path.package("obkms"), "/",
+  "parameters_db.yml"), literals_db_xpath = paste0(path.package("obkms"), "/",
   "literals_db_xpath.yml"),
   non_literals_db_xpath = paste0(path.package("obkms"), "/",
   "non_literals_db_xpath.yml"),
   initial_dump_configuration = paste0(path.package("obkms"), "/",
   "initial_dump_configuration.yml"),
   authors_db_xpath = paste0(path.package("obkms"), "/",
-  "authors_db_xpath.yml"), xml_source = "file", xml_type = "taxpub")
+  "authors_db_xpath.yml"), country_names = paste0(path.package("obkms"), "/",
+  "country_names.csv"), city_names = paste0(path.package("obkms"), "/",
+  "city_names.csv"), xml_source = "file", xml_type = "taxpub")
 }
 \description{
 The package contains a database of semantic web prefixes, stored in a yaml

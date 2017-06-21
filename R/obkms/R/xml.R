@@ -18,7 +18,6 @@
 #'        default is "TURTLE"
 #'
 #' @export
-#'
 xml2rdf = function( resource_locator,
                     resource_type = "FILE",
                     resource_format = "TAXPUB",
@@ -63,7 +62,6 @@ xml2rdf = function( resource_locator,
 #' @return TODO write what is returned
 #'
 #' @export
-#'
 taxpub_extractor = function( xml, xlit = yaml::yaml.load_file( obkms$config$literals_db_xpath ),
                              xdoco = yaml::yaml.load_file( obkms$config$non_literals_db_xpath ) )
 {
@@ -407,7 +405,6 @@ taxpub_extractor = function( xml, xlit = yaml::yaml.load_file( obkms$config$lite
 #' @param paper URI of the research paper
 #' @param author_xml part of the XML where the author information is found
 #' @export
-
 author_extractor = function ( paper , author_xml, authors_xpath =  yaml::yaml.load_file( obkms$config$authors_db_xpath ), document ) {
   literals = as.list( find_literals( author_xml, authors_xpath ) )
   # also get the references, a little bit tricky
@@ -429,7 +426,7 @@ author_extractor = function ( paper , author_xml, authors_xpath =  yaml::yaml.lo
     identifier$institution[[ affiliation ]] = qname ( lookup_institution( affiliation, obkms$cluster ) )
       # note: you can have multiple hits per affiliation
   }
-  if (length( identifier$institution == 0)) identifier$institution = NULL
+  if (length( identifier$institution) == 0) identifier$institution = NULL
 
   identifier[['author']] = qname( lookup_author ( literals , identifier ) )
 
@@ -643,7 +640,6 @@ extract_single_scientific_name = function ( t ) {
 
 #' Find literals
 #' @export
-
 find_literals = function( xml, x  ) {
   r =
     sapply( names(x), function( l ) {
@@ -830,8 +826,6 @@ extract.metadata = function( xml, xlit ) {
 #' @param fullname if TRUE, returns a URI with the OBKMS base prefix
 #'
 #' @export
-#'
-#'
 get_or_set_obkms_id = function ( node, fullname = FALSE )
 {
   # if no node, just generate an ID

@@ -9,16 +9,8 @@ triples2turtle(context, triples)
 
 triples2turtle(context, triples)
 }
-\arguments{
-\item{literal}{the string that needs to be quoted}
-
-\item{postfixes}{everything that needs to be concatendated at the end of the
-string (e.g. things like @en, or xsd:date)}
-
-\item{t}{the syntax}
-}
 \description{
 Uses the Trig syntax.
 
-Semantic quote. Function to quote literals for use in RDF
+Uses the Trig syntax.
 }

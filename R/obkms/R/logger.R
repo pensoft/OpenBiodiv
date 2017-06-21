@@ -14,14 +14,18 @@
 #'   environment
 #'
 #' @export
-log_event = function( message, ctime = Sys.time(),
-                      event_type = c( 'NOTE' ),
-                      context = obkms$log$current_context )
+log_event = function( eventName,
+                      callingFunction,
+                      eventNotes = "",
+                      eventType = c( "NOTE" ),
+                      eventTime = Sys.time(),
+                      eventContext = obkms$log$current_context )
 {
-  stopifnot( event_type %in% c('NOTE', 'WARNING', 'ERROR', 'DEBUG') )
+  stopifnot( eventType %in% c('NOTE', 'WARNING', 'ERROR', 'DEBUG') )
 
   obkms$log$events[[ obkms$log$number_of_events + 1 ]] = data.frame(
-    Time = ctime, Type = event_type, Context = context, Message = message)
+    Time = eventTime, Type = eventType,Context = eventContext, Function = callingFunction , Name = eventName,
+     Message = eventNotes)
 
   obkms$log$number_of_events = obkms$log$number_of_events + 1
 }

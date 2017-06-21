@@ -47,8 +47,7 @@ bdj_dumper = function ( journal = "BDJ", fromdate ) {
 #' information, the access options are stored in an environment, which is then
 #' utilzed by the individual package functions. It also enriches the options
 #'
-#'@export
-
+#' @export
 init_env = function ( server_access_options,
                       dbpedia_access_options = paste0( path.package ( 'obkms' ) , "/", "dbpedia_access_options.yml" ) ,
                       prefix_db = paste0( path.package ( 'obkms' ) , "/", "prefix_db.yml" ),
@@ -115,15 +114,23 @@ init_env = function ( server_access_options,
   obkms$log$events = list()
   obkms$log$current_context = c("initialized")
 
+
+  init_cluster()
+  init_authors_db()
+  init_institution_db( fromFile = TRUE )
+  log_event( "completed initialization", "init_env" )
+}
+
+
+#' @export
+init_cluster = function ()
+{
   #initialize cluster
   # Calculate the number of cores
   no_cores <- detectCores() - 1
   # Initiate cluster
   obkms$cluster <- makeCluster(no_cores)
 
-  init_authors_db()
-  init_institution_db( fromFile = TRUE )
-  log_event("initalization complete")
 }
 
 #' Loads a package database from a yaml file
@@ -131,7 +138,6 @@ init_env = function ( server_access_options,
 #' @param database_path path to the database
 #' @param   internal_name      is the path to internal database to be used if none supplied
 #' @export
-
 load_yaml_database = function ( database_path, internal_name ) {
   pkgname = "obkms"
   if ( is.character( database_path ) && database_path != "" ) {
@@ -151,7 +157,7 @@ load_yaml_database = function ( database_path, internal_name ) {
 init_authors_db = function() {
   # template
   query = "
-    SELECT ?id ?author ?is_person ?first_name ?family_name ?mbox ?institution
+    SELECT ?id ?author ?is_person ?first_name ?family_name ?mbox ?institution ?affiliation
     WHERE { [] rdf:type fabio:ResearchPaper ;
            dcterms:creator ?id .
            ?id  a foaf:Agent ;
@@ -174,6 +180,13 @@ init_authors_db = function() {
             org:memberOf ?institution .
             BIND (\"TRUE\" as ?is_person )
     }
+    OPTIONAL {
+        ?id rdf:type foaf:Person ;
+            foaf:surname ?family_name ;
+            foaf:firstName ?first_name ;
+            :affiliation ?affiliation .
+            BIND (\"TRUE\" as ?is_person )
+    }
 }"
   # prefixes
   query = do.call( paste0, as.list( c( turtle_prepend_prefixes(t = c("SPARQL")), query) ) )
@@ -190,7 +203,6 @@ init_authors_db = function() {
 #'
 #' @return nothing
 #' @export
-
 init_institution_db = function ( fromFile = FALSE, offsetSize = 10000 ) {
   if ( !fromFile ) {
     queries = list()

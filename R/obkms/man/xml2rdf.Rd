@@ -5,7 +5,7 @@
 \title{Convert an XML Document to RDF}
 \usage{
 xml2rdf(resource_locator, resource_type = "FILE",
-  resource_format = "TAXPUB", serialization_format = "TURTLE")
+  resource_format = "TAXPUB", serialization_format = "Turtle")
 }
 \arguments{
 \item{resource_locator}{locator, e.g. file path or URL, of the XML resource}
