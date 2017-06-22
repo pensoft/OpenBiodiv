@@ -58,86 +58,71 @@ get_nodeid = function( label = "", explicit_node_id = "", allow_multiple = FALSE
 }
 
 
-#' Lookup an Identifier in OBKMS
+#' Lookup an Identifier (URI) for a Resource in OBKMS
 #'
-#' This function is similar to `get_nodeid`, but allows more flexibility.
-#' Its most basic form is when the user specifies a `preferred_label`
-#' and the system searches for all entities in the graph database that match
-#' this preferred label exactly.
+#' Given a label (and a few optional arguments) this function locates the URI
+#' or URI's that match this label (and optional arguments) in OBKMS. If no
+#' match is found, a unique ID (UUID) is generated.
 #'
-#' @param label a vector of labels for which to look , the first one is preferred, all other ones are alternative;
-#' doesn't have to specified. lookup can done only thru the ...
-#' @param trim if TRUE reduces multiple table, new lines, spaces to just one space
-#' @param ignore_case if TRUE lowercases everything
-#' @param best_match if TRUE will return only one best match
-#' @param generate_on_fail if TRUE if no match is found, a new ID is generated
-#' @param ... a list of additional things that can be used for look-up . read documentaiton carefully
+#' Args:
+#'   @param label label for which to look
+#'   @param article_id what article is this label related to
+#'     (used as a context in the graph patttern), if no article id is supplied,
+#'     will look in the default graph
+#'   @param language default is English
+#'   @param ignore_case if TRUE lowercases everything
+#'   @param generate_on_fail if TRUE if no match is found, a new ID is generated,
+#'     if FALSE, NULL is returned
+#'   @param trim if TRUE whitespace will be trimmed inside and before and after
+#'     the label
 #'
-#' @return a vector of ID's that match, NULL if nothing has matched
+#' @return matching ID's or NULL
 #'
 #' @examples
-#' \dontrun{}
+#'
+#' lookup_id( "10.3897/BDJ.1.e1000" )
+#'
 #' @export
-lookup_id = function( label, lang = "English", trim = TRUE, ignore_case = TRUE, best_match = TRUE, generate_on_fail = TRUE, concept_type = FALSE, ...)
+lookup_id = function( label,
+                      article_id = "?context",
+                      language = NULL,
+                      resource_type = obkms$classes$Thing,
+                      ignore_case = FALSE,
+                      generate_on_fail = TRUE,
+                      trim = TRUE,
+                      show_query = FALSE)
 {
-  stopifnot( exists( "obkms", mode = "environment" ) )
+  stopifnot( resource_type$uri %in% sapply( obkms$classes , '[[', i = "uri" ) )
 
-        # now start iterating along the labels to look for solution
-  if ( !missing( label ) && is.character( label ) && ( length( label ) > 0 ) )
+  if ( trim ) { label  = trim_label ( label ) }
+  if ( ignore_case ) { label = tolower( label ) }
+
+  query =
+    "SELECT ?id WHERE {
+        ?id rdf:type %concept_type .
+        GRAPH %context {
+          ?id rdfs:label %label .
+        }
+    }"
+
+  query = gsub( "%label", squote( label, language = language ), query  )
+  query = gsub( "%concept_type", resource_type$uri, query )
+  query = gsub( "%context", article_id, query )
+  query = c( turtle_prepend_prefixes(t = "SPARQL"), query )
+  query = do.call ( paste0, as.list(query))
+  if ( show_query ) cat( query )
+  res = rdf4jr::POST_query( obkms$server_access_options , obkms$server_access_options$repository, query, "CSV" )
+
+  # we want the results to be a list (data frame), we hava a match (multiple matches)
+  if ( is.data.frame( res ) && nrow ( res ) > 0 )
   {
-    if ( trim )
-    {
-      label = gsub("[\t]+", " ", label)
-      label = gsub("[\n]+", " ", label)
-      label = gsub("[ ]+", " ", label)
-    }
-    if ( ignore_case )
-    {
-      # TODO will implement later
-    }
-    for ( l in label )
-    {
-      query.template =
-        "SELECT ?id WHERE
-        { ?id skos:prefLabel %label .
-          ?id rdf:type %concept_type .
-        }"
-
-      # query substitution
-      if ( lang == "English" ) {
-        query.template = gsub( "%label", paste( '\"', l, '\"@en', sep = "" ), query.template  )
-      }
-      else {
-        query.template = gsub( "%label", paste( '\"', l, '\"', sep = "" ), query.template  )
-      }
-      if ( concept_type == "Taxon Keyword" ) {
-        query.template = gsub( "%concept_type", paste( '\"', l, '\"@en', sep = "" ), query.template  )
-      }
-      else {
-        query.template = gsub( "%concept_type", qname( obkms$classes$Thing$uri ), query.template  )
-      }
-
-      query = gsub( "%skosns", obkms$prefixes$skos, query.template )
-      # query execution
-      query = c( turtle_prepend_prefixes(t = "SPARQL"), query )
-      query = do.call ( paste0, as.list(query))
-      res = rdf4jr::POST_query( obkms$server_access_options , obkms$server_access_options$repository, query, "CSV" )
-      # we want the results to be a list (data frame), we hava a match (multiple matches)
-      if ( is.data.frame( res ) && nrow ( res ) > 0 )
-      {
-        id = majority_id ( 1:nrow(res), res )
-        if ( !is.null( id ) ) {
-          log_event ( "match", "lookup_id", id )
-          return ( id )
-        }
-        else {
-          log_event ( "no match, multiple id's", "lookup_id", id )
-        }
-      }
-    }
+    id = res$id
+    log_event ( "successful lookup", "lookup_id", do.call( paste, as.list( id ) ) )
+    return ( id )
   }
+
   if ( generate_on_fail ) {
-    log_event ( "generating id", "lookup id", "" )
+    log_event ( "failed lookup, generating new id", "lookup id", "" )
     return ( qname( paste0( strip_angle( obkms$prefixes$`_base` ), uuid::UUIDgenerate( ) ) ) )
   }
 }
@@ -334,8 +319,8 @@ WHERE {
   query.template = gsub( "%rdf_type", obkms$properties$type$uri, query.template )
   query.template = gsub( "%concept_type", concept_type, query.template )
   query.template = gsub( "%label_property", obkms$properties$label$uri, query.template )
-  query.template = gsub( "%label", squote( label, lang = lang),  query.template )
-
+  query.template = gsub( "%label", squote( label, language = lang),  query.template )
+###
   query = query.template
 
   # now start iterating along the labels to look for solution
@@ -404,7 +389,7 @@ majority_id = function ( aMatch, aFrame, idField = "id" )
   else return ( NULL )
 }
 
-#' Look-up an Author in OBKMS
+#' Author Disambiguation
 #'
 #' This is a rule-based function. The function starts by looking at the most
 #' effective rules and working itself to least effective rules.
@@ -422,160 +407,161 @@ majority_id = function ( aMatch, aFrame, idField = "id" )
 #' Rule 4: match with affiliation string
 #'
 #' Args:
-#'   @param aLit a list of literals associated with the author
-  #' @param aId a list of URI's associated with the author
+#'   @param Literal a list of literals associated with the author
+  #' @param Identifier a list of URI's associated with the author
 #'
 #' @return a URI of an author if it already exists, or mints new one if it
 #' doesn't or there are multiple matches and thus an ambiguity.
 #'
 #' @export
-lookup_author = function ( aLit, aId )
+disambig_author = function ( Literal, Identifier )
 {
   ## Rule 1 ##
-  if ( !is.null( aLit$collab ) )
+  if ( !is.null( Literal$collab ) )
   {
     non_persons = obkms$authors[ obkms$authors$is_person == FALSE ]
-    best_match = pgrep ( cluster, aLit$collab, non_persons )
+    best_match = pgrep ( cluster, Literal$collab, non_persons )
     if ( length( best_match ) > 0 )
     {
       id = majority_id ( best_match, non_persons )
       if ( !is.null( id ) ) {
-        log_event( "Rule 1 match (collaborative author)", "lookup_author", id )
+        log_event( "Rule 1 match (collaborative author)", "disambig_author", id )
         return ( id )
       }
       else {
-        log_event( "Rule 1 fail (collaborative author)", "lookup_author", "multiple matches" )
-        return ( NULL )
+        log_event( "Rule 1 fail (collaborative author)", "disambig_author", "multiple matches" )
       }
     }
     else {
-      log_event( "Rule 1 fail (collaborative author)", "lookup_author", "no matches" )
-      return ( NULL )
+      log_event( "Rule 1 fail (collaborative author)", "disambig_author", "no matches" )
+
     }
   }
 
   ## Rule 2 ##
-  else if ( !is.null ( aLit$email ) ) {
-    mbox_match = grep( aLit$email, obkms$authors$mbox )
-    first_letter = substring( aLit$given_name, 1, 1 )
+  else if ( !is.null ( Literal$email ) ) {
+    mbox_match = grep( Literal$email, obkms$authors$mbox )
+    first_letter = substring( Literal$given_name, 1, 1 )
     fname_match = grep ( paste0( "^", first_letter ), obkms$authors$first_name )
-    lname_match = agrep( aLit$surname, obkms$authors$family_name )
+    lname_match = agrep( Literal$surname, obkms$authors$family_name )
     best_match = intersect ( intersect( fname_match, lname_match), mbox_match )
     if ( length( best_match ) > 0 ) {
       id =  majority_id( best_match, obkms$authors )
       if ( !is.null( id ) ) {
-        log_event( "Rule 2 match (email) ", "lookup_author", id )
+        log_event( "Rule 2 match (email) ", "disambig_author", id )
         return ( id )
       }
       else {
-        log_event( "Rule 2 fail (email) ", "lookup_author", "multiple matches" )
-        return ( NULL )
+        log_event( "Rule 2 fail (email) ", "disambig_author", "multiple matches" )
+
       }
     }
     else {
-      log_event( "Rule 2 fail (email)", "lookup_author", "no matches" )
-      return ( NULL )
+      log_event( "Rule 2 fail (email)", "disambig_author", "no matches" )
+
     }
   }
 
   ## Rule 3 ##
-  else if ( !is.null( aId$institution) ) {
-    institution_match =sapply ( unlist( expand_qname( aId$institution ) ), grep, x = obkms$authors$institution )
-    first_letter = substring( aLit$given_name, 1, 1 )
+  else if ( !is.null( Identifier$institution) ) {
+    institution_match =sapply ( unlist( expand_qname( Identifier$institution ) ), grep, x = obkms$authors$institution )
+    first_letter = substring( Literal$given_name, 1, 1 )
     fname_match = grep( paste0( "^", first_letter ), obkms$authors$first_name )
-    lname_match = agrep( aLit$surname, obkms$authors$family_name )
+    lname_match = agrep( Literal$surname, obkms$authors$family_name )
     best_match = intersect ( intersect( fname_match, lname_match ),  institution_match )
 
     if ( length( best_match ) > 0 ) {
       id =  majority_id( best_match, obkms$authors )
       if ( !is.null( id ) ) {
-        log_event( "Rule 3 match (institution id)", "lookup_author", id )
+        log_event( "Rule 3 match (institution id)", "disambig_author", id )
         return ( id )
       }
       else {
-        log_event( "Rule 3 fail (institution id)", "lookup_author", "multiple matches" )
+        log_event( "Rule 3 fail (institution id)", "disambig_author", "multiple matches" )
         return ( NULL )
       }
     }
     else {
-      log_event( "Rule 3 fail (institution id)", "lookup_author", "no matches" )
-      return ( NULL )
+      log_event( "Rule 3 fail (institution id)", "disambig_author", "no matches" )
+
     }
   }
 
   ## Rule 4 (affiliation string) ##
 
-  else if ( !is.null( aLit$affiliation ) ) {
-    for ( aff in unlist( aLit$affiliation ) ) {
+  else if ( !is.null( Literal$affiliation ) ) {
+    for ( aff in unlist( Literal$affiliation ) ) {
       # TODO grab also affiliation strings
       aff_matches = agrep( aff, obkms$authors$affiliation )
-      first_letter = substring( aLit$given_name, 1, 1 )
+      first_letter = substring( Literal$given_name, 1, 1 )
       fname_match = grep( paste0( "^", first_letter ), obkms$authors$first_name )
-      lname_match = agrep( aLit$surname, obkms$authors$family_name )
+      lname_match = agrep( Literal$surname, obkms$authors$family_name )
       best_match = intersect ( intersect( fname_match, lname_match ),  aff_matches )
 
       if ( length( best_match ) > 0 ) {
         id =  majority_id( best_match, obkms$authors )
         if ( !is.null( id ) ) {
-          log_event( "Rule 4 match (fuzzy affiliation)", "lookup_author", id )
+          log_event( "Rule 4 match (fuzzy affiliation)", "disambig_author", id )
           return ( id )
         }
         else {
-          log_event( "Rule 4 fail (fuzzy affiliation) ", "lookup_author", "multiple matches" )
-          return ( NULL )
+          log_event( "Rule 4 fail (fuzzy affiliation) ", "disambig_author", "multiple matches" )
+
         }
       }
       else {
-        log_event( "Rule 4 fail (fuzzy affiliation)", "lookup_author", "no matches" )
-        return ( NULL )
+        log_event( "Rule 4 fail (fuzzy affiliation)", "disambig_author", "no matches" )
+
       }
      }
-    }
-
-
+  }
 
   # no match, also updates the local authors database
-  log_event( "no match", "lookup_author", paste( aLit$surname, aLit$collab ) )
-  authid = ( paste0( strip_angle( obkms$prefixes$`_base`) , uuid::UUIDgenerate() ) )
-  # TODO not very dry
-  if ( ! is.null( aLit$collab ) ) {
-    aLit =  lapply ( aLit, function ( el) {
-      if (is.null ( el )) return(NA)
-      else return( el )
-    })
-    for ( instid in unlist ( aId$institution ) ) {
-      for ( aff in unlist( aLit$affiliation ) ) {
-        obkms$authors = rbind( obkms$authors,
-                             data.frame (id = authid,
-                             author = aLit$collab,
-                             is_person = FALSE,
-                             first_name = NA,
-                             family_name = NA,
-                             mbox = aLit$email,
-                             institution = expand_qname ( instid ) ,
-                             affiliation = aff))
-      }
-    }
+  log_event( "invoking direct lookup", "disambig_author", paste( Literal$surname, Literal$collab ) )
+  if ( !is.null( Literal$collab ) ) {
+    authlab = Literal$collab
   }
   else {
-    aLit =  lapply ( aLit, function ( el) {
-      if (is.null ( el )) return(NA)
-      else return( el )
-    })
-    for ( instid in unlist ( aId$institution ) ) {
-      for ( aff in unlist( aLit$affiliation ) ) {
-      obkms$authors = rbind( obkms$authors,
-                             data.frame (id = authid,
-                                         author = paste(aLit$given_name, aLit$surname),
-                                         is_person = TRUE,
-                                         first_name = aLit$given_name,
-                                         family_name = aLit$surname,
-                                         mbox = aLit$email,
-                                         institution = expand_qname ( instid ) ,
-                                         affiliation = aff) )
-      }
-    }
+    authlab = paste( Literal$given_name, Literal$surname )
   }
+  authid = lookup_id( authlab,
+                      article_id = Identifier$article )
+
+  null2na = function ( My_List, columns  ) {
+    l = lapply( columns , function ( c ) {
+      if ( is.null(  My_List[[ c ]] ) ) return( NA )
+      else return( c = My_List [[ c ]] )
+    })
+    names( l ) = columns
+    return ( l )
+  }
+
+  Literal = null2na ( Literal, columns = c("collab", "surname", "given_name", "email", "affiliation") )
+  Identifier = null2na ( Identifier, columns = "institution")
+
+  if ( !is.na( Literal$collab ) )
+  {
+    update_authors_db( expand.grid( id = authid,
+                 author = authlab,
+                 is_person = FALSE,
+                 first_name = NA,
+                 family_name = NA,
+                 mbox = as.factor ( unlist( Literal$email ) ),
+                 institution =  as.factor( unlist ( Identifier$institution ) ),
+                 affilition = as.factor( unlist( Literal$affiliation ) ) ,
+                 stringsAsFactors = FALSE ) )
+  }
+  else {
+    update_authors_db ( expand.grid( id = authid,
+                 author = authlab,
+                 is_person = TRUE,
+                 first_name = Literal$given_name,
+                 family_name = Literal$surname,
+                 mbox = as.factor ( unlist( Literal$email ) ),
+                 as.factor( unlist ( Identifier$institution ) ),
+                 affilition = as.factor( unlist( Literal$affiliation ) ),
+                 stringsAsFactors = FALSE) )
+      }
   return ( authid )
 }
 

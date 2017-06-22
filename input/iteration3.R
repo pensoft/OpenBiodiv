@@ -17,7 +17,7 @@ dump_list = bdj_dumper( journal = "BDJ", fromdate = "13/06/2017" ) # dump all of
 dump_list = list.files( path = "/media/obkms/XML2", pattern = "BDJ", full.names = TRUE)
 response_bdj = process_dump_list( dump_list )
 
-00# Turtle generation
+# Turtle generation
 process_dump_list = function ( dump_list ) {
   for ( d in dump_list ) {
     cat(d)

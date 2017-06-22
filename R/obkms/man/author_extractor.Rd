@@ -2,19 +2,28 @@
 % Please edit documentation in R/xml.R
 \name{author_extractor}
 \alias{author_extractor}
-\title{Extract author information from the XML
-Note: extracts the information for _one_ author}
+\title{Extract Author Information from XML}
 \usage{
-author_extractor(paper, author_xml,
+author_extractor(paper_id, article_id, author_xml,
   authors_xpath = yaml::yaml.load_file(obkms$config$authors_db_xpath),
   document)
 }
 \arguments{
-\item{paper}{URI of the research paper}
+\item{paper_id}{URI of the `fabio:ResearchPaper`}
 
-\item{author_xml}{part of the XML where the author information is found}
+\item{article_id}{URI of the `fabio:JournalArticle` that is the realization
+of the paper}
+
+\item{author_xml}{XML object where the current author information is to be found}
+
+\item{document}{the whole XML document of which the current XML object is
+  part of
+
+TODO: this function should not be exported}
+
+\item{author_xpath}{(relative) xpaths of where the author literals are to
+be found in the XML object}
 }
 \description{
-Extract author information from the XML
-Note: extracts the information for _one_ author
+Note: extracts the information for _one_ author.
 }

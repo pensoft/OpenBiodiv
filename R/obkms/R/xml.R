@@ -106,26 +106,26 @@ taxpub_extractor = function( xml, xlit = yaml::yaml.load_file( obkms$config$lite
     # inferred based on the articles they have published TODO
 
     triple( identifier$journal,    qname( obkms$properties$type$uri ),                qname ( obkms$classes$Journal$uri ) ),
-    triple( identifier$journal,    qname( obkms$properties$preferred_label$uri ),     squote ( literals$journal_title, lang = "English" ) ),
-    triple( identifier$journal,    qname( obkms$properties$alternate_label$uri ),     squote ( literals$abbrev_journal_title, lang = "English" ) ),
+    triple( identifier$journal,    qname( obkms$properties$preferred_label$uri ),     squote ( literals$journal_title, language = obkms$parameters$Language$English ) ),
+    triple( identifier$journal,    qname( obkms$properties$alternate_label$uri ),     squote ( literals$abbrev_journal_title, language = obkms$parameters$Language$English ) ),
     triple( identifier$journal,    qname( obkms$properties$issn$uri ),                squote ( literals$issn ) ),
     triple( identifier$journal,    qname( obkms$properties$eissn$uri ),               squote ( literals$eissn ) ),
     triple( identifier$journal,    qname( obkms$properties$sub_endeavour_id$uri ),    identifier$article),
 
     triple( identifier$article,    qname( obkms$properties$type$uri ),                qname( obkms$classes$Article$uri ) ),
     triple( identifier$article,    qname( obkms$properties$preferred_label$uri ),     squote( literals$doi ) ) ,
-    triple( identifier$article,    qname( obkms$properties$title$uri ),               squote( literals$article_title, lang = "English" ) ) ,
+    triple( identifier$article,    qname( obkms$properties$title$uri ),               squote( literals$article_title, language = obkms$parameters$Language$English ) ) ,
     triple( identifier$article,    qname( obkms$properties$doi$uri ),                 squote( literals$doi ) ) ,
-    triple( identifier$article,    qname( obkms$properties$publisher$uri ),           squote( literals$publisher_name , lang = "English" ) ), # the publisher of an article is clear
-    triple( identifier$article,    qname( obkms$properties$publication_year$uri ),         squote( literals$pub_year, type = "Year" ) ),
-    triple( identifier$article,    qname( obkms$properties$publication_date$uri ),         squote( paste( literals$pub_year, literals$pub_month, literals$pub_day, sep = "-") , type = "Date" ) ),
+    triple( identifier$article,    qname( obkms$properties$publisher$uri ),           squote( literals$publisher_name , language = obkms$parameters$Language$English ) ), # the publisher of an article is clear
+    triple( identifier$article,    qname( obkms$properties$publication_year$uri ),         squote( literals$pub_year, literal_type = obkms$parameters$literal_type$year ) ),
+    triple( identifier$article,    qname( obkms$properties$publication_date$uri ),         squote( paste( literals$pub_year, literals$pub_month, literals$pub_day, sep = "-") , literal_type = obkms$parameters$literal_type$date ) ),
     triple( identifier$article,    qname( obkms$properties$publisher_id$uri ),              identifier$publisher ) ,
     triple( identifier$article,    qname( obkms$properties$realization_of$uri ),            identifier$paper ) , # TODO check whether the inverse is being materialized by the ontology
 
     triple ( identifier$paper,     qname( obkms$properties$type$uri) ,        qname( obkms$classes$Paper$uri ) ) ,
 
     triple( identifier$publisher,  qname( obkms$properties$type$uri ),                     qname( obkms$classes$Publisher$uri ) ),
-    triple( identifier$publisher,  qname( obkms$properties$preferred_label$uri ),          squote( literals$publisher_name, lang = "English" ) ) )
+    triple( identifier$publisher,  qname( obkms$properties$preferred_label$uri ),          squote( literals$publisher_name, language = obkms$parameters$Language$English ) ) )
 
   # now go thru the sub-component level things that can repeat, e.g. authors
   # TODO first author, second author and so on
@@ -134,7 +134,7 @@ taxpub_extractor = function( xml, xlit = yaml::yaml.load_file( obkms$config$lite
 
   for ( a in doco$authors ) {
 
-    triples = c ( triples,  author_extractor( identifier$paper , a$xml, document = xml) )
+    triples = c ( triples,  author_extractor( identifier$paper , identifier$article, a$xml, document = xml) )
   }
 
   # keyword processing
@@ -399,13 +399,27 @@ taxpub_extractor = function( xml, xlit = yaml::yaml.load_file( obkms$config$lite
 #   return(  triples )
 }
 
-#' Extract author information from the XML
-#' Note: extracts the information for _one_ author
+#' Extract Author Information from XML
 #'
-#' @param paper URI of the research paper
-#' @param author_xml part of the XML where the author information is found
+#' Note: extracts the information for _one_ author.
+#'
+#' @param paper_id URI of the `fabio:ResearchPaper`
+#' @param article_id URI of the `fabio:JournalArticle` that is the realization
+#'   of the paper
+#' @param author_xml XML object where the current author information is to be found
+#' @param author_xpath (relative) xpaths of where the author literals are to
+#'   be found in the XML object
+#' @param document the whole XML document of which the current XML object is
+#'   part of
+#'
+#' TODO: this function should not be exported
 #' @export
-author_extractor = function ( paper , author_xml, authors_xpath =  yaml::yaml.load_file( obkms$config$authors_db_xpath ), document ) {
+author_extractor = function ( paper_id ,
+                              article_id,
+                              author_xml,
+                              authors_xpath =  yaml::yaml.load_file( obkms$config$authors_db_xpath ),
+                              document )
+{
   literals = as.list( find_literals( author_xml, authors_xpath ) )
   # also get the references, a little bit tricky
   # TODO MULTIPLE AFFILIATIONS DO EXISI!!!
@@ -420,6 +434,7 @@ author_extractor = function ( paper , author_xml, authors_xpath =  yaml::yaml.lo
   # at this point, we have all the literal information and we're ready try to
   # lookup the author based on the literals
   identifier = list()
+  identifier$article = article_id
 
   identifier$institution = list()
   for ( affiliation in literals$affiliation ) {
@@ -428,18 +443,18 @@ author_extractor = function ( paper , author_xml, authors_xpath =  yaml::yaml.lo
   }
   if (length( identifier$institution) == 0) identifier$institution = NULL
 
-  identifier[['author']] = qname( lookup_author ( literals , identifier ) )
+  identifier[['author']] = qname( disambig_author ( literals , identifier ) )
 
   if ( !is.null ( literals$collab ) ) {
     triples = list (
-      triple( paper,                qname( obkms$properties$creator$uri ),         identifier$author ) ,
+      triple( paper_id,                qname( obkms$properties$creator$uri ),         identifier$author ) ,
       triple( identifier$author,    qname( obkms$properties$type$uri ),            qname ( obkms$classes$Agent$uri ) ),
-      triple( identifier$author,    qname( obkms$properties$preferred_label$uri ), squote ( literals$collab ) ),
+      triple( identifier$author,    qname( obkms$properties$label$uri ), squote ( literals$collab ) ),
       triple( identifier$author,    qname( obkms$properties$email$uri ),           squote ( literals$email ) ) )
   }
   else {
     triples = list (
-      triple( paper,                qname( obkms$properties$creator$uri ),         identifier$author ) ,
+      triple( paper_id,                qname( obkms$properties$creator$uri ),         identifier$author ) ,
       triple( identifier$author,    qname( obkms$properties$type$uri ),            qname ( obkms$classes$Person$uri ) ),
       triple( identifier$author,    qname( obkms$properties$preferred_label$uri ), squote ( paste(literals$given_name, literals$surname, sep = " " ) ) ),
       triple( identifier$author,    qname( obkms$properties$first_name$uri ),      squote ( literals$given_name ) ),
@@ -451,7 +466,7 @@ author_extractor = function ( paper , author_xml, authors_xpath =  yaml::yaml.lo
   for ( affiliation in literals$affiliation ) {
     triples = c( triples, list (
     triple( identifier$author,    qname( obkms$properties$has_affiliation_string$uri ),
-          squote( affiliation, lang = "English") ) ) )
+          squote( affiliation, language = obkms$parameters$Language$English) ) ) )
   }
 
   # add the institution information

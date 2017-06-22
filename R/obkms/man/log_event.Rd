@@ -4,8 +4,9 @@
 \alias{log_event}
 \title{OBKMS Internal Logging Function}
 \usage{
-log_event(eventName, callingFunction, eventNotes, eventType = c("NOTE"),
-  eventTime = Sys.time(), eventContext = obkms$log$current_context)
+log_event(eventName, callingFunction, eventNotes = "",
+  eventType = c("NOTE"), eventTime = Sys.time(),
+  eventContext = obkms$log$current_context)
 }
 \value{
 does not return anything, only sets the `log` list in the `OBKMS`

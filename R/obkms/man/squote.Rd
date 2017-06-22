@@ -2,18 +2,29 @@
 % Please edit documentation in R/rdf.R
 \name{squote}
 \alias{squote}
-\title{Semantic quote. Function to quote literals for use in RDF
-http://iswc2011.semanticweb.org/fileadmin/iswc/Papers/Workshops/SSWS/Emmons-et-all-SSWS2011.pdf}
+\title{Properly Quote Literals for use in RDF Serializations}
 \usage{
-squote(literal, type = "None", lang)
+squote(literal, language, literal_type = "")
 }
 \arguments{
 \item{literal}{the string that needs to be quoted}
 
-\item{postfixes}{everything that needs to be concatendated at the end of the
-string (e.g. things like @en, or xsd:date)}
+\item{language}{the language (needs to be a list having the element `semantic_code`)
+If left missing, no language will be assumed.}
+
+\item{literal_type}{for non-strings such as year, date, etc. (one of the names in
+obkms$parameters$literal_type). The default is empty, i.e. string.}
 }
 \description{
-Semantic quote. Function to quote literals for use in RDF
-http://iswc2011.semanticweb.org/fileadmin/iswc/Papers/Workshops/SSWS/Emmons-et-all-SSWS2011.pdf
+Information:
+  http://iswc2011.semanticweb.org/fileadmin/iswc/Papers/Workshops/SSWS/Emmons-et-all-SSWS2011.pdf
+}
+\examples{
+
+English = obkms$parameters$Language$English
+squote("Pensoft Publishers", language = English )
+
+Year = obkms$paramters$literal_type$Year
+squote("2017", Year)
+
 }

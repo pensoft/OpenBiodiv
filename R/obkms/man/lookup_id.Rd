@@ -2,34 +2,35 @@
 % Please edit documentation in R/query.R
 \name{lookup_id}
 \alias{lookup_id}
-\title{Lookup an Identifier in OBKMS}
+\title{Lookup an Identifier (URI) for a Resource in OBKMS}
 \usage{
-lookup_id(label, lang = "English", trim = TRUE, ignore_case = TRUE,
-  best_match = TRUE, generate_on_fail = TRUE, concept_type = FALSE, ...)
-}
-\arguments{
-\item{label}{a vector of labels for which to look , the first one is preferred, all other ones are alternative;
-doesn't have to specified. lookup can done only thru the ...}
-
-\item{trim}{if TRUE reduces multiple table, new lines, spaces to just one space}
-
-\item{ignore_case}{if TRUE lowercases everything}
-
-\item{best_match}{if TRUE will return only one best match}
-
-\item{generate_on_fail}{if TRUE if no match is found, a new ID is generated}
-
-\item{...}{a list of additional things that can be used for look-up . read documentaiton carefully}
+lookup_id(label, article_id = "?context", language = NULL,
+  resource_type = obkms$classes$Thing, ignore_case = FALSE,
+  generate_on_fail = TRUE, trim = TRUE, show_query = FALSE)
 }
 \value{
-a vector of ID's that match, NULL if nothing has matched
+matching ID's or NULL
 }
 \description{
-This function is similar to `get_nodeid`, but allows more flexibility.
-Its most basic form is when the user specifies a `preferred_label`
-and the system searches for all entities in the graph database that match
-this preferred label exactly.
+Given a label (and a few optional arguments) this function locates the URI
+or URI's that match this label (and optional arguments) in OBKMS. If no
+match is found, a unique ID (UUID) is generated.
+}
+\details{
+Args:
+  @param label label for which to look
+  @param article_id what article is this label related to
+    (used as a context in the graph patttern), if no article id is supplied,
+    will look in the default graph
+  @param language default is English
+  @param ignore_case if TRUE lowercases everything
+  @param generate_on_fail if TRUE if no match is found, a new ID is generated,
+    if FALSE, NULL is returned
+  @param trim if TRUE whitespace will be trimmed inside and before and after
+    the label
 }
 \examples{
-\dontrun{}
+
+lookup_id( "10.3897/BDJ.1.e1000" )
+
 }

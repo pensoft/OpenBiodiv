@@ -67,27 +67,46 @@ strip_angle = function ( uri ) {
     return (uri)
 }
 
-#' Semantic quote. Function to quote literals for use in RDF
-#' http://iswc2011.semanticweb.org/fileadmin/iswc/Papers/Workshops/SSWS/Emmons-et-all-SSWS2011.pdf
+#' Properly Quote Literals for use in RDF Serializations
+#'
+#' Information:
+#'   http://iswc2011.semanticweb.org/fileadmin/iswc/Papers/Workshops/SSWS/Emmons-et-all-SSWS2011.pdf
+#'
 #' @param literal the string that needs to be quoted
-#' @param postfixes everything that needs to be concatendated at the end of the
-#' string (e.g. things like @en, or xsd:date)
+#' @param language the language (needs to be a list having the element `semantic_code`)
+#'   If left missing, no language will be assumed.
+#' @param literal_type for non-strings such as year, date, etc. (one of the names in
+#'     obkms$parameters$literal_type). The default is empty, i.e. string.
+#'
+#' @examples
+#'
+#' English = obkms$parameters$Language$English
+#' squote("Pensoft Publishers", language = English )
+#'
+#' Year = obkms$paramters$literal_type$Year
+#' squote("2017", Year)
+#'
 #' @export
-squote = function ( literal, type = "None" , lang ) {
-  stopifnot ( type %in% c( "None", "Year", "Date" ) )
+squote = function ( literal, language, literal_type = "" )
+{
+  if ( !missing( language ) && !is.null( language)  && literal_type != "" ) {
+    stop("Language is set and literal_type is not empty.")
+  }
+  if ( !missing ( literal_type ) ) {
+    stopifnot ( literal_type %in%  unlist( obkms$parameters$literal_type ) )
+  }
+  if ( !missing(language) && !is.null( language )) {
+    stopifnot ( language$label %in% sapply( obkms$parameters$Language , '[[', i = "label" ) )
+  }
   if ( is.null ( literal ) || is.na(literal) || literal == "") return ( NULL )
+
   literal = gsub("\"", "", literal  )
   literal = gsub("\\\\", "", literal  )
-  if ( type == "None" ) postfixes = c( "" )
-  else if ( type == "Year" ) postfixes = c( "^^xsd:gYear" )
-  else if ( type == "Date" ) postfixes = c( "^^xsd:date" )
-  if ( !missing( lang ) ) {
-    stopifnot ( lang %in% c( "English" ) )
-    if ( lang == obkms$parameters$Language$English$label ) {
-      postfixes = c( "@en" )
-    }
-  }
-  paste0 ("\"", literal, "\"", postfixes)
+
+  if ( !missing( language ) && !is.null( language) ) { postfix = paste0("@", language$semantic_code ) }
+  else { postfix = literal_type }
+
+  paste0 ("\"", literal, "\"", postfix)
 }
 
 #' Use the prefix database to create Turtle statements

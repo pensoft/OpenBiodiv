@@ -195,6 +195,25 @@ init_authors_db = function() {
   obkms$authors = retval[ !duplicated( retval ), ]
 }
 
+#' Updates Local Authors Store
+#'
+#' @param aId author URI
+#' @param aAuthor author label
+#' @param isPerson is it a person or an agent
+#' @param firstName
+#' @param familyName
+#' @param eMail
+#' @param aInst author's institution URI
+#' @param aAff author's affiliation string
+#' @export
+update_authors_db = function ( frame_row ) {
+  if ( nrow(obkms$authors) == 0 ) {
+    obkms$authors = frame_row
+  } else {
+    obkms$authors[nrow(obkms$authors) + 1, ] = frame_row
+  }
+}
+
 #' Initializes the educational institutions gazetteer from dbpedia
 #'
 #' Args:
