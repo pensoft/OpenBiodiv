@@ -556,22 +556,19 @@ parse_affiliation = function ( current_affiliation ) {
 lookup_institution = function ( affiliation, cluster = obkms$cluster ) {
   # (1) look for an exact match in the affiliation strings
 
-
-  if ( is.na( affiliation ) ) return ( NA )
-  exact_matches = integer( length = 0 )
-  exact_matches = which ( parSapply( cluster, obkms$gazetteer$Institutions$Institutions_Only$label,
-  function(pattern, y ) {grepl( pattern, x = y)}, y = affiliation) )
-  if ( length( exact_matches ) > 0 ) {
-    id = majority_id ( exact_matches, obkms$gazetteer$Institutions$Institutions_Only, "institution" )
-    if (is.null(id)) id = longest_match_length ( exact_matches, obkms$gazetteer$Institutions$Institutions_Only,"institution"   )
-    if ( !is.null ( id ) ) {
-      log_event( "Rule 1 match (exact match)", "lookup_institution", id)
-      return ( id )
-    }
-    else {
-      log_event( "Rule 1 fail (exact match)", "lookup_institution", "multiple matches")
-    }
+  # tokenize affiliation string by comas
+  potential_institutions = strsplit(affiliation, ",")
+  matches = lapply( potential_institutions[[1]], lucene_phrase_query, resource_type = "<http://dbpedia.org/ontology/EducationalInstitution>")
+  results = do.call( rbind, matches )
+  results[with(results, order(score)) , ]
+  if ( nrow( results ) > 0 ) {
+    log_event( "rule 1 match", "lookup_institution", id)
+    return( results[1,1])
   }
+  else {
+    log_event( "rule 1 fail", "lookup_institution", id)
+  }
+
   # (2) look for an approxiamte match in the affiliation string:
   # (a) approximate match of the institution name and
   # (b) exact match of the city
@@ -713,3 +710,40 @@ null2na = function ( My_List, columns  ) {
   names( l ) = columns
   return ( l )
 }
+
+
+#' Query the Lucene Index for a Specific Phrase
+#'
+#' TODO need lucene prefix
+#'
+#' @param phrase the exact phrase to look for (string)
+#' @param field which field to query, default is label
+#' @param resource_type the URI of the class to which you want to restrict your queries
+#'
+#' @return a list of hits and scores
+#' @export
+lucene_phrase_query = function( phrase,
+                                field = "label",
+                                resource_type = "<http://www.w3.org/2002/07/owl#Thing>" )
+{
+  lucene_query =  paste0( field, ":\\\\\"",  phrase , "\\\\\"" )
+  lucene_connector = "<http://www.ontotext.com/connectors/lucene/instance#PhraseSearch>"
+  query = "SELECT ?entity ?score ?label
+WHERE {
+  ?search rdf:type %lucene_connector ;
+    lucene:query %lucene_query ;
+    lucene:entities ?entity .
+  ?entity lucene:score ?score ;
+    rdfs:label ?label ;
+    rdf:type %resource_type .
+} ORDER BY DESC (?score)"
+  query = gsub("%lucene_connector", lucene_connector, gsub("%lucene_query", paste0 ("\"", lucene_query, "\"" ), query))
+  query = gsub("%resource_type", resource_type, query)
+  query = do.call( paste, as.list( c( turtle_prepend_prefixes( t = "SPARQL" ), query )))
+  result = rdf4jr::POST_query(
+    obkms$server_access_options,
+    obkms$server_access_options$repository,
+    query, "CSV" )
+}
+
+

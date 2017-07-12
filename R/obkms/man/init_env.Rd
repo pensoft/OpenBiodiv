@@ -17,20 +17,43 @@ init_env(server_access_options,
   initial_dump_configuration = paste0(path.package("obkms"), "/",
   "initial_dump_configuration.yml"),
   authors_db_xpath = paste0(path.package("obkms"), "/",
-  "authors_db_xpath.yml"), country_names = paste0(path.package("obkms"), "/",
-  "country_names.csv"), city_names = paste0(path.package("obkms"), "/",
-  "city_names.csv"), keywords_db_xpath = paste0(path.package("obkms"), "/",
-  "keywords_db_xpath.yml"), xml_source = "file", xml_type = "taxpub",
+  "authors_db_xpath.yml"), keywords_db_xpath = paste0(path.package("obkms"),
+  "/", "keywords_db_xpath.yml"), xml_source = "file", xml_type = "taxpub",
   iteration = NA)
+}
+\arguments{
+\item{server_access_options}{list with graphdb access configuration as needed by the 'rdf4j' package, can be loaded from yaml}
+
+\item{dbpedia_access_options}{access options for dbpedia, has default}
+
+\item{prefix_db}{prefix database, has default}
+
+\item{properties_db}{database of properties, has default}
+
+\item{classes_db}{database for classes, has default}
+
+\item{parameters_db}{databse of different parameters, has default}
+
+\item{literals_db_xpath}{XPATHS for top-level literals}
+
+\item{non_literals_db_xpath}{xpaths for top-level document components}
+
+\item{keywords_db_xpath}{the xpaths for the keywords document entity}
+
+\item{xml_source}{defaults to "file"}
+
+\item{xml_type}{defaults to "taxpub"}
+
+\item{iteration}{defaults to NA}
 }
 \description{
 The package contains a database of semantic web prefixes, stored in a yaml
 database in the `inst/` folder. The name of the database file is assigned to
 the package environment when the package is loaded.
-Store graph database access data in an environment.
+Initialize OpenBiodiv Environment
 }
 \details{
-In order not to have to parameterize each function with the database access
-information, the access options are stored in an environment, which is then
-utilzed by the individual package functions. It also enriches the options
+TODO: the parameter vocabulary can probably be made as instances of something in RDF
+
+TODO: literals and non_literals (including keywords) probably need not be here
 }

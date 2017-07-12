@@ -2,7 +2,6 @@
 #' @export
 bdj_dumper = function ( journal = "BDJ", fromdate ) {
   if ( missing( fromdate ) ) fromdate = c( "01/01/2010" )
-  log_event ( paste( "begin dumping of", journal, "from date", fromdate ) )
   archive = paste0( obkms$initial_dump_configuration$initial_dump_directory, "archive.zip")
   rdata = paste0( obkms$initial_dump_configuration$initial_dump_directory, ".Rdata")
   if ( journal == "BDJ" ) {
@@ -19,9 +18,9 @@ bdj_dumper = function ( journal = "BDJ", fromdate ) {
   unzip(archive, exdir = obkms$initial_dump_configuration$initial_dump_directory )
   dump_list = unzip(archive, exdir = obkms$initial_dump_configuration$initial_dump_directory, list = TRUE )$Name
   dump_list = paste( obkms$initial_dump_configuration$initial_dump_directory, dump_list, sep = "/")
-  dump_date = as.character( format( Sys.Date(), "%d/%m/%y" ) )
+  dump_date = as.character( format( Sys.Date(), "%d/%m/%Y" ) )
   save( dump_date, dump_list, file = rdata )
-  log_event ( paste( "found", length( dump_list ), "new files" ) )
+  log_event ( "found new files", "bdj_dumper", paste( "found", length( dump_list ), "new files" ) )
   file.remove ( archive )
   return( dump_list )
   # TODO but this doesnot work save( Sys.Date(), file = date_file )
@@ -41,31 +40,42 @@ bdj_dumper = function ( journal = "BDJ", fromdate ) {
 #  assign("ENTITY.DB", "semantic_entities_db.yml", envir = parent.env( environment() ) )
 #}
 
-#' Store graph database access data in an environment.
+#' Initialize OpenBiodiv Environment
 #'
-#' In order not to have to parameterize each function with the database access
-#' information, the access options are stored in an environment, which is then
-#' utilzed by the individual package functions. It also enriches the options
+#' TODO: the parameter vocabulary can probably be made as instances of something in RDF
+#'
+#' TODO: literals and non_literals (including keywords) probably need not be here
+#'
+#' @param server_access_options list with graphdb access configuration as needed by the 'rdf4j' package, can be loaded from yaml
+#' @param dbpedia_access_options access options for dbpedia, has default
+#' @param prefix_db prefix database, has default
+#' @param properties_db database of properties, has default
+#' @param classes_db database for classes, has default
+#' @param parameters_db databse of different parameters, has default
+#' @param literals_db_xpath XPATHS for top-level literals
+#' @param non_literals_db_xpath xpaths for top-level document components
+#' @param initial_dump_configuration
+#' @param keywords_db_xpath the xpaths for the keywords document entity
+#' @param xml_source defaults to "file"
+#' @param xml_type defaults to "taxpub"
+#' @param iteration defaults to NA
 #'
 #' @export
 init_env = function ( server_access_options,
                       dbpedia_access_options = paste0( path.package ( 'obkms' ) , "/", "dbpedia_access_options.yml" ) ,
                       prefix_db = paste0( path.package ( 'obkms' ) , "/", "prefix_db.yml" ),
-                      #entities_db =  paste0( path.package ( 'obkms' ) , "/", "semantic_entities_db.yml" ),
                       properties_db =  paste0( path.package ( 'obkms' ) , "/", "properties_db.yml" ),
                       classes_db =  paste0( path.package ( 'obkms' ) , "/", "classes_db.yml" ),
-                     # vocabulary_db =  paste0( path.package ( 'obkms' ) , "/", "vocabulary_db.yml" ),
                       parameters_db =  paste0( path.package ( 'obkms' ) , "/", "parameters_db.yml" ),
                       literals_db_xpath = paste0( path.package ( 'obkms' ) , "/", "literals_db_xpath.yml" ),
                       non_literals_db_xpath = paste0( path.package ( 'obkms' ) , "/", "non_literals_db_xpath.yml" ),
                       initial_dump_configuration = paste0( path.package ( 'obkms' ) , "/", "initial_dump_configuration.yml") ,
-                      authors_db_xpath =  paste0( path.package ( 'obkms' ) , "/", "authors_db_xpath.yml" ),
-                      country_names = paste0( path.package ( 'obkms' ) , "/", "country_names.csv" ) ,
-                      city_names = paste0( path.package ( 'obkms' ) , "/", "city_names.csv" ) ,
+                      authors_db_xpath = paste0( path.package ( 'obkms' ) , "/", "authors_db_xpath.yml" ),
                       keywords_db_xpath = paste0( path.package ( 'obkms' ) , "/", "keywords_db_xpath.yml" ) ,
                       xml_source = "file",
                       xml_type = "taxpub" ,
-                      iteration = NA) {
+                      iteration = NA)
+{
   # TODO probably don't need vocabulary
   if (! is.character( server_access_options$userpwd )  ) {
     server_access_options$userpwd = Sys.getenv( c("OBKMS_SECRTET") )
@@ -77,14 +87,11 @@ init_env = function ( server_access_options,
   }
   obkms$server_access_options = server_access_options
   obkms$dbpedia_access_options = yaml::yaml.load_file ( dbpedia_access_options )
-
   obkms$initial_dump_configuration = yaml::yaml.load_file ( initial_dump_configuration )
 
   obkms$prefixes = yaml::yaml.load_file(prefix_db)
- # obkms$entities = yaml::yaml.load_file ( entities_db )
   obkms$properties = yaml::yaml.load_file ( properties_db )
   obkms$classes = yaml::yaml.load_file ( classes_db )
-  #obkms$vocabulary = yaml::yaml.load_file ( vocabulary_db )
 
   obkms$parameters = yaml::yaml.load_file ( parameters_db )
 
@@ -92,7 +99,6 @@ init_env = function ( server_access_options,
   obkms$config['literals_db_xpath'] = literals_db_xpath
   obkms$config['non_literals_db_xpath'] = non_literals_db_xpath
   obkms$config['prefix_db'] = prefix_db
-  #obkms$config['entities_db'] = entities_db
   obkms$config['properties_db'] = properties_db
   obkms$config['classes_db'] = classes_db
   obkms$config['authors_db_xpath'] = authors_db_xpath
@@ -101,16 +107,6 @@ init_env = function ( server_access_options,
   obkms$xml_source = xml_source
   obkms$xml_type = xml_type
 
-
-
-  obkms$gazetteer$countries =
-    read.delim (  obkms$initial_dump_configuration$gazetteer$countries , header = FALSE, sep = "\t", comment.char = "~", stringsAsFactors = FALSE)
-  names( obkms$gazetteer$countries ) = c( "ISO", "ISO3", "ISO-Numeric", "fips", "Country" , "Capital", "Area(in sq km)", "Population",	"Continent", "tld", "CurrencyCode", "CurrencyName", "Phone", "Postal Code Format", "Regex", "Languages", "geonameid", "neighbours", "EquivalentFipsCode")
-
-  # http://download.geonames.org/export/dump/readme.txt
-  obkms$gazetteer$cities = read.delim ( obkms$initial_dump_configuration$gazetteer$cities , header = FALSE, sep = "\t", comment.char = "#", stringsAsFactors = FALSE)
-  names ( obkms$gazetteer$cities ) = c( "geonameid", "name", "asciiname", "alternatenames", "latitude", "longitude", "feature class", "feature code", "country code", "cc2", "admin1 code", "admin2 code", "admin3 code", "admin4 code", "population",
-                                       "elevation", "dem", "timezone", "modification date")
 
   # options to be used with the xml2::read_xml funciton
   obkms$xml_options = c()
@@ -136,8 +132,7 @@ init_env = function ( server_access_options,
 
 
   init_cluster()
-  init_authors_db()
-  init_institution_db( fromFile = TRUE )
+
   log_event( "completed initialization", "init_env", eventContext = "init")
 }
 
