@@ -1,9 +1,12 @@
-# Properties
+# Object Properties
+
+
+
+
 
 exact_match:
   uri: <http://www.w3.org/2008/05/skos#exactMatch>
-  comment: https://www.w3.org/TR/skos-primer/
-
+  comment: exact match between two concepts
 
 belongs_to_scheme:
   uri: <http://www.w3.org/2008/05/skos#inScheme>
@@ -11,10 +14,23 @@ belongs_to_scheme:
   range_includes: <http://www.w3.org/2004/02/skos/core#ConceptScheme>
   domain_includes: vocabulary term (is expressed as a restriction on `skos:inScheme`)
 
-# General Properties
 type:
   uri: <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
-  comment: is a
+  comment: the type of a resource
+
+creator:
+  uri: http://purl.org/dc/terms/creator
+  comment: has creator
+
+has_address:
+  uri: http://www.w3.org/2006/vcard/ns#hasAddress
+  comment: n-ary property of vcard
+
+is_member_of_organization:
+  uri: http://www.w3.org/ns/org#memberOf
+  comment: Indicates that an agent (person or other organization) is a member of the Organization with no indication of the nature of that membership or the role played. Note that the choice of property name is not meant to limit the property to only formal membership arrangements, it is also intended to cover related concepts such as affiliation or other involvement in the organization. Extensions can specialize this relationship to indicate particular roles within the organization or more nuanced relationships to the organization.
+
+# Data properties
 
 label:
   uri: <http://www.w3.org/2000/01/rdf-schema#label>
@@ -28,15 +44,10 @@ alternate_label:
   uri: <http://www.w3.org/2008/05/skos#altLabel>
   comment: has alternative label
 
-# Metadata
 publisher:
   uri: <http://purl.org/dc/elements/1.1/publisher>
   uri2: http://purl.org/spar/pro/publisher
-  comment: has publisher
-
-creator:
-  uri: http://purl.org/dc/terms/creator
-  comment: has creator
+  comment: the name of the publisher of an endeavour
 
 first_name:
   uri:  http://xmlns.com/foaf/0.1/firstName
@@ -50,19 +61,9 @@ email:
   uri:  http://xmlns.com/foaf/0.1/mbox
   comment: the email of an agent
 
-affiliation:
-  uri: http://www.w3.org/2006/vcard/ns#hasAddress
-  comment: the address of an agent
-
 title:
   uri: <http://purl.org/dc/elements/1.1/title>
-  comment: has title
-
-# for addresses, organizations
-
-is_member_of_organization:
-  uri: http://www.w3.org/ns/org#memberOf
-  comment: Indicates that an agent (person or other organization) is a member of the Organization with no indication of the nature of that membership or the role played. Note that the choice of property name is not meant to limit the property to only formal membership arrangements, it is also intended to cover related concepts such as affiliation or other involvement in the organization. Extensions can specialize this relationship to indicate particular roles within the organization or more nuanced relationships to the organization.
+  comment: has title string
 
 has_affiliation_string:
   uri: http://openbiodiv.net/affiliation
@@ -71,10 +72,6 @@ has_affiliation_string:
 organization_has_name:
   uri: http://www.w3.org/2006/vcard/ns#organization-name
   comment: To specify the organizational name associated with the object
-
-has_address:
-  uri: http://www.w3.org/2006/vcard/ns#hasAddress
-  comment: To specify the components of the delivery address for the object
 
 city:
   uri: http://www.w3.org/2006/vcard/ns#locality
@@ -87,7 +84,6 @@ street:
 country:
   uri: http://www.w3.org/2006/vcard/ns#hasCountryName
   comment: Used to support property parameters for the country name data property
-
 
 keywords:
   uri: <http://prismstandard.org/namespaces/basic/2.0/keywords>
@@ -152,9 +148,9 @@ publication_year:
   uri: http://purl.org/spar/fabio/hasPublicationYear
   comment: has publication year
 
-publication_date::
+publication_date:
   uri: http://prismstandard.org/namespaces/basic/2.0/publicationDate
-  comment: The date on which a resource is published or disclosed.
+  comment: The date on which a resource is published or disclosed
 
 #The date on which a document or entity is published. The date can be expressed in three different formats:
 #

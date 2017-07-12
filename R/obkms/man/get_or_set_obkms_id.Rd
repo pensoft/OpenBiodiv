@@ -7,7 +7,7 @@
 get_or_set_obkms_id(node, fullname = FALSE)
 }
 \arguments{
-\item{node}{the XML node from which to take the ID}
+\item{node}{the XML node from which to take the ID; cannot be missing!}
 
 \item{fullname}{if TRUE, returns a URI with the OBKMS base prefix}
 }

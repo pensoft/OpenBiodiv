@@ -2,15 +2,22 @@
 % Please edit documentation in R/logger.R
 \name{write_log}
 \alias{write_log}
-\title{Write the OBKMS to log to a file}
+\title{Write an OBKMS Iteration Log}
 \usage{
-write_log(toFile = FALSE)
+write_log(toFile = FALSE, append = TRUE, iteration_name = "")
+}
+\arguments{
+\item{toFile}{\emph{logical}: if this parameter is TRUE, then the log is
+written in a text-file}
+
+\item{append}{\emph{logical}: if this parameter is TRUE the log will be
+appended to the file}
+
+\item{iteration_name}{this string will be last part of the filename}
 }
 \value{
-the dataframe of the log
+a data.frame with the log
 }
 \description{
-Args:
-  @param toFile if this parameter is TRUE, then the log is also appended
-                to a text file
+This function both writes the log to a file and returns it as a data.frame
 }

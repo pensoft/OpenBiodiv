@@ -11,12 +11,20 @@
 #' @export
 qname = function( uri )
 {
-  if ( missing (uri) || is.null( uri ) ) return (NULL)
+  if ( missing (uri) || is.null( uri ) ) return ( NA )
 
   unlist ( sapply( uri, function( uri)  {
-    if ( grepl( "^#" , uri ) || grepl( ",", uri ) ) {
+
+    if ( is.na( uri ) ) return( NA )
+
+    if ( grepl( "^#" , uri )  ) {
       log_event( "URI will be forced to null", "qname", uri )
       return ( NULL ) # clean-up dbpedia shit
+    }
+    if ( grepl( ",", uri )) {
+      # if the thing has a comma, it cannot be shortened, as it will
+      # break turtle, so just put angle brackets
+      return ( strip_angle( uri, reverse = TRUE ) )
     }
     if ( missing (uri) || is.null( uri ) || uri == "" ) return (NULL)
     stopifnot( exists( 'obkms', mode = 'environment' ))
@@ -58,13 +66,20 @@ expand_qname = function ( shortname ) {
 }
 
 
-#' A function to strip the angle brackets
-strip_angle = function ( uri ) {
+#' Strips Angular Brackets from a URI if Present
+#'
+#' @param uri the URI to strip angular brackets from
+#' @param reverse FALSE, if true will put angular brakcets instead
+#'
+#' @return URI with stripped angular brackets around it
+#' TODO this function should not be exported
+#' @export
+strip_angle = function ( uri , reverse = FALSE ) {
   if ( grepl("^<.*>$", uri) ) {
-    return ( substr(uri, 2, nchar(uri) - 1) )
+    uri = ( substr(uri, 2, nchar(uri) - 1) )
   }
-  else
-    return (uri)
+  if ( !reverse ) return (uri)
+  else return( gsub( "^(.*)$", "<\\1>", uri ) )
 }
 
 #' Properly Quote Literals for use in RDF Serializations
@@ -419,15 +434,6 @@ prefix_serializer = function ( reqd_prefixes,
 
 
 
-
-#' A function to strip the angle brackets
-strip_angle = function ( uri ) {
-  if ( grepl("^<.*>$", uri) ) {
-    return ( substr(uri, 2, nchar(uri) - 1) )
-  }
-  else
-    return (uri)
-}
 
 
 

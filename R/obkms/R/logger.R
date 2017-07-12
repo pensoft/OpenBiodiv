@@ -36,22 +36,28 @@ set_context = function ( context )
   obkms$log$current_context = context
 }
 
-#' Write the OBKMS to log to a file
+#' Write an OBKMS Iteration Log
 #'
-#' Args:
-#'   @param toFile if this parameter is TRUE, then the log is also appended
-#'                 to a text file
+#' This function both writes the log to a file and returns it as a data.frame
 #'
-#' @return the dataframe of the log
+#' @param toFile \emph{logical}: if this parameter is TRUE, then the log is
+#'   written in a text-file
+#' @param append \emph{logical}: if this parameter is TRUE the log will be
+#'   appended to the file
+#' @param iteration_name this string will be last part of the filename
+#'
+#' @return a data.frame with the log
 #'
 #' @export
-write_log = function( toFile = FALSE )
+write_log = function( toFile = FALSE, append = TRUE, iteration_name = "")
 {
   value = do.call( rbind, obkms$log$events )
   if ( toFile ) {
-    write.table( x,
-                 file = paste0( obkms$initial_dump_configuration$initial_dump_directory, "/log.txt" ),
-                 append = TRUE )
+    write.table( value,
+                 file = paste0( obkms$initial_dump_configuration$initial_dump_directory,
+                                iteration_name,
+                                ".log" ),
+                 append = append )
     }
   return( value )
 }

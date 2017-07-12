@@ -6,7 +6,8 @@
 \usage{
 lookup_id(label, article_id = "?context", language = NULL,
   resource_type = obkms$classes$Thing, ignore_case = FALSE,
-  generate_on_fail = TRUE, trim = TRUE, show_query = FALSE)
+  generate_on_fail = TRUE, trim = TRUE, show_query = FALSE,
+  in_scheme = NA)
 }
 \value{
 matching ID's or NULL
@@ -28,6 +29,7 @@ Args:
     if FALSE, NULL is returned
   @param trim if TRUE whitespace will be trimmed inside and before and after
     the label
+  @param in_scheme if we are looking for a vocab term, put the vocab URI here, default NA
 }
 \examples{
 

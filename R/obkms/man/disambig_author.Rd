@@ -14,10 +14,14 @@ a URI of an author if it already exists, or mints new one if it
 doesn't or there are multiple matches and thus an ambiguity.
 }
 \description{
-This is a rule-based function. The function starts by looking at the most
-effective rules and working itself to least effective rules.
+Disambiguates exactly one author.
 }
 \details{
+This is a rule-based function. The function starts by looking at the most
+effective rules and working itself to least effective rules.
+
+Rules are separate functions, invoked by `do.call`.
+
 Rule 1: If it is a collaborative author, the function does a direct match
 of the author string.
 

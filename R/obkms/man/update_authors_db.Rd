@@ -4,8 +4,7 @@
 \alias{update_authors_db}
 \title{Updates Local Authors Store}
 \usage{
-update_authors_db(aId, aAuthor, isPerson, firstName, familyName, eMail, aInst,
-  aAff)
+update_authors_db(frame_row)
 }
 \arguments{
 \item{aId}{author URI}

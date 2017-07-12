@@ -19,7 +19,9 @@ init_env(server_access_options,
   authors_db_xpath = paste0(path.package("obkms"), "/",
   "authors_db_xpath.yml"), country_names = paste0(path.package("obkms"), "/",
   "country_names.csv"), city_names = paste0(path.package("obkms"), "/",
-  "city_names.csv"), xml_source = "file", xml_type = "taxpub")
+  "city_names.csv"), keywords_db_xpath = paste0(path.package("obkms"), "/",
+  "keywords_db_xpath.yml"), xml_source = "file", xml_type = "taxpub",
+  iteration = NA)
 }
 \description{
 The package contains a database of semantic web prefixes, stored in a yaml

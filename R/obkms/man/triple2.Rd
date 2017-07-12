@@ -2,10 +2,25 @@
 % Please edit documentation in R/xml.R
 \name{triple2}
 \alias{triple2}
-\title{do a little bit more}
+\title{Ensure Correctness of a Triple}
 \usage{
 triple2(S, P, O, blank = FALSE)
 }
+\arguments{
+\item{S}{the \emph{subject} of the triple}
+
+\item{P}{\emph{predicate}}
+
+\item{O}{\emph{object}}
+
+\item{blank}{if it is a blank (anononymous node)}
+}
+\value{
+if the triple is correct, returns a triple S, P,O - a simple
+  character vector if there are no blank nodes, or a list if the object
+  contains a blank node; otherwise
+  returns NULL. For example, if some of the nodes is NA or NULL, etc.
+}
 \description{
-do a little bit more
+Ensure Correctness of a Triple
 }

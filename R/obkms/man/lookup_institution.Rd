@@ -4,10 +4,10 @@
 \alias{lookup_institution}
 \title{Lookup a URI of an institution given an affiliation string.}
 \usage{
-lookup_institution(affiliation, cluster)
+lookup_institution(affiliation, cluster = obkms$cluster)
 }
 \value{
-URI of the institution if lookup was successful, NULL otherwise
+URI of the institution if lookup was successful, NA otherwise
 }
 \description{
 Args:
