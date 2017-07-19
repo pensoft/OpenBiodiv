@@ -1,6 +1,6 @@
 # Open Biodiversity Knowledge Management System
 
-Hello, dear friend! Welcome to the Open Biodiversity Knowledge Management System : you one-stop-shop for all your biodiversity needs. We hope you like it here and come back often! We call it OpenBiodiv. We used to call it OBKMS.
+Hello, dear friend! Welcome to the Open Biodiversity Knowledge Management System: you one-stop-shop for all your biodiversity needs. We hope you like it here and come back often! We call it OpenBiodiv. We used to call it OBKMS.
 
 This reposititory contains the source code and documentation for OpenBiodiv. The system itself will soon be deployed at
 

@@ -14,15 +14,19 @@ author_extractor(paper_id, article_id, author_xml,
 \item{article_id}{URI of the `fabio:JournalArticle` that is the realization
 of the paper}
 
-\item{author_xml}{XML object where the current author information is to be found}
+\item{author_xml}{XML2 object, where the current author information is to be
+found}
 
 \item{document}{the whole XML document of which the current XML object is
-  part of
-
-TODO: this function should not be exported}
+part of}
 
 \item{author_xpath}{(relative) xpaths of where the author literals are to
 be found in the XML object}
+}
+\value{
+list of triples
+
+TODO: this function should not be exported
 }
 \description{
 Note: extracts the information for _one_ author.

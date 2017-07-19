@@ -423,81 +423,31 @@ longest_match_length = function ( exact_matches, a_data_frame , column ) {
   else return ( NULL )
 }
 
-#' Author Disambiguation
+#' Generic Lookup Function
 #'
-#' Disambiguates exactly one author.
+#' TODO this has nothing to do with Lucene, the name needs to be generic
 #'
-#' This is a rule-based function. The function starts by looking at the most
-#' effective rules and working itself to least effective rules.
-#'
-#' Rules are separate functions, invoked by `do.call`.
-#'
-#' Rule 1: If it is a collaborative author, the function does a direct match
-#' of the author string.
-#'
-#' Rule 2: For persons:
-#'    2.a. fuzzy match of last name, and
-#'    2.b. match beginning of first name,
-#'    2.c. exact match of email.
-#'
-#' Rule 3: match with institution - replace exact match of mailbox with exact match of institution URI
-#'
-#' Rule 4: match with affiliation string
-#'
-#' Args:
-#'   @param Literal a list of literals associated with the author
-  #' @param Identifier a list of URI's associated with the author
-#'
-#' @return a URI of an author if it already exists, or mints new one if it
-#' doesn't or there are multiple matches and thus an ambiguity.
+#' @param lookup_parameter.lst a list of lookup parameters to be passed to the rules
+#' @param rule a character vector of rules to be applied in sequential order until
+#'   one succeeds
 #'
 #' @export
-disambig_author = function ( Literal, Identifier )
+rule_based_lookup = function ( parameter.lst, rule )
 {
-  ## Apply the rules ##
-  # need `for` 'cause we're gonna be applyin' the rules sequentially
-  rules = c( "disambig_collab_author",
-             "dismabig_author_by_email",
-             "disambig_author_by_institution_id",
-             "disambig_author_by_affiliation_string" )
-
-  authid = NA
-
-  for ( rule in 1:length( rules ) )
-  {
-    authid = do.call( rules[ rule ], list( Literal, Identifier ) )
-    if( !is.na( authid ) ) break
+  uri = NA
+  i = 1
+  while( is.na( uri ) && i <= length( rule ) ) {
+    p_match = do.call( rule[ i ], parameter.lst )
+    if ( nrow( p_match ) > 0 ) {
+      uri = p_match[ order(p_match$score, decreasing =TRUE)  , ][1, 1]
+      log_event( rule [ i ], "rule_based_lookup", "success")
+    }
+    else {
+      log_event( rule [ i ], "rule_based_lookup", "fail" )
+    }
+    i = i + 1
   }
-
-  if ( !is.na( authid ) )
-  {
-    log_event("we have a match", "disambig_author", authid)
-    return( authid )
-  }
-
-  log_event( "no match, update the local authors db",
-             "disambig_author",
-             paste0( Literal$surname, Literal$collab ) )
-
-  authlab = ifelse ( is.na( Literal$collab ),
-                     paste( Literal$given_name, Literal$surname ),
-                    Literal$collab )
-
-  authid = lookup_id( authlab,
-                      article_id = Identifier$article,
-                      generate_on_fail = TRUE )
-
-  update_authors_db( expand.grid( id = authid,
-                 author = authlab,
-                 is_person = is.na ( Literal$collab ),
-                 first_name = Literal$surname,
-                 family_name = Literal$given_name,
-                 email =  Literal$email ,
-                 institution =  as.character( unlist ( Identifier$institution ) ),
-                 affiliation = as.character( unlist( Literal$affiliation ) ) ,
-                 stringsAsFactors = FALSE ) )
-
-  return ( authid )
+  return( uri )
 }
 
 #' Parses an affiliation string
@@ -553,43 +503,23 @@ parse_affiliation = function ( current_affiliation ) {
 #'
 #' @return URI of the institution if lookup was successful, NA otherwise
 #' @export
-lookup_institution = function ( affiliation, cluster = obkms$cluster ) {
-  # (1) look for an exact match in the affiliation strings
-
-  # tokenize affiliation string by comas
-  potential_institutions = strsplit(affiliation, ",")
-  matches = lapply( potential_institutions[[1]], lucene_phrase_query, resource_type = "<http://dbpedia.org/ontology/EducationalInstitution>")
-  results = do.call( rbind, matches )
-  results[with(results, order(score)) , ]
-  if ( nrow( results ) > 0 ) {
-    log_event( "rule 1 match", "lookup_institution", id)
-    return( results[1,1])
-  }
-  else {
-    log_event( "rule 1 fail", "lookup_institution", id)
-  }
-
-  # (2) look for an approxiamte match in the affiliation string:
-  # (a) approximate match of the institution name and
-  # (b) exact match of the city
-  fuzzy_matches = integer( length = 0 )
-  inst_matches = which ( parSapply(cluster, obkms$gazetteer$Institutions$Institutions_Cities$label,
-                                   function(pattern, y ) {agrepl( pattern, x = y)}, y = affiliation) )
-  city_matches = which ( parSapply(cluster, obkms$gazetteer$Institutions$Institutions_Cities$city,
-                                   function(pattern, y ) {grepl( pattern, x = y)}, y = affiliation) )
-  fuzzy_matches = intersect( inst_matches, city_matches )
-  if ( length( fuzzy_matches ) > 0 ) {
-    id = majority_id( fuzzy_matches, obkms$gazetteer$Institutions$Institutions_Cities, "institution" )
-    if ( !is.null ( id ) ) {
-      log_event( "Rule 2 match (fuzzy match with city)", "lookup_institution", id)
-      return ( id )
+lookup_institution = function ( affiliation, cluster = obkms$cluster )
+{
+  uri = NA
+  rule = c( "institution_rule2", "institution_rule1" )
+  i = 1
+  while( is.na( uri ) && i <= length( rule ) ) {
+    potential_match = do.call( rule[ i ], as.list( affiliation ))
+    if ( nrow( potential_match ) > 0 ) {
+      uri = potential_match[ order(potential_match$score, decreasing =TRUE)  , ][1, 1]
+      log_event( rule [ i ], "lookup_institution", "success")
     }
     else {
-      log_event( "rule 2 fail (fuzzy match with city)", "lookup_institution", "multiple matches")
+      log_event( rule [ i ], "lookup_institution", "fail" )
     }
+    i = i + 1
   }
-  log_event( "no match" , "lookup_institution", affiliation  )
-  return ( NA )
+  return( uri )
 }
 
 
@@ -745,5 +675,377 @@ WHERE {
     obkms$server_access_options$repository,
     query, "CSV" )
 }
+
+#' Rule1 for Institution Disambiguation
+#'
+#' TODO unexport that for production
+#'
+#' @param affiliation the affiliation string
+#' @return a URI with the match if found, NA if nothing is found
+#' @export
+institution_rule1 = function( affiliation )
+{
+  # split affiliation string by ","
+  potential_institution = unlist( strsplit(affiliation, ",") )
+  potential_matches = lapply( potential_institution, lucene_phrase_query, resource_type = "<http://dbpedia.org/ontology/EducationalInstitution>")
+  potential_matches = do.call( rbind, potential_matches )
+  return ( potential_matches )
+
+}
+
+#' (2) look for an approxiamte match in the affiliation string:
+#' (a) approximate match of the institution name and
+#' (b) exact match of the city
+#' @param affiliation the affiliation string
+#' @return URI or NA
+#' @export
+institution_rule2 = function( affiliation )
+{
+  lucene_query = character(2)
+  lucene_connector = character(2)
+  # housekeeping
+  lucene = vector( mode = "list", length = 2 )
+
+  # split affiliation string in words and add ~
+  word = unlist ( strsplit(affiliation, "\\W") )
+  word = unique( word[ which( word != "" ) ] )
+  word = paste0( word, "~")
+
+  lucene1 = lucene_query_creator.fuzzy_label( affiliation )
+
+  lucene_query[1] = lucene1[[1]]
+  lucene_connector[1] = lucene1[[2]]
+
+  potential_institution = trim_label( unlist( strsplit(affiliation, "," )))
+  potential_institution = paste0("\\\\\"", potential_institution, "\\\\\"")
+
+  lucene_query[2] = do.call( paste , as.list( c( "label:", potential_institution )))
+  # TODO make this an OBKMS parameter
+  lucene_connector[2] = "<http://www.ontotext.com/connectors/lucene/instance#PhraseSearch>"
+
+  query = "SELECT ?entity ?score ?label
+WHERE {
+  ?search a %lucene_connector1 ;
+    lucene:query %lucene_query1 ;
+    lucene:entities ?entity .
+  ?entity lucene:score ?score ;
+    rdfs:label ?label ;
+    a dbo:EducationalInstitution ;
+    vcard:hasLocality ?locality .
+
+  ?search2 a %lucene_connector2 ;
+    lucene:query %lucene_query2 ;
+    lucene:entities ?locality .
+} ORDER BY DESC (?score)"
+
+  query = gsub("%lucene_connector1", lucene_connector[1],  query)
+  query = gsub("%lucene_query1", paste0( "\"", lucene_query[1], "\""), query)
+  query = gsub("%lucene_connector2", lucene_connector[2],  query)
+  query = gsub("%lucene_query2", paste0( "\"", lucene_query[2], "\""), query)
+
+  query = do.call( paste, as.list( c( turtle_prepend_prefixes( t = "SPARQL" ), query )))
+
+  potential_match = rdf4jr::POST_query(
+    obkms$server_access_options,
+    obkms$server_access_options$repository,
+    query, "CSV" )
+
+  return( potential_match )
+}
+
+
+#' Person Matches According to Author Rule 1
+#'
+#' Looks up an author's ID by his or her email.
+#'
+#' Idea: first letter of first name AND
+#'       exact match of email AND
+#'       fuzzy match of last name
+#'
+#' @param collab, surname, given_name, email, reference, affiliation
+#'
+#' @return a data.frame with person matches of class SearchResult
+#'
+#' @export
+author_rule.1 = function( collab, surname, given_name, email, reference, affiliation )
+{
+  query = "SELECT ?entity ?score ?label
+  WHERE {
+  ?search a <http://www.ontotext.com/connectors/lucene/instance#PhraseSearch> ;
+    lucene:query %lucene_query1 ;
+    lucene:entities ?entity .
+
+  ?entity lucene:score ?score ;
+    rdfs:label ?label ;
+    foaf:mbox ?email .
+
+  ?search2 a <http://www.ontotext.com/connectors/lucene/WordSearch> ;
+    lucene:query %lucene_query2 ;
+    lucene:entities ?entity .
+
+  } ORDER BY DESC (?score)"
+
+  lucene_query = character(2)
+  lucene_query[1] = lucene_author_query( first_name = given_name,
+                                                         email  = email)
+  lucene_query[2] = lucene_author_query( last_name = surname )
+
+
+  query = gsub("%lucene_query1", paste0( "\"", lucene_query[1], "\""), query)
+  query = gsub("%lucene_query2", paste0( "\"", lucene_query[2], "\""), query)
+  query = do.call( paste, as.list( c( turtle_prepend_prefixes( t = "SPARQL" ), query )))
+
+  result = rdf4jr::POST_query(
+    obkms$server_access_options,
+    obkms$server_access_options$repository,
+    query, "CSV" )
+
+  class(result) = c( class( result ), "SearchResult" )
+
+  return( result )
+}
+
+#' Person Matches According to Author Rule 2
+#'
+#' Match against existing affiliations
+#'
+#' Idea: first letter of first name AND
+#'       fuzzy-and-match of last name AND
+#'       fuzzy-and-match of affiliation AND
+#'
+#' @param collab, surname, given_name, email, reference, affiliation
+#'
+#' @return a data.frame with person matches of class SearchResult
+#'
+#' @export
+author_rule.2 = function( collab, surname, given_name, email, reference, affiliation )
+{
+  query = "SELECT ?entity ?score ?label
+  WHERE {
+  ?search a <http://www.ontotext.com/connectors/lucene/instance#PhraseSearch> ;
+    lucene:query %lucene_query1 ;
+    lucene:entities ?entity .
+
+  ?search2 a <http://www.ontotext.com/connectors/lucene/WordSearch> ;
+    lucene:query %lucene_query2 ;
+    lucene:entities ?entity .
+
+  ?search3 a <http://www.ontotext.com/connectors/lucene/WordSearch> ;
+    lucene:query %lucene_query3 ;
+    lucene:entities ?entity .
+
+  } ORDER BY DESC (?score)"
+
+  lucene_query = character(3)
+  lucene_query[1] = lucene_author_query( first_name = given_name,
+                                  email  = email)
+  lucene_query[2] = lucene_author_query( last_name = surname )
+  lucene_query[3] = lucene_author_query( affiliation = affiliation )
+
+  query = gsub("%lucene_query1", paste0( "\"", lucene_query[1], "\""), query)
+  query = gsub("%lucene_query2", paste0( "\"", lucene_query[2], "\""), query)
+  query = gsub("%lucene_query3", paste0( "\"", lucene_query[3], "\""), query)
+  query = do.call( paste, as.list( c( turtle_prepend_prefixes( t = "SPARQL" ), query )))
+
+  result = rdf4jr::POST_query(
+    obkms$server_access_options,
+    obkms$server_access_options$repository,
+    query, "CSV" )
+
+  class(result) = c( class( result ), "SearchResult" )
+
+  return( result )
+}
+
+#' Person Matches According to Author Rule 3
+#'
+#' For collaborative authors, match the label
+#'
+#' @param collab
+#' @param surname
+#' @param given_name
+#' @param email
+#' @param reference
+#' @param affiliation
+#'
+#' @return a data.frame with person matches of class SearchResult
+#'
+#' @export
+author_rule.3 = function( collab, surname, given_name, email, reference, affiliation )
+{
+  if ( is.na( collab ) ) return (data.frame () )
+  query = "SELECT ?entity ?score ?label
+  WHERE {
+  ?search a <http://www.ontotext.com/connectors/lucene/instance#PhraseSearch> ;
+    lucene:query %lucene_query1 ;
+    lucene:entities ?entity .
+
+  ?entity a foaf:Agent .
+
+  } ORDER BY DESC (?score)"
+
+  lucene_query = c( lucene_label_query( collab ) )
+
+  query = gsub("%lucene_query1", paste0( "\"", lucene_query[1], "\""), query)
+  query = do.call( paste, as.list( c( turtle_prepend_prefixes( t = "SPARQL" ), query )))
+
+  result = rdf4jr::POST_query(
+    obkms$server_access_options,
+    obkms$server_access_options$repository,
+    query, "CSV" )
+
+  class(result) = c( class( result ), "SearchResult" )
+
+  return( result )
+}
+
+
+#' Lucene Query Creator: Fuzzy Label Query
+#'
+#' Takes a string, a creates a fuzzy label query out of it.
+#'
+#' @param label the label to be parsed
+#' @return the query string and the needed connector (a vector of two)
+#'
+#' @export
+lucene_query_creator.fuzzy_label = function ( label )
+{
+  # first, convert the label several phrases
+  phrase = trim_label( unlist( strsplit( label, ",") ) )
+
+  # then, process each phrase as an Fuzzy-AND-Phrase
+  phrase = phrase2FuzzyAnd( phrase )
+
+  # the glue the phrases together, after each but the last phrase you want an OR
+  phrase = c( paste(phrase[1: length(phrase ) - 1], "OR"), phrase[ length( phrase ) ] )
+  lucene_query = do.call( paste, as.list( c( "label:", phrase )))
+  lucene_connector = "<http://www.ontotext.com/connectors/lucene/instance#WordSearch>"
+  return ( list( lucene_query, lucene_connector ))
+}
+
+
+#' Convert a Literal Phrase to a Fuzzy-AND-Phrase
+#'
+#' Puts qunituple quotes around the phrase, removes special
+#' characters, adds tilde after the words and AND between
+#' the words of a phrase
+#'
+#' @param phrase
+#' @return improved phrase
+#' @export
+phrase2FuzzyAnd = function( phrase )
+{
+  word = sapply (phrase, function( p ) {
+    p = tm::removeWords(p, tm::stopwords( "SMART" ) )
+    # split affiliation string in words and add ~
+    word = unlist ( strsplit(p, "\\W") )
+    word = unique( word[ which( word != "" ) ] )
+    word = paste0( word, "~")
+    word = c( paste(word[1: length(word ) - 1], "AND"), word[ length( word ) ] )
+    do.call( paste, as.list( c( "(\\\\\"", word , "\\\\\")")))
+  })
+}
+
+
+#' Lucene Query String to Search For Authors
+#'
+#' Depending of what arguments are supplied, different queries are returned
+#' (generic behavior)
+#'
+#' @param first_name the first name
+#' @param last_name the last name
+#' @param email author's email
+#'
+#' @return the lucene query string
+#'
+#' @export
+lucene_author_query = function( first_name, last_name, email, affiliation )
+{
+  # "first_name:L* AND email:penev@pensoft.net"
+  if ( !missing( first_name ) && !missing( email ) && missing( last_name ) ) {
+    first_letter = substring( first_name, 1, 1 )
+    query = paste0("first_name:", first_letter, "* AND email:", email )
+    return ( query )
+  }
+  # "last_name:Penev~"
+  else if ( missing( first_name ) && missing( email ) && !missing( last_name ) ) {
+    return ( lucene_fuzzy_and_query( "last_name", last_name ) )
+  }
+  # "affiliation_string:School~ AND Biological~ AND Sciences~ AND Tamaki~
+  # AND Campus~ AND University~ AND Auckland~ AND New~ AND Zealand~"
+  else if ( missing( first_name ) && missing ( last_name ) && missing ( email )
+            && !missing ( affiliation ) ) {
+    return ( lucene_fuzzy_and_query( "affiliation", affiliation ) )
+  }
+}
+
+#' Lucene Fuzzy AND Query
+#'
+#' @param field_name the field name to query against
+#' @param label label to converted into a fuzzy and clause
+#'
+#' @return lucene query string
+#'
+#' @examples
+#'
+#' lucene_fuzzy_and_query( "last_name", "van Basten")
+#'
+#' @export
+lucene_fuzzy_and_query = function ( field_name, label ) {
+  word = sapply (label, function( p ) {
+    p = tm::removeWords(p, tm::stopwords( "SMART" ) )
+    # split affiliation string in words and add ~
+    word = unlist ( strsplit(p, "\\W") )
+    word = unique( word[ which( word != "" ) ] )
+  })
+  word = paste0( word, "~" )
+  if ( length( word ) > 1 ) {
+    word[ 1: (length( word ) - 1)] = paste0( word[ 1: (length( word ) - 1)] , " AND")
+  }
+  paste0(  field_name, ": ", do.call(paste, as.list( word ) ) )
+}
+
+#' Lucene Label Query
+#'
+#' @param label the label text that needs to be investigated
+#'
+#' @return the Lucene query string
+#'
+#' @examples
+#'
+#' lucene_label_query("Pensoft Publishers")
+#'
+#' @export
+lucene_label_query = function ( label ) {
+  paste0( "label: \\\\\"", label, "\\\\\"")
+}
+
+#' Lucene Query Creator: Fuzzy Label Query
+#'
+#' Takes a string, a creates a fuzzy label query out of it.
+#'
+#' @param label the label to be parsed
+#' @return the query string and the needed connector (a vector of two)
+#'
+#' @export
+lucene_query_creator.fuzzy_field = function ( field_name,  label )
+{
+  label = sapply (phrase, function( p ) {
+    p = tm::removeWords(p, tm::stopwords( "SMART" ) )
+    # split affiliation string in words and add ~
+    word = unlist ( strsplit(p, "\\W") )
+    word = unique( word[ which( word != "" ) ] )
+    word = paste0( word, "~")
+    word = c( paste(word[1: length(word ) - 1], "AND"), word[ length( word ) ] )
+    do.call( paste, as.list( c( "(\\\\\"", word , "\\\\\")")))
+  })
+
+  # the glue the phrases together, after each but the last phrase you want an OR
+  phrase = c( paste(phrase[1: length(phrase ) - 1], "AND"), phrase[ length( phrase ) ] )
+  lucene_query = do.call( paste, as.list( c( "label:", phrase )))
+  lucene_connector = "<http://www.ontotext.com/connectors/lucene/instance#WordSearch>"
+  return ( list ( query = lucene_query, connector = lucene_connector ))
+}
+
 
 

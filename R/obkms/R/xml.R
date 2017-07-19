@@ -382,12 +382,14 @@ taxpub_extractor = function( xml, xlit = yaml::yaml.load_file( obkms$config$lite
 #'
 #' @param paper_id URI of the `fabio:ResearchPaper`
 #' @param article_id URI of the `fabio:JournalArticle` that is the realization
-#'   of the paper
-#' @param author_xml XML object where the current author information is to be found
+#'                                                                  of the paper
+#' @param author_xml XML2 object, where the current author information is to be
+#'                                                                         found
 #' @param author_xpath (relative) xpaths of where the author literals are to
 #'   be found in the XML object
 #' @param document the whole XML document of which the current XML object is
-#'   part of
+#'                                                                       part of
+#' @return list of triples
 #'
 #' TODO: this function should not be exported
 #' @export
@@ -397,24 +399,25 @@ author_extractor = function ( paper_id ,
                               authors_xpath =  yaml::yaml.load_file( obkms$config$authors_db_xpath ),
                               document )
 {
-  literals = as.list( find_literals( author_xml, authors_xpath ) )
-
-
-  # also get the references, a little bit tricky
-
-  literals$affiliation  = lapply( literals$reference,
-                                  retrieve_affiliation_string_from_author,
-                                  xml_document = document )
-
-  # at this point, we have all the literal information and we're ready try to
-  # lookup the author based on the literals
+  # housekeeping
   identifier = list()
   identifier$article = article_id
 
-  identifier$institution =  qname ( lapply( literals$affiliation, lookup_institution ) )
+  # literals
+  # TODO refactor find_literals to return a list
+  literals = as.list( find_literals( author_xml, authors_xpath ) )
 
+  # affiliation
+  literals$affiliation  = sapply( literals$reference,
+                                  retrieve_affiliation_string_from_author,
+                                  xml_document = document )
 
-  identifier[['author']] = qname( disambig_author ( literals , identifier ) )
+  # lookups
+  identifier$author = lookup_id( )
+
+  identifier$author = qname( rule_based_lookup (  literals, rule = c("author_rule.3" , "author_rule.1", "author_rule.2") ) )
+
+  # BOOKMARK continue from here, add the lookup_id function before the rule_based_lookup
 
   if ( !is.na( literals$collab ) ) {
     triples = list (
