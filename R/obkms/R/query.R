@@ -60,6 +60,8 @@ get_nodeid = function( label = "", explicit_node_id = "", allow_multiple = FALSE
 
 #' Lookup an Identifier (URI) for a Resource in OBKMS
 #'
+#' TODO: should have a more functional name
+#'
 #' Given a label (and a few optional arguments) this function locates the URI
 #' or URI's that match this label (and optional arguments) in OBKMS. If no
 #' match is found, a unique ID (UUID) is generated.
@@ -136,6 +138,9 @@ lookup_id = function( label,
   if ( generate_on_fail ) {
     log_event ( "failed lookup, generating new id", "lookup id", "" )
     return ( qname( paste0( strip_angle( obkms$prefixes$`_base` ), uuid::UUIDgenerate( ) ) ) )
+  }
+  else {
+    return( NA )
   }
 }
 
@@ -767,21 +772,27 @@ WHERE {
 #' @return a data.frame with person matches of class SearchResult
 #'
 #' @export
-author_rule.1 = function( collab, surname, given_name, email, reference, affiliation )
+author_rule.1 = function( collab, surname, given_name, email, reference, affiliation, label )
 {
+  if ( is.na( given_name) || is.na( email ) || is.na( surname ) ) return ( data.frame())
   query = "SELECT ?entity ?score ?label
   WHERE {
+
   ?search a <http://www.ontotext.com/connectors/lucene/instance#PhraseSearch> ;
     lucene:query %lucene_query1 ;
-    lucene:entities ?entity .
+    lucene:entities ?entity1 .
+
+  ?search2 a <http://www.ontotext.com/connectors/lucene/instance#WordSearch>;
+    lucene:query %lucene_query2 ;
+    lucene:entities ?entity2 .
+
+ FILTER ( ?entity1 = ?entity2 )
+  BIND ( ?entity1 as ?entity )
 
   ?entity lucene:score ?score ;
     rdfs:label ?label ;
     foaf:mbox ?email .
 
-  ?search2 a <http://www.ontotext.com/connectors/lucene/WordSearch> ;
-    lucene:query %lucene_query2 ;
-    lucene:entities ?entity .
 
   } ORDER BY DESC (?score)"
 
@@ -807,7 +818,8 @@ author_rule.1 = function( collab, surname, given_name, email, reference, affilia
 
 #' Person Matches According to Author Rule 2
 #'
-#' Match against existing affiliations
+#' Match against existing affiliations.
+#' Note: one author may have multiple affiliations.
 #'
 #' Idea: first letter of first name AND
 #'       fuzzy-and-match of last name AND
@@ -818,43 +830,52 @@ author_rule.1 = function( collab, surname, given_name, email, reference, affilia
 #' @return a data.frame with person matches of class SearchResult
 #'
 #' @export
-author_rule.2 = function( collab, surname, given_name, email, reference, affiliation )
+author_rule.2 = function( collab, surname, given_name, email, reference, affiliation, label )
 {
-  query = "SELECT ?entity ?score ?label
+  r = lapply( affiliation, function ( a ) {
+    if ( is.na( given_name) || is.na( surname ) || is.na( a ) ) return ( data.frame())
+    query = "SELECT ?entity ?score ?label
   WHERE {
   ?search a <http://www.ontotext.com/connectors/lucene/instance#PhraseSearch> ;
     lucene:query %lucene_query1 ;
-    lucene:entities ?entity .
+    lucene:entities ?entity1 .
 
-  ?search2 a <http://www.ontotext.com/connectors/lucene/WordSearch> ;
+  ?search2 a <http://www.ontotext.com/connectors/lucene/instance#WordSearch> ;
     lucene:query %lucene_query2 ;
-    lucene:entities ?entity .
+    lucene:entities ?entity2 .
 
-  ?search3 a <http://www.ontotext.com/connectors/lucene/WordSearch> ;
+  ?search3 a <http://www.ontotext.com/connectors/lucene/instance#WordSearch> ;
     lucene:query %lucene_query3 ;
-    lucene:entities ?entity .
+    lucene:entities ?entity3 .
+
+  FILTER ( ?entity1 = ?entity2 && ?entity2 = ?entity3 )
+  BIND ( ?entity1 as ?entity )
+
+?entity   lucene:score ?score ;
+    rdfs:label ?label .
 
   } ORDER BY DESC (?score)"
 
-  lucene_query = character(3)
-  lucene_query[1] = lucene_author_query( first_name = given_name,
-                                  email  = email)
-  lucene_query[2] = lucene_author_query( last_name = surname )
-  lucene_query[3] = lucene_author_query( affiliation = affiliation )
+    lucene_query = character(3)
+    lucene_query[1] = lucene_author_query( first_name = given_name )
+    lucene_query[2] = lucene_author_query( last_name = surname )
+    lucene_query[3] = lucene_author_query( affiliation = a )
 
-  query = gsub("%lucene_query1", paste0( "\"", lucene_query[1], "\""), query)
-  query = gsub("%lucene_query2", paste0( "\"", lucene_query[2], "\""), query)
-  query = gsub("%lucene_query3", paste0( "\"", lucene_query[3], "\""), query)
-  query = do.call( paste, as.list( c( turtle_prepend_prefixes( t = "SPARQL" ), query )))
+    query = gsub("%lucene_query1", paste0( "\"", lucene_query[1], "\""), query)
+    query = gsub("%lucene_query2", paste0( "\"", lucene_query[2], "\""), query)
+    query = gsub("%lucene_query3", paste0( "\"", lucene_query[3], "\""), query)
+    query = do.call( paste, as.list( c( turtle_prepend_prefixes( t = "SPARQL" ), query )))
 
-  result = rdf4jr::POST_query(
-    obkms$server_access_options,
-    obkms$server_access_options$repository,
-    query, "CSV" )
+    result = rdf4jr::POST_query(
+      obkms$server_access_options,
+      obkms$server_access_options$repository,
+      query, "CSV" )
 
-  class(result) = c( class( result ), "SearchResult" )
+    class(result) = c( class( result ), "SearchResult" )
 
-  return( result )
+    return( result )
+  })
+  return ( do.call( rbind, r) )
 }
 
 #' Person Matches According to Author Rule 3
@@ -871,7 +892,7 @@ author_rule.2 = function( collab, surname, given_name, email, reference, affilia
 #' @return a data.frame with person matches of class SearchResult
 #'
 #' @export
-author_rule.3 = function( collab, surname, given_name, email, reference, affiliation )
+author_rule.3 = function( collab, surname, given_name, email, reference, affiliation, label )
 {
   if ( is.na( collab ) ) return (data.frame () )
   query = "SELECT ?entity ?score ?label
@@ -967,9 +988,14 @@ lucene_author_query = function( first_name, last_name, email, affiliation )
     query = paste0("first_name:", first_letter, "* AND email:", email )
     return ( query )
   }
+  else if (!missing( first_name ) && missing( email ) && missing( last_name ) && missing( affiliation)  ) {
+    first_letter = substring( first_name, 1, 1 )
+    query = paste0("first_name:", first_letter, "*" )
+    return ( query )
+  }
   # "last_name:Penev~"
   else if ( missing( first_name ) && missing( email ) && !missing( last_name ) ) {
-    return ( lucene_fuzzy_and_query( "last_name", last_name ) )
+    return ( lucene_fuzzy_and_query( "last_name", last_name , remove_stop = FALSE) )
   }
   # "affiliation_string:School~ AND Biological~ AND Sciences~ AND Tamaki~
   # AND Campus~ AND University~ AND Auckland~ AND New~ AND Zealand~"
@@ -991,9 +1017,11 @@ lucene_author_query = function( first_name, last_name, email, affiliation )
 #' lucene_fuzzy_and_query( "last_name", "van Basten")
 #'
 #' @export
-lucene_fuzzy_and_query = function ( field_name, label ) {
+lucene_fuzzy_and_query = function ( field_name, label, remove_stop = TRUE) {
+  stopwords = c( "the", tm::stopwords())
   word = sapply (label, function( p ) {
-    p = tm::removeWords(p, tm::stopwords( "SMART" ) )
+    p = tolower( p )
+    if ( remove_stop ) p = tm::removeWords(p, stopwords )
     # split affiliation string in words and add ~
     word = unlist ( strsplit(p, "\\W") )
     word = unique( word[ which( word != "" ) ] )

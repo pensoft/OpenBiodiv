@@ -399,45 +399,53 @@ author_extractor = function ( paper_id ,
                               authors_xpath =  yaml::yaml.load_file( obkms$config$authors_db_xpath ),
                               document )
 {
-  # housekeeping
+  # construct the author record
+  # TODO refactor find_literals to return a list (or maybe even an env!, as we
+  # do want to increase it )
+  # and set the class parameter as well, i.e. make find_literals to a contructor
+  author = as.list( find_literals( author_xml, authors_xpath ) )
+  author$affiliation  = sapply( author$reference,
+                                retrieve_affiliation_string_from_author,
+                                xml_document = document )
+  author$label = paste( author$given_name, author$surname )
+  class( author ) = "Author"
+
+  # id's TODO we're copying the list here, may need to use a env instead
   identifier = list()
   identifier$article = article_id
 
-  # literals
-  # TODO refactor find_literals to return a list
-  literals = as.list( find_literals( author_xml, authors_xpath ) )
+  fcall = vector(mode = "list", length = 3)
+  fcall[[1]] = list( "lookup_id", list( label = author$label, article_id = identifier$article, generate_on_fail = FALSE) )
+  fcall[[2]] = list ( "rule_based_lookup", list( parameter.lst = author, rule = c("author_rule.3" , "author_rule.1", "author_rule.2") ) )
+  fcall[[3]] = list( "lookup_id", list( label = author$label, article_id = identifier$article, generate_on_fail = TRUE) )
 
-  # affiliation
-  literals$affiliation  = sapply( literals$reference,
-                                  retrieve_affiliation_string_from_author,
-                                  xml_document = document )
+  identifier$author = NA
+  i = 1
+  while ( is.na ( identifier$author ) && i <= length( fcall ) ) {
+    identifier$author = do.call( fcall[[i]][[1]], fcall[[i]][[2]] )
+    i = i + 1
+  }
+  identifier$author =  qname( identifier$author )
 
-  # lookups
-  identifier$author = lookup_id( )
-
-  identifier$author = qname( rule_based_lookup (  literals, rule = c("author_rule.3" , "author_rule.1", "author_rule.2") ) )
-
-  # BOOKMARK continue from here, add the lookup_id function before the rule_based_lookup
-
-  if ( !is.na( literals$collab ) ) {
+  if ( !is.na( author$collab ) ) {
     triples = list (
       triple2( paper_id,                qname( obkms$properties$creator$uri ),         identifier$author ) ,
       triple2( identifier$author,    qname( obkms$properties$type$uri ),            qname ( obkms$classes$Agent$uri ) ),
-      triple2( identifier$author,    qname( obkms$properties$label$uri ), squote ( literals$collab ) ),
-      triple2( identifier$author,    qname( obkms$properties$email$uri ),           squote ( literals$email ) ) )
+      triple2( identifier$author,    qname( obkms$properties$label$uri ), squote ( author$collab ) ),
+      triple2( identifier$author,    qname( obkms$properties$email$uri ),           squote ( author$email ) ) )
   }
   else {
     triples = list (
       triple2( paper_id,                qname( obkms$properties$creator$uri ),         identifier$author ) ,
       triple2( identifier$author,    qname( obkms$properties$type$uri ),            qname ( obkms$classes$Person$uri ) ),
-      triple2( identifier$author,    qname( obkms$properties$preferred_label$uri ), squote ( paste(literals$given_name, literals$surname, sep = " " ) ) ),
-      triple2( identifier$author,    qname( obkms$properties$first_name$uri ),      squote ( literals$given_name ) ),
-      triple2( identifier$author,    qname( obkms$properties$surname$uri ),         squote ( literals$surname ) ),
-      triple2( identifier$author,    qname( obkms$properties$email$uri ),           squote ( literals$email ) ) )
+      triple2( identifier$author,    qname( obkms$properties$preferred_label$uri ), squote ( paste(author$given_name, author$surname, sep = " " ) ) ),
+      triple2( identifier$author,    qname( obkms$properties$first_name$uri ),      squote ( author$given_name ) ),
+      triple2( identifier$author,    qname( obkms$properties$surname$uri ),         squote ( author$surname ) ),
+      triple2( identifier$author,    qname( obkms$properties$email$uri ),           squote ( author$email ) ) )
   }
 
   # add the affiliation string
-  for ( affiliation in literals$affiliation ) {
+  for ( affiliation in author$affiliation ) {
     triples = c( triples, list (
     triple2( identifier$author,    qname( obkms$properties$has_affiliation_string$uri ),
           squote( affiliation, language = obkms$parameters$Language$English) ) ) )
@@ -893,8 +901,9 @@ extract_keywords = function( XML,
                              XPath = yaml::yaml.load_file( obkms$config$keywords_db_xpath ),
                              keyword_scheme = obkms$parameters$Vocabularies$Subject_Classification_Terms)
 {
-  Literal = find_literals( XML$node, XPath )
+  Literal = as.list ( find_literals( XML$node, XPath ) )
   Language = list( semantic_code = Literal$language )
+  if ( is.na ( Literal$language ) ) { Language =  obkms$parameters$Language$English }
 
   triples = list()
 

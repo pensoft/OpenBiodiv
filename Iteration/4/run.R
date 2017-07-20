@@ -24,7 +24,7 @@ new_files_list = bdj_dumper( journal = "BDJ", fromdate = dump_date )
 dump_list = list.files( path = "/media/obkms/XML2", pattern = "BDJ", full.names = TRUE)
 dump_list = sample(dump_list, 10)
 
-response_bdj = process_dump_list( dump_list[1] )
+response_bdj = process_dump_list( dump_list )
 
 logs = write_log( toFile = TRUE, append = FALSE, iteration_name = "Iteration_3")
 Statistics = compute_statistics_from_log( logs )
@@ -39,6 +39,6 @@ response_phytokeys = process_dump_list ( dump_list )
 
 # phytokeys
 
-dump_list = list.files( path = "/media/obkms/XML2", pattern = c(  "phytokeys"), full.names = TRUE)
+dump_list = list.files( path = "/media/obkms/XML2", pattern = c(  "*.xml"), full.names = TRUE)
 response_phytokeys = process_dump_list ( dump_list )
 
