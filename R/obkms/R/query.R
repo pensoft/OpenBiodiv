@@ -430,7 +430,6 @@ longest_match_length = function ( exact_matches, a_data_frame , column ) {
 
 #' Generic Lookup Function
 #'
-#' TODO this has nothing to do with Lucene, the name needs to be generic
 #'
 #' @param lookup_parameter.lst a list of lookup parameters to be passed to the rules
 #' @param rule a character vector of rules to be applied in sequential order until
@@ -759,166 +758,6 @@ WHERE {
 }
 
 
-#' Person Matches According to Author Rule 1
-#'
-#' Looks up an author's ID by his or her email.
-#'
-#' Idea: first letter of first name AND
-#'       exact match of email AND
-#'       fuzzy match of last name
-#'
-#' @param collab, surname, given_name, email, reference, affiliation
-#'
-#' @return a data.frame with person matches of class SearchResult
-#'
-#' @export
-author_rule.1 = function( collab, surname, given_name, email, reference, affiliation, label )
-{
-  if ( is.na( given_name) || is.na( email ) || is.na( surname ) ) return ( data.frame())
-  query = "SELECT ?entity ?score ?label
-  WHERE {
-
-  ?search a <http://www.ontotext.com/connectors/lucene/instance#PhraseSearch> ;
-    lucene:query %lucene_query1 ;
-    lucene:entities ?entity1 .
-
-  ?search2 a <http://www.ontotext.com/connectors/lucene/instance#WordSearch>;
-    lucene:query %lucene_query2 ;
-    lucene:entities ?entity2 .
-
- FILTER ( ?entity1 = ?entity2 )
-  BIND ( ?entity1 as ?entity )
-
-  ?entity lucene:score ?score ;
-    rdfs:label ?label ;
-    foaf:mbox ?email .
-
-
-  } ORDER BY DESC (?score)"
-
-  lucene_query = character(2)
-  lucene_query[1] = lucene_author_query( first_name = given_name,
-                                                         email  = email)
-  lucene_query[2] = lucene_author_query( last_name = surname )
-
-
-  query = gsub("%lucene_query1", paste0( "\"", lucene_query[1], "\""), query)
-  query = gsub("%lucene_query2", paste0( "\"", lucene_query[2], "\""), query)
-  query = do.call( paste, as.list( c( turtle_prepend_prefixes( t = "SPARQL" ), query )))
-
-  result = rdf4jr::POST_query(
-    obkms$server_access_options,
-    obkms$server_access_options$repository,
-    query, "CSV" )
-
-  class(result) = c( class( result ), "SearchResult" )
-
-  return( result )
-}
-
-#' Person Matches According to Author Rule 2
-#'
-#' Match against existing affiliations.
-#' Note: one author may have multiple affiliations.
-#'
-#' Idea: first letter of first name AND
-#'       fuzzy-and-match of last name AND
-#'       fuzzy-and-match of affiliation AND
-#'
-#' @param collab, surname, given_name, email, reference, affiliation
-#'
-#' @return a data.frame with person matches of class SearchResult
-#'
-#' @export
-author_rule.2 = function( collab, surname, given_name, email, reference, affiliation, label )
-{
-  r = lapply( affiliation, function ( a ) {
-    if ( is.na( given_name) || is.na( surname ) || is.na( a ) ) return ( data.frame())
-    query = "SELECT ?entity ?score ?label
-  WHERE {
-  ?search a <http://www.ontotext.com/connectors/lucene/instance#PhraseSearch> ;
-    lucene:query %lucene_query1 ;
-    lucene:entities ?entity1 .
-
-  ?search2 a <http://www.ontotext.com/connectors/lucene/instance#WordSearch> ;
-    lucene:query %lucene_query2 ;
-    lucene:entities ?entity2 .
-
-  ?search3 a <http://www.ontotext.com/connectors/lucene/instance#WordSearch> ;
-    lucene:query %lucene_query3 ;
-    lucene:entities ?entity3 .
-
-  FILTER ( ?entity1 = ?entity2 && ?entity2 = ?entity3 )
-  BIND ( ?entity1 as ?entity )
-
-?entity   lucene:score ?score ;
-    rdfs:label ?label .
-
-  } ORDER BY DESC (?score)"
-
-    lucene_query = character(3)
-    lucene_query[1] = lucene_author_query( first_name = given_name )
-    lucene_query[2] = lucene_author_query( last_name = surname )
-    lucene_query[3] = lucene_author_query( affiliation = a )
-
-    query = gsub("%lucene_query1", paste0( "\"", lucene_query[1], "\""), query)
-    query = gsub("%lucene_query2", paste0( "\"", lucene_query[2], "\""), query)
-    query = gsub("%lucene_query3", paste0( "\"", lucene_query[3], "\""), query)
-    query = do.call( paste, as.list( c( turtle_prepend_prefixes( t = "SPARQL" ), query )))
-
-    result = rdf4jr::POST_query(
-      obkms$server_access_options,
-      obkms$server_access_options$repository,
-      query, "CSV" )
-
-    class(result) = c( class( result ), "SearchResult" )
-
-    return( result )
-  })
-  return ( do.call( rbind, r) )
-}
-
-#' Person Matches According to Author Rule 3
-#'
-#' For collaborative authors, match the label
-#'
-#' @param collab
-#' @param surname
-#' @param given_name
-#' @param email
-#' @param reference
-#' @param affiliation
-#'
-#' @return a data.frame with person matches of class SearchResult
-#'
-#' @export
-author_rule.3 = function( collab, surname, given_name, email, reference, affiliation, label )
-{
-  if ( is.na( collab ) ) return (data.frame () )
-  query = "SELECT ?entity ?score ?label
-  WHERE {
-  ?search a <http://www.ontotext.com/connectors/lucene/instance#PhraseSearch> ;
-    lucene:query %lucene_query1 ;
-    lucene:entities ?entity .
-
-  ?entity a foaf:Agent .
-
-  } ORDER BY DESC (?score)"
-
-  lucene_query = c( lucene_label_query( collab ) )
-
-  query = gsub("%lucene_query1", paste0( "\"", lucene_query[1], "\""), query)
-  query = do.call( paste, as.list( c( turtle_prepend_prefixes( t = "SPARQL" ), query )))
-
-  result = rdf4jr::POST_query(
-    obkms$server_access_options,
-    obkms$server_access_options$repository,
-    query, "CSV" )
-
-  class(result) = c( class( result ), "SearchResult" )
-
-  return( result )
-}
 
 
 #' Lucene Query Creator: Fuzzy Label Query
@@ -1075,5 +914,60 @@ lucene_query_creator.fuzzy_field = function ( field_name,  label )
   return ( list ( query = lucene_query, connector = lucene_connector ))
 }
 
+#' Procedure That Executes a Query Against OBKMS
+#'
+#' This procedure takes a query without prefixes, adds the prefixes, carries out
+#' the replacements, and executes the query against the predefined OpenBiodiv
+#' endpoint.
+#'
+#' @param query the unprefixed, unsubstituted SPARQL query (character vector)
+#' @param replacement a named character vector of replacements
+#' @param result_format how results should be returned. One of
+#'   c("data.frame")
+#'
+#' @return whatever the OpenBiodiv SPARQL endpoint returns, mediated by
+#'   `result_format`
+#'
+#' @export
+
+execute_openbiodiv_query = function( query, replacement = NA, result_format = "data.frame" ) {
+  if ( is.na( query ) || is.null( query ) || (is.character(query) && length(query ) == 0 ) || (is.character(query) && query == "") || !is.character(query )) { return (data.frame()) }
+  if ( !is.na( replacement ) ) {
+    for ( pattern in names( replacement ) ) {
+      query = gsub( pattern, replacement[ pattern ] , query )
+    }
+  }
+  query = do.call( paste0, as.list( c( turtle_prepend_prefixes( t = "SPARQL" ), query ) ) )
+  return( rdf4jr::POST_query( obkms$server_access_options , obkms$server_access_options$repository, query, "CSV" ) )
+}
+
+#' Procedure That Executes a Query Against The Update Endpoint OBKMS
+#'
+#' This procedure takes a query without prefixes, adds the prefixes, carries out
+#' the replacements, and executes the query against the predefined OpenBiodiv
+#' endpoint.
+#'
+#' For stuff like "INSERT DATA ..."
+#'
+#' @param query the unprefixed, unsubstituted SPARQL query (character vector)
+#' @param replacement a named character vector of replacements
+#' @param result_format how results should be returned. One of
+#'   c("data.frame")
+#'
+#' @return whatever the OpenBiodiv SPARQL endpoint returns, mediated by
+#'   `result_format`
+#'
+#' @export
+
+execute_openbiodiv_update_query = function( query, replacement = NA, result_format = "data.frame" ) {
+  if ( is.na( query ) || is.null( query ) || (is.character(query) && length(query ) == 0 ) || (is.character(query) && query == "") || !is.character(query )) { return (data.frame()) }
+  if ( !is.na( replacement ) ) {
+    for ( pattern in names( replacement ) ) {
+      query = gsub( pattern, replacement[ pattern ] , query )
+    }
+  }
+  query = do.call( paste0, as.list( c( turtle_prepend_prefixes( t = "SPARQL" ), query ) ) )
+  return( rdf4jr::add_data( obkms$server_access_options , obkms$server_access_options$repository, data = query, data_format = "application/rdf+xml", update = TRUE) )
+}
 
 

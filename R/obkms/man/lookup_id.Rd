@@ -13,11 +13,13 @@ lookup_id(label, article_id = "?context", language = NULL,
 matching ID's or NULL
 }
 \description{
+TODO: should have a more functional name
+}
+\details{
 Given a label (and a few optional arguments) this function locates the URI
 or URI's that match this label (and optional arguments) in OBKMS. If no
 match is found, a unique ID (UUID) is generated.
-}
-\details{
+
 Args:
   @param label label for which to look
   @param article_id what article is this label related to
