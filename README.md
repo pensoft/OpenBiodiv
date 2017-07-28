@@ -37,4 +37,5 @@ today. You could think of it as the science of data. My email is this name
 - `ontology\` The data model for generating RDF is found in the  [OpenBiodiv RDF Guide](ontology/RDF_Guide.md)
 - `rdf-example\` : examples of applying the data-model to real-world articles (manual)
 - `slides\` : presentations at workshops, symposia, etc.
+- `paper\` : papers written about the system
 - 

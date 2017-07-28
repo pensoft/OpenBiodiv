@@ -1,0 +1,214 @@
+# Prefixes
+
+@prefix : <http://id.pensoft.net/>  .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix trt: <http://plazi.org/treatment#> .
+@prefix po: <http://www.essepuntato.it/2008/12/pattern#> .
+@prefix c4o: <http://purl.org/spar/c4o> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix tvc: <http://www.essepuntato.it/2012/04/tvc/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+## Journal Metadata
+
+# Publisher
+# Since publishers are usually organizations, we could The Organization Ontology to describe them.
+# However, if it could be a person. That's why it is better to use foaf:agent.
+# We also give the role of the publisher of the journal here.
+
+:pensoft-publishers a foaf:Agent ;
+	skos:prefLabel "Pensoft Publishers" ;
+	pro:holdsRoleInTime :pensoft-publishers-zookeys .
+
+:pensoft-publishers-zookeys a pro:RoleInTime ;
+	pro:withRole pro:publisher ;
+	pro:relatesToDocument :ZooKeys .
+
+# The rest of the journal metadata. We express the publisher here again as literal text.
+
+:ZooKeys a fabio:Journal ;
+	skos:prefLabel "ZooKeys" ;
+	skos:altLabel "ZooKeys" ;
+	fabio:issn "1313-2989" ;
+	fabio:eIssn "1313-2970" ;
+	dcterms:publisher "Pensoft Publishers" ;
+	frbr:hasPart <http://dx.doi.org/doi:10.3897/zookeys.454.7269> .
+
+## Article Metadata
+
+# Authors
+
+# this is the first author, how to express in PRO?
+
+:huang-sunbin a foaf:Person ;
+	foaf:name "Huang, Sunbin" ;
+	pro:holdsRoleInTime :huang-sunbin-author .
+		  
+:huang-sunbin-author a pro:RoleInTime ;
+	pro:withRole pro:author ,
+	scoro:senior-author ;
+	pro:relatesToDocument <http://dx.doi.org/10.3897/zookeys.454.7269>.
+
+# this is the corresponding author :
+# Question: ??Is it possible to link roles back to authors?
+				
+:tian-mingyi a foaf:Person ;
+		  foaf:name "Tian, Mingyi" ;
+		  foaf:mbox "mailto:mytian168@aliyun.com" ;
+		  pro:holdsRoleInTime :tian-mingyi-author ;
+		  pro:holdsRoleInTime :tian-mingyi-aff1 .
+		  
+:tian-mingyi-author a pro:RoleInTime ;
+			pro:withRole pro:author ;
+			pro:relatesToDocument
+				<http://dx.doi.org/10.3897/zookeys.454.7269>.
+				
+:tian-mingyi-aff1 a pro:RoleInTime ;
+			pro:withRole scoro:affiliate ;
+			pro:relatesToDocument <http://dx.doi.org/10.3897/zookeys.454.7269> ;
+			pro:relatesToOrganization :south-china .
+			
+:south-china a org:Organization ;
+			skos:prefLabel "Department of Entomology, College of Natural Resources and Environment, South China Agricultural University, 483 Wushan Road, Guangzhou, 510642, China" .
+		  
+# this is the last author
+
+:yin-haomin a foaf:Person ;
+			foaf:name "Yin, Haomin" ;
+			pro:holdsRoleInTime :yin-haomin-author .
+
+:yin-haomin-author
+			pro:withRole pro:author ;
+			pro:relatesToDocument
+				<http://dx.doi.org/10.3897/zookeys.454.7269> .
+
+
+
+# Article Metadata				
+# NOTE: subject group is the pensoft paper types. will be part of the obkms ontology	
+					
+<http://dx.doi.org/doi:10.3897/zookeys.454.7269> 
+					prism:doi "10.3897/zookeys.454.7269" ,
+					fabio:SubjectTerm :ResearchArticle ,
+					dcterms:creator :huang-sunbin ,
+                                    :tian-mingyi ,
+									:yin-haomin ;
+					fabio:hasPublicationYear "2014"^^xsd:gYear ;
+					dcterms:title "Du'an Karst of Guangxi: a kingdom of the cavernicolous genus Dongodytes Deuve (Coleoptera, Carabidae, Trechinae)"@en-us ;
+					frbr:partOf :ZooKeys ;
+					prism:startingPage "69" ;
+                    prism:endingPage "107" ;
+                    fabio:hasPageCount "39" .
+					
+# Article Content
+<http://dx.doi.org/doi:10.3897/zookeys.454.7269>
+					po:contains <http://treatment.plazi.org/id/1A21E9DA831195C4950E2AB084250E05> .
+								
+					
+					
+# Authors
+
+
+# Journal 
+
+
+# Journal Volume 
+
+<http://id.pensoft.net/ZooKeysVol454> a fabio:JournalVolume ;
+			frbr:partOf <http://id.pensoft.net/ZooKeys> ;
+			frbr:hasPart <http://dx.doi.org/10.3897/zookeys.454.726> .
+				
+			
+# Treatment : a treatment is a section of the document - see TreatmentOntology. It has subsections.
+
+<http://treatment.plazi.org/id/1A21E9DA831195C4950E2AB084250E05>
+				rdf:type owl:NamedIndividual ,
+				trt:Treatment ;
+		po:contains
+			<http://treatment.plazi.org/id/1A21E9DA831195C4950E2AB084250E05#section_1> ,
+			<http://treatment.plazi.org/id/1A21E9DA831195C4950E2AB084250E05#section_2> ,
+            <http://treatment.plazi.org/id/1A21E9DA831195C4950E2AB084250E05#section_3> ,
+            <http://treatment.plazi.org/id/1A21E9DA831195C4950E2AB084250E05#section_4> .
+	frbr:realizationOf
+			<http://taxon-concept.plazi.org/id/1A21E9DA831195C4950E2AB084250E05> .
+                                       
+# Treatment subsections
+###  http://treatment.plazi.org/id/1A21E9DA831195C4950E2AB084250E05#section_1
+<http://treatment.plazi.org/id/1A21E9DA831195C4950E2AB084250E05#section_1>
+		rdf:type owl:NamedIndividual , trt:Classification ;
+        dwc:kingdom "Animalia" ;
+		dwc:order "Coleoptera"  ;
+		dwc:family "Carabidae" .
+		
+##  http://treatment.plazi.org/id/1A21E9DA831195C4950E2AB084250E05#section_2
+<http://treatment.plazi.org/id/1A21E9DA831195C4950E2AB084250E05#section_2> rdf:type owl:NamedIndividual ,
+                                                                                    trt:Diagnosis ;
+     c4o:hasContent "  Diagnosis. Small sized, dark reddish brown, whole surface covered with dense and short bristly setae; head stout though rather elongate (Fig. 20), head excluding mandibles slightly longer than prothorax; genae distinctly expanded posteriorly, then suddenly constricted before the collar-shaped neck, posterior supraorbital setae present and close to neck constriction; mentum and submentum well separated by labial suture; antennae long, extending at about apical 1/6 of elytra; clypeus transverse, sexsetose; prothorax much longer than wide though propleura distinctly tumid, widest at about 1/3 from base; pronotum narrow, lateral borders almost parallel-sided but feebly expanded at about 1/3 basally, slightly sinuate before hind angles (Fig. 31); front angles right, hind angles obtuse; two pairs of latero-marginal setae present, at about 2/5 from base and a little before hind angles respectively; elytra as long as head with mandibles and pronotum combined, widest at about apical 2/5 of elytra, lateral sidesnear base straight (Fig. 31); two (middle and preapical) dorsal pores present on 3rd elytral stria, at about middle and apical 1/6 respectively; median lobe of aedeagus slender, widely and evenly arcuate, sagittal aileron moderately sized, each of parameres with four long apical setae." .
+	 
+###  http://treatment.plazi.org/id/1A21E9DA831195C4950E2AB084250E05#section_3
+<http://treatment.plazi.org/id/1A21E9DA831195C4950E2AB084250E05#section_3>
+			rdf:type owl:NamedIndividual ,
+            trt:Materials ;
+			po:contains :materialCitation1;
+			po:contains :materialCitation2;
+
+	c4o:hasContent " Material examined. Apart from the type series ( Tian 2011), two additional specimens were studied: 1 male and 1 female, cave Lubian Dong, same cave of the type locality, 310 m, Du'an: Xia'ao, 2013-V-02, leg. Mingyi Tian, Weixin Liu, Feifei Sun and Haomin Yin, in SCAU." .
+
+	
+
+###  http://treatment.plazi.org/id/1A21E9DA831195C4950E2AB084250E05#section_4
+<http://treatment.plazi.org/id/1A21E9DA831195C4950E2AB084250E05#section_4> rdf:type owl:NamedIndividual ,
+                                                                                    trt:Distribution ;
+        c4o:hasContent " Distribution. Guangxi ( Du'an). Known only from the cave called Lubian Dong which was pointed out as an anonymous cave in the original description ( Tian 2011), in Xia'ao, northern Du'an(Figs 1b and 73e). We visited this cave four times in 2013, but collected only two specimens more during the first visit in early May. The reason is probably that the beetle'shabitats had been partly changed after the huge collapse in the cave during the summer raining season." .
+		
+:materialCitation1 a cito:CitationAct;
+	cito:hasCitingEntity <http://treatment.plazi.org/id/1A21E9DA831195C4950E2AB084250E05> ;
+	cito:hasCitedEntity :material1 ;
+	cito:hasCitationCharacterization cito:citesAsEvidence .
+	
+:materialCitatio2 a cito:CitationAct ;
+	cito:hasCitingEntity <http://treatment.plazi.org/id/1A21E9DA831195C4950E2AB084250E05> ;
+	cito:hasCitedEntity :material2 ;
+	cito:hasCitationCharacterization cito:citesAsEvidence .
+	
+## Biological Stuff
+
+###  http://taxon-concept.plazi.org/id/1A21E9DA831195C4950E2AB084250E05
+<http://taxon-concept.plazi.org/id/1A21E9DA831195C4950E2AB084250E05>
+				rdf:type owl:NamedIndividual ,
+				obkms:TaxonConcept ;
+				frbr:realization <http://treatment.plazi.org/id/1A21E9DA831195C4950E2AB084250E05>
+                 dwc:class "Insecta" ;
+				 dwc:family "Carabidae" ;
+				 dwc:genus "Dongodytes" ;
+				 dwc:higherTaxonomySource "CoL" ;
+				 dwc:kingdom "Animalia" ;
+				 dwc:lsidName "Dongodytes deharvengi" ;
+				 dwc:order "Coleoptera" ;
+				 dwc:pageId "9" ;
+				 dwc:pageNumber "78" ;
+				 dwc:phylum "Arthropoda" ;
+				 dwc:rank "species" ;
+				 dwc:scientificNameAuthorship "Tian, 2011" ;
+				 dwc:species "deharvengi" ;
+				 dwc:subGenus "Dongodytodes" .
+		
+
+:material1 rdf:type owl:NamedIndividual ,
+			dwcFP:Occurrence ;
+			dwcFP:hasOccurrenceID ":material1" ;
+			dwc:institutionCode "SCAU" ;
+			dwc:sex "male" ;
+			dwcFP:Location "cave Lubian Dong" ;
+			dwc:maximumElevationInMeters "310" ;
+			dwc:eventDate "2014-05-02"^^xsd:date .
+                                                                           
+:material2 rdf:type owl:NamedIndividual ,
+			dwcFP:Occurrence ;
+			dwcFP:hasOccurrenceID ":material2" ;
+			dwc:institutionCode "SCAU" ;
+			dwc:sex "female" ;
+			dwcFP:Location "cave Lubian Dong" ;
+			dwc:maximumElevationInMeters "310" ;
+			dwc:eventDate "2014-05-02"^^xsd:date .
