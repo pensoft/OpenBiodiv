@@ -1,0 +1,186 @@
+---
+title: "TaxPub XML to Turtle RDF Converter"
+author: "Viktor Senderov"
+date: "`r Sys.Date()`"
+---
+
+# Specification
+
+## Making the scripts
+
+To create the script:
+```
+knitr::knit('exec/taxpub2rdf.Rmd', output = 'exec/taxpub2rdf.R', tangle = TRUE)
+```
+
+To create the documentation:
+```
+knitr::knit('exec/taxpub2rdf.Rmd', output = 'exec/taxpub2rdf.R', tangle = TRUE)
+```
+
+## Summary
+
+`taxpub2rdf` is a command-line tool, written in the [R programming language](https://cran.r-project.org/), which RDF-izes, i.e. converts to [Resource Description Framework](https://www.w3.org/RDF/) (RDF) taxonomic papers, encoded in the [TaxPub XML schema](http://htmlpreview.github.io/?https://github.com/tcatapano/TaxPub/blob/master/documentation/tp-taxon-treatment.html). It is designed to be used together with the [Open Biodiversity Knowledge Management System](http://openbkms.blogspot.com) (OBKMS) graph database, as before it generates new identifiers for things in the network, it tries to look them up in OBKMS.
+
+## Usage and requirements
+
+`taxpub2rdf` requires two parameter-sets for successful operation:
+
+1. Access details for OBKMS, which are stored as a Yaml file, except for the username-password combination, which is stored in the environment variable OBKMS_SECRET.
+2. A set of input XML files in the TaxPub format.
+
+General syntax:
+```
+Rscript taxpub2rdf.R config.yml paper1.xml paper2.xml ...
+```
+
+The first argument is the Yaml configuration file. The next n arguments are the TaxPub XML files, that will be RDF-ized. The output will be n Turtle files with the same filenames but the `.ttl` extension.
+
+Example usage:
+```
+Rscript exec/taxpub2rdf.R etc/config.yml Standard_Model_Conversions/10.3897-BDJ.4.e10095.xml
+```
+
+# Design and Implementation
+
+## Initialization
+
+The script relies on the `xml2` library for XML processing and on the `rdf4jr` library for communication with the GraphDB server:
+
+```{r , purl=TRUE, eval = FALSE}
+#library(xml2)
+library(XML)
+library(rdf4jr)
+source(R/query.R)
+```
+
+Read in the command-line arguments:
+
+```{r , purl=TRUE, eval = FALSE}
+command_line_args = commandArgs(trailingOnly = TRUE)
+```
+
+We have to have at least two command line arguments:
+
+```{r , purl=TRUE, eval = FALSE}
+stopifnot( length( command_line_args ) >= 2 )
+```
+
+The first argument is the Yaml configuration file, while the rest n - 1 arguments are the TaxPub's to be processed.
+
+```{r , purl=TRUE, eval = FALSE}
+configuration_file = command_line_args[ 1 ]
+configuration_file = "/media/viktor/www2/main/vsenderov.backup/SRC/TaxPub2RDF/etc/config.yml"
+taxpubs = command_line_args[ 2:length( command_line_args ) ]
+server_access_options = yaml::yaml.load_file( configuration_file )
+taxpubs = c("/media/viktor/www2/main/vsenderov.backup/SRC/TaxPub2RDF/Standard_Model_Conversions/10.3897-BDJ.4.e10095.xml", 
+            "/media/viktor/www2/main/vsenderov.backup/SRC/TaxPub2RDF/Standard_Model_Conversions/bdj4701.xml")
+```
+
+Download BDJ articles
+http://bdj.pensoft.net/lib/journal_archive.php?journal=bdj&date=26%2F3%2F2015
+[3:01:12 PM] Teodor Georgiev: returned all articles after date
+http://bdj.pensoft.net/lib/journal_archive.php?journal=bdj&date=26%2F3%2F2015
+where {date} is a urlencoded date in format day/month/year 
+(e.g. 26/3/2014)
+[3:01:26 PM] vsenderov: got it
+[3:01:27 PM] Teodor Georgiev: 
+If date is not specified - all articles from the specified journal are 
+returned.
+TODO: zoobank thing
+look at 10.3897_BDJ.4.e10095.xml:          <tp:taxon-name><tp:taxon-name-part taxon-name-part-type="genus">Heser</tp:taxon-name-part> <tp:taxon-name-part taxon-name-part-type="species">stoevi</tp:taxon-name-part><object-id content-type="zoobank" xlink:type="simple" object-id-type="ZooBank">urn:lsid:zoobank.org:act:E4D7D5A0-D649-4F5E-9360-D0488D73EEE8</object-id></tp:taxon-name>
+grep: turtle: Is a directory
+TODO taxon authority (e972.xml) nomenclature
+TODO  synonyms e6577
+TODO Caption extractor from figures and tables
+TODO take care of subspieces
+```{r}
+bdj.archive_folder = "/media/viktor/www2/main/vsenderov.backup/SRC/TaxPub2RDF/BDJ_Archive"
+bdj.taxpubs = list.files(bdj.archive_folder)
+bdj.processing_status = list()
+
+#taxpubs = taxpubs[round(runif(n= 10, min = 1, max = length(taxpubs)))]
+for ( taxpub_file in bdj.taxpubs ) {
+  ttl = xml2rdf(paste0( bdj_archive, "/", taxpub_file ) ) 
+  processing_status = httr::content( rdf4jr::add_data(server_access_options, server_access_options$repository, ttl), as="text" ) 
+  cat ( processing_status )
+  bdj.processing_status[[taxpub_file]] = paste0("processed: ", processing_status)
+
+  ttl_name = gsub( ".xml", ".ttl", taxpub_file)
+  connex = file( paste0(bdj_archive, "/turtle/", ttl_name ) )
+  writeLines(ttl, con = connex )
+  close( connex )
+}
+```
+
+TODO : error "10.3897_BDJ.3.e4162.xml"
+TODO: wrong rank of order http://id.pensoft.net/de9902eb-f538-419e-8b27-2a0041154e25
+
+Extract ZooKeys:
+
+```{r}
+zookeys.archive = "/media/viktor/www2/main/vsenderov.backup/SRC/TaxPub2RDF/ZooKeys_Archive"
+zookeys.taxpubs = list.files(zookeys_archive)
+zookeys.status = list()
+#taxpubs = taxpubs[round(runif(n= 10, min = 1, max = length(taxpubs)))]
+for ( taxpub_file in zookeys.taxpubs ) {
+  print( taxpub_file )
+  ttl = xml2rdf(paste0( zookeys_archive, "/", taxpub_file ) ) 
+  status =  httr::content( rdf4jr::add_data(server_access_options, server_access_options$repository, ttl), as="text")
+  cat ( status )
+  zookeys.status[[taxpub_file]] = paste0("processed: ", status)
+  ttl_name = gsub( ".xml", ".ttl", taxpub_file)
+  connex = file( paste0(bdj_archive, "/turtle/", ttl_name ) )
+  writeLines(ttl, con = connex )
+  close( connex )
+}
+```
+
+Get the username-password or API key from the environment:
+
+```{r , purl=TRUE, eval = FALSE}
+Sys.setenv(OBKMS_SECRET="obkms:1obkms")
+server_access_options$userpwd = Sys.getenv("OBKMS_SECRET")
+```
+
+Test GraphDB connectivity:
+```{r, purl = TRUE, eval = FALSE}
+stopifnot( get_protocol_version( options ) == "6" )
+```
+
+Read in the XML file:
+```{r , purl=TRUE, eval = FALSE}
+### currently only one file accepted
+#xml = read_xml(taxpubs[2])
+xml = XML::xmlParse ( taxpubs[2])
+XML::free ( xml)
+```
+
+Now, we will write different functions to extract different features of the XML.
+
+```
+
+```
+
+We write a function that returns RDF about the publisher. RDF will be returned as strings in Turtle Syntax.
+```
+get_publisher_rdf = function(taxpub_xml) {
+  publisher_name = xml_text(xml_find_all(taxpub_xml, "/article/front/journal-meta/publisher/publisher-name")[[1]])
+  publisher_id = get_or_create_node_by_label( obkms_opts, publisher_name) 
+  if (publisher_id == null) publisher_id = mint_new_pensoft_id()
+  
+  journal_name = xml_text(xml_find_all(taxpub_xml, "/article/front/journal-meta/journal-id")[[1]])
+  journal_id = get_or_create_node_by_label( obkms_opts, journal_name)
+  
+  
+  rdf = "
+  prefix fabio: <fdfsdsfsdfs> .
+  %journal_id a fabio:Journal"
+  return(rdf)
+}
+```
+
+# this is in semi pseudo code
+extract_journal_metadata = function(y_document) {
+  journal_name = get_xml_value("/article/front/journal-meta/journal-id")
+}
