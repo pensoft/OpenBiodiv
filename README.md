@@ -1,6 +1,9 @@
 # Open Biodiversity Knowledge Management System
 
-Hello, dear friend! Welcome to the Open Biodiversity Knowledge Management System: you one-stop-shop for all your biodiversity needs. We hope you like it here and come back often! We call it OpenBiodiv. We used to call it OBKMS.
+Hello, dear friend! Welcome to the Open Biodiversity Knowledge Management
+System: a PhD project project by [Viktor Senderov](viktor-senderov).
+
+. We hope you like it here and come back often! We call it OpenBiodiv. We used to call it OBKMS.
 
 This reposititory contains the source code and documentation for OpenBiodiv. The system itself will soon be deployed at
 
@@ -11,6 +14,8 @@ Here, you can read all about it, and having this knowledge you will be able to d
 There is a PhD proposal for OBKMS, read here:
 
 * https://doi.org/10.3897/rio.2.e7757
+
+## Viktor Senderov
 
 ## Data sources
 

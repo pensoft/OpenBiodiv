@@ -11,7 +11,7 @@ library(parallel)
 # import connectors
 
 # configure access to graphdb server
-configuration_file = "/home/viktor/WORK/openbiodiv/Iteration/4/config.yml"
+configuration_file = "/home/viktor/Work/PhD/openbiodiv/Iteration/4/config.yml"
 server_access_options = yaml::yaml.load_file( configuration_file )
 init_env(server_access_options )
 
