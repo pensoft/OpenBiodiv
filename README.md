@@ -1,27 +1,42 @@
 # Open Biodiversity Knowledge Management System
 
-Hello, dear friend! Welcome to the Open Biodiversity Knowledge Management
-System: a PhD project project by [Viktor Senderov](viktor-senderov).
+Hi! Welcome to the Open Biodiversity Knowledge Management System: a PhD
+project project by [Viktor Senderov](#viktor-senderov).
 
-. We hope you like it here and come back often! We call it OpenBiodiv. We used to call it OBKMS.
+The system is called *OpenBiodiv* or *OBKMS*. OBKMS is the older name, but we
+prefer to call it OpenBiodiv recently.
 
-This reposititory contains the source code and documentation for OpenBiodiv. The system itself will soon be deployed at
+This reposititory contains the architecture, documentation, deployment
+scripts, papers, and otherwise all material that will go into my dissertation.
+In addition to that there is R package,
+[ropenbio](https://github.com/pensoft/ropenbio) that contains the source code
+doing the heavy lifting.
 
-http://openbiodiv.net/
+The system itself is deployed at [openbiodiv.net](http://openbiodiv.net/).
 
-Here, you can read all about it, and having this knowledge you will be able to deploy it (or a clone of it), or maintain it.
+## Papers
 
-There is a PhD proposal for OBKMS, read here:
-
-* https://doi.org/10.3897/rio.2.e7757
+- [OpenBiodiv PhD Proposal](https://doi.org/10.3897/rio.2.e7757)
+- [An early paper on occurrence records](https://riojournal.com/article/10617/)
+- [Taxonomic paper with scripts illustrating convestion of DwC data to the BOLD format](https://zookeys.pensoft.net/articles.php?id=12522)
 
 ## Viktor Senderov
+
+If you want to email me, you are more than welcome to, but you have to pass
+the following reverse turing test. There is a new sexy name for statistics
+today. You could think of it as the science of data. My email is this name
+(one word) and the domain is the domain of [Pensoft](http://pensoft.net/)
+
+## Contents of this repository
+
+
 
 ## Data sources
 
 As a database, the OBKMS draws information from other previously published information, mainly XML's of scientific articles.
 
 Here I will list the sources
+
 
 ### Biodiversity Data Journal
 
