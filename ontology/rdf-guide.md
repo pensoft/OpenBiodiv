@@ -341,7 +341,7 @@ The following Turtle code can be extracted from the prefix database with
 @
 ```
 
-### The Publishing Domain
+### Semantic Model of the Publishing Domain
 
 #### Discussion 
 
