@@ -390,8 +390,8 @@ The publisher of a journal, a type of `foaf:Agent`.
 ```
 <<Model>>=
 :TaxonomicPaper rdf:type owl:Class;
-  rdfs:label "Taxonomic Paper"@en;
   rdfs:subClassOf `fabio:ResearchPaper`;
+  rdfs:label "Taxonomic Paper"@en;
   rdfs:comment "high-level conceptualization aka `frbr:Work` of taxonomic paper"@en.
 @
 ```
