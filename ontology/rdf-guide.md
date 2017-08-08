@@ -556,13 +556,13 @@ Inside the taxonomic nomenclature section, we have the treatment title.
 
 ```
 <<Model>>=
-trt:TreatmentTitle a owl:Class ;
+:TaxonName a owl:Class ;
   rdfs:subClassOf deo:DiscourseElement ,
                   [ rdf:type owl:Restriction ;
                     owl:onProperty po:isContainedBy ;
                     owl:someValuesFrom trt:Nomenclature ] ;
                   rdfs:label "Treatment Title"@en ;
-  rdfs:comment "Inside the taxonomic nomenclature section, we have the treatment title."@en .
+  rdfs:comment "Inside the taxonomic nomenclature section, we have the treatment title (name of the taxon)."@en .
 @
 ```
 
@@ -571,14 +571,13 @@ trt:TreatmentTitle a owl:Class ;
 Inside the taxonomic nomenclature section, we have a list of citations.
 ```
 <<Model>>=
-trt:TreatmentCitationList a owl:Class ;
+tp:nomenclature-citation-list a owl:Class ;
   rdfs:subClassOf deo:DiscourseElement ,
                   [ rdf:type owl:Restriction ;
                     owl:onProperty po:isContainedBy ;
                     owl:someValuesFrom trt:Nomenclature ] ;
                   rdfs:label "Taxonomic Treatent Citation List"@en ;
-  rdfs:comment "Inside the taxonomic nomenclature section, we have a list
-                of citations."@en .                  
+  rdfs:comment "A section in a treatment that includes the citation of one or several previous treatments of the taxon."@en .                  
 @
 ```
 #### Class Definition: *Biology*
@@ -667,8 +666,8 @@ trt:Key a owl:Class ;
   rdfs:subClassOf deo:DiscourseElement ,
                   [ rdf:type owl:Restriction ;
                     owl:onProperty po:isContainedBy ;
-                    owl:someValuesFrom trt:Treatment ] ;
-  rdfs:label "Key Section"@en .
+                    owl:someValuesFrom :TaxonomicArticle ] ;
+  rdfs:label "Identificiation Key"@en .
 @
 ```
 
@@ -678,7 +677,7 @@ Subsection of treatment.
 
 ```
 <<Model>>=
-trt:MaterialsExamined a owl:Class ;
+:MaterialsExamined a owl:Class ;
   rdfs:subClassOf deo:DiscourseElement ,
                   [ rdf:type owl:Restriction ;
                     owl:onProperty po:isContainedBy ;
