@@ -733,7 +733,7 @@ In this example, we show how to define a nomenclature section:
 :heser-stoevi-nomenclature a doco:Section, trt:Nomenclature ;
   po:contains :heser-stoevi-nomenclature-heading .
 
-:heser-stoevi-nomenclature-heading a trt:NomenclatureHeading ;
+:heser-stoevi-nomenclature-heading a trt:TreatmentTitle ;
   cnt:chars 
   "Heser stoevi urn:lsid:zoobank.org:act:E4D7D5A0-D649-4F5E-9360-D0488D73EEE8 Deltshev sp. n." .
 @
