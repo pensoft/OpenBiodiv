@@ -383,14 +383,14 @@ The publisher of a journal, a type of `foaf:Agent`.
 @
 ```
 
-#### Class Definition: *Taxonomic Paper*
+#### Class Definition: *Taxonomic Article*
 
-`:TaxonomicPaper` is a high-level conceptualization aka `frbr:Work` of taxonomic papers.
+`:TaxonomicArticle` is a specialized journal article for publishing taxonomic findings.
 
 ```
 <<Model>>=
 :TaxonomicPaper rdf:type owl:Class;
-  rdfs:subClassOf fabio:ResearchPaper;
+  rdfs:subClassOf fabio:JournalArticle;
   rdfs:label "Taxonomic Paper"@en;
   rdfs:comment "high-level conceptualization aka `frbr:Work` of taxonomic paper"@en.
 @
@@ -414,7 +414,7 @@ and Journal using SPAR.
 	 fabio:eIssn   "1314-2828" ;
 	 frbr:part   :b90f6933-ab5e-4ce1-9379-12de9ef4eaa6 . 
 
- :b90f6933-ab5e-4ce1-9379-12de9ef4eaa6   rdf:type   fabio:JournalArticle ;
+ :b90f6933-ab5e-4ce1-9379-12de9ef4eaa6   rdf:type   fabio:TaxonomicArticle ;
 	 skos:prefLabel   "10.3897/BDJ.1.e953" ;
 	 dc:title   "Casuarinicola australis Taylor, 2010 (Hemiptera: Triozidae), newly recorded from New Zealand"@en ;
 	 prism:doi   "10.3897/BDJ.1.e953" ;
@@ -424,7 +424,7 @@ and Journal using SPAR.
 	 dcterms:publisher   :2e32bf8a-8646-44b7-88c1-241784fc5da6 ;
 	 frbr:realizationOf   :49839804-5c52-46c7-badf-18698247485d . 
 
- :49839804-5c52-46c7-badf-18698247485d   rdf:type   :TaxonomicPaper ;
+ :49839804-5c52-46c7-badf-18698247485d   rdf:type   :ResearchPaper ;
  	 skos:prefLabel	"Thorpe 2013"
 	 skos:altLabel   "paper10.3897/BDJ.1.e953" ;
 	 dcterms:creator   :9637e78e-de51-4934-86d6-1c6413872442 ;
@@ -471,31 +471,16 @@ and Journal using SPAR.
 @
 ```
 
-
-TODO implement
-
-##### Rule: Uniqueness of SKOS:prefLabel
-
-<table><tr><td>same thing</td></tr>
-<tr><td>html tables seem to work</td></tr></table>
-
-TODO implement
-
-#### Taxonomic Treatment
+#### Class Definition: *Taxonomic Treatment*
 
 See [Plazi](http://plazi.org/) for a theoretical discussion of Treatment.
 
-TODO: NMF: Is that deliberately about application domain, or structural perspective, or both? Does it matter that you clarify this? (maybe not, I just want you to consider..)
-
-Answer: most structural elements are defined in the publishing domain. However,
-not everything here is a structural element.
-
-**Def. (Treatment):** *Taxonomic Treatment, or simply Treatment, is
-a rhetorical element of a taxonomic publication:*
+A treatment is a rhetorical element of a taxonomic article. Thus, Treatment is defined akin
+to Introduction, Methods, etc. from
+[DEO, The Discourse Elements Ontology](http://www.sparontologies.net/ontologies/deo/source.html).
 
 ```
 <<Model>>=
-
 trt:Treatment a owl:Class ;
   rdfs:label "Taxonomic Treatment"@en ;
   rdfs:label "Taxonomische Abhandlung"@de ;
@@ -516,15 +501,10 @@ trt:Treatment a owl:Class ;
 @
 ```
 
-Thus, Treatment is defined akin to Introduction, Methods, etc. from
-
-[DEO, The Discourse Elements Ontology](http://www.sparontologies.net/ontologies/deo/source.html).
-
-**Example:** In this example, we show how to instantiate a treatment:
+#### Example
 
 ```
 <<Examples>>=
-
 :heser-stoevi-treatment
   a doco:Section, trt:Treatment .
 @
