@@ -370,13 +370,12 @@ po:contains rdf:type owl:TransitiveProperty .
 @
 ```
 
-##### Definition: Publisher
+#### Class Definition: *Publisher*
 
 The publisher of a journal, a type of `foaf:Agent`.
 
 ```
 <<Model>>=
-
 :Publisher rdf:type owl:Class ;
   rdfs:label "Publisher"@en ;
   rdfs:comment "The publisher of a journal, a type of `foaf:Agent`."@en ;
@@ -384,7 +383,20 @@ The publisher of a journal, a type of `foaf:Agent`.
 @
 ```
 
-##### Example: article metadata
+#### Class Definition: *Taxonomic Paper*
+
+`:TaxonomicPaper` is a high-level conceptualization aka `frbr:Work` of taxonomic papers.
+
+```
+<<Model>>=
+:TaxonomicPaper rdf:type owl:Class;
+  rdfs:label "Taxonomic Paper"@en;
+  rdfs:subClassOf `fabio:ResearchPaper`;
+  rdfs:comment "high-level conceptualization aka `frbr:Work` of taxonomic paper"@en.
+@
+```
+
+#### Example: article metadata
 
 The main objects of information extraction and retrieval of OpenBiodiv in the
 first stage of its development are scientific journal articles from the
