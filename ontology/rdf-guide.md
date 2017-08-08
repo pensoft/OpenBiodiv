@@ -390,7 +390,7 @@ The publisher of a journal, a type of `foaf:Agent`.
 ```
 <<Model>>=
 :TaxonomicPaper rdf:type owl:Class;
-  rdfs:subClassOf `fabio:ResearchPaper`;
+  rdfs:subClassOf fabio:ResearchPaper;
   rdfs:label "Taxonomic Paper"@en;
   rdfs:comment "high-level conceptualization aka `frbr:Work` of taxonomic paper"@en.
 @
@@ -425,7 +425,8 @@ and Journal using SPAR.
 	 frbr:realizationOf   :49839804-5c52-46c7-badf-18698247485d . 
 
  :49839804-5c52-46c7-badf-18698247485d   rdf:type   :TaxonomicPaper ;
-	 rdfs:label   "paper10.3897/BDJ.1.e953" ;
+ 	 skos:prefLabel	"Thorpe 2013"
+	 skos:altLabel   "paper10.3897/BDJ.1.e953" ;
 	 dcterms:creator   :9637e78e-de51-4934-86d6-1c6413872442 ;
 	 prism:keywords   "Casuarinicola australis"@en , "Casuarina"@en , "New Zealand"@en , "Auckland"@en , "new record"@en , "Triozidae"@en ;
 	 fabio:hasSubjectTerm   :a2ee4929-90dd-4a7a-aa5c-08836f49d549 , :70adb47b-0e0b-405d-80e6-8538136d27aa , :ab6db423-2819-48c1-9b0e-32462d603c66 , :0e36c962-6596-4800-85ae-875e58c3313a , :bad80e8a-1827-4823-b213-e15ca4f99ce4 , :6098acdf-1706-46aa-bba4-f50a071e52f8 . 
@@ -462,7 +463,7 @@ and Journal using SPAR.
  :bad80e8a-1827-4823-b213-e15ca4f99ce4   rdf:type   fabio:SubjectTerm ;
 	 rdfs:label   "new record"@en ;
 	 skos:inScheme   :Subject_Classification_Vocabulary . 
-	 
+
  :6098acdf-1706-46aa-bba4-f50a071e52f8   rdf:type   fabio:SubjectTerm ;
 	 rdfs:label   "Triozidae"@en ;
 	 skos:inScheme   :Subject_Classification_Vocabulary ;
