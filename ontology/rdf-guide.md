@@ -366,7 +366,7 @@ we define `po:contains` as a transitive property.
 
 ```
 <<Model>>=
-	po:contains rdf:type owl:TransitiveProperty .
+po:contains rdf:type owl:TransitiveProperty .
 @
 ```
 
