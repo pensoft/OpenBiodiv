@@ -423,7 +423,7 @@ and Journal using SPAR.
 	 dcterms:publisher   :2e32bf8a-8646-44b7-88c1-241784fc5da6 ;
 	 frbr:realizationOf   :49839804-5c52-46c7-badf-18698247485d . 
  :49839804-5c52-46c7-badf-18698247485d   rdf:type   :TaxonomicPaper ;
-	 skos:altLabel   "paper10.3897/BDJ.1.e953" ;
+	 rdfs:label   "paper10.3897/BDJ.1.e953" ;
 	 dcterms:creator   :9637e78e-de51-4934-86d6-1c6413872442 ;
 	 prism:keywords   "Casuarinicola australis"@en , "Casuarina"@en , "New Zealand"@en , "Auckland"@en , "new record"@en , "Triozidae"@en ;
 	 fabio:hasSubjectTerm   :a2ee4929-90dd-4a7a-aa5c-08836f49d549 , :70adb47b-0e0b-405d-80e6-8538136d27aa , :ab6db423-2819-48c1-9b0e-32462d603c66 , :0e36c962-6596-4800-85ae-875e58c3313a , :bad80e8a-1827-4823-b213-e15ca4f99ce4 , :6098acdf-1706-46aa-bba4-f50a071e52f8 . 
@@ -460,28 +460,6 @@ and Journal using SPAR.
 @
 ```
 
-TODO: keywords
-
-Note that in this example `:biodiversity-data-journal` is non-structural
-entity, as it doesn't denote part of the manuscript, but rather something
-external, i.e. a journal. This means that creating it, requires of the step of
-named entity identification.
-
-##### Recommendation: identifiers for `fabio:Journal`'s, `:Publishers`
-
-In order to facilitate disambiguation of journal identifiers, we use data-driven
-identifiers. We lower-case the `skos:prefLabel` and substitute spaces
-for dashes.
-
-##### Recommendation: identifers for `fabio:JournalArticles`
-
-Prepend the prefix `http://dx.doi.org/` to the DOI, given by `prism:doi` if it exists
-and unique. Otherwise, use `:` prefix and preferred label.
-
-##### Rule: Uniqueness of DOI
-
-If an article has multiple DOI, then mark it as problematic, or rename them to 
-`skos:altLabel`. 
 
 TODO implement
 
