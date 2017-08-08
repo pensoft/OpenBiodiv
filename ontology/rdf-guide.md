@@ -482,6 +482,10 @@ to Introduction, Methods, etc. from
 ```
 <<Model>>=
 trt:Treatment a owl:Class ;
+  rdfs:subClassOf deo:DiscourseElement ,
+                  [ rdf:type owl:Restriction ;
+                    owl:onProperty po:isContainedBy ;
+                    owl:someValuesFrom :TaxonomicArticle ] ;
   rdfs:label "Taxonomic Treatment"@en ;
   rdfs:label "Taxonomische Abhandlung"@de ;
   rdfs:label "Таксономично пояснение"@bg ;
@@ -514,26 +518,25 @@ Note that we type `:treatment` both as `trt:Treatment` (i.e. the rhetorical
 element Treatment) and as s `doco:Section` because we view this particular
 treatment to also be a structural section of the document.
 
-**Example:** In this example we show how different sub-article elements such as treatments
+#### Example
+
+In this example we show how different sub-article elements such as treatments
 are linked via the use of the `po:contains`:
 
 ```
 <<Examples>>=
-
 <http://dx.doi.org/10.3897/BDJ.4.e10095> po:contains :heser-stoevi-treatment . 
 @
 ```
 
-##### Taxonomic Nomenclature Section
+#### Class Definition: *Nomenclature*
 
-**Def. (Nomenclature):** A taxonomic nomenclature section, or simply a
-nomenclature, is a rhetorical element of a taxonomic publication where
-nomenclatural acts are published and nomenclatural statements are made.
-Nomenclature is a subsection of Treatment.
+A taxonomic nomenclature section, or simply a nomenclature, is a rhetorical
+element of a taxonomic publication where nomenclatural acts are published and
+nomenclatural statements are made. Nomenclature is a subsection of Treatment.
 
 ```
 <<Model>>=
-
 trt:Nomenclature a owl:Class ;
   rdfs:subClassOf deo:DiscourseElement ,
                   [ rdf:type owl:Restriction ;
@@ -544,31 +547,185 @@ trt:Nomenclature a owl:Class ;
 nomenclature, is a rhetorical element of a taxonomic publication where
 nomenclatural acts are published and nomenclatural statements are made.
 Nomenclature is a subsection of Treatment."@en .
+@
+```
 
-trt:NomenclatureHeading a owl:Class ;
+#### Class Definition: *Treatment Title*
+
+Inside the taxonomic nomenclature section, we have the treatment title.
+
+```
+<<Model>>=
+trt:TreatmentTitle a owl:Class ;
   rdfs:subClassOf deo:DiscourseElement ,
                   [ rdf:type owl:Restriction ;
                     owl:onProperty po:isContainedBy ;
                     owl:someValuesFrom trt:Nomenclature ] ;
                   rdfs:label "Treatment Title"@en ;
   rdfs:comment "Inside the taxonomic nomenclature section, we have the treatment title."@en .
+@
 
-trt:NomenclatureCitationList a owl:Class ;
+#### Class Definition: *Taxonomic Treatment Citation List*
+
+Inside the taxonomic nomenclature section, we have a list of citations.
+```
+<<Model>>=
+trt:TreatmentCitationList a owl:Class ;
   rdfs:subClassOf deo:DiscourseElement ,
                   [ rdf:type owl:Restriction ;
                     owl:onProperty po:isContainedBy ;
                     owl:someValuesFrom trt:Nomenclature ] ;
-                  rdfs:label "Taxonomic Nomenclature Citation List"@en ;
+                  rdfs:label "Taxonomic Treatent Citation List"@en ;
   rdfs:comment "Inside the taxonomic nomenclature section, we have a list
                 of citations."@en .                  
 @
 ```
+#### Class Definition: *Biology*
 
-**Example:** In this example, we show how to define a nomenclature section:
+Subsection of treatment.
+```
+<<Model>>=
+trt:Biology a owl:Class ;
+  rdfs:subClassOf deo:DiscourseElement ,
+                  [ rdf:type owl:Restriction ;
+                    owl:onProperty po:isContainedBy ;
+                    owl:someValuesFrom trt:Treatment ] ;
+  rdfs:label "Biology Section"@en .
+@
+```
+
+
+#### Class Definition: *Description*
+
+Subsection of treatment.
+
+```
+<<Model>>=
+trt:Description a owl:Class ;
+  rdfs:subClassOf deo:DiscourseElement ,
+                  [ rdf:type owl:Restriction ;
+                    owl:onProperty po:isContainedBy ;
+                    owl:someValuesFrom trt:Treatment ] ;
+  rdfs:label "Description Section"@en .
+@
+```
+#### Class Definition: *Diagnosis*
+
+Subsection of treatment.
+
+```
+<<Model>>=
+trt:Diagnosis a owl:Class ;
+  rdfs:subClassOf deo:DiscourseElement ,
+                  [ rdf:type owl:Restriction ;
+                    owl:onProperty po:isContainedBy ;
+                    owl:someValuesFrom trt:Treatment ] ;
+  rdfs:label "Diagnosis Section"@en .
+@
+```
+
+
+#### Class Definition: *Distribution*
+
+Subsection of treatment.
+
+```
+<<Model>>=
+trt:Distribution a owl:Class ;
+  rdfs:subClassOf deo:DiscourseElement ,
+                  [ rdf:type owl:Restriction ;
+                    owl:onProperty po:isContainedBy ;
+                    owl:someValuesFrom trt:Treatment ] ;
+  rdfs:label "Distribution Section"@en .
+@
+```
+
+
+#### Class Definition: *Etymology*
+
+Subsection of treatment.
+
+```
+<<Model>>=
+trt:Etymology a owl:Class ;
+  rdfs:subClassOf deo:DiscourseElement ,
+                  [ rdf:type owl:Restriction ;
+                    owl:onProperty po:isContainedBy ;
+                    owl:someValuesFrom trt:Treatment ] ;
+  rdfs:label "Distribution Section"@en .
+@
+```
+
+#### Class Definition: *Key*
+
+Subsection of treatment.
+
+```
+<<Model>>=
+trt:Key a owl:Class ;
+  rdfs:subClassOf deo:DiscourseElement ,
+                  [ rdf:type owl:Restriction ;
+                    owl:onProperty po:isContainedBy ;
+                    owl:someValuesFrom trt:Treatment ] ;
+  rdfs:label "Key Section"@en .
+@
+```
+
+#### Class Definition: *MaterialsExamined*
+
+Subsection of treatment.
+
+```
+<<Model>>=
+trt:MaterialsExamined a owl:Class ;
+  rdfs:subClassOf deo:DiscourseElement ,
+                  [ rdf:type owl:Restriction ;
+                    owl:onProperty po:isContainedBy ;
+                    owl:someValuesFrom trt:Treatment ] ;
+  rdfs:label "Materials Examined Section"@en .
+@
+```
+
+#### Class Definition: *Methods*
+
+Subsection of treatment.
+
+```
+<<Model>>=
+trt:Methods a owl:Class ;
+  rdfs:subClassOf deo:DiscourseElement ,
+                  [ rdf:type owl:Restriction ;
+                    owl:onProperty po:isContainedBy ;
+                    owl:someValuesFrom trt:Treatment ] ;
+  rdfs:label "Methods Section"@en .
+@
+```
+
+#### Class Definition: *Taxonomic Checklist*
+
+A section in a taxonomic article.
+
+```
+<<Model>>=
+
+trt:Checklist a owl:Class ;
+  rdfs:subClassOf deo:DiscourseElement ,
+                  [ rdf:type owl:Restriction ;
+                    owl:onProperty po:isContainedBy ;
+                    owl:someValuesFrom :TaxonomicArticle ] ;
+  rdfs:label "Taxonomic Checklist"@en ;
+  [ rdf:type owl:Restriction ;
+                    owl:onProperty po:isContainedBy ;
+  rdfs:comment "A section in a taxonomic article."@en.
+@
+```
+
+#### Example
+
+In this example, we show how to define a nomenclature section:
 
 ```
 <<Examples>>=
-
 :heser-stoevi-treatment
   po:contains :heser-stoevi-nomenclature .
 
@@ -581,9 +738,7 @@ trt:NomenclatureCitationList a owl:Class ;
 @
 ```
 
-TODO: All the other subsections of trt:Treatment, Description, etc.
-
-#### Taxonomic Name Usage
+#### Class Defintion: *Taxonomic Name Usage*
 
 In the text of taxonomic articles we find strings like "*Heser stoevi*
 Deltschev, sp. n.". In our conceptualization these are called *taxonomic name
