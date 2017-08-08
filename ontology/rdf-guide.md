@@ -413,6 +413,7 @@ and Journal using SPAR.
 	 fabio:issn   "1314-2836" ;
 	 fabio:eIssn   "1314-2828" ;
 	 frbr:part   :b90f6933-ab5e-4ce1-9379-12de9ef4eaa6 . 
+
  :b90f6933-ab5e-4ce1-9379-12de9ef4eaa6   rdf:type   fabio:JournalArticle ;
 	 skos:prefLabel   "10.3897/BDJ.1.e953" ;
 	 dc:title   "Casuarinicola australis Taylor, 2010 (Hemiptera: Triozidae), newly recorded from New Zealand"@en ;
@@ -422,37 +423,46 @@ and Journal using SPAR.
 	 prism:publicationDate   "2013-9-16"^^xsd:date ;
 	 dcterms:publisher   :2e32bf8a-8646-44b7-88c1-241784fc5da6 ;
 	 frbr:realizationOf   :49839804-5c52-46c7-badf-18698247485d . 
+
  :49839804-5c52-46c7-badf-18698247485d   rdf:type   :TaxonomicPaper ;
 	 rdfs:label   "paper10.3897/BDJ.1.e953" ;
 	 dcterms:creator   :9637e78e-de51-4934-86d6-1c6413872442 ;
 	 prism:keywords   "Casuarinicola australis"@en , "Casuarina"@en , "New Zealand"@en , "Auckland"@en , "new record"@en , "Triozidae"@en ;
 	 fabio:hasSubjectTerm   :a2ee4929-90dd-4a7a-aa5c-08836f49d549 , :70adb47b-0e0b-405d-80e6-8538136d27aa , :ab6db423-2819-48c1-9b0e-32462d603c66 , :0e36c962-6596-4800-85ae-875e58c3313a , :bad80e8a-1827-4823-b213-e15ca4f99ce4 , :6098acdf-1706-46aa-bba4-f50a071e52f8 . 
+
  :2e32bf8a-8646-44b7-88c1-241784fc5da6   rdf:type   :Publisher ;
 	 skos:prefLabel   "Pensoft Publishers"@en . 
+
  :9637e78e-de51-4934-86d6-1c6413872442   rdf:type   foaf:Person ;
 	 skos:prefLabel   "Stephen E. Thorpe" ;
 	 foaf:firstName   "Stephen E." ;
 	 foaf:surname   "Thorpe" ;
 	 foaf:mbox   "stephen_thorpe@yahoo.co.nz" ;
 	 :affiliation   "School of Biological Sciences (Tamaki Campus), University of Auckland, Auckland, New Zealand"@en . 
+
  :a2ee4929-90dd-4a7a-aa5c-08836f49d549   rdf:type   fabio:SubjectTerm ;
 	 rdfs:label   "Casuarinicola australis"@en ;
 	 skos:inScheme   :Subject_Classification_Vocabulary . 
+
  :70adb47b-0e0b-405d-80e6-8538136d27aa   rdf:type   fabio:SubjectTerm ;
 	 rdfs:label   "Casuarina"@en ;
 	 skos:inScheme   :Subject_Classification_Vocabulary ;
 	 skos:exactMatch   dbr:Casuarina . 
+
  :ab6db423-2819-48c1-9b0e-32462d603c66   rdf:type   fabio:SubjectTerm ;
 	 rdfs:label   "New Zealand"@en ;
 	 skos:inScheme   :Subject_Classification_Vocabulary ;
 	 skos:exactMatch   dbr:New_Zealand . 
+
  :0e36c962-6596-4800-85ae-875e58c3313a   rdf:type   fabio:SubjectTerm ;
 	 rdfs:label   "Auckland"@en ;
 	 skos:inScheme   :Subject_Classification_Vocabulary ;
 	 skos:exactMatch   dbr:Auckland . 
+
  :bad80e8a-1827-4823-b213-e15ca4f99ce4   rdf:type   fabio:SubjectTerm ;
 	 rdfs:label   "new record"@en ;
 	 skos:inScheme   :Subject_Classification_Vocabulary . 
+	 
  :6098acdf-1706-46aa-bba4-f50a071e52f8   rdf:type   fabio:SubjectTerm ;
 	 rdfs:label   "Triozidae"@en ;
 	 skos:inScheme   :Subject_Classification_Vocabulary ;
