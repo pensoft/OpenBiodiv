@@ -356,7 +356,7 @@ publishing domain that are *not found* in the SPAR ontologies. The central new
 class in OpenBiodiv not found in SPAR is the `trt:Treatment` class, borrowed
 from the [Treatment Ontologies](https://github.com/plazi/TreatmentOntologies).
 
-##### Definition: 'contains'
+#### Property Definition: *contains*
 
 We have mentioned before that when we extract bibliographic elements from the XML,
 we make use of the `po:contains` SPAR property. For example, an article can 
