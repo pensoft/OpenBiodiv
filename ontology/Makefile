@@ -1,5 +1,5 @@
-Examples.ttl : RDF_Guide.md
-	notangle -RExamples RDF_Guide.md > Examples.ttl
+example.ttl : rdf-guide.md
+	notangle -RExamples rdf-guide.md > example.ttl
 
 OpenBiodiv.ttl : RDF_Guide.md
 	notangle -R"OpenBiodiv Ontology" RDF_Guide.md > OpenBiodiv.ttl

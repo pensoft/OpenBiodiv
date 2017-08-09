@@ -300,7 +300,6 @@ The following Turtle code can be extracted from the prefix database with
 
 ```
 <<Prefixes>>=
-
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix pensoft: <http://id.pensoft.net/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -407,34 +406,35 @@ and Journal using SPAR.
 
 ```
 <<Examples>>=
-:818b0dec-f244-4866-bc1c-eb761e4af649   rdf:type   fabio:Journal ;
+
+:biodiversity-data-journal   rdf:type   fabio:Journal ;
 	 skos:prefLabel   "Biodiversity Data Journal"@en ;
 	 skos:altLabel   "BDJ"@en ;
 	 fabio:issn   "1314-2836" ;
 	 fabio:eIssn   "1314-2828" ;
 	 frbr:part   :b90f6933-ab5e-4ce1-9379-12de9ef4eaa6 . 
 
- :b90f6933-ab5e-4ce1-9379-12de9ef4eaa6   rdf:type   fabio:TaxonomicArticle ;
+ <http://dx.doi.org/10.3897/BDJ.1.e953>   rdf:type   fabio:TaxonomicArticle ;
 	 skos:prefLabel   "10.3897/BDJ.1.e953" ;
 	 dc:title   "Casuarinicola australis Taylor, 2010 (Hemiptera: Triozidae), newly recorded from New Zealand"@en ;
 	 prism:doi   "10.3897/BDJ.1.e953" ;
 	 dc:publisher   "Pensoft Publishers"@en ;
 	 fabio:hasPublicationYear   "2013"^^xsd:gYear ;
 	 prism:publicationDate   "2013-9-16"^^xsd:date ;
-	 dcterms:publisher   :2e32bf8a-8646-44b7-88c1-241784fc5da6 ;
-	 frbr:realizationOf   :49839804-5c52-46c7-badf-18698247485d . 
+	 dcterms:publisher   :pensoft-publishers ;
+	 frbr:realizationOf   :thorpe-2013 . 
 
- :49839804-5c52-46c7-badf-18698247485d   rdf:type   :ResearchPaper ;
+ :thorpe-2013   rdf:type   :ResearchPaper ;
  	 skos:prefLabel	"Thorpe 2013"
 	 skos:altLabel   "paper10.3897/BDJ.1.e953" ;
-	 dcterms:creator   :9637e78e-de51-4934-86d6-1c6413872442 ;
+	 dcterms:creator   :stephen-e-thorpe ;
 	 prism:keywords   "Casuarinicola australis"@en , "Casuarina"@en , "New Zealand"@en , "Auckland"@en , "new record"@en , "Triozidae"@en ;
 	 fabio:hasSubjectTerm   :a2ee4929-90dd-4a7a-aa5c-08836f49d549 , :70adb47b-0e0b-405d-80e6-8538136d27aa , :ab6db423-2819-48c1-9b0e-32462d603c66 , :0e36c962-6596-4800-85ae-875e58c3313a , :bad80e8a-1827-4823-b213-e15ca4f99ce4 , :6098acdf-1706-46aa-bba4-f50a071e52f8 . 
 
- :2e32bf8a-8646-44b7-88c1-241784fc5da6   rdf:type   :Publisher ;
+ :pensoft-publishers   rdf:type   :Publisher ;
 	 skos:prefLabel   "Pensoft Publishers"@en . 
 
- :9637e78e-de51-4934-86d6-1c6413872442   rdf:type   foaf:Person ;
+ :stephen-e-thorpe   rdf:type   foaf:Person ;
 	 skos:prefLabel   "Stephen E. Thorpe" ;
 	 foaf:firstName   "Stephen E." ;
 	 foaf:surname   "Thorpe" ;
@@ -486,18 +486,9 @@ trt:Treatment a owl:Class ;
                   [ rdf:type owl:Restriction ;
                     owl:onProperty po:isContainedBy ;
                     owl:someValuesFrom :TaxonomicArticle ] ;
-  rdfs:label "Taxonomic Treatment"@en ;
-  rdfs:label "Taxonomische Abhandlung"@de ;
-  rdfs:label "Таксономично пояснение"@bg ;
-  rdfs:comment "A taxonomic treatment, or simply a treatment, is a 
-                rhetorical element of a taxonomic publication, i.e. a 
-                specialized section, where taxon circumscription  
+  rdfs:label "Taxon Treatment"@en ;
+  rdfs:comment "A rhetorical element of a taxonomic publication, where taxon circumscription  
                 takes place."@en ;
-  rdfs:comment "Eine taxonomische Abhandlung, oder nur Abhandlung, ist 
-                ein rhetorisches Element eines wissenschaftlichen 
-                taxomischen Artikels, d.h. ein spezialisierter Abschnitt,
-                wo die Umschreibung eines taxonomischen Konzeptes
-                stattfindet."@de ;
   rdfs:comment "Таксономично пояснение или само Пояснение е риторчна част
                 от таксономичната статия, където се случва описанието
                 на дадена таксономична концепция."@bg ;                  
@@ -509,7 +500,8 @@ trt:Treatment a owl:Class ;
 
 ```
 <<Examples>>=
-:heser-stoevi-treatment
+
+:casuarinicola-australis-treatment
   a doco:Section, trt:Treatment .
 @
 ```
@@ -525,7 +517,8 @@ are linked via the use of the `po:contains`:
 
 ```
 <<Examples>>=
-<http://dx.doi.org/10.3897/BDJ.4.e10095> po:contains :heser-stoevi-treatment . 
+
+ <http://dx.doi.org/10.3897/BDJ.1.e953>  po:contains :casuarinicola-australis-treatment . 
 @
 ```
 
@@ -543,25 +536,22 @@ trt:Nomenclature a owl:Class ;
                     owl:onProperty po:isContainedBy ;
                     owl:someValuesFrom trt:Treatment ] ;
   rdfs:label "Taxonomic Nomenclature Section"@en ;
-  rdfs:comment "A taxonomic nomenclature section, or simply a
-nomenclature, is a rhetorical element of a taxonomic publication where
-nomenclatural acts are published and nomenclatural statements are made.
-Nomenclature is a subsection of Treatment."@en .
+  rdfs:comment "A section of a taxonomic treatment, containing the scientific name of the taxon described by the treatment, and citations to previous descriptions, designations of type-genus, and type-species, and other information."@en .
 @
 ```
 
-#### Class Definition: *Treatment Title*
+#### Class Definition: *Treatment Taxon Name*
 
 Inside the taxonomic nomenclature section, we have the treatment title.
 
 ```
 <<Model>>=
-:TaxonName a owl:Class ;
+:NomenclatureHeading a owl:Class ;
   rdfs:subClassOf deo:DiscourseElement ,
                   [ rdf:type owl:Restriction ;
                     owl:onProperty po:isContainedBy ;
                     owl:someValuesFrom trt:Nomenclature ] ;
-                  rdfs:label "Treatment Title"@en ;
+                  rdfs:label "Nomenclature Heading"@en ;
   rdfs:comment "Inside the taxonomic nomenclature section, we have the treatment title (name of the taxon)."@en .
 @
 ```
@@ -686,20 +676,6 @@ Subsection of treatment.
 @
 ```
 
-#### Class Definition: *Methods*
-
-Subsection of treatment.
-
-```
-<<Model>>=
-trt:Methods a owl:Class ;
-  rdfs:subClassOf deo:DiscourseElement ,
-                  [ rdf:type owl:Restriction ;
-                    owl:onProperty po:isContainedBy ;
-                    owl:someValuesFrom trt:Treatment ] ;
-  rdfs:label "Methods Section"@en .
-@
-```
 
 #### Class Definition: *Taxonomic Checklist*
 
@@ -708,7 +684,7 @@ A section in a taxonomic article.
 ```
 <<Model>>=
 
-trt:Checklist a owl:Class ;
+:Checklist a owl:Class ;
   rdfs:subClassOf deo:DiscourseElement ,
                   [ rdf:type owl:Restriction ;
                     owl:onProperty po:isContainedBy ;
@@ -726,17 +702,35 @@ In this example, we show how to define a nomenclature section:
 
 ```
 <<Examples>>=
-:heser-stoevi-treatment
-  po:contains :heser-stoevi-nomenclature .
 
-:heser-stoevi-nomenclature a doco:Section, trt:Nomenclature ;
-  po:contains :heser-stoevi-nomenclature-heading .
+:casuarinicola-australis-treatment
+  po:contains :casuarinicola-australis-nomenclature .
 
-:heser-stoevi-nomenclature-heading a trt:TreatmentTitle ;
+:casuarinicola-australis-nomenclature a doco:Section, :NomenclatureHeading ;
+  po:contains :casuarinicola-australis-nomenclature-heading .
+
+:casuarinicola-australis-nomenclature-heading a trt:TreatmentTitle ;
   cnt:chars 
-  "Heser stoevi urn:lsid:zoobank.org:act:E4D7D5A0-D649-4F5E-9360-D0488D73EEE8 Deltshev sp. n." .
+  " Casuarinicola australis Taylor, 2010 " .
 @
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+### Semantic Model of Biological Nomenclature
+
+
+
+
 
 #### Class Defintion: *Taxonomic Name Usage*
 
@@ -764,19 +758,18 @@ from the [PROTON Extensions module](http://ontotext.com/proton/). Furthermore,
 we link the TNU's to the scientific name they are symbolizing via
 `pkm:mentions`.
 
-**Def. (Taxonomic Name Usage):** *A taxonomic name usage is the mentioning of
-a biological taxonomic name or taxon concept label (see later) in a text,
-together with possibly a taxonomic status, bearing further information about
-the name:*
+A taxon name usage is the mentioning of a taxon name or a taxon concept label
+(see later) in a text, together with possibly an taxonomic status.
 
 ```
 <<Model>>=
 
 :TaxonomicNameUsage rdf:type owl:Class ;
   rdfs:subClassOf  pext:Mention ;
-  rdfs:comment "A taxonomic name usage is the mentioning of a
-biological taxonomic name or taxon concept label in a text."@en ;
-  rdfs:label "Taxonomic Name Usage"@en .
+  rdfs:comment "A biological name usage is the mentioning of a biological name
+  (scientific name, taxon concept label, etc.), optionally with an authorship
+  and taxonomic status."@en ;
+  rdfs:label "Biological Name Usage"@en .
 
 dwciri:taxonomicStatus rdf:type owl:ObjectProperty ; 
   rdfs:label "taxonomic status"@en ;
@@ -785,10 +778,12 @@ dwciri:taxonomicStatus rdf:type owl:ObjectProperty ;
 
 ```
 
-**Note:** In the logic of our algorithms, it is very important that TNU's are
+In the logic of our algorithms, it is very important that TNU's are
 dated with `dc:date`.
 
-**Example:** In the following example, we express in RDF a TNU that is in the
+#### Example
+
+In the following example, we express in RDF a TNU that is in the
 nomenclature heading of a treatment (treatment title). Structurally, the TNU
 is connected to the containing section via `po:contains`; `cnt:chars` is used
 to dump the full string of the usage and DwC properties are used to encode
@@ -838,14 +833,19 @@ concept).
      
 ```
 
-### Biological Taxonomy and Systematics
-
-In this subsection we introduce  classes and properties which are used to
-convey information from the domain of biological systematics.
 
 
+#### Class Defintion: *Taxonomic Name*
 
-#### Biological Names
+```
+<<Model>>=
+
+:TaxonomicName rdf:type owl:Class ;
+	skos:prefLabel "Taxonomic Name"@en ;
+    skos:altLabel "Biological Name"@en ;
+    owl:equivalentClass nomen:NOMEN_0000030 .
+@
+```
 
 In OpenBiodiv, we reify biological names.
 
@@ -867,41 +867,48 @@ example, the identifier for the class "biological name" is `NOMEN_0000030`. In
 our workflow both RDF generation and debugging would be severely hampered by
 this convention. Therefore, OpenBiodiv names use human-readable identifiers.
 
-**Def. (Biological Name, Scientific Name, Vernacular Name):** *Biological
-Name, Scientific Name, and Vernacular Name are introduced as their NOMEN
-equivalents.*
+
+#### Class Definition: *Scientific Name*
 
 ```
 <<Model>>=
 
-:BiologicalName rdf:type owl:Class ;
-    rdfs:label "Biological Name"@en ;
-    owl:sameAs nomen:NOMEN_0000030 .
 
 :ScientificName rdf:type owl:Class ;
-    rdfs:subClassOf :BiologicalName ;
+    rdfs:subClassOf :TaxonomicName ;
     rdfs:label "Scientific Name"@en ;
-    owl:sameAs  nomen:NOMEN_0000036 .
-    
-:VernacularName a owl:Class ;
-  rdfs:subClassOf :BiologicalName ;
-  rdfs:label "Vernacular Name"@en ;
-  owl:sameAs nomen:NOMEN_0000037 .
+    owl:equivalentClass  nomen:NOMEN_0000036 .
 @
 ```
 
-**Def. (Taxon Concept Label):** *We further introduce the class of taxon
+#### Class Definition: *Latinized Scientific Name*
+
+```
+<<Model>>=
+
+
+:LatinName rdf:type owl:Class ;
+    rdfs:subClassOf :ScientificName ;
+    rdfs:label "Lstinized Scientific Name"@en ;
+    rdfs:comment "Linnaean Name"@en .
+@
+```
+
+#### Class Definition: *Taxon Concept Label*
+
+We further introduce the class of taxon
 concept labels, unknown to NOMEN that is a biological name plus a reference to
 its description, i.e. it is the label of taxon concept. A taxon concept label
 is a taxonomic name usage accompanied by an additional part, consisting of
 "sec." + an identifier or a literature reference of a work containing the
 expression of a taxon concept (for example a treatment).*
 
+
 ```
-<<Model of Biological Systematics>>=
+<<Model>>=
 
 :TaxonConceptLabel rdf:type owl:Class ;
-  rdfs:subClassOf :BiologicalName ;
+  rdfs:subClassOf :LatinName ;
   rdfs:label "Taxon Concept Label"@en ;
   rdfs:comment "A taxon concept label is a taxonomic name
 usage accompanied by an additional part, consisting of 'sec.' + an identifier
@@ -909,6 +916,19 @@ or a literature reference of a work containing the expression of a taxon concept
 (treatment)."@en .
 @
 ```
+
+#### Class Definition: *Vernacular Name*
+
+```
+<<Model>>=
+
+:VernacularName a owl:Class ;
+  rdfs:subClassOf :TaxonomicName ;
+  rdfs:label "Vernacular Name"@en ;
+  owl:equivalentClass nomen:NOMEN_0000037 .
+@
+```
+
 
 We do not model scientific names down to the level of the Codes as NOMEN does.
 For example we do not make a distinction between a zoological and a botanical
@@ -930,6 +950,8 @@ spirit in
 To the best of our knowledge, no formal definition of `dwciri:scientificName` exists in RDF.
 Therefore, it has been introduced it here together with a super-property to refer to a more broader
 class of names.
+
+#### Property Definition
 
 **Def. (has biological name, has scientific name, has vernacular name):**.
 
@@ -1254,6 +1276,8 @@ can say:
   :relatedName :harmonia-manillana-mulsant-1866 .
 @
 ```
+
+### Taxon Concepts
 
 #### Taxon Concepts
 
