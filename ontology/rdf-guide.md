@@ -258,11 +258,10 @@ the ontology we use the `notangle` command from `noweb`.
 
 ```
 <<OpenBiodiv Ontology>>=
-
 <<Prefixes>>
 
 : rdf:type owl:Ontology ;
-  owl:versionInfo "0.3" ;
+  owl:versionInfo "0.9" ;
   rdfs:comment "Open Biodiversity Knowledge Management System Ontology" ;
   dc:title "OpenBiodiv Ontology" ;
   dc:subject "OpenBiodiv Ontology" ;
@@ -272,7 +271,6 @@ the ontology we use the `notangle` command from `noweb`.
 
 <<Model>>
 <<Vocabulary of Taxonomic Statuses>>
-<<Vocabulary of RCC5 Terms>>
 @
 ```
 
@@ -300,9 +298,10 @@ The following Turtle code can be extracted from the prefix database with
 
 ```
 <<Prefixes>>=
-@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
-@prefix pensoft: <http://id.pensoft.net/> .
+@prefix : <http://openbiodiv.net/> .
+@prefix skos: <http://www.w3.org/2008/05/skos#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
 @prefix pro: <http://purl.org/spar/pro/> .
 @prefix scoro: <http://purl.org/spar/scoro/> .
@@ -310,8 +309,8 @@ The following Turtle code can be extracted from the prefix database with
 @prefix tvc: <http://www.essepuntato.it/2012/04/tvc/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix fabio: <http://purl.org/spar/fabio/> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix frbr: <http://purl.org/vocab/frbr/core#> .
 @prefix prism: <http://prismstandard.org/namespaces/basic/2.0/> .
 @prefix doco: <http://purl.org/spar/doco/> .
@@ -327,7 +326,13 @@ The following Turtle code can be extracted from the prefix database with
 @prefix pext: <http://proton.semanticweb.org/protonue#> .
 @prefix ptop: <http://proton.semanticweb.org/protont#> .
 @prefix pkm: <http://proton.semanticweb.org/protonkm#> .
-@prefix : <http://openbiodiv.net/> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix dbr: <http://dbpedia.org/resource/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix lucene: <http://www.ontotext.com/connectors/lucene#> .
+@prefix inst: <http://www.ontotext.com/connectors/lucene/instance#> .
+@prefix dbo: <http://dbpedia.org/ontology/> .
 @
 ```
 
@@ -337,6 +342,8 @@ The following Turtle code can be extracted from the prefix database with
 ```
 <<Examples>>=
 <<Prefixes>>
+<<Article Metadata>>
+<<Article Structure>>
 @
 ```
 
@@ -365,6 +372,7 @@ we define `po:contains` as a transitive property.
 
 ```
 <<Model>>=
+
 po:contains rdf:type owl:TransitiveProperty .
 @
 ```
@@ -375,6 +383,7 @@ The publisher of a journal, a type of `foaf:Agent`.
 
 ```
 <<Model>>=
+
 :Publisher rdf:type owl:Class ;
   rdfs:label "Publisher"@en ;
   rdfs:comment "The publisher of a journal, a type of `foaf:Agent`."@en ;
@@ -388,14 +397,14 @@ The publisher of a journal, a type of `foaf:Agent`.
 
 ```
 <<Model>>=
+
 :TaxonomicPaper rdf:type owl:Class;
   rdfs:subClassOf fabio:JournalArticle;
-  rdfs:label "Taxonomic Paper"@en;
-  rdfs:comment "high-level conceptualization aka `frbr:Work` of taxonomic paper"@en.
+  rdfs:label "Taxonomic Paper"@en .
 @
 ```
 
-#### Example
+#### Example: *Article Metadata*
 
 The main objects of information extraction and retrieval of OpenBiodiv in the
 first stage of its development are scientific journal articles from the
@@ -404,8 +413,17 @@ journals [Biodiversity Data Journal](http://bdj.pensoft.net/) and
 We model the bibliographic objects around Journal Article, such as Publisher,
 and Journal using SPAR.
 
+Note that we type `:treatment` both as `trt:Treatment` (i.e. the rhetorical
+element Treatment) and as s `doco:Section` because we view this particular
+treatment to also be a structural section of the document.
+
+
+
+
 ```
-<<Examples>>=
+<<Article Metadata>>=
+
+# Example: Article Metadata
 
 :biodiversity-data-journal   rdf:type   fabio:Journal ;
 	 skos:prefLabel   "Biodiversity Data Journal"@en ;
@@ -416,20 +434,21 @@ and Journal using SPAR.
 
  <http://dx.doi.org/10.3897/BDJ.1.e953>   rdf:type   fabio:TaxonomicArticle ;
 	 skos:prefLabel   "10.3897/BDJ.1.e953" ;
-	 dc:title   "Casuarinicola australis Taylor, 2010 (Hemiptera: Triozidae), newly recorded from New Zealand"@en ;
+	 dc:title   "Casuarinicola australis Taylor, 2010 (Hemiptera: Triozidae),
+	   newly recorded from New Zealand"@en ;
 	 prism:doi   "10.3897/BDJ.1.e953" ;
 	 dc:publisher   "Pensoft Publishers"@en ;
 	 fabio:hasPublicationYear   "2013"^^xsd:gYear ;
 	 prism:publicationDate   "2013-9-16"^^xsd:date ;
 	 dcterms:publisher   :pensoft-publishers ;
-	 frbr:realizationOf   :thorpe-2013 . 
+	 frbr:realizationOf   :thorpe-2013 .
 
  :thorpe-2013   rdf:type   :ResearchPaper ;
  	 skos:prefLabel	"Thorpe 2013"
 	 skos:altLabel   "paper10.3897/BDJ.1.e953" ;
 	 dcterms:creator   :stephen-e-thorpe ;
-	 prism:keywords   "Casuarinicola australis"@en , "Casuarina"@en , "New Zealand"@en , "Auckland"@en , "new record"@en , "Triozidae"@en ;
-	 fabio:hasSubjectTerm   :a2ee4929-90dd-4a7a-aa5c-08836f49d549 , :70adb47b-0e0b-405d-80e6-8538136d27aa , :ab6db423-2819-48c1-9b0e-32462d603c66 , :0e36c962-6596-4800-85ae-875e58c3313a , :bad80e8a-1827-4823-b213-e15ca4f99ce4 , :6098acdf-1706-46aa-bba4-f50a071e52f8 . 
+	 prism:keywords   "Casuarinicola australis"@en ;
+	 fabio:hasSubjectTerm   :a2ee4929-90dd-4a7a-aa5c-08836f49d549 . 
 
  :pensoft-publishers   rdf:type   :Publisher ;
 	 skos:prefLabel   "Pensoft Publishers"@en . 
@@ -439,35 +458,12 @@ and Journal using SPAR.
 	 foaf:firstName   "Stephen E." ;
 	 foaf:surname   "Thorpe" ;
 	 foaf:mbox   "stephen_thorpe@yahoo.co.nz" ;
-	 :affiliation   "School of Biological Sciences (Tamaki Campus), University of Auckland, Auckland, New Zealand"@en . 
+	 :affiliation   "School of Biological Sciences (Tamaki Campus),
+	   University of Auckland, Auckland, New Zealand"@en . 
 
  :a2ee4929-90dd-4a7a-aa5c-08836f49d549   rdf:type   fabio:SubjectTerm ;
 	 rdfs:label   "Casuarinicola australis"@en ;
 	 skos:inScheme   :Subject_Classification_Vocabulary . 
-
- :70adb47b-0e0b-405d-80e6-8538136d27aa   rdf:type   fabio:SubjectTerm ;
-	 rdfs:label   "Casuarina"@en ;
-	 skos:inScheme   :Subject_Classification_Vocabulary ;
-	 skos:exactMatch   dbr:Casuarina . 
-
- :ab6db423-2819-48c1-9b0e-32462d603c66   rdf:type   fabio:SubjectTerm ;
-	 rdfs:label   "New Zealand"@en ;
-	 skos:inScheme   :Subject_Classification_Vocabulary ;
-	 skos:exactMatch   dbr:New_Zealand . 
-
- :0e36c962-6596-4800-85ae-875e58c3313a   rdf:type   fabio:SubjectTerm ;
-	 rdfs:label   "Auckland"@en ;
-	 skos:inScheme   :Subject_Classification_Vocabulary ;
-	 skos:exactMatch   dbr:Auckland . 
-
- :bad80e8a-1827-4823-b213-e15ca4f99ce4   rdf:type   fabio:SubjectTerm ;
-	 rdfs:label   "new record"@en ;
-	 skos:inScheme   :Subject_Classification_Vocabulary . 
-
- :6098acdf-1706-46aa-bba4-f50a071e52f8   rdf:type   fabio:SubjectTerm ;
-	 rdfs:label   "Triozidae"@en ;
-	 skos:inScheme   :Subject_Classification_Vocabulary ;
-	 skos:exactMatch   dbr:Triozidae .
 @
 ```
 
@@ -481,44 +477,42 @@ to Introduction, Methods, etc. from
 
 ```
 <<Model>>=
-trt:Treatment a owl:Class ;
-  rdfs:subClassOf deo:DiscourseElement ,
+
+:Treatment a owl:Class ;
+  rdfs:subClassOf deo:DiscourseElement , trt:Treatment,
                   [ rdf:type owl:Restriction ;
                     owl:onProperty po:isContainedBy ;
                     owl:someValuesFrom :TaxonomicArticle ] ;
-  rdfs:label "Taxon Treatment"@en ;
-  rdfs:comment "A rhetorical element of a taxonomic publication, where taxon circumscription  
-                takes place."@en ;
+  rdfs:label "Taxonomic Treatment"@en ;
+  rdfs:comment "A rhetorical element of a taxonomic publication, where taxon
+    			circumscription takes place."@en ;
   rdfs:comment "Таксономично пояснение или само Пояснение е риторчна част
                 от таксономичната статия, където се случва описанието
-                на дадена таксономична концепция."@bg ;                  
-  rdfs:subClassOf deo:DiscourseElement .
+                на дадена таксономична концепция."@bg .
 @
 ```
 
-#### Example
+#### Example: *Article Structure*
+
 
 ```
-<<Examples>>=
+<<Article Structure>>=
 
-:casuarinicola-australis-treatment
-  a doco:Section, trt:Treatment .
-@
-```
+# Example: Article Structure
 
-Note that we type `:treatment` both as `trt:Treatment` (i.e. the rhetorical
-element Treatment) and as s `doco:Section` because we view this particular
-treatment to also be a structural section of the document.
+<http://dx.doi.org/10.3897/BDJ.1.e953>
+  po:contains :casuarinicola-australis-treatment .
 
-#### Example
+:casuarinicola-australis-treatment 
+  a doco:Section, trt:Treatment ;
+  po:contains :casuarinicola-australis-nomenclature .
 
-In this example we show how different sub-article elements such as treatments
-are linked via the use of the `po:contains`:
+:casuarinicola-australis-nomenclature
+  a doco:Section, :NomenclatureHeading ;
+  po:contains :casuarinicola-australis-nomenclature-heading .
 
-```
-<<Examples>>=
-
- <http://dx.doi.org/10.3897/BDJ.1.e953>  po:contains :casuarinicola-australis-treatment . 
+:casuarinicola-australis-nomenclature-heading a trt:TreatmentTitle ;
+  cnt:chars "Casuarinicola australis Taylor, 2010" .
 @
 ```
 
@@ -530,13 +524,17 @@ nomenclatural statements are made. Nomenclature is a subsection of Treatment.
 
 ```
 <<Model>>=
-trt:Nomenclature a owl:Class ;
-  rdfs:subClassOf deo:DiscourseElement ,
+
+:Nomenclature a owl:Class ;
+  rdfs:subClassOf deo:DiscourseElement , trt:Nomenclature ,
                   [ rdf:type owl:Restriction ;
                     owl:onProperty po:isContainedBy ;
                     owl:someValuesFrom trt:Treatment ] ;
-  rdfs:label "Taxonomic Nomenclature Section"@en ;
-  rdfs:comment "A section of a taxonomic treatment, containing the scientific name of the taxon described by the treatment, and citations to previous descriptions, designations of type-genus, and type-species, and other information."@en .
+  rdfs:label "Treatment Nomenclature Section"@en ;
+  rdfs:comment "A section of a taxonomic treatment, containing the scientific
+    name of the taxon described by the treatment, and citations to previous
+    descriptions, designations of type-genus, and type-species,
+    and other information."@en .
 @
 ```
 
@@ -546,28 +544,33 @@ Inside the taxonomic nomenclature section, we have the treatment title.
 
 ```
 <<Model>>=
+
 :NomenclatureHeading a owl:Class ;
   rdfs:subClassOf deo:DiscourseElement ,
                   [ rdf:type owl:Restriction ;
                     owl:onProperty po:isContainedBy ;
                     owl:someValuesFrom trt:Nomenclature ] ;
                   rdfs:label "Nomenclature Heading"@en ;
-  rdfs:comment "Inside the taxonomic nomenclature section, we have the treatment title (name of the taxon)."@en .
+  rdfs:comment "Inside the taxonomic nomenclature section, we have the treatment
+    title (name of the taxon)."@en .
 @
 ```
 
 #### Class Definition: *Taxonomic Treatment Citation List*
 
 Inside the taxonomic nomenclature section, we have a list of citations.
+
 ```
 <<Model>>=
-tp:nomenclature-citation-list a owl:Class ;
-  rdfs:subClassOf deo:DiscourseElement ,
+
+:NomenclatureCitationList a owl:Class ;
+  rdfs:subClassOf deo:DiscourseElement , tp:nomenclature-citation-list ,
                   [ rdf:type owl:Restriction ;
                     owl:onProperty po:isContainedBy ;
                     owl:someValuesFrom trt:Nomenclature ] ;
                   rdfs:label "Taxonomic Treatent Citation List"@en ;
-  rdfs:comment "A section in a treatment that includes the citation of one or several previous treatments of the taxon."@en .                  
+  rdfs:comment "A section in a treatment that includes the citation of one or
+    several previous treatments of the taxon."@en .                  
 @
 ```
 #### Class Definition: *Biology*
@@ -575,8 +578,9 @@ tp:nomenclature-citation-list a owl:Class ;
 Subsection of treatment.
 ```
 <<Model>>=
-trt:Biology a owl:Class ;
-  rdfs:subClassOf deo:DiscourseElement ,
+
+:Biology a owl:Class ;
+  rdfs:subClassOf deo:DiscourseElement, trt:Biology,
                   [ rdf:type owl:Restriction ;
                     owl:onProperty po:isContainedBy ;
                     owl:someValuesFrom trt:Treatment ] ;
@@ -591,8 +595,9 @@ Subsection of treatment.
 
 ```
 <<Model>>=
-trt:Description a owl:Class ;
-  rdfs:subClassOf deo:DiscourseElement ,
+
+:Description a owl:Class ;
+  rdfs:subClassOf deo:DiscourseElement, trt:Description,
                   [ rdf:type owl:Restriction ;
                     owl:onProperty po:isContainedBy ;
                     owl:someValuesFrom trt:Treatment ] ;
@@ -605,8 +610,9 @@ Subsection of treatment.
 
 ```
 <<Model>>=
-trt:Diagnosis a owl:Class ;
-  rdfs:subClassOf deo:DiscourseElement ,
+
+:Diagnosis a owl:Class ;
+  rdfs:subClassOf deo:DiscourseElement, trt:Diagnosis,
                   [ rdf:type owl:Restriction ;
                     owl:onProperty po:isContainedBy ;
                     owl:someValuesFrom trt:Treatment ] ;
@@ -621,12 +627,13 @@ Subsection of treatment.
 
 ```
 <<Model>>=
-trt:Distribution a owl:Class ;
-  rdfs:subClassOf deo:DiscourseElement ,
-                  [ rdf:type owl:Restriction ;
-                    owl:onProperty po:isContainedBy ;
-                    owl:someValuesFrom trt:Treatment ] ;
-  rdfs:label "Distribution Section"@en .
+
+:Distribution a owl:Class ;
+  rdfs:subClassOf deo:DiscourseElement, trt:Distribution ,
+                  [ rdf:type owl:Restriction;
+                    owl:onProperty po:isContainedBy;
+                    owl:someValuesFrom trt:Treatment ];
+  rdfs:label "Distribution Section"@en.
 @
 ```
 
@@ -637,8 +644,9 @@ Subsection of treatment.
 
 ```
 <<Model>>=
-trt:Etymology a owl:Class ;
-  rdfs:subClassOf deo:DiscourseElement ,
+
+:Etymology a owl:Class ;
+  rdfs:subClassOf deo:DiscourseElement, trt:Etymology,
                   [ rdf:type owl:Restriction ;
                     owl:onProperty po:isContainedBy ;
                     owl:someValuesFrom trt:Treatment ] ;
@@ -652,12 +660,13 @@ Subsection of treatment.
 
 ```
 <<Model>>=
-trt:Key a owl:Class ;
-  rdfs:subClassOf deo:DiscourseElement ,
-                  [ rdf:type owl:Restriction ;
-                    owl:onProperty po:isContainedBy ;
-                    owl:someValuesFrom :TaxonomicArticle ] ;
-  rdfs:label "Identificiation Key"@en .
+
+:Key a owl:Class;
+  rdfs:subClassOf deo:DiscourseElement, trt:Key,
+                  [ rdf:type owl:Restriction;
+                    owl:onProperty po:isContainedBy;
+                    owl:someValuesFrom :TaxonomicArticle ];
+  rdfs:label "Identificiation Key"@en.
 @
 ```
 
@@ -667,6 +676,7 @@ Subsection of treatment.
 
 ```
 <<Model>>=
+
 :MaterialsExamined a owl:Class ;
   rdfs:subClassOf deo:DiscourseElement ,
                   [ rdf:type owl:Restriction ;
@@ -703,15 +713,7 @@ In this example, we show how to define a nomenclature section:
 ```
 <<Examples>>=
 
-:casuarinicola-australis-treatment
-  po:contains :casuarinicola-australis-nomenclature .
 
-:casuarinicola-australis-nomenclature a doco:Section, :NomenclatureHeading ;
-  po:contains :casuarinicola-australis-nomenclature-heading .
-
-:casuarinicola-australis-nomenclature-heading a trt:TreatmentTitle ;
-  cnt:chars 
-  " Casuarinicola australis Taylor, 2010 " .
 @
 ```
 
@@ -766,16 +768,15 @@ A taxon name usage is the mentioning of a taxon name or a taxon concept label
 
 :TaxonomicNameUsage rdf:type owl:Class ;
   rdfs:subClassOf  pext:Mention ;
-  rdfs:comment "A biological name usage is the mentioning of a biological name
-  (scientific name, taxon concept label, etc.), optionally with an authorship
-  and taxonomic status."@en ;
-  rdfs:label "Biological Name Usage"@en .
+  rdfs:comment "A taxonomic name usage is the mentioning of a taxonomic name
+    (scientific name, taxonomic concept label, etc.), optionally with 
+    a taxonomic status."@en ;
+  rdfs:label "Taxonomic Name Usage"@en .
 
 dwciri:taxonomicStatus rdf:type owl:ObjectProperty ; 
   rdfs:label "taxonomic status"@en ;
-  rdfs:comment "the IRI version of the DwC term taxonmic status" .
+  rdfs:comment "the IRI version of the DwC term taxonmic status"@en .
 @
-
 ```
 
 In the logic of our algorithms, it is very important that TNU's are
@@ -807,11 +808,47 @@ author is invoking as we are in the treatment title (current concept/ *this*
 concept).
 
 ```
+<<Taxonomic Name Usage>>=
+
+:casuarinicola-australis-nomenclature-heading
+  po:contains :casuarinicola-australis-TNU .
+
+:casuarinicola-australis-TNU a :TaxonomicNameUsage ;
+  dc:date "2013-9-16"^^:xsd:date ;
+  cnt:chars "Casuarinicola australis Taylor, 2010" ;
+  dwc:genus "Casuarinicola" ;
+  dwc:specificEpithet "australis" ;
+  dwc:scientificNameAuthorship "Taylor, 2010" ;
+  # we can infer the following because we are in the treatment heading
+  dwc:nameAccordingToId "doi: 10.3897/BDJ.1.e953" ;
+  pkm:mentions :casuarinicola-australis-taylor, 
+  			   :casuarinicola-australis-taylor-sec-thorpe-2013 .
+
+:casuarinicola-australis-taylor a :ScientificName ;
+  rdfs:label "Casuarinicola australis Taylor, 2010" ;
+  dwc:genus "Casuarinicola" ;
+  dwc:specificEpithet "australis" ;
+  dwc:scientificNameAuthorship "Taylor, 2010" .
+
+:casuarinicola-australis-taylor-sec-thorpe-2013 a :TaxonomicConceptLabel ;
+  rdfs:label "Casuarinicola australis Taylor, 2010 sec. Thorpe 2013" ;
+  dwc:genus "Casuarinicola" ;
+  dwc:specificEpithet "australis" ;
+  dwc:scientificNameAuthorship "Taylor, 2010" .
+  dwc:nameAccordingToId "doi: 10.3897/BDJ.1.e953" ;
+
+  # we link to the paper! not the article
+  :nameAccordingTo :thorpe-2013 .
+@
+```
+
+
+```
 <<Examples>>=
 
-:heser-stoevi-nomenclature-heading po:contains :heser-stoevi-tnu .
+:heser-stoevi-nomenclature-heading po:contains :heser-stoevi-TNU .
 
-:heser-stoevi-tnu a :TaxonomicNameUsage ;
+:heser-stoevi-TNU a :TaxonomicNameUsage ;
   dc:date "2016-08-31"^^xsd:date ;
   cnt:chars
   "Heser stoevi urn:lsid:zoobank.org:act:E4D7D5A0-D649-4F5E-9360-D0488D73EEE8 Deltschev sp. n." ;
@@ -873,7 +910,6 @@ this convention. Therefore, OpenBiodiv names use human-readable identifiers.
 ```
 <<Model>>=
 
-
 :ScientificName rdf:type owl:Class ;
     rdfs:subClassOf :TaxonomicName ;
     rdfs:label "Scientific Name"@en ;
@@ -886,11 +922,10 @@ this convention. Therefore, OpenBiodiv names use human-readable identifiers.
 ```
 <<Model>>=
 
-
 :LatinName rdf:type owl:Class ;
     rdfs:subClassOf :ScientificName ;
-    rdfs:label "Lstinized Scientific Name"@en ;
-    rdfs:comment "Linnaean Name"@en .
+    skos:prefLabel "Latinized Scientific Name"@en ;
+    skos:altLabel "Linnaean Name"@en .
 @
 ```
 
@@ -911,11 +946,24 @@ expression of a taxon concept (for example a treatment).*
   rdfs:subClassOf :LatinName ;
   rdfs:label "Taxon Concept Label"@en ;
   rdfs:comment "A taxon concept label is a taxonomic name
-usage accompanied by an additional part, consisting of 'sec.' + an identifier
-or a literature reference of a work containing the expression of a taxon concept
-(treatment)."@en .
+    usage accompanied by an additional part, consisting of 'sec.' + an identifier
+    or a literature reference of a work containing the expression of a taxon concept
+    (treatment)."@en .
 @
 ```
+
+
+```
+<<Model>>=
+
+:OTU_Id rdf:type owl:Class ;
+  rdfs:subClassOf :ScientificName ;
+  rdfs:label "Operatational Taxonomic Unit Id"@en ;
+  rdfs:comment "The identifier of an Operational Taxonomic Unit, such as
+    BOLD BIN or a Unite SH ID"@en .
+@
+```
+
 
 #### Class Definition: *Vernacular Name*
 
@@ -951,10 +999,19 @@ To the best of our knowledge, no formal definition of `dwciri:scientificName` ex
 Therefore, it has been introduced it here together with a super-property to refer to a more broader
 class of names.
 
-#### Property Definition
+#### Property Definition: *has taxonomic name*
 
-**Def. (has biological name, has scientific name, has vernacular name):**.
+```
+<<Model>>=
 
+:taxonomicName rdf:type owl:ObjectProperty ;
+  	rdfs:label "has taxonomic name"@en ;
+	rdfs:range :TaxonomicName .
+@
+```
+
+
+#### Property Definition: *has scientific name*
 ```
 <<Model>>=
 
@@ -963,41 +1020,66 @@ dwciri:scientificName rdf:type owl:ObjectProperty ;
   rdfs:comment "the IRI version of dwc:scientificName"@en .
 
 dwciri:nameAccordingTo rdf:type owl:ObjectProperty ;
-  rdfs:label "name according to" ;
-  rdfs:comment "the IRI version of dwc:scientificName"@en . 
-  
-:biologicalName rdf:type owl:ObjectProperty ;
-  rdfs:subPropertyOf pkm:mentions ;
-	rdfs:label "mentions biological name"@en ;
-	rdfs:range :BiologicalName .
-
-:vernacularName rdf:type owl:ObjectProperty ;
-  rdfs:subPropertyOf :biologicalName ;
-	rdfs:label "mentions vernacular name" @en ;
-	rdfs:range :VernacularName .
+  rdfs:label "name according to"@en .
 
 :scientificName rdf:type owl:ObjectProperty ;
-  rdfs:subPropertyOf dwciri:scientificName, :biologicalName ;
-  rdfs:label "mentions scientific name"@en ; 
-  rdfs:range :ScientificName ;
-  rdfs:comment "'the scientific name property, derived from ':biologicalName', 'pkm:mentions', and 'dwciri:scientificName"@en .
-
-:taxonConceptLabel rdf:type owl:ObjectProperty ;
-  rdfs:subPropertyOf :biologicalName ;
-  rdfs:label "mentions taxon concept label"@en ;
-  rdfs:range :TaxonConceptLabel .
+  rdfs:subPropertyOf :taxonomicName, dwciri:scientificName ;
+  rdfs:label "has scientific name"@en ; 
+  rdfs:range :ScientificName .
 
 :nameAccordingTo rdf:type owl:ObjectProperty ;
-  rdfs:label "sec."@en ; 
+  rdfs:subClassOf dwciri:nameAccordingTo, po:isContainedBy ;
+  skos:prefLabel "secundum"@en ; 
+  skos:altLabel "sensu"@en
   rdfs:range frbr:Expression ;
-  rdfs:comment "The reference to the source in which the specific taxon concept circumscription is defined or implied - traditionally signified by the Latin 'sensu' or 'sec.'' (from secundum, meaning 'according to'). For taxa that are relevantly circumscribed by identifications, a reference to the keys, monographs, experts and other sources should be given. Should only be used with IRI's"@en .
+  rdfs:comment "The reference to the source in which the specific taxononimic 
+    concept circumscription is defined or implied - traditionally signified by
+    the Latin 'sensu' or 'sec.'' (from secundum, meaning 'according to').
+    For taxa that are relevantly circumscribed by identifications, a reference
+    to the keys, monographs, experts and other sources should be given. Should
+    only be used with IRI's"@en .
+@
+```
+
+#### Property Definition: *has vernacular name*
+
+```
+<<Model>>=
+
+:vernacularName rdf:type owl:ObjectProperty ;
+  rdfs:subPropertyOf :taxonomicName ;
+	rdfs:label "has vernacular name" @en ;
+	rdfs:range :VernacularName .
+@
+```
+
+#### Property Definition: *has vernacular name*
+```
+<<Model>>=
+
+:taxonomicConceptLabel rdf:type owl:ObjectProperty ;
+  rdfs:subPropertyOf :scientificName ;
+  rdfs:label "has taxon concept label"@en ;
+  rdfs:range :TaxonomicConceptLabel .
+@
+```
+
+```
+<<Model>>=
+
+:has_OTU_Id rdf:type owl:ObjectProperty ;
+  rdfs:subPropertyOf :scientificName ;
+  rdfs:label "has OTU Id"@en ;
+  rdfs:range :OTU_Id .
 @
 ```
 
 For relationships between names we introduce two types of relationships:
 unidirectional and bidirectional.
 
-**Def. ('has related name'):** *'has related name' is an object property that we
+#### Property Definition: *has related name'*
+
+ is an object property that we
 use in order to indicate that two biological names are related somehow. This
 relationship is purposefully vague as to encompass all situations where two
 biological names co-occur in a text. It is transitive and reflexive.*
@@ -1007,17 +1089,18 @@ biological names co-occur in a text. It is transitive and reflexive.*
 
 :relatedName rdf:type owl:ObjectProperty, owl:TransitiveProperty, owl:ReflexiveProperty ;
   rdfs:label "has related name"@en ;
-  rdfs:domain :BiologicalName ;
-  rdfs:range :BiologicalName ;
+  rdfs:domain :TaxonomicName ;
+  rdfs:range :TaxonomicName ;
   rdfs:comment "'has related name' is an object property that we
-use in order to indicate that two biological names are related somehow. This
-relationship is purposely vague as to encompass all situations where two
-biological names co-occur in a text. It is transitive and reflexive."@en.
-
+    use in order to indicate that two taxnomic names are related somehow. This
+    relationship is purposely vague as to encompass all situations where two
+    taxonomic names co-occur in a text. It is transitive and reflexive."@en.
 @
 ```
 
-**Def. (has replacement name):** *This is a uni-directional property. Its meaning
+#### Property Definition: *has replacement name*
+
+This is a uni-directional property. Its meaning
 is that one one biological name links to a different biological name via the
 usage of this property, then the object of the triple is the form of the
 biological name the use of which is more accurate and should be preferred
@@ -1030,18 +1113,17 @@ defined for scientific names.*
 :replacementName rdf:type owl:ObjectProperty ,
                           owl:TransitiveProperty ;
   rdfs:label "has replacement name"@en ;
-  rdfs:domain :ScientificName ;
-  rdfs:range :ScientificName ;
+  rdfs:domain :LatinName ;
+  rdfs:range :LatinName ;
   rdfs:comment "This is a uni-directional property. Its meaning
-is that one one biological name links to a different biological name via the
-usage of this property, then the object of the triple is the form of the
-biological name the use of which is more accurate and should be preferred
-given the information that system currently holds. This property is only
-defined for scientific names."@en.
+    is that one Linnaean name links to a different Linnaean name via the
+    usage of this property, then the object name is more accurate and should be
+    preferred given the information that system currently holds. This property is only
+    defined for Linnaean names."@en.
 @
 ```
 
-##### Now we define some rules for names
+#### Rules for Names
 
 TODO: create example for the rules
 TODO: Above nesting with 5-hashesh is wrong
@@ -1277,11 +1359,11 @@ can say:
 @
 ```
 
-### Taxon Concepts
+### Taxonomic Concepts
 
-#### Taxon Concepts
+#### Class Definition: *Taxonomic Concept*
 
-**Discussion.** Our view of taxon concepts is based on
+Our view of taxon concepts is based on
 [Berendsohn (1995)](http://www.jstor.org/stable/1222443) and
 [Franz et al (2008)](http://dx.doi.org/10.1201/9781420008562.ch5).
 
@@ -1327,17 +1409,21 @@ Holding the views of Berendsohn and of Franz, we require that each taxon
 concept is linked to both a biological name and to a work (i.e. publication,
 database, etc.), where the circumscription is properly defined.
 
-**Def. (Taxon Concept):**
-
 ```
 <<Model>>=
 
-:TaxonConcept rdf:type owl:Class ;
+:OperationalTaxonomicUnit rdf:type owl:Class ;
+  rdfs:subClassOf skos:Concept, frbr:Work , 
+  rdfs:label "Operational Taxonomic Unit"@en;
+  rdfs:commnet "A superclass for all kinds of taxonomic hypothesis"@en .
+
+:TaxonomicConcept rdf:type owl:Class ;
   owl:equivalentClass dwc:Taxon ;
-  rdfs:subClassof frbr:Work , skos:Concept ,
+  rdfs:subClassof :OperationalTaxonomicUnit ,
                   [ rdf:type owl:Restriction ;
-                    owl:onProperty :taxonConceptLabel ;
-                    owl:minCardinality "1" ] .
+                    owl:onProperty :taxonomicConceptLabel ;
+                    owl:minCardinality "1" ] ;
+  rdfs:comment "A taxonomic concept in the sense of Berendsohn"@en .
 @
 ```
 
@@ -1542,6 +1628,8 @@ but we will not copy any of the `:havePedipals` or `:haveSpinnerts` to the other
   rdfs:subPropertyOf :rcc5Property ;
   rdfs:range :RCC5Relation ;
   rdfs:comment "Connects an RCC-5 statement to the type of RCC-5 relation between the regions."@en .
+
+<<Vocabulary of RCC5 Terms>>
 @
 ```
 
@@ -1656,15 +1744,15 @@ statuses.
   rdfs:label "OpenBiodiv Vocabulary of Taxonomic Statuses"@en ;
   fabio:hasDiscipline <http://dbpedia.org/page/Taxonomy_(biology)> .
 
-  <<Taxonomic Uncertainty>>
-  <<Taxon Discovery>>
-  <<Replacement Name>>
-  <<Unavailable Name>>
-  <<Available Name>>
-  <<Type Specimen Designation>>
-  <<Type Species Designation>>
-  <<New Occurrence Record>>
-  <<Taxon Concept Label>>
+<<Taxonomic Uncertainty>>
+<<Taxon Discovery>>
+<<Replacement Name>>
+<<Unavailable Name>>
+<<Available Name>>
+<<Type Specimen Designation>>
+<<Type Species Designation>>
+<<New Occurrence Record>>
+<<Taxon Concept Label>>
 
 @
 ```
@@ -1906,7 +1994,6 @@ to indicate that a particular TNU is taxonomic concept label.
  
 ```
 <<Vocabulary of RCC5 Terms>>=
-
 :RCC5Relation rdf:type owl:Class ;
   rdfs:subClassOf [ rdf:type owl:Restriction ;
                     owl:onProperty <http://www.w3.org/2004/02/skos/core#inScheme> ;
