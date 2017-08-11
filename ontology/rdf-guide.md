@@ -810,6 +810,8 @@ concept).
 ```
 <<Taxonomic Name Usage>>=
 
+# Example: Taxonomic Name Usage
+
 :casuarinicola-australis-nomenclature-heading
   po:contains :casuarinicola-australis-TNU .
 
@@ -942,7 +944,7 @@ expression of a taxon concept (for example a treatment).*
 ```
 <<Model>>=
 
-:TaxonConceptLabel rdf:type owl:Class ;
+:TaxonomicConceptLabel rdf:type owl:Class ;
   rdfs:subClassOf :LatinName ;
   rdfs:label "Taxon Concept Label"@en ;
   rdfs:comment "A taxon concept label is a taxonomic name
@@ -1752,7 +1754,6 @@ statuses.
 <<Type Specimen Designation>>
 <<Type Species Designation>>
 <<New Occurrence Record>>
-<<Taxon Concept Label>>
 
 @
 ```
