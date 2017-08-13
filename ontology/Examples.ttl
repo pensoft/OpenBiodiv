@@ -26,44 +26,78 @@
 @prefix pext: <http://proton.semanticweb.org/protonue#> .
 @prefix ptop: <http://proton.semanticweb.org/protont#> .
 @prefix pkm: <http://proton.semanticweb.org/protonkm#> .
-@prefix cnt: <http://www.w3.org/2011/content#> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix : <http://openbiodiv.net/> .
+:818b0dec-f244-4866-bc1c-eb761e4af649   rdf:type   fabio:Journal ;
+         skos:prefLabel   "Biodiversity Data Journal"@en ;
+         skos:altLabel   "BDJ"@en ;
+         fabio:issn   "1314-2836" ;
+         fabio:eIssn   "1314-2828" ;
+         frbr:part   :b90f6933-ab5e-4ce1-9379-12de9ef4eaa6 . 
 
-:biodiversity-data-journal rdf:type fabio:Journal ;
-  skos:prefLabel "Biodiversity Data Journal" ;
-  skos:altLabel  "BDJ" ;
-  prism:issn    "1314-2836" ;
-  prism:eIssn   "1314-2828" ;
-  dc:publisher "Pensoft Publishers" ;
-  frbr:part <http://dx.doi.org/10.3897/BDJ.4.e10095> . 
+ :b90f6933-ab5e-4ce1-9379-12de9ef4eaa6   rdf:type   fabio:TaxonomicArticle ;
+         skos:prefLabel   "10.3897/BDJ.1.e953" ;
+         dc:title   "Casuarinicola australis Taylor, 2010 (Hemiptera: Triozidae), newly recorded from New Zealand"@en ;
+         prism:doi   "10.3897/BDJ.1.e953" ;
+         dc:publisher   "Pensoft Publishers"@en ;
+         fabio:hasPublicationYear   "2013"^^xsd:gYear ;
+         prism:publicationDate   "2013-9-16"^^xsd:date ;
+         dcterms:publisher   :2e32bf8a-8646-44b7-88c1-241784fc5da6 ;
+         frbr:realizationOf   :49839804-5c52-46c7-badf-18698247485d . 
 
-<http://dx.doi.org/10.3897/BDJ.4.e10095> a fabio:JournalArticle ;
-  skos:prefLabel "10.3897/BDJ.4.e10095" ;
-  prism:doi "10.3897/BDJ.4.e10095" ;
-  fabio:hasPublicationYear "2016"^^xsd:gYear ;
-  dcterms:title "A new spider species, Heser stoevi sp. nov., from Turkmenistan (Araneae: Gnaphosidae)"@en .
+ :49839804-5c52-46c7-badf-18698247485d   rdf:type   :ResearchPaper ;
+         skos:prefLabel "Thorpe 2013"
+         skos:altLabel   "paper10.3897/BDJ.1.e953" ;
+         dcterms:creator   :9637e78e-de51-4934-86d6-1c6413872442 ;
+         prism:keywords   "Casuarinicola australis"@en , "Casuarina"@en , "New Zealand"@en , "Auckland"@en , "new record"@en , "Triozidae"@en ;
+         fabio:hasSubjectTerm   :a2ee4929-90dd-4a7a-aa5c-08836f49d549 , :70adb47b-0e0b-405d-80e6-8538136d27aa , :ab6db423-2819-48c1-9b0e-32462d603c66 , :0e36c962-6596-4800-85ae-875e58c3313a , :bad80e8a-1827-4823-b213-e15ca4f99ce4 , :6098acdf-1706-46aa-bba4-f50a071e52f8 . 
 
-:pensoft-publishers rdf:type foaf:Agent ;
-  skos:prefLabel "Pensoft Publishers" ;
-  pro:holdsRoleInTime :cc6bcae3-6c8a-4515-b98b-90880ae97b04 . 
+ :2e32bf8a-8646-44b7-88c1-241784fc5da6   rdf:type   :Publisher ;
+         skos:prefLabel   "Pensoft Publishers"@en . 
 
-:cc6bcae3-6c8a-4515-b98b-90880ae97b04 rdf:type pro:RoleInTime ;
-  pro:relatesToDocument :biodiversity-data-journal . 
+ :9637e78e-de51-4934-86d6-1c6413872442   rdf:type   foaf:Person ;
+         skos:prefLabel   "Stephen E. Thorpe" ;
+         foaf:firstName   "Stephen E." ;
+         foaf:surname   "Thorpe" ;
+         foaf:mbox   "stephen_thorpe@yahoo.co.nz" ;
+         :affiliation   "School of Biological Sciences (Tamaki Campus), University of Auckland, Auckland, New Zealand"@en . 
 
+ :a2ee4929-90dd-4a7a-aa5c-08836f49d549   rdf:type   fabio:SubjectTerm ;
+         rdfs:label   "Casuarinicola australis"@en ;
+         skos:inScheme   :Subject_Classification_Vocabulary . 
+
+ :70adb47b-0e0b-405d-80e6-8538136d27aa   rdf:type   fabio:SubjectTerm ;
+         rdfs:label   "Casuarina"@en ;
+         skos:inScheme   :Subject_Classification_Vocabulary ;
+         skos:exactMatch   dbr:Casuarina . 
+
+ :ab6db423-2819-48c1-9b0e-32462d603c66   rdf:type   fabio:SubjectTerm ;
+         rdfs:label   "New Zealand"@en ;
+         skos:inScheme   :Subject_Classification_Vocabulary ;
+         skos:exactMatch   dbr:New_Zealand . 
+
+ :0e36c962-6596-4800-85ae-875e58c3313a   rdf:type   fabio:SubjectTerm ;
+         rdfs:label   "Auckland"@en ;
+         skos:inScheme   :Subject_Classification_Vocabulary ;
+         skos:exactMatch   dbr:Auckland . 
+
+ :bad80e8a-1827-4823-b213-e15ca4f99ce4   rdf:type   fabio:SubjectTerm ;
+         rdfs:label   "new record"@en ;
+         skos:inScheme   :Subject_Classification_Vocabulary . 
+
+ :6098acdf-1706-46aa-bba4-f50a071e52f8   rdf:type   fabio:SubjectTerm ;
+         rdfs:label   "Triozidae"@en ;
+         skos:inScheme   :Subject_Classification_Vocabulary ;
+         skos:exactMatch   dbr:Triozidae .
 :heser-stoevi-treatment
   a doco:Section, trt:Treatment .
-
 <http://dx.doi.org/10.3897/BDJ.4.e10095> po:contains :heser-stoevi-treatment . 
-
 :heser-stoevi-treatment
   po:contains :heser-stoevi-nomenclature .
 
 :heser-stoevi-nomenclature a doco:Section, trt:Nomenclature ;
   po:contains :heser-stoevi-nomenclature-heading .
 
-:heser-stoevi-nomenclature-heading a trt:NomenclatureHeading ;
+:heser-stoevi-nomenclature-heading a trt:TreatmentTitle ;
   cnt:chars 
   "Heser stoevi urn:lsid:zoobank.org:act:E4D7D5A0-D649-4F5E-9360-D0488D73EEE8 Deltshev sp. n." .
 
@@ -143,7 +177,7 @@
    dwc:genus "Heser" ;
    dwc:taxonRank "species" ;
    dwc:scientificNameAuthorship "Deltschev" ;
-   :nameAccordingTo <http://dx.doi.org/10.3897/BDJ.4.e10095> .
+   ::nameAccordingTo <http://dx.doi.org/10.3897/BDJ.4.e10095> .
   
 :concept-deltshev-2016 a :TaxonConcept ;
   :taxonConceptLabel :heser-stoevi-sec-deltshev .
