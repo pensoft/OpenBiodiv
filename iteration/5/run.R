@@ -13,13 +13,14 @@ library(parallel)
 configuration_file = "/home/viktor2/Work/PhD/openbiodiv/iteration/5/config.yml"
 server_access_options = yaml::yaml.load_file( configuration_file )
 init_env(server_access_options )
+
 get_protocol_version( obkms$server_access_options )
 
 # load dump list so far
 load (  paste0( obkms$initial_dump_configuration$initial_dump_directory, ".Rdata" ) )
 
 # BDJ
-bdj_new_files = article_dumper( journal = "BDJ", fromdate = last_dump$BDJ )
+bdj_new_files = article_dumper( journal = "BDJ", fromdate = dump_date )
 
 response_bdj = process_dump_list( dump_list )
 
