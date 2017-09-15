@@ -51,7 +51,7 @@ po:contains rdf:type owl:TransitiveProperty .
   rdfs:comment "The publisher of a journal, a type of `foaf:Agent`."@en ;
   rdfs:subClassOf foaf:Agent .
 
-:TaxonomicPaper rdf:type owl:Class;
+:TaxonomicArticle rdf:type owl:Class;
   rdfs:subClassOf fabio:JournalArticle;
   rdfs:label "Taxonomic Paper"@en .
 
@@ -82,16 +82,15 @@ po:contains rdf:type owl:TransitiveProperty .
   rdfs:subClassOf deo:DiscourseElement ,
                   [ rdf:type owl:Restriction ;
                     owl:onProperty po:isContainedBy ;
-                    owl:someValuesFrom trt:Nomenclature ] ;
+                    owl:someValuesFrom :Nomenclature ] ;
                   rdfs:label "Nomenclature Heading"@en ;
-  rdfs:comment "Inside the taxonomic nomenclature section, we have the treatment
-    title (name of the taxon)."@en .
+  rdfs:comment "Inside the taxonomic nomenclature section, we have the treatment title (name of the taxon)."@en .
 
 :NomenclatureCitationList a owl:Class ;
-  rdfs:subClassOf deo:DiscourseElement , tp:nomenclature-citation-list ,
+  rdfs:subClassOf deo:DiscourseElement ,
                   [ rdf:type owl:Restriction ;
                     owl:onProperty po:isContainedBy ;
-                    owl:someValuesFrom trt:Nomenclature ] ;
+                    owl:someValuesFrom :Nomenclature ] ;
                   rdfs:label "Taxonomic Treatent Citation List"@en ;
   rdfs:comment "A section in a treatment that includes the citation of one or
     several previous treatments of the taxon."@en .                  
@@ -107,28 +106,28 @@ po:contains rdf:type owl:TransitiveProperty .
   rdfs:subClassOf deo:DiscourseElement, trt:Description,
                   [ rdf:type owl:Restriction ;
                     owl:onProperty po:isContainedBy ;
-                    owl:someValuesFrom trt:Treatment ] ;
+                    owl:someValuesFrom :Treatment ] ;
   rdfs:label "Description Section"@en .
 
 :Diagnosis a owl:Class ;
   rdfs:subClassOf deo:DiscourseElement, trt:Diagnosis,
                   [ rdf:type owl:Restriction ;
                     owl:onProperty po:isContainedBy ;
-                    owl:someValuesFrom trt:Treatment ] ;
+                    owl:someValuesFrom :Treatment ] ;
   rdfs:label "Diagnosis Section"@en .
 
 :Distribution a owl:Class ;
   rdfs:subClassOf deo:DiscourseElement, trt:Distribution ,
                   [ rdf:type owl:Restriction;
                     owl:onProperty po:isContainedBy;
-                    owl:someValuesFrom trt:Treatment ];
+                    owl:someValuesFrom :Treatment ];
   rdfs:label "Distribution Section"@en.
 
 :Etymology a owl:Class ;
   rdfs:subClassOf deo:DiscourseElement, trt:Etymology,
                   [ rdf:type owl:Restriction ;
                     owl:onProperty po:isContainedBy ;
-                    owl:someValuesFrom trt:Treatment ] ;
+                    owl:someValuesFrom :Treatment ] ;
   rdfs:label "Distribution Section"@en .
 
 :Key a owl:Class;
@@ -142,7 +141,7 @@ po:contains rdf:type owl:TransitiveProperty .
   rdfs:subClassOf deo:DiscourseElement ,
                   [ rdf:type owl:Restriction ;
                     owl:onProperty po:isContainedBy ;
-                    owl:someValuesFrom trt:Treatment ] ;
+                    owl:someValuesFrom trt:Treatment ] ; 
   rdfs:label "Materials Examined Section"@en .
 
 :Checklist a owl:Class ;
@@ -151,8 +150,6 @@ po:contains rdf:type owl:TransitiveProperty .
                     owl:onProperty po:isContainedBy ;
                     owl:someValuesFrom :TaxonomicArticle ] ;
   rdfs:label "Taxonomic Checklist"@en ;
-  [ rdf:type owl:Restriction ;
-                    owl:onProperty po:isContainedBy ;
   rdfs:comment "A section in a taxonomic article."@en.
 
 :TaxonomicNameUsage rdf:type owl:Class ;
@@ -169,40 +166,41 @@ dwciri:taxonomicStatus rdf:type owl:ObjectProperty ;
 :TaxonomicName rdf:type owl:Class ;
         skos:prefLabel "Taxonomic Name"@en ;
     skos:altLabel "Biological Name"@en ;
-    owl:equivalentClass nomen:NOMEN_0000030 .
+    owl:equivalentClass nomen:NOMEN_0000030 ;
+	rdfs:comment "A superclass class for all kinds of biological names used to denote groups of organisms in nature"@en .
 
 :ScientificName rdf:type owl:Class ;
     rdfs:subClassOf :TaxonomicName ;
     rdfs:label "Scientific Name"@en ;
-    owl:equivalentClass  nomen:NOMEN_0000036 .
+    owl:equivalentClass  nomen:NOMEN_0000036 ;
+	rdfs:comment "A taxonomic name used in science as opposed to folk-taxonomy"@en.
 
 :LatinName rdf:type owl:Class ;
     rdfs:subClassOf :ScientificName ;
     skos:prefLabel "Latinized Scientific Name"@en ;
-    skos:altLabel "Linnaean Name"@en .
+    skos:altLabel "Linnaean Name"@en ;
+	rdfs:comment "A Latinized scientific (Linnaean) name."@en.
 
-:TaxonConceptLabel rdf:type owl:Class ;
+:TaxonomicConceptLabel rdf:type owl:Class ;
   rdfs:subClassOf :LatinName ;
   rdfs:label "Taxon Concept Label"@en ;
-  rdfs:comment "A taxon concept label is a taxonomic name
-    usage accompanied by an additional part, consisting of 'sec.' + an identifier
-    or a literature reference of a work containing the expression of a taxon concept
-    (treatment)."@en .
+  rdfs:comment "A taxonоmic concept label is a Linnaean name accompanied by a reference to literature containing the expression of a taxonomic concept."@en .
 
 :OTU_Id rdf:type owl:Class ;
   rdfs:subClassOf :ScientificName ;
   rdfs:label "Operatational Taxonomic Unit Id"@en ;
-  rdfs:comment "The identifier of an Operational Taxonomic Unit, such as
-    BOLD BIN or a Unite SH ID"@en .
+  rdfs:comment "An identifier of an operational taxonomic unit  (e.g. BOLD BIN, Unite SH ID)."@en .
 
 :VernacularName a owl:Class ;
   rdfs:subClassOf :TaxonomicName ;
   rdfs:label "Vernacular Name"@en ;
-  owl:equivalentClass nomen:NOMEN_0000037 .
+  owl:equivalentClass nomen:NOMEN_0000037 ;
+  rdfs:comment "A taxonomic name used in pre-Linnaean science or in folk-taxonomy."@en .
 
 :taxonomicName rdf:type owl:ObjectProperty ;
-        rdfs:label "has taxonomic name"@en ;
-        rdfs:range :TaxonomicName .
+    rdfs:label "has taxonomic name"@en ;
+	rdfs:domain :OperationalTaxonomicUnit ;
+    rdfs:range :TaxonomicName .
 
 dwciri:scientificName rdf:type owl:ObjectProperty ;
   rdfs:label "scientific name"@en;
@@ -214,63 +212,55 @@ dwciri:nameAccordingTo rdf:type owl:ObjectProperty ;
 :scientificName rdf:type owl:ObjectProperty ;
   rdfs:subPropertyOf :taxonomicName, dwciri:scientificName ;
   rdfs:label "has scientific name"@en ; 
+  rdfs:domain :OperationalTaxonomicUnit ;
   rdfs:range :ScientificName .
 
 :nameAccordingTo rdf:type owl:ObjectProperty ;
-  rdfs:subClassOf dwciri:nameAccordingTo, po:isContainedBy ;
-  skos:prefLabel "secundum"@en ; 
-  skos:altLabel "sensu"@en
+  rdfs:subClassOf dwciri:nameAccordingTo ;
+  skos:prefLabel "sec."@en ; 
+  skos:altLabel "sensu"@en ;
   rdfs:range frbr:Expression ;
-  rdfs:comment "The reference to the source in which the specific taxononimic 
-    concept circumscription is defined or implied - traditionally signified by
-    the Latin 'sensu' or 'sec.'' (from secundum, meaning 'according to').
-    For taxa that are relevantly circumscribed by identifications, a reference
-    to the keys, monographs, experts and other sources should be given. Should
-    only be used with IRI's"@en .
+  rdfs:domain :TaxonomicConceptLabel ;
+  rdfs:comment "The reference to the source in which the specific taxonomic concept is defined - traditionally signified by the Latin 'sensu' or 'sec.'' (from secundum, meaning 'according to').Property of Taxonomic Concept Label."@en .
 
 :vernacularName rdf:type owl:ObjectProperty ;
   rdfs:subPropertyOf :taxonomicName ;
-        rdfs:label "has vernacular name" @en ;
-        rdfs:range :VernacularName .
+  rdfs:label "has vernacular name" @en ;
+  rdfs:domain :OperationalTaxonomicUnit ;
+  rdfs:range :VernacularName .
 
-:taxonomicConceptLabel rdf:type owl:ObjectProperty ;
+:taxonomicConceptLabel rdf:type owl:ObjectProperty, owl:InverseFunctionalProperty ;
   rdfs:subPropertyOf :scientificName ;
   rdfs:label "has taxon concept label"@en ;
+  rdfs:domain :TaxonomicConcept ;
   rdfs:range :TaxonomicConceptLabel .
 
 :has_OTU_Id rdf:type owl:ObjectProperty ;
   rdfs:subPropertyOf :scientificName ;
   rdfs:label "has OTU Id"@en ;
+  rdfs:domain :OperationalTaxonomicUnit ;
   rdfs:range :OTU_Id .
 
 :relatedName rdf:type owl:ObjectProperty, owl:TransitiveProperty, owl:ReflexiveProperty ;
   rdfs:label "has related name"@en ;
   rdfs:domain :TaxonomicName ;
   rdfs:range :TaxonomicName ;
-  rdfs:comment "'has related name' is an object property that we
-    use in order to indicate that two taxnomic names are related somehow. This
-    relationship is purposely vague as to encompass all situations where two
-    taxonomic names co-occur in a text. It is transitive and reflexive."@en.
+  rdfs:comment "'has related name' is an object property that we use in order to indicate that two taxnomic names are related somehow. This relationship is purposely vague as to encompass all situations where two taxonomic names co-occur in a text. It is transitive and reflexive."@en.
 
 :replacementName rdf:type owl:ObjectProperty ,
                           owl:TransitiveProperty ;
   rdfs:label "has replacement name"@en ;
   rdfs:domain :LatinName ;
   rdfs:range :LatinName ;
-  rdfs:comment "This is a uni-directional property. Its meaning
-    is that one Linnaean name links to a different Linnaean name via the
-    usage of this property, then the object name is more accurate and should be
-    preferred given the information that system currently holds. This property is only
-    defined for Linnaean names."@en.
+  rdfs:comment "This is a uni-directional property. Its meaning is that one Linnaean name links to a different Linnaean name via the usage of this property, then the object name is more accurate and should be preferred given the information that system currently holds. This property is only defined for Linnaean names."@en.
 
 :OperationalTaxonomicUnit rdf:type owl:Class ;
-  rdfs:subClassOf skos:Concept, frbr:Work , 
+  rdfs:subClassOf skos:Concept, frbr:Work ;
   rdfs:label "Operational Taxonomic Unit"@en;
   rdfs:commnet "A superclass for all kinds of taxonomic hypothesis"@en .
 
 :TaxonomicConcept rdf:type owl:Class ;
-  owl:equivalentClass dwc:Taxon ;
-  rdfs:subClassof :OperationalTaxonomicUnit ,
+  rdfs:subClassОf :OperationalTaxonomicUnit , dwc:Taxon ,
                   [ rdf:type owl:Restriction ;
                     owl:onProperty :taxonomicConceptLabel ;
                     owl:minCardinality "1" ] ;
@@ -461,14 +451,4 @@ author."@en.
 description of taxon concept of the name as understood by the author is being
 extended with new occurrences (for a given locality).
 "@en.
-
-
-:TaxonConceptLabel a :TaxonomicStatus ;
-  skos:inScheme :TaxonomicStatusTerms ;
-  rdfs:label "Taxon Concept Label"@en ;
-  rdfs:comment "Sometimes, incorrectly a taxon concept label (sec. Author (year) may be
-misunderstood and marked up) as a taxonomic status. This term has been created
-to indicate that a particular TNU is taxonomic concept label.
-"@en .
-              
 
