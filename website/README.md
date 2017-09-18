@@ -51,6 +51,23 @@ WHERE {
 
 # Round 2
 
+## Generic
+
+Given an untemplated type and just an id, you can use the following query to get the properties
+
+```
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?property ?value WHERE { 
+	<http://openbiodiv.net/382b63f2-6351-4b7f-bb91-80aa71c6dae4> ?property ?value .
+    
+} 
+```
+
+Make sure you replace <http://openbiodiv.net/382b63f2-6351-4b7f-bb91-80aa71c6dae4> with appropriate URI. I would also drop blank nodes (beginning with _) from displaying.
+
+
 ## Person
 
 [Design - Slide 1](person-template/Slide1.PNG)
