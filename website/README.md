@@ -73,6 +73,18 @@ Make sure you replace <http://openbiodiv.net/382b63f2-6351-4b7f-bb91-80aa71c6dae
 [Design - Slide 1](person-template/Slide1.PNG)
 [Design - Slide 2](person-template/Slide2.PNG)
 
+Text for the graphics:
+
+Title: Articles per Year for <name of person>
+labels may be swapped if we decide to do the graphic horizontally
+X axis label: Year
+Y axis label: Number of Articles
+
+If we decide to include most popular keyword for the year, we need to add an additional 
+
+Legend: 
+The length of the bars corresponds to the number of articles per year. The text next to the bar is the most popular topic that the author has published on based on his or her papers' keywords.
+
 ### Query 1 
 
 Fetches information about a person.
