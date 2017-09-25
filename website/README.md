@@ -148,9 +148,11 @@ WHERE {
 
 ### Query 3
 
-Top collaborators
+Top 2 collaborators
 
 ```
+
+
 PREFIX : <http://openbiodiv.net/> 
 PREFIX dcterms: <http://purl.org/dc/terms/> 
 PREFIX frbr: <http://purl.org/vocab/frbr/core#> 
@@ -159,19 +161,26 @@ PREFIX dc: <http://purl.org/dc/elements/1.1/>
 PREFIX fabio: <http://purl.org/spar/fabio/> 
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
 
-SELECT ?person (SAMPLE(?name) as ?name_p1) ?person2 (SAMPLE(?name2) as ?name_p2) (COUNT(?paper) as ?num_of_papers )
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT (sample(?name1) as ?n1) (count(DISTINCT ?paper1) as ?num_of_col_with1)  (sample(?name2) as ?n2) (count(DISTINCT ?paper2) as ?num_of_col_with2)  ((?num_of_col_with1+ ?num_of_col_with2) as ?solsize)
 WHERE {
-  BIND ( URI("http://openbiodiv.net/8990d866-a346-46b4-b935-8d84b7856fc3") as ?person )  
-  ?paper dcterms:creator   ?person ;
-         dcterms:creator   ?person2 .
-    ?person rdfs:label ?name .
-    ?person2 rdfs:label ?name2.
-  ?article frbr:realizationOf  ?paper .  
-  FILTER( ?person != ?person2)
-    FILTER NOT EXISTS{?person owl:sameAs ?person2}
-} GROUP BY ?person ?person2 
-ORDER BY DESC(?num_of_papers)
-```
+  BIND ( URI( "http://openbiodiv.net/17b0887c-5c14-46c6-9d42-159fb9312770") as ?person )  
+    
+  ?paper1 dcterms:creator   ?person ;
+         dcterms:creator   ?collab1 .
+  ?collab1 rdfs:label ?name1 .
+    FILTER( ?person != ?collab1 )
+     FILTER NOT EXISTS { ?person owl:sameAs ?collab1 .}
+
+  ?paper2 dcterms:creator ?person ;
+          dcterms:creator ?collab2 .
+    ?collab2 rdfs:label ?name2 .
+    FILTER(?person != ?collab2)
+    FILTER NOT EXISTS{?person owl:sameAs ?collab2}
+    FILTER(?collab2 != ?collab1)
+    FILTER NOT EXISTS{?collab2 owl:sameAs ?collab1}
+
+} GROUP BY ?collab1 ?collab2 ORDER BY DESC (?solsize) LIMIT 1```
 
 ## Taxonomic Name Usage
 
