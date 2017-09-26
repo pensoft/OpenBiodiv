@@ -71,65 +71,11 @@ Make sure you replace <http://openbiodiv.net/382b63f2-6351-4b7f-bb91-80aa71c6dae
 
 This template should be invoked whenever the response is of type `:LatinName` or `:TaxonomicConceptLabel`, both subclasses of `:TaxonomicName` in the ontology!
 
-### Query 1 : DarwinCore Properties
+### Query 1: Basic Information
 
 This query dumps the basic name information:
 
 ```
-SELECT ?name_string ?class ?verbatim_rank ?sec ?order ?family ?genus ?species ?subspecies
-WHERE {
- ?name rdfs:label ?name_string.
- ?name rdf:type ?class.
- UNION {
-   ?name dwc:verbatimTaxonRank ?verbatim_rank.
- }
- UNION {
-   ?name dwc:genus ?genus.
- }
- UNION {
-   ?name dwc:subgenus ?genus.
- }
- UNION {
-   ?name dwc:specificEpithet ?species.
- }
- UNION {
-   ?name dwc:infraSpecificEpithet ?subspecies.
- }
- UNION {
-   ?name dwc:order ?order.
- }
- UNION {
-   ?name dwc:family ?family.
- }
- UNION {
-   ?name :nameAccordingToId ?sec.
- }
-} 
-```
-
-## Person
-
-[Design - Slide 1](person-template/Slide1.PNG)
-[Design - Slide 2](person-template/Slide2.PNG)
-
-Text for the graphics:
-
-Title: Articles per Year for <name of person>
-labels may be swapped if we decide to do the graphic horizontally
-X axis label: Year
-Y axis label: Number of Articles
-
-If we decide to include most popular keyword for the year, we need to add an additional 
-
-Legend: 
-The length of the bars corresponds to the number of articles per year. The text next to the bar is the most popular topic that the author has published on based on his or her papers' keywords.
-
-### Query 1 
-
-Fetches information about a person.
-
-Replace the UUID with your person UUID.
-
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX dwc: <http://rs.tdwg.org/dwc/terms/>
@@ -177,7 +123,45 @@ WHERE {
  UNION {
    ?name :nameAccordingToId ?sec.
  }
-} 
+}  
+```
+
+# Query 2: Statistics
+
+```
+SELECT *
+WHERE {
+ BIND(URI("http://openbiodiv.net/8f572c9b-7b75-44e0-b383-e5eb429621dd") as ?name)
+ ?tnu pkm:mentions ?name.
+ ?component po:contains ?tnu.
+ ?component rdf:type ?class.
+ }
+```
+
+## Person
+
+[Design - Slide 1](person-template/Slide1.PNG)
+[Design - Slide 2](person-template/Slide2.PNG)
+
+Text for the graphics:
+
+Title: Articles per Year for <name of person>
+labels may be swapped if we decide to do the graphic horizontally
+X axis label: Year
+Y axis label: Number of Articles
+
+If we decide to include most popular keyword for the year, we need to add an additional 
+
+Legend: 
+The length of the bars corresponds to the number of articles per year. The text next to the bar is the most popular topic that the author has published on based on his or her papers' keywords.
+
+### Query 1 
+
+Fetches information about a person.
+
+Replace the UUID with your person UUID.
+
+TODO: ruined this query during one of the commits. Need to restore/rewrite it.
 
 ### Query 2
 
