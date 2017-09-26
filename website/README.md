@@ -67,6 +67,45 @@ SELECT ?property ?value WHERE {
 
 Make sure you replace <http://openbiodiv.net/382b63f2-6351-4b7f-bb91-80aa71c6dae4> with appropriate URI. I would also drop blank nodes (beginning with _) from displaying.
 
+## Taxonomic Name
+
+This template should be invoked whenever the response is of type `:LatinName` or `:TaxonomicConceptLabel`, both subclasses of `:TaxonomicName` in the ontology!
+
+### Query 1 : DarwinCore Properties
+
+This query dumps the basic name information:
+
+```
+SELECT ?name_string ?class ?verbatim_rank ?sec ?order ?family ?genus ?species ?subspecies
+WHERE {
+ ?name rdfs:label ?name_string.
+ ?name rdf:type ?class.
+ UNION {
+   ?name dwc:verbatimTaxonRank ?verbatim_rank.
+ }
+ UNION {
+   ?name dwc:genus ?genus.
+ }
+ UNION {
+   ?name dwc:subgenus ?genus.
+ }
+ UNION {
+   ?name dwc:specificEpithet ?species.
+ }
+ UNION {
+   ?name dwc:infraSpecificEpithet ?subspecies.
+ }
+ UNION {
+   ?name dwc:order ?order.
+ }
+ UNION {
+   ?name dwc:family ?family.
+ }
+ UNION {
+   ?name :nameAccordingToId ?sec.
+ }
+} 
+```
 
 ## Person
 
@@ -91,29 +130,54 @@ Fetches information about a person.
 
 Replace the UUID with your person UUID.
 
-```
-PREFIX : <http://openbiodiv.net/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-
-CONSTRUCT {
-    ?person :fullName ?full_name ;
-            :firstName ?first_name ;
-            :lastName  ?last_name ; 
-            :affiliation ?institution ;
-    		:email ?email .
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX dwc: <http://rs.tdwg.org/dwc/terms/>
+PREFIX : <http://openbiodiv.net/>
+CONSTRUCT
+{
+  ?name rdfs:label ?name_string.
+  ?name rdf:type ?class.
+  ?name dwc:verbatimTaxonRank ?verbatim_rank.
+  ?name dwc:genus ?genus.
+  ?name dwc:subgenus ?subgenus.
+  ?name dwc:specificEpithet ?species.
+  ?name dwc:infraSpecificEpithet ?subspecies.
+  ?name dwc:order ?order.
+  ?name dwc:family ?family.
+  ?name :nameAccordingToId ?sec.
 }
 WHERE {
-  BIND ( URI("http://openbiodiv.net/f207793c-dcc8-4718-8ff5-8b5cb51534ae") as ?person )  
-  ?person rdfs:label ?full_name .
-  
-  OPTIONAL { ?person :affiliation ?institution . }
-  OPTIONAL { ?person foaf:mbox ?email . }
-  OPTIONAL { ?person foaf:firstName ?first_name . }
-  OPTIONAL { ?person foaf:surname  ?last_name . }
-
-}
-```
+ BIND(URI("http://openbiodiv.net/8f572c9b-7b75-44e0-b383-e5eb429621dd") as ?name )  
+ {	
+   ?name rdfs:label ?name_string.
+   ?name rdf:type ?class.
+ }
+ UNION {
+   ?name dwc:verbatimTaxonRank ?verbatim_rank.
+ }
+ UNION {
+   ?name dwc:genus ?genus.
+ }
+ UNION {
+   ?name dwc:subgenus ?subgenus.
+ }
+ UNION {
+   ?name dwc:specificEpithet ?species.
+ }
+ UNION {
+   ?name dwc:infraSpecificEpithet ?subspecies.
+ }
+ UNION {
+   ?name dwc:order ?order.
+ }
+ UNION {
+   ?name dwc:family ?family.
+ }
+ UNION {
+   ?name :nameAccordingToId ?sec.
+ }
+} 
 
 ### Query 2
 
