@@ -126,10 +126,25 @@ WHERE {
 }  
 ```
 
+Display this like a regular key-value component.
+
 # Query 2: Statistics
 
+The idea of this query is to describe where a name is used. Currently the following classes are interesting:
+- 
+
+- doco:Title
+- sro:Abstract
+- doco:FrontMatter
+-  :Treatment
+- fabio:JournalArticle
+
 ```
-SELECT *
+CONSTRUCT {
+  ?component po:contains ?tnu.
+  ?tnu pkm:mentions ?name.
+  ?tnu rdf:type ?class.
+}
 WHERE {
  BIND(URI("http://openbiodiv.net/8f572c9b-7b75-44e0-b383-e5eb429621dd") as ?name)
  ?tnu pkm:mentions ?name.
@@ -137,6 +152,18 @@ WHERE {
  ?component rdf:type ?class.
  }
 ```
+
+This should be displayed in a summarized way:
+
+For each of the Interesting components, count the number of distinct TNU's. 
+
+e.g.
+
+*Mentioned in Title:* n times
+*Mentioned in Abstract:*l times
+*Total mentions in front matter of articles:*...
+*Mnetioned in Treatment:*p times
+*Total mentions in Articles:*....
 
 ## Person
 
