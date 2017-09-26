@@ -131,7 +131,6 @@ Display this like a regular key-value component.
 # Query 2: Statistics
 
 The idea of this query is to describe where a name is used. Currently the following classes are interesting:
-- 
 
 - doco:Title
 - sro:Abstract
@@ -164,6 +163,22 @@ e.g.
 *Total mentions in front matter of articles:*...
 *Mnetioned in Treatment:*p times
 *Total mentions in Articles:*....
+
+### Query 3: Related Names
+
+```
+CONSTRUCT {
+ ?name :relatedName ?name2
+}
+WHERE {
+  BIND(URI("http://openbiodiv.net/8f572c9b-7b75-44e0-b383-e5eb429621dd") as ?name)
+  ?name :relatedName ?name2.
+  FILTER (?name != ?name2)
+  FILTER NOT EXISTS (?name owl:sameAs ?name2)
+}
+```
+
+Display: display the related names as clickable links.
 
 ## Person
 
