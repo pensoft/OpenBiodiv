@@ -183,10 +183,12 @@ The following types are of interest:
 Here's how this particular example ought to be displayed:
 
 
-
 Hyleoglomeris mentions in abstract: 1
-Hyleoglomeris mentions in front title: 1
+
+Hyleoglomeris mentions in title: 1
+
 Hyleoglomeris mentions in front matter: 2
+
 and so on..
 
 ### Query 3: Related Names
