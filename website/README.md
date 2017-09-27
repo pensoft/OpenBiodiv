@@ -182,6 +182,21 @@ WHERE {
 
 Display: display the related names as clickable links.
 
+Here's how the find the label of a given ID.
+
+```
+PREFIX : <http://openbiodiv.net/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+CONSTRUCT {
+    ?name rdfs:label ?lab .
+}
+
+where { 
+    BIND (URI("http://openbiodiv.net/584ac692-79b6-4adc-8348-5d51aa43202c") as ?name)
+	?name rdfs:label ?lab .
+} 
+```
+
 ## Person
 
 [Design - Slide 1](person-template/Slide1.PNG)
