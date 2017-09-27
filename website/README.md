@@ -86,6 +86,7 @@ CONSTRUCT
   ?name rdf:type ?class.
   ?name dwc:verbatimTaxonRank ?verbatim_rank.
   ?name dwc:taxonomicRank ?rank.
+  ?name dwc:scientificNameAuthorship ?author.
   ?name dwc:genus ?genus.
   ?name dwc:subgenus ?subgenus.
   ?name dwc:specificEpithet ?species.
@@ -102,6 +103,12 @@ WHERE {
  }
  UNION {
    ?name dwc:verbatimTaxonRank ?verbatim_rank.
+ }
+ UNION {
+   ?name ?dwciri:taxonRank ?rank .
+ }
+  UNION {
+   ?name ?dwciri:scientificNameAuthorship ?author .
  }
  UNION {
    ?name dwc:genus ?genus.
@@ -127,8 +134,20 @@ WHERE {
 }  
 ```
 
-# TODO: name should be displayed in italic if its of rank lower than *genus*.
-Display this like a regular key-value component.
+Display
+
+(1) (2) (3)
+
+(2) -> ?author
+(3) -> sec. ?sec
+
+(1) depending on ?rank
+if rank is not one of `:Genus`,`:Subgenus`, `:Species`, or `:Subspecies` display normally.
+Otherwise display in cursive
+?genus (?subgenus) ?species ?subspecies
+
+Note: subgenus is in parenthesis
+
 
 # Query 2: Statistics
 
