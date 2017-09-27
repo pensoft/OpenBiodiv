@@ -85,6 +85,7 @@ CONSTRUCT
   ?name rdfs:label ?name_string.
   ?name rdf:type ?class.
   ?name dwc:verbatimTaxonRank ?verbatim_rank.
+  ?name dwc:taxonomicRank ?rank.
   ?name dwc:genus ?genus.
   ?name dwc:subgenus ?subgenus.
   ?name dwc:specificEpithet ?species.
@@ -126,43 +127,44 @@ WHERE {
 }  
 ```
 
+# TODO: name should be displayed in italic if its of rank lower than *genus*.
 Display this like a regular key-value component.
 
 # Query 2: Statistics
 
-The idea of this query is to describe where a name is used. Currently the following classes are interesting:
-
-- doco:Title
-- sro:Abstract
-- doco:FrontMatter
--  :Treatment
-- fabio:JournalArticle
+Given the identfier of a name (e.g. http://openbiodiv.net/8f572c9b-7b75-44e0-b383-e5eb429621dd), this returns statistics of where the name has been used.
 
 ```
-CONSTRUCT {
-  ?component po:contains ?tnu.
-  ?tnu pkm:mentions ?name.
-  ?tnu rdf:type ?class.
-}
+PREFIX po: <http://www.essepuntato.it/2008/12/pattern#>
+PREFIX pkm: <http://proton.semanticweb.org/protonkm#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+SELECT ?tnu (group_concat(?class) as ?classes)
 WHERE {
- BIND(URI("http://openbiodiv.net/8f572c9b-7b75-44e0-b383-e5eb429621dd") as ?name)
+ BIND(URI("http://openbiodiv.net/097bc254-8408-4a4e-8219-debf8b276ce5") as ?name)
  ?tnu pkm:mentions ?name.
  ?component po:contains ?tnu.
  ?component rdf:type ?class.
- }
+} GROUP BY ?tnu
 ```
 
-This should be displayed in a summarized way:
+The query will return a table with two columns: the first one are the different usages of the name, and the second a list of space-separated types of the components who contain the usage.
 
-For each of the Interesting components, count the number of distinct TNU's. 
+The following types are of interest:
 
-e.g.
+- `doco:Title`
+- `sro:Abstract`
+- `doco:FrontMatter`
+- `:Treatment`
+- `fabio:JournalArticle`
 
-*Mentioned in Title:* n times
-*Mentioned in Abstract:*l times
-*Total mentions in front matter of articles:*...
-*Mnetioned in Treatment:*p times
-*Total mentions in Articles:*....
+Here's how this particular example ought to be displayed:
+
+
+
+Hyleoglomeris mentions in abstract: 1
+Hyleoglomeris mentions in front title: 1
+Hyleoglomeris mentions in front matter: 2
+and so on..
 
 ### Query 3: Related Names
 
