@@ -169,12 +169,15 @@ e.g.
 ```
 PREFIX : <http://openbiodiv.net/>
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 CONSTRUCT {
  ?name :relatedName ?name2
+ ?name2 rdfs:label ?label.
 }
 WHERE {
   BIND(URI("http://openbiodiv.net/7c70d3ed-277e-4165-b6ab-09fa56586526") as ?name)
   ?name :relatedName ?name2.
+  ?name2 rdfs:label ?label .
   FILTER (?name != ?name2)
     FILTER NOT EXISTS {?name owl:sameAs ?name2}
 }
