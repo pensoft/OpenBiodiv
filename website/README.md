@@ -142,8 +142,12 @@ Display
 (3) -> sec. ?sec
 
 (1) depending on ?rank
-if rank is not one of `:Genus`,`:Subgenus`, `:Species`, or `:Subspecies` display normally.
-Otherwise display in cursive
+1.1 If rank is order (order is active, but family is not active)
+display the order without cursive
+1.2 If rank is family (family is active, and Genus is not active)
+Display the family without cursive
+1.3 If rank is genus or lower
+display with cursive
 ?genus (?subgenus) ?species ?subspecies
 
 Note: subgenus is in parenthesis
