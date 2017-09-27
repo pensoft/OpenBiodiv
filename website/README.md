@@ -105,7 +105,7 @@ WHERE {
    ?name dwc:verbatimTaxonRank ?verbatim_rank.
  }
  UNION {
-   ?name ?dwciri:taxonRank ?rank .
+   ?name dwciri:taxonRank ?rank .
  }
   UNION {
    ?name dwciri:scientificNameAuthorship ?author .
