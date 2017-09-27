@@ -167,14 +167,16 @@ e.g.
 ### Query 3: Related Names
 
 ```
+PREFIX : <http://openbiodiv.net/>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
 CONSTRUCT {
  ?name :relatedName ?name2
 }
 WHERE {
-  BIND(URI("http://openbiodiv.net/8f572c9b-7b75-44e0-b383-e5eb429621dd") as ?name)
+  BIND(URI("http://openbiodiv.net/7c70d3ed-277e-4165-b6ab-09fa56586526") as ?name)
   ?name :relatedName ?name2.
   FILTER (?name != ?name2)
-  FILTER NOT EXISTS (?name owl:sameAs ?name2)
+    FILTER NOT EXISTS {?name owl:sameAs ?name2}
 }
 ```
 
