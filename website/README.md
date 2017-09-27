@@ -108,7 +108,7 @@ WHERE {
    ?name ?dwciri:taxonRank ?rank .
  }
   UNION {
-   ?name ?dwciri:scientificNameAuthorship ?author .
+   ?name dwciri:scientificNameAuthorship ?author .
  }
  UNION {
    ?name dwc:genus ?genus.
