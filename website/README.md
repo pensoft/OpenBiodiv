@@ -317,7 +317,8 @@ WHERE {
     FILTER(?collab2 != ?collab1)
     FILTER NOT EXISTS{?collab2 owl:sameAs ?collab1}
 
-} GROUP BY ?collab1 ?collab2 ORDER BY DESC (?solsize) LIMIT 1```
+} GROUP BY ?collab1 ?collab2 ORDER BY DESC (?solsize) LIMIT 1
+```
 
 ## Taxonomic Name Usage
 
