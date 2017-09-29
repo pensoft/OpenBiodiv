@@ -288,8 +288,6 @@ WHERE {
 Top 2 collaborators
 
 ```
-
-
 PREFIX : <http://openbiodiv.net/> 
 PREFIX dcterms: <http://purl.org/dc/terms/> 
 PREFIX frbr: <http://purl.org/vocab/frbr/core#> 
@@ -318,6 +316,24 @@ WHERE {
     FILTER NOT EXISTS{?collab2 owl:sameAs ?collab1}
 
 } GROUP BY ?collab1 ?collab2 ORDER BY DESC (?solsize) LIMIT 1
+
+```
+
+Top n collaborators
+
+```
+SELECT ?collab1 (sample(?name1) as ?collaborator_name) (COUNT (DISTINCT ?paper1) as ?num_of_collaborations)
+WHERE {
+  BIND ( URI( "http://openbiodiv.net/17b0887c-5c14-46c6-9d42-159fb9312770") as ?person )  
+    
+  ?paper1 dcterms:creator   ?person ;
+         dcterms:creator   ?collab1 .
+  ?collab1 rdfs:label ?name1 .
+  FILTER( ?person != ?collab1 )
+  FILTER NOT EXISTS { ?person owl:sameAs ?collab1 .}
+
+} GROUP BY ?collab1 ORDER BY DESC( ?num_of_collaborations)
+
 ```
 
 ## Taxonomic Name Usage
