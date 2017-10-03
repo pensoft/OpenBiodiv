@@ -2,15 +2,20 @@
 
 ## Citation
 
-Senderov, Viktor, Daniel Mietchen, and Kiril Simov. “The Open Biodiversity Knowledge Management System RDF Guide,” n.d. https://github.com/pensoft/OpenBiodiv/blob/master/ontology/rdf-guide.md.
+Senderov, Viktor, Daniel Mietchen, and Kiril Simov. “OpenBiodiv RDF Guide,” n.d.
+
+https://github.com/pensoft/OpenBiodiv/blob/master/ontology/rdf-guide.md.
 
 ## Preliminaries
 
-This is the Open Biodiversity Knowledge Management System (OpenBiodiv,
-formerly known as OBKMS) RDF Guide. The guide is intended to explain to humans
-and to define for computers the data model of OpenBiodiv and aid its users in
-generating OpenBiodiv-compatible RDF and in creating useful SPARQL queries or
-other useful extensions.
+This is the OpenBiodiv RDF Guide.
+
+OpenBiodiv expands to "Open Biodiversity Knowledge Management System"
+and has previously been refered to as OBKMS.
+
+This guide contains the OpenBiodiv ontology, different OpenBiodiv vocabularies,
+SPARQL code for querying as well rules for the OpenBiodiv database, and comments
+intended for humans.
 
 This guide is a
 [literate programming](https://en.wikipedia.org/wiki/Literate_programming)
