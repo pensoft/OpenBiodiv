@@ -2,7 +2,7 @@
 
 ## Citation
 
-Senderov, Viktor, Daniel Mietchen, and Kiril Simov. “The Open Biodiversity Knowledge Management System RDF Guide,” n.d. https://github.com/pensoft/OpenBiodiv/blob/master/ontology/RDF_Guide.md.
+Senderov, Viktor, Daniel Mietchen, and Kiril Simov. “The Open Biodiversity Knowledge Management System RDF Guide,” n.d. https://github.com/pensoft/OpenBiodiv/blob/master/ontology/rdf-guide.md.
 
 ## Preliminaries
 
