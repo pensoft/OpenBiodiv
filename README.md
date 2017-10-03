@@ -34,7 +34,7 @@ today. You could think of it as the science of data. My email is this name
 - `etc\` : configuration files
 - `fig\` : visual aides (figures, screenshots, etc.)
 - `iteration\` : test runs of the system (scripts, logs, datafiles, analysis)
-- `ontology\` The data model for generating RDF is found in the  [OpenBiodiv RDF Guide](ontology/RDF_Guide.md)
+- `ontology\` The data model for generating RDF is found in the  [OpenBiodiv RDF Guide](ontology/rdf-guide.md)
 - `rdf-example\` : examples of applying the data-model to real-world articles (manual)
 - `slides\` : presentations at workshops, symposia, etc.
 - `paper\` : papers written about the system
