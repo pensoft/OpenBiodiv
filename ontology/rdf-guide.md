@@ -13,9 +13,13 @@ This is the OpenBiodiv RDF Guide.
 OpenBiodiv expands to "Open Biodiversity Knowledge Management System"
 and has previously been refered to as OBKMS.
 
-This guide contains the OpenBiodiv ontology, different OpenBiodiv vocabularies,
-SPARQL code for querying as well rules for the OpenBiodiv database, and comments
-intended for humans.
+This guide contains:
+
+- the OpenBiodiv ontology
+- OpenBiodiv Taxonomic Status Vocabulary
+- OpenBiodiv RCC5 Vocabulary
+- OpenBiodiv SPARQL queries
+- comments and examples
 
 This guide is a
 [literate programming](https://en.wikipedia.org/wiki/Literate_programming)
