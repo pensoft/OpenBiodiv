@@ -31,8 +31,9 @@ ontology and the vocabularies, are found within the document itself and are
 extracted from it with the program `noweb`. `noweb` can be easily obtained for
 GNU Linux.
 
-We've hidden the `noweb` intricacies inside a [`Makefile`](./Makefile). In
-order to make the ontology one types:
+We've hidden the `noweb` intricacies inside a [`Makefile`](./Makefile).
+
+In order to make the ontology one types:
 
 ```
 make ontology
@@ -44,7 +45,7 @@ In order to make the examples, one types
 make examples
 ```
 
-And, in order to create the ruleset, one types
+And, in order to create the SPARQL ruleset, one types
 
 ```
 make rules
@@ -53,6 +54,8 @@ make rules
 These command invoke the necessary `noweb` commands and generate
 respectively the following files [`OpenBiodiv.ttl`](./openbiodiv.ttl),
 [`Examples.ttl`](./Examples.ttl), and [`Rules.sparql`](./Rules.sparql).
+
+TODO: the rules should be in a separate directory with one file per rule.
 
 ## Introduction
 
