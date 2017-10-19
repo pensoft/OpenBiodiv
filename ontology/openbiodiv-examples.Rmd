@@ -1,0 +1,62 @@
+#### Example: *Article Metadata*
+
+The main objects of information extraction and retrieval of OpenBiodiv in the
+first stage of its development are scientific journal articles from the
+journals [Biodiversity Data Journal](http://bdj.pensoft.net/) and
+[ZooKeys](http://zookeys.pensoft.net/) and other Pensoft journals.
+We model the bibliographic objects around Journal Article, such as Publisher,
+and Journal using SPAR.
+
+Note that we type `:treatment` both as `trt:Treatment` (i.e. the rhetorical
+element Treatment) and as s `doco:Section` because we view this particular
+treatment to also be a structural section of the document.
+
+
+
+
+```
+<<Article Metadata>>=
+
+# Example: Article Metadata
+
+:biodiversity-data-journal   rdf:type   fabio:Journal ;
+	 skos:prefLabel   "Biodiversity Data Journal"@en ;
+	 skos:altLabel   "BDJ"@en ;
+	 fabio:issn   "1314-2836" ;
+	 fabio:eIssn   "1314-2828" ;
+	 frbr:part   :b90f6933-ab5e-4ce1-9379-12de9ef4eaa6 . 
+
+ <http://dx.doi.org/10.3897/BDJ.1.e953>   rdf:type   fabio:TaxonomicArticle ;
+	 skos:prefLabel   "10.3897/BDJ.1.e953" ;
+	 dc:title   "Casuarinicola australis Taylor, 2010 (Hemiptera: Triozidae),
+	   newly recorded from New Zealand"@en ;
+	 prism:doi   "10.3897/BDJ.1.e953" ;
+	 dc:publisher   "Pensoft Publishers"@en ;
+	 fabio:hasPublicationYear   "2013"^^xsd:gYear ;
+	 prism:publicationDate   "2013-9-16"^^xsd:date ;
+	 dcterms:publisher   :pensoft-publishers ;
+	 frbr:realizationOf   :thorpe-2013 .
+
+ :thorpe-2013   rdf:type   :ResearchPaper ;
+ 	 skos:prefLabel	"Thorpe 2013"
+	 skos:altLabel   "paper10.3897/BDJ.1.e953" ;
+	 dcterms:creator   :stephen-e-thorpe ;
+	 prism:keywords   "Casuarinicola australis"@en ;
+	 fabio:hasSubjectTerm   :a2ee4929-90dd-4a7a-aa5c-08836f49d549 . 
+
+ :pensoft-publishers   rdf:type   :Publisher ;
+	 skos:prefLabel   "Pensoft Publishers"@en . 
+
+ :stephen-e-thorpe   rdf:type   foaf:Person ;
+	 skos:prefLabel   "Stephen E. Thorpe" ;
+	 foaf:firstName   "Stephen E." ;
+	 foaf:surname   "Thorpe" ;
+	 foaf:mbox   "stephen_thorpe@yahoo.co.nz" ;
+	 :affiliation   "School of Biological Sciences (Tamaki Campus),
+	   University of Auckland, Auckland, New Zealand"@en . 
+
+ :a2ee4929-90dd-4a7a-aa5c-08836f49d549   rdf:type   fabio:SubjectTerm ;
+	 rdfs:label   "Casuarinicola australis"@en ;
+	 skos:inScheme   :Subject_Classification_Vocabulary . 
+@
+```
