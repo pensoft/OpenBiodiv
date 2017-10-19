@@ -297,16 +297,12 @@ the needed RDF into our model in the code-chunk `Borrowed Parts from External
 Ontologies`. In addition to that we've downloaded the RDF for everything that
 we've borrowed in the `imports` sub-subdirectory in case the URL's become
 unavailable in the future. There is a catalog of this directory under
-[Catalog of imported ontologies](imports/Catalog.md), which is, however, still a work
-in progress.
+[Catalog of imported ontologies](imported_ontologies/), which is, however,
+still a work in progress.
 
-Here, we list all the prefixes which are needed for those data models. In
-OpenBiodiv prefixes are stored in a YAML configuration file called
+Here, we list all the prefixes which are needed for those data models.
 
-[`prefix_db.yml`](../R/obkms/inst/prefix_db.yml)
-
-The following Turtle code can be extracted from the prefix database with
-`obkms::prefix_ttl()` command:
+The following can be extracted from the prefix database with command:
 
 ```
 <<Prefixes>>=
