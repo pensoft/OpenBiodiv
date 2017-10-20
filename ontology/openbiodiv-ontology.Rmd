@@ -448,7 +448,7 @@ Inside the taxonomic nomenclature section, we have a list of citations.
 
 ```{r http://openbiodiv.net/NomenclatureCitationsList}
 :NomenclatureCitationsList a owl:Class ;
-  rdfs:subClassOf deo:DiscourseElement , tp:nomenclature-citation-list ,
+  rdfs:subClassOf deo:DiscourseElement ,
                   [ rdf:type owl:Restriction ;
                     owl:onProperty po:isContainedBy ;
                     owl:someValuesFrom :NomenclatureSection ] ;
@@ -468,7 +468,6 @@ Subsection of treatment.
                     owl:onProperty po:isContainedBy ;
                     owl:someValuesFrom :Treatment ] ;
   rdfs:label "Biology Section"@en .
-@
 ```
 
 ##### Class Definition: *Description Section*
@@ -535,7 +534,6 @@ Subsection of treatment.
                     owl:onProperty po:isContainedBy;
                     owl:someValuesFrom :TaxonomicArticle ];
   rdfs:label "Taxonomic Key"@en.
-@
 ```
 
 ##### Class: *Materials Examined*
@@ -549,7 +547,6 @@ Subsection of treatment.
                     owl:onProperty po:isContainedBy ;
                     owl:someValuesFrom :Treatment ] ;
   rdfs:label "Materials Examined"@en .
-@
 ```
 
 ##### Class: *Taxonomic Checklist*
@@ -563,10 +560,7 @@ A section in a taxonomic article.
                     owl:onProperty po:isContainedBy ;
                     owl:someValuesFrom :TaxonomicArticle ] ;
   rdfs:label "Taxonomic Checklist"@en ;
-  [ rdf:type owl:Restriction ;
-                    owl:onProperty po:isContainedBy ;
   rdfs:comment "A section in a taxonomic article."@en.
-@
 ```
 
 ##### Class: *Taxonomic Name Usage*
@@ -701,7 +695,6 @@ concept (for example a treatment).*
   rdfs:subClassOf :TaxonomicName ;
   rdfs:label "Vernacular Name"@en ;
   owl:equivalentClass nomen:NOMEN_0000037 .
-@
 ```
 
 #### Properties
@@ -733,7 +726,7 @@ Contributed property from DwC-IRI.
 
 ```{r http://rs.tdwg.org/dwc/iri/nameAccordingTo}
 dwciri:nameAccordingTo rdf:type owl:ObjectProperty ;
-  rdfs:label "name according to"@en .
+  rdfs:label "name according to"@en ;
   rdfs:comment "the IRI version of dwc:nameAccordingTo"@en .
 ```
 
@@ -741,9 +734,9 @@ dwciri:nameAccordingTo rdf:type owl:ObjectProperty ;
 
 ```{r http://openbiodiv.net/nameAccordingTo}
 :nameAccordingTo rdf:type owl:ObjectProperty ;
-  rdfs:subClassOf dwciri:nameAccordingTo, po:isContainedBy ;
+  rdfs:subPropertyOf dwciri:nameAccordingTo, po:isContainedBy ;
   skos:prefLabel "secundum"@en ; 
-  skos:altLabel "sensu"@en
+  skos:altLabel "sensu"@en ;
   rdfs:range frbr:Expression ;
   rdfs:domain :TaxonomicConceptLabel ;
   rdfs:comment "The reference to the source in which the specific taxonomic 
@@ -850,9 +843,9 @@ database, etc.), where the circumscription is properly defined.
 
 ```{r http://openbiodiv.net/OperationalTaxonomicUnit}
 :OperationalTaxonomicUnit rdf:type owl:Class ;
-  rdfs:subClassOf skos:Concept, frbr:Work , 
-  rdfs:label "Operational Taxonomic Unit"@en;
-  rdfs:commnet "A superclass for all kinds of taxonomic hypothesis"@en .
+  rdfs:subClassOf skos:Concept, frbr:Work ;
+  rdfs:label "Operational Taxonomic Unit"@en ;
+  rdfs:comment "A superclass for all kinds of taxonomic hypothesis"@en .
 ```
 
 ##### Class: *Taxonomic Concept*
@@ -882,7 +875,7 @@ dwciri:scientificName rdf:type owl:ObjectProperty ;
 ```{r http://openbiodiv.net/taxonomicName}
 :taxonomicName rdf:type owl:ObjectProperty ;
   rdfs:label "has OpenBiodiv taxonomic name"@en ;
-  rdfs:domain :TaxonomicConcept .
+  rdfs:domain :TaxonomicConcept ;
   rdfs:range :TaxonomicName .
 ```
 
@@ -892,7 +885,7 @@ dwciri:scientificName rdf:type owl:ObjectProperty ;
 :scientificName rdf:type owl:ObjectProperty ;
   rdfs:subPropertyOf :taxonomicName, dwciri:scientificName ;
   rdfs:label "has OpeonBiodiv scientific name"@en ; 
-  rdfs:domain :TaxonomicConcept .
+  rdfs:domain :TaxonomicConcept ;
   rdfs:range :ScientificName .
 ```
 
@@ -902,7 +895,7 @@ dwciri:scientificName rdf:type owl:ObjectProperty ;
 :vernacularName rdf:type owl:ObjectProperty ;
   rdfs:subPropertyOf :taxonomicName ;
   rdfs:label "has OpenBiodiv vernacular name" @en ;
-  rdfs:domain :TaxonomicConcept .
+  rdfs:domain :TaxonomicConcept ;
   rdfs:range :VernacularName .
 ```
 
@@ -912,7 +905,7 @@ dwciri:scientificName rdf:type owl:ObjectProperty ;
 :taxonomicConceptLabel rdf:type owl:ObjectProperty ;
   rdfs:subPropertyOf :scientificName ;
   rdfs:label "has taxon concept label"@en ;
-  rdfs:domain :TaxonomicConcept .
+  rdfs:domain :TaxonomicConcept ;
   rdfs:range :TaxonomicConceptLabel .
 ```
 
@@ -922,11 +915,35 @@ dwciri:scientificName rdf:type owl:ObjectProperty ;
 :has_OTU_Id rdf:type owl:ObjectProperty ;
   rdfs:subPropertyOf :scientificName ;
   rdfs:label "has OTU Id"@en ;
-  rdfs:domain :TaxonomicConcept .
+  rdfs:domain :TaxonomicConcept ;
   rdfs:range :OTU_Id .
 ```
 
 #### Relationships between concepts
+
+##### Class: *RCC5 Relation Dictionary*
+
+A class for all kinds of RCC5 term vocabularies.
+
+```{r http://openbiodiv.net/RCC5RelationshipTerms}
+:RCC5RelationDictionary rdf:type owl:Class ;
+  rdfs:subClassOf <http://www.w3.org/2004/02/skos/core#ConceptScheme> ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty fabio:isSchemeOf ;
+                                  owl:allValuesFrom :RCC5Relation] ;
+  rdfs:label "Dictionary of RCC5 Relations"@en .
+```
+
+##### Class: *RCC5 Relation*
+
+```{r http://openbiodiv.net/RCC5Relation}
+:RCC5Relation rdf:type owl:Class ;
+  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                    owl:onProperty <http://www.w3.org/2004/02/skos/core#inScheme> ;
+                    owl:someValuesFrom :RCC5RelationTerms ] ;
+  rdfs:label "RCC5 Relation"@en ;
+  rdfs:comment "The of RCC 5 relation, e.g. 'partially overlaps'"@en .
+```
 
 ##### Class: *RCC5 Statement*
 
@@ -1037,9 +1054,7 @@ For a similar attempt, see
 statuses to the GBIF statuses to the best of our knowledge but we have more
 statuses.
 
-##### Class: *Taxonomic Status Vocabulary*
-
-A dictionary of taxonomic statuses.
+##### Class: *Taxonomic Status Dictionary*
 
 ```{r http://openbiodiv.net/TaxonomicStatusDictionary}
 :TaxonomicStatusDictionary rdf:type owl:Class ;
@@ -1047,326 +1062,21 @@ A dictionary of taxonomic statuses.
                                 [ rdf:type owl:Restriction ;
                                   owl:onProperty fabio:isSchemeOf ;
                                   owl:allValuesFrom :TaxonomicStatus] ;
-  rdfs:label "Dictionary of Taxonomic Terms."
+  rdfs:label "Taxonomic Status Dictionary" ;
   fabio:hasDiscipline <http://dbpedia.org/page/Taxonomy_(biology)> .
 ```
 
-##### Class: *Taxonomic Status*
+##### Class: *Taxonomic Status Term*
 
 ```{r http://openbiodiv.net/TaxonomicStatus}
 :TaxonomicStatus rdf:type owl:Class ;
   rdfs:subClassOf [ rdf:type owl:Restriction ;
                     owl:onProperty <http://www.w3.org/2004/02/skos/core#inScheme> ;
                     owl:someValuesFrom :TaxonomicStatusTerms ] ;
-  rdfs:label "Taxonomic Status"@en ;
+  rdfs:label "Taxonomic Status Term"@en ;
   rdfs:comment "The status following a taxonomic name usage in a taxonomic
                 manuscript, i.e. 'n. sp.',
                 'comb. new',
                 'sec. Franz (2017)', etc"@en .
-```
-
-##### Vocabulary: *OpenBiodiv Taxonomic Status Vocabulary*
-
-```{r http://openbiodiv.net/TaxonomicStatusTerms}
-:TaxonomicStatusTerms a :TaxonomicStatusDictionary ;
- rdfs:label "OpenBiodiv Vocabulary of Taxonomic Statuses"@en ;
-```
-
-##### Term: *Taxonomic Uncertainty*
-
-When a TNU is followed by the term `:TaxonomicUncertainty`, the implication is
-that the taxonomic concept identified by the name has an uncertain placement in
-the biological taxonomy, or if we are talking about a specimen or a sample of
-some kind that we are unable to identify the taxonomic down to its rank. This
-is related to <http://rs.gbif.org/vocabulary/gbif/taxonomicStatus/accepted>
-
-```{r http://openbiodiv.net/TaxonomicUncertainty}
-:TaxonomicUncertainty a :TaxonomicStatus ;
-  rdfs:label "Taxonomic Uncertainty"@en ;
-  skos:inScheme :TaxonomicStatusTerms ;
-  skos:related <http://rs.gbif.org/vocabulary/gbif/taxonomicStatus/accepted> ;
- 
-  rdfs:comment "The implication of this term that the taxonomic concept identified
-by a name has an uncertain placement in the biological taxonomy, or if we
-are talking about a specimen or a sample of some kind that we are unable to
-identify the taxonomic down to its rank. "@en .
-```
-
-Here're some ways in which it can be abbreivated:
-
-[taxonomic_uncertainty.txt](status_abbrev/taxonomic_uncertainty.txt)
-
-##### Term: *Taxonomic Discovery*
-
-When a TNU is followed by the term `:TaxonDiscovery`, the implication is that
-the present context in which the TNU is used is circumscribing a new taxon
-concept (a taxon concept of a taxon new to science), and simultaneously
-assigning it a new name.
-
-```{r http://TaxonomicDiscovery}
-:TaxonomicDiscovery a :TaxonomicStatus ;
-  skos:inScheme :TaxonomicStatusTerms ;
-  rdfs:label "Taxon Discovery"@en ;
-
-  rdfs:comment "When a TNU is followed by the term `:TaxonDiscovery`, the
-implication is that the present context in which the TNU is used is
-circumscribing a new taxon concept (a taxon concept of a taxon new to
-science), and simultaneously assigning it a new name."@en .
-```
-
-Here're some ways in which it can be abbreivated:
-
-[taxon_discovery.txt](R/taxon_discovery.txt)
-
-##### Term: *Replacement Name*
-
-When a TNU is followed by the term `:ReplacementName`, the implication is that
-the name that is referred to by the TNU is replacing another name for various
-reasons, and thus becoming the preferred/accepted/available way of referring to
-whatever taxonomic concepts the now replaced name had been referring to. Cases
-include changes of rank, new combinations, spelling mistakes, etc.
-
-```{r http://openbiodiv.net/ReplacementName}
-:ReplacementName a :TaxonomicStatus ;
-  skos:inScheme :TaxonomicStatusTerms ;
-  rdfs:label "Replacement Name"@en ;
-  rdfs:comment "When a TNU is followed by the term `:ReplacementName`, the implication is that
-the name that is referred to by the TNU is replacing another name for various
-reasons, and thus becoming the preferred/accepted/available way of refering to
-whatever taxon concepts the now replaced name had been referring to. Cases
-include changes of rank, new combinations, spelling mistakes, etc.
-"@en .
-```
-Here're some ways in which it can be abbreviated:
-
-[replacement_name.txt](R/replacement_name.txt)
-
-##### Term: *Unavailable Name*
-
-When a TNU is followed by the term `:UnavailableName`, the implication is that
-the name that is being referred to by the TNU is no longer or has never been
-available for use due to the fact that it has either been replaced or it has
-been determined that the name has been improperly coined or published, or the
-name contains any general error rendering it unfit for use. This is the
-same as <http://rs.gbif.org/vocabulary/gbif/taxonomicStatus/synonym>
-
-```{r http://openbiodiv.net/UnavailableName}
-:UnavailabeName a :TaxonomicStatus ;
-  skos:inScheme :TaxonomicStatusTerms ;
-  rdfs:label "UnavailableName"@en ;
-  skos:exactMatch  <http://rs.gbif.org/vocabulary/gbif/taxonomicStatus/synonym> ;
-  rdfs:comment "When a TNU is followed by the term `:UnavailableName`, the implication is that
-the name that is being referred to by the TNU is no longer or has never been
-available for use due to the fact that it has either been replaced or it has
-been determined that the name has been improperly coined or published, or the
-name contains any general error rendering it unfit for use."@en .
-```
-
-Here are some ways in which it can be abbreviated:
-
-[unavaible_name.txt](R/unavavaible_name.txt)
-
-##### Term: *Available Name*
-
-When a TNU is followed by the term `:AvailableName`, the implication is that
-the name that is being referred to by the TNU has been determined to be fit
-for use either by revoking an older act rendering the name unavailable or by
-fixing other issues with the name or finding out that other issues with the
-name had been fixed, or just stating the fact that the name shall be used or
-even conserving it, so that the name can be freely used from then on in
-compliance with all Codes and practices. This is the same as
-<http://rs.gbif.org/vocabulary/gbif/taxonomicStatus/accepted>
-
-```{r http://openbiodiv.net/AvaialbleName}
-:AvailableName a :TaxonomicStatus ;
-  skos:inScheme :TaxonomicStatusTerms ;
-  rdfs:Label "Available Name"@en ;
-  skos:exactMatch <http://rs.gbif.org/vocabulary/gbif/taxonomicStatus/accepted> ;
-  rdfs:comment "When a TNU is followed by the term `:AvailableName`, the
-implication is that the name that is being referred to by the TNU has been
-determined to be fit for use either by revoking an older act rendering the
-name unavailable or by fixing other issues with the name or finding out that
-other issues with the name had been fixed, or just stating the fact that the
-name shall be used or even conserving it, so that the name can be freely used
-from then on in compliance with all Codes and practices."@en.
-```
-
-[available_name.txt](R/available_name.txt)
-
-##### Term: *Type Species Designation*
-
-When a TNU is followed by the term `:TypeSpeciesDesignation`, the implication
-is that the taxon concept of the name in the TNU as understood by the author
-should be considered the type species of a higher taxon as understood by the
-author.
-
-```{r http://openbiodiv.net/TypeSpeciesDesignation}
-:TypeSpeciesDesignation a :TaxonomicStatus ;
-  rdfs:label "Type Species Designation" @en ;
-  skos:inScheme :TaxonomicStatusTerms ;
-  rdfs:comment "When a TNU is followed by the term `:TypeSpeciesDesignation`, the implication
-is that the taxon concept of the name in the TNU as understood by the author
-should be considered the type species of a higher taxon as understood by the
-author."@en.
-```
-
-[type_species_designation.txt](R/type_species_designation.txt)
-
-##### Term: *Type Specimen Designation*
-
-When a TNU is followed by the term `:TypeSpecimenDesignation`, the implication
-is that the specimen identified by the name in TNU should be considered a type
-of the taxonomic concept identified by the name as understood by the author of
-TNU.
-
-```{r http://openbiodiv.net/TypeSpecimenDesignation}
-:TypeSpecimenDesignation a :TaxonomicStatus ;
-  rdfs:label "Type Specimen Designation" @en ;
-  skos:inScheme :TaxonomicStatusTerms ;
-  rdfs:comment "When a TNU is followed by the term `:TypeSpecimenDesignation`, the implication
-is that the specimen identified by the name in TNU should be considered a type
-of the taxon concept identified by the name as understood by the author of
-TNU."@en.
-```
-
-[type_specimen_designation.txt](R/type_specimen_designation.txt)
-
-##### Term: *New Occurrence Record*
-
-When a TNU is followed by the term `:NewOccurrenceRecord`, the implication is that the
-description of taxon concept of the name as understood by the author is being
-extended with new occurrences (for a given locality).
-
-```{r http://openbiodiv.net/NewOccurrenceREcord}
-:NewOccurrenceRecord a :TaxonomicStatus ;
-  rdfs:label "New Occurrence Record" @en ;
-  skos:inScheme :TaxonomicStatusTerms ;
-  rdfs:comment "When a TNU is followed by the term `:NewRecord`, the implication is that the
-description of taxon concept of the name as understood by the author is being
-extended with new occurrences (for a given locality).
-"@en.
-```
-
-[new_occurrence_record.txt](R/new_occurrence_record.txt)
-
-### Vocabulary of RCC5 Terms
-
-##### Class: *RCC5 Relationship Dictionary*
-
-A class for all kinds of RCC5 term vocabularies.
-
-```{r http://openbiodiv.net/RCC5RelationshipTerms}
-:RCC5RelationDictionary rdf:type owl:Class ;
-  rdfs:subClassOf <http://www.w3.org/2004/02/skos/core#ConceptScheme> ,
-                                [ rdf:type owl:Restriction ;
-                                  owl:onProperty fabio:isSchemeOf ;
-                                  owl:allValuesFrom :RCC5Relation] ;
-  rdfs:label "Dictionary of RCC5 Relations"@en .
-```
-
-##### Class: *RCC5 Relation*
-
-```{r http://openbiodiv.net/RCC5Relation}
-:RCC5Relation rdf:type owl:Class ;
-  rdfs:subClassOf [ rdf:type owl:Restriction ;
-                    owl:onProperty <http://www.w3.org/2004/02/skos/core#inScheme> ;
-                    owl:someValuesFrom :RCC5RelationTerms ] ;
-  rdfs:label "RCC5 Relation"@en ;
-  rdfs:comment "The of RCC 5 relation, e.g. 'partially overlaps'"@en .
-```
-
-##### Vocabulary: *OpenBiodiv RCC5 Terms*
-
-```
-:RCC5RelationshipTerms a :RCC5RelationshipDictionary ;
-  skos:prefLabel "The RCC5 Vocabulary Used by OpenBiodiv" .
-```
-
-##### Term: *Equals (INT)*
-
-```{r}
-:Equals_INT rdf:type :RCC5Relation ;
-  skos:inScheme :RCC5RelationTerms ;
-  rdfs:label "Equals (INT)" ;
-  rdfs:comment "= EQ(x,y) Equals (intensional)"@en . 
-```
-
-##### Term: *Proper Part (INT)*
-```{r}
-:ProperPart_INT rdf:type :RCC5Relation ;
-  skos:inScheme :RCC5RelationTerms ;
-  rdfs:label "Proper Part (INT)" ;
-  rdfs:comment "< PP(x,y) Proper Part of (intensional)"@en .
-```
-
-##### Term: *Inverse Proper Part (INT)*
-```{r}
-:InverseProperPart_INT rdf:type :RCC5Relation ;
-  skos:inScheme :RCC5RelationTerms ;
-  rdfs:label "Inverse Proper Part (INT)" ;
-  rdfs:comment "iPP(x, y) Inverse Proper Part (intensional)"@en .
-```
-
-
-##### Term: *Partially Overlaps (INT)*
-
-```{r}
-:PartiallyOverlaps_INT rdf:type :RCC5Relation ;
-  skos:inScheme :RCC5RelationTerms ;
-  rdfs:label "Partially Overlaps (INT)" ;
-  rdfs:comment "o PO(x,y) Partially Overlaps (intensional)"@en .
-```
-
-##### Term: *Disjoint (INT)*
-
-```{r}
-:Disjoint_INT rdf:type :RCC5Relation ;
-  skos:inScheme :RCC5RelationTerms ;
-  rdfs:label "Disjoint (INT)" ;
-  rdfs:comment "! DR(x,y) Disjoint from (intensional)."@en .
-```
-
-##### Term: *Equals (OST)*
-
-```{r}
-:Equals_OST rdf:type :RCC5Relation ;
-  skos:inScheme :RCC5RelationTerms ;
-  rdfs:label "Equals (OST)" ;
-  rdfs:comment "= EQ(x,y) Equals (ostensive)"@en . 
-```
-
-##### Term: *Proper Part (OST)*
-```{r}
-:ProperPart_OST rdf:type :RCC5Relation ;
-  skos:inScheme :RCC5RelationTerms ;
-  rdfs:label "Proper Part (OST)" ;
-  rdfs:comment "< PP(x,y) Proper Part of (ostensive)"@en .
-```
-
-##### Term: *Inverse Proper Part (OST)*
-
-```{r}
-:InverseProperPart_OST rdf:type :RCC5Relation ;
-  skos:inScheme :RCC5RelationTerms ;
-  rdfs:label "Inverse Proper Part (OST)" ;
-  rdfs:comment "iPP(x, y) Inverse Proper Part (ostensive)"@en .
-```
-
-##### Term: *Partially Overlaps (OST)*
-
-```{r}
-:PartiallyOverlaps_OST rdf:type :RCC5Relation ;
-  skos:inScheme :RCC5RelationTerms ;
-  rdfs:label "Partially Overlaps (OST)" ;
-  rdfs:comment "o PO(x,y) Partially Overlaps (ostensive)"@en .
-```
-
-##### Term: *Disjoint (OST)*
-
-```{r}
-:Disjoint_OST rdf:type :RCC5Relation ;
-  skos:inScheme :RCC5RelationTerms ;
-  rdfs:label "Disjoint (OST)" ;
-  rdfs:comment "! DR(x,y) Disjoint from (ostensive)."@en .
 ```
 
