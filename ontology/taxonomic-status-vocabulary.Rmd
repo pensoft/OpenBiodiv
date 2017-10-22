@@ -1,0 +1,183 @@
+##### Vocabulary: *OpenBiodiv Taxonomic Status Vocabulary*
+
+```{r http://openbiodiv.net/TaxonomicStatusTerms}
+:TaxonomicStatusTerms a :TaxonomicStatusDictionary ;
+ rdfs:label "OpenBiodiv Vocabulary of Taxonomic Statuses"@en ;
+```
+
+##### Term: *Taxonomic Uncertainty*
+
+When a TNU is followed by the term `:TaxonomicUncertainty`, the implication is
+that the taxonomic concept identified by the name has an uncertain placement in
+the biological taxonomy, or if we are talking about a specimen or a sample of
+some kind that we are unable to identify the taxonomic down to its rank. This
+is related to <http://rs.gbif.org/vocabulary/gbif/taxonomicStatus/accepted>
+
+```{r http://openbiodiv.net/TaxonomicUncertainty}
+:TaxonomicUncertainty a :TaxonomicStatus ;
+  rdfs:label "Taxonomic Uncertainty"@en ;
+  skos:inScheme :TaxonomicStatusTerms ;
+  skos:related <http://rs.gbif.org/vocabulary/gbif/taxonomicStatus/accepted> ;
+ 
+  rdfs:comment "The implication of this term that the taxonomic concept identified
+by a name has an uncertain placement in the biological taxonomy, or if we
+are talking about a specimen or a sample of some kind that we are unable to
+identify the taxonomic down to its rank. "@en .
+```
+
+Here're some ways in which it can be abbreivated:
+
+[taxonomic_uncertainty.txt](status_abbrev/taxonomic_uncertainty.txt)
+
+##### Term: *Taxonomic Discovery*
+
+When a TNU is followed by the term `:TaxonDiscovery`, the implication is that
+the present context in which the TNU is used is circumscribing a new taxon
+concept (a taxon concept of a taxon new to science), and simultaneously
+assigning it a new name.
+
+```{r http://TaxonomicDiscovery}
+:TaxonomicDiscovery a :TaxonomicStatus ;
+  skos:inScheme :TaxonomicStatusTerms ;
+  rdfs:label "Taxon Discovery"@en ;
+
+  rdfs:comment "When a TNU is followed by the term `:TaxonDiscovery`, the
+implication is that the present context in which the TNU is used is
+circumscribing a new taxon concept (a taxon concept of a taxon new to
+science), and simultaneously assigning it a new name."@en .
+```
+
+Here're some ways in which it can be abbreivated:
+
+[taxon_discovery.txt](R/taxon_discovery.txt)
+
+##### Term: *Replacement Name*
+
+When a TNU is followed by the term `:ReplacementName`, the implication is that
+the name that is referred to by the TNU is replacing another name for various
+reasons, and thus becoming the preferred/accepted/available way of referring to
+whatever taxonomic concepts the now replaced name had been referring to. Cases
+include changes of rank, new combinations, spelling mistakes, etc.
+
+```{r http://openbiodiv.net/ReplacementName}
+:ReplacementName a :TaxonomicStatus ;
+  skos:inScheme :TaxonomicStatusTerms ;
+  rdfs:label "Replacement Name"@en ;
+  rdfs:comment "When a TNU is followed by the term `:ReplacementName`, the implication is that
+the name that is referred to by the TNU is replacing another name for various
+reasons, and thus becoming the preferred/accepted/available way of refering to
+whatever taxon concepts the now replaced name had been referring to. Cases
+include changes of rank, new combinations, spelling mistakes, etc.
+"@en .
+```
+Here're some ways in which it can be abbreviated:
+
+[replacement_name.txt](R/replacement_name.txt)
+
+##### Term: *Unavailable Name*
+
+When a TNU is followed by the term `:UnavailableName`, the implication is that
+the name that is being referred to by the TNU is no longer or has never been
+available for use due to the fact that it has either been replaced or it has
+been determined that the name has been improperly coined or published, or the
+name contains any general error rendering it unfit for use. This is the
+same as <http://rs.gbif.org/vocabulary/gbif/taxonomicStatus/synonym>
+
+```{r http://openbiodiv.net/UnavailableName}
+:UnavailabeName a :TaxonomicStatus ;
+  skos:inScheme :TaxonomicStatusTerms ;
+  rdfs:label "UnavailableName"@en ;
+  skos:exactMatch  <http://rs.gbif.org/vocabulary/gbif/taxonomicStatus/synonym> ;
+  rdfs:comment "When a TNU is followed by the term `:UnavailableName`, the implication is that
+the name that is being referred to by the TNU is no longer or has never been
+available for use due to the fact that it has either been replaced or it has
+been determined that the name has been improperly coined or published, or the
+name contains any general error rendering it unfit for use."@en .
+```
+
+Here are some ways in which it can be abbreviated:
+
+[unavaible_name.txt](R/unavavaible_name.txt)
+
+##### Term: *Available Name*
+
+When a TNU is followed by the term `:AvailableName`, the implication is that
+the name that is being referred to by the TNU has been determined to be fit
+for use either by revoking an older act rendering the name unavailable or by
+fixing other issues with the name or finding out that other issues with the
+name had been fixed, or just stating the fact that the name shall be used or
+even conserving it, so that the name can be freely used from then on in
+compliance with all Codes and practices. This is the same as
+<http://rs.gbif.org/vocabulary/gbif/taxonomicStatus/accepted>
+
+```{r http://openbiodiv.net/AvaialbleName}
+:AvailableName a :TaxonomicStatus ;
+  skos:inScheme :TaxonomicStatusTerms ;
+  rdfs:Label "Available Name"@en ;
+  skos:exactMatch <http://rs.gbif.org/vocabulary/gbif/taxonomicStatus/accepted> ;
+  rdfs:comment "When a TNU is followed by the term `:AvailableName`, the
+implication is that the name that is being referred to by the TNU has been
+determined to be fit for use either by revoking an older act rendering the
+name unavailable or by fixing other issues with the name or finding out that
+other issues with the name had been fixed, or just stating the fact that the
+name shall be used or even conserving it, so that the name can be freely used
+from then on in compliance with all Codes and practices."@en.
+```
+
+[available_name.txt](R/available_name.txt)
+
+##### Term: *Type Species Designation*
+
+When a TNU is followed by the term `:TypeSpeciesDesignation`, the implication
+is that the taxon concept of the name in the TNU as understood by the author
+should be considered the type species of a higher taxon as understood by the
+author.
+
+```{r http://openbiodiv.net/TypeSpeciesDesignation}
+:TypeSpeciesDesignation a :TaxonomicStatus ;
+  rdfs:label "Type Species Designation" @en ;
+  skos:inScheme :TaxonomicStatusTerms ;
+  rdfs:comment "When a TNU is followed by the term `:TypeSpeciesDesignation`, the implication
+is that the taxon concept of the name in the TNU as understood by the author
+should be considered the type species of a higher taxon as understood by the
+author."@en.
+```
+
+[type_species_designation.txt](R/type_species_designation.txt)
+
+##### Term: *Type Specimen Designation*
+
+When a TNU is followed by the term `:TypeSpecimenDesignation`, the implication
+is that the specimen identified by the name in TNU should be considered a type
+of the taxonomic concept identified by the name as understood by the author of
+TNU.
+
+```{r http://openbiodiv.net/TypeSpecimenDesignation}
+:TypeSpecimenDesignation a :TaxonomicStatus ;
+  rdfs:label "Type Specimen Designation" @en ;
+  skos:inScheme :TaxonomicStatusTerms ;
+  rdfs:comment "When a TNU is followed by the term `:TypeSpecimenDesignation`, the implication
+is that the specimen identified by the name in TNU should be considered a type
+of the taxon concept identified by the name as understood by the author of
+TNU."@en.
+```
+
+[type_specimen_designation.txt](R/type_specimen_designation.txt)
+
+##### Term: *New Occurrence Record*
+
+When a TNU is followed by the term `:NewOccurrenceRecord`, the implication is that the
+description of taxon concept of the name as understood by the author is being
+extended with new occurrences (for a given locality).
+
+```{r http://openbiodiv.net/NewOccurrenceREcord}
+:NewOccurrenceRecord a :TaxonomicStatus ;
+  rdfs:label "New Occurrence Record" @en ;
+  skos:inScheme :TaxonomicStatusTerms ;
+  rdfs:comment "When a TNU is followed by the term `:NewRecord`, the implication is that the
+description of taxon concept of the name as understood by the author is being
+extended with new occurrences (for a given locality).
+"@en.
+```
+
+[new_occurrence_record.txt](R/new_occurrence_record.txt)

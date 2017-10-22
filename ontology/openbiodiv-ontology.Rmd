@@ -210,87 +210,20 @@ relationships will be in `minorCamelCase`. URI's of individuals `will-be-
 hyphenated`. This seems to generally in accordance with WWW practice.
 
 
-## RDF Model
+## Ontology
 
 ### Imports and Contributions
 
-We incorporate several external ontologies fully into our data model. They are
-found under `imported_ontologies`. However, we do not import from the web directly,
-as (1) sometimes URL's don't resolve or severs are down; and (2) we removed some
-minor bugs (like differing prefix definitions amongst the imported ontologies).
+1. We incorporate several external ontologies fully into our data model. They
+are found under (`imported_ontologies`)[imported_ontologies\]. We do not
+import from the web directly (e.g. with `owl:imports`) as (1) sometimes URL's
+don't resolve or severs are down; and (2) in the published versions there are
+often minor bugs (like differing prefix definitions amongst the imported
+ontologies). This is why we import the ontologies manually into the triple
+store.
 
-We also borrow parts from external ontologies (contributed parts). Those are
+2. We also borrow parts from external ontologies (contributed parts). Those are
 attributed in accordance with the OBO foundry principles.
-
-### Ontology
-
-##### Prefixes
-
-```{r Prefix Defintions}
-@prefix : <http://openbiodiv.net/> .
-@prefix skos: <http://www.w3.org/2008/05/skos#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix foaf: <http://xmlns.com/foaf/0.1/> .
-@prefix pro: <http://purl.org/spar/pro/> .
-@prefix scoro: <http://purl.org/spar/scoro/> .
-@prefix ti: <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#> .
-@prefix tvc: <http://www.essepuntato.it/2012/04/tvc/> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix fabio: <http://purl.org/spar/fabio/> .
-@prefix dc: <http://purl.org/dc/elements/1.1/> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
-@prefix frbr: <http://purl.org/vocab/frbr/core#> .
-@prefix prism: <http://prismstandard.org/namespaces/basic/2.0/> .
-@prefix doco: <http://purl.org/spar/doco/> .
-@prefix po: <http://www.essepuntato.it/2008/12/pattern#> .
-@prefix co: <http://purl.org/co/> .
-@prefix trt: <http://plazi.org/treatment#> .
-@prefix c4o: <http://purl.org/spar/c4o/> .
-@prefix dwciri: <http://rs.tdwg.org/dwc/iri/> .
-@prefix nomen: <http://www.semanticweb.org/dmitriev/ontologies/2013/8/untitled-ontology-6#> .
-@prefix dwc: <http://rs.tdwg.org/dwc/terms/> .
-@prefix sro: <http://salt.semanticauthoring.org/ontologies/sro#> .
-@prefix deo: <http://purl.org/spar/deo/> .
-@prefix pext: <http://proton.semanticweb.org/protonue#> .
-@prefix ptop: <http://proton.semanticweb.org/protont#> .
-@prefix pkm: <http://proton.semanticweb.org/protonkm#> .
-@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
-@prefix dbr: <http://dbpedia.org/resource/> .
-@prefix org: <http://www.w3.org/ns/org#> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix lucene: <http://www.ontotext.com/connectors/lucene#> .
-@prefix inst: <http://www.ontotext.com/connectors/lucene/instance#> .
-@prefix dbo: <http://dbpedia.org/ontology/> .
-```
-
-##### Metadata
-
-```{r Ontology Metadata}
-: rdf:type owl:Ontology ;
-  owl:versionInfo "1.0" ;
-  rdfs:comment "You are free to create derivative work as long as you cite the original authors." ;
-  dc:title "The Open Biodiversity Knowledge Management System Ontology" ;
-  dc:subject "OpenBiodiv Ontology" ;
-  rdfs:label "OpenBiodiv Ontology" ;
-  dc:creator "Viktor Senderov, Terry Catapano, Kiril Simov, Lyubomir Penev" ;
-  dc:license "CC-BY license version 4.0" .
-```
-
-### Semantic Model of the Publishing Domain
-
-#### Discussion 
-
-The publishing domain is described in our model using the Semantic Publishing
-and Referencing Ontologies, a.k.a. [SPAR Ontologies](http://www.sparontologies.net/).
-We do import several of these ontologies (please consult the paragraph
-"Incorporated external ontologies"). Refer to the documentation on the SPAR
-Ontologies' site for an exhaustive treatment.
-
-In the rest of this section we describe the modeling of entities in the
-publishing domain that are *not found* in the SPAR ontologies. The central new
-class in OpenBiodiv not found in SPAR is the `trt:Treatment` class, borrowed
-from the [Treatment Ontologies](https://github.com/plazi/TreatmentOntologies).
 
 #### Contributed Terms
 
@@ -305,7 +238,25 @@ In our view, this means that also the article contains the (sub-)section. Theref
 we define `po:contains` as a transitive property.
 
 ```{r http://www.essepuntato.it/2008/12/pattern#contains}
-po:contains rdf:type owl:TransitiveProperty .
+po:contains rdf:type owl:ObjectProperty ;
+          owl:inverseOf :isContainedBy ;
+          rdfs:domain :Structured ;
+          rdfs:comment "A structured element contains another generic element."@en ;
+          rdfs:label "contains"@en .
+```
+
+```{r  http://www.essepuntato.it/2008/12/pattern#isContainedBy}
+po:isContainedBy rdf:type owl:ObjectProperty ;
+               rdfs:comment "An element that is contained by another structured element."@en ;
+               rdfs:label "is contained by"@en .
+```
+
+
+```{r http://www.essepuntato.it/2008/12/pattern#Structured}
+po:Structured rdf:type owl:Class ;
+            rdfs:subClassOf :Pattern ;
+            rdfs:comment "The class of elements that can contain other elements."@en ;
+            rdfs:label "structured element"@en .
 ```
 
 ##### Class: *PROTON Entity*
@@ -362,6 +313,78 @@ pext:Mention rdf:type owl:Class ;
              rdfs:comment "An area of a document that can be considered a mention of something."@en ;
              rdfs:label "Mention" .
 ```
+
+### Ontology
+
+##### Prefixes
+
+```{r Prefix Defintions}
+@prefix : <http://openbiodiv.net/> .
+@prefix skos: <http://www.w3.org/2008/05/skos#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix pro: <http://purl.org/spar/pro/> .
+@prefix scoro: <http://purl.org/spar/scoro/> .
+@prefix ti: <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#> .
+@prefix tvc: <http://www.essepuntato.it/2012/04/tvc/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix fabio: <http://purl.org/spar/fabio/> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix frbr: <http://purl.org/vocab/frbr/core#> .
+@prefix prism: <http://prismstandard.org/namespaces/basic/2.0/> .
+@prefix doco: <http://purl.org/spar/doco/> .
+@prefix po: <http://www.essepuntato.it/2008/12/pattern#> .
+@prefix co: <http://purl.org/co/> .
+@prefix trt: <http://plazi.org/treatment#> .
+@prefix c4o: <http://purl.org/spar/c4o/> .
+@prefix dwciri: <http://rs.tdwg.org/dwc/iri/> .
+@prefix nomen: <http://www.semanticweb.org/dmitriev/ontologies/2013/8/untitled-ontology-6#> .
+@prefix dwc: <http://rs.tdwg.org/dwc/terms/> .
+@prefix sro: <http://salt.semanticauthoring.org/ontologies/sro#> .
+@prefix deo: <http://purl.org/spar/deo/> .
+@prefix pext: <http://proton.semanticweb.org/protonue#> .
+@prefix ptop: <http://proton.semanticweb.org/protont#> .
+@prefix pkm: <http://proton.semanticweb.org/protonkm#> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix dbr: <http://dbpedia.org/resource/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix lucene: <http://www.ontotext.com/connectors/lucene#> .
+@prefix inst: <http://www.ontotext.com/connectors/lucene/instance#> .
+@prefix dbo: <http://dbpedia.org/ontology/> .
+```
+
+##### Metadata
+
+```{r Ontology Metadata}
+:ontology rdf:type owl:Ontology ;
+  owl:versionInfo "1.0" ;
+  rdfs:comment "You are free to create derivative work as long as you cite the original authors." ;
+  dc:title "The Open Biodiversity Knowledge Management System Ontology" ;
+  dc:subject "OpenBiodiv Ontology" ;
+  rdfs:label "OpenBiodiv Ontology" ;
+  dc:creator "Viktor Senderov, Terry Catapano, Kiril Simov, Lyubomir Penev" ;
+  dc:license "CC-BY license version 4.0" .
+```
+
+### Semantic Model of the Publishing Domain
+
+#### Discussion 
+
+The publishing domain is described in our model using the Semantic Publishing
+and Referencing Ontologies, a.k.a. [SPAR Ontologies](http://www.sparontologies.net/).
+We do import several of these ontologies (please consult the paragraph
+"Incorporated external ontologies"). Refer to the documentation on the SPAR
+Ontologies' site for an exhaustive treatment.
+
+In the rest of this section we describe the modeling of entities in the
+publishing domain that are *not found* in the SPAR ontologies. The central new
+class in OpenBiodiv not found in SPAR is the `trt:Treatment` class, borrowed
+from the [Treatment Ontologies](https://github.com/plazi/TreatmentOntologies).
+
+
 
 #### OpenBiodiv Terms
 

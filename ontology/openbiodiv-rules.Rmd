@@ -1,0 +1,169 @@
+#### Rules for Names
+
+TODO: create example for the rules
+TODO: Above nesting with 5-hashesh is wrong
+
+**Rule 1 for Names:** *If there is no taxonomic name usage with the status
+`:UnavailableName` mentioning a taxonomic name X, or there does exist a TNU Y
+mentioning X with the status of `:UnavailableName`, but there also exists a
+TNU Z mentioning X with a later date than Y, which has the status of
+`:AvailableName` or `:ReplacementName`, then X has the taxon status of
+`:AvailableName`.*
+
+```
+<<Rules>>=
+
+# rules need to be evaluated in the order here
+# I. set all names that have not been made unavailable to available
+INSERT {
+  ?a dwciri:taxonomicStatus :AvailableName .
+}
+WHERE {
+  ?a rdf:type :ScientificName .
+  ?tnu pkm:mentions ?a .
+  UNSAID { ?tnu dwciri:taxonomicStatus :UnavailableName .}
+}
+
+ # note the date here refers to when was the taxonomic status of the name last determined
+ # 2. set all names that were made unavailable at one point to unavailable and copy the
+ # date
+INSERT {
+  ?a dwciri:taxonomicStatus :UnavailableName .
+  ?a dc:date ?d .
+}
+WHERE {
+  ?a rdf:type :ScientificName .
+  ?tnu pkm:mentions ?a ;
+       dwciri:taxonomicStatus :UnavailableName ;
+       dc:date ?d .
+}
+
+ # 3. set names to :Available back 
+DELETE {
+  ?a dwciri:taxonomicStatus :UnavailableName ;
+  ?a dc:date ?d0 .
+}
+INSERT {
+  ?a dwciri:taxonomicStatus :AvailableName .
+  ?a dc:date ?d1 .
+}
+WHERE {
+  ?a rdf:type :ScientificName ;
+     dc:date ?d0 .
+  ?tnu1 pkm:mentions ?a ;
+        dwciri:taxonomicStatus :AvailableName ;
+        dc:date ?d1 .
+  FILTER ( ?d1 > ?d0 )
+}
+
+DELETE {
+  ?a dwciri:taxonomicStatus :UnavailableName ;
+  ?a dc:date ?d0 .
+}
+INSERT {
+  ?a dwciri:taxonomicStatus :AvailableName .
+  ?a dc:date ?d1 .
+}
+WHERE {
+  ?a rdf:type :ScientificName ;
+     dc:date ?d0 .
+  ?tnu1 rdf:type :TaxonomicNameUsage ;
+        pkm:mentions ?a ;
+        dwciri:taxonomicStatus :ReplacementName ;
+        dc:date ?d1 .
+  FILTER ( ?d1 > ?d0 )
+}
+@
+```
+
+**Rule 2 for Names:** *For a scientific name X, if it is mentioned in the
+heading of a nomenclature section (treatment title) in a TNU Y with status
+`:ReplacementName`, then every name Z_i, mentioned in the nomenclatural
+citation list in TNU's with status `:UnavailableName` is linked to X via
+`:replacementName`.*
+
+```
+<<Rules>>=
+
+ # II. Link replacement names
+INSERT {
+    ?a trt:replacementName ?b .
+}
+WHERE {
+	?a a :ScientificName .
+	?b a :ScientificName .
+	[] a trt:Nomenclature ;
+	 	   po:contains [ a :TaxonomicNameUsage ;
+	 	   				 pkm:mentions ?a ;
+	 	   				 dwciri:taxonomicStatus :ReplacementName ] ,
+		      	   	   [ a :TaxonomicNameUsage ;
+		      	         pkm:mentions ?b ;
+		      	         dwciri:taxonomicStatus :UnavailableName ].
+}
+@
+```
+
+**Rule 3 for Names:** *All names in the nomenclature section are linked via `:relatedName`.*
+
+```
+<<Rules>>=
+
+ # III. if two names are mentioned in the same nomenclature
+ # section then they are related
+
+INSERT {
+    ?a trt:relatedName ?b .
+}
+WHERE {
+	?a a :ScientificName .
+	?b a :ScientificName .
+	?c a trt:Nomenclature ;
+  	   po:contains [ pkm:mentions ?a ];
+		      	   [ pkm:mentions ?b ].
+}
+@
+```
+
+**Rule 4 for Names:** *If for a name X, there exists a TNU Y If a TNU is
+marked as `:Conserved`, then the name is also marked as `:Conserved`. A
+conserved name should not be made `:Unavailable`!*
+
+
+```
+<<Rules>>=
+
+ # IV. Conserved names
+
+INSERT {
+    ?a dwciri:taxonomicStatus :ConservedName .
+}
+WHERE {
+  ?a a :ScientificName .
+  ?t a :TaxonomicNameUsage ;
+     pkm:mentions ?a
+     dwciri:taxonomicStatus :ConservedName .
+@
+```
+
+TODO: As an aside, I'll send you the current ASP nomenclature manuscript galley proof. (and code..) Nico
+
+**Rule 5 for Names:** *If a TNU points to two different names with `dwciri:scientificName`, then
+they are the same:*
+
+
+```
+<<Rules>>=
+
+ # V. Conserved names
+
+INSERT {
+    ?name1 owl:sameAs ?name2 .
+}
+WHERE {
+  ?name1 a :ScientificName .
+  ?name2 a :ScientificName .
+  ?t a :TaxonomicNameUsage ;
+   t dwciri:scientificName ?name1, ?name2 .
+  FILTER( ?name1 != ?name2 ) .
+@
+```
