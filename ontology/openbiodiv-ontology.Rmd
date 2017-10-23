@@ -212,115 +212,13 @@ hyphenated`. This seems to generally in accordance with WWW practice.
 
 ## Ontology
 
-### Imports and Contributions
-
-1. We incorporate several external ontologies fully into our data model. They
-are found under [`imported_ontologies`](./imported_ontologies). We do not
-import from the web directly (e.g. with `owl:imports`) as (1) sometimes URL's
-don't resolve or severs are down; and (2) in the published versions there are
-often minor bugs (like differing prefix definitions amongst the imported
-ontologies). This is why we import the ontologies manually into the triple
-store.
-
-2. We also borrow parts from external ontologies (contributed parts). Those are
-attributed in accordance with the OBO foundry principles.
-
-#### Contributed Terms
-
-##### Property: *pattern contains*
-
-`po:contains` is a transitive property.
-
-We have mentioned before that when we extract bibliographic elements from the XML,
-we make use of the `po:contains` SPAR property. For example, an article can 
-`po:contain` a secion and this section can `po:contain` another (sub-)section.
-In our view, this means that also the article contains the (sub-)section. Therefore
-we define `po:contains` as a transitive property.
-
-```{r http://www.essepuntato.it/2008/12/pattern#contains}
-po:contains rdf:type owl:ObjectProperty ;
-          owl:inverseOf :isContainedBy ;
-          rdfs:domain :Structured ;
-          rdfs:comment "A structured element contains another generic element."@en ;
-          rdfs:label "contains"@en .
-```
-
-```{r  http://www.essepuntato.it/2008/12/pattern#isContainedBy}
-po:isContainedBy rdf:type owl:ObjectProperty ;
-               rdfs:comment "An element that is contained by another structured element."@en ;
-               rdfs:label "is contained by"@en .
-```
-
-
-```{r http://www.essepuntato.it/2008/12/pattern#Structured}
-po:Structured rdf:type owl:Class ;
-            rdfs:subClassOf :Pattern ;
-            rdfs:comment "The class of elements that can contain other elements."@en ;
-            rdfs:label "structured element"@en .
-```
-
-##### Class: *PROTON Entity*
-
-```{r http://proton.semanticweb.org/protont#Entity}
-ptop:Entity rdf:type owl:Class ;
-            rdfs:comment "Any sort of an entity of interest, usually something existing, happening, or purely abstract. Entities may have several - more than one - names or aliases."@en ;
-            rdfs:label "Entity"@en .
-```
-
-##### Class: *PROTON Object*
-
-```{r http://proton.semanticweb.org/protont#Object}
-ptop:Object rdf:type owl:Class ;
-            rdfs:subClassOf ptop:Entity ;
-            rdfs:comment "Objects are entities that could be claimed to exist - in some sense of existence. An object can play a certain role in some happenings. Objects could be substantially real - as the Buckingham Palace or a hardcopy book - or substantially imperceptible - for instance, an electronic document that exists only virtually, one cannot touch it."@en ;
-            rdfs:label "Object"@en .
-```
-
-##### Class: *PROTON Statement*
-
-```{r http://proton.semanticweb.org/protont#Statement}
-ptop:Statement rdf:type owl:Class ;
-               rdfs:subClassOf ptop:Object ;
-               rdfs:comment "A message that is stated or declared; a communication (oral or written), setting forth particulars or facts, etc; \"according to his statement he was in London on that day\". WordNet 1.7.1"@en ;
-               rdfs:label "Statement"@en .
-```
-
-##### Class: *PROTON Information Resource*
-
-```{r http://proton.semanticweb.org/protont#InformationResource}
-ptop:InformationResource rdf:type owl:Class ;
-                         rdfs:subClassOf ptop:Statement ;
-                         rdfs:comment "InformationResource denotes an information resource with identity, as defined in Dublin Core (DC2003ISO). InformationResource is considered any communication or message that is delivered or produced, taking into account the specific intention of its originator, and also the supposition (and anticipation) for a particular audience or counter-agent in the process of communication (i.e. passive or active feed-back)."@en ;
-                         rdfs:label "Information Resource"@en .
-```
-
-##### Property: *PROTON mentions*
-
-```{r http://proton.semanticweb.org/protonkm#mentions}
-pkm:mentions
-      rdf:type owl:ObjectProperty ;
-      rdfs:comment "A direct link between an information resource, like a document or a section and an entity." ;
-      rdfs:domain ptop:InformationResource ;
-      rdfs:label "mentions" ;
-      rdfs:range ptop:Entity .
-```
-
-##### Property: *PROTON Mention*
-
-```{r http://proton.semanticweb.org/protonue#Mention}
-pext:Mention rdf:type owl:Class ;
-             rdfs:subClassOf ptop:InformationResource ;
-             rdfs:comment "An area of a document that can be considered a mention of something."@en ;
-             rdfs:label "Mention" .
-```
-
-### Ontology
+### Setup
 
 ##### Prefixes
 
 ```{r Prefix Defintions}
 @prefix : <http://openbiodiv.net/> .
-@prefix skos: <http://www.w3.org/2008/05/skos#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
@@ -354,20 +252,35 @@ pext:Mention rdf:type owl:Class ;
 @prefix lucene: <http://www.ontotext.com/connectors/lucene#> .
 @prefix inst: <http://www.ontotext.com/connectors/lucene/instance#> .
 @prefix dbo: <http://dbpedia.org/ontology/> .
+@prefix vs: <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
 ```
 
 ##### Metadata
 
 ```{r Ontology Metadata}
-:ontology rdf:type owl:Ontology ;
+:openbiodiv-o rdf:type owl:Ontology ;
   owl:versionInfo "1.0" ;
   rdfs:comment "You are free to create derivative work as long as you cite the original authors." ;
   dc:title "The Open Biodiversity Knowledge Management System Ontology" ;
   dc:subject "OpenBiodiv Ontology" ;
   rdfs:label "OpenBiodiv Ontology" ;
   dc:creator "Viktor Senderov, Terry Catapano, Kiril Simov, Lyubomir Penev" ;
-  dc:license "CC-BY license version 4.0" .
+  dc:license "CC-BY license version 4.0" ;
+  owl:imports <http://purl.org/spar/fabio/> .
 ```
+
+#### Imports and Contributions
+
+1. We incorporate several external ontologies fully into our data model. They
+are found under [`imported_ontologies`](./imported_ontologies). We do not
+import from the web directly (e.g. with `owl:imports`) as (1) sometimes URL's
+don't resolve or severs are down; and (2) in the published versions there are
+often minor bugs (like differing prefix definitions amongst the imported
+ontologies). This is why we import the ontologies manually into the triple
+store.
+
+2. We also borrow parts from external ontologies (contributed parts). Those are
+attributed in accordance with the OBO foundry principles.
 
 ### Semantic Model of the Publishing Domain
 
@@ -384,9 +297,105 @@ publishing domain that are *not found* in the SPAR ontologies. The central new
 class in OpenBiodiv not found in SPAR is the `trt:Treatment` class, borrowed
 from the [Treatment Ontologies](https://github.com/plazi/TreatmentOntologies).
 
+##### Contributed Properties: *contains*
+
+```{r http://www.essepuntato.it/2008/12/pattern#contains}
+po:contains rdf:type owl:ObjectProperty ;
+          owl:inverseOf po:isContainedBy ;
+          rdfs:domain po:Structured ;
+          rdfs:comment "A structured element contains another generic element."@en ;
+          rdfs:label "contains"@en .
+```
+
+```{r  http://www.essepuntato.it/2008/12/pattern#isContainedBy}
+po:isContainedBy rdf:type owl:ObjectProperty ;
+               rdfs:comment "An element that is contained by another structured element."@en ;
+               rdfs:label "is contained by"@en .
+```
+
+##### Contributed Classes: *structured element*, *pattern-based element*
+
+```{r http://www.essepuntato.it/2008/12/pattern#Structured}
+po:Structured rdf:type owl:Class ;
+            rdfs:subClassOf po:Pattern ;
+            rdfs:comment "The class of elements that can contain other elements."@en ;
+            rdfs:label "structured element"@en .
+```
+
+```{r http://www.essepuntato.it/2008/12/pattern#Pattern}
+po:Pattern rdf:type owl:Class ;
+         rdfs:subClassOf owl:Thing ;
+         rdfs:comment "A structural pattern is an atomic component of a document, that is able to capture a recurrent and well known structure of a document. Any entity belonging to this class is compliant with exactly one structural pattern."@en ;
+         rdfs:label "pattern-based element"@en .
+```
+
+##### Contributed Class: *Mention*
+
+```{r http://proton.semanticweb.org/protonue#Mention}
+pext:Mention rdf:type owl:Class ;
+  rdfs:subClassOf ptop:InformationResource ;
+             rdfs:comment "An area of a document that can be considered a mention of something."@en ;
+             rdfs:label "Mention" .
+```
+
+##### Contributed Class: *Information Resource*
+
+```{r}
+ptop:InformationResource rdf:type owl:Class ;
+                         rdfs:subClassOf ptop:Statement ;
+                         rdfs:comment "InformationResource denotes an information resource with identity, as defined in Dublin Core (DC2003ISO). InformationResource is considered any communication or message that is delivered or produced, taking into account the specific intention of its originator, and also the supposition (and anticipation) for a particular audience or counter-agent in the process of communication (i.e. passive or active feed-back)."@en ;
+                         rdfs:label "Information Resource"@en .
+```                  
+
+##### Contributed Class: *Statement*
+
+```{r}
+ptop:Statement rdf:type owl:Class ;
+               rdfs:comment "A message that is stated or declared; a communication (oral or written), setting forth particulars or facts, etc; \"according to his statement he was in London on that day\". WordNet 1.7.1"@en ;
+               rdfs:label "Statement"@en .
+``` 
+
+##### Contributed Class: *Agent*
+
+```{r http://xmlns.com/foaf/0.1/Agent}
+foaf:Agent rdf:type owl:Class ;
+           rdfs:comment "An agent (eg. person, group, software or physical artifact)." ;
+           rdfs:label "Agent" ;
+           vs:term_status "stable" .
+```
+
+##### Property: *mentions*
+
+```{r http://proton.semanticweb.org/protonkm#mentions}
+:mentions
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "A direct link between an information resource, like a document or a section and an entity." ;
+      rdfs:domain pext:Mention ;
+      rdfs:range fabio:Expression ;
+      rdfs:label "mentions" .
+```
 
 
-#### OpenBiodiv Terms
+##### Property: *contains*
+
+`contains` is a sub-property of `po:contains` that is transitive property.
+
+```{r http://openbiodiv.net/contains}
+:contains rdf:type owl:ObjectProperty, owl:TransitiveProperty ;
+  rdfs:label "OpenBiodiv contains" ;
+  rdfs:subPropertyOf po:contains. 
+
+:isContainedBy rdf:type owl:ObjectProperty, owl:TransitiveProperty ;
+  rdfs:label "OpenBiodiv is contained by" ;
+  rdfs:subPropertyOf po:isContainedBy. 
+
+```
+
+We have mentioned before that when we extract bibliographic elements from the XML,
+we make use of the `po:contains` SPAR property. For example, an article can 
+`po:contain` a secion and this section can `po:contain` another (sub-)section.
+In our view, this means that also the article contains the (sub-)section. Therefore
+we define `po:contains` as a transitive property.
 
 ##### Class: *Publisher*
 
@@ -419,9 +428,9 @@ to Introduction, Methods, etc. from
 
 ```{r http://openbiodiv.net/Treatment}
 :Treatment a owl:Class ;
-  rdfs:subClassOf deo:DiscourseElement , trt:Treatment,
+  rdfs:subClassOf deo:DiscourseElement ,
                   [ rdf:type owl:Restriction ;
-                    owl:onProperty po:isContainedBy ;
+                    owl:onProperty :isContainedBy ;
                     owl:someValuesFrom :TaxonomicArticle ] ;
   rdfs:label "Taxonomic Treatment"@en ;
   rdfs:comment "A rhetorical element of a taxonomic publication, where taxon
@@ -439,9 +448,9 @@ nomenclatural statements are made. Nomenclature is a subsection of Treatment.
 
 ```{r http://openbiodiv.net/NomenclatureSection}
 :NomenclatureSection a owl:Class ;
-  rdfs:subClassOf deo:DiscourseElement , trt:Nomenclature ,
+  rdfs:subClassOf deo:DiscourseElement,
                   [ rdf:type owl:Restriction ;
-                    owl:onProperty po:isContainedBy ;
+                    owl:onProperty :isContainedBy ;
                     owl:someValuesFrom :Treatment ] ;
   rdfs:label "Nomenclature Section"@en ;
   rdfs:comment "A section of a taxonomic treatment, containing the scientific
@@ -458,7 +467,7 @@ Inside the taxonomic nomenclature section, we have the treatment title.
 :NomenclatureHeading a owl:Class ;
   rdfs:subClassOf deo:DiscourseElement ,
                   [ rdf:type owl:Restriction ;
-                    owl:onProperty po:isContainedBy ;
+                    owl:onProperty :isContainedBy ;
                     owl:someValuesFrom :NomenclatureSection ] ;
                   rdfs:label "Nomenclature Heading"@en ;
   rdfs:comment "Inside the taxonomic nomenclature section, we have the treatment
@@ -473,7 +482,7 @@ Inside the taxonomic nomenclature section, we have a list of citations.
 :NomenclatureCitationsList a owl:Class ;
   rdfs:subClassOf deo:DiscourseElement ,
                   [ rdf:type owl:Restriction ;
-                    owl:onProperty po:isContainedBy ;
+                    owl:onProperty :isContainedBy ;
                     owl:someValuesFrom :NomenclatureSection ] ;
                   rdfs:label "Nomenclature Citations List"@en ;
   rdfs:comment "A section in a treatment that includes the citation of one or
@@ -486,9 +495,9 @@ Subsection of treatment.
 
 ```{r http://openbiodiv.net/BiologySection}
 :BiologySection a owl:Class ;
-  rdfs:subClassOf deo:DiscourseElement, trt:Biology,
+  rdfs:subClassOf deo:DiscourseElement, 
                   [ rdf:type owl:Restriction ;
-                    owl:onProperty po:isContainedBy ;
+                    owl:onProperty :isContainedBy ;
                     owl:someValuesFrom :Treatment ] ;
   rdfs:label "Biology Section"@en .
 ```
@@ -499,9 +508,9 @@ Subsection of treatment.
 
 ```{r http://openbiodiv.net/DescriptionSection}
 :DescriptionSection a owl:Class ;
-  rdfs:subClassOf deo:DiscourseElement, trt:Description,
+  rdfs:subClassOf deo:DiscourseElement,
                   [ rdf:type owl:Restriction ;
-                    owl:onProperty po:isContainedBy ;
+                    owl:onProperty :isContainedBy ;
                     owl:someValuesFrom :Treatment ] ;
   rdfs:label "Description Section"@en .
 ```
@@ -513,9 +522,9 @@ Subsection of treatment.
 ```{r http://openbiodiv.net/DiagnosisSection}
 
 :DiagnosisSection a owl:Class ;
-  rdfs:subClassOf deo:DiscourseElement, trt:Diagnosis,
+  rdfs:subClassOf deo:DiscourseElement, 
                   [ rdf:type owl:Restriction ;
-                    owl:onProperty po:isContainedBy ;
+                    owl:onProperty :isContainedBy ;
                     owl:someValuesFrom :Treatment ] ;
   rdfs:label "Diagnosis Section"@en .
 ```
@@ -526,9 +535,9 @@ Subsection of treatment.
 
 ```{r http://openbiodiv.net/DistributionSection}
 :DistributionSection a owl:Class ;
-  rdfs:subClassOf deo:DiscourseElement, trt:Distribution ,
+  rdfs:subClassOf deo:DiscourseElement, 
                   [ rdf:type owl:Restriction;
-                    owl:onProperty po:isContainedBy;
+                    owl:onProperty :isContainedBy;
                     owl:someValuesFrom :Treatment ];
   rdfs:label "Distribution Section"@en.
 ```
@@ -539,9 +548,9 @@ Subsection of treatment.
 
 ```{r http://openbiodiv.net/EtymologySection}
 :EtymologySection a owl:Class ;
-  rdfs:subClassOf deo:DiscourseElement, trt:Etymology,
+  rdfs:subClassOf deo:DiscourseElement,
                   [ rdf:type owl:Restriction ;
-                    owl:onProperty po:isContainedBy ;
+                    owl:onProperty :isContainedBy ;
                     owl:someValuesFrom :Treatment ] ;
   rdfs:label "Etymology Section"@en .
 ```
@@ -552,9 +561,9 @@ Subsection of treatment.
 
 ```{r http://openbiodiv.net/TaxonomicKey}
 :TaxonomicKey a owl:Class;
-  rdfs:subClassOf deo:DiscourseElement, trt:Key,
+  rdfs:subClassOf deo:DiscourseElement, 
                   [ rdf:type owl:Restriction;
-                    owl:onProperty po:isContainedBy;
+                    owl:onProperty :isContainedBy;
                     owl:someValuesFrom :TaxonomicArticle ];
   rdfs:label "Taxonomic Key"@en.
 ```
@@ -567,7 +576,7 @@ Subsection of treatment.
 :MaterialsExamined a owl:Class ;
   rdfs:subClassOf deo:DiscourseElement ,
                   [ rdf:type owl:Restriction ;
-                    owl:onProperty po:isContainedBy ;
+                    owl:onProperty :isContainedBy ;
                     owl:someValuesFrom :Treatment ] ;
   rdfs:label "Materials Examined"@en .
 ```
@@ -580,7 +589,7 @@ A section in a taxonomic article.
 :TaxonomicChecklist a owl:Class ;
   rdfs:subClassOf deo:DiscourseElement ,
                   [ rdf:type owl:Restriction ;
-                    owl:onProperty po:isContainedBy ;
+                    owl:onProperty :isContainedBy ;
                     owl:someValuesFrom :TaxonomicArticle ] ;
   rdfs:label "Taxonomic Checklist"@en ;
   rdfs:comment "A section in a taxonomic article."@en.
@@ -622,15 +631,18 @@ A taxonomic name usage is the mentioning of a taxon name or a taxon concept labe
     (scientific name, taxonomic concept label, etc.), optionally with 
     a taxonomic status."@en ;
   rdfs:label "Taxonomic Name Usage"@en .
+```
 
+##### Contributed Property: *taxonomic status*
+```{r http://rs.tdwg.org/dwc/iri/taxonomicStatus}
 dwciri:taxonomicStatus rdf:type owl:ObjectProperty ; 
   rdfs:label "taxonomic status"@en ;
   rdfs:comment "the IRI version of the DwC term taxonomic status"@en .
 ```
 
+
 In the logic of our algorithms, it is very important that TNU's are
 dated with `dc:date`.
-
 
 
 ### Semantic Model of Biological Nomenclature
@@ -701,7 +713,7 @@ concept (for example a treatment).*
     (treatment)."@en .
 ```
 
-#### Class: *Operational Taxonomic Unit Identifier"
+#### Class: *Operational Taxonomic Unit Identifier*
 
 ```{r http://openbiodiv.net/OTU_Id}
 :OTU_Id rdf:type owl:Class ;
@@ -743,7 +755,7 @@ To the best of our knowledge, no formal definition of `dwciri:scientificName` ex
 Therefore, it has been introduced it here together with a super-property to refer to a more broader
 class of names.
 
-##### Property: *name according to*
+##### Contributed Property: *name according to*
 
 Contributed property from DwC-IRI.
 
@@ -753,12 +765,12 @@ dwciri:nameAccordingTo rdf:type owl:ObjectProperty ;
   rdfs:comment "the IRI version of dwc:nameAccordingTo"@en .
 ```
 
-##### Property: *OpenBiodiv secundum*
+##### Property: *OpenBiodiv name according to*
 
 ```{r http://openbiodiv.net/nameAccordingTo}
 :nameAccordingTo rdf:type owl:ObjectProperty ;
-  rdfs:subPropertyOf dwciri:nameAccordingTo, po:isContainedBy ;
-  skos:prefLabel "secundum"@en ; 
+  rdfs:subPropertyOf dwciri:nameAccordingTo ;
+  skos:prefLabel "OpenBiodiv name according to"@en ; 
   skos:altLabel "sensu"@en ;
   rdfs:range frbr:Expression ;
   rdfs:domain :TaxonomicConceptLabel ;
@@ -876,7 +888,7 @@ database, etc.), where the circumscription is properly defined.
 ```{r http://openbiodiv.net/TaxonomicConcept}
 :TaxonomicConcept rdf:type owl:Class ;
   owl:equivalentClass dwc:Taxon ;
-  rdfs:subClassof :OperationalTaxonomicUnit ,
+  rdfs:subClassOf :OperationalTaxonomicUnit ,
                   [ rdf:type owl:Restriction ;
                     owl:onProperty :taxonomicConceptLabel ;
                     owl:minCardinality "1" ] ;
@@ -949,8 +961,8 @@ dwciri:scientificName rdf:type owl:ObjectProperty ;
 A class for all kinds of RCC5 term vocabularies.
 
 ```{r http://openbiodiv.net/RCC5RelationshipTerms}
-:RCC5RelationDictionary rdf:type owl:Class ;
-  rdfs:subClassOf <http://www.w3.org/2004/02/skos/core#ConceptScheme> ,
+:RCC5Dictionary rdf:type owl:Class ;
+  rdfs:subClassOf skos:ConceptScheme ,
                                 [ rdf:type owl:Restriction ;
                                   owl:onProperty fabio:isSchemeOf ;
                                   owl:allValuesFrom :RCC5Relation] ;
@@ -961,9 +973,10 @@ A class for all kinds of RCC5 term vocabularies.
 
 ```{r http://openbiodiv.net/RCC5Relation}
 :RCC5Relation rdf:type owl:Class ;
+  rdfs:subClassOf skos:Concept ;
   rdfs:subClassOf [ rdf:type owl:Restriction ;
                     owl:onProperty <http://www.w3.org/2004/02/skos/core#inScheme> ;
-                    owl:someValuesFrom :RCC5RelationTerms ] ;
+                    owl:someValuesFrom :RCC5Dictionary ] ;
   rdfs:label "RCC5 Relation"@en ;
   rdfs:comment "The of RCC 5 relation, e.g. 'partially overlaps'"@en .
 ```
@@ -972,6 +985,7 @@ A class for all kinds of RCC5 term vocabularies.
 
 ```{r http://openbiodiv.net/RCC5Statement}
 :RCC5Statement rdf:type owl:Class ;
+  rdfs:subClassOf ptop:Statement ;
   rdfs:label "RCC5 Statement" ;
   rdfs:comment "A statement of RCC-5 relationship" .
 ```
@@ -1016,11 +1030,10 @@ A class for all kinds of RCC5 term vocabularies.
 ```{r http://openbiodiv.net/rcc5AccordingTo}
 :rcc5AccrodingTo rdf:type owl:ObjectProperty ;
   rdfs:subPropertyOf :rcc5Property ;
-  rdfs:label "relation type" ;
+  rdfs:label "RCC5 statement according to" ;
   rdfs:range frbr:Expression ;
   rdfs:comment "In which publication was the statement made"@en .
 ```
-
 
 In order to model complex RCC-5 statements such as those made in
 [Jansen & Franz 2015](https://doi.org/10.3897/zookeys.528.6001) we use 
@@ -1085,7 +1098,7 @@ statuses.
                                 [ rdf:type owl:Restriction ;
                                   owl:onProperty fabio:isSchemeOf ;
                                   owl:allValuesFrom :TaxonomicStatus] ;
-  rdfs:label "Taxonomic Status Dictionary" ;
+  rdfs:label "Dictionary of Taxonomic Statuses" ;
   fabio:hasDiscipline <http://dbpedia.org/page/Taxonomy_(biology)> .
 ```
 
@@ -1093,9 +1106,10 @@ statuses.
 
 ```{r http://openbiodiv.net/TaxonomicStatus}
 :TaxonomicStatus rdf:type owl:Class ;
+  rdfs:subClassOf skos:Concept ;
   rdfs:subClassOf [ rdf:type owl:Restriction ;
                     owl:onProperty <http://www.w3.org/2004/02/skos/core#inScheme> ;
-                    owl:someValuesFrom :TaxonomicStatusTerms ] ;
+                    owl:someValuesFrom :TaxonomicStatusDictionary ] ;
   rdfs:label "Taxonomic Status Term"@en ;
   rdfs:comment "The status following a taxonomic name usage in a taxonomic
                 manuscript, i.e. 'n. sp.',
