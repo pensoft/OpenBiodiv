@@ -3,7 +3,7 @@
 ## Citation
 
 ```
-Senderov, Viktor, Daniel Mietchen, and Kiril Simov. “OpenBiodiv Ontology and
+Senderov, Viktor; Simov, Kiril. “OpenBiodiv Ontology and
 Guide,” n.d. https://github.com/pensoft/OpenBiodiv/blob/master/ontology
 /openbiodiv-ontology.Rmd.
 ```
@@ -13,54 +13,35 @@ and has previously been referred to as OBKMS.
 
 ## Preliminaries
 
-This document is the OpenBiodiv Ontology and Guide.
+This document is the guide to the OpenBiodiv ontology (OpenBiodiv-O) and
+the ontology at the same time [as a literate programming]
+(https://en.wikipedia.org/wiki/Literate_programming)
+document. This means that we include the source code within its
+documentation.
 
-It contains:
-
-- the OpenBiodiv ontology (OpenBiodiv-O), which further contains
-  - OpenBiodiv native and contributed terms and axioms
-  - the OpenBiodiv taxonomic status vocabulary (OpenBiodiv-Tax-Vocab), and
-  - the OpenBiodiv RCC5 vocabulary (OpenBiodiv-RCC-Vocab)
-- guide to the ontology
-
-This guide is a
-[literate programming](https://en.wikipedia.org/wiki/Literate_programming)
-document. Literate programming is the act of including source code within
-documentation. In usual software development practice the reverse holds true.
-By virtue of this programming paradigm the formal description of the data
-model, i.e. the [Turtle](https://www.w3.org/RDF/) statements that form the
-ontology and the vocabularies, are found within the document itself and are
-extracted from it.
-
-Previous versions relied on the program `noweb`. `noweb` can be easily
-obtained for GNU Linux but its installation on Windows is tricky. Therefore
-the current version uses the R package `knitr` for building the document from
-Rmarkdown. Since there is no RDF/Turtle engine for `knitr`, we markup the
-code-chunks as R, but do not execute them.
+Previous versions relied on the program `noweb`. We have now switched to the R
+library  `knitr` for building the document from Rmarkdown. Since there is no
+Turtle engine for `knitr`, we markup the code-chunks as R, but do not execute
+them.
 
 The R `knitr` command to create the Turtle file with the ontology from this
 document is:
 
 ```
-knit(input = "openbiodiv-ontology.Rmd", tangle = TRUE, output = "openbiodiv.ttl")
+knit(input = "openbiodiv-ontology.Rmd", tangle = TRUE, output = "openbiodiv-ontology.ttl")
 ```
 
-Since R markdown is a simplified syntax compared the original `noweb`,
-everything that it is in our code chunks ends up in the final document
-sequentially.
+It obtains the ontology in its Turtle serialization.
 
 ## Introduction
 
-The purpose of this paper is to introduce an ontology for taxonomic and
-biodiversity publications
-
-The ontology consists of:
-
-1. Class and property that our knowledge base holds and giving axioms that
-restrict the ways in which they can be combined.
-
-2. Two formal vocabularies, also also expressed as RDF, for particular
-application areas (taxonomic statuses, RCC-5)
+The present work introduces OpenBiodiv Ontology, which serves as the basis of
+the OpenBiodiv knowledge system. By providing an ontology focusing on
+taxonomy, our intent is to provide an ontology that fills in the gaps between
+ontologies for biodiversity resources such as Darwin-SW and semantic
+publishing ontologies such as SPAR. Moreover, we take the view that is
+advantageous to model the taxonomic process itself, and not any particular
+state of knowledge.
 
 ### Previous work
 
@@ -146,66 +127,23 @@ for the data models.
 of [Frege](https://en.wikipedia.org/wiki/Triangle_of_reference) and of
 [Pierce](https://plato.stanford.edu/entries/peirce-semiotics/).
 
-### Types of entities that OpenBiodiv manages
+### Note on Identifier Naming
 
-There are two ways to look at the types of entities that OpenBiodiv manages.
-The first way is to look at the application domain. OpenBiodiv's application
-domain is the semantic publishing of taxonomic, systematic, biodiversity,
-genomic, ecological, and related information. Therefore, the entities that
-OpenBiodiv manages are separated across these domains.
-
-Another way to look at the entities that OpenBiodiv manages is the structural
-way. As the main sources of information for OpenBiodiv are scientific
-articles, we can separate the entities that are extracted in entities that
-are structural parts of the articles such as articles, paragraphs, sections,
-tables, figures, etc., and entities that are talked about -- the actual
-(domain-specific) information contained in the articles.
-
-Both ways of looking at the entities are compatible with each other. The
-following information should probably go into "OpenBiodiv Extension and
-Linking Guide" but for the sake of completeness we will present it here, as
-well.
-
-Entity extraction from taxonomic articles can happen in two phases:
-
-1. Conversion of XML elements into RDF triples following the structure of the
-XML. In this stage, key XML elements are transformed into bibliographic
-elements. E.g., XML elements denoting sections become `doco:Section`'s, figures
-become `doco:Figure`'s, etc. Here no information extraction is taking place
-and no additional semantics are added. This step can be completed linearly
-without any external lookups. Key here is that the XML-hierarchy is preserved
-in RDF via, for example, `po:contains`.
-
-2. Named entity recognition, co-referencing, and named entity identification.
-During this step, non-structural entities are extracted from the information
-present in the structural elements in the form of text or attributes. The
-details of how this done are beyond the scope of this guide but it is
-important to note that an attempt is made to co-reference -- i.e. match
-multiple bibliographic elements to the same non- bibliographic entity, if they
-do in fact refer to the same entity in the sense of Frege's semiotic triangle.
-Another attempt is made to properly manage identifiers. This stage cannot be
-completed without external look-ups.
-
-TODO NMF: Or Peirce's ? https://plato.stanford.edu/entries/peirce-semiotics/
-
-Answer: I am not immediately familiar with the work of Pierce, but I am adding
-it to my reading list.
-
-**Note on Capitalization.** Our ontology strives be a formal specification of
-a conceptualization. In our mental model we have some concepts of some things.
-When we talk about these concepts in the abstract, we will make use of
-Capitalization. For example let's suppose we want to name the top-level
-concept, i.e. the concept which encompasses all  concepts. For this we write
-Thing. In another example, let's suppose we want to name a part of a
-manuscript where taxonomic circumscription takes place. We say Treatment when we
-refer to that concept. We also have concepts for relations (in our
-conceptualization only binary relations are allowed). To denote these
-relations in the abstract we use verbal phrases and we might or might not use
-quotes (we will use quotes only if it adds to the clarity of exposition). For
-example, Treatment is a Thing as opposed to Treatment "is a" Thing. We also
-have individual instances of these concepts. To refer to those we might use
-improper or proper nouns or phrases wherever appropriate. For example, "the
-treatment on page 5," or "a treatment," or "John."
+Our ontology strives be a formal specification of a conceptualization. In our
+mental model we have some concepts of some things. When we talk about these
+concepts in the abstract, we will make use of Capitalization. For example
+let's suppose we want to name the top-level concept, i.e. the concept which
+encompasses all  concepts. For this we write Thing. In another example, let's
+suppose we want to name a part of a manuscript where taxonomic circumscription
+takes place. We say Treatment when we refer to that concept. We also have
+concepts for relations (in our conceptualization only binary relations are
+allowed). To denote these relations in the abstract we use verbal phrases and
+we might or might not use quotes (we will use quotes only if it adds to the
+clarity of exposition). For example, Treatment is a Thing as opposed to
+Treatment "is a" Thing. We also have individual instances of these concepts.
+To refer to those we might use improper or proper nouns or phrases wherever
+appropriate. For example, "the treatment on page 5," or "a treatment," or
+"John."
 
 When we formally define a concept in OWL and issue an URI to it, we shall
 refer to the URI, as we refer to all URI's in the text with `typewriter font`.
@@ -213,6 +151,8 @@ URI's of classes and vocabularies will be in `MajorCamelCase`. URI's of
 relationships will be in `minorCamelCase`. URI's of individuals `will-be-
 hyphenated`. This seems to generally in accordance with WWW practice.
 
+Also we strive for human-readable identifiers even if some ontology building
+practices argue against it.
 
 ## Ontology
 
@@ -220,7 +160,10 @@ hyphenated`. This seems to generally in accordance with WWW practice.
 
 ##### Prefixes
 
-```{r Prefix Defintions}
+*Note*: As SPAR (and FaBiO in particular) serve as somewhat of a _top-level_
+ontology for us, we use the `skos` prefix as they use it.
+
+```{r Prefix}
 @prefix : <http://openbiodiv.net/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -262,29 +205,26 @@ hyphenated`. This seems to generally in accordance with WWW practice.
 ##### Metadata
 
 ```{r Ontology Metadata}
-:openbiodiv-o rdf:type owl:Ontology ;
+:openbiodiv-ontology rdf:type owl:Ontology ;
   owl:versionInfo "1.0" ;
   rdfs:comment "You are free to create derivative work as long as you cite the original authors." ;
   dc:title "The Open Biodiversity Knowledge Management System Ontology" ;
-  dc:subject "OpenBiodiv Ontology" ;
+  dc:subject "Biodiversity Informatics" ;
   rdfs:label "OpenBiodiv Ontology" ;
-  dc:creator "Viktor Senderov, Terry Catapano, Kiril Simov, Lyubomir Penev" ;
+  dc:creator "Viktor Senderov, Kiril Simov" ;
   dc:license "CC-BY license version 4.0" ;
   owl:imports <http://purl.org/spar/fabio/> .
 ```
 
 #### Imports and Contributions
 
-1. We incorporate several external ontologies fully into our data model. They
-are found under [`imported_ontologies`](./imported_ontologies). We do not
-import from the web directly (e.g. with `owl:imports`) as (1) sometimes URL's
-don't resolve or severs are down; and (2) in the published versions there are
-often minor bugs (like differing prefix definitions amongst the imported
-ontologies). This is why we import the ontologies manually into the triple
-store.
+1. We incorporate several external ontologies fully into our data model. Some of
+them via a direct web import. Where it is not possible due to an error, we 
+import them as text files found under [`imported_ontologies`](./imported_ontologies).
+They may contain small bug-fixes to overcome the error.
 
 2. We also borrow parts from external ontologies (contributed parts). Those are
-attributed in accordance with the OBO foundry principles.
+attributed in the text.
 
 ### Semantic Model of the Publishing Domain
 
@@ -293,12 +233,12 @@ attributed in accordance with the OBO foundry principles.
 The publishing domain is described in our model using the Semantic Publishing
 and Referencing Ontologies, a.k.a. [SPAR Ontologies](http://www.sparontologies.net/).
 We do import several of these ontologies (please consult the paragraph
-"Incorporated external ontologies"). Refer to the documentation on the SPAR
-Ontologies' site for an exhaustive treatment.
+["Imports and Contributions"](#imports-and-contributions)).
+Refer to the documentation on the SPAR Ontologies' site for an exhaustive treatment.
 
 In the rest of this section we describe the modeling of entities in the
 publishing domain that are *not found* in the SPAR ontologies. The central new
-class in OpenBiodiv not found in SPAR is the `trt:Treatment` class, borrowed
+class in OpenBiodiv not found in SPAR is the `:Treatment` class, borrowed
 from the [Treatment Ontologies](https://github.com/plazi/TreatmentOntologies).
 
 ##### Contributed Properties: *contains*
@@ -333,23 +273,15 @@ po:Pattern rdf:type owl:Class ;
          rdfs:label "pattern-based element"@en .
 ```
 
-##### Contributed Class: *Mention*
+##### Class: *Mention*
 
 ```{r http://proton.semanticweb.org/protonue#Mention}
-pext:Mention rdf:type owl:Class ;
-  rdfs:subClassOf ptop:InformationResource ;
-             rdfs:comment "An area of a document that can be considered a mention of something."@en ;
-             rdfs:label "Mention" .
-```
-
-##### Contributed Class: *Information Resource*
-
-```{r}
-ptop:InformationResource rdf:type owl:Class ;
-                         rdfs:subClassOf ptop:Statement ;
-                         rdfs:comment "InformationResource denotes an information resource with identity, as defined in Dublin Core (DC2003ISO). InformationResource is considered any communication or message that is delivered or produced, taking into account the specific intention of its originator, and also the supposition (and anticipation) for a particular audience or counter-agent in the process of communication (i.e. passive or active feed-back)."@en ;
-                         rdfs:label "Information Resource"@en .
-```                  
+:Mention rdf:type owl:Class ;
+  rdfs:seeAlso pext:Mention ;
+  rdfs:subClassOf deo:DiscourseElement ;
+  rdfs:comment "An area of a document that can be considered a mention of something."@en ;
+  rdfs:label "Mention" .
+```    
 
 ##### Contributed Class: *Statement*
 
@@ -375,7 +307,6 @@ foaf:Agent rdf:type owl:Class ;
       rdf:type owl:ObjectProperty ;
       rdfs:comment "A direct link between an information resource, like a document or a section and an entity." ;
       rdfs:domain pext:Mention ;
-      rdfs:range fabio:Expression ;
       rdfs:label "mentions" .
 ```
 
@@ -630,7 +561,7 @@ A taxonomic name usage is the mentioning of a taxon name or a taxon concept labe
 
 ```{r http://openbiodiv.net/TaxonomicNameUsage}
 :TaxonomicNameUsage rdf:type owl:Class ;
-  rdfs:subClassOf  pext:Mention ;
+  rdfs:subClassOf :Mention ;
   rdfs:comment "A taxonomic name usage is the mentioning of a taxonomic name
     (scientific name, taxonomic concept label, etc.), optionally with 
     a taxonomic status."@en ;

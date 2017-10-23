@@ -1,4 +1,4 @@
-## ----Prefix Defintions---------------------------------------------------
+## ----Prefix--------------------------------------------------------------
 @prefix : <http://openbiodiv.net/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -37,13 +37,13 @@
 @prefix vs: <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
 
 ## ----Ontology Metadata---------------------------------------------------
-:openbiodiv-o rdf:type owl:Ontology ;
+:openbiodiv-ontology rdf:type owl:Ontology ;
   owl:versionInfo "1.0" ;
   rdfs:comment "You are free to create derivative work as long as you cite the original authors." ;
   dc:title "The Open Biodiversity Knowledge Management System Ontology" ;
-  dc:subject "OpenBiodiv Ontology" ;
+  dc:subject "Biodiversity Informatics" ;
   rdfs:label "OpenBiodiv Ontology" ;
-  dc:creator "Viktor Senderov, Terry Catapano, Kiril Simov, Lyubomir Penev" ;
+  dc:creator "Viktor Senderov, Kiril Simov" ;
   dc:license "CC-BY license version 4.0" ;
   owl:imports <http://purl.org/spar/fabio/> .
 
@@ -72,16 +72,11 @@ po:Pattern rdf:type owl:Class ;
          rdfs:label "pattern-based element"@en .
 
 ## ----http://proton.semanticweb.org/protonue#Mention----------------------
-pext:Mention rdf:type owl:Class ;
-  rdfs:subClassOf ptop:InformationResource ;
-             rdfs:comment "An area of a document that can be considered a mention of something."@en ;
-             rdfs:label "Mention" .
-
-## ------------------------------------------------------------------------
-ptop:InformationResource rdf:type owl:Class ;
-                         rdfs:subClassOf ptop:Statement ;
-                         rdfs:comment "InformationResource denotes an information resource with identity, as defined in Dublin Core (DC2003ISO). InformationResource is considered any communication or message that is delivered or produced, taking into account the specific intention of its originator, and also the supposition (and anticipation) for a particular audience or counter-agent in the process of communication (i.e. passive or active feed-back)."@en ;
-                         rdfs:label "Information Resource"@en .
+:Mention rdf:type owl:Class ;
+  rdfs:seeAlso pext:Mention ;
+  rdfs:subClassOf deo:DiscourseElement ;
+  rdfs:comment "An area of a document that can be considered a mention of something."@en ;
+  rdfs:label "Mention" .
 
 ## ------------------------------------------------------------------------
 ptop:Statement rdf:type owl:Class ;
@@ -99,7 +94,6 @@ foaf:Agent rdf:type owl:Class ;
       rdf:type owl:ObjectProperty ;
       rdfs:comment "A direct link between an information resource, like a document or a section and an entity." ;
       rdfs:domain pext:Mention ;
-      rdfs:range fabio:Expression ;
       rdfs:label "mentions" .
 
 ## ----http://openbiodiv.net/contains--------------------------------------
@@ -236,7 +230,7 @@ foaf:Agent rdf:type owl:Class ;
 
 ## ----http://openbiodiv.net/TaxonomicNameUsage----------------------------
 :TaxonomicNameUsage rdf:type owl:Class ;
-  rdfs:subClassOf  pext:Mention ;
+  rdfs:subClassOf :Mention ;
   rdfs:comment "A taxonomic name usage is the mentioning of a taxonomic name
     (scientific name, taxonomic concept label, etc.), optionally with 
     a taxonomic status."@en ;
