@@ -127,10 +127,7 @@ to" (usually abbreviated as "sec."), we know for certain which concept the
 author is invoking as we are in the treatment title (current concept/ *this*
 concept).
 
-```
-<<Taxonomic Name Usage>>=
-
-# Example: Taxonomic Name Usage
+```# Example: Taxonomic Name Usage
 
 :casuarinicola-australis-nomenclature-heading
   po:contains :casuarinicola-australis-TNU .
@@ -161,7 +158,14 @@ concept).
 
   # we link to the paper! not the article
   :nameAccordingTo :thorpe-2013 .
-@
+```
+
+```{r Example Simple Taxonomic Concept Relationships}
+:concept-thorpe rdf:type :TaxonomicConcept ;
+  :taxonomicConceptLabel :casuarinicola-australis-taylor-sec-thorpe-2013 .
+
+:concept-taylor rdf:type :TaxonomicConcept ;
+  skos:broader concept-thorpe .
 ```
 
 

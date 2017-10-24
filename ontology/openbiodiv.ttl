@@ -10,7 +10,7 @@
 @prefix tvc: <http://www.essepuntato.it/2012/04/tvc/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix fabio: <http://purl.org/spar/fabio/> .
-@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dcelements: <http://purl.org/dc/elements/1.1/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix frbr: <http://purl.org/vocab/frbr/core#> .
 @prefix prism: <http://prismstandard.org/namespaces/basic/2.0/> .
@@ -35,16 +35,17 @@
 @prefix inst: <http://www.ontotext.com/connectors/lucene/instance#> .
 @prefix dbo: <http://dbpedia.org/ontology/> .
 @prefix vs: <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix dwcattributesns: <http://rs.tdwg.org/dwc/terms/attributes/> .
 
 ## ----Ontology Metadata---------------------------------------------------
 :openbiodiv-ontology rdf:type owl:Ontology ;
   owl:versionInfo "1.0" ;
   rdfs:comment "You are free to create derivative work as long as you cite the original authors." ;
-  dc:title "The Open Biodiversity Knowledge Management System Ontology" ;
-  dc:subject "Biodiversity Informatics" ;
+  dcelements:title "The Open Biodiversity Knowledge Management System Ontology" ;
+  dcelements:subject "Biodiversity Informatics" ;
   rdfs:label "OpenBiodiv Ontology" ;
-  dc:creator "Viktor Senderov, Kiril Simov" ;
-  dc:license "CC-BY license version 4.0" ;
+  dcelements:creator "Viktor Senderov, Kiril Simov" ;
+  dcelements:license "CC-BY license version 4.0" ;
   owl:imports <http://purl.org/spar/fabio/> .
 
 ## ----http://www.essepuntato.it/2008/12/pattern#contains------------------
@@ -322,9 +323,23 @@ dwciri:nameAccordingTo rdf:type owl:ObjectProperty ;
     preferred given the information that system currently holds. This property is only
     defined for Linnaean names."@en.
 
+## ----http://rs.tdwg.org/dwc/terms/Taxon----------------------------------
+<http://rs.tdwg.org/dwc/terms/Taxon> rdf:type owl:Class ;
+                                     dcelements:description "Example: The genus Truncorotaloides as published by Brönnimann et al. in 1953 in the Journal of Paleontology Vol. 27(6) p. 817-820."@en ;
+                                     dcelements:hasVersion <http://rs.tdwg.org/dwc/terms/history/#Taxon-2014-10-23> ;
+                                     dcelements:issued "2008-11-19" ;
+                                     dcelements:modified "2014-10-23" ;
+                                     dcelements:replaces <http://rs.tdwg.org/dwc/terms/Taxon-2009-09-21> ;
+                                     dwcattributesns:abcdEquivalence "no simple equivalent in ABCD" ;
+                                     dwcattributesns:decision <http://rs.tdwg.org/dwc/terms/history/decisions/#Decision-2014-10-26_15> ;
+                                     dwcattributesns:status "recommended" ;
+                                     rdfs:comment "A group of organisms (sensu http://purl.obolibrary.org/obo/OBI_0100026) considered by taxonomists to form a homogeneous unit."@en ;
+                                     rdfs:isDefinedBy <http://rs.tdwg.org/dwc/terms/> ;
+                                     rdfs:label "Taxon"@en .
+
 ## ----http://openbiodiv.net/OperationalTaxonomicUnit----------------------
 :OperationalTaxonomicUnit rdf:type owl:Class ;
-  rdfs:subClassOf skos:Concept, frbr:Work ;
+  rdfs:subClassOf skos:Concept, fabio:Work ;
   rdfs:label "Operational Taxonomic Unit"@en ;
   rdfs:comment "A superclass for all kinds of taxonomic hypothesis"@en .
 

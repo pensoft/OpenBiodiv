@@ -200,6 +200,7 @@ ontology for us, we use the `skos` prefix as they use it.
 @prefix inst: <http://www.ontotext.com/connectors/lucene/instance#> .
 @prefix dbo: <http://dbpedia.org/ontology/> .
 @prefix vs: <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix dwcattributesns: <http://rs.tdwg.org/dwc/terms/attributes/> .
 ```
 
 ##### Metadata
@@ -208,11 +209,11 @@ ontology for us, we use the `skos` prefix as they use it.
 :openbiodiv-ontology rdf:type owl:Ontology ;
   owl:versionInfo "1.0" ;
   rdfs:comment "You are free to create derivative work as long as you cite the original authors." ;
-  dc:title "The Open Biodiversity Knowledge Management System Ontology" ;
-  dc:subject "Biodiversity Informatics" ;
+  dcelements:title "The Open Biodiversity Knowledge Management System Ontology" ;
+  dcelements:subject "Biodiversity Informatics" ;
   rdfs:label "OpenBiodiv Ontology" ;
-  dc:creator "Viktor Senderov, Kiril Simov" ;
-  dc:license "CC-BY license version 4.0" ;
+  dcelements:creator "Viktor Senderov, Kiril Simov" ;
+  dcelements:license "CC-BY license version 4.0" ;
   owl:imports <http://purl.org/spar/fabio/> .
 ```
 
@@ -575,9 +576,8 @@ dwciri:taxonomicStatus rdf:type owl:ObjectProperty ;
   rdfs:comment "the IRI version of the DwC term taxonomic status"@en .
 ```
 
-
 In the logic of our algorithms, it is very important that TNU's are
-dated with `dc:date`.
+dated with `dcelements:date`.
 
 
 ### Semantic Model of Biological Nomenclature
@@ -809,11 +809,28 @@ Holding the views of Berendsohn and of Franz, we require that each taxon
 concept is linked to both a biological name and to a work (i.e. publication,
 database, etc.), where the circumscription is properly defined.
 
+##### Contributed Class: *Taxon*
+
+```{r http://rs.tdwg.org/dwc/terms/Taxon}
+<http://rs.tdwg.org/dwc/terms/Taxon> rdf:type owl:Class ;
+                                     dcelements:description "Example: The genus Truncorotaloides as published by Brönnimann et al. in 1953 in the Journal of Paleontology Vol. 27(6) p. 817-820."@en ;
+                                     dcelements:hasVersion <http://rs.tdwg.org/dwc/terms/history/#Taxon-2014-10-23> ;
+                                     dcelements:issued "2008-11-19" ;
+                                     dcelements:modified "2014-10-23" ;
+                                     dcelements:replaces <http://rs.tdwg.org/dwc/terms/Taxon-2009-09-21> ;
+                                     dwcattributesns:abcdEquivalence "no simple equivalent in ABCD" ;
+                                     dwcattributesns:decision <http://rs.tdwg.org/dwc/terms/history/decisions/#Decision-2014-10-26_15> ;
+                                     dwcattributesns:status "recommended" ;
+                                     rdfs:comment "A group of organisms (sensu http://purl.obolibrary.org/obo/OBI_0100026) considered by taxonomists to form a homogeneous unit."@en ;
+                                     rdfs:isDefinedBy <http://rs.tdwg.org/dwc/terms/> ;
+                                     rdfs:label "Taxon"@en .
+```
+
 ##### Class: *Operational Taxonomic Unit*
 
 ```{r http://openbiodiv.net/OperationalTaxonomicUnit}
 :OperationalTaxonomicUnit rdf:type owl:Class ;
-  rdfs:subClassOf skos:Concept, frbr:Work ;
+  rdfs:subClassOf skos:Concept, fabio:Work ;
   rdfs:label "Operational Taxonomic Unit"@en ;
   rdfs:comment "A superclass for all kinds of taxonomic hypothesis"@en .
 ```
