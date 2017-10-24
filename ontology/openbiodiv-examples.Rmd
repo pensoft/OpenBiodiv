@@ -14,76 +14,89 @@ treatment to also be a structural section of the document.
 
 
 
-```
-<<Article Metadata>>=
+```{r Example Article Metadata}
+:biodiversity-data-journal rdf:type fabio:Journal ;
+	 skos:prefLabel "Biodiversity Data Journal"@en ;
+	 skos:altLabel  "BDJ"@en ;
+	 fabio:issn     "1314-2836" ;
+	 fabio:eIssn    "1314-2828" ;
+	 frbr:part      :b90f6933-ab5e-4ce1-9379-12de9ef4eaa6 . 
 
-# Example: Article Metadata
+ <http://dx.doi.org/10.3897/BDJ.1.e953> rdf:type fabio:TaxonomicArticle ;
+	 skos:prefLabel           "10.3897/BDJ.1.e953" ;
+	 dc:title                 "Casuarinicola australis Taylor, 2010 
+         (Hemiptera: Triozidae), newly recorded from New Zealand"@en ;
+	 prism:doi                "10.3897/BDJ.1.e953" ;
+	 dcelements:publisher     "Pensoft Publishers"@en ;
+	 fabio:hasPublicationYear "2013"^^xsd:gYear ;
+	 prism:publicationDate    "2013-9-16"^^xsd:date ;
+	 dcterms:publisher        :pensoft-publishers ;
+	 frbr:realizationOf       :thorpe-2013 .
 
-:biodiversity-data-journal   rdf:type   fabio:Journal ;
-	 skos:prefLabel   "Biodiversity Data Journal"@en ;
-	 skos:altLabel   "BDJ"@en ;
-	 fabio:issn   "1314-2836" ;
-	 fabio:eIssn   "1314-2828" ;
-	 frbr:part   :b90f6933-ab5e-4ce1-9379-12de9ef4eaa6 . 
+ :thorpe-2013 rdf:type  :ResearchPaper ;
+ 	 skos:prefLabel	      "Thorpe 2013"
+	 skos:altLabel        "paper10.3897/BDJ.1.e953" ;
+	 dcterms:creator      :stephen-e-thorpe ;
+	 prism:keywords       "Casuarinicola australis"@en ;
+	 fabio:hasSubjectTerm :a2ee4929-90dd-4a7a-aa5c-08836f49d549 . 
 
- <http://dx.doi.org/10.3897/BDJ.1.e953>   rdf:type   fabio:TaxonomicArticle ;
-	 skos:prefLabel   "10.3897/BDJ.1.e953" ;
-	 dc:title   "Casuarinicola australis Taylor, 2010 (Hemiptera: Triozidae),
-	   newly recorded from New Zealand"@en ;
-	 prism:doi   "10.3897/BDJ.1.e953" ;
-	 dc:publisher   "Pensoft Publishers"@en ;
-	 fabio:hasPublicationYear   "2013"^^xsd:gYear ;
-	 prism:publicationDate   "2013-9-16"^^xsd:date ;
-	 dcterms:publisher   :pensoft-publishers ;
-	 frbr:realizationOf   :thorpe-2013 .
+ :pensoft-publishers rdf:type :Publisher ;
+	 skos:prefLabel "Pensoft Publishers"@en . 
 
- :thorpe-2013   rdf:type   :ResearchPaper ;
- 	 skos:prefLabel	"Thorpe 2013"
-	 skos:altLabel   "paper10.3897/BDJ.1.e953" ;
-	 dcterms:creator   :stephen-e-thorpe ;
-	 prism:keywords   "Casuarinicola australis"@en ;
-	 fabio:hasSubjectTerm   :a2ee4929-90dd-4a7a-aa5c-08836f49d549 . 
-
- :pensoft-publishers   rdf:type   :Publisher ;
-	 skos:prefLabel   "Pensoft Publishers"@en . 
-
- :stephen-e-thorpe   rdf:type   foaf:Person ;
-	 skos:prefLabel   "Stephen E. Thorpe" ;
-	 foaf:firstName   "Stephen E." ;
+ :stephen-e-thorpe rdf:type foaf:Person ;
+	 skos:prefLabel "Stephen E. Thorpe" ;
+	 foaf:firstName "Stephen E." ;
 	 foaf:surname   "Thorpe" ;
-	 foaf:mbox   "stephen_thorpe@yahoo.co.nz" ;
+	 foaf:mbox      "stephen_thorpe@yahoo.co.nz" ;
 	 :affiliation   "School of Biological Sciences (Tamaki Campus),
-	   University of Auckland, Auckland, New Zealand"@en . 
+	       University of Auckland, Auckland, New Zealand"@en . 
 
- :a2ee4929-90dd-4a7a-aa5c-08836f49d549   rdf:type   fabio:SubjectTerm ;
-	 rdfs:label   "Casuarinicola australis"@en ;
-	 skos:inScheme   :Subject_Classification_Vocabulary . 
-@
+ :a2ee4929-90dd-4a7a-aa5c-08836f49d549 rdf:type fabio:SubjectTerm ;
+	 rdfs:label    "Casuarinicola australis"@en ;
+	 skos:inScheme :openbiodiv-subject-terms . 
 ```
 
 
 #### Example: *Article Structure*
 
 
-```
-<<Article Structure>>=
-
-# Example: Article Structure
-
+```{r Example Article Structure}
 <http://dx.doi.org/10.3897/BDJ.1.e953>
-  po:contains :casuarinicola-australis-treatment .
+  :contains :abstract, :casuarinicola-australis-treatment .
 
-:casuarinicola-australis-treatment 
-  a doco:Section, trt:Treatment ;
-  po:contains :casuarinicola-australis-nomenclature .
+:introduction rdf:type deo:Introduction, doco:Section ;
+  c4o:hasContent "Casuarinicola australis Taylor, 2010 was described from
+        Australia, where it is the most common and widespread member of its
+        genus, being widely distributed in New South Wales, Queensland,
+        South Australia, Victoria and Western Australia. "
 
-:casuarinicola-australis-nomenclature
-  a doco:Section, :NomenclatureHeading ;
-  po:contains :casuarinicola-australis-nomenclature-heading .
+:casuarinicola-australis-treatment rdf:type doco:Section, :Treatment ;
+  :contains :casuarinicola-australis-nomenclature ,
+              :casuarinicola-australis-materials ,
+              :casuarinicola-australis-description ,
+              :figure-box-1 ,
+              :figure-box-2 .
+
+:casuarinicola-australis-nomenclature rdf:type :NomenclatureHeading ;
+  :contains :casuarinicola-australis-nomenclature-heading .
 
 :casuarinicola-australis-nomenclature-heading a trt:TreatmentTitle ;
   cnt:chars "Casuarinicola australis Taylor, 2010" .
-@
+
+:casuarinicola-australis-materials rdf:type :MaterialsExamined ;
+  c4o:hasContent "country: New Zealand;
+                  verbatimLocality: Mechanics Bay, Auckland City;
+                  verbatimElevation: 0-5 m;
+                  verbatimLatitude: 36.8474938105S ;
+                  verbatimLongitude: 174.7869624545E ;
+                  eventDate: 6 January 2013;
+                  sex: 1 male, 1 female;
+                  recordedBy: Stephen Thorpe;
+                  institutionCode: Auckland Museum" .
+
+:casuarinicola-australis-description rdf:type :DescriptionSection ;
+  c4o:hasContent "On 6 Jan 2013, I examined some Casuarina glauca trees growing
+        in the vicinity of Ports of Auckland at Mechanics Bay." .
 ```
 
 
