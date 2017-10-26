@@ -1,0 +1,977 @@
+<h1>
+<a id="user-content-openbiodiv-ontology-and-guide" class="anchor" href="#openbiodiv-ontology-and-guide" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>OpenBiodiv Ontology and Guide</h1>
+<h2>
+<a id="user-content-citation" class="anchor" href="#citation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Citation</h2>
+<blockquote>
+<p>Senderov, Viktor; Simov, Kiril. "OpenBiodiv Ontology and Guide," n.d.
+<a href="https://github.com/pensoft/OpenBiodiv/blob/master/ontology/openbiodiv-ontology.Rmd">https://github.com/pensoft/OpenBiodiv/blob/master/ontology/openbiodiv-ontology.Rmd</a>.</p>
+</blockquote>
+<p>OpenBiodiv expands to "Open Biodiversity Knowledge Management System"
+and has previously been referred to as OBKMS.</p>
+<h2>
+<a id="user-content-preliminaries" class="anchor" href="#preliminaries" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Preliminaries</h2>
+<p>This document is the guide to the OpenBiodiv ontology (OpenBiodiv-O) and
+the ontology at the same time [as a literate programming]
+(<a href="https://en.wikipedia.org/wiki/Literate_programming">https://en.wikipedia.org/wiki/Literate_programming</a>)
+document. This means that we include the source code within its
+documentation.</p>
+<p>Previous versions relied on the program <code>noweb</code>. We have now switched to the R
+library  <code>knitr</code> for building the document from Rmarkdown. Since there is no
+Turtle engine for <code>knitr</code>, we markup the code-chunks as R, but do not execute
+them.</p>
+<p>The R <code>knitr</code> command to create the Turtle file with the ontology from this
+document is:</p>
+<pre><code>knit(input = "openbiodiv-ontology.Rmd", tangle = TRUE, output = "openbiodiv-ontology.ttl")
+</code></pre>
+<p>It obtains the ontology in its Turtle serialization.</p>
+<h2>
+<a id="user-content-introduction" class="anchor" href="#introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Introduction</h2>
+<p>The present work introduces OpenBiodiv Ontology, which serves as the basis of
+the OpenBiodiv knowledge system. By providing an ontology focusing on
+taxonomy, our intent is to provide an ontology that fills in the gaps between
+ontologies for biodiversity resources such as Darwin-SW and semantic
+publishing ontologies such as SPAR. Moreover, we take the view that is
+advantageous to model the taxonomic process itself, and not any particular
+state of knowledge.</p>
+<h3>
+<a id="user-content-previous-work" class="anchor" href="#previous-work" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Previous work</h3>
+<p>A lot of research has gone into ontologies, knowledge bases in general and
+into biodiversity knowledge representation in particular. This gives us a vast
+amount of publications, ontologies, vocabularies, and datasets to draw from
+while implementing our model and database. In this section we list these
+sources of inspiration.</p>
+<h4>
+<a id="user-content-what-is-an-ontology" class="anchor" href="#what-is-an-ontology" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>What is an ontology</h4>
+<ol>
+<li>
+<p>Obitko (2007) defines an ontology as a
+<a href="https://www.obitko.com/tutorials/ontologies-semantic-web/specification-of-conceptualization.html">Specification of Conceptualization</a></p>
+</li>
+<li>
+<p>Guarino et al. (2009) define an ontology a
+<a href="http://iaoa.org/isc2012/docs/Guarino2009_What_is_an_Ontology.pdf">Ga shared formal, explicit specification of a conceptualization</a>.
+This article goes into set-theoretic details of what is conceptualization and
+formalisms are in order to properly write down a conceptualization in a
+mathematical form.</p>
+</li>
+</ol>
+<h4>
+<a id="user-content-data-models" class="anchor" href="#data-models" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Data models</h4>
+<ol start="3">
+<li>
+<p>A very important data model that we are drawing from is the
+[Semantic Publishing and Referencing Ontologies][http://<a href="http://www.sparontologies.net/ontologies/">http://www.sparontologies.net/ontologies/</a>]
+by Peroni (2014). We use it to model scientific articles, their structure, and related
+entities. As part of SPAR we use individual ontologies such as
+<a href="http://www.sparontologies.net/ontologies/fabio">FaBiO</a>,
+<a href="http://www.sparontologies.net/ontologies/fabio">DOCO</a> and so on.</p>
+</li>
+<li>
+<p>Another very important data model that we drawing from is the
+<a href="http://www.semantic-web-journal.net/system/files/swj635.pdf">Darwin-SW</a>
+by Baskauf and Web (2014).</p>
+</li>
+<li>
+<p>Furthermore we use the <a href="http://rs.tdwg.org/dwc/terms/guides/rdf/">Darwin Core RDF Guide</a>.</p>
+</li>
+<li>
+<p>As a top-level ontologies we use <a href="http://ontotext.com/proton/">PROTON</a> and
+<a href="https://www.w3.org/2004/02/skos/">SKOS</a>.</p>
+</li>
+<li>
+<p>For modeling scientific names we draw inspiration from <a href="https://github.com/SpeciesFileGroup/nomen">NOMEN</a>
+and the
+<a href="https://github.com/plazi/TreatmentOntologies/blob/master/ontologies/taxonomic_nomenclatural_status_terms.owl_">Taxonomic Nomenclatural Status Terms</a>.</p>
+</li>
+<li>
+<p>A specific part of a taxonomic manuscript called
+<a href="https://github.com/plazi/TreatmentOntologies">"treatment" is modeled by Plazi</a>.</p>
+</li>
+<li>
+<p>An attempt to model taxon concepts has previously been made in the
+<a href="http://lod.taxonconcept.org/ontology/doc/index.html">Taxon Concept Ontology</a>.</p>
+</li>
+</ol>
+<h4>
+<a id="user-content-concepts" class="anchor" href="#concepts" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Concepts</h4>
+<ol start="10">
+<li>
+<p><a href="http://riojournal.com/browse_user_collection_documents.php?collection_id=1&amp;journal_id=17">Open Biodiversity Knowledge Management System</a> is a PhD
+project by Viktor Senderov. Rod Page
+<a href="http://riojournal.com/articles.php?id=8767">has also published an article</a>
+on the same topic.</p>
+</li>
+<li>
+<p>It is an attempt to model
+<a href="https://link.springer.com/article/10.1007/s13752-017-0259-5">Taxonomic and Biodiversity Information for Computers</a>.</p>
+</li>
+<li>
+<p><a href="http://zookeys.pensoft.net/articles.php?id=6234">Names ultimately have a limited use in informatics</a>,
+also <a href="http://bdj.pensoft.net/articles.php?id=8080">challenges</a>.
+Original research in this work models them names and their relationships</p>
+</li>
+<li>
+<p>It models
+<a href="https://link.springer.com/article/10.1007/s13752-017-0259-5">potential taxa</a>
+as taxon concepts. Taxon concepts are also treated in
+<a href="https://academic.oup.com/sysbio/article/65/4/561/1753624/Two-Influential-Primate-Classifications-Logically">Two Influential Primate Classifications Aligned</a> and
+<a href="http://zookeys.pensoft.net/articles.php?id=6001">the phylogentic revision of the genus <em>Minyomerus</em></a>
+by Franz et. al (2015, 2016).</p>
+</li>
+<li>
+<p>Taxon concepts can have both an intensional meaning and a class
+extension. Some examples come from
+<a href="http://www.systass.org/archive/events-archive/2001/platnick.pdf">From Cladograms to Classifications</a>
+by Platnick (2001).</p>
+</li>
+<li>
+<p>The Codes of <a href="http://www.iczn.org/iczn/index.jsp">Zoological</a> and
+<a href="http://www.iapt-taxon.org/nomen/main.php">Botanical</a> Nomenclature ought also
+to be mentioned as a source of albeit too granular in some cases inspiration
+for the data models.</p>
+</li>
+</ol>
+<h4>
+<a id="user-content-semiotics" class="anchor" href="#semiotics" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Semiotics</h4>
+<ol start="14">
+<li>When we model the real world we always run up against the sign theories
+of <a href="https://en.wikipedia.org/wiki/Triangle_of_reference">Frege</a> and of
+<a href="https://plato.stanford.edu/entries/peirce-semiotics/">Pierce</a>.</li>
+</ol>
+<h3>
+<a id="user-content-note-on-identifier-naming" class="anchor" href="#note-on-identifier-naming" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Note on Identifier Naming</h3>
+<p>Our ontology strives be a formal specification of a conceptualization. In our
+mental model we have some concepts of some things. When we talk about these
+concepts in the abstract, we will make use of Capitalization. For example
+let's suppose we want to name the top-level concept, i.e. the concept which
+encompasses all  concepts. For this we write Thing. In another example, let's
+suppose we want to name a part of a manuscript where taxonomic circumscription
+takes place. We say Treatment when we refer to that concept. We also have
+concepts for relations (in our conceptualization only binary relations are
+allowed). To denote these relations in the abstract we use verbal phrases and
+we might or might not use quotes (we will use quotes only if it adds to the
+clarity of exposition). For example, Treatment is a Thing as opposed to
+Treatment "is a" Thing. We also have individual instances of these concepts.
+To refer to those we might use improper or proper nouns or phrases wherever
+appropriate. For example, "the treatment on page 5," or "a treatment," or
+"John."</p>
+<p>When we formally define a concept in OWL and issue an URI to it, we shall
+refer to the URI, as we refer to all URI's in the text with <code>typewriter font</code>.
+URI's of classes and vocabularies will be in <code>MajorCamelCase</code>. URI's of
+relationships will be in <code>minorCamelCase</code>. URI's of individuals <code>will-be- hyphenated</code>. This seems to generally in accordance with WWW practice.</p>
+<p>Also we strive for human-readable identifiers even if some ontology building
+practices argue against it.</p>
+<h2>
+<a id="user-content-ontology" class="anchor" href="#ontology" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Ontology</h2>
+<h3>
+<a id="user-content-setup" class="anchor" href="#setup" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Setup</h3>
+<h5>
+<a id="user-content-prefixes" class="anchor" href="#prefixes" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Prefixes</h5>
+<p><em>Note</em>: As SPAR (and FaBiO in particular) serve as somewhat of a <em>top-level</em>
+ontology for us, we use the <code>skos</code> prefix as they use it.</p>
+<pre lang="{r"><code>@prefix : &lt;http://openbiodiv.net/&gt; .
+@prefix skos: &lt;http://www.w3.org/2004/02/skos/core#&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
+@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .
+@prefix pro: &lt;http://purl.org/spar/pro/&gt; .
+@prefix scoro: &lt;http://purl.org/spar/scoro/&gt; .
+@prefix ti: &lt;http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#&gt; .
+@prefix tvc: &lt;http://www.essepuntato.it/2012/04/tvc/&gt; .
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+@prefix fabio: &lt;http://purl.org/spar/fabio/&gt; .
+@prefix dcelements: &lt;http://purl.org/dc/elements/1.1/&gt; .
+@prefix dcterms: &lt;http://purl.org/dc/terms/&gt; .
+@prefix frbr: &lt;http://purl.org/vocab/frbr/core#&gt; .
+@prefix prism: &lt;http://prismstandard.org/namespaces/basic/2.0/&gt; .
+@prefix doco: &lt;http://purl.org/spar/doco/&gt; .
+@prefix po: &lt;http://www.essepuntato.it/2008/12/pattern#&gt; .
+@prefix co: &lt;http://purl.org/co/&gt; .
+@prefix trt: &lt;http://plazi.org/treatment#&gt; .
+@prefix c4o: &lt;http://purl.org/spar/c4o/&gt; .
+@prefix dwciri: &lt;http://rs.tdwg.org/dwc/iri/&gt; .
+@prefix nomen: &lt;http://www.semanticweb.org/dmitriev/ontologies/2013/8/untitled-ontology-6#&gt; .
+@prefix dwc: &lt;http://rs.tdwg.org/dwc/terms/&gt; .
+@prefix sro: &lt;http://salt.semanticauthoring.org/ontologies/sro#&gt; .
+@prefix deo: &lt;http://purl.org/spar/deo/&gt; .
+@prefix pext: &lt;http://proton.semanticweb.org/protonue#&gt; .
+@prefix ptop: &lt;http://proton.semanticweb.org/protont#&gt; .
+@prefix pkm: &lt;http://proton.semanticweb.org/protonkm#&gt; .
+@prefix vcard: &lt;http://www.w3.org/2006/vcard/ns#&gt; .
+@prefix dbr: &lt;http://dbpedia.org/resource/&gt; .
+@prefix org: &lt;http://www.w3.org/ns/org#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix lucene: &lt;http://www.ontotext.com/connectors/lucene#&gt; .
+@prefix inst: &lt;http://www.ontotext.com/connectors/lucene/instance#&gt; .
+@prefix dbo: &lt;http://dbpedia.org/ontology/&gt; .
+@prefix vs: &lt;http://www.w3.org/2003/06/sw-vocab-status/ns#&gt; .
+@prefix dwcattributesns: &lt;http://rs.tdwg.org/dwc/terms/attributes/&gt; .
+</code></pre>
+<h5>
+<a id="user-content-metadata" class="anchor" href="#metadata" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Metadata</h5>
+<pre lang="{r"><code>:openbiodiv-ontology rdf:type owl:Ontology ;
+  owl:versionInfo "1.0" ;
+  rdfs:comment "You are free to create derivative work as long as you cite the original authors." ;
+  dcelements:title "The Open Biodiversity Knowledge Management System Ontology" ;
+  dcelements:subject "Biodiversity Informatics" ;
+  rdfs:label "OpenBiodiv Ontology" ;
+  dcelements:creator "Viktor Senderov, Kiril Simov" ;
+  dcelements:license "CC-BY license version 4.0" ;
+  owl:imports &lt;http://purl.org/spar/fabio/&gt; .
+</code></pre>
+<h4>
+<a id="user-content-imports-and-contributions" class="anchor" href="#imports-and-contributions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Imports and Contributions</h4>
+<ol>
+<li>
+<p>We incorporate several external ontologies fully into our data model. Some of
+them via a direct web import. Where it is not possible due to an error, we
+import them as text files found under <a href="./imported_ontologies"><code>imported_ontologies</code></a>.
+They may contain small bug-fixes to overcome the error.</p>
+</li>
+<li>
+<p>We also borrow parts from external ontologies (contributed parts). Those are
+attributed in the text.</p>
+</li>
+</ol>
+<h3>
+<a id="user-content-semantic-model-of-the-publishing-domain" class="anchor" href="#semantic-model-of-the-publishing-domain" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Semantic Model of the Publishing Domain</h3>
+<h4>
+<a id="user-content-discussion" class="anchor" href="#discussion" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Discussion</h4>
+<p>The publishing domain is described in our model using the Semantic Publishing
+and Referencing Ontologies, a.k.a. <a href="http://www.sparontologies.net/">SPAR Ontologies</a>.
+We do import several of these ontologies (please consult the paragraph
+<a href="#imports-and-contributions">"Imports and Contributions"</a>).
+Refer to the documentation on the SPAR Ontologies' site for an exhaustive treatment.</p>
+<p>In the rest of this section we describe the modeling of entities in the
+publishing domain that are <em>not found</em> in the SPAR ontologies. The central new
+class in OpenBiodiv not found in SPAR is the <code>:Treatment</code> class, borrowed
+from the <a href="https://github.com/plazi/TreatmentOntologies">Treatment Ontologies</a>.</p>
+<h5>
+<a id="user-content-contributed-properties-contains" class="anchor" href="#contributed-properties-contains" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contributed Properties: <em>contains</em>
+</h5>
+<pre lang="{r"><code>po:contains rdf:type owl:ObjectProperty ;
+          owl:inverseOf po:isContainedBy ;
+          rdfs:domain po:Structured ;
+          rdfs:comment "A structured element contains another generic element."@en ;
+          rdfs:label "contains"@en .
+</code></pre>
+<pre lang="{r"><code>po:isContainedBy rdf:type owl:ObjectProperty ;
+               rdfs:comment "An element that is contained by another structured element."@en ;
+               rdfs:label "is contained by"@en .
+</code></pre>
+<h5>
+<a id="user-content-contributed-classes-structured-element-pattern-based-element" class="anchor" href="#contributed-classes-structured-element-pattern-based-element" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contributed Classes: <em>structured element</em>, <em>pattern-based element</em>
+</h5>
+<pre lang="{r"><code>po:Structured rdf:type owl:Class ;
+            rdfs:subClassOf po:Pattern ;
+            rdfs:comment "The class of elements that can contain other elements."@en ;
+            rdfs:label "structured element"@en .
+</code></pre>
+<pre lang="{r"><code>po:Pattern rdf:type owl:Class ;
+         rdfs:subClassOf owl:Thing ;
+         rdfs:comment "A structural pattern is an atomic component of a document, that is able to capture a recurrent and well known structure of a document. Any entity belonging to this class is compliant with exactly one structural pattern."@en ;
+         rdfs:label "pattern-based element"@en .
+</code></pre>
+<h5>
+<a id="user-content-class-mention" class="anchor" href="#class-mention" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Class: <em>Mention</em>
+</h5>
+<pre lang="{r"><code>:Mention rdf:type owl:Class ;
+  rdfs:seeAlso pext:Mention ;
+  rdfs:subClassOf deo:DiscourseElement ;
+  rdfs:comment "An area of a document that can be considered a mention of something."@en ;
+  rdfs:label "Mention" .
+</code></pre>
+<h5>
+<a id="user-content-contributed-class-statement" class="anchor" href="#contributed-class-statement" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contributed Class: <em>Statement</em>
+</h5>
+<pre lang="{r}"><code>ptop:Statement rdf:type owl:Class ;
+               rdfs:comment "A message that is stated or declared; a communication (oral or written), setting forth particulars or facts, etc; \"according to his statement he was in London on that day\". WordNet 1.7.1"@en ;
+               rdfs:label "Statement"@en .
+</code></pre>
+<h5>
+<a id="user-content-contributed-class-agent" class="anchor" href="#contributed-class-agent" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contributed Class: <em>Agent</em>
+</h5>
+<pre lang="{r"><code>foaf:Agent rdf:type owl:Class ;
+           rdfs:comment "An agent (eg. person, group, software or physical artifact)." ;
+           rdfs:label "Agent" ;
+           vs:term_status "stable" .
+</code></pre>
+<h5>
+<a id="user-content-property-mentions" class="anchor" href="#property-mentions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Property: <em>mentions</em>
+</h5>
+<pre lang="{r"><code>:mentions
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "A direct link between an information resource, like a document or a section and an entity." ;
+      rdfs:domain :Mention ;
+      rdfs:label "mentions" .
+</code></pre>
+<h5>
+<a id="user-content-property-contains" class="anchor" href="#property-contains" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Property: <em>contains</em>
+</h5>
+<p><code>contains</code> is a sub-property of <code>po:contains</code> that is transitive property.</p>
+<pre lang="{r"><code>:contains rdf:type owl:ObjectProperty, owl:TransitiveProperty ;
+  rdfs:label "OpenBiodiv contains" ;
+  rdfs:subPropertyOf po:contains. 
+
+:isContainedBy rdf:type owl:ObjectProperty, owl:TransitiveProperty ;
+  rdfs:label "OpenBiodiv is contained by" ;
+  rdfs:subPropertyOf po:isContainedBy. 
+
+</code></pre>
+<p>We have mentioned before that when we extract bibliographic elements from the XML,
+we make use of the <code>po:contains</code> SPAR property. For example, an article can
+<code>po:contain</code> a secion and this section can <code>po:contain</code> another (sub-)section.
+In our view, this means that also the article contains the (sub-)section. Therefore
+we define <code>po:contains</code> as a transitive property.</p>
+<h5>
+<a id="user-content-class-publisher" class="anchor" href="#class-publisher" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Class: <em>Publisher</em>
+</h5>
+<p>The publisher of a journal, a type of <code>foaf:Agent</code>.</p>
+<pre lang="{r"><code>:Publisher rdf:type owl:Class ;
+  rdfs:label "Publisher"@en ;
+  rdfs:comment "The publisher of a journal, a type of `foaf:Agent`."@en ;
+  rdfs:subClassOf foaf:Agent .
+</code></pre>
+<h5>
+<a id="user-content-class-taxonomic-article" class="anchor" href="#class-taxonomic-article" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Class: <em>Taxonomic Article</em>
+</h5>
+<p><code>:TaxonomicArticle</code> is a specialized journal article for publishing taxonomic findings.</p>
+<pre lang="{r"><code>:TaxonomicArticle rdf:type owl:Class ;
+  rdfs:subClassOf fabio:JournalArticle ;
+  rdfs:label "Taxonomic Article"@en .
+</code></pre>
+<h5>
+<a id="user-content-class-taxonomic-treatment" class="anchor" href="#class-taxonomic-treatment" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Class: <em>Taxonomic Treatment</em>
+</h5>
+<p>See <a href="http://plazi.org/">Plazi</a> for a theoretical discussion of Treatment.</p>
+<p>A treatment is a rhetorical element of a taxonomic article. Thus, Treatment is defined akin
+to Introduction, Methods, etc. from
+<a href="http://www.sparontologies.net/ontologies/deo/source.html">DEO, The Discourse Elements Ontology</a>.</p>
+<pre lang="{r"><code>:Treatment a owl:Class ;
+  rdfs:subClassOf deo:DiscourseElement ,
+                  [ rdf:type owl:Restriction ;
+                    owl:onProperty :isContainedBy ;
+                    owl:someValuesFrom :TaxonomicArticle ] ;
+  rdfs:label "Taxonomic Treatment"@en ;
+  rdfs:comment "A rhetorical element of a taxonomic publication, where taxon
+    			circumscription takes place."@en ;
+  rdfs:comment "Таксономично пояснение или само Пояснение е риторчна част
+                от таксономичната статия, където се случва описанието
+                на дадена таксономична концепция."@bg .
+</code></pre>
+<h5>
+<a id="user-content-class-nomenclature" class="anchor" href="#class-nomenclature" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Class: <em>Nomenclature</em>
+</h5>
+<p>A taxonomic nomenclature section, or simply a nomenclature, is a rhetorical
+element of a taxonomic publication where nomenclatural acts are published and
+nomenclatural statements are made. Nomenclature is a subsection of Treatment.</p>
+<pre lang="{r"><code>:NomenclatureSection a owl:Class ;
+  rdfs:subClassOf deo:DiscourseElement,
+                  [ rdf:type owl:Restriction ;
+                    owl:onProperty :isContainedBy ;
+                    owl:someValuesFrom :Treatment ] ;
+  rdfs:label "Nomenclature Section"@en ;
+  rdfs:comment "A section of a taxonomic treatment, containing the scientific
+    name of the taxon described by the treatment, and citations to previous
+    descriptions, designations of type-genus, and type-species,
+    and other information."@en .
+</code></pre>
+<h5>
+<a id="user-content-class-nomenclature-heading" class="anchor" href="#class-nomenclature-heading" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Class: <em>Nomenclature Heading</em>
+</h5>
+<p>Inside the taxonomic nomenclature section, we have the treatment title.</p>
+<pre lang="{r"><code>:NomenclatureHeading a owl:Class ;
+  rdfs:subClassOf deo:DiscourseElement ,
+                  [ rdf:type owl:Restriction ;
+                    owl:onProperty :isContainedBy ;
+                    owl:someValuesFrom :NomenclatureSection ] ;
+                  rdfs:label "Nomenclature Heading"@en ;
+  rdfs:comment "Inside the taxonomic nomenclature section, we have the treatment
+    title (name of the taxon)."@en .
+</code></pre>
+<h5>
+<a id="user-content-class-nomenclature-citations-list" class="anchor" href="#class-nomenclature-citations-list" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Class: <em>Nomenclature Citations List</em>
+</h5>
+<p>Inside the taxonomic nomenclature section, we have a list of citations.</p>
+<pre lang="{r"><code>:NomenclatureCitationsList a owl:Class ;
+  rdfs:subClassOf deo:DiscourseElement ,
+                  [ rdf:type owl:Restriction ;
+                    owl:onProperty :isContainedBy ;
+                    owl:someValuesFrom :NomenclatureSection ] ;
+                  rdfs:label "Nomenclature Citations List"@en ;
+  rdfs:comment "A section in a treatment that includes the citation of one or
+    several previous treatments of the taxon."@en .                  
+</code></pre>
+<h5>
+<a id="user-content-class-definition-biology-section" class="anchor" href="#class-definition-biology-section" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Class Definition: <em>Biology Section</em>
+</h5>
+<p>Subsection of treatment.</p>
+<pre lang="{r"><code>:BiologySection a owl:Class ;
+  rdfs:subClassOf deo:DiscourseElement, 
+                  [ rdf:type owl:Restriction ;
+                    owl:onProperty :isContainedBy ;
+                    owl:someValuesFrom :Treatment ] ;
+  rdfs:label "Biology Section"@en .
+</code></pre>
+<h5>
+<a id="user-content-class-definition-description-section" class="anchor" href="#class-definition-description-section" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Class Definition: <em>Description Section</em>
+</h5>
+<p>Subsection of treatment.</p>
+<pre lang="{r"><code>:DescriptionSection a owl:Class ;
+  rdfs:subClassOf deo:DiscourseElement,
+                  [ rdf:type owl:Restriction ;
+                    owl:onProperty :isContainedBy ;
+                    owl:someValuesFrom :Treatment ] ;
+  rdfs:label "Description Section"@en .
+</code></pre>
+<h5>
+<a id="user-content-class-definition-diagnosis" class="anchor" href="#class-definition-diagnosis" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Class Definition: <em>Diagnosis</em>
+</h5>
+<p>Subsection of treatment.</p>
+<pre lang="{r"><code>
+:DiagnosisSection a owl:Class ;
+  rdfs:subClassOf deo:DiscourseElement, 
+                  [ rdf:type owl:Restriction ;
+                    owl:onProperty :isContainedBy ;
+                    owl:someValuesFrom :Treatment ] ;
+  rdfs:label "Diagnosis Section"@en .
+</code></pre>
+<h5>
+<a id="user-content-class-distribution-section" class="anchor" href="#class-distribution-section" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Class: <em>Distribution Section</em>
+</h5>
+<p>Subsection of treatment.</p>
+<pre lang="{r"><code>:DistributionSection a owl:Class ;
+  rdfs:subClassOf deo:DiscourseElement, 
+                  [ rdf:type owl:Restriction;
+                    owl:onProperty :isContainedBy;
+                    owl:someValuesFrom :Treatment ];
+  rdfs:label "Distribution Section"@en.
+</code></pre>
+<h5>
+<a id="user-content-class-etymology-section" class="anchor" href="#class-etymology-section" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Class: <em>Etymology Section</em>
+</h5>
+<p>Subsection of treatment.</p>
+<pre lang="{r"><code>:EtymologySection a owl:Class ;
+  rdfs:subClassOf deo:DiscourseElement,
+                  [ rdf:type owl:Restriction ;
+                    owl:onProperty :isContainedBy ;
+                    owl:someValuesFrom :Treatment ] ;
+  rdfs:label "Etymology Section"@en .
+</code></pre>
+<h5>
+<a id="user-content-class-taxonomic-key" class="anchor" href="#class-taxonomic-key" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Class: <em>Taxonomic Key</em>
+</h5>
+<p>Subsection of treatment.</p>
+<pre lang="{r"><code>:TaxonomicKey a owl:Class;
+  rdfs:subClassOf deo:DiscourseElement, 
+                  [ rdf:type owl:Restriction;
+                    owl:onProperty :isContainedBy;
+                    owl:someValuesFrom :TaxonomicArticle ];
+  rdfs:label "Taxonomic Key"@en.
+</code></pre>
+<h5>
+<a id="user-content-class-materials-examined" class="anchor" href="#class-materials-examined" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Class: <em>Materials Examined</em>
+</h5>
+<p>Subsection of treatment.</p>
+<pre lang="{r"><code>:MaterialsExamined a owl:Class ;
+  rdfs:subClassOf deo:DiscourseElement ,
+                  [ rdf:type owl:Restriction ;
+                    owl:onProperty :isContainedBy ;
+                    owl:someValuesFrom :Treatment ] ;
+  rdfs:label "Materials Examined"@en .
+</code></pre>
+<h5>
+<a id="user-content-class-taxonomic-checklist" class="anchor" href="#class-taxonomic-checklist" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Class: <em>Taxonomic Checklist</em>
+</h5>
+<p>A section in a taxonomic article.</p>
+<pre lang="{r"><code>:TaxonomicChecklist a owl:Class ;
+  rdfs:subClassOf deo:DiscourseElement ,
+                  [ rdf:type owl:Restriction ;
+                    owl:onProperty :isContainedBy ;
+                    owl:someValuesFrom :TaxonomicArticle ] ;
+  rdfs:label "Taxonomic Checklist"@en ;
+  rdfs:comment "A section in a taxonomic article."@en.
+</code></pre>
+<h5>
+<a id="user-content-class-taxonomic-name-usage" class="anchor" href="#class-taxonomic-name-usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Class: <em>Taxonomic Name Usage</em>
+</h5>
+<p>In the text of taxonomic articles we find strings like "<em>Heser stoevi</em>
+Deltschev, sp. n.". In our conceptualization these are called <em>taxonomic name
+usages</em> (TNU's) as they refer to  published scientific names from the domain
+of biological systematics. The taxonomic name usage consists of three parts:</p>
+<ol>
+<li>
+<p>Taxonomic name: one or more words identifying the taxon (a purported
+evolutionary entity in nature). These can be Latinized or take the form of an
+identifier.</p>
+</li>
+<li>
+<p>Taxonomic name author. The name-and-year of the author(s) of the taxonomic name.</p>
+</li>
+<li>
+<p>Taxonomic name status containing information about the type of the taxonomic
+name usage.</p>
+</li>
+</ol>
+<p>In the example, "<em>Heser stoevi</em>" is the binomial Latinized species name,
+"Deltschev" is the name of the person who newly coined the name describing the
+taxon , and "sp. n." bears taxonomic (and nomenclatural) information
+indicating that this is a species new to science.</p>
+<p>Modeling-wise, we consider TNU's to be specialized instances of <code>pext:Mention</code>
+from the <a href="http://ontotext.com/proton/">PROTON Extensions module</a>. Furthermore,
+we link the TNU's to the scientific name they are symbolizing via
+<code>pkm:mentions</code>.</p>
+<p>A taxonomic name usage is the mentioning of a taxon name or a taxon concept label
+(see later) in a text, together with possibly an taxonomic status.</p>
+<pre lang="{r"><code>:TaxonomicNameUsage rdf:type owl:Class ;
+  rdfs:subClassOf :Mention ;
+  rdfs:comment "A taxonomic name usage is the mentioning of a taxonomic name
+    (scientific name, taxonomic concept label, etc.), optionally with 
+    a taxonomic status."@en ;
+  rdfs:label "Taxonomic Name Usage"@en .
+</code></pre>
+<h5>
+<a id="user-content-contributed-property-taxonomic-status" class="anchor" href="#contributed-property-taxonomic-status" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contributed Property: <em>taxonomic status</em>
+</h5>
+<pre lang="{r"><code>dwciri:taxonomicStatus rdf:type owl:ObjectProperty ; 
+  rdfs:label "taxonomic status"@en ;
+  rdfs:comment "the IRI version of the DwC term taxonomic status"@en .
+</code></pre>
+<p>In the logic of our algorithms, it is very important that TNU's are
+dated with <code>dcelements:date</code>.</p>
+<h3>
+<a id="user-content-semantic-model-of-biological-nomenclature" class="anchor" href="#semantic-model-of-biological-nomenclature" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Semantic Model of Biological Nomenclature</h3>
+<p>In OpenBiodiv, we reify biological names.</p>
+<p>In our conceptualization, taxa in nature are things (referents) that are
+refered to by our thoughts, theories and concepts (references) that are
+labeled or symbolized by by  biological names
+(<a href="https://de.wikipedia.org/wiki/Semiotisches_Dreieck">semiotic triangle</a>).</p>
+<p>Biological names play a dual role, however, in our system as they are also
+concepts, i.e. references of taxonomic name usages. A biological name may
+symbolize more than one taxon concept. It is useful to think of biological
+names then as taxon concept lineages. More about taxon concepts later.</p>
+<p>Biological names have been modeled elsewhere such as for example in
+<a href="https://github.com/SpeciesFileGroup/nomen">NOMEN</a>. However, NOMEN takes the
+approach of using non-human-readable identifiers and only relying on labels to
+identify classes of taxonomic names, which does not fit our workflow. For
+example, the identifier for the class "biological name" is <code>NOMEN_0000030</code>. In
+our workflow both RDF generation and debugging would be severely hampered by
+this convention. Therefore, OpenBiodiv names use human-readable identifiers.</p>
+<h5>
+<a id="user-content-class--taxonomic-name" class="anchor" href="#class--taxonomic-name" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Class : <em>Taxonomic Name</em>
+</h5>
+<pre lang="{r"><code>:TaxonomicName rdf:type owl:Class ;
+	skos:prefLabel "Taxonomic Name"@en ;
+  skos:altLabel "Biological Name"@en ;
+  owl:equivalentClass nomen:NOMEN_0000030 .
+</code></pre>
+<h5>
+<a id="user-content-class-scientific-name" class="anchor" href="#class-scientific-name" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Class: <em>Scientific Name</em>
+</h5>
+<pre lang="{r"><code>:ScientificName rdf:type owl:Class ;
+    rdfs:subClassOf :TaxonomicName ;
+    rdfs:label "Scientific Name"@en ;
+    owl:equivalentClass  nomen:NOMEN_0000036 .
+</code></pre>
+<h5>
+<a id="user-content-class-latinized-scientific-name" class="anchor" href="#class-latinized-scientific-name" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Class: <em>Latinized Scientific Name</em>
+</h5>
+<pre lang="{r"><code>:LatinName rdf:type owl:Class ;
+    rdfs:subClassOf :ScientificName ;
+    skos:prefLabel "Latinized Scientific Name"@en ;
+    skos:altLabel "Linnaean Name"@en .
+</code></pre>
+<h5>
+<a id="user-content-class-taxonomic-concept-label" class="anchor" href="#class-taxonomic-concept-label" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Class: <em>Taxonomic Concept Label</em>
+</h5>
+<p>We further introduce the class of taxonomic concept labels, unknown to NOMEN
+that is a biological name plus a reference to its description, i.e. it is the
+label of taxonomic concept. A taxonomic concept label is a taxonomic name
+usage accompanied by an additional part, consisting of "sec." + an identifier
+or a literature reference of a work containing the expression of a taxonomic
+concept (for example a treatment).*</p>
+<pre lang="{r"><code>:TaxonomicConceptLabel rdf:type owl:Class ;
+  rdfs:subClassOf :LatinName ;
+  rdfs:label "Taxon Concept Label"@en ;
+  rdfs:comment "A taxon concept label is a taxonomic name
+    usage accompanied by an additional part, consisting of 'sec.' + an identifier
+    or a literature reference of a work containing the expression of a taxon concept
+    (treatment)."@en .
+</code></pre>
+<h4>
+<a id="user-content-class-operational-taxonomic-unit-identifier" class="anchor" href="#class-operational-taxonomic-unit-identifier" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Class: <em>Operational Taxonomic Unit Identifier</em>
+</h4>
+<pre lang="{r"><code>:OTU_Id rdf:type owl:Class ;
+  rdfs:subClassOf :ScientificName ;
+  rdfs:label "Operational Taxonomic Unit Identifier"@en ;
+  rdfs:comment "The identifier of an Operational Taxonomic Unit, such as
+    BOLD BIN or a Unite SH ID"@en .
+</code></pre>
+<h4>
+<a id="user-content-class-vernacular-name" class="anchor" href="#class-vernacular-name" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Class: <em>Vernacular Name</em>
+</h4>
+<pre lang="{r"><code>:VernacularName a owl:Class ;
+  rdfs:subClassOf :TaxonomicName ;
+  rdfs:label "Vernacular Name"@en ;
+  owl:equivalentClass nomen:NOMEN_0000037 .
+</code></pre>
+<h4>
+<a id="user-content-properties" class="anchor" href="#properties" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Properties</h4>
+<p>We do not model scientific names down to the level of the Codes as NOMEN does.
+For example we do not make a distinction between a zoological and a botanical
+name. Nothing prevents us, however, from creating derived classes later on.
+This means that our model is somewhat less granular but compatible with NOMEN.</p>
+<p>For properties of biological names we take a different path from NOMEN. We
+also use different sets of properties to define relationships between
+biological names and for their data properties.</p>
+<p>For data properties we use DwC terms.</p>
+<p>To connect different biological objects such as taxon concepts or occurrences
+to a scientific name we use <code>:scientificName</code>, which is derived from
+<code>dwciri:scientificName</code>. Even though <code>dwciri:scientificName</code> is defined  in
+spirit in
+<a href="http://rs.tdwg.org/dwc/terms/guides/rdf/index.htm#2.5_Terms_in_the_dwciri:_namespace">http://rs.tdwg.org/dwc/terms/guides/rdf/index.htm#2.5_Terms_in_the_dwciri:_namespace</a>,</p>
+<p>To the best of our knowledge, no formal definition of <code>dwciri:scientificName</code> exists in RDF.
+Therefore, it has been introduced it here together with a super-property to refer to a more broader
+class of names.</p>
+<h5>
+<a id="user-content-contributed-property-name-according-to" class="anchor" href="#contributed-property-name-according-to" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contributed Property: <em>name according to</em>
+</h5>
+<p>Contributed property from DwC-IRI.</p>
+<pre lang="{r"><code>dwciri:nameAccordingTo rdf:type owl:ObjectProperty ;
+  rdfs:label "name according to"@en ;
+  rdfs:comment "the IRI version of dwc:nameAccordingTo"@en .
+</code></pre>
+<h5>
+<a id="user-content-property-openbiodiv-name-according-to" class="anchor" href="#property-openbiodiv-name-according-to" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Property: <em>OpenBiodiv name according to</em>
+</h5>
+<pre lang="{r"><code>:nameAccordingTo rdf:type owl:ObjectProperty ;
+  rdfs:subPropertyOf dwciri:nameAccordingTo ;
+  skos:prefLabel "OpenBiodiv name according to"@en ; 
+  skos:altLabel "sensu"@en ;
+  rdfs:range frbr:Expression ;
+  rdfs:domain :TaxonomicConceptLabel ;
+  rdfs:comment "The reference to the source in which the specific taxonomic 
+    concept circumscription is defined or implied - traditionally signified by
+    the Latin 'sensu' or 'sec.'' (from secundum, meaning 'according to').
+    For taxa that are relevantly circumscribed by identifications, a reference
+    to the keys, monographs, experts and other sources should be given. Should
+    only be used with IRI's"@en .
+</code></pre>
+<p>For relationships between names we introduce two types of relationships:
+unidirectional and bidirectional.</p>
+<h5>
+<a id="user-content-property-definition-has-related-name" class="anchor" href="#property-definition-has-related-name" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Property Definition: <em>has related name'</em>
+</h5>
+<p>is an object property that we use in order to indicate that two biological
+names are related somehow. This relationship is purposefully vague as to
+encompass all situations where two biological names co-occur in a text. It is
+transitive and reflexive.*</p>
+<pre lang="{r"><code>:relatedName rdf:type owl:ObjectProperty, owl:TransitiveProperty, owl:ReflexiveProperty ;
+  rdfs:label "has related name"@en ;
+  rdfs:domain :TaxonomicName ;
+  rdfs:range :TaxonomicName ;
+  rdfs:comment "'has related name' is an object property that we
+    use in order to indicate that two taxonomic names are related somehow. This
+    relationship is purposely vague as to encompass all situations where two
+    taxonomic names co-occur in a text. It is transitive and reflexive."@en.
+</code></pre>
+<h5>
+<a id="user-content-property-definition-has-replacement-name" class="anchor" href="#property-definition-has-replacement-name" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Property Definition: <em>has replacement name</em>
+</h5>
+<p>This is a uni-directional property. Its meaning is that one one biological
+name links to a different biological name via the usage of this property, then
+the object of the triple is the form of the biological name the use of which
+is more accurate and should be preferred given the information that system
+currently holds. This property is only defined for scientific names.*</p>
+<pre lang="{r"><code>:replacementName rdf:type owl:ObjectProperty ,
+                          owl:TransitiveProperty ;
+  rdfs:label "has replacement name"@en ;
+  rdfs:domain :LatinName ;
+  rdfs:range :LatinName ;
+  rdfs:comment "This is a uni-directional property. Its meaning
+    is that one Linnaean name links to a different Linnaean name via the
+    usage of this property, then the object name is more accurate and should be
+    preferred given the information that system currently holds. This property is only
+    defined for Linnaean names."@en.
+</code></pre>
+<h3>
+<a id="user-content-taxonomic-concepts" class="anchor" href="#taxonomic-concepts" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Taxonomic Concepts</h3>
+<h4>
+<a id="user-content-class-definition-taxonomic-concept" class="anchor" href="#class-definition-taxonomic-concept" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Class Definition: <em>Taxonomic Concept</em>
+</h4>
+<p>Our view of taxon concepts is based on <a href="http://www.jstor.org/stable/1222443">Berendsohn
+(1995)</a> and <a href="http://dx.doi.org/10.1201/9781420008562.ch5">Franz et al
+(2008)</a>.</p>
+<p>We consider any given taxon concept to be a scientific theory (concept) about
+a class of biological organisms (taxon). The class description, as in "as in
+all spiders have spinnerets (silk-producing glands)" (Nico Franz, personal
+correspondence), is called <em>intensional meaning,</em> whereas the group of
+organisms in nature conforming with the intensional meaning is called the
+class <em>extension.</em></p>
+<p>We want to model both the intensional meaning (which traits do organisms
+belonging to a taxon have) and the extension of taxon concepts (which
+organisms belong to a taxon) and the extensions being organisms that are
+considered to be members of the class.</p>
+<p>This necessitates the view that taxon concepts are both instances of a taxon
+concept class and are classes of ogranisms. Later, we will show that this
+means that we model Taxon Concepts with OWL Full.</p>
+<p>OpenBiodiv taxon concepts are instances of <code>dwc:Taxon</code> and vice versa (<em>"A
+group of organisms [sic] considered by taxonomists to form a homogeneous
+unit."</em>).</p>
+<p>Also, taxon concepts are instances of <code>frbr:Work</code> as well, but not vice versa
+(<em>"A distinct intellectual or artistic creation. A work is an abstract entity;
+there is no single material object one can point to as the work. We recognize
+the work through individual realizations or expressions of the work, but the
+work itself exists only in the commonality of content between and among the
+various expressions of the work. When we speak of Homer's Iliad as a work, our
+point of reference is not a particular recitation or text of the work, but the
+intellectual creation that lies behind all the various expressions of the
+work."</em>).</p>
+<p>Furthermore, taxon concepts can also be modeled as <code>skos:Concept</code>, but not
+vice versa (<em>"A SKOS concept can be viewed as an idea or notion; a unit of
+thought. However, what constitutes a unit of thought is subjective, and this
+definition is meant to be suggestive, rather than restrictive."</em>).</p>
+<p>All three classes represent a distinctive view that we want to adopt in
+modeling different features of taxon concepts.</p>
+<p>Holding the views of Berendsohn and of Franz, we require that each taxon
+concept is linked to both a biological name and to a work (i.e. publication,
+database, etc.), where the circumscription is properly defined.</p>
+<h5>
+<a id="user-content-contributed-class-taxon" class="anchor" href="#contributed-class-taxon" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contributed Class: <em>Taxon</em>
+</h5>
+<pre lang="{r"><code>&lt;http://rs.tdwg.org/dwc/terms/Taxon&gt; rdf:type owl:Class ;
+                                     dcelements:description "Example: The genus Truncorotaloides as published by Brönnimann et al. in 1953 in the Journal of Paleontology Vol. 27(6) p. 817-820."@en ;
+                                     dcelements:hasVersion &lt;http://rs.tdwg.org/dwc/terms/history/#Taxon-2014-10-23&gt; ;
+                                     dcelements:issued "2008-11-19" ;
+                                     dcelements:modified "2014-10-23" ;
+                                     dcelements:replaces &lt;http://rs.tdwg.org/dwc/terms/Taxon-2009-09-21&gt; ;
+                                     dwcattributesns:abcdEquivalence "no simple equivalent in ABCD" ;
+                                     dwcattributesns:decision &lt;http://rs.tdwg.org/dwc/terms/history/decisions/#Decision-2014-10-26_15&gt; ;
+                                     dwcattributesns:status "recommended" ;
+                                     rdfs:comment "A group of organisms (sensu http://purl.obolibrary.org/obo/OBI_0100026) considered by taxonomists to form a homogeneous unit."@en ;
+                                     rdfs:isDefinedBy &lt;http://rs.tdwg.org/dwc/terms/&gt; ;
+                                     rdfs:label "Taxon"@en .
+</code></pre>
+<h5>
+<a id="user-content-class-operational-taxonomic-unit" class="anchor" href="#class-operational-taxonomic-unit" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Class: <em>Operational Taxonomic Unit</em>
+</h5>
+<pre lang="{r"><code>:OperationalTaxonomicUnit rdf:type owl:Class ;
+  rdfs:subClassOf skos:Concept, fabio:Work ;
+  rdfs:label "Operational Taxonomic Unit"@en ;
+  rdfs:comment "A superclass for all kinds of taxonomic hypothesis"@en .
+</code></pre>
+<h5>
+<a id="user-content-class-taxonomic-concept" class="anchor" href="#class-taxonomic-concept" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Class: <em>Taxonomic Concept</em>
+</h5>
+<pre lang="{r"><code>:TaxonomicConcept rdf:type owl:Class ;
+  owl:equivalentClass dwc:Taxon ;
+  rdfs:subClassOf :OperationalTaxonomicUnit ,
+                  [ rdf:type owl:Restriction ;
+                    owl:onProperty :taxonomicConceptLabel ;
+                    owl:minCardinality "1" ] ;
+  rdfs:comment "A taxonomic concept in the sense of Berendsohn"@en .
+</code></pre>
+<h5>
+<a id="user-content-property-has-scientific-name" class="anchor" href="#property-has-scientific-name" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Property: <em>has scientific name</em>
+</h5>
+<p>Contributed property from DwC-IRI.</p>
+<pre lang="{r"><code>dwciri:scientificName rdf:type owl:ObjectProperty ;
+  rdfs:label "has scientific name"@en;
+  rdfs:comment "the IRI version of dwc:scientificName"@en .
+</code></pre>
+<h5>
+<a id="user-content-property-has-openbiodiv-taxonomic-name" class="anchor" href="#property-has-openbiodiv-taxonomic-name" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Property: <em>has OpenBiodiv taxonomic name</em>
+</h5>
+<pre lang="{r"><code>:taxonomicName rdf:type owl:ObjectProperty ;
+  rdfs:label "has OpenBiodiv taxonomic name"@en ;
+  rdfs:domain :TaxonomicConcept ;
+  rdfs:range :TaxonomicName .
+</code></pre>
+<h5>
+<a id="user-content-property-has-opeonbiodiv-scientific-name" class="anchor" href="#property-has-opeonbiodiv-scientific-name" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Property: <em>has OpeonBiodiv scientific name</em>
+</h5>
+<pre lang="{r"><code>:scientificName rdf:type owl:ObjectProperty ;
+  rdfs:subPropertyOf :taxonomicName, dwciri:scientificName ;
+  rdfs:label "has OpeonBiodiv scientific name"@en ; 
+  rdfs:domain :TaxonomicConcept ;
+  rdfs:range :ScientificName .
+</code></pre>
+<h4>
+<a id="user-content-property-definition-has-vernacular-name" class="anchor" href="#property-definition-has-vernacular-name" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Property Definition: <em>has vernacular name</em>
+</h4>
+<pre lang="{t"><code>:vernacularName rdf:type owl:ObjectProperty ;
+  rdfs:subPropertyOf :taxonomicName ;
+  rdfs:label "has OpenBiodiv vernacular name" @en ;
+  rdfs:domain :TaxonomicConcept ;
+  rdfs:range :VernacularName .
+</code></pre>
+<h5>
+<a id="user-content-property-definition-has-taxonomic-concept-label" class="anchor" href="#property-definition-has-taxonomic-concept-label" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Property Definition: <em>has taxonomic concept label</em>
+</h5>
+<pre lang="{r"><code>:taxonomicConceptLabel rdf:type owl:ObjectProperty ;
+  rdfs:subPropertyOf :scientificName ;
+  rdfs:label "has taxon concept label"@en ;
+  rdfs:domain :TaxonomicConcept ;
+  rdfs:range :TaxonomicConceptLabel .
+</code></pre>
+<h5>
+<a id="user-content-property-has-operational-taxonomic-unit-identifier" class="anchor" href="#property-has-operational-taxonomic-unit-identifier" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Property: <em>has operational taxonomic unit identifier</em>
+</h5>
+<pre lang="{r"><code>:has_OTU_Id rdf:type owl:ObjectProperty ;
+  rdfs:subPropertyOf :scientificName ;
+  rdfs:label "has OTU Id"@en ;
+  rdfs:domain :TaxonomicConcept ;
+  rdfs:range :OTU_Id .
+</code></pre>
+<h4>
+<a id="user-content-relationships-between-concepts" class="anchor" href="#relationships-between-concepts" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Relationships between concepts</h4>
+<h5>
+<a id="user-content-class-rcc5-relation-dictionary" class="anchor" href="#class-rcc5-relation-dictionary" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Class: <em>RCC5 Relation Dictionary</em>
+</h5>
+<p>A class for all kinds of RCC5 term vocabularies.</p>
+<pre lang="{r"><code>:RCC5Dictionary rdf:type owl:Class ;
+  rdfs:subClassOf skos:ConceptScheme ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty fabio:isSchemeOf ;
+                                  owl:allValuesFrom :RCC5Relation] ;
+  rdfs:label "Dictionary of RCC5 Relations"@en .
+</code></pre>
+<h5>
+<a id="user-content-class-rcc5-relation" class="anchor" href="#class-rcc5-relation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Class: <em>RCC5 Relation</em>
+</h5>
+<pre lang="{r"><code>:RCC5Relation rdf:type owl:Class ;
+  rdfs:subClassOf skos:Concept ;
+  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                    owl:onProperty &lt;http://www.w3.org/2004/02/skos/core#inScheme&gt; ;
+                    owl:someValuesFrom :RCC5Dictionary ] ;
+  rdfs:label "RCC5 Relation"@en ;
+  rdfs:comment "The of RCC 5 relation, e.g. 'partially overlaps'"@en .
+</code></pre>
+<h5>
+<a id="user-content-class-rcc5-statement" class="anchor" href="#class-rcc5-statement" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Class: <em>RCC5 Statement</em>
+</h5>
+<pre lang="{r"><code>:RCC5Statement rdf:type owl:Class ;
+  rdfs:subClassOf ptop:Statement ;
+  rdfs:label "RCC5 Statement" ;
+  rdfs:comment "A statement of RCC-5 relationship" .
+</code></pre>
+<h5>
+<a id="user-content-property-generic-rcc5-property" class="anchor" href="#property-generic-rcc5-property" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Property: <em>generic RCC5 Property</em>
+</h5>
+<pre lang="{r"><code>:rcc5Property rdf:Type owl:ObjectProperty ;
+  rdfs:domain :RCC5Statement .
+</code></pre>
+<h5>
+<a id="user-content-property-rcc5-from-region" class="anchor" href="#property-rcc5-from-region" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Property: <em>RCC5 from region</em>
+</h5>
+<pre lang="{r"><code>:rcc5fromRegion rdf:type owl:ObjectProperty ;
+  rdfs:subPropertyOf :rcc5Property ;
+  rdfs:label "from region" ;
+  rdfs:comment "Connects to the RCC5 statement to the originating region"@en .
+</code></pre>
+<h5>
+<a id="user-content-property-rcc5-to-region" class="anchor" href="#property-rcc5-to-region" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Property: <em>RCC5 to region</em>
+</h5>
+<pre lang="{r"><code>:rcc5toRegion rdf:type owl:ObjectProperty ;
+  rdfs:label "to region" ;
+  rdfs:subPropertyOf :rcc5Property ;
+  rdfs:comment "Connects to the RCC5 statement to the target region"@en .
+</code></pre>
+<h5>
+<a id="user-content-property-rcc5-relation-type" class="anchor" href="#property-rcc5-relation-type" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Property: <em>RCC5 relation type</em>
+</h5>
+<pre lang="{r"><code>:rcc5RelationType rdf:type owl:ObjectProperty ;
+  rdfs:label "relation type" ;
+  rdfs:subPropertyOf :rcc5Property ;
+  rdfs:range :RCC5Relation ;
+  rdfs:comment "Connects an RCC-5 statement to the type of RCC-5 relation between the regions."@en .
+</code></pre>
+<h5>
+<a id="user-content-property-rcc5-statement-according-to" class="anchor" href="#property-rcc5-statement-according-to" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Property: <em>RCC5 statement according to</em>
+</h5>
+<pre lang="{r"><code>:rcc5AccrodingTo rdf:type owl:ObjectProperty ;
+  rdfs:subPropertyOf :rcc5Property ;
+  rdfs:label "RCC5 statement according to" ;
+  rdfs:range frbr:Expression ;
+  rdfs:comment "In which publication was the statement made"@en .
+</code></pre>
+<p>In order to model complex RCC-5 statements such as those made in
+<a href="https://doi.org/10.3897/zookeys.528.6001">Jansen &amp; Franz 2015</a> we use
+the above defitions and the RCC5 Vocabulary described in the Appendix.</p>
+<h2>
+<a id="user-content-vocabularies" class="anchor" href="#vocabularies" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Vocabularies</h2>
+<h3>
+<a id="user-content-vocabulary-of-taxonomic-statuses" class="anchor" href="#vocabulary-of-taxonomic-statuses" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Vocabulary of Taxonomic Statuses</h3>
+<p><a href="#taxonomic-name-usage">Taxonomic name usages</a> (TNU's) in taxonomic articles
+may be accompanied by strings such as "new. comb.", "new syn.", "new record
+for Cuba", and many others. These postfixes to a taxonomic name usage are
+called in our model taxonomic statuses and have taxonomic as well
+nomenclatural meaning. For example, if we are describing a species new to
+science, we may write "n. sp." after the species name, e.g. "<em>Heser stoevi</em>
+Deltchev sp. n." This particular example is also a nomenclatural act in the
+sense of the Codes of zoological or botanical nomenclature.</p>
+<p>Not all statuses are necessarily nomenclatural in nature. Sometimes the status
+is more of a note to the reader and conveys taxonomic rather than
+nomenclatural information. E.g. when a previously known species is recorded in
+a new location.</p>
+<p>Here we take the road of modeling statuses from the bottom-up, i.e. based on
+their actual use in three of the most successful journals in biological
+systematics - ZooKeys, Biodiversity Data Journal, and PhytoKeys. We have
+analyzed about 4,000 articles from these journals and have come up with a
+vocabulary of statuses described below. The terms in this vocabulary refer to
+broad concepts and encompass both specific cases of botanical or zoological
+nomenclature as well as purely taxonomic or informative use. We believe these
+concepts to be adequately granular for the purposes of reasoning in OpenBiodiv
+(see the paragraphs on rules in <a href="#biological-names">biological names</a>.</p>
+<h2>
+<a id="user-content-extraction-of-4000-tnu-suffixes" class="anchor" href="#extraction-of-4000-tnu-suffixes" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Extraction of 4,000 TNU suffixes</h2>
+<ol>
+<li>
+<p>The first step we took in creating this vocabulary is to extract the actual
+real-world taxonomic statuses as found almost 4,000 Pensoft articles. The
+script to achieve this is found under <a href="R/mine_tnu.R">mine_tnu.R</a>. The output of
+the script is a list of taxonomic status abbreviations as a text file,
+<a href="status_abbrev/all.txt">taxonomic_statuses.txt</a>, in total 253 distinct
+usages.</p>
+</li>
+<li>
+<p>The second step we took is to normalize these statuses manually: clean up
+parts of abbreviations that are not part of the status (such as particular
+taxon names) or remove irrelevant statuses (such as geological information).</p>
+</li>
+<li>
+<p>After cleaning up the usages we came up with the terms in the next section
+and assigned each of remaining status abbreviations to one of the terms. The
+assignments can be seen in text files with correspondning names.</p>
+</li>
+</ol>
+<p>For a similar attempt, see
+<a href="http://rs.gbif.org/vocabulary/gbif/taxonomic_status.xml">http://rs.gbif.org/vocabulary/gbif/taxonomic_status.xml</a>. We do map our
+statuses to the GBIF statuses to the best of our knowledge but we have more
+statuses.</p>
+<h5>
+<a id="user-content-class-taxonomic-status-dictionary" class="anchor" href="#class-taxonomic-status-dictionary" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Class: <em>Taxonomic Status Dictionary</em>
+</h5>
+<pre lang="{r"><code>:TaxonomicStatusDictionary rdf:type owl:Class ;
+  rdfs:subClassOf &lt;http://www.w3.org/2004/02/skos/core#ConceptScheme&gt; ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty fabio:isSchemeOf ;
+                                  owl:allValuesFrom :TaxonomicStatus] ;
+  rdfs:label "Dictionary of Taxonomic Statuses" ;
+  fabio:hasDiscipline &lt;http://dbpedia.org/page/Taxonomy_(biology)&gt; .
+</code></pre>
+<h5>
+<a id="user-content-class-taxonomic-status-term" class="anchor" href="#class-taxonomic-status-term" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Class: <em>Taxonomic Status Term</em>
+</h5>
+<pre lang="{r"><code>:TaxonomicStatus rdf:type owl:Class ;
+  rdfs:subClassOf skos:Concept ;
+  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                    owl:onProperty &lt;http://www.w3.org/2004/02/skos/core#inScheme&gt; ;
+                    owl:someValuesFrom :TaxonomicStatusDictionary ] ;
+  rdfs:label "Taxonomic Status Term"@en ;
+  rdfs:comment "The status following a taxonomic name usage in a taxonomic
+                manuscript, i.e. 'n. sp.',
+                'comb. new',
+                'sec. Franz (2017)', etc"@en .
+</code></pre>
+
