@@ -1,0 +1,731 @@
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix vs: <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+<http://www.w3.org/2008/05/skos> rdf:type owl:Ontology ;
+                                  dc:creator "Alistair Miles" ;
+                                  dc:contributor "Participants in W3C's Semantic Web Deployment Working Group." ;
+                                  dc:description "An RDF vocabulary for describing the basic structure and content of concept schemes such as thesauri, classification schemes, subject heading lists, taxonomies, 'folksonomies', other types of controlled vocabulary, and also concept schemes embedded in glossaries and terminologies."@en ;
+                                  dc:contributor "Dave Beckett" ;
+                                  dc:creator "Sean Bechhofer" ;
+                                  dc:title "SKOS Core Vocabulary"@en ;
+                                  dc:contributor "Nikki Rogers" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/elements/1.1/creator
+dc:creator rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/date
+dc:date rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/issued
+dct:issued rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/1999/02/22-rdf-syntax-ns#value
+rdf:value rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2008/05/skos#altLabel
+skos:altLabel rdf:type owl:AnnotationProperty ;
+              rdfs:subPropertyOf rdfs:label .
+
+
+###  http://www.w3.org/2008/05/skos#hiddenLabel
+skos:hiddenLabel rdf:type owl:AnnotationProperty ;
+                 rdfs:subPropertyOf rdfs:label .
+
+
+###  http://www.w3.org/2008/05/skos#prefLabel
+skos:prefLabel rdf:type owl:AnnotationProperty ;
+               rdfs:subPropertyOf rdfs:label .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.w3.org/2008/05/skos#broadMatch
+skos:broadMatch rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf skos:broader ,
+                                   skos:mappingRelation ;
+                owl:inverseOf skos:narrowMatch .
+
+
+###  http://www.w3.org/2008/05/skos#broader
+skos:broader rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf skos:broaderTransitive ;
+             owl:inverseOf skos:narrower .
+
+
+###  http://www.w3.org/2008/05/skos#broaderTransitive
+skos:broaderTransitive rdf:type owl:ObjectProperty ;
+                       rdfs:subPropertyOf skos:semanticRelation ;
+                       owl:inverseOf skos:narrowerTransitive ;
+                       rdf:type owl:TransitiveProperty .
+
+
+###  http://www.w3.org/2008/05/skos#changeNote
+skos:changeNote rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf skos:note .
+
+
+###  http://www.w3.org/2008/05/skos#closeMatch
+skos:closeMatch rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf skos:mappingRelation ;
+                rdf:type owl:SymmetricProperty .
+
+
+###  http://www.w3.org/2008/05/skos#definition
+skos:definition rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf skos:note .
+
+
+###  http://www.w3.org/2008/05/skos#editorialNote
+skos:editorialNote rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf skos:note .
+
+
+###  http://www.w3.org/2008/05/skos#exactMatch
+skos:exactMatch rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf skos:closeMatch ;
+                rdf:type owl:SymmetricProperty ,
+                         owl:TransitiveProperty .
+
+
+###  http://www.w3.org/2008/05/skos#example
+skos:example rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf skos:note .
+
+
+###  http://www.w3.org/2008/05/skos#hasTopConcept
+skos:hasTopConcept rdf:type owl:ObjectProperty ;
+                   owl:inverseOf skos:topConceptOf ;
+                   rdfs:domain skos:ConceptScheme ;
+                   rdfs:range skos:Concept .
+
+
+###  http://www.w3.org/2008/05/skos#historyNote
+skos:historyNote rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf skos:note .
+
+
+###  http://www.w3.org/2008/05/skos#inScheme
+skos:inScheme rdf:type owl:ObjectProperty ;
+              rdfs:range skos:ConceptScheme .
+
+
+###  http://www.w3.org/2008/05/skos#mappingRelation
+skos:mappingRelation rdf:type owl:ObjectProperty ;
+                     rdfs:domain skos:Concept ;
+                     rdfs:range skos:Concept .
+
+
+###  http://www.w3.org/2008/05/skos#member
+skos:member rdf:type owl:ObjectProperty ;
+            rdfs:domain skos:Collection .
+
+
+###  http://www.w3.org/2008/05/skos#memberList
+skos:memberList rdf:type owl:ObjectProperty ,
+                         owl:FunctionalProperty ;
+                rdfs:domain skos:OrderedCollection ;
+                rdfs:range rdf:List .
+
+
+###  http://www.w3.org/2008/05/skos#narrowMatch
+skos:narrowMatch rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf skos:mappingRelation ,
+                                    skos:narrower .
+
+
+###  http://www.w3.org/2008/05/skos#narrower
+skos:narrower rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf skos:narrowerTransitive .
+
+
+###  http://www.w3.org/2008/05/skos#narrowerTransitive
+skos:narrowerTransitive rdf:type owl:ObjectProperty ;
+                        rdfs:subPropertyOf skos:semanticRelation ;
+                        rdf:type owl:TransitiveProperty .
+
+
+###  http://www.w3.org/2008/05/skos#note
+skos:note rdf:type owl:ObjectProperty .
+
+
+###  http://www.w3.org/2008/05/skos#related
+skos:related rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf skos:semanticRelation ;
+             rdf:type owl:SymmetricProperty .
+
+
+###  http://www.w3.org/2008/05/skos#relatedMatch
+skos:relatedMatch rdf:type owl:ObjectProperty ;
+                  rdfs:subPropertyOf skos:mappingRelation ,
+                                     skos:related ;
+                  rdf:type owl:SymmetricProperty .
+
+
+###  http://www.w3.org/2008/05/skos#scopeNote
+skos:scopeNote rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf skos:note .
+
+
+###  http://www.w3.org/2008/05/skos#semanticRelation
+skos:semanticRelation rdf:type owl:ObjectProperty ;
+                      rdfs:domain skos:Concept ;
+                      rdfs:range skos:Concept .
+
+
+###  http://www.w3.org/2008/05/skos#topConceptOf
+skos:topConceptOf rdf:type owl:ObjectProperty ;
+                  rdfs:subPropertyOf skos:inScheme ;
+                  rdfs:domain skos:Concept ;
+                  rdfs:range skos:ConceptScheme .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.w3.org/2008/05/skos#altLabel
+skos:altLabel rdf:type owl:DatatypeProperty .
+
+
+###  http://www.w3.org/2008/05/skos#hiddenLabel
+skos:hiddenLabel rdf:type owl:DatatypeProperty .
+
+
+###  http://www.w3.org/2008/05/skos#notation
+skos:notation rdf:type owl:DatatypeProperty .
+
+
+###  http://www.w3.org/2008/05/skos#prefLabel
+skos:prefLabel rdf:type owl:DatatypeProperty .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.w3.org/1999/02/22-rdf-syntax-ns#List
+rdf:List rdf:type owl:Class .
+
+
+###  http://www.w3.org/2008/05/skos#Collection
+skos:Collection rdf:type owl:Class ;
+                owl:disjointWith skos:Concept ,
+                                 skos:ConceptScheme .
+
+
+###  http://www.w3.org/2008/05/skos#Concept
+skos:Concept rdf:type owl:Class ;
+             owl:disjointWith skos:ConceptScheme .
+
+
+###  http://www.w3.org/2008/05/skos#ConceptScheme
+skos:ConceptScheme rdf:type owl:Class .
+
+
+###  http://www.w3.org/2008/05/skos#OrderedCollection
+skos:OrderedCollection rdf:type owl:Class ;
+                       rdfs:subClassOf skos:Collection .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.w3.org/2008/05/skos#Collection
+skos:Collection rdf:type owl:NamedIndividual ;
+                skos:changeNote [ dc:creator "Sean Bechhofer" ;
+                                  dc:date "2008-05-xx" ;
+                                  rdf:value "Initial description."
+                                ] .
+
+
+###  http://www.w3.org/2008/05/skos#Concept
+skos:Concept rdf:type owl:NamedIndividual ;
+             skos:changeNote [ dc:creator "Sean Bechhofer" ;
+                               dc:date "2008-05-xx" ;
+                               rdf:value "Initial description."
+                             ] .
+
+
+###  http://www.w3.org/2008/05/skos#ConceptScheme
+skos:ConceptScheme rdf:type owl:NamedIndividual ;
+                   skos:changeNote [ dc:creator "Sean Bechhofer" ;
+                                     dc:date "2008-05-xx" ;
+                                     rdf:value "Initial description."
+                                   ] .
+
+
+###  http://www.w3.org/2008/05/skos#OrderedCollection
+skos:OrderedCollection rdf:type owl:NamedIndividual ;
+                       skos:changeNote [ dc:creator "Sean Bechhofer" ;
+                                         dc:date "2008-05-xx" ;
+                                         rdf:value "Initial description."
+                                       ] .
+
+
+###  http://www.w3.org/2008/05/skos#altLabel
+skos:altLabel rdf:type owl:NamedIndividual ;
+              skos:changeNote [ dc:creator "Sean Bechhofer" ;
+                                dc:date "2008-05-xx" ;
+                                rdf:value "Initial description."
+                              ] .
+
+
+###  http://www.w3.org/2008/05/skos#broadMatch
+skos:broadMatch rdf:type owl:NamedIndividual ;
+                skos:changeNote [ dc:creator "Sean Bechhofer" ;
+                                  dc:date "2008-05-xx" ;
+                                  rdf:value "Initial description."
+                                ] .
+
+
+###  http://www.w3.org/2008/05/skos#broader
+skos:broader rdf:type owl:NamedIndividual ;
+             skos:changeNote [ dc:creator "Sean Bechhofer" ;
+                               dc:date "2008-05-xx" ;
+                               rdf:value "Initial description."
+                             ] .
+
+
+###  http://www.w3.org/2008/05/skos#broaderTransitive
+skos:broaderTransitive rdf:type owl:NamedIndividual ;
+                       skos:changeNote [ dc:creator "Sean Bechhofer" ;
+                                         dc:date "2008-05-xx" ;
+                                         rdf:value "Initial description."
+                                       ] .
+
+
+###  http://www.w3.org/2008/05/skos#changeNote
+skos:changeNote rdf:type owl:NamedIndividual ;
+                skos:changeNote [ dc:creator "Sean Bechhofer" ;
+                                  dc:date "2008-05-xx" ;
+                                  rdf:value "Initial description."
+                                ] .
+
+
+###  http://www.w3.org/2008/05/skos#closeMatch
+skos:closeMatch rdf:type owl:NamedIndividual ;
+                skos:changeNote [ dc:creator "Sean Bechhofer" ;
+                                  dc:date "2008-05-xx" ;
+                                  rdf:value "Initial description."
+                                ] .
+
+
+###  http://www.w3.org/2008/05/skos#definition
+skos:definition rdf:type owl:NamedIndividual ;
+                skos:changeNote [ dc:creator "Sean Bechhofer" ;
+                                  dc:date "2008-05-xx" ;
+                                  rdf:value "Initial description."
+                                ] .
+
+
+###  http://www.w3.org/2008/05/skos#editorialNote
+skos:editorialNote rdf:type owl:NamedIndividual ;
+                   skos:changeNote [ dc:creator "Sean Bechhofer" ;
+                                     dc:date "2008-05-xx" ;
+                                     rdf:value "Initial description."
+                                   ] .
+
+
+###  http://www.w3.org/2008/05/skos#exactMatch
+skos:exactMatch rdf:type owl:NamedIndividual ;
+                skos:changeNote [ dc:creator "Sean Bechhofer" ;
+                                  dc:date "2008-05-xx" ;
+                                  rdf:value "Initial description."
+                                ] .
+
+
+###  http://www.w3.org/2008/05/skos#example
+skos:example rdf:type owl:NamedIndividual ;
+             skos:changeNote [ dc:creator "Sean Bechhofer" ;
+                               dc:date "2008-05-xx" ;
+                               rdf:value "Initial description."
+                             ] .
+
+
+###  http://www.w3.org/2008/05/skos#hasTopConcept
+skos:hasTopConcept rdf:type owl:NamedIndividual ;
+                   skos:changeNote [ dc:creator "Sean Bechhofer" ;
+                                     dc:date "2008-05-xx" ;
+                                     rdf:value "Initial description."
+                                   ] .
+
+
+###  http://www.w3.org/2008/05/skos#hiddenLabel
+skos:hiddenLabel rdf:type owl:NamedIndividual ;
+                 skos:changeNote [ dc:creator "Sean Bechhofer" ;
+                                   dc:date "2008-05-xx" ;
+                                   rdf:value "Initial description."
+                                 ] .
+
+
+###  http://www.w3.org/2008/05/skos#historyNote
+skos:historyNote rdf:type owl:NamedIndividual ;
+                 skos:changeNote [ dc:creator "Sean Bechhofer" ;
+                                   dc:date "2008-05-xx" ;
+                                   rdf:value "Initial description."
+                                 ] .
+
+
+###  http://www.w3.org/2008/05/skos#inScheme
+skos:inScheme rdf:type owl:NamedIndividual ;
+              skos:changeNote [ dc:creator "Sean Bechhofer" ;
+                                dc:date "2008-05-xx" ;
+                                rdf:value "Initial description."
+                              ] .
+
+
+###  http://www.w3.org/2008/05/skos#mappingRelation
+skos:mappingRelation rdf:type owl:NamedIndividual ;
+                     skos:changeNote [ dc:creator "Sean Bechhofer" ;
+                                       dc:date "2008-05-xx" ;
+                                       rdf:value "Initial description."
+                                     ] .
+
+
+###  http://www.w3.org/2008/05/skos#member
+skos:member rdf:type owl:NamedIndividual ;
+            skos:changeNote [ dc:creator "Sean Bechhofer" ;
+                              dc:date "2008-05-xx" ;
+                              rdf:value "Initial description."
+                            ] .
+
+
+###  http://www.w3.org/2008/05/skos#memberList
+skos:memberList rdf:type owl:NamedIndividual ;
+                skos:changeNote [ dc:creator "Sean Bechhofer" ;
+                                  dc:date "2008-05-xx" ;
+                                  rdf:value "Initial description."
+                                ] .
+
+
+###  http://www.w3.org/2008/05/skos#narrowMatch
+skos:narrowMatch rdf:type owl:NamedIndividual ;
+                 skos:changeNote [ dc:creator "Sean Bechhofer" ;
+                                   dc:date "2008-05-xx" ;
+                                   rdf:value "Initial description."
+                                 ] .
+
+
+###  http://www.w3.org/2008/05/skos#narrower
+skos:narrower rdf:type owl:NamedIndividual ;
+              skos:changeNote [ dc:creator "Sean Bechhofer" ;
+                                dc:date "2008-05-xx" ;
+                                rdf:value "Initial description."
+                              ] .
+
+
+###  http://www.w3.org/2008/05/skos#narrowerTransitive
+skos:narrowerTransitive rdf:type owl:NamedIndividual ;
+                        skos:changeNote [ dc:creator "Sean Bechhofer" ;
+                                          dc:date "2008-05-xx" ;
+                                          rdf:value "Initial description."
+                                        ] .
+
+
+###  http://www.w3.org/2008/05/skos#notation
+skos:notation rdf:type owl:NamedIndividual ;
+              skos:changeNote [ dc:creator "Alistair Miles" ;
+                                dc:date "2008-05-xx" ;
+                                rdf:value "Initial description."
+                              ] .
+
+
+###  http://www.w3.org/2008/05/skos#note
+skos:note rdf:type owl:NamedIndividual ;
+          skos:changeNote [ dc:creator "Sean Bechhofer" ;
+                            dc:date "2008-05-xx" ;
+                            rdf:value "Initial description."
+                          ] .
+
+
+###  http://www.w3.org/2008/05/skos#prefLabel
+skos:prefLabel rdf:type owl:NamedIndividual ;
+               skos:changeNote [ dc:creator "Sean Bechhofer" ;
+                                 dc:date "2008-05-xx" ;
+                                 rdf:value "Initial description."
+                               ] .
+
+
+###  http://www.w3.org/2008/05/skos#related
+skos:related rdf:type owl:NamedIndividual ;
+             skos:changeNote [ dc:creator "Sean Bechhofer" ;
+                               dc:date "2008-05-xx" ;
+                               rdf:value "Initial description."
+                             ] .
+
+
+###  http://www.w3.org/2008/05/skos#relatedMatch
+skos:relatedMatch rdf:type owl:NamedIndividual ;
+                  skos:changeNote [ dc:creator "Sean Bechhofer" ;
+                                    dc:date "2008-05-xx" ;
+                                    rdf:value "Initial description."
+                                  ] .
+
+
+###  http://www.w3.org/2008/05/skos#scopeNote
+skos:scopeNote rdf:type owl:NamedIndividual ;
+               skos:changeNote [ dc:creator "Sean Bechhofer" ;
+                                 dc:date "2008-05-xx" ;
+                                 rdf:value "Initial description."
+                               ] .
+
+
+###  http://www.w3.org/2008/05/skos#semanticRelation
+skos:semanticRelation rdf:type owl:NamedIndividual ;
+                      skos:changeNote [ dc:creator "Sean Bechhofer" ;
+                                        dc:date "2008-05-xx" ;
+                                        rdf:value "Initial description."
+                                      ] .
+
+
+###  http://www.w3.org/2008/05/skos#topConceptOf
+skos:topConceptOf rdf:type owl:NamedIndividual ;
+                  skos:changeNote [ dc:creator "Sean Bechhofer" ;
+                                    dc:date "2008-05-xx" ;
+                                    rdf:value "Initial description."
+                                  ] .
+
+
+#################################################################
+#    Annotations
+#################################################################
+
+skos:Collection skos:definition "A meaningful collection of concepts."@en ;
+                dct:issued "2008-05-xx" ;
+                rdfs:label "Collection"@en ;
+                rdfs:comment "Labelled collections can be used with collectable semantic relation properties e.g. skos:narrower, where you would like a set of concepts to be displayed under a 'node label' in the hierarchy."@en ;
+                rdfs:isDefinedBy <http://www.w3.org/2008/05/skos> .
+
+
+skos:Concept rdfs:label "Concept"@en ;
+             dct:issued "2008-05-xx" ;
+             skos:definition "An abstract idea or notion; a unit of thought."@en ;
+             rdfs:isDefinedBy <http://www.w3.org/2008/05/skos> .
+
+
+skos:ConceptScheme rdfs:isDefinedBy <http://www.w3.org/2008/05/skos> ;
+                   rdfs:comment "A concept scheme may be defined to include concepts from different sources."@en ;
+                   skos:definition "A set of concepts, optionally including statements about semantic relationships between those concepts."@en ;
+                   rdfs:comment "Thesauri, classification schemes, subject heading lists, taxonomies, 'folksonomies', and other types of controlled vocabulary are all examples of concept schemes.  Concept schemes are also embedded in glossaries and terminologies."@en ;
+                   dct:issued "2008-05-xx" ;
+                   rdfs:label "Concept Scheme"@en .
+
+
+skos:OrderedCollection rdfs:comment "Ordered collections can be used with collectable semantic relation properties, where you would like a set of concepts to be displayed in a specific order, and optionally under a 'node label'."@en ;
+                       skos:definition "An ordered collection of concepts, where both the grouping and the ordering are meaningful."@en ;
+                       rdfs:label "Ordered Collection"@en ;
+                       rdfs:isDefinedBy <http://www.w3.org/2008/05/skos> ;
+                       dct:issued "2008-05-xx" .
+
+
+skos:altLabel rdfs:comment "skos:prefLabel, skos:altLabel and skos:hiddenLabel are pairwise disjoint properties."@en ;
+              rdfs:label "alternative label"@en ;
+              skos:definition "An alternative lexical label for a resource."@en ;
+              rdfs:comment "Acronyms, abbreviations, spelling variants, and irregular plural/singular forms may be included among the alternative labels for a concept.  Mis-spelled terms are normally included as hidden labels (see skos:hiddenLabel)."@en ;
+              rdfs:isDefinedBy <http://www.w3.org/2008/05/skos> ;
+              dct:issued "2008-05-xx" ;
+              rdfs:comment "The range of skos:altLabel is the class of RDF plain literals."@en .
+
+
+skos:broadMatch skos:definition "skos:broadMatch is used to state a hierarchical mapping link between two conceptual resources in different concept schemes."@en ;
+                rdfs:isDefinedBy <http://www.w3.org/2008/05/skos> ;
+                rdfs:label "broader match"@en ;
+                dct:issued "2008-05-xx" .
+
+
+skos:broader rdfs:label "has broader"@en ;
+             rdfs:comment "By convention, skos:broader is only used to assert an immediate (i.e. direct) hierarchical link between two conceptual resources."@en ;
+             skos:definition "A concept that is more general in meaning."@en ;
+             dct:issued "2008-05-xx" ;
+             rdfs:isDefinedBy <http://www.w3.org/2008/05/skos> ;
+             rdfs:comment "Broader concepts are typically rendered as parents in a concept hierarchy (tree)."@en .
+
+
+skos:broaderTransitive rdfs:label "broader transitive"@en ;
+                       dct:issued "2008-05-xx" ;
+                       skos:definition "skos:broaderTransitive is a transitive superproperty of skos:broader." ;
+                       rdfs:comment "By convention, skos:broaderTransitive is not used to make assertions. Rather, the properties can be used to draw inferences about the transitive closure of the hierarchical relation, which is useful e.g. when implementing a simple query expansion algorithm in a search application."@en ;
+                       rdfs:isDefinedBy <http://www.w3.org/2008/05/skos> .
+
+
+skos:changeNote rdfs:label "change note"@en ;
+                dct:issued "2008-05-xx" ;
+                skos:definition "A note about a modification to a concept."@en ;
+                rdfs:isDefinedBy <http://www.w3.org/2008/05/skos> .
+
+
+skos:closeMatch dct:issued "2008-05-xx" ;
+                rdfs:label "exact match"@en ;
+                skos:definition "skos:closeMatch is used to link two concepts that are sufficiently similar that they can be used interchangeably in some information retrieval applications. In order to avoid the possibility of \"compound errors\" when combining mappings across more than two concept schemes, skos:closeMatch is not declared to be a transitive property."@en ;
+                rdfs:isDefinedBy <http://www.w3.org/2008/05/skos> .
+
+
+skos:definition rdf:type owl:AnnotationProperty ;
+                skos:definition "A statement or formal explanation of the meaning of a concept."@en ;
+                rdfs:isDefinedBy <http://www.w3.org/2008/05/skos> ;
+                dct:issued "2008-05-xx" ;
+                rdfs:label "definition"@en .
+
+
+skos:editorialNote dct:issued "2008-05-xx" ;
+                   rdfs:label "editorial note"@en ;
+                   rdfs:isDefinedBy <http://www.w3.org/2008/05/skos> ;
+                   skos:definition "A note for an editor, translator or maintainer of the vocabulary."@en .
+
+
+skos:exactMatch rdfs:comment "skos:exactMatch is disjoint with each of the properties skos:broadMatch and skos:relatedMatch."@en ;
+                dct:issued "2008-05-xx" ;
+                skos:definition "skos:exactMatch is used to link two concepts, indicating a high degree of confidence that the concepts can be used interchangeably across a wide range of information retrieval applications. skos:exactMatch is a transitive property, and is a sub-property of skos:closeMatch."@en ;
+                rdfs:isDefinedBy <http://www.w3.org/2008/05/skos> ;
+                rdfs:label "exact match"@en .
+
+
+skos:example skos:definition "An example of the use of a concept."@en ;
+             dct:issued "2008-05-xx" ;
+             rdfs:isDefinedBy <http://www.w3.org/2008/05/skos> ;
+             rdfs:label "example"@en .
+
+
+skos:hasTopConcept rdfs:label "has top concept"@en ;
+                   dct:issued "2008-05-xx" ;
+                   rdfs:isDefinedBy <http://www.w3.org/2008/05/skos> ;
+                   skos:definition "A top level concept in the concept scheme."@en .
+
+
+skos:hiddenLabel skos:definition "A lexical label for a resource that should be hidden when generating visual displays of the resource, but should still be accessible to free text search operations."@en ;
+                 rdfs:comment "The range of skos:hiddenLabel is the class of RDF plain literals."@en ;
+                 dct:issued "2008-05-xx" ;
+                 rdfs:label "hidden label"@en ;
+                 rdfs:isDefinedBy <http://www.w3.org/2008/05/skos> ;
+                 rdfs:comment "skos:prefLabel, skos:altLabel and skos:hiddenLabel are pairwise disjoint properties."@en .
+
+
+skos:historyNote skos:definition "A note about the past state/use/meaning of a concept."@en ;
+                 dct:issued "2008-05-xx" ;
+                 rdfs:isDefinedBy <http://www.w3.org/2008/05/skos> ;
+                 rdfs:label "history note"@en .
+
+
+skos:inScheme dct:issued "2008-05-xx" ;
+              rdfs:isDefinedBy <http://www.w3.org/2008/05/skos> ;
+              skos:definition "A concept scheme in which the concept is included."@en ;
+              rdfs:label "in scheme"@en ;
+              rdfs:comment "A concept may be a member of more than one concept scheme."@en .
+
+
+skos:mappingRelation rdfs:isDefinedBy <http://www.w3.org/2008/05/skos> ;
+                     rdfs:comment "These concept mapping relations mirror semantic relations, and the data model defined below is similar (with the exception of skos:exactMatch) to the data model defined for semantic relations. A distinct vocabulary is provided for concept mapping relations, to provide a convenient way to differentiate links within a concept scheme from links between concept schemes. However, this pattern of usage is not a formal requirement of the SKOS data model, and relies on informal definitions of best practice."@en ;
+                     rdfs:label "mapping relation"@en ;
+                     skos:definition "Definition"@en ;
+                     dct:issued "2008-05-xx" .
+
+
+skos:member dct:issued "2008-05-xx" ;
+            rdfs:isDefinedBy <http://www.w3.org/2008/05/skos> ;
+            rdfs:label "member"@en ;
+            skos:definition "A member of a collection."@en .
+
+
+skos:memberList rdfs:comment "For any resource, every item in the list given as the value of the skos:memberList property is also a value of the skos:member property."@en ;
+                skos:definition "An RDF list containing the members of an ordered collection."@en ;
+                rdfs:label "member list"@en ;
+                rdfs:isDefinedBy <http://www.w3.org/2008/05/skos> ;
+                dct:issued "2008-05-xx" .
+
+
+skos:narrowMatch rdfs:label "narrower match"@en ;
+                 dct:issued "2008-05-xx" ;
+                 skos:definition "skos:narrowMatch is used to state a hierarchical mapping link between two conceptual resources in different concept schemes."@en ;
+                 rdfs:isDefinedBy <http://www.w3.org/2008/05/skos> .
+
+
+skos:narrower dct:issued "2008-05-xx" ;
+              skos:definition "A concept that is more specific in meaning."@en ;
+              rdfs:label "has narrower"@en ;
+              rdfs:isDefinedBy <http://www.w3.org/2008/05/skos> ;
+              rdfs:comment "By convention, skos:broader is only used to assert an immediate (i.e. direct) hierarchical link between two conceptual resources."@en ,
+                           "Narrower concepts are typically rendered as children in a concept hierarchy (tree)."@en .
+
+
+skos:narrowerTransitive rdfs:label "narrower transitive"@en ;
+                        rdfs:comment "By convention, skos:narrowerTransitive is not used to make assertions. Rather, the properties can be used to draw inferences about the transitive closure of the hierarchical relation, which is useful e.g. when implementing a simple query expansion algorithm in a search application."@en ;
+                        dct:issued "2008-05-xx" ;
+                        rdfs:isDefinedBy <http://www.w3.org/2008/05/skos> ;
+                        skos:definition "skos:narrowerTransitive is a transitive superproperty of skos:broader. By convention, skos:narrowerTransitive is not intended to be used in assertions, but provides a mechanism whereby the transitive closure of skos:narrower can be queried." .
+
+
+skos:notation rdfs:comment "By convention, skos:notation is used with a typed literal in the object position of the triple."@en ;
+              rdfs:label "notation"@en ;
+              skos:definition "A notation, also known as classification code, is a string of characters such as \"T58.5\" or \"303.4833\" used to uniquely identify a concept within the scope of a given concept scheme."@en ;
+              dct:issued "2008-05-xx" ;
+              rdfs:isDefinedBy <http://www.w3.org/2008/05/skos> .
+
+
+skos:note skos:definition "A general note, for any purpose."@en ;
+          rdfs:label "note"@en ;
+          rdfs:isDefinedBy <http://www.w3.org/2008/05/skos> ;
+          rdfs:comment "This property may be used directly, or as a super-property for more specific note types."@en ;
+          dct:issued "2008-05-xx" .
+
+
+skos:prefLabel rdfs:comment "The range of skos:prefLabel is the class of RDF plain literals."@en ,
+                            "skos:prefLabel, skos:altLabel and skos:hiddenLabel are pairwise disjoint properties."@en ;
+               rdfs:label "preferred label"@en ;
+               rdfs:comment "No two concepts in the same concept scheme may have the same value for skos:prefLabel in a given language."@en ;
+               dct:issued "2008-05-xx" ;
+               rdfs:isDefinedBy <http://www.w3.org/2008/05/skos> ;
+               skos:definition "The preferred lexical label for a resource, in a given language."@en .
+
+
+skos:related rdfs:isDefinedBy <http://www.w3.org/2008/05/skos> ;
+             dct:issued "2008-05-xx" ;
+             skos:definition "A concept with which there is an associative semantic relationship."@en ;
+             rdfs:label "related to"@en ;
+             rdfs:comment "skos:related is disjoint with skos:broaderTransitive"@en .
+
+
+skos:relatedMatch dct:issued "2008-05-xx" ;
+                  skos:definition "skos:relatedMatch is used to state an associative mapping link between two conceptual resources in different concept schemes."@en ;
+                  rdfs:isDefinedBy <http://www.w3.org/2008/05/skos> ;
+                  rdfs:label "related match"@en .
+
+
+skos:scopeNote rdfs:isDefinedBy <http://www.w3.org/2008/05/skos> ;
+               skos:definition "A note that helps to clarify the meaning of a concept."@en ;
+               rdfs:label "scope note"@en ;
+               dct:issued "2008-05-xx" .
+
+
+skos:semanticRelation rdfs:comment "This property should not be used directly, but as a super-property for all properties denoting a relationship of meaning between concepts."@en ;
+                      dct:issued "2008-05-xx" ;
+                      rdfs:label "semantic relation"@en ;
+                      skos:definition "A concept related by meaning."@en ;
+                      rdfs:isDefinedBy <http://www.w3.org/2008/05/skos> .
+
+
+skos:topConceptOf skos:definition "Relates a concept to the concept scheme that it is a top level concept of."@en ;
+                  rdfs:isDefinedBy <http://www.w3.org/2008/05/skos> ;
+                  rdfs:label "top concept in scheme"@en ;
+                  dct:issued "2008-05-xx" .
+
+
+###  Generated by the OWL API (version 4.2.6.20160910-2108) https://github.com/owlcs/owlapi
