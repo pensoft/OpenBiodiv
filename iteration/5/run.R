@@ -10,7 +10,7 @@ library(parallel)
 #   Fix namespace problems: done
 
 # configure access to graphdb server
-configuration_file = "/home/viktor2/Work/PhD/openbiodiv/iteration/5/config.yml"
+configuration_file = "/home/viktor2/Work/PhD/openbiodiv/iteration/4/config.yml"
 server_access_options = yaml::yaml.load_file( configuration_file )
 init_env(server_access_options )
 
