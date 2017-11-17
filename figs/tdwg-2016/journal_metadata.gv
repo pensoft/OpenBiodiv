@@ -1,0 +1,32 @@
+digraph G {
+
+include(`./settings.gv')
+
+
+publisher1 [label="a foaf:Agent"];
+literal1 [style=dotted,label="e.g. \"Pensoft Publishers\""];
+role1 [label="a pro:RoleInTime"];
+publisher1 -> literal1 [label="skos:prefLabel"];
+publisher1 -> role1 [label="pro:holdsRoleInTime"];
+		
+pro_Publisher [shape = box, label="pro:publisher"];
+		
+journal1 [label="a fabio:Journal"];
+
+literal2 [style=dotted, label="e.g. \"Biodiversity Data Journal\""];
+literal3 [style=dotted, label="e.g. \"BDJ\""];
+literal4 [style=dotted, label="e.g. \"1314-2836\""];
+literal5 [style=dotted, label="e.g. \"1314-2828\""];
+literal6 [style=dotted, label="e.g. \"Pensoft Publishers\""];
+
+role1 -> journal1 [label="pro:relatesToDocument"];
+journal1 -> literal2 [label="skos:prefLabel"];
+
+journal1 -> literal3 [label = "skos:altLabel"];
+journal1 -> literal4 [label ="fabio:issn"];
+journal1 -> literal5 [label ="fabio:eIssn"];
+journal1 -> literal6 [label ="dcterms:publisher"];
+
+		
+role1 -> pro_Publisher [label="pro:withRole"];
+}

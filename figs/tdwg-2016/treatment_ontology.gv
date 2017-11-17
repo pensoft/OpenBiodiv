@@ -1,0 +1,28 @@
+digraph G {
+
+include(`./settings.gv')
+
+
+doco_section [shape="box", label="doco:Section"];
+trt_treatment [shape="box", label="trt:Treatment"];
+
+tnu [shape="box", label="trt:TaxonNameUsage"];
+nnu [shape="box", label="trt:NomenclaturalNameUsage"];
+nnu2 [shape="box", label="trt:NomenclaturalNameUsage"];
+
+nnu -> tnu [style="dotted", label="rdfs:subClassOf"];
+
+trt_treatment -> doco_section [style="dotted", label="rdfs:subClassOf"];
+
+dwc_scientific_name [shape="parallelogram", label="dwciri:scientificName"];
+nomenclatural_citation [shape="parallelogram", label="trt:nomenclaturalCitation"];
+new_sp [shape="parallelogram", label="trt:newSpecies"];
+new_comb [shape="parallelogram", label="trt:newComb"];
+new_syn [shape="parallelogram", label="trt:newSynonym"];
+
+nomenclatural_citation -> dwc_scientific_name [style="dotted", label="rdfs:subPropertyOf"];
+new_sp -> nomenclatural_citation [style="dotted", label="rdfs:subPropertyOf"];
+new_comb -> nomenclatural_citation [style="dotted", label="rdfs:subPropertyOf"];
+new_syn ->  nomenclatural_citation [style="dotted", label="rdfs:subPropertyOf"];
+
+}

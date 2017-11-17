@@ -1,0 +1,908 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://openbiodiv.net/openbiodiv-ontology#"
+     xml:base="http://openbiodiv.net/openbiodiv-ontology"
+     xmlns:pext="http://proton.semanticweb.org/protonue#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:lucene="http://www.ontotext.com/connectors/lucene#"
+     xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:deo="http://purl.org/spar/deo/"
+     xmlns:dwciri="http://rs.tdwg.org/dwc/iri/"
+     xmlns:dcelements="http://purl.org/dc/elements/1.1/"
+     xmlns:ptop="http://proton.semanticweb.org/protont#"
+     xmlns:pkm="http://proton.semanticweb.org/protonkm#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:doco="http://purl.org/spar/doco/"
+     xmlns:dcterms="http://purl.org/dc/terms/"
+     xmlns:prism="http://prismstandard.org/namespaces/basic/2.0/"
+     xmlns:foaf="http://xmlns.com/foaf/0.1/"
+     xmlns:c4o="http://purl.org/spar/c4o/"
+     xmlns:scoro="http://purl.org/spar/scoro/"
+     xmlns:tvc="http://www.essepuntato.it/2012/04/tvc/"
+     xmlns:org="http://www.w3.org/ns/org#"
+     xmlns:fabio="http://purl.org/spar/fabio/"
+     xmlns:vcard="http://www.w3.org/2006/vcard/ns#"
+     xmlns:co="http://purl.org/co/"
+     xmlns:frbr="http://purl.org/vocab/frbr/core#"
+     xmlns:pro="http://purl.org/spar/pro/"
+     xmlns:dwcattributesns="http://rs.tdwg.org/dwc/terms/attributes/"
+     xmlns:dbo="http://dbpedia.org/ontology/"
+     xmlns:dwc="http://rs.tdwg.org/dwc/terms/"
+     xmlns:sro="http://salt.semanticauthoring.org/ontologies/sro#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:dbr="http://dbpedia.org/resource/"
+     xmlns:ti="http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#"
+     xmlns:inst="http://www.ontotext.com/connectors/lucene/instance#"
+     xmlns:trt="http://plazi.org/treatment#"
+     xmlns:nomen="http://www.semanticweb.org/dmitriev/ontologies/2013/8/untitled-ontology-6#"
+     xmlns:vs="http://www.w3.org/2003/06/sw-vocab-status/ns#"
+     xmlns:po="http://www.essepuntato.it/2008/12/pattern#">
+    <owl:Ontology rdf:about="http://openbiodiv.net/openbiodiv-ontology">
+        <owl:imports rdf:resource="http://purl.org/spar/fabio/"/>
+        <dcelements:creator>Viktor Senderov, Kiril Simov</dcelements:creator>
+        <dcelements:title>The Open Biodiversity Knowledge Management System Ontology</dcelements:title>
+        <dcelements:subject>Biodiversity Informatics</dcelements:subject>
+        <rdfs:comment>You are free to create derivative work as long as you cite the original authors.</rdfs:comment>
+        <owl:versionInfo>1.0</owl:versionInfo>
+        <dcelements:license>CC-BY license version 4.0</dcelements:license>
+        <rdfs:label>OpenBiodiv Ontology</rdfs:label>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://purl.org/dc/elements/1.1/description -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/elements/1.1/description"/>
+    
+
+
+    <!-- http://purl.org/dc/elements/1.1/hasVersion -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/elements/1.1/hasVersion"/>
+    
+
+
+    <!-- http://purl.org/dc/elements/1.1/issued -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/elements/1.1/issued"/>
+    
+
+
+    <!-- http://purl.org/dc/elements/1.1/modified -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/elements/1.1/modified"/>
+    
+
+
+    <!-- http://purl.org/dc/elements/1.1/replaces -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/elements/1.1/replaces"/>
+    
+
+
+    <!-- http://purl.org/spar/fabio/hasDiscipline -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/spar/fabio/hasDiscipline"/>
+    
+
+
+    <!-- http://rs.tdwg.org/dwc/terms/attributes/abcdEquivalence -->
+
+    <owl:AnnotationProperty rdf:about="http://rs.tdwg.org/dwc/terms/attributes/abcdEquivalence"/>
+    
+
+
+    <!-- http://rs.tdwg.org/dwc/terms/attributes/decision -->
+
+    <owl:AnnotationProperty rdf:about="http://rs.tdwg.org/dwc/terms/attributes/decision"/>
+    
+
+
+    <!-- http://rs.tdwg.org/dwc/terms/attributes/status -->
+
+    <owl:AnnotationProperty rdf:about="http://rs.tdwg.org/dwc/terms/attributes/status"/>
+    
+
+
+    <!-- http://www.w3.org/2003/06/sw-vocab-status/ns#term_status -->
+
+    <owl:AnnotationProperty rdf:about="http://www.w3.org/2003/06/sw-vocab-status/ns#term_status"/>
+    
+
+
+    <!-- http://www.w3.org/2004/02/skos/core#altLabel -->
+
+    <owl:AnnotationProperty rdf:about="http://www.w3.org/2004/02/skos/core#altLabel"/>
+    
+
+
+    <!-- http://www.w3.org/2004/02/skos/core#prefLabel -->
+
+    <owl:AnnotationProperty rdf:about="http://www.w3.org/2004/02/skos/core#prefLabel"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://openbiodiv.net/contains -->
+
+    <owl:ObjectProperty rdf:about="http://openbiodiv.net/contains">
+        <rdfs:subPropertyOf rdf:resource="http://www.essepuntato.it/2008/12/pattern#contains"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+        <rdfs:label>OpenBiodiv contains</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://openbiodiv.net/has_OTU_Id -->
+
+    <owl:ObjectProperty rdf:about="http://openbiodiv.net/has_OTU_Id">
+        <rdfs:subPropertyOf rdf:resource="http://openbiodiv.net/scientificName"/>
+        <rdfs:domain rdf:resource="http://openbiodiv.net/TaxonomicConcept"/>
+        <rdfs:range rdf:resource="http://openbiodiv.net/OTU_Id"/>
+        <rdfs:label xml:lang="en">has OTU Id</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://openbiodiv.net/isContainedBy -->
+
+    <owl:ObjectProperty rdf:about="http://openbiodiv.net/isContainedBy">
+        <rdfs:subPropertyOf rdf:resource="http://www.essepuntato.it/2008/12/pattern#isContainedBy"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+        <rdfs:label>OpenBiodiv is contained by</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://openbiodiv.net/mentions -->
+
+    <owl:ObjectProperty rdf:about="http://openbiodiv.net/mentions">
+        <rdfs:domain rdf:resource="http://openbiodiv.net/Mention"/>
+        <rdfs:comment>A direct link between an information resource, like a document or a section and an entity.</rdfs:comment>
+        <rdfs:label>mentions</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://openbiodiv.net/nameAccordingTo -->
+
+    <owl:ObjectProperty rdf:about="http://openbiodiv.net/nameAccordingTo">
+        <rdfs:subPropertyOf rdf:resource="http://rs.tdwg.org/dwc/iri/nameAccordingTo"/>
+        <rdfs:domain rdf:resource="http://openbiodiv.net/TaxonomicConceptLabel"/>
+        <rdfs:range rdf:resource="http://purl.org/vocab/frbr/core#Expression"/>
+        <rdfs:comment xml:lang="en">The reference to the source in which the specific taxonomic 
+    concept circumscription is defined or implied - traditionally signified by
+    the Latin &apos;sensu&apos; or &apos;sec.&apos;&apos; (from secundum, meaning &apos;according to&apos;).
+    For taxa that are relevantly circumscribed by identifications, a reference
+    to the keys, monographs, experts and other sources should be given. Should
+    only be used with IRI&apos;s</rdfs:comment>
+        <skos:altLabel xml:lang="en">sensu</skos:altLabel>
+        <skos:prefLabel xml:lang="en">OpenBiodiv name according to</skos:prefLabel>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://openbiodiv.net/rcc5AccrodingTo -->
+
+    <owl:ObjectProperty rdf:about="http://openbiodiv.net/rcc5AccrodingTo">
+        <rdfs:subPropertyOf rdf:resource="http://openbiodiv.net/rcc5Property"/>
+        <rdfs:range rdf:resource="http://purl.org/vocab/frbr/core#Expression"/>
+        <rdfs:comment xml:lang="en">In which publication was the statement made</rdfs:comment>
+        <rdfs:label>RCC5 statement according to</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://openbiodiv.net/rcc5Property -->
+
+    <owl:ObjectProperty rdf:about="http://openbiodiv.net/rcc5Property">
+        <rdfs:domain rdf:resource="http://openbiodiv.net/RCC5Statement"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://openbiodiv.net/rcc5RelationType -->
+
+    <owl:ObjectProperty rdf:about="http://openbiodiv.net/rcc5RelationType">
+        <rdfs:subPropertyOf rdf:resource="http://openbiodiv.net/rcc5Property"/>
+        <rdfs:range rdf:resource="http://openbiodiv.net/RCC5Relation"/>
+        <rdfs:comment xml:lang="en">Connects an RCC-5 statement to the type of RCC-5 relation between the regions.</rdfs:comment>
+        <rdfs:label>relation type</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://openbiodiv.net/rcc5fromRegion -->
+
+    <owl:ObjectProperty rdf:about="http://openbiodiv.net/rcc5fromRegion">
+        <rdfs:subPropertyOf rdf:resource="http://openbiodiv.net/rcc5Property"/>
+        <rdfs:comment xml:lang="en">Connects to the RCC5 statement to the originating region</rdfs:comment>
+        <rdfs:label>from region</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://openbiodiv.net/rcc5toRegion -->
+
+    <owl:ObjectProperty rdf:about="http://openbiodiv.net/rcc5toRegion">
+        <rdfs:subPropertyOf rdf:resource="http://openbiodiv.net/rcc5Property"/>
+        <rdfs:comment xml:lang="en">Connects to the RCC5 statement to the target region</rdfs:comment>
+        <rdfs:label>to region</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://openbiodiv.net/relatedName -->
+
+    <owl:ObjectProperty rdf:about="http://openbiodiv.net/relatedName">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ReflexiveProperty"/>
+        <rdfs:domain rdf:resource="http://openbiodiv.net/TaxonomicName"/>
+        <rdfs:range rdf:resource="http://openbiodiv.net/TaxonomicName"/>
+        <rdfs:comment xml:lang="en">&apos;has related name&apos; is an object property that we
+    use in order to indicate that two taxonomic names are related somehow. This
+    relationship is purposely vague as to encompass all situations where two
+    taxonomic names co-occur in a text. It is transitive and reflexive.</rdfs:comment>
+        <rdfs:label xml:lang="en">has related name</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://openbiodiv.net/replacementName -->
+
+    <owl:ObjectProperty rdf:about="http://openbiodiv.net/replacementName">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+        <rdfs:domain rdf:resource="http://openbiodiv.net/LatinName"/>
+        <rdfs:range rdf:resource="http://openbiodiv.net/LatinName"/>
+        <rdfs:comment xml:lang="en">This is a uni-directional property. Its meaning
+    is that one Linnaean name links to a different Linnaean name via the
+    usage of this property, then the object name is more accurate and should be
+    preferred given the information that system currently holds. This property is only
+    defined for Linnaean names.</rdfs:comment>
+        <rdfs:label xml:lang="en">has replacement name</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://openbiodiv.net/scientificName -->
+
+    <owl:ObjectProperty rdf:about="http://openbiodiv.net/scientificName">
+        <rdfs:subPropertyOf rdf:resource="http://openbiodiv.net/taxonomicName"/>
+        <rdfs:subPropertyOf rdf:resource="http://rs.tdwg.org/dwc/iri/scientificName"/>
+        <rdfs:domain rdf:resource="http://openbiodiv.net/TaxonomicConcept"/>
+        <rdfs:range rdf:resource="http://openbiodiv.net/ScientificName"/>
+        <rdfs:label xml:lang="en">has OpeonBiodiv scientific name</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://openbiodiv.net/taxonomicConceptLabel -->
+
+    <owl:ObjectProperty rdf:about="http://openbiodiv.net/taxonomicConceptLabel">
+        <rdfs:subPropertyOf rdf:resource="http://openbiodiv.net/scientificName"/>
+        <rdfs:domain rdf:resource="http://openbiodiv.net/TaxonomicConcept"/>
+        <rdfs:range rdf:resource="http://openbiodiv.net/TaxonomicConceptLabel"/>
+        <rdfs:label xml:lang="en">has taxon concept label</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://openbiodiv.net/taxonomicName -->
+
+    <owl:ObjectProperty rdf:about="http://openbiodiv.net/taxonomicName">
+        <rdfs:domain rdf:resource="http://openbiodiv.net/TaxonomicConcept"/>
+        <rdfs:range rdf:resource="http://openbiodiv.net/TaxonomicName"/>
+        <rdfs:label xml:lang="en">has OpenBiodiv taxonomic name</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.org/spar/fabio/isSchemeOf -->
+
+    <owl:ObjectProperty rdf:about="http://purl.org/spar/fabio/isSchemeOf"/>
+    
+
+
+    <!-- http://rs.tdwg.org/dwc/iri/nameAccordingTo -->
+
+    <owl:ObjectProperty rdf:about="http://rs.tdwg.org/dwc/iri/nameAccordingTo">
+        <rdfs:comment xml:lang="en">the IRI version of dwc:nameAccordingTo</rdfs:comment>
+        <rdfs:label xml:lang="en">name according to</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://rs.tdwg.org/dwc/iri/scientificName -->
+
+    <owl:ObjectProperty rdf:about="http://rs.tdwg.org/dwc/iri/scientificName">
+        <rdfs:comment xml:lang="en">the IRI version of dwc:scientificName</rdfs:comment>
+        <rdfs:label xml:lang="en">has scientific name</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://rs.tdwg.org/dwc/iri/taxonomicStatus -->
+
+    <owl:ObjectProperty rdf:about="http://rs.tdwg.org/dwc/iri/taxonomicStatus">
+        <rdfs:comment xml:lang="en">the IRI version of the DwC term taxonomic status</rdfs:comment>
+        <rdfs:label xml:lang="en">taxonomic status</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.essepuntato.it/2008/12/pattern#contains -->
+
+    <owl:ObjectProperty rdf:about="http://www.essepuntato.it/2008/12/pattern#contains">
+        <owl:inverseOf rdf:resource="http://www.essepuntato.it/2008/12/pattern#isContainedBy"/>
+        <rdfs:domain rdf:resource="http://www.essepuntato.it/2008/12/pattern#Structured"/>
+        <rdfs:comment xml:lang="en">A structured element contains another generic element.</rdfs:comment>
+        <rdfs:label xml:lang="en">contains</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.essepuntato.it/2008/12/pattern#isContainedBy -->
+
+    <owl:ObjectProperty rdf:about="http://www.essepuntato.it/2008/12/pattern#isContainedBy">
+        <rdfs:comment xml:lang="en">An element that is contained by another structured element.</rdfs:comment>
+        <rdfs:label xml:lang="en">is contained by</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/2004/02/skos/core#inScheme -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3.org/2004/02/skos/core#inScheme"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://openbiodiv.net/BiologySection -->
+
+    <owl:Class rdf:about="http://openbiodiv.net/BiologySection">
+        <rdfs:subClassOf rdf:resource="http://purl.org/spar/deo/DiscourseElement"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://openbiodiv.net/isContainedBy"/>
+                <owl:someValuesFrom rdf:resource="http://openbiodiv.net/Treatment"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en">Biology Section</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://openbiodiv.net/DescriptionSection -->
+
+    <owl:Class rdf:about="http://openbiodiv.net/DescriptionSection">
+        <rdfs:subClassOf rdf:resource="http://purl.org/spar/deo/DiscourseElement"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://openbiodiv.net/isContainedBy"/>
+                <owl:someValuesFrom rdf:resource="http://openbiodiv.net/Treatment"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en">Description Section</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://openbiodiv.net/DiagnosisSection -->
+
+    <owl:Class rdf:about="http://openbiodiv.net/DiagnosisSection">
+        <rdfs:subClassOf rdf:resource="http://purl.org/spar/deo/DiscourseElement"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://openbiodiv.net/isContainedBy"/>
+                <owl:someValuesFrom rdf:resource="http://openbiodiv.net/Treatment"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en">Diagnosis Section</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://openbiodiv.net/DistributionSection -->
+
+    <owl:Class rdf:about="http://openbiodiv.net/DistributionSection">
+        <rdfs:subClassOf rdf:resource="http://purl.org/spar/deo/DiscourseElement"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://openbiodiv.net/isContainedBy"/>
+                <owl:someValuesFrom rdf:resource="http://openbiodiv.net/Treatment"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en">Distribution Section</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://openbiodiv.net/EtymologySection -->
+
+    <owl:Class rdf:about="http://openbiodiv.net/EtymologySection">
+        <rdfs:subClassOf rdf:resource="http://purl.org/spar/deo/DiscourseElement"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://openbiodiv.net/isContainedBy"/>
+                <owl:someValuesFrom rdf:resource="http://openbiodiv.net/Treatment"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en">Etymology Section</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://openbiodiv.net/LatinName -->
+
+    <owl:Class rdf:about="http://openbiodiv.net/LatinName">
+        <rdfs:subClassOf rdf:resource="http://openbiodiv.net/ScientificName"/>
+        <skos:altLabel xml:lang="en">Linnaean Name</skos:altLabel>
+        <skos:prefLabel xml:lang="en">Latinized Scientific Name</skos:prefLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://openbiodiv.net/MaterialsExamined -->
+
+    <owl:Class rdf:about="http://openbiodiv.net/MaterialsExamined">
+        <rdfs:subClassOf rdf:resource="http://purl.org/spar/deo/DiscourseElement"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://openbiodiv.net/isContainedBy"/>
+                <owl:someValuesFrom rdf:resource="http://openbiodiv.net/Treatment"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en">Materials Examined</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://openbiodiv.net/Mention -->
+
+    <owl:Class rdf:about="http://openbiodiv.net/Mention">
+        <rdfs:subClassOf rdf:resource="http://purl.org/spar/deo/DiscourseElement"/>
+        <rdfs:comment xml:lang="en">An area of a document that can be considered a mention of something.</rdfs:comment>
+        <rdfs:label>Mention</rdfs:label>
+        <rdfs:seeAlso rdf:resource="http://proton.semanticweb.org/protonue#Mention"/>
+    </owl:Class>
+    
+
+
+    <!-- http://openbiodiv.net/NomenclatureCitationsList -->
+
+    <owl:Class rdf:about="http://openbiodiv.net/NomenclatureCitationsList">
+        <rdfs:subClassOf rdf:resource="http://purl.org/spar/deo/DiscourseElement"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://openbiodiv.net/isContainedBy"/>
+                <owl:someValuesFrom rdf:resource="http://openbiodiv.net/NomenclatureSection"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment xml:lang="en">A section in a treatment that includes the citation of one or
+    several previous treatments of the taxon.</rdfs:comment>
+        <rdfs:label xml:lang="en">Nomenclature Citations List</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://openbiodiv.net/NomenclatureHeading -->
+
+    <owl:Class rdf:about="http://openbiodiv.net/NomenclatureHeading">
+        <rdfs:subClassOf rdf:resource="http://purl.org/spar/deo/DiscourseElement"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://openbiodiv.net/isContainedBy"/>
+                <owl:someValuesFrom rdf:resource="http://openbiodiv.net/NomenclatureSection"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment xml:lang="en">Inside the taxonomic nomenclature section, we have the treatment
+    title (name of the taxon).</rdfs:comment>
+        <rdfs:label xml:lang="en">Nomenclature Heading</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://openbiodiv.net/NomenclatureSection -->
+
+    <owl:Class rdf:about="http://openbiodiv.net/NomenclatureSection">
+        <rdfs:subClassOf rdf:resource="http://purl.org/spar/deo/DiscourseElement"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://openbiodiv.net/isContainedBy"/>
+                <owl:someValuesFrom rdf:resource="http://openbiodiv.net/Treatment"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment xml:lang="en">A section of a taxonomic treatment, containing the scientific
+    name of the taxon described by the treatment, and citations to previous
+    descriptions, designations of type-genus, and type-species,
+    and other information.</rdfs:comment>
+        <rdfs:label xml:lang="en">Nomenclature Section</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://openbiodiv.net/OTU_Id -->
+
+    <owl:Class rdf:about="http://openbiodiv.net/OTU_Id">
+        <rdfs:subClassOf rdf:resource="http://openbiodiv.net/ScientificName"/>
+        <rdfs:comment xml:lang="en">The identifier of an Operational Taxonomic Unit, such as
+    BOLD BIN or a Unite SH ID</rdfs:comment>
+        <rdfs:label xml:lang="en">Operational Taxonomic Unit Identifier</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://openbiodiv.net/OperationalTaxonomicUnit -->
+
+    <owl:Class rdf:about="http://openbiodiv.net/OperationalTaxonomicUnit">
+        <rdfs:subClassOf rdf:resource="http://purl.org/spar/fabio/Work"/>
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+        <rdfs:comment xml:lang="en">A superclass for all kinds of taxonomic hypothesis</rdfs:comment>
+        <rdfs:label xml:lang="en">Operational Taxonomic Unit</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://openbiodiv.net/Publisher -->
+
+    <owl:Class rdf:about="http://openbiodiv.net/Publisher">
+        <rdfs:subClassOf rdf:resource="http://xmlns.com/foaf/0.1/Agent"/>
+        <rdfs:comment xml:lang="en">The publisher of a journal, a type of `foaf:Agent`.</rdfs:comment>
+        <rdfs:label xml:lang="en">Publisher</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://openbiodiv.net/RCC5Dictionary -->
+
+    <owl:Class rdf:about="http://openbiodiv.net/RCC5Dictionary">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/2004/02/skos/core#ConceptScheme"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.org/spar/fabio/isSchemeOf"/>
+                <owl:allValuesFrom rdf:resource="http://openbiodiv.net/RCC5Relation"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en">Dictionary of RCC5 Relations</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://openbiodiv.net/RCC5Relation -->
+
+    <owl:Class rdf:about="http://openbiodiv.net/RCC5Relation">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.w3.org/2004/02/skos/core#inScheme"/>
+                <owl:someValuesFrom rdf:resource="http://openbiodiv.net/RCC5Dictionary"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment xml:lang="en">The of RCC 5 relation, e.g. &apos;partially overlaps&apos;</rdfs:comment>
+        <rdfs:label xml:lang="en">RCC5 Relation</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://openbiodiv.net/RCC5Statement -->
+
+    <owl:Class rdf:about="http://openbiodiv.net/RCC5Statement">
+        <rdfs:subClassOf rdf:resource="http://proton.semanticweb.org/protont#Statement"/>
+        <rdfs:comment>A statement of RCC-5 relationship</rdfs:comment>
+        <rdfs:label>RCC5 Statement</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://openbiodiv.net/ScientificName -->
+
+    <owl:Class rdf:about="http://openbiodiv.net/ScientificName">
+        <owl:equivalentClass rdf:resource="http://www.semanticweb.org/dmitriev/ontologies/2013/8/untitled-ontology-6#NOMEN_0000036"/>
+        <rdfs:subClassOf rdf:resource="http://openbiodiv.net/TaxonomicName"/>
+        <rdfs:label xml:lang="en">Scientific Name</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://openbiodiv.net/TaxonomicArticle -->
+
+    <owl:Class rdf:about="http://openbiodiv.net/TaxonomicArticle">
+        <rdfs:subClassOf rdf:resource="http://purl.org/spar/fabio/JournalArticle"/>
+        <rdfs:label xml:lang="en">Taxonomic Article</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://openbiodiv.net/TaxonomicChecklist -->
+
+    <owl:Class rdf:about="http://openbiodiv.net/TaxonomicChecklist">
+        <rdfs:subClassOf rdf:resource="http://purl.org/spar/deo/DiscourseElement"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://openbiodiv.net/isContainedBy"/>
+                <owl:someValuesFrom rdf:resource="http://openbiodiv.net/TaxonomicArticle"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment xml:lang="en">A section in a taxonomic article.</rdfs:comment>
+        <rdfs:label xml:lang="en">Taxonomic Checklist</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://openbiodiv.net/TaxonomicConcept -->
+
+    <owl:Class rdf:about="http://openbiodiv.net/TaxonomicConcept">
+        <owl:equivalentClass rdf:resource="http://rs.tdwg.org/dwc/terms/Taxon"/>
+        <rdfs:subClassOf rdf:resource="http://openbiodiv.net/OperationalTaxonomicUnit"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://openbiodiv.net/taxonomicConceptLabel"/>
+                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment xml:lang="en">A taxonomic concept in the sense of Berendsohn</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://openbiodiv.net/TaxonomicConceptLabel -->
+
+    <owl:Class rdf:about="http://openbiodiv.net/TaxonomicConceptLabel">
+        <rdfs:subClassOf rdf:resource="http://openbiodiv.net/LatinName"/>
+        <rdfs:comment xml:lang="en">A taxon concept label is a taxonomic name
+    usage accompanied by an additional part, consisting of &apos;sec.&apos; + an identifier
+    or a literature reference of a work containing the expression of a taxon concept
+    (treatment).</rdfs:comment>
+        <rdfs:label xml:lang="en">Taxon Concept Label</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://openbiodiv.net/TaxonomicKey -->
+
+    <owl:Class rdf:about="http://openbiodiv.net/TaxonomicKey">
+        <rdfs:subClassOf rdf:resource="http://purl.org/spar/deo/DiscourseElement"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://openbiodiv.net/isContainedBy"/>
+                <owl:someValuesFrom rdf:resource="http://openbiodiv.net/TaxonomicArticle"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en">Taxonomic Key</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://openbiodiv.net/TaxonomicName -->
+
+    <owl:Class rdf:about="http://openbiodiv.net/TaxonomicName">
+        <owl:equivalentClass rdf:resource="http://www.semanticweb.org/dmitriev/ontologies/2013/8/untitled-ontology-6#NOMEN_0000030"/>
+        <skos:altLabel xml:lang="en">Biological Name</skos:altLabel>
+        <skos:prefLabel xml:lang="en">Taxonomic Name</skos:prefLabel>
+    </owl:Class>
+    
+
+
+    <!-- http://openbiodiv.net/TaxonomicNameUsage -->
+
+    <owl:Class rdf:about="http://openbiodiv.net/TaxonomicNameUsage">
+        <rdfs:subClassOf rdf:resource="http://openbiodiv.net/Mention"/>
+        <rdfs:comment xml:lang="en">A taxonomic name usage is the mentioning of a taxonomic name
+    (scientific name, taxonomic concept label, etc.), optionally with 
+    a taxonomic status.</rdfs:comment>
+        <rdfs:label xml:lang="en">Taxonomic Name Usage</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://openbiodiv.net/TaxonomicStatus -->
+
+    <owl:Class rdf:about="http://openbiodiv.net/TaxonomicStatus">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.w3.org/2004/02/skos/core#inScheme"/>
+                <owl:someValuesFrom rdf:resource="http://openbiodiv.net/TaxonomicStatusDictionary"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment xml:lang="en">The status following a taxonomic name usage in a taxonomic
+                manuscript, i.e. &apos;n. sp.&apos;,
+                &apos;comb. new&apos;,
+                &apos;sec. Franz (2017)&apos;, etc</rdfs:comment>
+        <rdfs:label xml:lang="en">Taxonomic Status Term</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://openbiodiv.net/TaxonomicStatusDictionary -->
+
+    <owl:Class rdf:about="http://openbiodiv.net/TaxonomicStatusDictionary">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/2004/02/skos/core#ConceptScheme"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.org/spar/fabio/isSchemeOf"/>
+                <owl:allValuesFrom rdf:resource="http://openbiodiv.net/TaxonomicStatus"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <fabio:hasDiscipline rdf:resource="http://dbpedia.org/page/Taxonomy_(biology)"/>
+        <rdfs:label>Dictionary of Taxonomic Statuses</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://openbiodiv.net/Treatment -->
+
+    <owl:Class rdf:about="http://openbiodiv.net/Treatment">
+        <rdfs:subClassOf rdf:resource="http://purl.org/spar/deo/DiscourseElement"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://openbiodiv.net/isContainedBy"/>
+                <owl:someValuesFrom rdf:resource="http://openbiodiv.net/TaxonomicArticle"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment xml:lang="en">A rhetorical element of a taxonomic publication, where taxon
+    			circumscription takes place.</rdfs:comment>
+        <rdfs:comment xml:lang="bg">Таксономично пояснение или само Пояснение е риторчна част
+                от таксономичната статия, където се случва описанието
+                на дадена таксономична концепция.</rdfs:comment>
+        <rdfs:label xml:lang="en">Taxonomic Treatment</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://openbiodiv.net/VernacularName -->
+
+    <owl:Class rdf:about="http://openbiodiv.net/VernacularName">
+        <owl:equivalentClass rdf:resource="http://www.semanticweb.org/dmitriev/ontologies/2013/8/untitled-ontology-6#NOMEN_0000037"/>
+        <rdfs:subClassOf rdf:resource="http://openbiodiv.net/TaxonomicName"/>
+        <rdfs:label xml:lang="en">Vernacular Name</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/protont#Statement -->
+
+    <owl:Class rdf:about="http://proton.semanticweb.org/protont#Statement">
+        <rdfs:comment xml:lang="en">A message that is stated or declared; a communication (oral or written), setting forth particulars or facts, etc; &quot;according to his statement he was in London on that day&quot;. WordNet 1.7.1</rdfs:comment>
+        <rdfs:label xml:lang="en">Statement</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.org/spar/deo/DiscourseElement -->
+
+    <owl:Class rdf:about="http://purl.org/spar/deo/DiscourseElement"/>
+    
+
+
+    <!-- http://purl.org/spar/fabio/JournalArticle -->
+
+    <owl:Class rdf:about="http://purl.org/spar/fabio/JournalArticle"/>
+    
+
+
+    <!-- http://purl.org/spar/fabio/Work -->
+
+    <owl:Class rdf:about="http://purl.org/spar/fabio/Work"/>
+    
+
+
+    <!-- http://purl.org/vocab/frbr/core#Expression -->
+
+    <owl:Class rdf:about="http://purl.org/vocab/frbr/core#Expression"/>
+    
+
+
+    <!-- http://rs.tdwg.org/dwc/terms/Taxon -->
+
+    <owl:Class rdf:about="http://rs.tdwg.org/dwc/terms/Taxon">
+        <dcelements:description xml:lang="en">Example: The genus Truncorotaloides as published by Brönnimann et al. in 1953 in the Journal of Paleontology Vol. 27(6) p. 817-820.</dcelements:description>
+        <dcelements:hasVersion rdf:resource="http://rs.tdwg.org/dwc/terms/history/#Taxon-2014-10-23"/>
+        <dcelements:issued>2008-11-19</dcelements:issued>
+        <dcelements:modified>2014-10-23</dcelements:modified>
+        <dcelements:replaces rdf:resource="http://rs.tdwg.org/dwc/terms/Taxon-2009-09-21"/>
+        <dwcattributesns:abcdEquivalence>no simple equivalent in ABCD</dwcattributesns:abcdEquivalence>
+        <dwcattributesns:decision rdf:resource="http://rs.tdwg.org/dwc/terms/history/decisions/#Decision-2014-10-26_15"/>
+        <dwcattributesns:status>recommended</dwcattributesns:status>
+        <rdfs:comment xml:lang="en">A group of organisms (sensu http://purl.obolibrary.org/obo/OBI_0100026) considered by taxonomists to form a homogeneous unit.</rdfs:comment>
+        <rdfs:isDefinedBy rdf:resource="http://rs.tdwg.org/dwc/terms/"/>
+        <rdfs:label xml:lang="en">Taxon</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.essepuntato.it/2008/12/pattern#Pattern -->
+
+    <owl:Class rdf:about="http://www.essepuntato.it/2008/12/pattern#Pattern">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+        <rdfs:comment xml:lang="en">A structural pattern is an atomic component of a document, that is able to capture a recurrent and well known structure of a document. Any entity belonging to this class is compliant with exactly one structural pattern.</rdfs:comment>
+        <rdfs:label xml:lang="en">pattern-based element</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.essepuntato.it/2008/12/pattern#Structured -->
+
+    <owl:Class rdf:about="http://www.essepuntato.it/2008/12/pattern#Structured">
+        <rdfs:subClassOf rdf:resource="http://www.essepuntato.it/2008/12/pattern#Pattern"/>
+        <rdfs:comment xml:lang="en">The class of elements that can contain other elements.</rdfs:comment>
+        <rdfs:label xml:lang="en">structured element</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/dmitriev/ontologies/2013/8/untitled-ontology-6#NOMEN_0000030 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/dmitriev/ontologies/2013/8/untitled-ontology-6#NOMEN_0000030"/>
+    
+
+
+    <!-- http://www.semanticweb.org/dmitriev/ontologies/2013/8/untitled-ontology-6#NOMEN_0000036 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/dmitriev/ontologies/2013/8/untitled-ontology-6#NOMEN_0000036"/>
+    
+
+
+    <!-- http://www.semanticweb.org/dmitriev/ontologies/2013/8/untitled-ontology-6#NOMEN_0000037 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/dmitriev/ontologies/2013/8/untitled-ontology-6#NOMEN_0000037"/>
+    
+
+
+    <!-- http://www.w3.org/2004/02/skos/core#Concept -->
+
+    <owl:Class rdf:about="http://www.w3.org/2004/02/skos/core#Concept"/>
+    
+
+
+    <!-- http://www.w3.org/2004/02/skos/core#ConceptScheme -->
+
+    <owl:Class rdf:about="http://www.w3.org/2004/02/skos/core#ConceptScheme"/>
+    
+
+
+    <!-- http://xmlns.com/foaf/0.1/Agent -->
+
+    <owl:Class rdf:about="http://xmlns.com/foaf/0.1/Agent">
+        <rdfs:comment>An agent (eg. person, group, software or physical artifact).</rdfs:comment>
+        <rdfs:label>Agent</rdfs:label>
+        <vs:term_status>stable</vs:term_status>
+    </owl:Class>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi -->
+

@@ -1,0 +1,1956 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcam: <http://purl.org/dc/dcam/> .
+@prefix dcns: <http://purl.org/dc/elements/1.1/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix owlns: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfns: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix dcamns: <http://purl.org/dc/dcam/> .
+@prefix rdfsns: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skosns: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dctypens: <http://purl.org/dc/dcmitype/> .
+@prefix dctermsns: <http://purl.org/dc/terms/> .
+@base <http://www.w3.org/2002/07/owl#> .
+
+[ rdfns:type owlns:Ontology
+ ] .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/elements/1.1/contributor
+dcns:contributor rdfns:type owlns:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/coverage
+dcns:coverage rdfns:type owlns:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/creator
+dcns:creator rdfns:type owlns:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/date
+dcns:date rdfns:type owlns:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/description
+dcns:description rdfns:type owlns:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/format
+dcns:format rdfns:type owlns:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/identifier
+dcns:identifier rdfns:type owlns:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/language
+dcns:language rdfns:type owlns:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/publisher
+dcns:publisher rdfns:type owlns:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/relation
+dcns:relation rdfns:type owlns:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/rights
+dcns:rights rdfns:type owlns:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/source
+dcns:source rdfns:type owlns:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/subject
+dcns:subject rdfns:type owlns:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/title
+dcns:title rdfns:type owlns:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/type
+dcns:type rdfns:type owlns:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/abstract
+dctermsns:abstract rdfns:type owlns:AnnotationProperty ;
+                   rdfsns:subPropertyOf dcns:description ,
+                                        dctermsns:description .
+
+
+###  http://purl.org/dc/terms/accessRights
+dctermsns:accessRights rdfns:type owlns:AnnotationProperty ;
+                       rdfsns:subPropertyOf dcns:rights .
+
+
+###  http://purl.org/dc/terms/alternative
+dctermsns:alternative rdfns:type owlns:AnnotationProperty ;
+                      rdfsns:subPropertyOf dcns:title .
+
+
+###  http://purl.org/dc/terms/available
+dctermsns:available rdfns:type owlns:AnnotationProperty ;
+                    rdfsns:subPropertyOf dcns:date .
+
+
+###  http://purl.org/dc/terms/bibliographicCitation
+dctermsns:bibliographicCitation rdfns:type owlns:AnnotationProperty ;
+                                rdfsns:subPropertyOf dcns:identifier .
+
+
+###  http://purl.org/dc/terms/conformsTo
+dctermsns:conformsTo rdfns:type owlns:AnnotationProperty ;
+                     rdfsns:subPropertyOf dcns:relation ,
+                                          dctermsns:relation .
+
+
+###  http://purl.org/dc/terms/contributor
+dctermsns:contributor rdfns:type owlns:AnnotationProperty ;
+                      rdfsns:subPropertyOf dcns:contributor .
+
+
+###  http://purl.org/dc/terms/coverage
+dctermsns:coverage rdfns:type owlns:AnnotationProperty ;
+                   rdfsns:subPropertyOf dcns:coverage .
+
+
+###  http://purl.org/dc/terms/created
+dctermsns:created rdfns:type owlns:AnnotationProperty ;
+                  rdfsns:subPropertyOf dcns:date .
+
+
+###  http://purl.org/dc/terms/creator
+dctermsns:creator rdfns:type owlns:AnnotationProperty ;
+                  rdfsns:subPropertyOf dcns:creator .
+
+
+###  http://purl.org/dc/terms/date
+dctermsns:date rdfns:type owlns:AnnotationProperty ;
+               rdfsns:subPropertyOf dcns:date .
+
+
+###  http://purl.org/dc/terms/dateAccepted
+dctermsns:dateAccepted rdfns:type owlns:AnnotationProperty ;
+                       rdfsns:subPropertyOf dcns:date .
+
+
+###  http://purl.org/dc/terms/dateCopyrighted
+dctermsns:dateCopyrighted rdfns:type owlns:AnnotationProperty ;
+                          rdfsns:subPropertyOf dcns:date .
+
+
+###  http://purl.org/dc/terms/dateSubmitted
+dctermsns:dateSubmitted rdfns:type owlns:AnnotationProperty ;
+                        rdfsns:subPropertyOf dcns:date .
+
+
+###  http://purl.org/dc/terms/description
+dctermsns:description rdfns:type owlns:AnnotationProperty ;
+                      rdfsns:subPropertyOf dcns:description .
+
+
+###  http://purl.org/dc/terms/extent
+dctermsns:extent rdfns:type owlns:AnnotationProperty ;
+                 rdfsns:subPropertyOf dcns:format .
+
+
+###  http://purl.org/dc/terms/format
+dctermsns:format rdfns:type owlns:AnnotationProperty ;
+                 rdfsns:subPropertyOf dcns:format .
+
+
+###  http://purl.org/dc/terms/hasFormat
+dctermsns:hasFormat rdfns:type owlns:AnnotationProperty ;
+                    rdfsns:subPropertyOf dcns:relation ,
+                                         dctermsns:relation .
+
+
+###  http://purl.org/dc/terms/hasPart
+dctermsns:hasPart rdfns:type owlns:AnnotationProperty ;
+                  rdfsns:subPropertyOf dcns:relation ,
+                                       dctermsns:relation .
+
+
+###  http://purl.org/dc/terms/hasVersion
+dctermsns:hasVersion rdfns:type owlns:AnnotationProperty ;
+                     rdfsns:subPropertyOf dcns:relation ,
+                                          dctermsns:relation .
+
+
+###  http://purl.org/dc/terms/identifier
+dctermsns:identifier rdfns:type owlns:AnnotationProperty ;
+                     rdfsns:subPropertyOf dcns:identifier .
+
+
+###  http://purl.org/dc/terms/isFormatOf
+dctermsns:isFormatOf rdfns:type owlns:AnnotationProperty ;
+                     rdfsns:subPropertyOf dcns:relation ,
+                                          dctermsns:relation .
+
+
+###  http://purl.org/dc/terms/isPartOf
+dctermsns:isPartOf rdfns:type owlns:AnnotationProperty ;
+                   rdfsns:subPropertyOf dcns:relation ,
+                                        dctermsns:relation .
+
+
+###  http://purl.org/dc/terms/isReferencedBy
+dctermsns:isReferencedBy rdfns:type owlns:AnnotationProperty ;
+                         rdfsns:subPropertyOf dcns:relation ,
+                                              dctermsns:relation .
+
+
+###  http://purl.org/dc/terms/isReplacedBy
+dctermsns:isReplacedBy rdfns:type owlns:AnnotationProperty ;
+                       rdfsns:subPropertyOf dcns:relation ,
+                                            dctermsns:relation .
+
+
+###  http://purl.org/dc/terms/isRequiredBy
+dctermsns:isRequiredBy rdfns:type owlns:AnnotationProperty ;
+                       rdfsns:subPropertyOf dcns:relation ,
+                                            dctermsns:relation .
+
+
+###  http://purl.org/dc/terms/isVersionOf
+dctermsns:isVersionOf rdfns:type owlns:AnnotationProperty ;
+                      rdfsns:subPropertyOf dcns:relation ,
+                                           dctermsns:relation .
+
+
+###  http://purl.org/dc/terms/issued
+dctermsns:issued rdfns:type owlns:AnnotationProperty ;
+                 rdfsns:subPropertyOf dcns:date .
+
+
+###  http://purl.org/dc/terms/language
+dctermsns:language rdfns:type owlns:AnnotationProperty ;
+                   rdfsns:subPropertyOf dcns:language .
+
+
+###  http://purl.org/dc/terms/license
+dctermsns:license rdfns:type owlns:AnnotationProperty ;
+                  rdfsns:subPropertyOf dcns:rights .
+
+
+###  http://purl.org/dc/terms/medium
+dctermsns:medium rdfns:type owlns:AnnotationProperty ;
+                 rdfsns:subPropertyOf dcns:format .
+
+
+###  http://purl.org/dc/terms/modified
+dctermsns:modified rdfns:type owlns:AnnotationProperty ;
+                   rdfsns:subPropertyOf dcns:date .
+
+
+###  http://purl.org/dc/terms/publisher
+dctermsns:publisher rdfns:type owlns:AnnotationProperty ;
+                    rdfsns:subPropertyOf dcns:publisher .
+
+
+###  http://purl.org/dc/terms/references
+dctermsns:references rdfns:type owlns:AnnotationProperty ;
+                     rdfsns:subPropertyOf dcns:relation ,
+                                          dctermsns:relation .
+
+
+###  http://purl.org/dc/terms/relation
+dctermsns:relation rdfns:type owlns:AnnotationProperty ;
+                   rdfsns:subPropertyOf dcns:relation .
+
+
+###  http://purl.org/dc/terms/replaces
+dctermsns:replaces rdfns:type owlns:AnnotationProperty ;
+                   rdfsns:subPropertyOf dcns:relation ,
+                                        dctermsns:relation .
+
+
+###  http://purl.org/dc/terms/requires
+dctermsns:requires rdfns:type owlns:AnnotationProperty ;
+                   rdfsns:subPropertyOf dcns:relation ,
+                                        dctermsns:relation .
+
+
+###  http://purl.org/dc/terms/rights
+dctermsns:rights rdfns:type owlns:AnnotationProperty ;
+                 rdfsns:subPropertyOf dcns:rights .
+
+
+###  http://purl.org/dc/terms/source
+dctermsns:source rdfns:type owlns:AnnotationProperty ;
+                 rdfsns:subPropertyOf dcns:source ,
+                                      dctermsns:relation .
+
+
+###  http://purl.org/dc/terms/spatial
+dctermsns:spatial rdfns:type owlns:AnnotationProperty ;
+                  rdfsns:subPropertyOf dcns:coverage .
+
+
+###  http://purl.org/dc/terms/subject
+dctermsns:subject rdfns:type owlns:AnnotationProperty ;
+                  rdfsns:subPropertyOf dcns:subject .
+
+
+###  http://purl.org/dc/terms/tableOfContents
+dctermsns:tableOfContents rdfns:type owlns:AnnotationProperty ;
+                          rdfsns:subPropertyOf dcns:description ,
+                                               dctermsns:description .
+
+
+###  http://purl.org/dc/terms/temporal
+dctermsns:temporal rdfns:type owlns:AnnotationProperty ;
+                   rdfsns:subPropertyOf dcns:coverage .
+
+
+###  http://purl.org/dc/terms/title
+dctermsns:title rdfns:type owlns:AnnotationProperty ;
+                rdfsns:subPropertyOf dcns:title .
+
+
+###  http://purl.org/dc/terms/type
+dctermsns:type rdfns:type owlns:AnnotationProperty ;
+               rdfsns:subPropertyOf dcns:type .
+
+
+###  http://purl.org/dc/terms/valid
+dctermsns:valid rdfns:type owlns:AnnotationProperty ;
+                rdfsns:subPropertyOf dcns:date .
+
+
+###  http://www.w3.org/2004/02/skos/core#note
+skosns:note rdfns:type owlns:AnnotationProperty .
+
+
+#################################################################
+#    Datatypes
+#################################################################
+
+###  http://purl.org/dc/terms/Box
+dctermsns:Box rdfns:type rdfsns:Datatype .
+
+
+###  http://purl.org/dc/terms/ISO3166
+dctermsns:ISO3166 rdfns:type rdfsns:Datatype .
+
+
+###  http://purl.org/dc/terms/ISO639-2
+dctermsns:ISO639-2 rdfns:type rdfsns:Datatype .
+
+
+###  http://purl.org/dc/terms/ISO639-3
+dctermsns:ISO639-3 rdfns:type rdfsns:Datatype .
+
+
+###  http://purl.org/dc/terms/Period
+dctermsns:Period rdfns:type rdfsns:Datatype .
+
+
+###  http://purl.org/dc/terms/Point
+dctermsns:Point rdfns:type rdfsns:Datatype .
+
+
+###  http://purl.org/dc/terms/RFC1766
+dctermsns:RFC1766 rdfns:type rdfsns:Datatype .
+
+
+###  http://purl.org/dc/terms/RFC3066
+dctermsns:RFC3066 rdfns:type rdfsns:Datatype .
+
+
+###  http://purl.org/dc/terms/RFC4646
+dctermsns:RFC4646 rdfns:type rdfsns:Datatype .
+
+
+###  http://purl.org/dc/terms/RFC5646
+dctermsns:RFC5646 rdfns:type rdfsns:Datatype .
+
+
+###  http://purl.org/dc/terms/URI
+dctermsns:URI rdfns:type rdfsns:Datatype .
+
+
+###  http://purl.org/dc/terms/W3CDTF
+dctermsns:W3CDTF rdfns:type rdfsns:Datatype .
+
+
+###  http://www.w3.org/2001/XMLSchema#date
+xsd:date rdfns:type rdfsns:Datatype .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://purl.org/dc/terms/accessRights
+dctermsns:accessRights rdfns:type owlns:ObjectProperty ;
+                       rdfsns:subPropertyOf dctermsns:rights ;
+                       rdfsns:range dctermsns:RightsStatement .
+
+
+###  http://purl.org/dc/terms/accrualMethod
+dctermsns:accrualMethod rdfns:type owlns:ObjectProperty ;
+                        rdfsns:domain dctypens:Collection ;
+                        rdfsns:range dctermsns:MethodOfAccrual .
+
+
+###  http://purl.org/dc/terms/accrualPeriodicity
+dctermsns:accrualPeriodicity rdfns:type owlns:ObjectProperty ;
+                             rdfsns:domain dctypens:Collection ;
+                             rdfsns:range dctermsns:Frequency .
+
+
+###  http://purl.org/dc/terms/accrualPolicy
+dctermsns:accrualPolicy rdfns:type owlns:ObjectProperty ;
+                        rdfsns:domain dctypens:Collection ;
+                        rdfsns:range dctermsns:Policy .
+
+
+###  http://purl.org/dc/terms/audience
+dctermsns:audience rdfns:type owlns:ObjectProperty ;
+                   rdfsns:range dctermsns:AgentClass .
+
+
+###  http://purl.org/dc/terms/conformsTo
+dctermsns:conformsTo rdfns:type owlns:ObjectProperty ;
+                     rdfsns:range dctermsns:Standard .
+
+
+###  http://purl.org/dc/terms/contributor
+dctermsns:contributor rdfns:type owlns:ObjectProperty ;
+                      rdfsns:range dctermsns:Agent .
+
+
+###  http://purl.org/dc/terms/coverage
+dctermsns:coverage rdfns:type owlns:ObjectProperty ;
+                   rdfsns:range dctermsns:LocationPeriodOrJurisdiction .
+
+
+###  http://purl.org/dc/terms/creator
+dctermsns:creator rdfns:type owlns:ObjectProperty ;
+                  rdfsns:subPropertyOf dctermsns:contributor ;
+                  rdfsns:range dctermsns:Agent .
+
+
+###  http://purl.org/dc/terms/educationLevel
+dctermsns:educationLevel rdfns:type owlns:ObjectProperty ;
+                         rdfsns:subPropertyOf dctermsns:audience ;
+                         rdfsns:range dctermsns:AgentClass .
+
+
+###  http://purl.org/dc/terms/extent
+dctermsns:extent rdfns:type owlns:ObjectProperty ;
+                 rdfsns:subPropertyOf dctermsns:format ;
+                 rdfsns:range dctermsns:SizeOrDuration .
+
+
+###  http://purl.org/dc/terms/format
+dctermsns:format rdfns:type owlns:ObjectProperty ;
+                 rdfsns:range dctermsns:MediaTypeOrExtent .
+
+
+###  http://purl.org/dc/terms/instructionalMethod
+dctermsns:instructionalMethod rdfns:type owlns:ObjectProperty ;
+                              rdfsns:range dctermsns:MethodOfInstruction .
+
+
+###  http://purl.org/dc/terms/language
+dctermsns:language rdfns:type owlns:ObjectProperty ;
+                   rdfsns:range dctermsns:LinguisticSystem .
+
+
+###  http://purl.org/dc/terms/license
+dctermsns:license rdfns:type owlns:ObjectProperty ;
+                  rdfsns:subPropertyOf dctermsns:rights ;
+                  rdfsns:range dctermsns:LicenseDocument .
+
+
+###  http://purl.org/dc/terms/mediator
+dctermsns:mediator rdfns:type owlns:ObjectProperty ;
+                   rdfsns:subPropertyOf dctermsns:audience ;
+                   rdfsns:range dctermsns:AgentClass .
+
+
+###  http://purl.org/dc/terms/medium
+dctermsns:medium rdfns:type owlns:ObjectProperty ;
+                 rdfsns:subPropertyOf dctermsns:format ;
+                 rdfsns:domain dctermsns:PhysicalResource ;
+                 rdfsns:range dctermsns:PhysicalMedium .
+
+
+###  http://purl.org/dc/terms/provenance
+dctermsns:provenance rdfns:type owlns:ObjectProperty ;
+                     rdfsns:range dctermsns:ProvenanceStatement .
+
+
+###  http://purl.org/dc/terms/publisher
+dctermsns:publisher rdfns:type owlns:ObjectProperty ;
+                    rdfsns:range dctermsns:Agent .
+
+
+###  http://purl.org/dc/terms/rights
+dctermsns:rights rdfns:type owlns:ObjectProperty ;
+                 rdfsns:range dctermsns:RightsStatement .
+
+
+###  http://purl.org/dc/terms/rightsHolder
+dctermsns:rightsHolder rdfns:type owlns:ObjectProperty ;
+                       rdfsns:range dctermsns:Agent .
+
+
+###  http://purl.org/dc/terms/spatial
+dctermsns:spatial rdfns:type owlns:ObjectProperty ;
+                  rdfsns:subPropertyOf dctermsns:coverage ;
+                  rdfsns:range dctermsns:Location .
+
+
+###  http://purl.org/dc/terms/temporal
+dctermsns:temporal rdfns:type owlns:ObjectProperty ;
+                   rdfsns:subPropertyOf dctermsns:coverage ;
+                   rdfsns:range dctermsns:PeriodOfTime .
+
+
+###  http://purl.org/dc/terms/type
+dctermsns:type rdfns:type owlns:ObjectProperty ;
+               rdfsns:range rdfsns:Class .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://purl.org/dc/terms/alternative
+dctermsns:alternative rdfns:type owlns:DatatypeProperty ;
+                      rdfsns:subPropertyOf dctermsns:title ;
+                      rdfsns:range rdfsns:Literal .
+
+
+###  http://purl.org/dc/terms/available
+dctermsns:available rdfns:type owlns:DatatypeProperty ;
+                    rdfsns:subPropertyOf dctermsns:date ;
+                    rdfsns:range rdfsns:Literal .
+
+
+###  http://purl.org/dc/terms/bibliographicCitation
+dctermsns:bibliographicCitation rdfns:type owlns:DatatypeProperty ;
+                                rdfsns:subPropertyOf dctermsns:identifier ;
+                                rdfsns:domain dctermsns:BibliographicResource ;
+                                rdfsns:range rdfsns:Literal .
+
+
+###  http://purl.org/dc/terms/created
+dctermsns:created rdfns:type owlns:DatatypeProperty ;
+                  rdfsns:subPropertyOf dctermsns:date ;
+                  rdfsns:range rdfsns:Literal .
+
+
+###  http://purl.org/dc/terms/date
+dctermsns:date rdfns:type owlns:DatatypeProperty ;
+               rdfsns:range rdfsns:Literal .
+
+
+###  http://purl.org/dc/terms/dateAccepted
+dctermsns:dateAccepted rdfns:type owlns:DatatypeProperty ;
+                       rdfsns:subPropertyOf dctermsns:date ;
+                       rdfsns:range rdfsns:Literal .
+
+
+###  http://purl.org/dc/terms/dateCopyrighted
+dctermsns:dateCopyrighted rdfns:type owlns:DatatypeProperty ;
+                          rdfsns:subPropertyOf dctermsns:date ;
+                          rdfsns:range rdfsns:Literal .
+
+
+###  http://purl.org/dc/terms/dateSubmitted
+dctermsns:dateSubmitted rdfns:type owlns:DatatypeProperty ;
+                        rdfsns:subPropertyOf dctermsns:date ;
+                        rdfsns:range rdfsns:Literal .
+
+
+###  http://purl.org/dc/terms/identifier
+dctermsns:identifier rdfns:type owlns:DatatypeProperty ;
+                     rdfsns:range rdfsns:Literal .
+
+
+###  http://purl.org/dc/terms/issued
+dctermsns:issued rdfns:type owlns:DatatypeProperty ;
+                 rdfsns:subPropertyOf dctermsns:date ;
+                 rdfsns:range rdfsns:Literal .
+
+
+###  http://purl.org/dc/terms/modified
+dctermsns:modified rdfns:type owlns:DatatypeProperty ;
+                   rdfsns:subPropertyOf dctermsns:date ;
+                   rdfsns:range rdfsns:Literal .
+
+
+###  http://purl.org/dc/terms/title
+dctermsns:title rdfns:type owlns:DatatypeProperty ;
+                rdfsns:range rdfsns:Literal .
+
+
+###  http://purl.org/dc/terms/valid
+dctermsns:valid rdfns:type owlns:DatatypeProperty ;
+                rdfsns:subPropertyOf dctermsns:date ;
+                rdfsns:range rdfsns:Literal .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://purl.org/dc/dcam/VocabularyEncodingScheme
+dcamns:VocabularyEncodingScheme rdfns:type owlns:Class .
+
+
+###  http://purl.org/dc/dcmitype/Collection
+dctypens:Collection rdfns:type owlns:Class .
+
+
+###  http://purl.org/dc/terms/Agent
+dctermsns:Agent rdfns:type owlns:Class .
+
+
+###  http://purl.org/dc/terms/AgentClass
+dctermsns:AgentClass rdfns:type owlns:Class ;
+                     rdfsns:subClassOf rdfsns:Class .
+
+
+###  http://purl.org/dc/terms/BibliographicResource
+dctermsns:BibliographicResource rdfns:type owlns:Class .
+
+
+###  http://purl.org/dc/terms/FileFormat
+dctermsns:FileFormat rdfns:type owlns:Class ;
+                     rdfsns:subClassOf dctermsns:MediaType .
+
+
+###  http://purl.org/dc/terms/Frequency
+dctermsns:Frequency rdfns:type owlns:Class .
+
+
+###  http://purl.org/dc/terms/Jurisdiction
+dctermsns:Jurisdiction rdfns:type owlns:Class ;
+                       rdfsns:subClassOf dctermsns:LocationPeriodOrJurisdiction .
+
+
+###  http://purl.org/dc/terms/LicenseDocument
+dctermsns:LicenseDocument rdfns:type owlns:Class ;
+                          rdfsns:subClassOf dctermsns:RightsStatement .
+
+
+###  http://purl.org/dc/terms/LinguisticSystem
+dctermsns:LinguisticSystem rdfns:type owlns:Class .
+
+
+###  http://purl.org/dc/terms/Location
+dctermsns:Location rdfns:type owlns:Class ;
+                   rdfsns:subClassOf dctermsns:LocationPeriodOrJurisdiction .
+
+
+###  http://purl.org/dc/terms/LocationPeriodOrJurisdiction
+dctermsns:LocationPeriodOrJurisdiction rdfns:type owlns:Class .
+
+
+###  http://purl.org/dc/terms/MediaType
+dctermsns:MediaType rdfns:type owlns:Class ;
+                    rdfsns:subClassOf dctermsns:MediaTypeOrExtent .
+
+
+###  http://purl.org/dc/terms/MediaTypeOrExtent
+dctermsns:MediaTypeOrExtent rdfns:type owlns:Class .
+
+
+###  http://purl.org/dc/terms/MethodOfAccrual
+dctermsns:MethodOfAccrual rdfns:type owlns:Class .
+
+
+###  http://purl.org/dc/terms/MethodOfInstruction
+dctermsns:MethodOfInstruction rdfns:type owlns:Class .
+
+
+###  http://purl.org/dc/terms/PeriodOfTime
+dctermsns:PeriodOfTime rdfns:type owlns:Class ;
+                       rdfsns:subClassOf dctermsns:LocationPeriodOrJurisdiction .
+
+
+###  http://purl.org/dc/terms/PhysicalMedium
+dctermsns:PhysicalMedium rdfns:type owlns:Class ;
+                         rdfsns:subClassOf dctermsns:MediaType .
+
+
+###  http://purl.org/dc/terms/PhysicalResource
+dctermsns:PhysicalResource rdfns:type owlns:Class .
+
+
+###  http://purl.org/dc/terms/Policy
+dctermsns:Policy rdfns:type owlns:Class .
+
+
+###  http://purl.org/dc/terms/ProvenanceStatement
+dctermsns:ProvenanceStatement rdfns:type owlns:Class .
+
+
+###  http://purl.org/dc/terms/RightsStatement
+dctermsns:RightsStatement rdfns:type owlns:Class .
+
+
+###  http://purl.org/dc/terms/SizeOrDuration
+dctermsns:SizeOrDuration rdfns:type owlns:Class ;
+                         rdfsns:subClassOf dctermsns:MediaTypeOrExtent .
+
+
+###  http://purl.org/dc/terms/Standard
+dctermsns:Standard rdfns:type owlns:Class .
+
+
+###  http://www.w3.org/2000/01/rdf-schema#Class
+rdfsns:Class rdfns:type owlns:Class .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://purl.org/dc/aboutdcmi#DCMI
+<http://purl.org/dc/aboutdcmi#DCMI> rdfns:type owlns:NamedIndividual .
+
+
+###  http://purl.org/dc/terms/
+dctermsns: rdfns:type owlns:NamedIndividual ;
+           dctermsns:publisher <http://purl.org/dc/aboutdcmi#DCMI> ;
+           dctermsns:modified "2012-06-14"^^xsd:date ;
+           dctermsns:title "DCMI Metadata Terms - other"@en .
+
+
+###  http://purl.org/dc/terms/Agent
+dctermsns:Agent rdfns:type owlns:NamedIndividual ,
+                           dctermsns:AgentClass ;
+                dctermsns:issued "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/AgentClass
+dctermsns:AgentClass rdfns:type owlns:NamedIndividual ;
+                     dctermsns:issued "2008-01-14"^^xsd:date ;
+                     dctermsns:modified "2012-06-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/BibliographicResource
+dctermsns:BibliographicResource rdfns:type owlns:NamedIndividual ;
+                                dctermsns:issued "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/Box
+dctermsns:Box rdfns:type owlns:NamedIndividual ;
+              dctermsns:issued "2000-07-11"^^xsd:date ;
+              dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/DCMIType
+dctermsns:DCMIType rdfns:type owlns:NamedIndividual ,
+                              dcamns:VocabularyEncodingScheme ;
+                   dctermsns:issued "2000-07-11"^^xsd:date ;
+                   dctermsns:modified "2012-06-14"^^xsd:date ;
+                   dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#DCMIType-005> ;
+                   rdfsns:comment "The set of classes specified by the DCMI Type Vocabulary, used to categorize the nature or genre of the resource."@en ;
+                   rdfsns:isDefinedBy dctermsns: ;
+                   rdfsns:label "DCMI Type Vocabulary"@en ;
+                   rdfsns:seeAlso dctypens: .
+
+
+###  http://purl.org/dc/terms/DDC
+dctermsns:DDC rdfns:type owlns:NamedIndividual ,
+                         dcamns:VocabularyEncodingScheme ;
+              dctermsns:issued "2000-07-11"^^xsd:date ;
+              dctermsns:modified "2008-01-14"^^xsd:date ;
+              dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#DDC-003> ;
+              rdfsns:comment "The set of conceptual resources specified by the Dewey Decimal Classification."@en ;
+              rdfsns:isDefinedBy dctermsns: ;
+              rdfsns:label "DDC"@en ;
+              rdfsns:seeAlso <http://www.oclc.org/dewey/> .
+
+
+###  http://purl.org/dc/terms/FileFormat
+dctermsns:FileFormat rdfns:type owlns:NamedIndividual ;
+                     dctermsns:issued "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/Frequency
+dctermsns:Frequency rdfns:type owlns:NamedIndividual ;
+                    dctermsns:issued "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/IMT
+dctermsns:IMT rdfns:type owlns:NamedIndividual ,
+                         dcamns:VocabularyEncodingScheme ;
+              dctermsns:issued "2000-07-11"^^xsd:date ;
+              dctermsns:modified "2008-01-14"^^xsd:date ;
+              dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#IMT-004> ;
+              rdfsns:comment "The set of media types specified by the Internet Assigned Numbers Authority."@en ;
+              rdfsns:isDefinedBy dctermsns: ;
+              rdfsns:label "IMT"@en ;
+              rdfsns:seeAlso <http://www.iana.org/assignments/media-types/> .
+
+
+###  http://purl.org/dc/terms/ISO3166
+dctermsns:ISO3166 rdfns:type owlns:NamedIndividual ;
+                  dctermsns:issued "2000-07-11"^^xsd:date ;
+                  dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/ISO639-2
+dctermsns:ISO639-2 rdfns:type owlns:NamedIndividual ;
+                   dctermsns:issued "2000-07-11"^^xsd:date ;
+                   dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/ISO639-3
+dctermsns:ISO639-3 rdfns:type owlns:NamedIndividual ;
+                   dctermsns:issued "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/Jurisdiction
+dctermsns:Jurisdiction rdfns:type owlns:NamedIndividual ;
+                       dctermsns:issued "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/LCC
+dctermsns:LCC rdfns:type owlns:NamedIndividual ,
+                         dcamns:VocabularyEncodingScheme ;
+              dctermsns:issued "2000-07-11"^^xsd:date ;
+              dctermsns:modified "2008-01-14"^^xsd:date ;
+              dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#LCC-003> ;
+              rdfsns:comment "The set of conceptual resources specified by the Library of Congress Classification."@en ;
+              rdfsns:isDefinedBy dctermsns: ;
+              rdfsns:label "LCC"@en ;
+              rdfsns:seeAlso <http://lcweb.loc.gov/catdir/cpso/lcco/lcco.html> .
+
+
+###  http://purl.org/dc/terms/LCSH
+dctermsns:LCSH rdfns:type owlns:NamedIndividual ,
+                          dcamns:VocabularyEncodingScheme ;
+               dctermsns:issued "2000-07-11"^^xsd:date ;
+               dctermsns:modified "2008-01-14"^^xsd:date ;
+               dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#LCSH-003> ;
+               rdfsns:comment "The set of labeled concepts specified by the Library of Congress Subject Headings."@en ;
+               rdfsns:isDefinedBy dctermsns: ;
+               rdfsns:label "LCSH"@en .
+
+
+###  http://purl.org/dc/terms/LicenseDocument
+dctermsns:LicenseDocument rdfns:type owlns:NamedIndividual ;
+                          dctermsns:issued "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/LinguisticSystem
+dctermsns:LinguisticSystem rdfns:type owlns:NamedIndividual ;
+                           dctermsns:issued "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/Location
+dctermsns:Location rdfns:type owlns:NamedIndividual ;
+                   dctermsns:issued "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/LocationPeriodOrJurisdiction
+dctermsns:LocationPeriodOrJurisdiction rdfns:type owlns:NamedIndividual ;
+                                       dctermsns:issued "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/MESH
+dctermsns:MESH rdfns:type owlns:NamedIndividual ,
+                          dcamns:VocabularyEncodingScheme ;
+               dctermsns:issued "2000-07-11"^^xsd:date ;
+               dctermsns:modified "2008-01-14"^^xsd:date ;
+               dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#MESH-003> ;
+               rdfsns:comment "The set of labeled concepts specified by the Medical Subject Headings."@en ;
+               rdfsns:isDefinedBy dctermsns: ;
+               rdfsns:label "MeSH"@en ;
+               rdfsns:seeAlso <http://www.nlm.nih.gov/mesh/meshhome.html> .
+
+
+###  http://purl.org/dc/terms/MediaType
+dctermsns:MediaType rdfns:type owlns:NamedIndividual ;
+                    dctermsns:issued "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/MediaTypeOrExtent
+dctermsns:MediaTypeOrExtent rdfns:type owlns:NamedIndividual ;
+                            dctermsns:issued "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/MethodOfAccrual
+dctermsns:MethodOfAccrual rdfns:type owlns:NamedIndividual ;
+                          dctermsns:issued "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/MethodOfInstruction
+dctermsns:MethodOfInstruction rdfns:type owlns:NamedIndividual ;
+                              dctermsns:issued "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/NLM
+dctermsns:NLM rdfns:type owlns:NamedIndividual ,
+                         dcamns:VocabularyEncodingScheme ;
+              dctermsns:issued "2005-06-13"^^xsd:date ;
+              dctermsns:modified "2008-01-14"^^xsd:date ;
+              dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#NLM-002> ;
+              rdfsns:comment "The set of conceptual resources specified by the National Library of Medicine Classification."@en ;
+              rdfsns:isDefinedBy dctermsns: ;
+              rdfsns:label "NLM"@en ;
+              rdfsns:seeAlso <http://wwwcf.nlm.nih.gov/class/> .
+
+
+###  http://purl.org/dc/terms/Period
+dctermsns:Period rdfns:type owlns:NamedIndividual ;
+                 dctermsns:issued "2000-07-11"^^xsd:date ;
+                 dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/PeriodOfTime
+dctermsns:PeriodOfTime rdfns:type owlns:NamedIndividual ;
+                       dctermsns:issued "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/PhysicalMedium
+dctermsns:PhysicalMedium rdfns:type owlns:NamedIndividual ;
+                         dctermsns:issued "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/PhysicalResource
+dctermsns:PhysicalResource rdfns:type owlns:NamedIndividual ;
+                           dctermsns:issued "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/Point
+dctermsns:Point rdfns:type owlns:NamedIndividual ;
+                dctermsns:issued "2000-07-11"^^xsd:date ;
+                dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/Policy
+dctermsns:Policy rdfns:type owlns:NamedIndividual ;
+                 dctermsns:issued "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/ProvenanceStatement
+dctermsns:ProvenanceStatement rdfns:type owlns:NamedIndividual ;
+                              dctermsns:issued "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/RFC1766
+dctermsns:RFC1766 rdfns:type owlns:NamedIndividual ;
+                  dctermsns:issued "2000-07-11"^^xsd:date ;
+                  dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/RFC3066
+dctermsns:RFC3066 rdfns:type owlns:NamedIndividual ;
+                  dctermsns:issued "2002-07-13"^^xsd:date ;
+                  dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/RFC4646
+dctermsns:RFC4646 rdfns:type owlns:NamedIndividual ;
+                  dctermsns:issued "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/RFC5646
+dctermsns:RFC5646 rdfns:type owlns:NamedIndividual ;
+                  dctermsns:issued "2010-10-11"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/RightsStatement
+dctermsns:RightsStatement rdfns:type owlns:NamedIndividual ;
+                          dctermsns:issued "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/SizeOrDuration
+dctermsns:SizeOrDuration rdfns:type owlns:NamedIndividual ;
+                         dctermsns:issued "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/Standard
+dctermsns:Standard rdfns:type owlns:NamedIndividual ;
+                   dctermsns:issued "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/TGN
+dctermsns:TGN rdfns:type owlns:NamedIndividual ,
+                         dcamns:VocabularyEncodingScheme ;
+              dctermsns:issued "2000-07-11"^^xsd:date ;
+              dctermsns:modified "2008-01-14"^^xsd:date ;
+              dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#TGN-003> ;
+              rdfsns:comment "The set of places specified by the Getty Thesaurus of Geographic Names."@en ;
+              rdfsns:isDefinedBy dctermsns: ;
+              rdfsns:label "TGN"@en ;
+              rdfsns:seeAlso <http://www.getty.edu/research/tools/vocabulary/tgn/index.html> .
+
+
+###  http://purl.org/dc/terms/UDC
+dctermsns:UDC rdfns:type owlns:NamedIndividual ,
+                         dcamns:VocabularyEncodingScheme ;
+              dctermsns:issued "2000-07-11"^^xsd:date ;
+              dctermsns:modified "2008-01-14"^^xsd:date ;
+              dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#UDC-003> ;
+              rdfsns:comment "The set of conceptual resources specified by the Universal Decimal Classification."@en ;
+              rdfsns:isDefinedBy dctermsns: ;
+              rdfsns:label "UDC"@en ;
+              rdfsns:seeAlso <http://www.udcc.org/> .
+
+
+###  http://purl.org/dc/terms/URI
+dctermsns:URI rdfns:type owlns:NamedIndividual ;
+              dctermsns:issued "2000-07-11"^^xsd:date ;
+              dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/W3CDTF
+dctermsns:W3CDTF rdfns:type owlns:NamedIndividual ;
+                 dctermsns:issued "2000-07-11"^^xsd:date ;
+                 dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/abstract
+dctermsns:abstract rdfns:type owlns:NamedIndividual ;
+                   dctermsns:issued "2000-07-11"^^xsd:date ;
+                   dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/accessRights
+dctermsns:accessRights rdfns:type owlns:NamedIndividual ;
+                       dctermsns:issued "2003-02-15"^^xsd:date ;
+                       dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/accrualMethod
+dctermsns:accrualMethod rdfns:type owlns:NamedIndividual ;
+                        dctermsns:issued "2005-06-13"^^xsd:date ;
+                        dctermsns:modified "2010-10-11"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/accrualPeriodicity
+dctermsns:accrualPeriodicity rdfns:type owlns:NamedIndividual ;
+                             dctermsns:issued "2005-06-13"^^xsd:date ;
+                             dctermsns:modified "2010-10-11"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/accrualPolicy
+dctermsns:accrualPolicy rdfns:type owlns:NamedIndividual ;
+                        dctermsns:issued "2005-06-13"^^xsd:date ;
+                        dctermsns:modified "2010-10-11"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/alternative
+dctermsns:alternative rdfns:type owlns:NamedIndividual ;
+                      dctermsns:issued "2000-07-11"^^xsd:date ;
+                      dctermsns:modified "2010-10-11"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/audience
+dctermsns:audience rdfns:type owlns:NamedIndividual ;
+                   dctermsns:issued "2001-05-21"^^xsd:date ;
+                   dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/available
+dctermsns:available rdfns:type owlns:NamedIndividual ;
+                    dctermsns:issued "2000-07-11"^^xsd:date ;
+                    dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/bibliographicCitation
+dctermsns:bibliographicCitation rdfns:type owlns:NamedIndividual ;
+                                dctermsns:issued "2003-02-15"^^xsd:date ;
+                                dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/conformsTo
+dctermsns:conformsTo rdfns:type owlns:NamedIndividual ;
+                     dctermsns:issued "2001-05-21"^^xsd:date ;
+                     dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/contributor
+dctermsns:contributor rdfns:type owlns:NamedIndividual ;
+                      dctermsns:issued "2008-01-14"^^xsd:date ;
+                      dctermsns:modified "2010-10-11"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/coverage
+dctermsns:coverage rdfns:type owlns:NamedIndividual ;
+                   dctermsns:issued "2008-01-14"^^xsd:date ;
+                   dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/created
+dctermsns:created rdfns:type owlns:NamedIndividual ;
+                  dctermsns:issued "2000-07-11"^^xsd:date ;
+                  dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/creator
+dctermsns:creator rdfns:type owlns:NamedIndividual ;
+                  dctermsns:issued "2008-01-14"^^xsd:date ;
+                  dctermsns:modified "2010-10-11"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/date
+dctermsns:date rdfns:type owlns:NamedIndividual ;
+               dctermsns:issued "2008-01-14"^^xsd:date ;
+               dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/dateAccepted
+dctermsns:dateAccepted rdfns:type owlns:NamedIndividual ;
+                       dctermsns:issued "2002-07-13"^^xsd:date ;
+                       dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/dateCopyrighted
+dctermsns:dateCopyrighted rdfns:type owlns:NamedIndividual ;
+                          dctermsns:issued "2002-07-13"^^xsd:date ;
+                          dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/dateSubmitted
+dctermsns:dateSubmitted rdfns:type owlns:NamedIndividual ;
+                        dctermsns:issued "2002-07-13"^^xsd:date ;
+                        dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/description
+dctermsns:description rdfns:type owlns:NamedIndividual ;
+                      dctermsns:issued "2008-01-14"^^xsd:date ;
+                      dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/educationLevel
+dctermsns:educationLevel rdfns:type owlns:NamedIndividual ;
+                         dctermsns:issued "2002-07-13"^^xsd:date ;
+                         dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/extent
+dctermsns:extent rdfns:type owlns:NamedIndividual ;
+                 dctermsns:issued "2000-07-11"^^xsd:date ;
+                 dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/format
+dctermsns:format rdfns:type owlns:NamedIndividual ;
+                 dctermsns:issued "2008-01-14"^^xsd:date ;
+                 dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/hasFormat
+dctermsns:hasFormat rdfns:type owlns:NamedIndividual ;
+                    dctermsns:issued "2000-07-11"^^xsd:date ;
+                    dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/hasPart
+dctermsns:hasPart rdfns:type owlns:NamedIndividual ;
+                  dctermsns:issued "2000-07-11"^^xsd:date ;
+                  dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/hasVersion
+dctermsns:hasVersion rdfns:type owlns:NamedIndividual ;
+                     dctermsns:issued "2000-07-11"^^xsd:date ;
+                     dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/identifier
+dctermsns:identifier rdfns:type owlns:NamedIndividual ;
+                     dctermsns:issued "2008-01-14"^^xsd:date ;
+                     dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/instructionalMethod
+dctermsns:instructionalMethod rdfns:type owlns:NamedIndividual ;
+                              dctermsns:issued "2005-06-13"^^xsd:date ;
+                              dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/isFormatOf
+dctermsns:isFormatOf rdfns:type owlns:NamedIndividual ;
+                     dctermsns:issued "2000-07-11"^^xsd:date ;
+                     dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/isPartOf
+dctermsns:isPartOf rdfns:type owlns:NamedIndividual ;
+                   dctermsns:issued "2000-07-11"^^xsd:date ;
+                   dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/isReferencedBy
+dctermsns:isReferencedBy rdfns:type owlns:NamedIndividual ;
+                         dctermsns:issued "2000-07-11"^^xsd:date ;
+                         dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/isReplacedBy
+dctermsns:isReplacedBy rdfns:type owlns:NamedIndividual ;
+                       dctermsns:issued "2000-07-11"^^xsd:date ;
+                       dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/isRequiredBy
+dctermsns:isRequiredBy rdfns:type owlns:NamedIndividual ;
+                       dctermsns:issued "2000-07-11"^^xsd:date ;
+                       dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/isVersionOf
+dctermsns:isVersionOf rdfns:type owlns:NamedIndividual ;
+                      dctermsns:issued "2000-07-11"^^xsd:date ;
+                      dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/issued
+dctermsns:issued rdfns:type owlns:NamedIndividual ,
+                            owlns:DatatypeProperty ;
+                 dctermsns:issued "2000-07-11"^^xsd:date ;
+                 dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/language
+dctermsns:language rdfns:type owlns:NamedIndividual ;
+                   dctermsns:issued "2008-01-14"^^xsd:date ;
+                   dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/license
+dctermsns:license rdfns:type owlns:NamedIndividual ;
+                  dctermsns:issued "2004-06-14"^^xsd:date ;
+                  dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/mediator
+dctermsns:mediator rdfns:type owlns:NamedIndividual ;
+                   dctermsns:issued "2001-05-21"^^xsd:date ;
+                   dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/medium
+dctermsns:medium rdfns:type owlns:NamedIndividual ;
+                 dctermsns:issued "2000-07-11"^^xsd:date ;
+                 dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/modified
+dctermsns:modified rdfns:type owlns:NamedIndividual ;
+                   dctermsns:issued "2000-07-11"^^xsd:date ;
+                   rdfns:type owlns:DatatypeProperty ;
+                   dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/provenance
+dctermsns:provenance rdfns:type owlns:NamedIndividual ;
+                     dctermsns:issued "2004-09-20"^^xsd:date ;
+                     dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/publisher
+dctermsns:publisher rdfns:type owlns:NamedIndividual ;
+                    dctermsns:issued "2008-01-14"^^xsd:date ;
+                    dctermsns:modified "2010-10-11"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/references
+dctermsns:references rdfns:type owlns:NamedIndividual ;
+                     dctermsns:issued "2000-07-11"^^xsd:date ;
+                     dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/relation
+dctermsns:relation rdfns:type owlns:NamedIndividual ;
+                   dctermsns:issued "2008-01-14"^^xsd:date ;
+                   dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/replaces
+dctermsns:replaces rdfns:type owlns:NamedIndividual ;
+                   dctermsns:issued "2000-07-11"^^xsd:date ;
+                   dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/requires
+dctermsns:requires rdfns:type owlns:NamedIndividual ;
+                   dctermsns:issued "2000-07-11"^^xsd:date ;
+                   dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/rights
+dctermsns:rights rdfns:type owlns:NamedIndividual ;
+                 dctermsns:issued "2008-01-14"^^xsd:date ;
+                 dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/rightsHolder
+dctermsns:rightsHolder rdfns:type owlns:NamedIndividual ;
+                       dctermsns:issued "2004-06-14"^^xsd:date ;
+                       dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/source
+dctermsns:source rdfns:type owlns:NamedIndividual ;
+                 dctermsns:issued "2008-01-14"^^xsd:date ;
+                 dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/spatial
+dctermsns:spatial rdfns:type owlns:NamedIndividual ;
+                  dctermsns:issued "2000-07-11"^^xsd:date ;
+                  dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/subject
+dctermsns:subject rdfns:type owlns:NamedIndividual ;
+                  dctermsns:issued "2008-01-14"^^xsd:date ;
+                  dctermsns:modified "2012-06-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/tableOfContents
+dctermsns:tableOfContents rdfns:type owlns:NamedIndividual ;
+                          dctermsns:issued "2000-07-11"^^xsd:date ;
+                          dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/temporal
+dctermsns:temporal rdfns:type owlns:NamedIndividual ;
+                   dctermsns:issued "2000-07-11"^^xsd:date ;
+                   dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/title
+dctermsns:title rdfns:type owlns:NamedIndividual ;
+                dctermsns:issued "2008-01-14"^^xsd:date ;
+                dctermsns:modified "2010-10-11"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/type
+dctermsns:type rdfns:type owlns:NamedIndividual ;
+               dctermsns:issued "2008-01-14"^^xsd:date ;
+               dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+###  http://purl.org/dc/terms/valid
+dctermsns:valid rdfns:type owlns:NamedIndividual ;
+                dctermsns:issued "2000-07-11"^^xsd:date ;
+                dctermsns:modified "2008-01-14"^^xsd:date .
+
+
+#################################################################
+#    Annotations
+#################################################################
+
+dctermsns:Agent rdfsns:label "Agent"@en ;
+                rdfsns:comment "A resource that acts or has the power to act."@en ;
+                rdfsns:isDefinedBy dctermsns: ;
+                dctermsns:description "Examples of Agent include person, organization, and software agent."@en ;
+                dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#Agent-001> .
+
+
+dctermsns:AgentClass rdfsns:isDefinedBy dctermsns: ;
+                     rdfsns:label "Agent Class"@en ;
+                     rdfsns:comment "A group of agents."@en ;
+                     dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#AgentClass-003> ;
+                     dctermsns:description "Examples of Agent Class include groups seen as classes, such as students, women, charities, lecturers."@en .
+
+
+dctermsns:BibliographicResource rdfsns:isDefinedBy dctermsns: ;
+                                dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#BibliographicResource-001> ;
+                                rdfsns:comment "A book, article, or other documentary resource."@en ;
+                                rdfsns:label "Bibliographic Resource"@en .
+
+
+dctermsns:Box rdfsns:comment "The set of regions in space defined by their geographic coordinates according to the DCMI Box Encoding Scheme."@en ;
+              rdfsns:isDefinedBy dctermsns: ;
+              rdfsns:label "DCMI Box"@en ;
+              rdfsns:seeAlso <http://dublincore.org/documents/dcmi-box/> ;
+              dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#Box-003> .
+
+
+dctermsns:FileFormat dctermsns:description "Examples include the formats defined by the list of Internet Media Types."@en ;
+                     dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#FileFormat-001> ;
+                     rdfsns:label "File Format"@en ;
+                     rdfsns:comment "A digital resource format."@en ;
+                     rdfsns:isDefinedBy dctermsns: .
+
+
+dctermsns:Frequency rdfsns:label "Frequency"@en ;
+                    dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#Frequency-001> ;
+                    rdfsns:isDefinedBy dctermsns: ;
+                    rdfsns:comment "A rate at which something recurs."@en .
+
+
+dctermsns:ISO3166 rdfsns:comment "The set of codes listed in ISO 3166-1 for the representation of names of countries."@en ;
+                  dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#ISO3166-004> ;
+                  rdfsns:isDefinedBy dctermsns: ;
+                  rdfsns:label "ISO 3166"@en ;
+                  rdfsns:seeAlso <http://www.iso.org/iso/en/prods-services/iso3166ma/02iso-3166-code-lists/list-en1.html> .
+
+
+dctermsns:ISO639-2 rdfsns:seeAlso <http://lcweb.loc.gov/standards/iso639-2/langhome.html> ;
+                   rdfsns:comment "The three-letter alphabetic codes listed in ISO639-2 for the representation of names of languages."@en ;
+                   rdfsns:isDefinedBy dctermsns: ;
+                   rdfsns:label "ISO 639-2"@en ;
+                   dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#ISO639-2-003> .
+
+
+dctermsns:ISO639-3 rdfsns:comment "The set of three-letter codes listed in ISO 639-3 for the representation of names of languages."@en ;
+                   rdfsns:label "ISO 639-3"@en ;
+                   rdfsns:isDefinedBy dctermsns: ;
+                   dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#ISO639-3-001> ;
+                   rdfsns:seeAlso <http://www.sil.org/iso639-3/> .
+
+
+dctermsns:Jurisdiction dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#Jurisdiction-001> ;
+                       rdfsns:label "Jurisdiction"@en ;
+                       rdfsns:comment "The extent or range of judicial, law enforcement, or other authority."@en ;
+                       rdfsns:isDefinedBy dctermsns: .
+
+
+dctermsns:LicenseDocument rdfsns:isDefinedBy dctermsns: ;
+                          rdfsns:label "License Document"@en ;
+                          rdfsns:comment "A legal document giving official permission to do something with a Resource."@en ;
+                          dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#LicenseDocument-001> .
+
+
+dctermsns:LinguisticSystem dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#LinguisticSystem-001> ;
+                           dctermsns:description "Examples include written, spoken, sign, and computer languages."@en ;
+                           rdfsns:isDefinedBy dctermsns: ;
+                           rdfsns:comment "A system of signs, symbols, sounds, gestures, or rules used in communication."@en ;
+                           rdfsns:label "Linguistic System"@en .
+
+
+dctermsns:Location dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#Location-001> ;
+                   rdfsns:label "Location"@en ;
+                   rdfsns:isDefinedBy dctermsns: ;
+                   rdfsns:comment "A spatial region or named place."@en .
+
+
+dctermsns:LocationPeriodOrJurisdiction rdfsns:label "Location, Period, or Jurisdiction"@en ;
+                                       rdfsns:comment "A location, period of time, or jurisdiction."@en ;
+                                       rdfsns:isDefinedBy dctermsns: ;
+                                       dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#LocationPeriodOrJurisdiction-001> .
+
+
+dctermsns:MediaType rdfsns:comment "A file format or physical medium."@en ;
+                    rdfsns:label "Media Type"@en ;
+                    rdfsns:isDefinedBy dctermsns: ;
+                    dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#MediaType-001> .
+
+
+dctermsns:MediaTypeOrExtent rdfsns:isDefinedBy dctermsns: ;
+                            rdfsns:comment "A media type or extent."@en ;
+                            rdfsns:label "Media Type or Extent"@en ;
+                            dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#MediaTypeOrExtent-001> .
+
+
+dctermsns:MethodOfAccrual rdfsns:isDefinedBy dctermsns: ;
+                          rdfsns:comment "A method by which resources are added to a collection."@en ;
+                          dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#MethodOfAccrual-001> ;
+                          rdfsns:label "Method of Accrual"@en .
+
+
+dctermsns:MethodOfInstruction rdfsns:label "Method of Instruction"@en ;
+                              rdfsns:comment "A process that is used to engender knowledge, attitudes, and skills."@en ;
+                              rdfsns:isDefinedBy dctermsns: ;
+                              dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#MethodOfInstruction-001> .
+
+
+dctermsns:Period rdfsns:comment "The set of time intervals defined by their limits according to the DCMI Period Encoding Scheme."@en ;
+                 rdfsns:seeAlso <http://dublincore.org/documents/dcmi-period/> ;
+                 rdfsns:label "DCMI Period"@en ;
+                 rdfsns:isDefinedBy dctermsns: ;
+                 dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#Period-003> .
+
+
+dctermsns:PeriodOfTime rdfsns:comment "An interval of time that is named or defined by its start and end dates."@en ;
+                       dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#PeriodOfTime-001> ;
+                       rdfsns:isDefinedBy dctermsns: ;
+                       rdfsns:label "Period of Time"@en .
+
+
+dctermsns:PhysicalMedium dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#PhysicalMedium-001> ;
+                         dctermsns:description "Examples include paper, canvas, or DVD."@en ;
+                         rdfsns:label "Physical Medium"@en ;
+                         rdfsns:isDefinedBy dctermsns: ;
+                         rdfsns:comment "A physical material or carrier."@en .
+
+
+dctermsns:PhysicalResource rdfsns:isDefinedBy dctermsns: ;
+                           rdfsns:comment "A material thing."@en ;
+                           dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#PhysicalResource-001> ;
+                           rdfsns:label "Physical Resource"@en .
+
+
+dctermsns:Point rdfsns:comment "The set of points in space defined by their geographic coordinates according to the DCMI Point Encoding Scheme."@en ;
+                rdfsns:label "DCMI Point"@en ;
+                dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#Point-003> ;
+                rdfsns:seeAlso <http://dublincore.org/documents/dcmi-point/> ;
+                rdfsns:isDefinedBy dctermsns: .
+
+
+dctermsns:Policy rdfsns:label "Policy"@en ;
+                 rdfsns:isDefinedBy dctermsns: ;
+                 rdfsns:comment "A plan or course of action by an authority, intended to influence and determine decisions, actions, and other matters."@en ;
+                 dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#Policy-001> .
+
+
+dctermsns:ProvenanceStatement rdfsns:label "Provenance Statement"@en ;
+                              rdfsns:isDefinedBy dctermsns: ;
+                              rdfsns:comment "A statement of any changes in ownership and custody of a resource since its creation that are significant for its authenticity, integrity, and interpretation."@en ;
+                              dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#ProvenanceStatement-001> .
+
+
+dctermsns:RFC1766 rdfsns:isDefinedBy dctermsns: ;
+                  rdfsns:seeAlso <http://www.ietf.org/rfc/rfc1766.txt> ;
+                  rdfsns:comment "The set of tags, constructed according to RFC 1766, for the identification of languages."@en ;
+                  dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#RFC1766-003> ;
+                  rdfsns:label "RFC 1766"@en .
+
+
+dctermsns:RFC3066 rdfsns:label "RFC 3066"@en ;
+                  rdfsns:isDefinedBy dctermsns: ;
+                  dctermsns:description "RFC 3066 has been obsoleted by RFC 4646."@en ;
+                  rdfsns:comment "The set of tags constructed according to RFC 3066 for the identification of languages."@en ;
+                  rdfsns:seeAlso <http://www.ietf.org/rfc/rfc3066.txt> ;
+                  dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#RFC3066-002> .
+
+
+dctermsns:RFC4646 dctermsns:description "RFC 4646 obsoletes RFC 3066."@en ;
+                  dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#RFC4646-001> ;
+                  rdfsns:seeAlso <http://www.ietf.org/rfc/rfc4646.txt> ;
+                  rdfsns:isDefinedBy dctermsns: ;
+                  rdfsns:label "RFC 4646"@en ;
+                  rdfsns:comment "The set of tags constructed according to RFC 4646 for the identification of languages."@en .
+
+
+dctermsns:RFC5646 rdfsns:seeAlso <http://www.ietf.org/rfc/rfc5646.txt> ;
+                  dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#RFC5646-001> ;
+                  rdfsns:comment "The set of tags constructed according to RFC 5646 for the identification of languages."@en ;
+                  rdfsns:label "RFC 5646"@en ;
+                  dctermsns:description "RFC 5646 obsoletes RFC 4646."@en ;
+                  rdfsns:isDefinedBy dctermsns: .
+
+
+dctermsns:RightsStatement rdfsns:label "Rights Statement"@en ;
+                          rdfsns:isDefinedBy dctermsns: ;
+                          rdfsns:comment "A statement about the intellectual property rights (IPR) held in or over a Resource, a legal document giving official permission to do something with a resource, or a statement about access rights."@en ;
+                          dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#RightsStatement-001> .
+
+
+dctermsns:SizeOrDuration rdfsns:label "Size or Duration"@en ;
+                         dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#SizeOrDuration-001> ;
+                         dctermsns:description "Examples include a number of pages, a specification of length, width, and breadth, or a period in hours, minutes, and seconds."@en ;
+                         rdfsns:comment "A dimension or extent, or a time taken to play or execute."@en ;
+                         rdfsns:isDefinedBy dctermsns: .
+
+
+dctermsns:Standard rdfsns:comment "A basis for comparison; a reference point against which other things can be evaluated."@en ;
+                   rdfsns:label "Standard"@en ;
+                   rdfsns:isDefinedBy dctermsns: ;
+                   dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#Standard-001> .
+
+
+dctermsns:URI rdfsns:comment "The set of identifiers constructed according to the generic syntax for Uniform Resource Identifiers as specified by the Internet Engineering Task Force."@en ;
+              rdfsns:isDefinedBy dctermsns: ;
+              rdfsns:seeAlso <http://www.ietf.org/rfc/rfc3986.txt> ;
+              dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#URI-003> ;
+              rdfsns:label "URI"@en .
+
+
+dctermsns:W3CDTF rdfsns:label "W3C-DTF"@en ;
+                 rdfsns:comment "The set of dates and times constructed according to the W3C Date and Time Formats Specification."@en ;
+                 dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#W3CDTF-003> ;
+                 rdfsns:isDefinedBy dctermsns: ;
+                 rdfsns:seeAlso <http://www.w3.org/TR/NOTE-datetime> .
+
+
+dctermsns:abstract rdfsns:label "Abstract"@en ;
+                   dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#abstract-003> ;
+                   rdfsns:comment "A summary of the resource."@en ;
+                   rdfsns:isDefinedBy dctermsns: .
+
+
+dctermsns:accessRights dctermsns:description "Access Rights may include information regarding access or restrictions based on privacy, security, or other policies."@en ;
+                       rdfsns:comment "Information about who can access the resource or an indication of its security status."@en ;
+                       rdfsns:label "Access Rights"@en ;
+                       dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#accessRights-002> ;
+                       rdfsns:isDefinedBy dctermsns: .
+
+
+dctermsns:accrualMethod rdfsns:label "Accrual Method"@en ;
+                        dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#accrualMethod-003> ;
+                        rdfsns:comment "The method by which items are added to a collection."@en ;
+                        rdfsns:isDefinedBy dctermsns: .
+
+
+dctermsns:accrualPeriodicity rdfsns:label "Accrual Periodicity"@en ;
+                             dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#accrualPeriodicity-003> ;
+                             rdfsns:comment "The frequency with which items are added to a collection."@en ;
+                             rdfsns:isDefinedBy dctermsns: .
+
+
+dctermsns:accrualPolicy rdfsns:isDefinedBy dctermsns: ;
+                        dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#accrualPolicy-003> ;
+                        rdfsns:comment "The policy governing the addition of items to a collection."@en ;
+                        rdfsns:label "Accrual Policy"@en .
+
+
+dctermsns:alternative rdfsns:comment "An alternative name for the resource."@en ;
+                      rdfsns:isDefinedBy dctermsns: ;
+                      dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#alternative-003> ;
+                      dctermsns:description "The distinction between titles and alternative titles is application-specific."@en ;
+                      rdfsns:label "Alternative Title"@en .
+
+
+dctermsns:audience rdfsns:comment "A class of entity for whom the resource is intended or useful."@en ;
+                   dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#audience-003> ;
+                   rdfsns:label "Audience"@en ;
+                   rdfsns:isDefinedBy dctermsns: .
+
+
+dctermsns:available rdfsns:isDefinedBy dctermsns: ;
+                    rdfsns:comment "Date (often a range) that the resource became or will become available."@en ;
+                    rdfsns:label "Date Available"@en ;
+                    dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#available-003> .
+
+
+dctermsns:bibliographicCitation dctermsns:description "Recommended practice is to include sufficient bibliographic detail to identify the resource as unambiguously as possible."@en ;
+                                rdfsns:label "Bibliographic Citation"@en ;
+                                dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#bibliographicCitation-002> ;
+                                rdfsns:comment "A bibliographic reference for the resource."@en ;
+                                rdfsns:isDefinedBy dctermsns: .
+
+
+dctermsns:conformsTo rdfsns:isDefinedBy dctermsns: ;
+                     rdfsns:label "Conforms To"@en ;
+                     rdfsns:comment "An established standard to which the described resource conforms."@en ;
+                     dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#conformsTo-003> .
+
+
+dctermsns:contributor rdfsns:comment "An entity responsible for making contributions to the resource."@en ;
+                      rdfsns:isDefinedBy dctermsns: ;
+                      dctermsns:description "Examples of a Contributor include a person, an organization, or a service."@en ;
+                      dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#contributorT-001> ;
+                      rdfsns:label "Contributor"@en .
+
+
+dctermsns:coverage rdfsns:isDefinedBy dctermsns: ;
+                   rdfsns:label "Coverage"@en ;
+                   dctermsns:description "Spatial topic and spatial applicability may be a named place or a location specified by its geographic coordinates. Temporal topic may be a named period, date, or date range. A jurisdiction may be a named administrative entity or a geographic place to which the resource applies. Recommended best practice is to use a controlled vocabulary such as the Thesaurus of Geographic Names [TGN]. Where appropriate, named places or time periods can be used in preference to numeric identifiers such as sets of coordinates or date ranges."@en ;
+                   dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#coverageT-001> ;
+                   rdfsns:comment "The spatial or temporal topic of the resource, the spatial applicability of the resource, or the jurisdiction under which the resource is relevant."@en .
+
+
+dctermsns:created rdfsns:isDefinedBy dctermsns: ;
+                  rdfsns:comment "Date of creation of the resource."@en ;
+                  dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#created-003> ;
+                  rdfsns:label "Date Created"@en .
+
+
+dctermsns:creator rdfsns:comment "An entity primarily responsible for making the resource."@en ;
+                  dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#creatorT-002> ;
+                  rdfsns:isDefinedBy dctermsns: ;
+                  rdfsns:label "Creator"@en ;
+                  dctermsns:description "Examples of a Creator include a person, an organization, or a service."@en .
+
+
+dctermsns:date rdfsns:isDefinedBy dctermsns: ;
+               dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#dateT-001> ;
+               rdfsns:comment "A point or period of time associated with an event in the lifecycle of the resource."@en ;
+               dctermsns:description "Date may be used to express temporal information at any level of granularity.  Recommended best practice is to use an encoding scheme, such as the W3CDTF profile of ISO 8601 [W3CDTF]."@en ;
+               rdfsns:label "Date"@en .
+
+
+dctermsns:dateAccepted dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#dateAccepted-002> ;
+                       dctermsns:description "Examples of resources to which a Date Accepted may be relevant are a thesis (accepted by a university department) or an article (accepted by a journal)."@en ;
+                       rdfsns:comment "Date of acceptance of the resource."@en ;
+                       rdfsns:label "Date Accepted"@en ;
+                       rdfsns:isDefinedBy dctermsns: .
+
+
+dctermsns:dateCopyrighted rdfsns:isDefinedBy dctermsns: ;
+                          rdfsns:label "Date Copyrighted"@en ;
+                          rdfsns:comment "Date of copyright."@en ;
+                          dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#dateCopyrighted-002> .
+
+
+dctermsns:dateSubmitted rdfsns:comment "Date of submission of the resource."@en ;
+                        dctermsns:description "Examples of resources to which a Date Submitted may be relevant are a thesis (submitted to a university department) or an article (submitted to a journal)."@en ;
+                        dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#dateSubmitted-002> ;
+                        rdfsns:label "Date Submitted"@en ;
+                        rdfsns:isDefinedBy dctermsns: .
+
+
+dctermsns:description rdfsns:label "Description"@en ;
+                      rdfsns:isDefinedBy dctermsns: ;
+                      rdfsns:comment "An account of the resource."@en ;
+                      dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#descriptionT-001> ;
+                      rdfns:type owlns:AnnotationProperty ;
+                      dctermsns:description "Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource."@en .
+
+
+dctermsns:educationLevel rdfsns:isDefinedBy dctermsns: ;
+                         rdfsns:label "Audience Education Level"@en ;
+                         rdfsns:comment "A class of entity, defined in terms of progression through an educational or training context, for which the described resource is intended."@en ;
+                         dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#educationLevel-002> .
+
+
+dctermsns:extent rdfsns:isDefinedBy dctermsns: ;
+                 rdfsns:comment "The size or duration of the resource."@en ;
+                 rdfsns:label "Extent"@en ;
+                 dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#extent-003> .
+
+
+dctermsns:format dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#formatT-001> ;
+                 rdfsns:comment "The file format, physical medium, or dimensions of the resource."@en ;
+                 dctermsns:description "Examples of dimensions include size and duration. Recommended best practice is to use a controlled vocabulary such as the list of Internet Media Types [MIME]."@en ;
+                 rdfsns:isDefinedBy dctermsns: ;
+                 rdfsns:label "Format"@en .
+
+
+dctermsns:hasFormat skosns:note "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en ;
+                    rdfsns:isDefinedBy dctermsns: ;
+                    dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#hasFormat-003> ;
+                    rdfsns:label "Has Format"@en ;
+                    rdfsns:comment "A related resource that is substantially the same as the pre-existing described resource, but in another format."@en .
+
+
+dctermsns:hasPart rdfsns:isDefinedBy dctermsns: ;
+                  skosns:note "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en ;
+                  rdfsns:label "Has Part"@en ;
+                  rdfsns:comment "A related resource that is included either physically or logically in the described resource."@en ;
+                  dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#hasPart-003> .
+
+
+dctermsns:hasVersion rdfns:type owlns:AnnotationProperty ;
+                     dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#hasVersion-003> ;
+                     rdfsns:comment "A related resource that is a version, edition, or adaptation of the described resource."@en ;
+                     rdfsns:isDefinedBy dctermsns: ;
+                     skosns:note "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en ;
+                     rdfsns:label "Has Version"@en .
+
+
+dctermsns:identifier dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#identifierT-001> ;
+                     rdfsns:isDefinedBy dctermsns: ;
+                     dctermsns:description "Recommended best practice is to identify the resource by means of a string conforming to a formal identification system. "@en ;
+                     rdfsns:comment "An unambiguous reference to the resource within a given context."@en ;
+                     rdfsns:label "Identifier"@en .
+
+
+dctermsns:instructionalMethod dctermsns:description "Instructional Method will typically include ways of presenting instructional materials or conducting instructional activities, patterns of learner-to-learner and learner-to-instructor interactions, and mechanisms by which group and individual levels of learning are measured.  Instructional methods include all aspects of the instruction and learning processes from planning and implementation through evaluation and feedback."@en ;
+                              rdfsns:label "Instructional Method"@en ;
+                              rdfsns:comment "A process, used to engender knowledge, attitudes and skills, that the described resource is designed to support."@en ;
+                              dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#instructionalMethod-002> ;
+                              rdfsns:isDefinedBy dctermsns: .
+
+
+dctermsns:isFormatOf dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#isFormatOf-003> ;
+                     rdfsns:comment "A related resource that is substantially the same as the described resource, but in another format."@en ;
+                     skosns:note "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en ;
+                     rdfsns:label "Is Format Of"@en ;
+                     rdfsns:isDefinedBy dctermsns: .
+
+
+dctermsns:isPartOf rdfsns:label "Is Part Of"@en ;
+                   dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#isPartOf-003> ;
+                   skosns:note "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en ;
+                   rdfsns:isDefinedBy dctermsns: ;
+                   rdfsns:comment "A related resource in which the described resource is physically or logically included."@en .
+
+
+dctermsns:isReferencedBy rdfsns:label "Is Referenced By"@en ;
+                         rdfsns:comment "A related resource that references, cites, or otherwise points to the described resource."@en ;
+                         rdfsns:isDefinedBy dctermsns: ;
+                         skosns:note "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en ;
+                         dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#isReferencedBy-003> .
+
+
+dctermsns:isReplacedBy rdfsns:isDefinedBy dctermsns: ;
+                       rdfsns:label "Is Replaced By"@en ;
+                       rdfsns:comment "A related resource that supplants, displaces, or supersedes the described resource."@en ;
+                       skosns:note "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en ;
+                       dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#isReplacedBy-003> .
+
+
+dctermsns:isRequiredBy rdfsns:isDefinedBy dctermsns: ;
+                       skosns:note "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en ;
+                       rdfsns:label "Is Required By"@en ;
+                       dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#isRequiredBy-003> ;
+                       rdfsns:comment "A related resource that requires the described resource to support its function, delivery, or coherence."@en .
+
+
+dctermsns:isVersionOf rdfsns:label "Is Version Of"@en ;
+                      rdfsns:comment "A related resource of which the described resource is a version, edition, or adaptation."@en ;
+                      rdfsns:isDefinedBy dctermsns: ;
+                      skosns:note "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en ;
+                      dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#isVersionOf-003> ;
+                      dctermsns:description "Changes in version imply substantive changes in content rather than differences in format."@en .
+
+
+dctermsns:issued rdfsns:comment "Date of formal issuance (e.g., publication) of the resource."@en ;
+                 rdfsns:isDefinedBy dctermsns: ;
+                 dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#issued-003> ;
+                 rdfsns:label "Date Issued"@en .
+
+
+dctermsns:language rdfsns:label "Language"@en ;
+                   dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#languageT-001> ;
+                   dctermsns:description "Recommended best practice is to use a controlled vocabulary such as RFC 4646 [RFC4646]."@en ;
+                   rdfsns:isDefinedBy dctermsns: ;
+                   rdfsns:comment "A language of the resource."@en .
+
+
+dctermsns:license rdfsns:label "License"@en ;
+                  rdfsns:comment "A legal document giving official permission to do something with the resource."@en ;
+                  dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#license-002> ;
+                  rdfsns:isDefinedBy dctermsns: .
+
+
+dctermsns:mediator dctermsns:description "In an educational context, a mediator might be a parent, teacher, teaching assistant, or care-giver."@en ;
+                   rdfsns:comment "An entity that mediates access to the resource and for whom the resource is intended or useful."@en ;
+                   dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#mediator-003> ;
+                   rdfsns:isDefinedBy dctermsns: ;
+                   rdfsns:label "Mediator"@en .
+
+
+dctermsns:medium rdfsns:isDefinedBy dctermsns: ;
+                 rdfsns:label "Medium"@en ;
+                 rdfsns:comment "The material or physical carrier of the resource."@en ;
+                 dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#medium-003> .
+
+
+dctermsns:modified rdfsns:isDefinedBy dctermsns: ;
+                   rdfsns:label "Date Modified"@en ;
+                   dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#modified-003> ;
+                   rdfsns:comment "Date on which the resource was changed."@en .
+
+
+dctermsns:provenance rdfsns:comment "A statement of any changes in ownership and custody of the resource since its creation that are significant for its authenticity, integrity, and interpretation."@en ;
+                     rdfsns:isDefinedBy dctermsns: ;
+                     dctermsns:description "The statement may include a description of any changes successive custodians made to the resource."@en ;
+                     rdfsns:label "Provenance"@en ;
+                     dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#provenance-002> .
+
+
+dctermsns:publisher rdfsns:label "Publisher"@en ;
+                    dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#publisherT-001> ;
+                    dctermsns:description "Examples of a Publisher include a person, an organization, or a service."@en ;
+                    rdfsns:isDefinedBy dctermsns: ;
+                    rdfsns:comment "An entity responsible for making the resource available."@en .
+
+
+dctermsns:references rdfsns:comment "A related resource that is referenced, cited, or otherwise pointed to by the described resource."@en ;
+                     rdfsns:label "References"@en ;
+                     dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#references-003> ;
+                     rdfsns:isDefinedBy dctermsns: ;
+                     skosns:note "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en .
+
+
+dctermsns:relation skosns:note "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en ;
+                   rdfsns:isDefinedBy dctermsns: ;
+                   dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#relationT-001> ;
+                   rdfsns:label "Relation"@en ;
+                   dctermsns:description "Recommended best practice is to identify the related resource by means of a string conforming to a formal identification system. "@en ;
+                   rdfsns:comment "A related resource."@en .
+
+
+dctermsns:replaces skosns:note "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en ;
+                   rdfsns:label "Replaces"@en ;
+                   dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#replaces-003> ;
+                   rdfsns:comment "A related resource that is supplanted, displaced, or superseded by the described resource."@en ;
+                   rdfsns:isDefinedBy dctermsns: .
+
+
+dctermsns:requires dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#requires-003> ;
+                   rdfsns:label "Requires"@en ;
+                   rdfsns:comment "A related resource that is required by the described resource to support its function, delivery, or coherence."@en ;
+                   rdfsns:isDefinedBy dctermsns: ;
+                   skosns:note "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en .
+
+
+dctermsns:rights rdfsns:isDefinedBy dctermsns: ;
+                 rdfsns:label "Rights"@en ;
+                 rdfsns:comment "Information about rights held in and over the resource."@en ;
+                 dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#rightsT-001> ;
+                 dctermsns:description "Typically, rights information includes a statement about various property rights associated with the resource, including intellectual property rights."@en .
+
+
+dctermsns:rightsHolder rdfsns:isDefinedBy dctermsns: ;
+                       dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#rightsHolder-002> ;
+                       rdfsns:comment "A person or organization owning or managing rights over the resource."@en ;
+                       rdfsns:label "Rights Holder"@en .
+
+
+dctermsns:source rdfsns:label "Source"@en ;
+                 skosns:note "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en ;
+                 rdfsns:isDefinedBy dctermsns: ;
+                 dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#sourceT-001> ;
+                 dctermsns:description "The described resource may be derived from the related resource in whole or in part. Recommended best practice is to identify the related resource by means of a string conforming to a formal identification system."@en ;
+                 rdfsns:comment "A related resource from which the described resource is derived."@en .
+
+
+dctermsns:spatial rdfsns:label "Spatial Coverage"@en ;
+                  rdfsns:isDefinedBy dctermsns: ;
+                  rdfsns:comment "Spatial characteristics of the resource."@en ;
+                  dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#spatial-003> .
+
+
+dctermsns:subject dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#subjectT-002> ;
+                  skosns:note "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en ;
+                  rdfsns:label "Subject"@en ;
+                  rdfsns:comment "The topic of the resource."@en ;
+                  dctermsns:description "Typically, the subject will be represented using keywords, key phrases, or classification codes. Recommended best practice is to use a controlled vocabulary."@en ;
+                  rdfsns:isDefinedBy dctermsns: .
+
+
+dctermsns:tableOfContents rdfsns:comment "A list of subunits of the resource."@en ;
+                          rdfsns:isDefinedBy dctermsns: ;
+                          rdfsns:label "Table Of Contents"@en ;
+                          dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#tableOfContents-003> .
+
+
+dctermsns:temporal rdfsns:label "Temporal Coverage"@en ;
+                   dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#temporal-003> ;
+                   rdfsns:comment "Temporal characteristics of the resource."@en ;
+                   rdfsns:isDefinedBy dctermsns: .
+
+
+dctermsns:title rdfsns:label "Title"@en ;
+                rdfsns:comment "A name given to the resource."@en ;
+                dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#titleT-002> ;
+                rdfsns:isDefinedBy dctermsns: .
+
+
+dctermsns:type rdfsns:isDefinedBy dctermsns: ;
+               dctermsns:description "Recommended best practice is to use a controlled vocabulary such as the DCMI Type Vocabulary [DCMITYPE]. To describe the file format, physical medium, or dimensions of the resource, use the Format element."@en ;
+               rdfsns:comment "The nature or genre of the resource."@en ;
+               rdfsns:label "Type"@en ;
+               dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#typeT-001> .
+
+
+dctermsns:valid rdfsns:comment "Date (often a range) of validity of a resource."@en ;
+                rdfsns:label "Date Valid"@en ;
+                dctermsns:hasVersion <http://dublincore.org/usage/terms/history/#valid-003> ;
+                rdfsns:isDefinedBy dctermsns: .
+
+
+###  Generated by the OWL API (version 4.2.5.20160517-0735) https://github.com/owlcs/owlapi

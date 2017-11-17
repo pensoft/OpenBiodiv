@@ -26,16 +26,3 @@ If you want to email me, you are more than welcome to, but you have to pass
 the following reverse turing test. There is a new sexy name for statistics
 today. You could think of it as the science of data. My email is this name
 (one word) and the domain is the domain of [Pensoft](http://pensoft.net/)
-
-## Contents of this repository
-
-- `demo\` : demos of the system
-- `doc\` : the system documentation in Wiki form (HTML)
-- `etc\` : configuration files
-- `fig\` : visual aides (figures, screenshots, etc.)
-- `iteration\` : test runs of the system (scripts, logs, datafiles, analysis)
-- `ontology\` The data model for generating RDF is found in the  [OpenBiodiv RDF Guide](ontology/RDF_Guide.md)
-- `rdf-example\` : examples of applying the data-model to real-world articles (manual)
-- `slides\` : presentations at workshops, symposia, etc.
-- `paper\` : papers written about the system
-- 

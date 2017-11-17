@@ -1,0 +1,482 @@
+#### Example: *Article Metadata*
+
+The main objects of information extraction and retrieval of OpenBiodiv in the
+first stage of its development are scientific journal articles from the
+journals [Biodiversity Data Journal](http://bdj.pensoft.net/) and
+[ZooKeys](http://zookeys.pensoft.net/) and other Pensoft journals.
+We model the bibliographic objects around Journal Article, such as Publisher,
+and Journal using SPAR.
+
+Note that we type `:treatment` both as `trt:Treatment` (i.e. the rhetorical
+element Treatment) and as s `doco:Section` because we view this particular
+treatment to also be a structural section of the document.
+
+
+
+
+```{r Example Article Metadata}
+:biodiversity-data-journal rdf:type fabio:Journal ;
+	 skos:prefLabel "Biodiversity Data Journal"@en ;
+	 skos:altLabel  "BDJ"@en ;
+	 fabio:issn     "1314-2836" ;
+	 fabio:eIssn    "1314-2828" ;
+	 frbr:part      :b90f6933-ab5e-4ce1-9379-12de9ef4eaa6 . 
+
+ <http://dx.doi.org/10.3897/BDJ.1.e953> rdf:type fabio:TaxonomicArticle ;
+	 skos:prefLabel           "10.3897/BDJ.1.e953" ;
+	 dc:title                 "Casuarinicola australis Taylor, 2010 
+         (Hemiptera: Triozidae), newly recorded from New Zealand"@en ;
+	 prism:doi                "10.3897/BDJ.1.e953" ;
+	 dcelements:publisher     "Pensoft Publishers"@en ;
+	 fabio:hasPublicationYear "2013"^^xsd:gYear ;
+	 prism:publicationDate    "2013-9-16"^^xsd:date ;
+	 dcterms:publisher        :pensoft-publishers ;
+	 frbr:realizationOf       :thorpe-2013 .
+
+ :thorpe-2013 rdf:type  :ResearchPaper ;
+ 	 skos:prefLabel	      "Thorpe 2013"
+	 skos:altLabel        "paper10.3897/BDJ.1.e953" ;
+	 dcterms:creator      :stephen-e-thorpe ;
+	 prism:keywords       "Casuarinicola australis"@en ;
+	 fabio:hasSubjectTerm :a2ee4929-90dd-4a7a-aa5c-08836f49d549 . 
+
+ :pensoft-publishers rdf:type :Publisher ;
+	 skos:prefLabel "Pensoft Publishers"@en . 
+
+ :stephen-e-thorpe rdf:type foaf:Person ;
+	 skos:prefLabel "Stephen E. Thorpe" ;
+	 foaf:firstName "Stephen E." ;
+	 foaf:surname   "Thorpe" ;
+	 foaf:mbox      "stephen_thorpe@yahoo.co.nz" ;
+	 :affiliation   "School of Biological Sciences (Tamaki Campus),
+	       University of Auckland, Auckland, New Zealand"@en . 
+
+ :a2ee4929-90dd-4a7a-aa5c-08836f49d549 rdf:type fabio:SubjectTerm ;
+	 rdfs:label    "Casuarinicola australis"@en ;
+	 skos:inScheme :openbiodiv-subject-terms . 
+```
+
+
+#### Example: *Article Structure*
+
+```{r Example Article Structure}
+<http://dx.doi.org/10.3897/BDJ.1.e953>
+  :contains :abstract, :casuarinicola-australis-treatment .
+
+:introduction rdf:type deo:Introduction, doco:Section ;
+  c4o:hasContent "Casuarinicola australis Taylor, 2010 was described from
+        Australia, where it is the most common and widespread member of its
+        genus, being widely distributed in New South Wales, Queensland,
+        South Australia, Victoria and Western Australia. "
+
+:casuarinicola-australis-treatment rdf:type doco:Section, :Treatment ;
+  :contains :casuarinicola-australis-nomenclature ,
+              :casuarinicola-australis-materials ,
+              :casuarinicola-australis-description ,
+              :figure-box-1 ,
+              :figure-box-2 .
+
+:casuarinicola-australis-nomenclature rdf:type :NomenclatureSection ;
+  :contains :casuarinicola-australis-nomenclature-heading .
+
+:casuarinicola-australis-nomenclature-heading a :NomenclatureHeading ;
+  cnt:chars "Casuarinicola australis Taylor, 2010" .
+
+:casuarinicola-australis-materials rdf:type :MaterialsExamined ;
+  c4o:hasContent "country: New Zealand;
+                  verbatimLocality: Mechanics Bay, Auckland City;
+                  verbatimElevation: 0-5 m;
+                  verbatimLatitude: 36.8474938105S ;
+                  verbatimLongitude: 174.7869624545E ;
+                  eventDate: 6 January 2013;
+                  sex: 1 male, 1 female;
+                  recordedBy: Stephen Thorpe;
+                  institutionCode: Auckland Museum" .
+
+:casuarinicola-australis-description rdf:type :DescriptionSection ;
+  c4o:hasContent "On 6 Jan 2013, I examined some Casuarina glauca trees growing
+        in the vicinity of Ports of Auckland at Mechanics Bay." .
+```
+
+
+
+
+#### Example
+
+In the following example, we express in RDF a TNU that is in the
+nomenclature heading of a treatment (treatment title). Structurally, the TNU
+is connected to the containing section via `po:contains`; `cnt:chars` is used
+to dump the full string of the usage and DwC properties are used to encode
+more granular information in addition to the dump.
+
+In the second step of RDF-ization, we use `dwciri` properties to link the TNU
+to semantic entities. `dwciri:taxonomicStatus` is used to link the TNU to an
+item in the
+[OpenBiodiv Taxonomic Status Vocabulary](#vocabulary-of-taxon-classification).
+`:scientificName` is used to link the TNU to the IRI of the name that
+the TNU is mentioning. Note, we have introduced `:scientificName` as
+a sub-property of `pext:Mention`. In this example it is linked both to local
+name and to a remote name. This implies that the names are the same (see Rule
+later).
+
+Also, during the second step, the TNU is linked to the reified taxon concept
+label *Heser stoevi* sec. 10.3897/BDJ.4.e10095 via `:taxonConceptLabel` as
+even though the character content of the TNU does not contain an "according
+to" (usually abbreviated as "sec."), we know for certain which concept the
+author is invoking as we are in the treatment title (current concept/ *this*
+concept).
+
+```# Example: Taxonomic Name Usage
+
+:casuarinicola-australis-nomenclature-heading
+  po:contains :casuarinicola-australis-TNU .
+
+:casuarinicola-australis-TNU a :TaxonomicNameUsage ;
+  dc:date "2013-9-16"^^:xsd:date ;
+  cnt:chars "Casuarinicola australis Taylor, 2010" ;
+  dwc:genus "Casuarinicola" ;
+  dwc:specificEpithet "australis" ;
+  dwc:scientificNameAuthorship "Taylor, 2010" ;
+  # we can infer the following because we are in the treatment heading
+  dwc:nameAccordingToId "doi: 10.3897/BDJ.1.e953" ;
+  pkm:mentions :casuarinicola-australis-taylor, 
+  			   :casuarinicola-australis-taylor-sec-thorpe-2013 .
+
+:casuarinicola-australis-taylor a :ScientificName ;
+  rdfs:label "Casuarinicola australis Taylor, 2010" ;
+  dwc:genus "Casuarinicola" ;
+  dwc:specificEpithet "australis" ;
+  dwc:scientificNameAuthorship "Taylor, 2010" .
+
+:casuarinicola-australis-taylor-sec-thorpe-2013 a :TaxonomicConceptLabel ;
+  rdfs:label "Casuarinicola australis Taylor, 2010 sec. Thorpe 2013" ;
+  dwc:genus "Casuarinicola" ;
+  dwc:specificEpithet "australis" ;
+  dwc:scientificNameAuthorship "Taylor, 2010" .
+  dwc:nameAccordingToId "doi: 10.3897/BDJ.1.e953" ;
+  :nameAccordingTo <http://dx.doi.org/10.3897/BDJ.1.e953> .
+```
+
+```{r Example Simple Taxonomic Concept Relationships}
+:concept-casuarinicola-australis-thorpe rdf:type :TaxonomicConcept ;
+  :taxonomicConceptLabel :casuarinicola-australis-taylor-sec-thorpe-2013 .
+
+:concept-casuarinicola-taylor rdf:type :TaxonomicConcept ;
+  skos:broader concept-thorpe .
+```
+
+```{r Example Simple Taxonomic Concept Relationships}
+:statement rdf:type :RCC5Statement ;
+  :rcc5FromRegion :concept-casuarinicola-australis-thorpe ;
+  :rcc5ToRegion :concept-casuarinicola-taylor ;
+  :rcc5AccordingTo <http://dx.doi.org/10.3897/BDJ.1.e953> ;
+  :rcc5RelationType :ProperPart_INT .
+```
+
+```{r Example ENVO}
+:australian-casuarina-forest rdf:type <http://purl.obolibrary.org/obo/ENVO_01000174> .
+:hasHabitat owl:sameAs <http://purl.obolibrary.org/obo/RO_0002303> .
+:concept-casuarinicola-australis-thorpe :hasHabitat :australian-casuarina-forest .
+```
+
+```{e Example Treatment - Concept}
+:casuarinicola-australis-treatment frbr:realizationOf :concept-casuarinicola-australis-thorpe.
+```
+
+```
+<<Examples>>=
+
+:heser-stoevi-nomenclature-heading po:contains :heser-stoevi-TNU .
+
+:heser-stoevi-TNU a :TaxonomicNameUsage ;
+  dc:date "2016-08-31"^^xsd:date ;
+  cnt:chars
+  "Heser stoevi urn:lsid:zoobank.org:act:E4D7D5A0-D649-4F5E-9360-D0488D73EEE8 Deltschev sp. n." ;
+  dwc:genus "Heser" ;
+  dwc:species "stoevi" ;
+  dwc:scientificNameId "urn:lsid:zoobank.org:act:E4D7D5A0-D649-4F5E-9360-D0488D73EEE8 (ZooBank)" ;
+  dwc:scientificNameAuthorship "Deltschev" ;
+  dwc:taxonomicStatus "sp. n." ; dwciri:taxonomicStatus :TaxonDiscovery ;
+  dwc:nameAccordingToId "10.3897/BDJ.4.e10095" ;
+
+  :scientificName :heser-stoevi-deltshev ;
+  :nameAccordingTo <http://dx.doi.org/10.3897/BDJ.4.e10095> ;
+  :taxonConceptLabel :heser-stoevi-sec-deltshev ;
+
+  :scientificName <http://zoobank.org/urn:lsid:zoobank.org:act:E4D7D5A0-D649-4F5E-9360-D0488D73EEE8> .
+
+:heser-stoevi-deltshev owl:sameAs <http://zoobank.org/urn:lsid:zoobank.org:act:E4D7D5A0-D649-4F5E-9360-D0488D73EEE8> .
+@
+     
+```
+
+
+
+**Example** We go back to the example of  *Heser stoevi*. The meaning of the
+date property here is to indicate when was the taxonomic status assumed.
+
+```
+<<Examples>>= 
+
+:heser-stoevi-deltshev a :ScientificName ;
+	skos:prefLabel "Heser stoevi Deltshev" ;
+    dwc:species "stoevi" ;
+    dwc:genus "Heser" ;
+    dwc:taxonRank "species" ;
+    dwciri:taxonomicStatus <http://rs.gbif.org/vocabulary/gbif/taxonomicStatus/accepted> ;
+    dwc:scientificNameAuthorship "Deltschev" ;
+    dc:date "2016-08-31"^^xsd:date .
+@
+```
+
+**Example.** Let's take another example, the paper
+<http://bdj.pensoft.net/articles.php?id=8030&instance_id=2809105>. From it, we
+can say:
+
+```
+<<Examples>>= 
+
+:nomenclature-bdje8030 a trt:Nomenclature ;
+  po:contains :nomenclature-heading-bdje8030, :cit-list-bdje8030 .
+
+:nomenclature-heading-bdje8030 a :NomenclatureHeading ;
+  po:contains :harmonia-manillana-tnu-heading .
+
+:cit-list-bdje8030 a trt:NomenclatureCitationList ;
+  po:contains :leis-papuensis-tnu-citation .
+
+:harmonia-manillana-tnu-heading a :TaxonomicNameUsage ;
+  dc:date "2016-08-16"^^xsd:date ;
+  cnt:chars "Harmonia manillana (Mulsant, 1866)" .
+
+:leis-papuensis-tnu-citation a :TaxonomicNameUsage ;
+  dc:date "2016-08-16"^^xsd:date ;
+  cnt:chars "Leis papuensis var. suffusa Crotch 1874 121 (Lectotype, UCCC). Korschefsky 1932 : 275.- Gordon 1987 : 14 (lectotype designation). Syn. nov." ;
+  dwc:taxonomicStatus "var. suffusa Crotch 1874 121 (Lectotype, UCCC). Korschefsky 1932 : 275.- Gordon 1987 : 14 (lectotype designation). Syn. nov." ;
+  dwciri:taxonomicStatus :Unavailable .
+
+:harmonia-manillana-mulsant-1866 a :ScientificName ;
+  skos:prefLabel "Harmonia manillana (Mulsant, 1866)" ;
+  skos:altLabel "Harmonia manillana" ;
+  dwc:species "manillana" ;
+  dwc:genus "Harmonia" ;
+  dwc:taxonRank "species" ;
+  dwc:scientificNameAuthorship "(Mulsant, 1866)" ;
+  dc:date "2016-08-16"^^xsd:date ; 
+  dwc:taxonomicStatus :Available ;
+  :relatedName :leis-papuensis .
+
+:leis-papuensis a :ScientificName ;
+  skos:prefLabel "Leis papuensis" ;
+  dwc:species "papuensis" ;
+  dwc:genus "Leis" ;
+  dwc:taxonRank "species" ;
+  dc:date "2016-08-16"^^xsd:date ; 
+  dwciri:taxonomicStatus :Unavailable ;
+  :replacementName :harmonia-manillana-mulsant-1866 ;
+  :relatedName :harmonia-manillana-mulsant-1866 .
+@
+```
+
+
+**Example.** In the next example we introduce the concept of *Heser stoevi*
+according to the article published by Deltshev in 2016. First, we introduce an
+instance of `:TaxonConcept` and link this instance to the scientific name
+*Heser stoevi* via the appropriate DwC term. Next, we establish a link between
+the significant bibliographic unit (in this case journal article) containing
+the treatment, which is the realization of the taxon concept. The last point
+we would like to make is that the taxon concept label, which is in this case
+`Heser stoevi sec. 10.3897/BDJ.4.e100095` is constructed by pasting together
+the label of the biological name and the expression that are assigned to the
+concept glued together by `sec.`.
+
+```
+<<Examples>>=
+
+:heser-stoevi-sec-deltshev a :TaxonConceptLabel ;
+   skos:prefLabel "Heser stoevi Deltshev sec. 10.3897/BDJ.4.e10095" ;
+   dwc:species "stoevi" ;
+   dwc:genus "Heser" ;
+   dwc:taxonRank "species" ;
+   dwc:scientificNameAuthorship "Deltschev" ;
+   ::nameAccordingTo <http://dx.doi.org/10.3897/BDJ.4.e10095> .
+  
+:concept-deltshev-2016 a :TaxonConcept ;
+  :taxonConceptLabel :heser-stoevi-sec-deltshev .
+
+:heser-stoevi-sec-gbif20170323 a :TaxonConceptLabel ;
+  skos:prefLabel "Heser stoevi sec. doi:10.15468/39omei" ;
+  dwciri:scientificName :heser-stoevi-deltshev ;
+  dwciri:nameAccordingTo :gbif20170323 .
+
+:concept-gbif a :TaxonConcept ;
+  :taxonConceptLabel :heser-stoevi-sec-gbif20170323 .
+
+<http://dx.doi.org/doi:10.15468/39omei> a fabio:Database ;
+  skos:prefLabel "GBIF Backbone Taxonomy" ;
+  skos:altLabel "doi:10.15468/39omei" ;
+  prism:doi "doi:10.15468/39omei" ; 
+  dc:date "2017-03-23"^^xsd:date ;
+  rdfs:comment "A dump of GBIF's backbone taxonomy on 23 Mar 2017."@en ;
+  po:contains [ a :TaxonConceptLabel ;
+                dc:date "2017-03-23"^^xsd:date ;
+                dwc:scientificName "Heser stoevi Deltshev, 2016" ;
+                dwc:nameAccordingTo "GBIF Backbone Taxonomy" ;
+                dwciri:nameAccordingTo <http://dx.doi.org/doi:10.15468/39omei> ;
+                dwciri:scientificName :heser-stoevi-deltshev ;
+                pkm:mentions :heser-stoevi-sec-gbif20170323  ] .
+@
+```
+
+Note that in the above example one scientific name, *Heser stoevi*, is linked
+to two different taxon concept labels, as one taxon concept label denotes the
+concept coming from the article and the other one comes from the GBIF
+database.
+
+It is possible to express that these are the same thing, that one is a
+subconcept of the other, or even more granular relationships.
+
+
+#### Taxon Concept Relationships
+
+**Example congruence 1.** If we want to express that two concepts
+are exactly the same both intensionally and ostensively, then we use `owl:sameAs`.
+However, if we want to express that the taxon concepts have the same extension
+without being equal intensionally (as in the spider example), then we use
+`owl:equivalentClass`.
+
+```
+<<Examples>>=
+
+:heser-stoevi-sec-deltschev owl:sameAs :heser-stoevi-sec-gbif20170323 .
+@
+```
+
+Note that this will copy both taxon concept labels both ways, but this is OK
+as the different taxon concept labels refer to the same class.
+
+**Example congruence 2.** Let's define the two spider concepts here.
+
+```
+<<Examples>>=
+
+:haveSpinnerets rdf:type owl:DatatypeProperty ;
+  rdfs:domain :TaxonConcept ; 
+  rdfs:comment "This property if true, indicates that some taxon has spinnertes." .
+
+:havePedipals rdf:type owl:DataTypeProperty ;
+  rdfs:domain :TaxonConcept ;
+  rdfs:comment "If this property is true, that the taxon has pedipals" .
+
+:spiders-with-spinnerets-sec-rdfguide a :TaxonConceptLabel ;
+  dwc:order "Araneae" ;
+  skos:prefLabel "Araneae sec. OpenBiodiv RDF Guide" ;
+  :nameAccordingTo <https://github.com/pensoft/OpenBiodiv/blob/master/Ontology/RDF_Guide.md> .
+
+:spiders-with-pedipals-sec-rdfguide a :TaxonConceptLabel ;
+  dwc:order "Aranea" ;
+  skos:prefLabel "Araneae sec. OpenBiodiv RDF Guide" ;
+  :nameAccordingTo <https://github.com/pensoft/OpenBiodiv/blob/master/Ontology/RDF_Guide.md> .
+
+:concept-spinnerets a :TaxonConcept ;
+  :taxonConceptLabel :spiders-with-spinnerets-sec-rdfguide ;
+  :haveSpinnerrets "true"^^xsd:boolean .
+
+:concept-pedipals a :TaxonConcept ;
+  :taxonConceptLabel :spiders-with-pedipals-sec-rdfguide ;
+  :havePedipals "true"^^xsd:boolean .
+
+:spider1 a :concept-spinnerts .
+:spider2 a :concept-pedipals .
+
+:concept-spinnerts owl:equivalentClass :concept-pedipals .
+@
+```
+
+Here, the implication is that although the intensional meaning of the two concepts
+is different, they have the same class extension. I.e. we will infer
+
+```
+:spider1 a :concept-pedipals;
+:spider2 a :concept-spinnerts'
+```
+
+but we will not copy any of the `:havePedipals` or `:haveSpinnerts` to the other concept.
+
+**Example of contained concepts.** For contained concept we use `rdfs:subClassOf`:
+
+```
+<<Examples>>=
+
+:animalia-sec-gbif a :TaxonConceptLabel ;
+  skos:prefLabel "Animalia sec. GBIF Backbone Taxonomy" ;
+  dwciri:scientificName :animalia ;
+  :nameAccordingTo <http://dx.doi.org/doi:10.15468/39omei> .
+
+:animalia a :ScientificName ;
+  dwc:scientificName "Animalia" ;
+  dwc:taxonRank "kingdom" ;
+  dc:date "2017-03-23"^^xsd:date ;
+  dwciri:taxonomicStatus :Available .
+
+:concept-animalia-gbif a :TaxonConcept ;
+  dwciri:scientificName :animalia ;
+  dwc:taxonId "1 (GBIF)" .
+
+:heser-stoevi-sec-gbif20170323 rdfs:subClassOf :animlia-sec-gbif20170323 .
+@
+```
+
+**Example (Relatedness)** If two taxon concepts are related we can use `skos:related`.
+
+```
+<<Examples>>=
+
+:heser-nicola a :ScientificName ;
+  dwc:scientificName "Heser nilicola (O. P.-Cambridge, 1874)" ;
+  skos:prefLabel "Heser nilicola" ;
+  dwc:genus "Heser" ;
+  dwc:species "nilicola" ;
+  dwc:taxonRank "species" .
+
+:heser-nicola-sec-unibe a :TaxonConceptLabel ;
+  skos:prefLabel "Heser nilicola (O. P.-Cambridge, 1874) sec. Unibe" ;
+  dwciri:scientificName :heser-nicola ;
+  frbr:realization <http://www.araneae.unibe.ch/data/3301> .
+
+:concept-heser-nicola-unibe a :TaxonConcept ;
+  :taxonConceptLabel :heser-nicola-sec-unibe .
+
+:heser-stoevi-deltschev-sec-deltschev skos:related :heser-nicola-sec-unibe .
+@
+```
+
+
+We model the following exceprt here:
+
+"Minyomerus microps (Say, 1831: 9) sec. Jansen & Franz (2015), stat. n.  ==
+(INT) AND > (OST) AND = Minyomerus innocuus Horn, 1876: 18 sec. Horn (1876) (type, designated by Pierce 1913: 400), syn. n."
+
+```
+<<Examples>>=
+
+:jansen-franz-2015 a fabio:JournalArticle ;
+  skos:prefLabel "10.3897/zookeys.528.6001" . 
+
+:concept-minyomerus-microps-jansen-franz a :TaxonConcept .
+
+:concept-minyomerus-innocuus-horn a :TaxonConcept .
+
+:microps-innocuus-relation-int a :RCC5Stament ;
+  :rcc5FromRegion :concept-minyomerus-microps-jansen-franz ;
+  :rcc5ToRegion :concept-minyomerus-innocuus-horn ;
+  :rcc5RelationType :Equals_INT ;
+  frbr:expression :jansen-franz-2015 .
+
+:microps-innocuus-relation-ost a :RCC5Stament ;
+  :rcc5FromRegion :concept-minyomerus-microps-jansen-franz ;
+  :rcc5ToRegion :concept-minyomerus-innocuus-horn ;
+  :rcc5RelationType :InverseProperPart_OST ;
+  frbr:expression :jansen-franz-2015 .
+@
+```

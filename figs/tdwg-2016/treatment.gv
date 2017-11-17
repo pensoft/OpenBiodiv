@@ -1,0 +1,36 @@
+digraph G {
+
+include(`./settings.gv')
+
+
+treatment1 [color=red,label="a trt:Treatment"];
+section1[color=blue, label="a doco:Section"];
+nomenclature1 [color=red,label="a trt:Nomenclature"];
+scientific_name1 [color=red,label="a trt:ScientificName"];
+scientific_name2 [color=red,label="a trt:ScientificName"];
+l [style=dotted, label="e.g. \"2016-17-02\"^^xsd:date"];
+l2 [style=dotted, label="e.g. Fabricius, 1803"]
+
+
+nomenclature_name_usage1 [color=red,label="a trt:TaxonNameUsage"];
+nomenclature_name_usage2 [color=red,label="a trt:TaxonNameUsage"];
+
+taxon_name_usage1 [color=red,label="a trt:TaxonNameUsage"];
+
+treatment1 -> nomenclature1 [label="po:contains"];
+
+nomenclature1 -> nomenclature_name_usage1 [label="frbr:realizationOf"];
+nomenclature1 -> nomenclature_name_usage2 [label="frbr:realizationOf"];
+
+nomenclature_name_usage1 -> scientific_name1 [label="dwciri:scientificName"];
+nomenclature_name_usage1 -> l [label="dc:date"] ;
+nomenclature_name_usage1 -> l2 [label="dcterms:bibliographicCitation"] ;
+nomenclature_name_usage2 -> scientific_name2 [label="dwciri:scientificName"];
+
+section1 -> taxon_name_usage1 [label="frbr:realizationOf"];
+taxon_name_usage1 -> scientific_name1 [label="dwciri:scientificName"];
+		
+scientific_name1 -> scientific_name2 [label="trt:relatedName"];
+scientific_name2 -> scientific_name1 [label="trt:relatedName"];
+
+}

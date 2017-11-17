@@ -1,0 +1,3397 @@
+# Saved by TopBraid on Tue Apr 13 12:23:44 EEST 2010
+# baseURI: http://proton.semanticweb.org/proton
+# imports: http://proton.semanticweb.org/protons
+# imports: http://proton.semanticweb.org/protont
+# imports: http://proton.semanticweb.org/protonu
+# imports: http://proton.semanticweb.org/protonue
+
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix psys:    <http://proton.semanticweb.org/protons#> .
+@prefix ptop:    <http://proton.semanticweb.org/protont#> .
+@prefix pupp:    <http://proton.semanticweb.org/protonu#> .
+@prefix p-ext:   <http://proton.semanticweb.org/protonue#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix pkm:     <http://proton.semanticweb.org/protonkm#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix pbio:    <http://proton.semanticweb.org/protonbs#> .
+@prefix pcon:    <http://proton.semanticweb.org/protonc#> .
+@prefix phbp:    <http://proton.semanticweb.org/protonhbp#> .
+@prefix ptmp:    <http://proton.semanticweb.org/protonta#> .
+@prefix plob:    <http://proton.semanticweb.org/protonlo#> .
+@prefix ppub:    <http://proton.semanticweb.org/protonpm#> .
+@prefix pmed:    <http://proton.semanticweb.org/protonm#> .
+@prefix pinf:    <http://proton.semanticweb.org/protoni#> . 
+@prefix pbus:    <http://proton.semanticweb.org/protonb#> .
+@prefix pevt:    <http://proton.semanticweb.org/protonev#> .
+@prefix psoc:    <http://proton.semanticweb.org/protonsa#> .
+@prefix porg:    <http://proton.semanticweb.org/protono#> .
+@prefix ploc:    <http://proton.semanticweb.org/protonl#> .
+@prefix geo-ont:  <http://www.geonames.org/ontology#> .
+@prefix dbp:     <http://dbpedia.org/ontology/> .
+@prefix dbp-prop:<http://dbpedia.org/property/> .
+@prefix pfb:     <http://proton.semanticweb.org/prot_fb#> .
+@prefix fb:      <http://rdf.freebase.com/ns/> .
+
+
+### Mapping
+
+dbp:Place
+      rdfs:subClassOf ptop:Location .
+
+dbp:OlympicResult
+      rdfs:subClassOf ptop:Situation .
+
+dbp:Language
+      rdfs:subClassOf ptop:Language .
+
+dbp:Organisation
+      rdfs:subClassOf ptop:Organization .
+
+dbp:Event
+      rdfs:subClassOf ptop:Event .
+
+
+### Mapping DBPedia 3.5
+
+### PUPP
+
+### Mapping
+
+#Event module
+#.....
+
+
+#Location module
+
+dbp:Continent
+      rdfs:subClassOf pupp:Continent .
+
+dbp:Park
+      rdfs:subClassOf pupp:Park .
+
+dbp:Stadium
+      rdfs:subClassOf pupp:Stadium .
+
+dbp:City
+      rdfs:subClassOf pupp:City .
+
+dbp:Mountain
+      rdfs:subClassOf pupp:Mountain .
+
+dbp:LaunchPad
+      rdfs:subClassOf pupp:LaunchFacility .
+
+dbp:Road
+      rdfs:subClassOf pupp:Roadway .
+
+dbp:Road
+      rdfs:subClassOf pupp:Street .
+
+dbp:PopulatedPlace
+      rdfs:subClassOf pupp:PopulatedPlace .
+
+dbp:Lighthouse
+      rdfs:subClassOf pupp:Tower .
+
+dbp:Planet
+      rdfs:subClassOf pupp:Planet .
+
+dbp:Lake
+      rdfs:subClassOf pupp:Sea , pupp:Lake .
+
+dbp:Cave
+      rdfs:subClassOf pupp:Cave .
+
+dbp:BodyOfWater
+      rdfs:subClassOf pupp:WaterRegion .
+
+dbp:Bridge
+      rdfs:subClassOf pupp:Bridge .
+
+dbp:Building
+      rdfs:subClassOf pupp:Building .
+
+dbp:River
+      rdfs:subClassOf pupp:River .
+
+dbp:Canal
+      rdfs:subClassOf pupp:Canal .
+
+dbp:Island
+      rdfs:subClassOf pupp:Island .
+
+dbp:Country
+      rdfs:subClassOf pupp:Country .
+
+dbp:LunarCrater
+      rdfs:subClassOf pupp:Crater .
+
+dbp:Airport
+      rdfs:subClassOf pupp:Airport .
+
+dbp:Stream   #DBP3.5
+	rdfs:subClassOf p-ext:Stream .    #pupp:Stream .
+
+dbp:River   #DBP3.5
+	rdfs:subClassOf p-ext:River .     #pupp:River .
+
+#pupp:Canal is a subclass of Channel under WaterRegion
+#dbp:Canal is a subcalss of Stream 
+dbp:Canal   #DBP3.5
+	rdfs:subClassOf p-ext:Canal .    #pupp:Canal .
+
+dbp:Monument   #DBP3.5
+	rdfs:subClassOf pupp:Monument .
+
+dbp:MountainRange   #DBP3.5
+	rdfs:subClassOf p-ext:MountainRange .   #pupp:MountainRange .
+
+dbp:MountainPass   #DBP3.5
+	rdfs:subClassOf p-ext:MountainPass .   #pupp:MountainPass .
+
+dbp:AdministrativeRegion   #DBP3.5
+	rdfs:subClassOf p-ext:AdministrativeRegion .   #pupp:AdministrativeRegion .
+
+dbp:Town   #DBP3.5
+	rdfs:subClassOf p-ext:Town .   #pupp:Town .
+
+dbp:Village   #DBP3.5
+	rdfs:subClassOf p-ext:Village .   #pupp:Village .
+
+dbp:Valley   #DBP3.5
+	rdfs:subClassOf p-ext:Valley .    #pupp:Valley .
+######################----------------------
+
+#modules:
+
+dbp:Album
+      rdfs:subClassOf pupp:Album .
+
+
+dbp:Disease
+      rdfs:subClassOf pupp:Disease .
+
+dbp:Automobile
+      rdfs:subClassOf pupp:CarModel .
+
+dbp:SoccerClub
+      rdfs:subClassOf pupp:SoccerClub .
+
+dbp:EducationalInstitution
+      rdfs:subClassOf pupp:EducationalOrganization .
+
+dbp:MilitaryConflict
+      rdfs:subClassOf pupp:MilitaryConflict .
+
+dbp:Website
+      rdfs:subClassOf pupp:Webpage .
+
+dbp:SportsTeam
+      rdfs:subClassOf pupp:Team .
+
+dbp:Song
+      rdfs:subClassOf pupp:Song .
+
+dbp:GrandPrix
+      rdfs:subClassOf pupp:Tournament .
+
+dbp:Beverage
+      rdfs:subClassOf pupp:Beverage .
+
+dbp:Book
+      rdfs:subClassOf pupp:Book .
+
+dbp:Aircraft
+      rdfs:subClassOf pupp:AirplaneModel .
+
+dbp:SportsEvent
+      rdfs:subClassOf pupp:SportEvent .
+
+dbp:Legislature
+      rdfs:subClassOf pupp:GovernmentOrganization .
+
+dbp:Airline
+      rdfs:subClassOf pupp:Airline .
+
+dbp:Olympics
+      rdfs:subClassOf pupp:OlympicGames .
+
+dbp:Weapon
+      rdfs:subClassOf pupp:WeaponModelOrSystem .
+
+dbp:Company
+      rdfs:subClassOf pupp:Company .
+
+dbp:Drug
+      rdfs:subClassOf pupp:Drug .
+
+dbp:Work
+      rdfs:subClassOf pupp:MediaProduct .
+
+dbp:School
+      rdfs:subClassOf pupp:School .
+
+dbp:Film
+      rdfs:subClassOf pupp:Movie .
+
+dbp:Currency
+      rdfs:subClassOf pupp:Currency .
+
+dbp:Race
+      rdfs:subClassOf pupp:Tournament .
+
+dbp:ChemicalCompound
+      rdfs:subClassOf pupp:ChemicalCompound .
+
+dbp:MusicalWork
+      rdfs:subClassOf pupp:MusicalComposition .
+
+dbp:RadioStation
+      rdfs:subClassOf pupp:RadioStation .
+
+dbp:University
+      rdfs:subClassOf pupp:University .
+
+dbp:Convention
+      rdfs:subClassOf pupp:Meeting .
+
+dbp:EurovisionSongContestEntry
+      rdfs:subClassOf pupp:Song .
+
+dbp:Manager
+      rdfs:subClassOf pupp:Manager .
+
+dbp:CollegeCoach
+      rdfs:subClassOf pupp:Manager .
+
+dbp:MemberOfParliament
+      rdfs:subClassOf pupp:MemberOfParliament .
+
+dbp:Magazine
+      rdfs:subClassOf pupp:Magazine .
+
+dbp:MixedMartialArtsEvent
+      rdfs:subClassOf pupp:SportEvent .
+
+dbp:Newspaper
+      rdfs:subClassOf pupp:Newspaper .
+
+dbp:MeanOfTransportation
+      rdfs:subClassOf pupp:Vehicle .
+
+dbp:Broadcast
+      rdfs:subClassOf pupp:MediaCompany .
+
+dbp:WomensTennisAssociationTournament
+      rdfs:subClassOf pupp:Tournament .
+
+# Equivalents with DBPedia 3.5
+
+dbp:Sales    #DBP3.5
+	rdfs:subClassOf p-ext:Sale . 
+
+dbp:SportsLeague   #DBP3.5
+	rdfs:subClassOf p-ext:SportsLeague . 
+
+dbp:CanadianFootballTeam   #DBP3.5
+	rdfs:subClassOf p-ext:CanadianFootballTeam .  
+
+dbp:AmericanFootballTeam   #DBP3.5
+	rdfs:subClassOf p-ext:AmericanFootballTeam .  
+
+dbp:HockeyTeam   #DBP3.5
+	rdfs:subClassOf p-ext:HockeyTeam .  
+
+dbp:AmericanFootballLeague   #DBP3.5
+	rdfs:subClassOf p-ext:AmericanFootballLeague . 
+
+dbp:AustralianFootballLeague   #DBP3.5
+	rdfs:subClassOf p-ext:AustralianFootballLeague .  
+
+dbp:AutoRacingLeague   #DBP3.5
+	rdfs:subClassOf p-ext:AutoRacingLeague .  
+
+dbp:BaseballLeague   #DBP3.5
+	rdfs:subClassOf p-ext:BaseballLeague .   
+
+dbp:BasketballLeague   #DBP3.5
+	rdfs:subClassOf p-ext:BasketballLeague .   
+
+dbp:BoxingLeague   #DBP3.5
+	rdfs:subClassOf p-ext:BoxingLeague .   
+
+dbp:CanadianFootballLeague   #DBP3.5
+	rdfs:subClassOf p-ext:CanadianFootballLeague .  
+
+dbp:CricketLeague   #DBP3.5
+	rdfs:subClassOf p-ext:CricketLeague .   
+
+dbp:CurlingLeague   #DBP3.5
+	rdfs:subClassOf p-ext:CurlingLeague .   
+
+dbp:FieldHockeyLeague   #DBP3.5
+	rdfs:subClassOf p-ext:FieldHockeyLeague .  
+
+dbp:GolfLeague   #DBP3.5
+	rdfs:subClassOf p-ext:GolfLeague .   
+
+dbp:HandballLeague   #DBP3.5
+	rdfs:subClassOf p-ext:HandballLeague .  
+
+dbp:IceHockeyLeague   #DBP3.5
+	rdfs:subClassOf p-ext:IceHockeyLeague .   
+
+dbp:InlineHockeyLeague   #DBP3.5
+	rdfs:subClassOf p-ext:InlineHockeyLeague .   
+
+dbp:LacrosseLeague   #DBP3.5
+	rdfs:subClassOf p-ext:LacrosseLeague .   
+
+dbp:MixedMartialArtsLeague   #DBP3.5
+	rdfs:subClassOf p-ext:MixedMartialArtsLeague .   
+
+dbp:MotorcycleRacingLeague   #DBP3.5
+	rdfs:subClassOf p-ext:MotorcycleRacingLeague .   
+
+dbp:PaintballLeague   #DBP3.5
+	rdfs:subClassOf p-ext:PaintballLeague .    
+
+dbp:PoloLeague   #DBP3.5
+	rdfs:subClassOf p-ext:PoloLeague .   
+
+dbp:RadioControlledRacingLeague   #DBP3.5
+	rdfs:subClassOf p-ext:RadioControlledRacingLeague .   
+
+dbp:RugbyLeague   #DBP3.5
+	rdfs:subClassOf p-ext:RugbyLeague .   
+
+dbp:SoccerLeague   #DBP3.5
+	rdfs:subClassOf p-ext:SoccerLeague .   
+
+dbp:SoftballLeague   #DBP3.5
+	rdfs:subClassOf p-ext:SoftballLeague .   
+
+dbp:SpeedwayLeague   #DBP3.5
+	rdfs:subClassOf p-ext:SpeedwayLeague .   
+
+dbp:TennisLeague   #DBP3.5
+	rdfs:subClassOf p-ext:TennisLeague .   
+
+dbp:VideogamesLeague   #DBP3.5
+	rdfs:subClassOf p-ext:VideogamesLeague .   
+
+dbp:VolleyballLeague   #DBP3.5
+	rdfs:subClassOf p-ext:VolleyballLeague .   
+
+# Equivalents with DBPedia #DBP3.6
+
+dbp:Hotel #DBP3.6
+       rdfs:subClassOf pupp:Hotel .
+
+dbp:PoliticalParty #DBP3.6
+       rdfs:subClassOf pupp:PoliticalParty .
+
+dbp:PowerStation #DBP3.6
+       rdfs:subClassOf pupp:Facility . #DBPedia: Infrastructure
+
+
+### Mapping
+
+dbp:Award 
+	rdfs:subClassOf p-ext:Award .
+
+dbp:Species
+      rdfs:subClassOf p-ext:LivingObject .
+
+dbp:Device
+      rdfs:subClassOf p-ext:Machine .
+
+dbp:AutomobileEngine
+      rdfs:subClassOf p-ext:AutomobileEngine .
+
+dbp:AnatomicalStructure
+      rdfs:subClassOf p-ext:HumanBodyParts .
+
+dbp:College
+      rdfs:subClassOf p-ext:College .
+
+dbp:EthnicGroup
+      rdfs:subClassOf p-ext:EthnicGroup .
+
+dbp:FilmFestival
+      rdfs:subClassOf p-ext:FilmFestival .
+
+dbp:MusicFestival
+      rdfs:subClassOf p-ext:MusicFestival .
+
+dbp:Single
+      rdfs:subClassOf p-ext:SingleSongOrAlbum .
+
+dbp:Animal
+      rdfs:subClassOf p-ext:Animal .
+
+dbp:Fungus
+      rdfs:subClassOf p-ext:Fungus .   
+
+dbp:Plant
+      rdfs:subClassOf p-ext:Plant .  
+
+dbp:Bacteria
+      rdfs:subClassOf p-ext:Bacteria .
+
+dbp:Archaea
+      rdfs:subClassOf p-ext:Archaea .
+
+dbp:Amphibian
+      rdfs:subClassOf p-ext:Amphibian .
+
+dbp:Arachnid
+      rdfs:subClassOf p-ext:Arachnid .
+
+dbp:Bird
+      rdfs:subClassOf p-ext:Bird .
+
+dbp:Crustacean
+      rdfs:subClassOf p-ext:Crustacean .
+
+dbp:Fish
+      rdfs:subClassOf p-ext:Fish .
+
+dbp:Insect
+      rdfs:subClassOf p-ext:Insect .
+
+dbp:Mollusca
+      rdfs:subClassOf p-ext:Mollusca .
+
+dbp:Reptile
+      rdfs:subClassOf p-ext:Reptile .
+
+dbp:FictionalCharacter
+      rdfs:subClassOf p-ext:FictionalCharacter .
+
+dbp:MilitaryUnit
+      rdfs:subClassOf p-ext:MilitaryUnit .
+
+dbp:Non-ProfitOrganisation
+      rdfs:subClassOf p-ext:Non-ProfitOrganisation .
+
+dbp:MusicGenre
+      rdfs:subClassOf p-ext:MusicGenre .
+
+dbp:MusicGenre
+      rdfs:subClassOf p-ext:Musical .
+
+dbp:Artery
+      rdfs:subClassOf p-ext:Artery .
+
+dbp:Bone
+      rdfs:subClassOf p-ext:Bone .
+
+dbp:Brain
+      rdfs:subClassOf p-ext:Brain .
+
+dbp:Embryology
+      rdfs:subClassOf p-ext:EmbryoBodyPart .
+
+dbp:Lymph
+      rdfs:subClassOf p-ext:LymphNode .
+
+dbp:Muscle
+      rdfs:subClassOf p-ext:Muscle .
+
+dbp:Nerve
+      rdfs:subClassOf p-ext:Nerve .
+
+dbp:Vein
+      rdfs:subClassOf p-ext:Vein .
+
+dbp:RecordLabel
+      rdfs:subClassOf p-ext:MusicCompany .
+
+dbp:Rocket
+      rdfs:subClassOf pupp:Spacecraft .
+
+dbp:Ship
+      rdfs:subClassOf pupp:Ship .
+
+dbp:Spacecraft
+      rdfs:subClassOf pupp:Spacecraft .
+
+dbp:SpaceShuttle
+      rdfs:subClassOf p-ext:SpaceShuttle .
+
+dbp:SpaceStation
+      rdfs:subClassOf p-ext:SpaceStation .
+
+dbp:Software
+      rdfs:subClassOf p-ext:Software .
+
+dbp:SpaceMission
+      rdfs:subClassOf p-ext:SpaceMission .
+
+dbp:SupremeCourtOfTheUnitedStatesCase 
+      rdfs:subClassOf p-ext:LegalCases .
+
+dbp:TelevisionShow
+      rdfs:subClassOf p-ext:TelevisionShow .
+
+dbp:TelevisionEpisode
+      rdfs:subClassOf p-ext:TelevisionEpisode .
+
+dbp:VideoGame
+      rdfs:subClassOf p-ext:VideoGame .
+
+dbp:Protein
+      rdfs:subClassOf p-ext:Protein .
+
+dbp:TradeUnion
+      rdfs:subClassOf p-ext:TradeUnion .
+
+dbp:Mammal
+      rdfs:subClassOf p-ext:Mammal .
+
+dbp:Musical
+      rdfs:subClassOf p-ext:Musical .
+
+dbp:HistoricBuilding
+      rdfs:subClassOf p-ext:HistoricBuilding .     
+
+dbp:Hospital
+      rdfs:subClassOf p-ext:Hospital .
+
+dbp:Skyscraper
+      rdfs:subClassOf p-ext:Skyscraper .      
+
+dbp:ShoppingMall
+      rdfs:subClassOf p-ext:ShoppingMall . 
+
+dbp:Station
+      rdfs:subClassOf p-ext:Station . 
+
+dbp:WorldHeritageSite
+      rdfs:subClassOf p-ext:WorldHeritageSite .
+
+dbp:ProtectedArea
+      rdfs:subClassOf p-ext:ProtectedArea .
+
+dbp:HistoricPlace
+      rdfs:subClassOf p-ext:HistoricPlace .
+
+dbp:SiteOfSpecialScientificInterest
+      rdfs:subClassOf p-ext:SiteOfSpecialScientificInterest .
+
+dbp:WineRegion
+      rdfs:subClassOf p-ext:WineRegion .
+
+dbp:SkiArea
+      rdfs:subClassOf p-ext:SkiArea .
+
+# Equivalents with DBPedia 3.5
+
+dbp:Activity     #DBP3.5
+	rdfs:subClassOf p-ext:Activity . 
+
+dbp:Sport     #DBP3.5
+	rdfs:subClassOf p-ext:Sport .
+
+dbp:Game     #DBP3.5
+	rdfs:subClassOf p-ext:Game .
+
+dbp:Colour   #DBP3.5
+	rdfs:subClassOf p-ext:Colour .
+
+
+# Equivalents with DBPedia #3.6
+
+dbp:Arena #DBP3.6
+      rdfs:subClassOf p-ext:Arena .
+
+dbp:Atoll #DBP3.6
+      rdfs:subClassOf p-ext:Atoll .
+
+dbp:BasketballTeam #DBP3.6
+      rdfs:subClassOf p-ext:BasketballTeam . 
+
+dbp:Election #DBP3.6
+      rdfs:subClassOf p-ext:Election . 
+
+dbp:GolfPlayer #DBP3.6
+      rdfs:subClassOf p-ext:GolfPlayer . 
+
+dbp:Instrument #DBP3.6
+     rdfs:subClassOf p-ext:MusicalInstrument .
+
+dbp:LegalCase #DBP3.6
+     rdfs:subClassOf p-ext:LegalCases . # DBPedia: Thing, PTOP:Event
+
+dbp:Locomotive #DBP3.6
+     rdfs:subClassOf p-ext:Locomotive .
+
+dbp:Museum #DBP3.6
+     rdfs:subClassOf p-ext:Museum .
+
+dbp:Priest rdfs:subClassOf [ rdf:type owl:Restriction ;  #DBP3.6
+                                          owl:onProperty pupp:hasProfession ;
+                                          owl:hasValue p-ext:Priest ] .
+
+dbp:Restaurant #DBP3.6
+	rdfs:subClassOf p-ext:Restaurant .
+
+dbp:Sculpture #DBP3.6
+        rdfs:subClassOf p-ext:Sculpture .
+
+#### Complex expression mappings DBP3.5, 3.6
+
+dbp:Architect rdfs:subClassOf [ rdf:type owl:Restriction ;  
+                                          owl:onProperty pupp:hasProfession ;
+                                          owl:hasValue p-ext:Architect ] .
+
+dbp:Journalist rdfs:subClassOf [ rdf:type owl:Restriction ;  
+                                          owl:onProperty pupp:hasProfession ;
+                                          owl:hasValue p-ext:Journalist ] .
+
+dbp:Judge rdfs:subClassOf [ rdf:type owl:Restriction ;  
+                                          owl:onProperty pupp:hasProfession ;
+                                          owl:hasValue p-ext:Judge ] .
+
+dbp:MilitaryPerson rdfs:subClassOf [ rdf:type owl:Restriction ;  
+                                          owl:onProperty pupp:hasProfession ;
+                                          owl:hasValue p-ext:MilitaryPerson ] .
+
+dbp:Artist rdfs:subClassOf [ rdf:type owl:Restriction ;  
+                                          owl:onProperty pupp:hasProfession ;
+                                          owl:hasValue p-ext:Artist ] .
+
+dbp:Actor rdfs:subClassOf [ rdf:type owl:Restriction ;  
+                                          owl:onProperty pupp:hasProfession ;
+                                          owl:hasValue p-ext:Actor ] .
+
+dbp:MusicalArtist rdfs:subClassOf [ rdf:type owl:Restriction ;  
+                                          owl:onProperty pupp:hasProfession ;
+                                          owl:hasValue p-ext:Musician ] .
+
+dbp:Writer rdfs:subClassOf [ rdf:type owl:Restriction ;  
+                                          owl:onProperty pupp:hasProfession ;
+                                          owl:hasValue p-ext:Writer ] .
+
+dbp:Astronaut rdfs:subClassOf [ rdf:type owl:Restriction ;  
+                                          owl:onProperty pupp:hasProfession ;
+                                          owl:hasValue p-ext:Astronaut ] .
+
+dbp:Athlete rdfs:subClassOf [ rdf:type owl:Restriction ;  
+                                          owl:onProperty pupp:hasProfession ;
+                                          owl:hasValue p-ext:Athlete ] .
+
+dbp:Model rdfs:subClassOf [ rdf:type owl:Restriction ;  
+                                          owl:onProperty pupp:hasProfession ;
+                                          owl:hasValue p-ext:Model ] .
+
+dbp:Philosopher rdfs:subClassOf [ rdf:type owl:Restriction ;  
+                                          owl:onProperty pupp:hasProfession ;
+                                          owl:hasValue p-ext:Philosopher ] .
+
+dbp:Scientist rdfs:subClassOf [ rdf:type owl:Restriction ;  
+                                          owl:onProperty pupp:hasProfession ;
+                                          owl:hasValue p-ext:Scientist ] .
+
+dbp:Politician rdfs:subClassOf [ rdf:type owl:Restriction ;  
+                                          owl:onProperty pupp:hasProfession ;
+                                          owl:hasValue p-ext:Politician ] .
+
+dbp:GridironFootballPlayer rdfs:subClassOf [ rdf:type owl:Restriction ;  
+                                          owl:onProperty pupp:hasProfession ;
+                                          owl:hasValue p-ext:GridironFootballPlayer ] .
+
+dbp:CanadianFootballPlayer rdfs:subClassOf [ rdf:type owl:Restriction ;  
+                                          owl:onProperty pupp:hasProfession ;
+                                          owl:hasValue p-ext:CanadianFootballPlayer ] .
+
+dbp:AmericanFootballPlayer rdfs:subClassOf [ rdf:type owl:Restriction ;  
+                                          owl:onProperty pupp:hasProfession ;
+                                          owl:hasValue p-ext:AmericanFootballPlayer ] .
+
+dbp:GolfPlayer rdfs:subClassOf [ rdf:type owl:Restriction ;  
+                                          owl:onProperty pupp:hasProfession ;
+                                          owl:hasValue p-ext:GolfPlayer ] .
+
+### DBPedia Properties
+
+###Properties related to Person
+dbp:birthPlace
+	rdfs:subPropertyOf p-ext:birthPlace .
+
+dbp:deathPlace
+	rdfs:subPropertyOf p-ext:deathPlace .
+
+dbp:birthDate
+	rdfs:subPropertyOf p-ext:birthDate .
+
+dbp:deathDate
+	rdfs:subPropertyOf p-ext:deathDate .
+
+dbp-prop:birthPlace
+	rdfs:subPropertyOf p-ext:birthPlace .
+
+dbp-prop:deathPlace
+	rdfs:subPropertyOf p-ext:deathPlace .
+
+dbp-prop:birthDate
+	rdfs:subPropertyOf p-ext:birthDate .
+
+dbp-prop:deathDate
+	rdfs:subPropertyOf p-ext:deathDate .
+
+##Properties related to office position
+dbp-prop:termStart 
+	rdfs:subPropertyOf ptop:heldFrom .
+
+dbp-prop:termEnd
+	rdfs:subPropertyOf ptop:heldTo .
+
+##Properties related to location
+dbp-prop:location
+	rdfs:subPropertyOf ptop:locatedIn .
+
+dbp:place 
+	rdfs:subPropertyOf ptop:locatedIn .
+
+## 15.06.2010 Modigliani
+dbp:city
+        rdfs:subPropertyOf ptop:locatedIn . 
+
+## 17.06.2010 LDSR demo queries
+dbp:foundationPlace
+        rdfs:subPropertyOf ptop:establishedIn .
+
+dbp:product
+        rdfs:subPropertyOf p-ext:product .
+
+dbp:industry
+        rdfs:subPropertyOf p-ext:industry .
+
+dbp-prop:assembly
+	rdfs:subPropertyOf p-ext:carAssembly .
+
+dbp-prop:instrument
+        rdfs:subPropertyOf p-ext:musicInstrument .
+
+dbp:genre
+        rdfs:subPropertyOf p-ext:genreOfAgent .
+
+dbp:MusicalArtist
+        rdfs:subClassOf        	
+	                [ rdf:type owl:Restriction ;
+		                    owl:onProperty  pupp:hasProfession ;
+		                    owl:hasValue p-ext:Musician ] .
+dbp:architect 
+       rdfs:subPropertyOf p-ext:architect .
+
+dbp:occupation
+	rdfs:subPropertyOf pupp:hasProfession .
+
+dbp:nationality
+	rdfs:subPropertyOf p-ext:nationality .
+
+dbp-prop:name 
+	rdfs:subPropertyOf psys:mainLabel .
+
+
+### Feebase mappings
+
+<http://rdf.freebase.com/ns/type.object.name>
+      rdfs:subPropertyOf psys:mainLabel .
+
+pfb:Human_Language 
+      rdf:type 		owl:Restriction ;
+      owl:onProperty 	<http://rdf.freebase.com/ns/type.object.type> ;
+      owl:hasValue 	<http://rdf.freebase.com/ns/language.human_language> ;
+      rdfs:subClassOf 	ptop:Language .
+<http://rdf.freebase.com/ns/book.written_work.original_language>
+	rdfs:subPropertyOf ptop:inLanguage .
+<http://rdf.freebase.com/ns/book.periodical.language>
+	rdfs:subPropertyOf ptop:inLanguage .
+
+#book - book_edition
+<http://rdf.freebase.com/ns/book.book_edition.ISBN>
+	rdfs:subPropertyOf pupp:ISBN .
+<http://rdf.freebase.com/ns/book.book_edition.publication_date>
+	rdfs:subPropertyOf pupp:datePublished .
+
+<http://rdf.freebase.com/ns/book.periodical.ISSN>
+	rdfs:subPropertyOf pupp:ISSN .
+
+#Location module:
+pfb:Location 
+      rdf:type 		owl:Restriction ;
+      owl:onProperty 	<http://rdf.freebase.com/ns/type.object.type> ;
+      owl:hasValue 	<http://rdf.freebase.com/ns/location.location> ;
+      rdfs:subClassOf 	ptop:Location .
+<http://rdf.freebase.com/ns/location.location.containedby>
+	rdfs:subPropertyOf ptop:subRegionOf .
+<http://rdf.freebase.com/ns/location.country.capital>
+	rdfs:subPropertyOf pupp:hasCapital .
+<http://rdf.freebase.com/ns/location.country.currency_used>
+	rdfs:subPropertyOf pupp:hasCurrency .
+
+#/location/location/geolocation
+<http://rdf.freebase.com/ns/location.geocode.latitude>
+	rdfs:subPropertyOf ptop:latitude .
+<http://rdf.freebase.com/ns/location.geocode.longitude>
+	rdfs:subPropertyOf ptop:longitude .
+
+pfb:Mailing_Address
+      rdf:type 		owl:Restriction ;
+      owl:onProperty 	<http://rdf.freebase.com/ns/type.object.type> ;
+      owl:hasValue 	<http://rdf.freebase.com/ns/location.mailing_address> ;
+      rdfs:subClassOf 	pupp:PostalAddress . 
+<http://rdf.freebase.com/ns/location.location.street_address>
+	rdfs:subPropertyOf pupp:hasAddress .
+<http://rdf.freebase.com/ns/business.business_location.address>
+	rdfs:subPropertyOf pupp:hasAddress .
+<http://rdf.freebase.com/ns/organization.organization.headquarters>
+	rdfs:subPropertyOf pupp:hasAddress .
+<http://rdf.freebase.com/ns/architecture.structure.address>
+	rdfs:subPropertyOf pupp:hasAddress .
+
+pfb:Phone_Number
+      rdf:type 		owl:Restriction ;
+      owl:onProperty 	<http://rdf.freebase.com/ns/type.object.type> ;
+      owl:hasValue 	<http://rdf.freebase.com/ns/common.phone_number > ;
+      rdfs:subClassOf 	pupp:PhoneNumber .   
+<http://rdf.freebase.com/ns/business.business_location.phone_number>
+	rdfs:subPropertyOf pupp:hasPhone .
+<http://rdf.freebase.com/ns/education.educational_institution.phone_number>
+	rdfs:subPropertyOf pupp:hasPhone .
+<http://rdf.freebase.com/ns/education.school_district.phone_number>
+	rdfs:subPropertyOf pupp:hasPhone .
+
+pfb:Common_Webpage
+      rdf:type 		owl:Restriction ;
+      owl:onProperty 	<http://rdf.freebase.com/ns/type.object.type> ;
+      owl:hasValue 	<http://rdf.freebase.com/ns/common.webpage> ;
+      rdfs:subClassOf 	pupp:WebPage .  
+<http://rdf.freebase.com/ns/common.topic.webpage>
+        rdfs:subPropertyOf pupp:hasWebPage .
+
+#Organization:
+#pfb:Organization
+#      rdf:type 		owl:Restriction ;
+#      owl:onProperty 	<http://rdf.freebase.com/ns/type.object.type> ;
+#      owl:hasValue 	<http://rdf.freebase.com/ns/organization.organization> ;
+#      rdfs:subClassOf 	ptop:Organization .
+
+#<http://rdf.freebase.com/ns/organization.organization.parent>
+#       rdfs:subPropertyOf ptop:parentOrganizationOf .  
+
+
+#Person:
+pfb:Person
+      rdf:type 		owl:Restriction ;
+      owl:onProperty 	<http://rdf.freebase.com/ns/type.object.type> ;
+      owl:hasValue 	<http://rdf.freebase.com/ns/people.person> ;
+      rdfs:subClassOf 	ptop:Person .
+
+#<http://rdf.freebase.com/ns/people.person.employment_history>
+#       rdfs:subPropertyOf ptop:hasPosition .  
+#owl:inverseOf ptop:holder . 
+
+# ?s fb:people.person.sibling_s ?s_rel .
+# ?s_rel fb:people.sibling_relationship.sibling ?o .
+#       rdfs:subPropertyOf ptop:hasSibling .  
+# ?s fb:people.person.spouse_s ?s_rel .
+# ?s_rel fb:people.marriage.spouse ?o .
+#       rdfs:subPropertyOf ptop:hasSpouse .  
+<http://rdf.freebase.com/ns/people.person.children>
+       rdfs:subPropertyOf ptop:hasChild .  
+<http://rdf.freebase.com/ns/people.person.parents>
+       rdfs:subPropertyOf ptop:hasParent .
+       
+
+<http://rdf.freebase.com/ns/people.person.profession>
+       rdfs:subPropertyOf pupp:hasProfession .  
+
+<http://rdf.freebase.com/ns/people.person.date_of_birth>
+       rdfs:subPropertyOf p-ext:birthDate .  #p-ext:Life
+
+<http://rdf.freebase.com/ns/people.person.place_of_birth>
+       rdfs:subPropertyOf p-ext:birthPlace . #p-ext:Life
+
+<http://rdf.freebase.com/ns/people.deceased_person.date_of_death>
+	rdfs:subPropertyOf p-ext:deathDate .
+
+<http://rdf.freebase.com/ns/people.deceased_person.place_of_death>
+	rdfs:subPropertyOf p-ext:deathPlace .
+
+#handeled with *.pie rule (commented on 14032011)
+#pfb:US_president 
+#      rdf:type 		owl:Restriction ;
+#      owl:onProperty 	<http://rdf.freebase.com/ns/type.object.type> ;
+#      owl:hasValue 	<http://rdf.freebase.com/ns/government.us_president> ;
+#      rdfs:subClassOf 	ptop:Person . #p-ext:President .
+
+#handeled with *.pie rule (commented on 14032011)
+#<http://rdf.freebase.com/ns/government.us_president.presidency_number>
+#        rdfs:subPropertyOf p-ext:presidencyNumber .
+
+#ldsr4:
+pfb:Military_commander
+      rdf:type 		owl:Restriction ;
+      owl:onProperty 	<http://rdf.freebase.com/ns/type.object.type> ;
+      owl:hasValue 	<http://rdf.freebase.com/ns/military.military_commander> ;
+      rdfs:subClassOf 	ptop:Person . #p-ext:
+      #  [owl:intersectionOf(ptop:Agent 	
+       #  [rdf:type owl:Restriction ;
+       #   owl:allValuesFrom [owl:intersectionOf(ptop:JobPosition 
+	#					[ rdf:type owl:Restriction ;
+        #        				  owl:allValuesFrom p-ext:Commander ;
+	#					  owl:onProperty pupp:hasTitle])
+	#		     ] ;
+        #  owl:onProperty ptop:involvedIn
+        #])] .
+
+#has to be concluded as inverse of :holder
+#<http://rdf.freebase.com/ns/military.military_commander.military_commands>
+#       rdfs:subPropertyOf ptop:hasPosition . #p-ext:hasCommander
+
+#Event module:
+#pfb:Recurring_event	<http://rdf.freebase.com/ns/time.recurring_event>;  rdfs:subClassOf 	p-ext:RecurringEvent, ptop:Happening.
+<http://rdf.freebase.com/ns/time.recurring_event.current_frequency>
+      rdfs:subPropertyOf p-ext:currentFrequency .
+<http://rdf.freebase.com/ns/time.recurring_event.date_of_first_occurance>
+      rdfs:subPropertyOf p-ext:firstOccuranceDate .
+<http://rdf.freebase.com/ns/time.recurring_event.date_of_final_occurance>
+      rdfs:subPropertyOf p-ext:finalOccuranceDate .
+<http://rdf.freebase.com/ns/time.recurring_event.instances>
+      rdfs:subPropertyOf p-ext:hasRecurringEventInstance .
+
+pfb:Event
+      rdf:type 		owl:Restriction ;
+      owl:onProperty 	<http://rdf.freebase.com/ns/type.object.type> ;
+      owl:hasValue 	<http://rdf.freebase.com/ns/time.event> ;
+      rdfs:subClassOf 	ptop:Event .
+
+<http://rdf.freebase.com/ns/time.event.start_date>
+      rdfs:subPropertyOf ptop:startTime .
+
+<http://rdf.freebase.com/ns/time.event.end_date>
+      rdfs:subPropertyOf ptop:endTime .
+
+<http://rdf.freebase.com/ns/time.event.locations>
+	rdfs:subPropertyOf ptop:locatedIn .
+
+pfb:Military_conflict
+      rdf:type 		owl:Restriction ;
+      owl:onProperty 	<http://rdf.freebase.com/ns/type.object.type> ;
+      owl:hasValue 	<http://rdf.freebase.com/ns/military.military_conflict> ;
+      rdfs:subClassOf 	pupp:MilitaryConflict .
+
+#<http://rdf.freebase.com/ns/military.military_conflict.commanders>
+#      rdfs:subPropertyOf p-ext:hasParticipant . #ptop:Event->ptop:Agent
+<http://rdf.freebase.com/ns/military.military_conflict.commanders>
+      rdfs:subPropertyOf p-ext:hasRole . #p-ext:isCommanderIn .   #p-ext:commanderIn(p-ext:Commander)->p-upp:MilitaryConflict
+
+<http://rdf.freebase.com/ns/military.military_conflict.combatants>
+        rdfs:subPropertyOf  p-ext:conflictCombatant . 
+
+#pfb:Football_match	<http://rdf.freebase.com/ns/soccer.football_match>;  rdfs:subClassOf 	p-ext:FootballMatch, pupp:SportGame .
+<http://rdf.freebase.com/ns/soccer.football_match.teams>
+      rdfs:subPropertyOf p-ext:hasParticipant .
+<http://rdf.freebase.com/ns/soccer.football_match.goals>
+      rdfs:subPropertyOf p-ext:hasPoint .
+
+#Situation:
+#pfb:Football_goal	<http://rdf.freebase.com/ns/soccer.football_goal>;  rdfs:subClassOf 	p-ext:SportGamePoint, ptop:Situation .
+<http://rdf.freebase.com/ns/soccer.football_goal.point_awarded_to>
+      rdfs:subPropertyOf p-ext:pointAwardedTo .
+<http://rdf.freebase.com/ns/soccer.football_goal.scorer>
+      rdfs:subPropertyOf p-ext:hasParticipant .
+<http://rdf.freebase.com/ns/soccer.football_goal.minute>
+      rdfs:subPropertyOf ptop:startTime .
+
+#ldsr4 Role
+pfb:Military_command
+      rdf:type 		owl:Restriction ;
+      owl:onProperty 	<http://rdf.freebase.com/ns/type.object.type> ;
+      owl:hasValue 	<http://rdf.freebase.com/ns/military.military_command> ;
+      rdfs:subClassOf 	ptop:Role, ptop:JobPosition . #p-ext:MilitaryRole ?
+
+<http://rdf.freebase.com/ns/military.military_command.military_conflict>
+	rdfs:subPropertyOf  ptop:roleIn . 
+
+<http://rdf.freebase.com/ns/military.military_command.military_commander>
+	rdfs:subPropertyOf  ptop:roleHolder, ptop:holder. #defines hasPos like inverseOf
+
+<http://rdf.freebase.com/ns/military.military_command.military_combatant>
+	rdfs:subPropertyOf  ptop:withinOrganization . 
+
+#ldsr4 Military organisation
+<http://rdf.freebase.com/ns/military.military_combatant_group.combatants>
+	rdfs:subPropertyOf  p-ext:groupCombatant . 
+
+#ldsr4 JobPosition:
+pfb:Business_employment_tenure
+      rdf:type 		owl:Restriction ;
+      owl:onProperty 	<http://rdf.freebase.com/ns/type.object.type> ;
+      owl:hasValue 	<http://rdf.freebase.com/ns/business.employment_tenure> ;
+      rdfs:subClassOf 	ptop:JobPosition . #protonu:BusinessPosition ?
+
+<http://rdf.freebase.com/ns/business.employment_tenure.title>
+      rdfs:subPropertyOf pupp:hasTitle . 
+#/business/job_title = pupp:JobTitle
+
+<http://rdf.freebase.com/ns/business.employment_tenure.person>
+      rdfs:subPropertyOf ptop:holder .
+
+<http://rdf.freebase.com/ns/business.employment_tenure.to>
+      rdfs:subPropertyOf ptop:heldTo .
+
+<http://rdf.freebase.com/ns/business.employment_tenure.from>
+      rdfs:subPropertyOf ptop:heldFrom .
+
+<http://rdf.freebase.com/ns/business.employment_tenure.company>
+        rdfs:subPropertyOf ptop:withinOrganization .
+
+
+pfb:Government_position_held
+      rdf:type 		owl:Restriction ;
+      owl:onProperty 	<http://rdf.freebase.com/ns/type.object.type> ;
+      owl:hasValue 	<http://rdf.freebase.com/ns/government.government_position_held> ;
+      rdfs:subClassOf 	pupp:OfficialPosition . #ptop:JobPosition 
+
+<http://rdf.freebase.com/ns/government.government_position_held.office_position_or_title>
+      rdfs:subPropertyOf pupp:hasTitle . #ptop:withinOrganization .
+#/government/government_office_or_title = pupp:JobTitle
+
+<http://rdf.freebase.com/ns/government.government_position_held.office_holder>
+      rdfs:subPropertyOf ptop:holder .
+
+<http://rdf.freebase.com/ns/government.government_position_held.to>
+      rdfs:subPropertyOf ptop:heldTo .
+
+<http://rdf.freebase.com/ns/government.government_position_held.from>
+      rdfs:subPropertyOf ptop:heldFrom .
+
+<http://rdf.freebase.com/ns/government.government_position_held.jurisdiction_of_office>
+      rdfs:subPropertyOf pupp:officialPositionIn . #ptop:registeredIn .
+
+<http://rdf.freebase.com/ns/government.government_position_held.appointed_by>						
+	rdfs:subPropertyOf p-ext:appointedBy .
+
+<http://rdf.freebase.com/ns/government.government_position_held.governmental_body>
+        rdfs:subPropertyOf ptop:withinOrganization .
+
+<http://rdf.freebase.com/ns/government.government_position_held.district_represented>
+        rdfs:subPropertyOf p-ext:districtRepresented .
+
+#ptop:establishmentDate :
+
+<http://rdf.freebase.com/ns/organization.organization.date_founded>
+	rdfs:subPropertyOf ptop:establishmentDate .
+
+<http://rdf.freebase.com/ns/base.dance.dance_company.date_founded>
+	rdfs:subPropertyOf ptop:establishmentDate .
+
+<http://rdf.freebase.com/ns/government.government_agency.date_founded>
+	rdfs:subPropertyOf ptop:establishmentDate .
+
+<http://rdf.freebase.com/ns/location.dated_location.date_founded>					
+	rdfs:subPropertyOf ptop:establishmentDate .
+
+<http://rdf.freebase.com/ns/medicine.hospital.date_founded>					
+	rdfs:subPropertyOf ptop:establishmentDate .
+
+<http://rdf.freebase.com/ns/royalty.order_of_chivalry.date_founded>
+	rdfs:subPropertyOf ptop:establishmentDate .
+
+<http://rdf.freebase.com/ns/user.dharmatech.default_domain.political_organization.date_founded>					
+	rdfs:subPropertyOf ptop:establishmentDate .
+
+<http://rdf.freebase.com/ns/user.skud.sca.sca_group.date_founded>					
+	rdfs:subPropertyOf ptop:establishmentDate .
+
+##15.06.2010 Modigliani
+<http://rdf.freebase.com/ns/visual_art.artwork.artist>
+        rdfs:subPropertyOf  p-ext:author .
+
+### this rule should be removed for the next version. the mapping is handled with inference .pie rules
+### restored 110307
+<http://rdf.freebase.com/ns/visual_art.artwork.owners>
+        rdfs:subPropertyOf  p-ext:ownership .
+
+### this rule should be removed for the next version. the mapping is handled with inference .pie rules
+#<http://rdf.freebase.com/ns/visual_art.artwork_owner_relationship.owner>
+#        rdfs:subPropertyOf  ptop:isOwnedBy .
+
+### for ldsr4 demo queries 
+<http://rdf.freebase.com/ns/location.location.contains>
+        rdfs:subPropertyOf p-ext:containsLocation .
+
+<http://rdf.freebase.com/ns/architecture.architect.structures_designed>
+        rdfs:subPropertyOf  p-ext:designerOfFacility .
+
+<http://rdf.freebase.com/ns/location.mailing_address.citytown>
+	rdfs:subPropertyOf ptop:locatedIn . 
+
+#<http://rdf.freebase.com/ns/architecture.structure.address>
+#        rdfs:subPropertyOf p-ext:hasAddress .
+
+<http://rdf.freebase.com/ns/location.location.people_born_here>
+	rdfs:subPropertyOf p-ext:bornIn .
+
+<http://rdf.freebase.com/ns/people.deceased_person.cause_of_death>
+	rdfs:subPropertyOf p-ext:causeOfDeath .
+
+<http://rdf.freebase.com/ns/government.government_agency.parent_agency> 
+        rdfs:subPropertyOf ptop:subsidiaryOrganizationOf .
+
+<http://rdf.freebase.com/ns/business.employer.employees>
+        rdfs:subPropertyOf p-ext:organizationPosition .
+
+
+## PROTON mapping
+<http://rdf.freebase.com/ns/ISSN>
+        rdfs:subPropertyOf pupp:ISSN .
+
+### Geonames mapping
+
+
+# Geonames 2.2.1 
+
+geo-ont:Class     
+        rdfs:subClassOf ptop:Location .  # pupp:LandRegion; p-ext:GeographicRegion (?) . # Class includes PROTON's LandRegion and PoliticalRegion
+
+geo-ont:Feature
+	rdfs:subClassOf p-ext:SpatialThing .
+
+geo-ont:Map
+	rdfs:subClassOf p-ext:Map .
+
+geo-ont:WikipediaArticle
+	rdfs:subClassOf pupp:Article .
+
+geo-ont:RDFData
+	rdfs:subClassOf pupp:Dataset .
+
+<http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing>
+	rdfs:subClassOf p-ext:SpatialThing .
+
+geo-ont:parentFeature 
+	rdfs:subPropertyOf ptop:subRegionOf .
+
+geo-ont:inCountry
+	rdfs:subPropertyOf ptop:subRegionOf .  
+	
+geo-ont:featureClass
+       rdfs:subPropertyOf p-ext:region . 
+
+geo-ont:locatedIn
+	rdfs:subPropertyOf pupp:locatedIn .
+
+geo-ont:locationMap
+	rdfs:subPropertyOf p-ext:locationMap .
+
+geo-ont:alternateName
+        rdfs:subPropertyOf psys:mainLabel . 
+
+geo-ont:officialName
+        rdfs:subPropertyOf p-ext:locationName . 
+
+geo-ont:shortName
+	rdfs:subPropertyOf p-ext:locationName .
+
+geo-ont:nearby
+         rdfs:subPropertyOf p-ext:nearby .
+
+geo-ont:neighbour
+         rdfs:subPropertyOf p-ext:neighbour .
+
+geo-ont:neighbouringFeatures
+	 rdfs:subPropertyOf p-ext:neighbouringGeographicRegions .
+
+geo-ont:wikipediaArticle
+         rdfs:subPropertyOf p-ext:isWrittenAbout .
+
+geo-ont:name
+	rdfs:subPropertyOf psys:mainLabel . 
+
+geo-ont:featureCode
+	rdfs:subPropertyOf p-ext:spatialThing .
+
+# From Geonames 2.0_Lite
+
+
+#pupp:OilField
+[ rdf:type 		owl:Restriction ;
+        owl:onProperty 	        <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue 	        <http://www.geonames.org/ontology#S.CMPO> ] 
+        rdfs:subClassOf 	pupp:OilField .
+
+[ rdf:type 		owl:Restriction ;
+        owl:onProperty 	        <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue 	        <http://www.geonames.org/ontology#L.OILF> ] 
+        rdfs:subClassOf 	pupp:OilField .
+
+[ rdf:type 		owl:Restriction ;
+        owl:onProperty 	        <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue 	        <http://www.geonames.org/ontology#S.OILQ> ] 
+        rdfs:subClassOf 	pupp:OilField .
+
+[ rdf:type 		owl:Restriction ;
+        owl:onProperty 	        <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue 	        <http://www.geonames.org/ontology#S.OILW> ] 
+        rdfs:subClassOf 	pupp:OilField .
+
+[ rdf:type 		owl:Restriction ;
+        owl:onProperty 	        <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue 	        <http://www.geonames.org/ontology#S.PMPO> ] 
+        rdfs:subClassOf 	pupp:OilField .
+
+[ rdf:type 		owl:Restriction ;
+        owl:onProperty 	        <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue 	        <http://www.geonames.org/ontology#L.GASF> ] 
+        rdfs:subClassOf 	pupp:OilField .
+
+#pupp:LandRegion
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#T.FSR> ]
+        rdfs:subClassOf       pupp:LandRegion .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#U.FURU> ]
+        rdfs:subClassOf       pupp:LandRegion .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#T.HMCK> ]
+        rdfs:subClassOf       pupp:LandRegion .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#T.PLDR> ]
+        rdfs:subClassOf       pupp:LandRegion .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#T.RKFL> ]
+        rdfs:subClassOf       pupp:LandRegion .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#T.SINK> ]
+        rdfs:subClassOf       pupp:LandRegion .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#T.SLID> ]
+        rdfs:subClassOf       pupp:LandRegion .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#T.SLP> ]
+        rdfs:subClassOf       pupp:LandRegion .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#U.SLPU> ]
+        rdfs:subClassOf       pupp:LandRegion .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#U.TERU> ]
+        rdfs:subClassOf       pupp:LandRegion .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#T.TRR> ]
+        rdfs:subClassOf       pupp:LandRegion .
+
+#Park
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#L.PRK> ]
+        rdfs:subClassOf       pupp:Park .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.PRKHQ> ]
+        rdfs:subClassOf       pupp:Park .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.PRKGT> ]
+        rdfs:subClassOf       pupp:Park .
+
+#Camp
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.CMP> ]
+        rdfs:subClassOf       pupp:Camp .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.CMPL> ]
+        rdfs:subClassOf       pupp:Camp .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.CMPLA> ]
+        rdfs:subClassOf       pupp:Camp .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.CMPO> ]
+        rdfs:subClassOf       pupp:Camp .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.CMPQ> ]
+        rdfs:subClassOf       pupp:Camp .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.CMPRF> ]
+        rdfs:subClassOf       pupp:Camp .
+
+#PerformanceSite   
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.AMTH> ]
+        rdfs:subClassOf       pupp:PerformanceSite .
+
+#SportFacility
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.RECG> ]
+        rdfs:subClassOf       pupp:SportFacility .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.RECR> ]
+        rdfs:subClassOf       pupp:SportFacility .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.ATHF> ]
+        rdfs:subClassOf       pupp:SportFacility .
+
+#Stadium
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.STDM> ]
+        rdfs:subClassOf       pupp:Stadium .
+
+#ReferenceLocation
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.LTHSE> ]
+        rdfs:subClassOf       pupp:ReferenceLocation .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.BP> ]
+        rdfs:subClassOf       pupp:ReferenceLocation .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.TRIG> ]
+        rdfs:subClassOf       pupp:ReferenceLocation .
+
+# ReligiousLocation
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.TMPL> ]
+        rdfs:subClassOf       pupp:ReligiousLocation .
+
+#Reserve
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#L.RES> ]
+        rdfs:subClassOf       pupp:Reserve .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#L.RESA> ]
+        rdfs:subClassOf       pupp:Reserve .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#L.RESF> ]
+        rdfs:subClassOf       pupp:Reserve .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#L.RESH> ]
+        rdfs:subClassOf       pupp:Reserve .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#L.RESN> ]
+        rdfs:subClassOf       pupp:Reserve .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#L.RESP> ]
+        rdfs:subClassOf       pupp:Reserve .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#L.RESV> ]
+        rdfs:subClassOf       pupp:Reserve .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#L.RESW> ]
+        rdfs:subClassOf       pupp:Reserve .
+
+#TelecomFacility
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.COMC> ]
+        rdfs:subClassOf       pupp:TelecomFacility .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.STNR> ]
+        rdfs:subClassOf       pupp:TelecomFacility .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.STNS> ]
+        rdfs:subClassOf       pupp:TelecomFacility .
+
+#Airport
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.AIRH> ]
+        rdfs:subClassOf       pupp:Airport .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.AIRP> ]
+        rdfs:subClassOf       pupp:Airport .
+
+#Bridge
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.BDG> ]
+        rdfs:subClassOf       pupp:Bridge .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.BDGQ> ]
+        rdfs:subClassOf       pupp:Bridge .
+
+#Lock   
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.LOCK> ]
+        rdfs:subClassOf       pupp:Lock .
+
+#Pipeline
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#R.OILP> ]
+        rdfs:subClassOf       pupp:Pipeline .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.OILJ> ]
+        rdfs:subClassOf       pupp:Pipeline .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.TRMO> ]
+        rdfs:subClassOf       pupp:Pipeline .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.PMPO> ]
+        rdfs:subClassOf       pupp:Pipeline .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.PMPW> ]
+        rdfs:subClassOf       pupp:Pipeline .
+
+#RailroadFacility
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#R.RJCT> ]
+        rdfs:subClassOf       pupp:RailroadFacility .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#R.RR> ]
+        rdfs:subClassOf       pupp:RailroadFacility .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#R.RRQ> ]
+        rdfs:subClassOf       pupp:RailroadFacility .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.RSD> ]
+        rdfs:subClassOf       pupp:RailroadFacility .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.RSGNL> ]
+        rdfs:subClassOf       pupp:RailroadFacility .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.RSTN> ]
+        rdfs:subClassOf       pupp:RailroadFacility .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.RSTNQ> ]
+        rdfs:subClassOf       pupp:RailroadFacility .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.RSTP> ]
+        rdfs:subClassOf       pupp:RailroadFacility .
+	
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.RSTPQ> ]
+        rdfs:subClassOf       pupp:RailroadFacility .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#R.RYD> ]
+        rdfs:subClassOf       pupp:RailroadFacility .
+
+#Roadway
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#R.CSWY> ]
+        rdfs:subClassOf       pupp:Roadway .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#R.CSWYQ> ]
+        rdfs:subClassOf       pupp:Roadway .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#R.RD> ]
+        rdfs:subClassOf       pupp:Roadway .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#R.RDA> ]
+        rdfs:subClassOf       pupp:Roadway .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#R.RDB> ]
+        rdfs:subClassOf       pupp:Roadway .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#R.RDCUT> ]
+        rdfs:subClassOf       pupp:Roadway .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#R.RDJCT> ]
+        rdfs:subClassOf       pupp:Roadway .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.RDST> ]
+        rdfs:subClassOf       pupp:Roadway .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#R.RTE> ]
+        rdfs:subClassOf       pupp:Roadway .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#R.STKR> ]
+        rdfs:subClassOf       pupp:Roadway .
+
+#Street
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#R.ST> ]
+        rdfs:subClassOf       pupp:Street .
+
+#Tunnel
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#R.TNL> ]
+        rdfs:subClassOf       pupp:Tunnel .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.TNLC> ]
+        rdfs:subClassOf       pupp:Tunnel .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#R.TNLN> ]
+        rdfs:subClassOf       pupp:Tunnel .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#R.TNLRD> ]
+        rdfs:subClassOf       pupp:Tunnel .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#R.TNLS> ]
+        rdfs:subClassOf       pupp:Tunnel .
+
+#Beach
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#T.BCH> ]
+        rdfs:subClassOf       pupp:Beach .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#T.BCHS> ]
+        rdfs:subClassOf       pupp:Beach .
+
+#Desert
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#T.DSRT> ]
+        rdfs:subClassOf       pupp:Desert .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#T.ERG> ]
+        rdfs:subClassOf       pupp:Desert .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#T.HMDA> ]
+        rdfs:subClassOf       pupp:Desert .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#T.REG> ]
+        rdfs:subClassOf       pupp:Desert .
+
+#Forest
+#GDVC
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#V.FRST> ]
+        rdfs:subClassOf       pupp:Forest .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#V.FRSTF> ]
+        rdfs:subClassOf       pupp:Forest .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#V.GRVO> ]
+        rdfs:subClassOf       pupp:Forest .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#V.GRVP> ]
+        rdfs:subClassOf       pupp:Forest .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#V.GRVPN> ]
+        rdfs:subClassOf       pupp:Forest .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#V.TREE> ]
+        rdfs:subClassOf       pupp:Forest .
+
+#Oasis
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#L.OAS> ]
+        rdfs:subClassOf       pupp:Oasis .
+
+#Tundra
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#V.TUND> ]
+        rdfs:subClassOf       pupp:Tundra .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#L.LAND> ]
+        rdfs:subClassOf       pupp:Tundra .
+
+#Cape
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#T.CAPE> ]
+        rdfs:subClassOf       pupp:Cape .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#T.HDLD> ]
+        rdfs:subClassOf       pupp:Cape .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#T.PROM> ]
+        rdfs:subClassOf       pupp:Cape .
+
+#Cave
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.CAVE> ]
+        rdfs:subClassOf       pupp:Cave .
+
+#Coast
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#L.CST> ]
+        rdfs:subClassOf       pupp:Coast .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#T.SHOR> ]
+        rdfs:subClassOf       pupp:Coast .
+
+#Continent
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#L.CONT> ]
+        rdfs:subClassOf       pupp:Continent . 
+
+#Crater
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#T.CRTR> ]
+        rdfs:subClassOf       pupp:Crater .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#T.CLDA> ]
+        rdfs:subClassOf       pupp:Crater .
+
+#Delta
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#T.DLTA> ]
+        rdfs:subClassOf       pupp:Delta .
+
+#Gap
+#GAPF
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#T.GAP> ]
+        rdfs:subClassOf       pupp:Gap .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#U.GAPU> ]
+        rdfs:subClassOf       pupp:Gap .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#T.PASS> ]
+        rdfs:subClassOf       pupp:Gap .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.SILL> ]
+        rdfs:subClassOf       pupp:Gap .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#U.SILU> ]
+        rdfs:subClassOf       pupp:Gap .
+
+#Island
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#T.ISL> ]
+        rdfs:subClassOf       pupp:Island .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#T.ISLF> ]
+        rdfs:subClassOf       pupp:Island .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#T.ISLM> ]
+        rdfs:subClassOf       pupp:Island .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#T.ISLS> ]
+        rdfs:subClassOf       pupp:Island .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#T.ISLT> ]
+        rdfs:subClassOf       pupp:Island .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#T.ISLX> ]
+        rdfs:subClassOf       pupp:Island .
+
+#Isthmus
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#T.ISTH> ]
+        rdfs:subClassOf       pupp:Isthmus .
+
+#Mountain
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#T.MT> ]
+        rdfs:subClassOf       pupp:Mountain .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#T.MTS> ]
+        rdfs:subClassOf       pupp:Mountain .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#U.MTSU> ]
+        rdfs:subClassOf       pupp:Mountain .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#U.MTU> ]
+        rdfs:subClassOf       pupp:Mountain .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#T.MND> ]
+        rdfs:subClassOf       pupp:Mountain .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#U.KNLU> ]
+        rdfs:subClassOf       pupp:Mountain .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#U.KNSU> ]
+        rdfs:subClassOf       pupp:Mountain .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#U.CDAU> ]
+        rdfs:subClassOf       pupp:Mountain .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#T.HLL> ]
+        rdfs:subClassOf       pupp:Mountain .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#T.HLLS> ]
+        rdfs:subClassOf       pupp:Mountain .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#U.HLLU> ]
+        rdfs:subClassOf       pupp:Mountain .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#U.HLSU> ]
+        rdfs:subClassOf       pupp:Mountain .
+
+#MountainRange
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#U.RNGU> ]
+        rdfs:subClassOf       pupp:MountainRange .
+
+#MountainSummit
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#T.PK> ]
+        rdfs:subClassOf       pupp:MountainSummit .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#T.PKS> ]
+        rdfs:subClassOf       pupp:MountainSummit .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#U.PKSU> ]
+        rdfs:subClassOf       pupp:MountainSummit .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#U.PKU> ]
+        rdfs:subClassOf       pupp:MountainSummit .
+
+#Ridge
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#T.RDGB> ]
+        rdfs:subClassOf       pupp:Ridge .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#T.RDGE> ]
+        rdfs:subClassOf       pupp:Ridge .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.RDGG> ]
+        rdfs:subClassOf       pupp:Ridge .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#U.RDGU> ]
+        rdfs:subClassOf       pupp:Ridge .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#U.RISU> ]
+        rdfs:subClassOf       pupp:Ridge .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#U.SPRU> ]
+        rdfs:subClassOf       pupp:Ridge .
+	
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#T.SPUR> ]
+        rdfs:subClassOf       pupp:Ridge .
+
+#Volcano
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#T.VLC> ]
+        rdfs:subClassOf       pupp:Volcano .
+
+#Peninsula
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#T.PEN> ]
+        rdfs:subClassOf       pupp:Peninsula .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#T.PENX> ]
+        rdfs:subClassOf       pupp:Peninsula .
+
+#Plain
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#T.PLN> ]
+        rdfs:subClassOf       pupp:Plain .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#U.PLNU> ]
+        rdfs:subClassOf       pupp:Plain .
+	
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#T.PLNX> ]
+        rdfs:subClassOf       pupp:Plain .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#T.INTF> ]
+        rdfs:subClassOf       pupp:Plain .
+
+#Plateau
+#PLTX
+#TMST
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#T.PLAT> ]
+        rdfs:subClassOf       pupp:Plateau .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#U.PLTU> ]
+        rdfs:subClassOf       pupp:Plateau .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#T.MESA> ]
+        rdfs:subClassOf       pupp:Plateau .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#U.MESU> ]
+        rdfs:subClassOf       pupp:Plateau .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#U.TMSU> ]
+        rdfs:subClassOf       pupp:Plateau .
+
+#Reef
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.RF> ]
+        rdfs:subClassOf       pupp:Reef .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#U.RFSU> ]
+        rdfs:subClassOf       pupp:Reef .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#U.RFU> ]
+        rdfs:subClassOf       pupp:Reef .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.RFC> ]
+        rdfs:subClassOf       pupp:Reef .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.RFX> ]
+        rdfs:subClassOf       pupp:Reef .
+
+#Valley
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#T.VAL> ]
+        rdfs:subClassOf       pupp:Valley .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#T.VALG> ]
+        rdfs:subClassOf       pupp:Valley .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#U.VALU> ]
+        rdfs:subClassOf       pupp:Valley .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#T.VALS> ]
+        rdfs:subClassOf       pupp:Valley .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#T.VALX> ]
+        rdfs:subClassOf       pupp:Valley .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#U.VLSU> ]
+        rdfs:subClassOf       pupp:Valley .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#U.FRKU> ]
+        rdfs:subClassOf       pupp:Valley .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#U.FRSU> ]
+        rdfs:subClassOf       pupp:Valley .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#U.MDVU> ]
+        rdfs:subClassOf       pupp:Valley .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#U.SHVU> ]
+        rdfs:subClassOf       pupp:Valley .
+
+#Canyon
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#U.CNSU> ]
+        rdfs:subClassOf       pupp:Canyon .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#T.CNYN> ]
+        rdfs:subClassOf       pupp:Canyon .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#U.CNYU> ]
+        rdfs:subClassOf       pupp:Canyon .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#T.GRGE> ]
+        rdfs:subClassOf       pupp:Canyon .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#U.RAVU> ]
+        rdfs:subClassOf       pupp:Canyon .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.RVN> ]
+        rdfs:subClassOf       pupp:Canyon .
+
+#WaterBank
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#U.BKSU> ]
+        rdfs:subClassOf       pupp:WaterBank .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.BNK> ]
+        rdfs:subClassOf       pupp:WaterBank .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.BNKR> ]
+        rdfs:subClassOf       pupp:WaterBank .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#U.BNKU> ]
+        rdfs:subClassOf       pupp:WaterBank .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.BNKX> ]
+        rdfs:subClassOf       pupp:WaterBank .
+
+#Waterfalls
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.FLLS> ]
+        rdfs:subClassOf       pupp:Waterfalls .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.FLLSX> ]
+        rdfs:subClassOf       pupp:Waterfalls .
+
+#Country
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#A.PCL> ]
+        rdfs:subClassOf       pupp:Country .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#A.PCLD> ]
+        rdfs:subClassOf       pupp:Country .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#A.PCLF> ]
+        rdfs:subClassOf       pupp:Country .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#A.PCLI> ]
+        rdfs:subClassOf       pupp:Country .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#A.PCLS> ]
+        rdfs:subClassOf       pupp:Country .
+
+#hasCurrency
+#hasGovernment
+
+#County
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#A.ADM2> ]
+        rdfs:subClassOf       pupp:County .
+
+#MilitaryAreas
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#L.MILB> ]
+        rdfs:subClassOf       pupp:MilitaryAreas .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.INSM> ]
+        rdfs:subClassOf       pupp:MilitaryAreas .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.SCHM> ]
+        rdfs:subClassOf       pupp:MilitaryAreas .
+
+#Province
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#A.ADM1> ]
+        rdfs:subClassOf       pupp:Province .
+
+#UrbanDistrict
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#A.ADM3> ]
+        rdfs:subClassOf       pupp:UrbanDistrict .
+
+#City
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#P.PPL> ]
+        rdfs:subClassOf       pupp:City .
+
+#hasAirport
+
+#Capital
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#P.PPLC> ]
+        rdfs:subClassOf       pupp:Capital .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#P.PPLA> ]
+        rdfs:subClassOf       pupp:Capital .
+
+#CountryCapital
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#P.PPLC> ]
+        rdfs:subClassOf       pupp:CountryCapital .
+
+#LocalCapital
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#P.PPLA> ]
+        rdfs:subClassOf       pupp:LocalCapital .
+
+#Bay
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.BAY> ]
+        rdfs:subClassOf       pupp:Bay .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.BAYS> ]
+        rdfs:subClassOf       pupp:Bay .
+
+#Fjord
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.FJD> ]
+        rdfs:subClassOf       pupp:Fjord .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.FJDS> ]
+        rdfs:subClassOf       pupp:Fjord .
+
+#Channel
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.CHN> ]
+        rdfs:subClassOf       pupp:Channel .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.CHNL> ]
+        rdfs:subClassOf       pupp:Channel .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.CHNM> ]
+        rdfs:subClassOf       pupp:Channel .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.CHNN> ]
+        rdfs:subClassOf       pupp:Channel .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.STRT> ]
+        rdfs:subClassOf       pupp:Channel .
+
+#Canal
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.CNL> ]
+        rdfs:subClassOf       pupp:Canal .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.CNLA> ]
+        rdfs:subClassOf       pupp:Canal .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.CNLB> ]
+        rdfs:subClassOf       pupp:Canal .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.CNLD> ]
+        rdfs:subClassOf       pupp:Canal .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.CNLI> ]
+        rdfs:subClassOf       pupp:Canal .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.CNLN> ]
+        rdfs:subClassOf       pupp:Canal .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.CNLQ> ]
+        rdfs:subClassOf       pupp:Canal .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.CNLSB> ]
+        rdfs:subClassOf       pupp:Canal .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.CNLX> ]
+        rdfs:subClassOf       pupp:Canal .
+
+#Creek
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.CRKT> ]
+        rdfs:subClassOf       pupp:Creek .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.INLT> ]
+        rdfs:subClassOf       pupp:Creek .
+
+#Gulf
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.GULF> ]
+        rdfs:subClassOf       pupp:Gulf .
+
+#Harbor
+#AIRS
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.HBR> ]
+        rdfs:subClassOf       pupp:Harbor .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.HBRX> ]
+        rdfs:subClassOf       pupp:Harbor .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.MAR> ]
+        rdfs:subClassOf       pupp:Harbor .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.BTYD> ]
+        rdfs:subClassOf       pupp:Harbor .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.PIER> ]
+        rdfs:subClassOf       pupp:Harbor .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.DCK> ]
+        rdfs:subClassOf       pupp:Harbor .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.DCKB> ]
+        rdfs:subClassOf       pupp:Harbor .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.DCKY> ]
+        rdfs:subClassOf       pupp:Harbor .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#L.PRT> ]
+        rdfs:subClassOf       pupp:Harbor .
+
+#Lake
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.LBED> ]
+        rdfs:subClassOf       pupp:Lake .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.LK> ]
+        rdfs:subClassOf       pupp:Lake .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.LKC> ]
+        rdfs:subClassOf       pupp:Lake .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.LKI> ]
+        rdfs:subClassOf       pupp:Lake .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.LKN> ]
+        rdfs:subClassOf       pupp:Lake .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.LKNI> ]
+        rdfs:subClassOf       pupp:Lake .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.LKO> ]
+        rdfs:subClassOf       pupp:Lake .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.LKOI> ]
+        rdfs:subClassOf       pupp:Lake .
+	
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.LKS> ]
+        rdfs:subClassOf       pupp:Lake .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.LKSB> ]
+        rdfs:subClassOf       pupp:Lake .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.LKSC> ]
+        rdfs:subClassOf       pupp:Lake .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.LKSI> ]
+        rdfs:subClassOf       pupp:Lake .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.LKSN> ]
+        rdfs:subClassOf       pupp:Lake .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.LKSNI> ]
+        rdfs:subClassOf       pupp:Lake .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.LKX> ]
+        rdfs:subClassOf       pupp:Lake .
+
+#Reservoir
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.RSV> ]
+        rdfs:subClassOf       pupp:Reservoir .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.RSVI> ]
+        rdfs:subClassOf       pupp:Reservoir .
+
+#Sea
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.SEA> ]
+        rdfs:subClassOf       pupp:Sea .
+
+#Ocean
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.OCN> ]
+        rdfs:subClassOf       pupp:Ocean .
+
+#Stream
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.STM> ]
+        rdfs:subClassOf       pupp:Stream .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.STMA> ]
+        rdfs:subClassOf       pupp:Stream .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.STMB> ]
+        rdfs:subClassOf       pupp:Stream .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.STMC> ]
+        rdfs:subClassOf       pupp:Stream .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.STMD> ]
+        rdfs:subClassOf       pupp:Stream .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.STMH> ]
+        rdfs:subClassOf       pupp:Stream .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.STMI> ]
+        rdfs:subClassOf       pupp:Stream .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.STMIX> ]
+        rdfs:subClassOf       pupp:Stream .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.STMM> ]
+        rdfs:subClassOf       pupp:Stream .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.STMQ> ]
+        rdfs:subClassOf       pupp:Stream .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.STMS> ]
+        rdfs:subClassOf       pupp:Stream .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.STMSB> ]
+        rdfs:subClassOf       pupp:Stream .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.STMX> ]
+        rdfs:subClassOf       pupp:Stream .
+
+#Spring
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.SPNG> ]
+        rdfs:subClassOf       pupp:Spring .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.SPNS> ]
+        rdfs:subClassOf       pupp:Spring .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.SPNT> ]
+        rdfs:subClassOf       pupp:Spring .
+
+#  DBPedia 3.5
+
+#Monument
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.MNMT> ]
+        rdfs:subClassOf       pupp:Monument .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.PYR> ]
+        rdfs:subClassOf       pupp:Monument .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.PYRS> ]
+        rdfs:subClassOf       pupp:Monument .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.CARN> ]
+        rdfs:subClassOf       pupp:Monument .
+
+#AdministrativeRegion
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#A.ADMD> ]
+        rdfs:subClassOf       pupp:AdministrativeRegion .
+
+
+#no direct equivalents
+	#RecreationalFacility
+	#AmusementPark
+	#RaceCourse
+	#SportBuilding
+	#TransportFacility
+	#LaunchFacility
+	#RailroadTunnel
+		#RTNL
+	#BiogeographicRegion
+	#Jungle
+	#Archipelago
+	#River
+	#MountainPass
+	#Town
+	#Village
+
+#Building  
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.BLDG> ]
+        rdfs:subClassOf       pupp:Building .
+
+#Tower
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.TOWR> ]
+        rdfs:subClassOf       pupp:Tower .
+
+
+#Hotel 
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.HTL> ]
+        rdfs:subClassOf       pupp:Hotel .
+
+#Hospital	
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.CTRM> ]
+        rdfs:subClassOf       pupp:Hospital .
+ 
+#MineSite
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.MN> ]
+        rdfs:subClassOf       pupp:MineSite .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#L.MNA> ]
+        rdfs:subClassOf       pupp:MineSite .
+	
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.MNAU> ]
+        rdfs:subClassOf       pupp:MineSite .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.MNC> ]
+        rdfs:subClassOf       pupp:MineSite .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.MNCR> ]
+        rdfs:subClassOf       pupp:MineSite .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.MNDT> ]
+        rdfs:subClassOf       pupp:MineSite .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.MNCU> ]
+        rdfs:subClassOf       pupp:MineSite .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.MNFE> ]
+        rdfs:subClassOf       pupp:MineSite .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.MNN> ]
+        rdfs:subClassOf       pupp:MineSite .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.MNNI> ]
+        rdfs:subClassOf       pupp:MineSite .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.MNPB> ]
+        rdfs:subClassOf       pupp:MineSite .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.MNPL> ]
+        rdfs:subClassOf       pupp:MineSite .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.MNQ> ]
+        rdfs:subClassOf       pupp:MineSite .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#S.MNSN> ]
+        rdfs:subClassOf       pupp:MineSite .
+
+#AdministrativeRegion
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#A.PCLIX> ]
+        rdfs:subClassOf       pupp:AdministrativeRegion .
+
+#Parish
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#A.PRSH> ]
+        rdfs:subClassOf       p-ext:Parish .
+
+#Territory
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#A.TERR> ]
+        rdfs:subClassOf       p-ext:Territory .
+
+#Zone
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#A.ZN> ]
+        rdfs:subClassOf       p-ext:Zone .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#A.ZNB> ]
+        rdfs:subClassOf       p-ext:Zone .
+
+#Bog
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.BOG> ]
+        rdfs:subClassOf       p-ext:Bog .
+
+#Confluence
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.CNFL> ]
+        rdfs:subClassOf       p-ext:Confluence .
+
+#Cove
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.COVE> ]
+        rdfs:subClassOf       p-ext:Cove .
+
+#Current
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.CRNT> ]
+        rdfs:subClassOf       p-ext:WaterCurrent .
+
+#Cutoff
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.CUTF> ]
+        rdfs:subClassOf       p-ext:RiverCutoff .
+ 
+#Ditch
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.DTCH> ]
+        rdfs:subClassOf       p-ext:Ditch .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.DTCHD> ]
+        rdfs:subClassOf       p-ext:Ditch .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.DTCHI> ]
+        rdfs:subClassOf       p-ext:Ditch .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.DTCHM> ]
+        rdfs:subClassOf       p-ext:Ditch .
+
+#Estuary
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.ESTY> ]
+        rdfs:subClassOf       p-ext:Estuary .
+
+#FishingArea
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.FISH> ]
+        rdfs:subClassOf       p-ext:FishingArea .
+
+#Gulf
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.GULF> ]
+        rdfs:subClassOf       p-ext:Gulf .
+
+#Geyser
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.GYSR> ]
+        rdfs:subClassOf       p-ext:Geyser .
+
+#Lagoon
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.LGN> ]
+        rdfs:subClassOf       p-ext:Lagoon .
+
+#Lagoon
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.LGNS> ]
+        rdfs:subClassOf       p-ext:Lagoon .
+
+#Lagoon
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.LGNX> ]
+        rdfs:subClassOf       p-ext:Lagoon .
+ 
+#Pond
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.MFGN> ]
+        rdfs:subClassOf       p-ext:Pond .
+
+#Pond
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.PND> ]
+        rdfs:subClassOf       p-ext:Pond .
+
+#Pond
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.PNDI> ]
+        rdfs:subClassOf       p-ext:Pond .
+
+#Pond
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.PNDN> ]
+        rdfs:subClassOf       p-ext:Pond .
+
+#Pond
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.PNDNI> ]
+        rdfs:subClassOf       p-ext:Pond .
+
+#Pond
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.PNDS> ]
+        rdfs:subClassOf       p-ext:Pond .
+
+#Pond
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.PNDSF> ]
+        rdfs:subClassOf       p-ext:Pond .
+
+#Pond
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.PNDSI> ]
+        rdfs:subClassOf       p-ext:Pond .
+
+#Pond
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.PNDSN> ]
+        rdfs:subClassOf       p-ext:Pond .
+
+#Narrows
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.NRWS> ]
+        rdfs:subClassOf       p-ext:Narrows .
+
+#Overfalls
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.OVF> ]
+        rdfs:subClassOf       p-ext:Overfalls .
+
+#Pool
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.POOL> ]
+        rdfs:subClassOf       p-ext:Pool .
+
+#Pool
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.POOLI> ]
+        rdfs:subClassOf       p-ext:Pool .
+
+#Reach
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.RCH> ]
+        rdfs:subClassOf       p-ext:WaterReach .
+
+#Rapids
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.RPDS> ]
+        rdfs:subClassOf       p-ext:Rapids .
+
+#WaterTank
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.RSVT> ]
+        rdfs:subClassOf       p-ext:WaterTank .
+
+#WaterTank
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.RSVT> ]
+        rdfs:subClassOf       p-ext:WaterTank .
+
+#IrrigationSystem
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.SYSI> ]
+        rdfs:subClassOf       p-ext:IrrigationSystem .
+ 
+#Wadi
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.WAD> ]
+        rdfs:subClassOf       p-ext:Wadi .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.WADB> ]
+        rdfs:subClassOf       p-ext:Wadi .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.WADJ> ]
+        rdfs:subClassOf       p-ext:Wadi .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.WADM> ]
+        rdfs:subClassOf       p-ext:Wadi .
+	
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.WADS> ]
+        rdfs:subClassOf       p-ext:Wadi .
+		
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.WADX> ]
+        rdfs:subClassOf       p-ext:Wadi .
+
+#Whirlpool
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.WHRL> ]
+        rdfs:subClassOf       p-ext:Whirlpool .
+
+#Well
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.WLL> ]
+        rdfs:subClassOf       p-ext:Well .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.WLLQ> ]
+        rdfs:subClassOf       p-ext:Well .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.WLLS> ]
+        rdfs:subClassOf       p-ext:Well .
+
+#Watercourse
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.WTRC> ]
+        rdfs:subClassOf       p-ext:Watercourse .
+
+#Waterhole
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#H.WTRH> ]
+        rdfs:subClassOf       p-ext:Waterhole .
+
+#AgriculturalColony
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#L.AGRC> ]
+        rdfs:subClassOf       p-ext:AgriculturalColony .
+
+#Area
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#L.AREA> ]
+        rdfs:subClassOf       p-ext:LandArea .
+
+#DrainageBasin
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#L.BSND> ]
+        rdfs:subClassOf       p-ext:DrainageBasin .
+
+#PetroleumBasin
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#L.BSNP> ]
+        rdfs:subClassOf       p-ext:PetroleumBasin .
+
+#Battlefield
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#L.BTL> ]
+        rdfs:subClassOf       p-ext:Battlefield .
+
+#Clearing
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue <http://www.geonames.org/ontology#L.CLG> ]
+        rdfs:subClassOf       p-ext:ForestClearing .
+
+##====
+
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#V.VINS> ] 
+        rdfs:subClassOf       p-ext:Vineyard .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#V.SCRB> ] 
+        rdfs:subClassOf       p-ext:Scrubland .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#V.OCH> ] 
+        rdfs:subClassOf       p-ext:Orchard .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#V.MDW> ] 
+        rdfs:subClassOf       p-ext:Meadow .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#V.HTH> ] 
+        rdfs:subClassOf       p-ext:Heath .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#V.GRVC> ] 
+        rdfs:subClassOf       p-ext:CoconutGrove .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#V.GRSLD> ] 
+        rdfs:subClassOf       p-ext:Grassland .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#V.CULT> ] 
+        rdfs:subClassOf       p-ext:CultivatedArea .
+
+### Mozhe bi vsichki takiva nesta kato nasazhdeniya, lozya, poleta, gradini sa Cultivated Area ?
+
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#V.BUSH> ] 
+        rdfs:subClassOf       p-ext:BushLand .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#U.TRNU> ] 
+        rdfs:subClassOf       p-ext:SeaTrench .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#U.TRGU> ] 
+        rdfs:subClassOf       p-ext:SeaTrough .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#U.TNGU> ] 
+        rdfs:subClassOf       p-ext:SeaTongue .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#U.TMTU> ] 
+        rdfs:subClassOf       p-ext:Guyot .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#U.SMU> ] 
+        rdfs:subClassOf       p-ext:Seamount .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#U.SMSU> ] 
+        rdfs:subClassOf       p-ext:Seamount .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#U.SHSU> ] 
+        rdfs:subClassOf       p-ext:Shoal .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#U.SHLU> ] 
+        rdfs:subClassOf       p-ext:Shoal .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#U.SHFU> ] 
+        rdfs:subClassOf       p-ext:ContinentalShelf .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#U.SDLU> ] 
+        rdfs:subClassOf       p-ext:Saddleback .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#U.SCSU> ] 
+        rdfs:subClassOf       p-ext:Seachannels .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#U.SCSU> ] 
+        rdfs:subClassOf       p-ext:Seachannels .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#U.RMPU> ] 
+        rdfs:subClassOf       p-ext:Ramp .
+
+# remaining Codes from Geonames v.2.2.1
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#A.ADM4> ]   #
+        rdfs:subClassOf       pupp:PoliticalRegion .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#A.LTER> ]  #a tract of land leased by the United Kingdom from the People&apos;s Republic of China to form part of Hong Kong
+        rdfs:subClassOf       pupp:PoliticalRegion .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#H.AIRS> ]   # a place on a waterbody where floatplanes land and take off
+        rdfs:subClassOf       pupp:Cape . # Projection of land extending into a body of water that prominently marks a change in or interrupts the coastal trend of that water body. We use this category for headlands; for peninsulas; for points (physiographic); and for promontories.
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#H.ANCH> ]   # an area where vessels may anchor
+        rdfs:subClassOf       pupp:Harbor .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#H.BGHT> ]   # an open body of water forming a slight recession in a coastline
+        rdfs:subClassOf       p-ext:Bight .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#H.CAPG> ]   # a dome-shaped mass of glacial ice covering an area of mountain summits or other high lands; smaller than an ice sheet
+        rdfs:subClassOf       p-ext:Icecap .
+	
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#H.DOMG> ]   # a comparatively elevated area on an icecap
+        rdfs:subClassOf       p-ext:Icecap .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#H.DPRG> ]   # a comparatively depressed area on an icecap
+        rdfs:subClassOf       p-ext:Icecap .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#H.FLTM> ]   # a relatively level area of mud either between high and low tide lines, or subject to flooding
+        rdfs:subClassOf       p-ext:MudFlat .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#H.FLTT> ]   # a large flat area of mud or sand attached to the shore and alternately covered and uncovered by the tide
+        rdfs:subClassOf       p-ext:MudFlat .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#H.GLCR> ]   # a mass of ice, usually at high latitudes or high elevations, with sufficient thickness to flow away from the source area in lobes, tongues, or masses
+        rdfs:subClassOf       p-ext:Glacier .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#H.INLTQ> ]   # an inlet which has been filled in, or blocked by deposits
+        rdfs:subClassOf       p-ext:FInlet .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#H.MGV> ]   # a tropical tidal mud flat characterized by mangrove vegetation
+        rdfs:subClassOf       p-ext:MudFlat .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#H.MOOR> ]   # an area of open ground overlaid with wet peaty soils
+        rdfs:subClassOf       p-ext:Marsh .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#H.MRSH> ]   # a wetland dominated by grass-like vegetation
+        rdfs:subClassOf       p-ext:Marsh . 
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#H.MRSHN> ]   # a flat area, subject to periodic salt water inundation, dominated by grassy salt-tolerant plants
+        rdfs:subClassOf       p-ext:Marsh . 
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#H.SBKH> ]   # a salt flat or salt encrusted plain subject to periodic inundation from flooding or high tides
+        rdfs:subClassOf       p-ext:Marsh . 
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#H.SD> ]   # a long arm of the sea forming a channel between the mainland and an island or islands; or connecting two larger bodies of water
+        rdfs:subClassOf       p-ext:SeaSound . 
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#H.SHOL> ]   # a surface-navigation hazard composed of unconsolidated material
+        rdfs:subClassOf       p-ext:Shoal . 
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#H.SWMP> ]   # a wetland dominated by tree vegetation, a swamp
+        rdfs:subClassOf       p-ext:Marsh .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#H.WTLD> ]   #  wetland
+        rdfs:subClassOf       p-ext:Marsh .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#H.WTLDI> ]   # intermittent wetland
+        rdfs:subClassOf       p-ext:Marsh .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#S.ADMF> ]   # a government building
+        rdfs:subClassOf       p-ext:GovernmentBuilding .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#S.ARCH> ]   # agricultural facility; a building and/or tract of land used for improving agriculture
+        rdfs:subClassOf       p-ext:AgriculturalFacility .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#S.AIRB> ]   # an area used to store supplies, provide barracks for air force personnel, hangars and runways for aircraft, and from which operations are initiated
+        rdfs:subClassOf       p-ext:Airbase .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#S.AIRF> ]   # a place on land where aircraft land and take off; no facilities provided for the commercial handling of passengers and cargo
+        rdfs:subClassOf       pupp:Airport .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#S.AIRQ> ]   # abandoned airfield
+        rdfs:subClassOf       pupp:Airport .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#S.ANS> ]   # a place where archeological remains, old structures, or cultural artifacts are located
+        rdfs:subClassOf       p-ext:WorldHeritageSite .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#S.ARCH> ]   # a natural or man-made structure in the form of an arch
+        rdfs:subClassOf       p-ext:Arch .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#S.ASTR> ]   # a point on the earth whose position has been determined by observations of celestial bodies
+        rdfs:subClassOf       p-ext:GeographicRegion .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#S.ASYL> ]   # a facility where the insane are cared for and protected
+        rdfs:subClassOf       p-ext:Hospital .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#S.ATM> ]   # An unattended electronic machine in a public place, connected to a data system and related equipment and activated by a bank customer to obtain cash withdrawals and other banking services
+        rdfs:subClassOf       p-ext:ATM .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#S.BANK> ]   # A business establishment in which money is kept for saving or commercial purposes or is invested, supplied for loans, or exchanged.
+        rdfs:subClassOf       p-ext:Bank .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#S.BCN> ]   # a fixed artificial navigation mark
+        rdfs:subClassOf       p-ext:Beacon .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#S.BCN> ]   # a fixed artificial navigation mark
+        rdfs:subClassOf       p-ext:Beacon .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#S.BRKS> ]   # a building for lodging military personnel
+        rdfs:subClassOf       p-ext:Barracks .
+
+[ rdf:type                            owl:Restriction ;
+        owl:onProperty               <http://www.geonames.org/ontology#featureCode> ;
+        owl:hasValue                    <http://www.geonames.org/ontology#S.BRKW> ]   # a building for lodging military personnel
+        rdfs:subClassOf       p-ext:Breakwater .

@@ -1,0 +1,222 @@
+# Saved by TopBraid on Wed Mar 10 14:11:48 EET 2010
+# baseURI: http://proton.semanticweb.org/protonkm
+# imports: http://proton.semanticweb.org/protons.n3
+# imports: http://proton.semanticweb.org/protonu.n3
+# imports: http://proton.semanticweb.org/protonu
+# imports: http://proton.semanticweb.org/protont.n3
+
+@prefix :        <http://proton.semanticweb.org/protonkm#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix pkm:     <http://proton.semanticweb.org/protonkm#> .
+@prefix psys:    <http://proton.semanticweb.org/protons#> .
+@prefix ptop:    <http://proton.semanticweb.org/protont#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+
+<http://proton.semanticweb.org/protonkm> ## it will be necessary to update
+      rdf:type owl:Ontology ;
+      rdfs:comment "PROTON Knowledge Management Ontology" ;
+      owl:imports <http://proton.semanticweb.org/protonext.n3> , <http://proton.semanticweb.org/protonsys.n3> , <http://proton.semanticweb.org/protontop.n3> ;
+      owl:versionInfo "0.7" .
+
+pkm:Device
+      rdf:type owl:Class ;
+      rdfs:label "Device" ;
+      rdfs:subClassOf ptop:ProductModel .
+
+pkm:ImageDocument
+      rdf:type owl:Class ;
+      rdfs:label "Image" ;
+      rdfs:subClassOf ptop:Document .
+
+pkm:InformationSpace
+      rdf:type owl:Class ;
+      rdfs:label "Information Space" ;
+      rdfs:subClassOf ptop:Agent .
+
+pkm:InformationSpaceProfile
+      rdf:type owl:Class ;
+      rdfs:label "Information Space Profile" ;
+      rdfs:subClassOf pkm:Profile .
+
+pkm:Mention
+      rdf:type owl:Class ;
+      rdfs:label "Mention" ;
+      rdfs:subClassOf psys:LexicalResource .
+
+pkm:Profile
+      rdf:type owl:Class ;
+      rdfs:label "Profile" ;
+      rdfs:subClassOf ptop:InformationResource .
+
+pkm:RegionMention
+      rdf:type owl:Class ;
+      rdfs:label "Region Mention" ;
+      rdfs:subClassOf pkm:Mention .
+
+pkm:Section
+      rdf:type owl:Class ;
+      rdfs:comment """
+		An area of a document that can be considered a document in itself.
+		Compare with protonkm:Mention, which is also an area of a document.
+		Imported from the iSIM ontology.
+	"""@en ;
+      rdfs:label "Section" ;
+      rdfs:subClassOf ptop:InformationResource .
+
+pkm:SoftwareAgent
+      rdf:type owl:Class ;
+      rdfs:comment "An artificial agent which operates in a software environment." ;
+      rdfs:label "Software Agent" ;
+      rdfs:subClassOf ptop:Agent .
+
+pkm:User
+      rdf:type owl:Class ;
+      rdfs:label "User" ;
+      rdfs:subClassOf ptop:Agent .
+
+pkm:UserProfile
+      rdf:type owl:Class ;
+      rdfs:label "User Profile" ;
+      rdfs:subClassOf pkm:Profile .
+
+pkm:WeightedTerm
+      rdf:type owl:Class ;
+      rdfs:label "WeightedTerm" ;
+      rdfs:subClassOf psys:LexicalResource .
+
+pkm:hasBottomOffset
+      rdf:type owl:DatatypeProperty ;
+      rdfs:domain pkm:RegionMention ;
+      rdfs:label "has Bottom Offset" .
+
+pkm:hasCapabilities
+      rdf:type owl:DatatypeProperty ;
+      rdfs:domain pkm:Device ;
+      rdfs:label "hasCapabilities" .
+
+pkm:hasDevice
+      rdf:type owl:ObjectProperty ;
+      rdfs:domain pkm:UserProfile ;
+      rdfs:label "hasDevice" ;
+      rdfs:range pkm:Device .
+
+pkm:hasEndOffset
+      rdf:type owl:DatatypeProperty ;
+      rdfs:domain pkm:Mention ;
+      rdfs:label "hasEndOffset" .
+
+pkm:hasISProfile
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "a relation between an Information Space and its Profile" ;
+      rdfs:domain pkm:InformationSpace ;
+      rdfs:label "hasISProfile" ;
+      rdfs:range pkm:InformationSpaceProfile .
+
+pkm:hasLeftOffset
+      rdf:type owl:DatatypeProperty ;
+      rdfs:domain pkm:RegionMention ;
+      rdfs:label "has Left Offset" ;
+      rdfs:subPropertyOf pkm:hasStartOffset .
+
+pkm:hasLocation
+      rdf:type owl:ObjectProperty ;
+      rdfs:domain pkm:UserProfile ;
+      rdfs:label "hasLocation" ;
+      rdfs:range ptop:Location .
+
+pkm:hasRightOffset
+      rdf:type owl:DatatypeProperty ;
+      rdfs:domain pkm:RegionMention ;
+      rdfs:label "has Right Offset" ;
+      rdfs:subPropertyOf pkm:hasEndOffset .
+
+pkm:hasRole
+      rdf:type owl:ObjectProperty ;
+      rdfs:domain pkm:UserProfile ;
+      rdfs:label "hasRole" ;
+      rdfs:range ptop:Role .
+
+pkm:hasSection
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment """
+		Natural relation between documents and sections. Imported from the iSIM ontology.
+	""" ;
+      rdfs:domain ptop:Document ;
+      rdfs:label "has Section" ;
+      rdfs:range pkm:Section .
+
+pkm:hasStartOffset
+      rdf:type owl:DatatypeProperty ;
+      rdfs:domain pkm:Mention ;
+      rdfs:label "hasStartOffset" .
+
+pkm:hasString
+      rdf:type owl:DatatypeProperty ;
+      rdfs:domain pkm:Mention ;
+      rdfs:label "hasString" .
+
+pkm:hasTerm
+      rdf:type owl:ObjectProperty ;
+      rdfs:domain pkm:WeightedTerm ;
+      rdfs:label "hasTerm" ;
+      rdfs:range ptop:GeneralTerm .
+
+pkm:hasTopOffset
+      rdf:type owl:DatatypeProperty ;
+      rdfs:domain pkm:RegionMention ;
+      rdfs:label "has Top Offset" .
+
+pkm:hasUserProfile
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment "a relation between an User and its Profile" ;
+      rdfs:domain pkm:User ;
+      rdfs:label "hasUserProfile" ;
+      rdfs:range pkm:UserProfile .
+
+pkm:hasWeight
+      rdf:type owl:DatatypeProperty ;
+      rdfs:domain pkm:WeightedTerm ;
+      rdfs:label "hasWeight" .
+
+pkm:hasWeightedTerm
+      rdf:type owl:ObjectProperty ;
+      rdfs:domain ptop:Topic ;
+      rdfs:label "hasWeightedTerm" ;
+      rdfs:range pkm:WeightedTerm .
+
+pkm:isCurrentlyInterestedIn
+      rdf:type owl:ObjectProperty ;
+      rdfs:domain pkm:UserProfile ;
+      rdfs:label "isCurrentlyInterestedIn" ;
+      rdfs:range ptop:Topic .
+
+pkm:isInterestedIn
+      rdf:type owl:ObjectProperty ;
+      rdfs:domain pkm:UserProfile , pkm:InformationSpaceProfile ;
+      rdfs:label "isInterestedIn" ;
+      rdfs:range ptop:Topic .
+
+pkm:mentions
+      rdf:type owl:ObjectProperty ;
+      rdfs:comment """
+		A direct link between an information resource, like a document or a section and an entity.
+	""" ;
+      rdfs:domain ptop:InformationResource ;
+      rdfs:label "mentions" ;
+      rdfs:range psys:Entity .
+
+pkm:occursIn
+      rdf:type owl:ObjectProperty ;
+      rdfs:domain pkm:Mention ;
+      rdfs:label "occursIn" ;
+      rdfs:range ptop:InformationResource ;
+      owl:inverseOf pkm:hasMention .
+
+pkm:refersInstance
+      rdf:type owl:ObjectProperty ;
+      rdfs:domain pkm:Mention ;
+      rdfs:label "refersInstance" ;
+      rdfs:range psys:Entity .
+
