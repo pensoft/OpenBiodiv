@@ -1,10 +1,11 @@
-#' Update Script For Pensoft XML Corpus
+#' Update Script For XML Corpus
 #'
 #'
 
+library(foreach)
 
-#' settings
- library(foreach)
+#' Pensoft
+
 pensoft_xml_corpus_dir = "/media/obkms/pensoft-corpus.xml"
 endpoints = c(BDJ = "http://bdj.pensoft.net/lib/journal_archive.php?journal=bdj",
               ZooKeys = "http://zookeys.pensoft.net/lib/journal_archive.php?journal=zookeys",
@@ -18,7 +19,7 @@ max_date = max(corpus_dates, na.rm = TRUE)
 
 #' download new articles
 
-zip_raw_data = lapply(endpoints, new_pensoft_articles, fromdate = max_date + 1)
+zip_raw_data = lapply(endpoints, new_pensoft_articles, fromdate = max_date)
 
 new_articles = foreach (journal = names(zip_raw_data), zip = zip_raw_data) %do% {
   new_articles_zipfile = paste0(pensoft_xml_corpus_dir, "/new-", journal, "-from-", format.Date(max_date + 1), ".zip")
@@ -27,3 +28,4 @@ new_articles = foreach (journal = names(zip_raw_data), zip = zip_raw_data) %do% 
   file.remove(new_articles_zipfile)
   return(new_articles)
 }
+

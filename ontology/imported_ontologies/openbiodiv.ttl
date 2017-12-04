@@ -1,0 +1,454 @@
+@prefix : <http://openbiodiv.net/> .
+@prefix skos: <http://www.w3.org/2008/05/skos#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix pro: <http://purl.org/spar/pro/> .
+@prefix scoro: <http://purl.org/spar/scoro/> .
+@prefix ti: <http://www.ontologydesignpatterns.org/cp/owl/timeinterval.owl#> .
+@prefix tvc: <http://www.essepuntato.it/2012/04/tvc/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix fabio: <http://purl.org/spar/fabio/> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix frbr: <http://purl.org/vocab/frbr/core#> .
+@prefix prism: <http://prismstandard.org/namespaces/basic/2.0/> .
+@prefix doco: <http://purl.org/spar/doco/> .
+@prefix po: <http://www.essepuntato.it/2008/12/pattern#> .
+@prefix co: <http://purl.org/co/> .
+@prefix trt: <http://plazi.org/treatment#> .
+@prefix c4o: <http://purl.org/spar/c4o/> .
+@prefix dwciri: <http://rs.tdwg.org/dwc/iri/> .
+@prefix nomen: <http://www.semanticweb.org/dmitriev/ontologies/2013/8/untitled-ontology-6#> .
+@prefix dwc: <http://rs.tdwg.org/dwc/terms/> .
+@prefix sro: <http://salt.semanticauthoring.org/ontologies/sro#> .
+@prefix deo: <http://purl.org/spar/deo/> .
+@prefix pext: <http://proton.semanticweb.org/protonue#> .
+@prefix ptop: <http://proton.semanticweb.org/protont#> .
+@prefix pkm: <http://proton.semanticweb.org/protonkm#> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix dbr: <http://dbpedia.org/resource/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix lucene: <http://www.ontotext.com/connectors/lucene#> .
+@prefix inst: <http://www.ontotext.com/connectors/lucene/instance#> .
+@prefix dbo: <http://dbpedia.org/ontology/> .
+
+: rdf:type owl:Ontology ;
+  owl:versionInfo "0.9" ;
+  rdfs:comment "Open Biodiversity Knowledge Management System Ontology" ;
+  dc:title "OpenBiodiv Ontology" ;
+  dc:subject "OpenBiodiv Ontology" ;
+  rdfs:label "OpenBiodiv Ontology" ;
+  dc:creator "Viktor Senderov, Terry Catapano, Kiril Simov, Lyubomir Penev" ;
+  dc:rights "CCBY" .
+
+
+po:contains rdf:type owl:TransitiveProperty .
+
+:Publisher rdf:type owl:Class ;
+  rdfs:label "Publisher"@en ;
+  rdfs:comment "The publisher of a journal, a type of `foaf:Agent`."@en ;
+  rdfs:subClassOf foaf:Agent .
+
+:TaxonomicArticle rdf:type owl:Class;
+  rdfs:subClassOf fabio:JournalArticle;
+  rdfs:label "Taxonomic Paper"@en .
+
+:Treatment a owl:Class ;
+  rdfs:subClassOf deo:DiscourseElement , trt:Treatment,
+                  [ rdf:type owl:Restriction ;
+                    owl:onProperty po:isContainedBy ;
+                    owl:someValuesFrom :TaxonomicArticle ] ;
+  rdfs:label "Taxonomic Treatment"@en ;
+  rdfs:comment "A rhetorical element of a taxonomic publication, where taxon
+                        circumscription takes place."@en ;
+  rdfs:comment "Таксономично пояснение или само Пояснение е риторчна част
+                от таксономичната статия, където се случва описанието
+                на дадена таксономична концепция."@bg .
+
+:Nomenclature a owl:Class ;
+  rdfs:subClassOf deo:DiscourseElement , trt:Nomenclature ,
+                  [ rdf:type owl:Restriction ;
+                    owl:onProperty po:isContainedBy ;
+                    owl:someValuesFrom trt:Treatment ] ;
+  rdfs:label "Treatment Nomenclature Section"@en ;
+  rdfs:comment "A section of a taxonomic treatment, containing the scientific
+    name of the taxon described by the treatment, and citations to previous
+    descriptions, designations of type-genus, and type-species,
+    and other information."@en .
+
+:NomenclatureHeading a owl:Class ;
+  rdfs:subClassOf deo:DiscourseElement ,
+                  [ rdf:type owl:Restriction ;
+                    owl:onProperty po:isContainedBy ;
+                    owl:someValuesFrom :Nomenclature ] ;
+                  rdfs:label "Nomenclature Heading"@en ;
+  rdfs:comment "Inside the taxonomic nomenclature section, we have the treatment title (name of the taxon)."@en .
+
+:NomenclatureCitationList a owl:Class ;
+  rdfs:subClassOf deo:DiscourseElement ,
+                  [ rdf:type owl:Restriction ;
+                    owl:onProperty po:isContainedBy ;
+                    owl:someValuesFrom :Nomenclature ] ;
+                  rdfs:label "Taxonomic Treatent Citation List"@en ;
+  rdfs:comment "A section in a treatment that includes the citation of one or
+    several previous treatments of the taxon."@en .                  
+
+:Biology a owl:Class ;
+  rdfs:subClassOf deo:DiscourseElement, trt:Biology,
+                  [ rdf:type owl:Restriction ;
+                    owl:onProperty po:isContainedBy ;
+                    owl:someValuesFrom trt:Treatment ] ;
+  rdfs:label "Biology Section"@en .
+
+:Description a owl:Class ;
+  rdfs:subClassOf deo:DiscourseElement, trt:Description,
+                  [ rdf:type owl:Restriction ;
+                    owl:onProperty po:isContainedBy ;
+                    owl:someValuesFrom :Treatment ] ;
+  rdfs:label "Description Section"@en .
+
+:Diagnosis a owl:Class ;
+  rdfs:subClassOf deo:DiscourseElement, trt:Diagnosis,
+                  [ rdf:type owl:Restriction ;
+                    owl:onProperty po:isContainedBy ;
+                    owl:someValuesFrom :Treatment ] ;
+  rdfs:label "Diagnosis Section"@en .
+
+:Distribution a owl:Class ;
+  rdfs:subClassOf deo:DiscourseElement, trt:Distribution ,
+                  [ rdf:type owl:Restriction;
+                    owl:onProperty po:isContainedBy;
+                    owl:someValuesFrom :Treatment ];
+  rdfs:label "Distribution Section"@en.
+
+:Etymology a owl:Class ;
+  rdfs:subClassOf deo:DiscourseElement, trt:Etymology,
+                  [ rdf:type owl:Restriction ;
+                    owl:onProperty po:isContainedBy ;
+                    owl:someValuesFrom :Treatment ] ;
+  rdfs:label "Distribution Section"@en .
+
+:Key a owl:Class;
+  rdfs:subClassOf deo:DiscourseElement, trt:Key,
+                  [ rdf:type owl:Restriction;
+                    owl:onProperty po:isContainedBy;
+                    owl:someValuesFrom :TaxonomicArticle ];
+  rdfs:label "Identificiation Key"@en.
+
+:MaterialsExamined a owl:Class ;
+  rdfs:subClassOf deo:DiscourseElement ,
+                  [ rdf:type owl:Restriction ;
+                    owl:onProperty po:isContainedBy ;
+                    owl:someValuesFrom trt:Treatment ] ; 
+  rdfs:label "Materials Examined Section"@en .
+
+:Checklist a owl:Class ;
+  rdfs:subClassOf deo:DiscourseElement ,
+                  [ rdf:type owl:Restriction ;
+                    owl:onProperty po:isContainedBy ;
+                    owl:someValuesFrom :TaxonomicArticle ] ;
+  rdfs:label "Taxonomic Checklist"@en ;
+  rdfs:comment "A section in a taxonomic article."@en.
+
+:TaxonomicNameUsage rdf:type owl:Class ;
+  rdfs:subClassOf  pext:Mention ;
+  rdfs:comment "A taxonomic name usage is the mentioning of a taxonomic name
+    (scientific name, taxonomic concept label, etc.), optionally with 
+    a taxonomic status."@en ;
+  rdfs:label "Taxonomic Name Usage"@en .
+
+dwciri:taxonomicStatus rdf:type owl:ObjectProperty ; 
+  rdfs:label "taxonomic status"@en ;
+  rdfs:comment "the IRI version of the DwC term taxonmic status"@en .
+
+:TaxonomicName rdf:type owl:Class ;
+        skos:prefLabel "Taxonomic Name"@en ;
+    skos:altLabel "Biological Name"@en ;
+    owl:equivalentClass nomen:NOMEN_0000030 ;
+	rdfs:comment "A superclass class for all kinds of biological names used to denote groups of organisms in nature"@en .
+
+:ScientificName rdf:type owl:Class ;
+    rdfs:subClassOf :TaxonomicName ;
+    rdfs:label "Scientific Name"@en ;
+    owl:equivalentClass  nomen:NOMEN_0000036 ;
+	rdfs:comment "A taxonomic name used in science as opposed to folk-taxonomy"@en.
+
+:LatinName rdf:type owl:Class ;
+    rdfs:subClassOf :ScientificName ;
+    skos:prefLabel "Latinized Scientific Name"@en ;
+    skos:altLabel "Linnaean Name"@en ;
+	rdfs:comment "A Latinized scientific (Linnaean) name."@en.
+
+:TaxonomicConceptLabel rdf:type owl:Class ;
+  rdfs:subClassOf :LatinName ;
+  rdfs:label "Taxon Concept Label"@en ;
+  rdfs:comment "A taxonоmic concept label is a Linnaean name accompanied by a reference to literature containing the expression of a taxonomic concept."@en .
+
+:OTU_Id rdf:type owl:Class ;
+  rdfs:subClassOf :ScientificName ;
+  rdfs:label "Operatational Taxonomic Unit Id"@en ;
+  rdfs:comment "An identifier of an operational taxonomic unit  (e.g. BOLD BIN, Unite SH ID)."@en .
+
+:VernacularName a owl:Class ;
+  rdfs:subClassOf :TaxonomicName ;
+  rdfs:label "Vernacular Name"@en ;
+  owl:equivalentClass nomen:NOMEN_0000037 ;
+  rdfs:comment "A taxonomic name used in pre-Linnaean science or in folk-taxonomy."@en .
+
+:taxonomicName rdf:type owl:ObjectProperty ;
+    rdfs:label "has taxonomic name"@en ;
+	rdfs:domain :OperationalTaxonomicUnit ;
+    rdfs:range :TaxonomicName .
+
+dwciri:scientificName rdf:type owl:ObjectProperty ;
+  rdfs:label "scientific name"@en;
+  rdfs:comment "the IRI version of dwc:scientificName"@en .
+
+dwciri:nameAccordingTo rdf:type owl:ObjectProperty ;
+  rdfs:label "name according to"@en .
+
+:scientificName rdf:type owl:ObjectProperty ;
+  rdfs:subPropertyOf :taxonomicName, dwciri:scientificName ;
+  rdfs:label "has scientific name"@en ; 
+  rdfs:domain :OperationalTaxonomicUnit ;
+  rdfs:range :ScientificName .
+
+:nameAccordingTo rdf:type owl:ObjectProperty ;
+  rdfs:subClassOf dwciri:nameAccordingTo ;
+  skos:prefLabel "sec."@en ; 
+  skos:altLabel "sensu"@en ;
+  rdfs:range frbr:Expression ;
+  rdfs:domain :TaxonomicConceptLabel ;
+  rdfs:comment "The reference to the source in which the specific taxonomic concept is defined - traditionally signified by the Latin 'sensu' or 'sec.'' (from secundum, meaning 'according to').Property of Taxonomic Concept Label."@en .
+
+:vernacularName rdf:type owl:ObjectProperty ;
+  rdfs:subPropertyOf :taxonomicName ;
+  rdfs:label "has vernacular name"@en ;
+  rdfs:domain :OperationalTaxonomicUnit ;
+  rdfs:range :VernacularName .
+
+:taxonomicConceptLabel rdf:type owl:ObjectProperty, owl:InverseFunctionalProperty ;
+  rdfs:subPropertyOf :scientificName ;
+  rdfs:label "has taxon concept label"@en ;
+  rdfs:domain :TaxonomicConcept ;
+  rdfs:range :TaxonomicConceptLabel .
+
+:has_OTU_Id rdf:type owl:ObjectProperty ;
+  rdfs:subPropertyOf :scientificName ;
+  rdfs:label "has OTU Id"@en ;
+  rdfs:domain :OperationalTaxonomicUnit ;
+  rdfs:range :OTU_Id .
+
+:relatedName rdf:type owl:ObjectProperty, owl:TransitiveProperty, owl:ReflexiveProperty ;
+  rdfs:label "has related name"@en ;
+  rdfs:domain :TaxonomicName ;
+  rdfs:range :TaxonomicName ;
+  rdfs:comment "'has related name' is an object property that we use in order to indicate that two taxnomic names are related somehow. This relationship is purposely vague as to encompass all situations where two taxonomic names co-occur in a text. It is transitive and reflexive."@en.
+
+:replacementName rdf:type owl:ObjectProperty ,
+                          owl:TransitiveProperty ;
+  rdfs:label "has replacement name"@en ;
+  rdfs:domain :LatinName ;
+  rdfs:range :LatinName ;
+  rdfs:comment "This is a uni-directional property. Its meaning is that one Linnaean name links to a different Linnaean name via the usage of this property, then the object name is more accurate and should be preferred given the information that system currently holds. This property is only defined for Linnaean names."@en.
+
+:OperationalTaxonomicUnit rdf:type owl:Class ;
+  rdfs:subClassOf skos:Concept, frbr:Work ;
+  rdfs:label "Operational Taxonomic Unit"@en;
+  rdfs:commnet "A superclass for all kinds of taxonomic hypothesis"@en .
+
+:TaxonomicConcept rdf:type owl:Class ;
+  rdfs:subClassОf :OperationalTaxonomicUnit , dwc:Taxon ,
+                  [ rdf:type owl:Restriction ;
+                    owl:onProperty :taxonomicConceptLabel ;
+                    owl:minCardinality "1" ] ;
+  rdfs:comment "A taxonomic concept in the sense of Berendsohn"@en .
+
+:RCC5Statement rdf:type owl:Class ;
+  rdfs:label "RCC5 Statement" ;
+  rdfs:comment "A statemnt of RCC-5 relationship" .
+
+:rcc5Property rdf:Type owl:ObjectProperty ;
+  rdfs:domain :RCC5Statement .
+
+:rcc5fromRegion rdf:type owl:ObjectProperty ;
+  rdfs:subPropertyOf :rcc5Property ;
+  rdfs:label "from region" ;
+  rdfs:comment "Connects to the RCC5 statement to the originating region"@en .
+
+:rcc5toRegion rdf:type owl:ObjectProperty ;
+  rdfs:label "to region" ;
+  rdfs:subPropertyOf :rcc5Property ;
+  rdfs:comment "Connects to the RCC5 statement to the target region"@en .
+
+:rcc5RelationType rdf:type owl:ObjectProperty ;
+  rdfs:label "relation type" ;
+  rdfs:subPropertyOf :rcc5Property ;
+  rdfs:range :RCC5Relation ;
+  rdfs:comment "Connects an RCC-5 statement to the type of RCC-5 relation between the regions."@en .
+
+:RCC5Relation rdf:type owl:Class ;
+  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                    owl:onProperty <http://www.w3.org/2004/02/skos/core#inScheme> ;
+                    owl:someValuesFrom :RCC5RelationTerms ] ;
+  rdfs:label "RCC5 Relation"@en ;
+  rdfs:comment "The of RCC 5 relation, e.g. 'partially overlaps'"@en .
+
+:RCC5RelationTerms rdf:type owl:Class ;
+  rdfs:subClassOf <http://www.w3.org/2004/02/skos/core#ConceptScheme> ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty fabio:isSchemeOf ;
+                                  owl:allValuesFrom :RCC5Relation] ;
+  rdfs:label "OpenBiodiv Vocabulary of RCC5 Relations"@en .
+
+:Equals_INT rdf:type :RCC5Relation ;
+  skos:inScheme :RCC5RelationTerms ;
+  rdfs:label "Equals (INT)" ;
+  rdfs:comment "= EQ(x,y) Equals (intensional)"@en . 
+
+:ProperPart_INT rdf:type :RCC5Relation ;
+  skos:inScheme :RCC5RelationTerms ;
+  rdfs:label "Proper Part (INT)" ;
+  rdfs:comment "< PP(x,y) Proper Part of (intensional)"@en .
+
+:InverseProperPart_INT rdf:type :RCC5Relation ;
+  skos:inScheme :RCC5RelationTerms ;
+  rdfs:label "Inverse Proper Part (INT)" ;
+  rdfs:comment "iPP(x, y) Inverse Proper Part (intensional)"@en .
+
+:PartiallyOverlaps_INT rdf:type :RCC5Relation ;
+  skos:inScheme :RCC5RelationTerms ;
+  rdfs:label "Partially Overlaps (INT)" ;
+  rdfs:comment "o PO(x,y) Partially Overlaps (intensional)"@en .
+
+:Disjoint_INT rdf:type :RCC5Relation ;
+  skos:inScheme :RCC5RelationTerms ;
+  rdfs:label "Disjoint (INT)" ;
+  rdfs:comment "! DR(x,y) Disjoint from (intensional)."@en .
+
+:Equals_OST rdf:type :RCC5Relation ;
+  skos:inScheme :RCC5RelationTerms ;
+  rdfs:label "Equals (OST)" ;
+  rdfs:comment "= EQ(x,y) Equals (ostensive)"@en . 
+
+:ProperPart_OST rdf:type :RCC5Relation ;
+  skos:inScheme :RCC5RelationTerms ;
+  rdfs:label "Proper Part (OST)" ;
+  rdfs:comment "< PP(x,y) Proper Part of (ostensive)"@en .
+
+:InverseProperPart_OST rdf:type :RCC5Relation ;
+  skos:inScheme :RCC5RelationTerms ;
+  rdfs:label "Inverse Proper Part (OST)" ;
+  rdfs:comment "iPP(x, y) Inverse Proper Part (ostensive)"@en .
+
+:PartiallyOverlaps_OST rdf:type :RCC5Relation ;
+  skos:inScheme :RCC5RelationTerms ;
+  rdfs:label "Partially Overlaps (OST)" ;
+  rdfs:comment "o PO(x,y) Partially Overlaps (ostensive)"@en .
+
+:Disjoint_OST rdf:type :RCC5Relation ;
+  skos:inScheme :RCC5RelationTerms ;
+  rdfs:label "Disjoint (OST)" ;
+  rdfs:comment "! DR(x,y) Disjoint from (ostensive)."@en .
+
+:TaxonomicStatus rdf:type owl:Class ;
+  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                    owl:onProperty <http://www.w3.org/2004/02/skos/core#inScheme> ;
+                    owl:someValuesFrom :TaxonomicStatusTerms ] ;
+  rdfs:label "Taxonomic Status"@en ;
+  rdfs:comment "The status following a taxonomic name usage in a taxonomic
+                manuscript, i.e. 'n. sp.',
+                                 'comb. new',
+                                 'sec. Franz (2017)', etc"@en .
+
+:TaxonomicStatusTerms rdf:type owl:Class ;
+  rdfs:subClassOf <http://www.w3.org/2004/02/skos/core#ConceptScheme> ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty fabio:isSchemeOf ;
+                                  owl:allValuesFrom :TaxonomicStatus] ;
+  rdfs:label "OpenBiodiv Vocabulary of Taxonomic Statuses"@en ;
+  fabio:hasDiscipline <http://dbpedia.org/page/Taxonomy_(biology)> .
+
+
+:TaxonomicUncertainty a :TaxonomicStatus ;
+  rdfs:label "Taxonomic Uncertainty"@en ;
+  skos:inScheme :TaxonomicStatusTerms ;
+  skos:related <http://rs.gbif.org/vocabulary/gbif/taxonomicStatus/accepted> ;
+ 
+  rdfs:comment "The implication of this term that the taxon concept identified
+by a name has an uncertain placement in the biological taxonomy, or if we
+are talking about a specimen or a sample of some kind that we are unable to
+identify the taxon down to its rank. "@en .
+
+
+:TaxonDiscovery a :TaxonomicStatus ;
+  skos:inScheme :TaxonomicStatusTerms ;
+  rdfs:label "Taxon Discovery"@en ;
+
+  rdfs:comment "When a TNU is followed by the term `:TaxonDiscovery`, the
+implication is that the present context in which the TNU is used is
+circumscribing a new taxon concept (a taxon concept of a taxon new to
+science), and simultaneously assigning it a new name."@en .
+
+
+:ReplacementName a :TaxonomicStatus ;
+  skos:inScheme :TaxonomicStatusTerms ;
+  rdfs:label "Replacement Name"@en ;
+  rdfs:comment "When a TNU is followed by the term `:ReplacementName`, the implication is that
+the name that is referred to by the TNU is replacing another name for various
+reasons, and thus becoming the preferred/accepted/available way of refering to
+whatever taxon concepts the now replaced name had been referring to. Cases
+include changes of rank, new combinations, spelling mistakes, etc.
+"@en .
+
+
+:UnavailabeName a :TaxonomicStatus ;
+  skos:inScheme :TaxonomicStatusTerms ;
+  rdfs:label "UnavailableName"@en ;
+  skos:exactMatch  <http://rs.gbif.org/vocabulary/gbif/taxonomicStatus/synonym> ;
+  rdfs:comment "When a TNU is followed by the term `:UnavailableName`, the implication is that
+the name that is being referred to by the TNU is no longer or has never been
+available for use due to the fact that it has either been replaced or it has
+been determined that the name has been improperly coined or published, or the
+name contains any general error rendering it unfit for use."@en .
+
+:AvailableName a :TaxonomicStatus ;
+  skos:inScheme :TaxonomicStatusTerms ;
+  rdfs:Label "Available Name"@en ;
+  skos:exactMatch <http://rs.gbif.org/vocabulary/gbif/taxonomicStatus/accepted> ;
+  rdfs:comment "When a TNU is followed by the term `:AvailableName`, the
+implication is that the name that is being referred to by the TNU has been
+determined to be fit for use either by revoking an older act rendering the
+name unavailable or by fixing other issues with the name or finding out that
+other issues with the name had been fixed, or just stating the fact that the
+name shall be used or even conserving it, so that the name can be freely used
+from then on in compliance with all Codes and practices."@en.
+
+:TypeSpecimenDesignation a :TaxonomicStatus ;
+  rdfs:label "Type Specimen Designation"@en ;
+  skos:inScheme :TaxonomicStatusTerms ;
+  rdfs:comment "When a TNU is followed by the term `:TypeSpecimenDesignation`, the implication
+is that the specimen identified by the name in TNU should be considered a type
+of the taxon concept identified by the name as understood by the author of
+TNU."@en.
+
+
+:TypeSpeciesDesignation a :TaxonomicStatus ;
+  rdfs:label "Type Species Designation"@en ;
+  skos:inScheme :TaxonomicStatusTerms ;
+  rdfs:comment "When a TNU is followed by the term `:TypeSpeciesDesignation`, the implication
+is that the taxon concept of the name in the TNU as understood by the author
+should be considered the type species of a higher taxon as understood by the
+author."@en.
+
+
+:NewOccurrenceRecord a :TaxonomicStatus ;
+  rdfs:label "New Occurrence Record"@en ;
+  skos:inScheme :TaxonomicStatusTerms ;
+  rdfs:comment "When a TNU is followed by the term `:NewRecord`, the implication is that the
+description of taxon concept of the name as understood by the author is being
+extended with new occurrences (for a given locality).
+"@en.
+
