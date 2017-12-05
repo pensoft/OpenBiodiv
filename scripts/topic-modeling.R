@@ -1,5 +1,7 @@
 library(tm)
 library(tidytext)
+library(ggplot2)
+library(dplyr)
 txt <- "/media/obkms/nactem/pensoft/"
 
 # Corpus preparation
@@ -17,4 +19,31 @@ dtm <- DocumentTermMatrix(pensoft) # takes time
 
 # Latent Dirichlet Allocation (model fitting stage)
 
-pen_lda <- LDA(dtm, k = 2, control = list(seed = 1234)) # 2 topics, takes lots of time
+pen_lda <- LDA(dtm, k = 50, control = list(seed = 1234)) # 2 topics, takes lots of time
+
+# topics
+
+pen_topics <- tidy(pen_lda, matrix = "beta")
+
+# A lot of crap: more cleaning needed
+# A tibble: 4,042,664 x 3
+# topic  term         beta
+# <int> <chr>        <dbl>
+#   1     1   ×”. 9.547177e-08
+# 2     2   ×”. 3.943064e-11
+# 3     1   ×), 3.820344e-07
+# 4     2   ×), 9.119881e-18
+# 5     1   ×); 1.957926e-06
+# 6     2   ×); 1.944648e-21
+# 7     1   ×). 7.106020e-07
+# 8     2   ×). 5.726397e-08
+# 9     1   <<) 2.861347e-08
+# 10     2   <<) 2.050022e-08
+# # ... with 4,042,654 more rows
+
+
+top_terms <- pen_topics %>%
+  group_by(topic) %>%
+  top_n(10, beta) %>%
+  ungroup() %>%
+  arrange(topic, -beta)
