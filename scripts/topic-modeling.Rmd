@@ -1,0 +1,75 @@
+---
+title: "Topic Modeling"
+output: html_notebook
+---
+
+## Packages 
+
+```{r}
+library(tm)
+library(tidytext)
+library(ggplot2)
+library(dplyr)
+library(topicmodels)
+```
+
+## Configuration
+
+`txt` is the directory where the corpus is held.
+
+```{r}
+txt <- "/media/obkms/nactem/pensoft-clean/pensoft-clean/"
+nstopwords <-unique(c(readLines("/media/obkms/nactem/stopwords.txt"), stopwords("english")))
+```
+
+## Corpus preparation
+
+This is a time-consuming step and therefore we've enabled caching.
+
+```{r, cache = TRUE}
+pensoft <- VCorpus(DirSource(txt, encoding = "UTF-8"), readerControl = list(language = "eng")) # reads a volatile (persists until object is there) corpus
+pensoft <- tm_map(pensoft, FUN = content_transformer(FUN = tolower)) # converts to lower case
+pensoft <- tm_map(pensoft, FUN = removeWords, words = nstopwords) # removes stopwords
+pensoft <- tm_map(pensoft, FUN = content_transformer(function(x) {
+  gsub("@card@", "", x)
+})) # removes the "@card@" because for some reason stop word removal doesn't do it even though @card@ is in the dic
+pensoft<- tm_map(pensoft, FUN = stripWhitespace) # removes whitespace
+```
+
+## Inspect a random topic
+
+```{r}
+inspect(pensoft[[sample(1:length(pensoft), 1)]])
+```
+
+## Build the topic model
+`k` topics.
+
+```{r, cache = TRUE}
+dtm <- DocumentTermMatrix(pensoft) # takes time
+ui <- unique(dtm$i)
+dtm <- dtm[ui,] # cleans 0 rows
+pen_lda <- LDA(dtm, k = 20, control = list(seed = 1234)) # 
+pen_topics <- tidy(pen_lda, matrix = "beta")
+```
+
+## Visualize topics
+
+```{r}
+top_terms <- pen_topics %>%
+  group_by(topic) %>%
+  top_n(10, beta) %>%
+  ungroup() %>%
+  arrange(topic, -beta)
+
+top_terms %>%
+  mutate(term = reorder(term, beta)) %>%
+  ggplot(aes(term, beta, fill = factor(topic))) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~ topic, scales = "free", ncol = 4) +
+  coord_flip() + 
+  ggsave(file="~/tmp/temp.png", width=10, height=10, dpi=300)
+```
+
+## Mapping between articles and topics
+
