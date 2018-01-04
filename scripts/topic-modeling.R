@@ -2,7 +2,7 @@ library(tm)
 library(tidytext)
 library(ggplot2)
 library(dplyr)
-txt <- "/media/obkms/nactem/pensoft/"
+txt <- "/media/obkms/nactem/pensoft-clean/pensoft-clean/"
 
 # Corpus preparation
 pensoft <- VCorpus(DirSource(txt, encoding = "UTF-8"), readerControl = list(language = "eng")) # reads a volatile (persists until object is there) corpus
@@ -19,7 +19,7 @@ dtm <- DocumentTermMatrix(pensoft) # takes time
 
 # Latent Dirichlet Allocation (model fitting stage)
 
-pen_lda <- LDA(dtm, k = 50, control = list(seed = 1234)) # 2 topics, takes lots of time
+pen_lda <- LDA(dtm, k = 10, control = list(seed = 1234)) # 10 topics, takes lots of time
 
 # topics
 
