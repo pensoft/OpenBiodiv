@@ -11,7 +11,7 @@ library(parallel)
 # download XML data
 
 # configure access to graphdb server
-configuration_file = "/home/viktor2/Work/PhD/openbiodiv/iteration/6/config.yml"
+configuration_file = "/home/viktor2/Work/PhD/openbiodiv/runs/iteration/6/config.yml"
 server_access_options = yaml::yaml.load_file(configuration_file)
 init_env(server_access_options)
 
