@@ -1,3 +1,32 @@
+## Update rule for papers
+
+```
+PREFIX fabio: <http://purl.org/spar/fabio/>
+PREFIX po: <http://www.essepuntato.it/2008/12/pattern#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX pkm: <http://proton.semanticweb.org/protonkm#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX frbr: <http://purl.org/vocab/frbr/core#>
+PREFIX : <http://openbiodiv.net/>
+
+INSERT {
+  ?paper pkm:mentions ?taxonomic_name .  
+}
+WHERE { 
+  ?article a fabio:JournalArticle ;
+          frbr:realizationOf ?paper ;
+        po:contains ?taxonomic_name_usage .
+    
+    ?taxonomic_name_usage rdf:type :TaxonomicNameUsage ;
+      pkm:mentions ?taxonomic_name .
+} 
+```
+
+
+
+
+
+
 #### Rules for Names
 
 TODO: create example for the rules

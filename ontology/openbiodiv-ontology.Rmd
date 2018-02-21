@@ -199,7 +199,7 @@ ontology for us, we use the `skos` prefix as they use it.
 
 ```{r Ontology Metadata}
 :openbiodiv-ontology rdf:type owl:Ontology ;
-  owl:versionInfo "1.0" ;
+  owl:versionInfo "1.0.1" ;
   rdfs:comment "You are free to create derivative work as long as you cite the original authors." ;
   dcelements:title "The Open Biodiversity Knowledge Management System Ontology" ;
   dcelements:subject "Biodiversity Informatics" ;
@@ -233,6 +233,14 @@ In the rest of this section we describe the modeling of entities in the
 publishing domain that are *not found* in the SPAR ontologies. The central new
 class in OpenBiodiv not found in SPAR is the `:Treatment` class, borrowed
 from the [Treatment Ontologies](https://github.com/plazi/TreatmentOntologies).
+
+##### Axiom
+
+`frbr:realizationOf` is the inverse of `frbr:realization`
+
+```{r}
+frbr:realization owl:inverseOf frbr:realizationOf.
+```
 
 ##### Contributed Properties: *contains*
 
