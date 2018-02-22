@@ -1,0 +1,96 @@
+---
+title: "Plazi Corpus"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+You can create a "pure script" to run with the R interpreter by executing the following command from the R console:
+
+```
+knitr::knit(input = "plazi-corpus.Rmd", tangle = TRUE)
+```
+
+## What this script does
+
+This script contacts the Plazi API/ website and downloads the taxonomic treatment information. It downloads XML and images. It produces a plain text corpus from the images. Given a corpus directory, the script only updates its contents, thereby minimizing download times.
+
+## Configuration
+
+```{r}
+library(ropenbio) 
+# XML corpus directory
+plazi_corpus_dir = "/media/obkms/plazi-corpus-xml" 
+# Image corpus directory
+plazi_corpus_dir_image = "/media/obkms/plazi-corpus-image"
+# Text corpus directory
+plazi_corpus_dir_text = "/media/obkms/plazi-corpus-text/"
+# Log and information files directory
+logdir = "/media/obkms/log"
+```
+
+## Fetch up-to-date taxonomic treatment information
+
+```{r}
+todays_plazi_feed = plazi_feed()
+treatments = as.data.frame(todays_plazi_feed)
+```
+
+## Update operations
+
+### XML Corpus
+
+The files are downloaded with the `aria2c` tool. The following creates an input program for `aria2c` to download the treatments that are missing in the corpus directory.
+
+```{r}
+aria_input_lines = generate_aria2c_input(treatments$id, corpus_dir = plazi_corpus_dir)
+```
+
+Write the input file to the log directory and construct the command.
+
+```{r}
+ctime = format(Sys.time(), "%y%m%d%H%M")
+input_file = paste0(logdir, "/download-", ctime, ".input")
+writeLines(aria_input_lines, input_file)
+log_file = paste0(logdir, "/download-", ctime, ".log")
+command = paste0('aria2c ', '--input-file=', input_file, " --log=", log_file, ' --split=16 ', '--dir=', plazi_corpus_dir)
+```
+
+Command execution.
+
+```{r}
+system(command)
+```
+
+After the corpus has been updated, the treatment information can also be updated with additional information (e.g. language). The full treatment information is written to disk. 
+TODO You may want to skip this step, as currently the language is recomputed for every treatment. A better way would be save the already computed treatment information.
+
+```{r}
+treatments$lang = treatment_language(treatments$id, directory = plazi_corpus_dir)
+write.table(treatments, file = paste0(logdir, "/treatments-", ctime, ".csv"))
+```
+
+### Images
+
+Generate an aria download file for all images.
+
+TODO have a `check_download_status_images` function for images.
+
+```{r}
+aria_input_lines_image = generate_aria2c_input_images(plazi_images(treatments$id, directory = plazi_corpus_dir))
+```
+
+```{r}
+# Write
+input_file_image = paste0(logdir, "/download-images-", ctime, ".input")
+writeLines(aria_input_lines_image, input_file_image)
+log_file_image = paste0(logdir, "/download-images", ctime, ".log")
+command = paste0('aria2c ', '--input-file=', input_file_image, " --log=", log_file_image, ' --split=16 ', '--dir=', plazi_corpus_dir_image)
+# system(command)
+```
+
+### Text
+
+
