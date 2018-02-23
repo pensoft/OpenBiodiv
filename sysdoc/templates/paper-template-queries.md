@@ -63,12 +63,11 @@ WHERE {
 ## Authors
 
 ```
-...
-SELECT ?name ?author_id
+SELECT (MAX(?name) AS ?NAME) ?author_id
 WHERE { 
-   <id> dc:creator ?author_id .
+    :905f17cf-23b1-4562-a11a-c861c96c4fd2 dc:creator ?author_id .
    ?author_id rdfs:label ?name .
-} 
+}  GROUP BY(?author_id)
 ```
 
 ## Taxa
