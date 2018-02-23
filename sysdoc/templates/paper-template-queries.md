@@ -46,17 +46,23 @@ For one paper, we can have multiple articles. Each row in the table represents o
 ...
 SELECT (GROUP_CONCAT(?name; separator = " and ") AS ?authors_string) (SAMPLE(?year) AS ?year) (SAMPLE(?publisher) AS ?publisher) (SAMPLE(?doi) AS ?doi) (SAMPLE(?title) AS ?title)
 WHERE { 
+    {
+    SELECT (SAMPLE(?article) AS ?article) (MAX(?name) AS ?name) {
     :905f17cf-23b1-4562-a11a-c861c96c4fd2  frbr:realization ?article ;
            dc:creator ?author .
-    ?author foaf:surname ?surname ;
+      ?author foaf:surname ?surname ;
             foaf:firstName ?first_name.
-    BIND(CONCAT(STR(?surname), ", ", STR(?first_name)) AS ?name)
+    BIND(CONCAT(STR(?surname), ", ", STR(?first_name)) AS ?name)    
+    } GROUP BY ?author    
+    }
+    
     ?article fabio:hasPublicationYear ?year ;
                  prism:doi ?doi;
                  dc:title ?title.
     ?article dc:publisher/skos:prefLabel ?publisher .
     
-} GROUP BY ?article
+} GROUP BY ?article ?author
+
 
 ```
 
