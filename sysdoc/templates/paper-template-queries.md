@@ -80,14 +80,10 @@ WHERE {
 
 ```
 ...
-SELECT ?taxonomic_name ?taxonomic_name_id
+SELECT (MAX(?taxonomic_name) AS ?taxonomic_name) ?taxonomic_name_id
 WHERE { 
-	?article frbr:realizationOf <id> ;
-    	  po:contains ?taxonomic_name_usage .
-    
-    ?taxonomic_name_usage rdf:type :TaxonomicNameUsage ;
-    	pkm:mentions ?taxonomic_name_id .
-    
+   :905f17cf-23b1-4562-a11a-c861c96c4fd2 pkm:mentions ?taxonomic_name_id .
     ?taxonomic_name_id rdfs:label ?taxonomic_name .
-}
+} GROUP BY ?taxonomic_name_id
+
 ```
