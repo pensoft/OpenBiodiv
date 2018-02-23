@@ -44,43 +44,46 @@ For one paper, we can have multiple articles. Each row in the table represents o
 
 ```
 ...
-SELECT (GROUP_CONCAT(?name; separator = " and ") AS ?authors_string) (SAMPLE(?year) AS ?year) (SAMPLE(?publisher) AS ?publisher) (SAMPLE(?doi) AS ?doi)
+SELECT (GROUP_CONCAT(?name; separator = " and ") AS ?authors_string) (SAMPLE(?year) AS ?year) (SAMPLE(?publisher) AS ?publisher) (SAMPLE(?doi) AS ?doi) (SAMPLE(?title) AS ?title)
 WHERE { 
-    ?paper frbr:realization ?article ;
+    {
+    SELECT (SAMPLE(?article) AS ?article) (MAX(?name) AS ?name) {
+    :905f17cf-23b1-4562-a11a-c861c96c4fd2  frbr:realization ?article ;
            dc:creator ?author .
-    ?author foaf:surname ?surname ;
+      ?author foaf:surname ?surname ;
             foaf:firstName ?first_name.
-    BIND(CONCAT(STR(?surname), ", ", STR(?first_name)) AS ?name)
+    BIND(CONCAT(STR(?surname), ", ", STR(?first_name)) AS ?name)    
+    } GROUP BY ?author    
+    }
+    
     ?article fabio:hasPublicationYear ?year ;
-                 prism:doi ?doi.
+                 prism:doi ?doi;
+                 dc:title ?title.
     ?article dc:publisher/skos:prefLabel ?publisher .
     
-} GROUP BY ?article
+} GROUP BY ?article ?author
+
+
 ```
 
 ## Authors
 
 ```
-...
-SELECT ?name ?author_id
+SELECT (MAX(?name) AS ?NAME) ?author_id
 WHERE { 
-   <id> dc:creator ?author_id .
+    :905f17cf-23b1-4562-a11a-c861c96c4fd2 dc:creator ?author_id .
    ?author_id rdfs:label ?name .
-} 
+}  GROUP BY(?author_id)
 ```
 
 ## Taxa
 
 ```
 ...
-SELECT ?taxonomic_name ?taxonomic_name_id
+SELECT (MAX(?taxonomic_name) AS ?taxonomic_name) ?taxonomic_name_id
 WHERE { 
-	?article frbr:realizationOf <id> ;
-    	  po:contains ?taxonomic_name_usage .
-    
-    ?taxonomic_name_usage rdf:type :TaxonomicNameUsage ;
-    	pkm:mentions ?taxonomic_name_id .
-    
+   :905f17cf-23b1-4562-a11a-c861c96c4fd2 pkm:mentions ?taxonomic_name_id .
     ?taxonomic_name_id rdfs:label ?taxonomic_name .
-}
+} GROUP BY ?taxonomic_name_id
+
 ```
