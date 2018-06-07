@@ -1,0 +1,187 @@
+@prefix openbiodiv: <http://openbiodiv.net/> .
+ @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+ @prefix fabio: <http://purl.org/spar/fabio/> .
+ @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+ @prefix frbr: <http://purl.org/vocab/frbr/core#> .
+ @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+ @prefix dc: <http://purl.org/dc/elements/1.1/> .
+ @prefix prism: <http://prismstandard.org/namespaces/basic/2.0/> .
+ @prefix dcterms: <http://purl.org/dc/terms/> .
+ @prefix po: <http://www.essepuntato.it/2008/12/pattern#> .
+ @prefix sro: <http://salt.semanticauthoring.org/ontologies/sro#> .
+ @prefix c4o: <http://purl.org/spar/c4o/> .
+ @prefix doco: <http://purl.org/spar/doco/> .
+ @prefix foaf: <http://xmlns.com/foaf/0.1/> .
+ @prefix deo: <http://purl.org/spar/deo/> .
+ openbiodiv:5a07c45e-25a3-44f7-a29a-5df87237a4d5 {
+ openbiodiv:8780a302-93cd-4efa-9a1a-e901e37f01f6   rdf:type   fabio:Journal ;
+	 skos:prefLabel   "Biodiversity Data Journal"@en ;
+	 skos:altLabel   "BDJ"@en ;
+	 fabio:issn   "1314-2836" ;
+	 fabio:eIssn   "1314-2828" ;
+	 frbr:part   openbiodiv:5a07c45e-25a3-44f7-a29a-5df87237a4d5 . 
+ openbiodiv:5a07c45e-25a3-44f7-a29a-5df87237a4d5   rdf:type   fabio:JournalArticle ;
+	 rdfs:label   "Optimized R functions for analysis of ecological community data using the R virtual laboratory (RvLab)" ;
+	 dc:title   "Optimized R functions for analysis of ecological community data using the R virtual laboratory (RvLab)" ;
+	 prism:doi   "10.3897/BDJ.4.e8357" ;
+	 dc:publisher   "Pensoft Publishers" ;
+	 prism:publicationDate   "2016-11-01"^^xsd:date ;
+	 dcterms:publisher   openbiodiv:f86ca722-3c63-4e68-9f85-e0cf49070d0b ;
+	 frbr:realizationOf   openbiodiv:7030590e-0bb6-4b43-a28b-85ec6349f6a5 ;
+	 prism:number   "4"^^xsd:integer ;
+	 prism:keyword   "Parallel data manipulation" ,  "R" ,  "pbdMPI package" ,  "Single Program Multiple Data (SPMD) parallelization" ,  "virtual enviroment" ,  "vegan package" ,  "biodiversity analyses" ,  "ecological analyses" . 
+ openbiodiv:f86ca722-3c63-4e68-9f85-e0cf49070d0b   rdf:type   openbiodiv:Publisher ;
+	 rdfs:label   "Pensoft Publishers" . 
+ openbiodiv:7030590e-0bb6-4b43-a28b-85ec6349f6a5   rdf:type   fabio:ResearchPaper ;
+	 dcterms:creator   openbiodiv:a873de6f-287c-4979-8d63-fd7ef1440c02 ,  openbiodiv:7970b764-cfc8-4f35-8468-089fdbef4b0f ,  openbiodiv:ea1cd40c-29fe-4636-984c-31747a05fd83 ,  openbiodiv:b06c3c52-b924-4306-9ff1-c0ff411e5b75 ,  openbiodiv:5702cc22-b361-45b5-91a0-3de23ebd4d8f ,  openbiodiv:504a04a8-8e1f-4f82-a2a2-8361aa34c3c1 ,  openbiodiv:9ad41538-9f30-4dc2-992a-76ec5432af9d ,  openbiodiv:a0834c0f-55ff-4607-a1ce-d1945d1adafd ,  openbiodiv:61ee0e09-30fc-4326-ac6a-d1d1f57e59dd ,  openbiodiv:ed412c0c-ebc2-40c7-913d-9d991ab3d12d ,  openbiodiv:5c961923-7494-45c7-a2a2-de7620837718 ,  openbiodiv:ae8d245e-b32f-41da-b416-090d80eb6293 ,  openbiodiv:d8531b7c-0c54-4be1-bc0e-b1424028cb3b ,  openbiodiv:8af75ff5-324d-4c72-95f3-3353d845771b ,  openbiodiv:f90ed717-94dd-449d-a9d1-1841f629c784 ,  openbiodiv:56ae2b02-0bb6-4e63-a585-58a0063398fb . 
+ openbiodiv:bdf3bbc2-420c-4d8b-b35f-2782d112d8a6   rdf:type   openbiodiv:KeywordGroup ;
+	 po:isContainedBy   openbiodiv:5a07c45e-25a3-44f7-a29a-5df87237a4d5 ;
+	 prism:keyword   "Parallel data manipulation" ,  "R" ,  "pbdMPI package" ,  "Single Program Multiple Data (SPMD) parallelization" ,  "virtual enviroment" ,  "vegan package" ,  "biodiversity analyses" ,  "ecological analyses" . 
+ openbiodiv:3bf2f6a2-98d9-4a4d-9992-13b325b3d9e3   rdf:type   sro:Abstract ;
+	 po:isContainedBy   openbiodiv:5a07c45e-25a3-44f7-a29a-5df87237a4d5 ;
+	 c4o:hasContent   "AbstractBackgroundParallel data manipulation using R has previously been addressed by members of the R community, however most of these studies produce ad hoc solutions that are not readily available to the average R user. Our targeted users, ranging from the expert ecologist/microbiologists to computational biologists, often experience difficulties in finding optimal ways to exploit the full capacity of their computational resources. In addition, improving performance of commonly used R scripts becomes increasingly difficult especially with large datasets. Furthermore, the implementations described here can be of significant interest to expert bioinformaticians or R developers. Therefore, our goals can be summarized as: (i) description of a complete methodology for the analysis of large datasets by combining capabilities of diverse R packages, (ii) presentation of their application through a virtual R laboratory (RvLab) that makes execution of complex functions and visualization of results easy and readily available to the end-user.New informationIn this paper, the novelty stems from implementations of parallel methodologies which rely on the processing of data on different levels of abstraction and the availability of these processes through an integrated portal. Parallel implementation R packages, such as the pbdMPI (Programming with Big Data – Interface to MPI) package, are used to implement Single Program Multiple Data (SPMD) parallelization on primitive mathematical operations, allowing for interplay with functions of the vegan package. The dplyr and RPostgreSQL R packages are further integrated offering connections to dataframe like objects (databases) as secondary storage solutions whenever memory demands exceed available RAM resources.The RvLab is running on a PC cluster, using version 3.1.2 (2014-10-31) on a x86_64-pc-linux-gnu (64-bit) platform, and offers an intuitive virtual environmet interface enabling users to perform analysis of ecological and microbial communities based on optimized vegan functions.A beta version of the RvLab is available after registration at: https://portal.lifewatchgreece.eu/" . 
+ openbiodiv:8cfd3607-f94c-408d-b1c3-f45a662b1998   rdf:type   doco:Title ;
+	 po:isContainedBy   openbiodiv:5a07c45e-25a3-44f7-a29a-5df87237a4d5 ;
+	 c4o:hasContent   "Optimized R functions for analysis of ecological community data using the R virtual laboratory (RvLab)" . 
+ openbiodiv:a873de6f-287c-4979-8d63-fd7ef1440c02   rdf:type   foaf:Person ;
+	 rdfs:label   "Constantinos Varsos" ;
+	 openbiodiv:affiliation   "Institute of Computer Science, Foundation of Research and Technology Hellas, Heraklion, Greece" . 
+ openbiodiv:7970b764-cfc8-4f35-8468-089fdbef4b0f   rdf:type   foaf:Person ;
+	 rdfs:label   "Theodore Patkos" ;
+	 openbiodiv:affiliation   "Institute of Computer Science, Foundation of Research and Technology Hellas, Heraklion, Greece" . 
+ openbiodiv:ea1cd40c-29fe-4636-984c-31747a05fd83   rdf:type   foaf:Person ;
+	 rdfs:label   "Anastasis Oulas" ;
+	 openbiodiv:affiliation   "Institute of Marine Biology, Biotechnology and Aquaculture, Hellenic Centre for Marine Research, Heraklion, Crete, Greece" ;
+	 faof:mbox   "oulas@hcmr.gr" . 
+ openbiodiv:b06c3c52-b924-4306-9ff1-c0ff411e5b75   rdf:type   foaf:Person ;
+	 rdfs:label   "Christina Pavloudi" ;
+	 openbiodiv:affiliation   "Institute of Marine Biology, Biotechnology and Aquaculture, Hellenic Centre for Marine Research, Heraklion, Crete, Greece" ,  "Department of Biology, University of Ghent, Ghent, Belgium, Department of Microbial Ecophysiology, University of Bremen, Bremen, Germany" . 
+ openbiodiv:5702cc22-b361-45b5-91a0-3de23ebd4d8f   rdf:type   foaf:Person ;
+	 rdfs:label   "Alexandros Gougousis" ;
+	 openbiodiv:affiliation   "Institute of Marine Biology, Biotechnology and Aquaculture, Hellenic Centre for Marine Research, Heraklion, Crete, Greece" . 
+ openbiodiv:504a04a8-8e1f-4f82-a2a2-8361aa34c3c1   rdf:type   foaf:Person ;
+	 rdfs:label   "Umer Zeeshan Ijaz" ;
+	 openbiodiv:affiliation   "University of Glasgow, Glasgow, United Kingdom" . 
+ openbiodiv:9ad41538-9f30-4dc2-992a-76ec5432af9d   rdf:type   foaf:Person ;
+	 rdfs:label   "Irene Filiopoulou" ;
+	 openbiodiv:affiliation   "Institute of Marine Biology, Biotechnology and Aquaculture, Hellenic Centre for Marine Research, Heraklion, Crete, Greece" . 
+ openbiodiv:a0834c0f-55ff-4607-a1ce-d1945d1adafd   rdf:type   foaf:Person ;
+	 rdfs:label   "Nikolaos Pattakos" ;
+	 openbiodiv:affiliation   "Institute of Marine Biology, Biotechnology and Aquaculture, Hellenic Centre for Marine Research, Heraklion, Crete, Greece" . 
+ openbiodiv:61ee0e09-30fc-4326-ac6a-d1d1f57e59dd   rdf:type   foaf:Person ;
+	 rdfs:label   "Edward Vanden Berghe" ;
+	 openbiodiv:affiliation   "Vrije Universiteit Brussels, 1050, Brussels, Belgium" . 
+ openbiodiv:ed412c0c-ebc2-40c7-913d-9d991ab3d12d   rdf:type   foaf:Person ;
+	 rdfs:label   "Antonio Fernández-Guerra" ;
+	 openbiodiv:affiliation   "University of Oxford, Oxford e-Research Centre, Oxford, United Kingdom" . 
+ openbiodiv:5c961923-7494-45c7-a2a2-de7620837718   rdf:type   foaf:Person ;
+	 rdfs:label   "Sarah Faulwetter" ;
+	 openbiodiv:affiliation   "Institute of Marine Biology, Biotechnology and Aquaculture, Hellenic Centre for Marine Research, Heraklion, Crete, Greece" . 
+ openbiodiv:ae8d245e-b32f-41da-b416-090d80eb6293   rdf:type   foaf:Person ;
+	 rdfs:label   "Eva Chatzinikolaou" ;
+	 openbiodiv:affiliation   "Institute of Marine Biology, Biotechnology and Aquaculture, Hellenic Centre for Marine Research, Heraklion, Crete, Greece" . 
+ openbiodiv:d8531b7c-0c54-4be1-bc0e-b1424028cb3b   rdf:type   foaf:Person ;
+	 rdfs:label   "Evangelos Pafilis" ;
+	 openbiodiv:affiliation   "Institute of Marine Biology, Biotechnology and Aquaculture, Hellenic Centre for Marine Research, Heraklion, Crete, Greece" . 
+ openbiodiv:8af75ff5-324d-4c72-95f3-3353d845771b   rdf:type   foaf:Person ;
+	 rdfs:label   "Chryssoula Bekiari" ;
+	 openbiodiv:affiliation   "Institute of Computer Science, Foundation of Research and Technology Hellas, Heraklion, Greece" . 
+ openbiodiv:f90ed717-94dd-449d-a9d1-1841f629c784   rdf:type   foaf:Person ;
+	 rdfs:label   "Martin Doerr" ;
+	 openbiodiv:affiliation   "Institute of Computer Science, Foundation of Research and Technology Hellas, Heraklion, Greece" . 
+ openbiodiv:56ae2b02-0bb6-4e63-a585-58a0063398fb   rdf:type   foaf:Person ;
+	 rdfs:label   "Christos Arvanitidis" ;
+	 openbiodiv:affiliation   "Institute of Marine Biology, Biotechnology and Aquaculture, Hellenic Centre for Marine Research, Heraklion, Crete, Greece" . 
+ openbiodiv:76e42b9f-5b35-47ce-b659-bf67c511e42a   rdf:type   deo:Introduction ;
+	 po:isContainedBy   openbiodiv:5a07c45e-25a3-44f7-a29a-5df87237a4d5 ;
+	 c4o:hasContent   "IntroductionThe advent of interdisciplinary science fields like computational ecology/biodiversity and metagenomics (Oulas et al. 2015, Canhos et al. 2004, Petrovskii and Petrovskaya 2012, Soberon and Peterson 2004) is contributing to the constant escalation of complex computational pipelines, which, in turn, requires increased computational resources and capacities. The size and speed of the computational analyses are limited by the source code which delineates the accessible functions and libraries. The ever growing in popularity and usability R statistical programming language (R Core Team 2013) provides a wide array of built-in functions, libraries and packages that are of valuable use to the environmental ecologist, microbiologist as well as many other academic disciplines. The use of these functions is often sub-optimal with respect to data size manipulation and speed-up. However, the average biologist is often not inclined to become acquainted with the necessary programming and information technology (IT) skills, required to efficiently transform conventional available functions into computationally optimized methods. Therefore, they are deprived from speed-up and improved memory manipulation during their computational and mathematical operations.On the other hand, computer scientists are well-aware of tools, methods and implementations that can provide significant boosts in speed for computational calculations and further solve issues like memory exhaustion, a problem often faced in analyses using “big” data.In this work, we have brought together expert scientists from the disciplines of environmental ecology and microbiology with IT and mathematical experts in order to focus on optimization methods for widely used statistical functions, effective in environmental ecology today. More specifically, we focus on the vegan (Community Ecology) package (Oksanen et al. 2015) available in R and the ways to optimise common functions with respect to both speed-up and memory usability. This work comes together under a virtual laboratory (vLab) which is available through the LifeWatchGreece portal.Similar efforts, as in Buttigieg and Ramette (2014), have resulted in the creation of online R platforms, such as the "Multivariate AnalysiS Applications for Microbial Ecology (MASAME)" suite; it seems that there is a need for the creation of such platforms as more and more scientists are leaning towards the use of open source software for their analyses. However, although MASAME makes use of R and some of the vegan functions are available for the users, there is no extra effort on their optimization and parallelization.Our main incentive is to make optimization tasks easily available to the average user who has no expertise and prior training in this area of research. This way, environmental ecologists can make use of optimized functions, implemented by IT experts and mathematicians, through a freely available, user-friendly interface, without having to spend time analysing parallelization complexity and deciding on which function to use and how to do so. In addition, multiple non-parallelized functions are also available for users with no programming experience via the RvLab interface. Source code and methodologies are accessible to users with programming and IT knowledge.We describe the optimization methods and their implementation in detail and highlight the advantages of using our optimized R functions, with respect to both computational time speed-up, as well as improved memory manipulation in order to avoid memory exhaustion issues. The analyses we focus on can be computationally demanding primarily due to large matrix operations, increasing permutations in likelihood function computations and iterative basic mathematical operations.Motivation and State-of-the-ArtDespite its popularity among the research community, R still seems inflexible in fully exploiting the latest developments in computer software and hardware. As there are no inherent constructs for parallelizing computations, it is up to the developer to adapt the R code, in order to take advantage of the resources available by multi-core CPUs. Moreover, when the data computed are too big to fit in main memory, no simple solution is considered standard. Packages that offer workarounds are indeed available, but their use by non-expert R users is rarely considered straightforward. These are real issues faced by researchers, whose needs for processing collected data continually increase both in computational demand and in size.Working with large datasets in R can be cumbersome because of the need to keep objects in physical memory. The need to keep whole objects in memory becomes a challenging task to those who might want to work interactively with large datasets. Several packages attempt to overcome problems when accessing big volumes of data. The bigmem package (Kane et al. 2013) is designed to handle massive data sets that are not larger than the available RAM. It overcomes the restriction of R using matrices or data frames that, even though they fit in RAM, no space is available to handle the overhead of working with them. Furthermore, it extends and augments the R statistical programming environment, thus enabling more powerful parallel analyses and data mining of massive data sets, although it is restricted to the available RAM size (even though some options for connecting its objects with file-backed mappings can be implemented).The Programming with Big Data in R (pbdR) project (Ostrouchov et al. 2012) seeks to elevate the R language to supercomputers. Most of its functionalities revolve around parallelization features, yet the pbdDMAT package (Schmidt et al. 2012) of the project offers an implicitly parallel system for doing distributed matrix computation in R. The bigmem and pbdDMAT packages are useful solutions, but do not always provide the level of flexibility needed in handling complex constructs because of the fact that they rely on their own constructs to handle big data.Nowadays, the dplyr package (Wickham and Francois 2015) has become very popular for data manipulation, providing a repertoire of functions for accessing data stored in databases. Coupled with packages dedicated for specific database implementations, such as RPostgreSQL (Conway et al. 2013), it offers the possibility to write R scripts that access the underlying databases from within the R environment, but with the look and feel of relational data manipulation. This approach is more attractive for a large scale implementation, such as the one designed for the LifeWatchGreece portal.As far as parallelization is concerned, a multitude of packages have emerged, such as snow (Tierney et al. 2015), multicore (Urbanek 2009) and parallel. Due to the complexity of tasks required in vegan, as well as in other packages for the LifeWatchGreece project, we found the existing approaches for parallel computing rather restrictive. Our decision in this project was to go into the low-level whenever necessary and implement custom parallel solutions which can provide more flexibility. To assist us in this process, packages that provide interfaces to MPI (Message-Passing Interface) for R are proved really valuable. Rmpi (Yu 2002) is one of the most popular solutions that can port low level MPI functions into R, abstracting the complexities of writing C or Fortran code. The more recent pbdR project (Ostrouchov et al. 2012) also offers such a wrapper through the pbdMPI library, which is intended for Single Program Multiple Data (SPMD) programming with big data.After considering the benefits offered, we decided to adopt pbdMPI (Chen et al. 2012, as our primary package for parallelization within LifeWatchGreece, and couple it with other solutions for parallelization or optimization of code, whenever necessary.Summarizing, the work conducted in the context of the project aims at applying optimization techniques for data on two different levels of abstraction described in detail in the project description. This is done by:1) Using the pbdMPI package to implement Single Program Multiple Data (SPMD) parallelization on primitive mathematical operations, allowing for interplay with functions of the vegan package.2) Using the dplyr and RPostgreSQL packages in order to offer secondary storage solutions whenever memory demands exceed available RAM resources (memory exhaustion)Option (1) may be employed in conjugation with option (2) to address memory exhaustion issues. While, for speed-up and job segmentation issues we only use option (1).We finally evaluate our optimization results using two test case scenarios with real data obtained from environmental ecologists in the standard file formats, commonly utilized in the field. We also demonstrate results and visualization outcomes obtained through the graphical user interface available through the LifeWatchGreece portal." . 
+ openbiodiv:abdc7126-63da-4aeb-a30f-0aa2edc2a450   rdf:type   doco:Figure ;
+	 po:isContainedBy   openbiodiv:5a07c45e-25a3-44f7-a29a-5df87237a4d5 ;
+	 c4o:hasContent   "Figure 1.The general architecture design to approach the development of the LifeWatchGreece RvLab." . 
+ openbiodiv:19213c12-331b-4466-bda7-7835b9b6ba0c   rdf:type   doco:Figure ;
+	 po:isContainedBy   openbiodiv:5a07c45e-25a3-44f7-a29a-5df87237a4d5 ;
+	 c4o:hasContent   "Figure 2.The overall pipeline for the optimization process." . 
+ openbiodiv:a4686028-f465-4303-afb3-d35f387ce1be   rdf:type   doco:Figure ;
+	 po:isContainedBy   openbiodiv:5a07c45e-25a3-44f7-a29a-5df87237a4d5 ;
+	 c4o:hasContent   "Figure 3.Example of Low level optimization (level 1) applied to multiple and recurrent primitive functions." . 
+ openbiodiv:b3d8eee2-334d-49fe-a34f-f299a71d9620   rdf:type   doco:Figure ;
+	 po:isContainedBy   openbiodiv:5a07c45e-25a3-44f7-a29a-5df87237a4d5 ;
+	 c4o:hasContent   "Figure 4.Example of High level optimization (level 2) applied in general functions." . 
+ openbiodiv:fd159507-2786-4c7d-a233-98652c23096d   rdf:type   doco:Figure ;
+	 po:isContainedBy   openbiodiv:5a07c45e-25a3-44f7-a29a-5df87237a4d5 ;
+	 c4o:hasContent   "Figure 5.Methodology adopted for operations with memory leakage." . 
+ openbiodiv:d6363f2d-28e7-4d96-81b1-cc1243484df4   rdf:type   doco:Figure ;
+	 po:isContainedBy   openbiodiv:5a07c45e-25a3-44f7-a29a-5df87237a4d5 ;
+	 c4o:hasContent   "Figure 6.Screenshot of portal's landing (left image) and home page (right image) available via the LifeWatchGreece portal, displaying basic information on all virtual laboratories (including RvLab)." . 
+ openbiodiv:4d891cd7-e0ae-4f98-a3c3-4adf3d5e06ea   rdf:type   doco:Figure ;
+	 po:isContainedBy   openbiodiv:5a07c45e-25a3-44f7-a29a-5df87237a4d5 ;
+	 c4o:hasContent   "Figure 7.The RvLab main interface." . 
+ openbiodiv:872a0a8e-9960-41d3-b0d2-782cb88e53ac   rdf:type   doco:Figure ;
+	 po:isContainedBy   openbiodiv:5a07c45e-25a3-44f7-a29a-5df87237a4d5 ;
+	 c4o:hasContent   "Basic file formats supported by RvLab:Figure 8a.Aggregation file.Figure 8b.Environmental data file (quantitative).Figure 8c.Abundance matrix.Figure 8d.Factor file (qualitative)." . 
+ openbiodiv:d394d1c5-cfee-41c6-9d84-2b229dec0663   rdf:type   doco:Figure ;
+	 po:isContainedBy   openbiodiv:872a0a8e-9960-41d3-b0d2-782cb88e53ac ;
+	 c4o:hasContent   "Figure 8a.Aggregation file." . 
+ openbiodiv:729cc85f-31e6-4325-a218-708b7ef26844   rdf:type   doco:Figure ;
+	 po:isContainedBy   openbiodiv:872a0a8e-9960-41d3-b0d2-782cb88e53ac ;
+	 c4o:hasContent   "Figure 8b.Environmental data file (quantitative)." . 
+ openbiodiv:f8122d2f-67c1-4af8-a34e-8f95e6c6d0be   rdf:type   doco:Figure ;
+	 po:isContainedBy   openbiodiv:872a0a8e-9960-41d3-b0d2-782cb88e53ac ;
+	 c4o:hasContent   "Figure 8c.Abundance matrix." . 
+ openbiodiv:db2f3252-914f-4daf-bcef-cb6241ae39fc   rdf:type   doco:Figure ;
+	 po:isContainedBy   openbiodiv:872a0a8e-9960-41d3-b0d2-782cb88e53ac ;
+	 c4o:hasContent   "Figure 8d.Factor file (qualitative)." . 
+ openbiodiv:94a5b16a-ae30-42ea-b604-791fd33856ba   rdf:type   doco:Figure ;
+	 po:isContainedBy   openbiodiv:5a07c45e-25a3-44f7-a29a-5df87237a4d5 ;
+	 c4o:hasContent   "Figure 9.The results page of RvLab." . 
+ openbiodiv:dad5380b-bb34-43bb-83cd-78ea37cb4ba8   rdf:type   doco:Figure ;
+	 po:isContainedBy   openbiodiv:5a07c45e-25a3-44f7-a29a-5df87237a4d5 ;
+	 c4o:hasContent   "Screen shots showing a few of the graphical results generated by RvLab functions.Figure 10a.Figure 10b.Figure 10c.Figure 10d." . 
+ openbiodiv:f5e76dda-b0f2-4aee-814f-5260587a9a9f   rdf:type   doco:Figure ;
+	 po:isContainedBy   openbiodiv:dad5380b-bb34-43bb-83cd-78ea37cb4ba8 ;
+	 c4o:hasContent   "Figure 10a." . 
+ openbiodiv:9f2696c4-495d-4981-b2ad-ce1a71beaf3f   rdf:type   doco:Figure ;
+	 po:isContainedBy   openbiodiv:dad5380b-bb34-43bb-83cd-78ea37cb4ba8 ;
+	 c4o:hasContent   "Figure 10b." . 
+ openbiodiv:f66f4b24-150a-469d-be10-5834c44b3e4a   rdf:type   doco:Figure ;
+	 po:isContainedBy   openbiodiv:dad5380b-bb34-43bb-83cd-78ea37cb4ba8 ;
+	 c4o:hasContent   "Figure 10c." . 
+ openbiodiv:4dfdf599-65bf-4e52-8e67-597c524a7c52   rdf:type   doco:Figure ;
+	 po:isContainedBy   openbiodiv:dad5380b-bb34-43bb-83cd-78ea37cb4ba8 ;
+	 c4o:hasContent   "Figure 10d." . 
+ openbiodiv:8f9c9227-256a-47bb-9cef-a59df9773996   rdf:type   doco:Figure ;
+	 po:isContainedBy   openbiodiv:5a07c45e-25a3-44f7-a29a-5df87237a4d5 ;
+	 c4o:hasContent   "Mobile RvLab application web services and screen shots.Figure 11a.Data exchange web services between portal and mobile RvLab versions.Figure 11b.Overall workflow of the mobRvLab interface." . 
+ openbiodiv:8f7e8bb2-327e-44c4-9948-7bca61c221a0   rdf:type   doco:Figure ;
+	 po:isContainedBy   openbiodiv:8f9c9227-256a-47bb-9cef-a59df9773996 ;
+	 c4o:hasContent   "Figure 11a.Data exchange web services between portal and mobile RvLab versions." . 
+ openbiodiv:1cbd21b6-68af-4fb0-bc96-834d62536851   rdf:type   doco:Figure ;
+	 po:isContainedBy   openbiodiv:8f9c9227-256a-47bb-9cef-a59df9773996 ;
+	 c4o:hasContent   "Figure 11b.Overall workflow of the mobRvLab interface." . 
+ openbiodiv:d39b65b4-189d-4327-b138-75006734bc5b   rdf:type   doco:Figure ;
+	 po:isContainedBy   openbiodiv:5a07c45e-25a3-44f7-a29a-5df87237a4d5 ;
+	 c4o:hasContent   "Figure 12.Computational results about optimization in taxa2dist's performance, considering the number of processors (x-axis) and the size of the input data." . 
+ openbiodiv:b852aca6-3eb9-4a4f-a565-14cbb4a11e01   rdf:type   doco:Figure ;
+	 po:isContainedBy   openbiodiv:5a07c45e-25a3-44f7-a29a-5df87237a4d5 ;
+	 c4o:hasContent   "Figure 13.Computational results about optimization in taxa2dist+taxondive's performance, considering the number of processors (x-axis) and the size of the input data." . 
+ openbiodiv:07248b96-4257-488f-9918-540415704494   rdf:type   doco:Figure ;
+	 po:isContainedBy   openbiodiv:5a07c45e-25a3-44f7-a29a-5df87237a4d5 ;
+	 c4o:hasContent   "Figure 14.Computational results about optimization in anosim's performance, depending on permuations and number of processors (np), for small datasets." . 
+ openbiodiv:52a28ef7-80da-4883-a977-930e0cf769f4   rdf:type   doco:Figure ;
+	 po:isContainedBy   openbiodiv:5a07c45e-25a3-44f7-a29a-5df87237a4d5 ;
+	 c4o:hasContent   "Figure 15.Computational results about optimization in anosim's performance, depending on permuations and number of processors (np), for large datasets." . 
+ openbiodiv:365852cb-290a-4d07-84fc-d787908ecbcd   rdf:type   doco:Figure ;
+	 po:isContainedBy   openbiodiv:5a07c45e-25a3-44f7-a29a-5df87237a4d5 ;
+	 c4o:hasContent   "Figure 16.Computational results about optimization in the performance of adonis, depending on permuations and number of processors (np)." . 
+ openbiodiv:c1c31c01-f3ff-4184-81f9-6acc7c437df0   rdf:type   doco:Figure ;
+	 po:isContainedBy   openbiodiv:5a07c45e-25a3-44f7-a29a-5df87237a4d5 ;
+	 c4o:hasContent   "Figure 17.Computational results about optimization in simper's performance, depending on permutations and number of processors (np)." . 
+ openbiodiv:b7ae0662-2e2e-4153-af9f-2a82eaa43093   rdf:type   doco:Figure ;
+	 po:isContainedBy   openbiodiv:5a07c45e-25a3-44f7-a29a-5df87237a4d5 ;
+	 c4o:hasContent   "Figure 18.Computational results about optimization in mantel's performance, depending on permuations and number of processors (np), for small datasets." . 
+ openbiodiv:6e8e3e23-b4e4-4b76-87f4-cb8e1ad0ba1b   rdf:type   doco:Figure ;
+	 po:isContainedBy   openbiodiv:5a07c45e-25a3-44f7-a29a-5df87237a4d5 ;
+	 c4o:hasContent   "Figure 19.Computational results about optimization in mantel's performance, depending on permuations and number of processors (np), for large datasets." . 
+ openbiodiv:199d9d60-8ef0-4881-9cea-3e93578eeb05   rdf:type   doco:Figure ;
+	 po:isContainedBy   openbiodiv:5a07c45e-25a3-44f7-a29a-5df87237a4d5 ;
+	 c4o:hasContent   "Figure 20.Computational results about optimization in bioenv's performance, depending on number of columns and number of processors (np)." . }

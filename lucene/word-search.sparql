@@ -1,0 +1,61 @@
+
+
+PREFIX :<http://www.ontotext.com/connectors/lucene#>
+PREFIX inst:<http://www.ontotext.com/connectors/lucene/instance#>
+INSERT DATA {
+	inst:WordSearch :createConnector '''
+{
+  "fields": [
+    {
+      "indexed": true,
+      "stored": true,
+      "analyzed": true,
+      "multivalued": true,
+      "fieldName": "label",
+      "propertyChain": [
+        "http://www.w3.org/2000/01/rdf-schema#label"
+      ],
+      "facet": true
+    },
+    {
+      "indexed": true,
+      "stored": true,
+      "analyzed": true,
+      "multivalued": true,
+      "fieldName": "last_name",
+      "propertyChain": [
+        "http://xmlns.com/foaf/0.1/surname"
+      ],
+      "facet": true
+    },
+    {
+      "indexed": true,
+      "stored": true,
+      "analyzed": true,
+      "multivalued": true,
+      "fieldName": "email",
+      "propertyChain": [
+        "http://xmlns.com/foaf/0.1/mbox"
+      ],
+      "facet": true
+    },
+    {
+      "indexed": true,
+      "stored": true,
+      "analyzed": true,
+      "multivalued": true,
+      "fieldName": "affiliation",
+      "propertyChain": [
+        "http://openbiodiv.net/affiliation"
+      ],
+      "facet": true
+    }
+  ],
+  "types": [
+    "http://www.w3.org/2002/07/owl#Thing"
+  ],
+  "stripMarkup": false
+}
+''' .
+}
+
