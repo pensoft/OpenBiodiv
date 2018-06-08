@@ -10,7 +10,7 @@ library(rdf4r)
 obkms = basic_triplestore_access(
   server_url = "192.168.90.23:7200",
   repository = "depl_test",
-  user = "dbuser",
+  user = "admin",
   password = Sys.getenv("OBKMS")
 )
 #list_repositories(obkms)
@@ -19,14 +19,14 @@ obkms$repository = "depl_test"
 # Importing of ontologies
 ontologies = lapply(
   list.files(
-    "~/OpenBiodiv/ontology/imports",
+    "~/Work/PhD/openbiodiv/ontology/imports",
     pattern = "*.ttl",
     full.names =  TRUE
     ),
   readLines
 )
 
-sapply(ontologies, add_data, access_options = obkms)
+sapply(ontologies[10], add_data, access_options = obkms)
 
 # Import Lucene Connectors
 connectors = lapply(

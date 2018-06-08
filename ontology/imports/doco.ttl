@@ -1,3 +1,4 @@
+@prefix doco: <http://purl.org/spar/doco> .
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
 @prefix deo: <http://purl.org/spar/deo/> .
 @prefix orb: <http://purl.org/orb/1.0/> .
@@ -34,81 +35,81 @@ dc:title a owl:AnnotationProperty .
         <http://www.essepuntato.it/2008/12/pattern> ;
     owl:versionInfo 1.3 .
 
-:BibliographicReferenceList a owl:Class ;
+doco:BibliographicReferenceList a owl:Class ;
     rdfs:label "bibliographic reference list"@en ;
     rdfs:comment "A list, usually within a bibliography, of all the references within the citing document that refer to  journal articles, books, book chapters, Web sites or similar publications."@en ;
     rdfs:subClassOf [ a owl:Class ;
-            owl:intersectionOf ( :ListOfReferences [ a owl:Restriction ;
+            owl:intersectionOf ( doco:ListOfReferences [ a owl:Restriction ;
                         owl:onProperty pattern:contains ;
                         owl:someValuesFrom deo:BibliographicReference ] ) ] .
 
-:Bibliography a owl:Class ;
+doco:Bibliography a owl:Class ;
     rdfs:label "bibliography"@en ;
     rdfs:comment "A document section containing a list of bibliographic references."@en ;
     rdfs:subClassOf [ a owl:Class ;
             owl:intersectionOf ( [ a owl:Class ;
-                        owl:unionOf ( :Chapter :Section ) ] [ a owl:Restriction ;
+                        owl:unionOf ( doco:Chapter doco:Section ) ] [ a owl:Restriction ;
                         owl:onProperty terms:hasPart ;
                         owl:someValuesFrom deo:BibliographicReference ] ) ] .
 
-:BlockQuotation a owl:Class ;
+doco:BlockQuotation a owl:Class ;
     rdfs:label "block quotation"@en ;
     rdfs:comment "A block quotation (also known as a long quotation or extract) is a quotation in a written document which is set off from the main text as a container for distinct paragraphs, which is typically distinguished visually using indentation, a different font, or smaller size. Block quotations are used for longer passages than run-in quotations (which are set off with quotation marks)."@en ;
     rdfs:subClassOf pattern:Container .
 
-:ChapterLabel a owl:Class ;
+doco:ChapterLabel a owl:Class ;
     rdfs:label "chapter label"@en ;
     rdfs:comment "A block containing a label for the chapter, that may include the chapter number."@en ;
     rdfs:subClassOf [ a owl:Class ;
-            owl:intersectionOf ( :Label [ a owl:Restriction ;
+            owl:intersectionOf ( doco:Label [ a owl:Restriction ;
                         owl:onProperty terms:isPartOf ;
-                        owl:someValuesFrom :Chapter ] ) ] ;
-    owl:disjointWith :SectionLabel .
+                        owl:someValuesFrom doco:Chapter ] ) ] ;
+    owl:disjointWith doco:SectionLabel .
 
-:ChapterSubtitle a owl:Class ;
+doco:ChapterSubtitle a owl:Class ;
     rdfs:label "chapter subtitle"@en ;
     rdfs:comment "The subtitle of a chapter."@en ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:onProperty terms:isPartOf ;
-            owl:someValuesFrom :Chapter ],
-        :Subtitle ;
-    owl:disjointWith :SectionSubtitle .
+            owl:someValuesFrom doco:Chapter ],
+        doco:Subtitle ;
+    owl:disjointWith doco:SectionSubtitle .
 
-:ChapterTitle a owl:Class ;
+doco:ChapterTitle a owl:Class ;
     rdfs:label "chapter title"@en ;
     rdfs:comment "The title of a chapter."@en ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:onProperty pattern:isContainedByAsHeader ;
-            owl:someValuesFrom :Chapter ],
-        :Title ;
-    owl:disjointWith :SectionTitle .
+            owl:someValuesFrom doco:Chapter ],
+        doco:Title ;
+    owl:disjointWith doco:SectionTitle .
 
-:FigureLabel a owl:Class ;
+doco:FigureLabel a owl:Class ;
     rdfs:label "figure label"@en ;
     rdfs:comment "A block containing a label for the figure box, that may include the figure number."@en ;
     rdfs:subClassOf [ a owl:Class ;
-            owl:intersectionOf ( :Label [ a owl:Restriction ;
+            owl:intersectionOf ( doco:Label [ a owl:Restriction ;
                         owl:onProperty terms:isPartOf ;
-                        owl:someValuesFrom :FigureBox ] ) ] .
+                        owl:someValuesFrom doco:FigureBox ] ) ] .
 
-:Stanza a owl:Class ;
+doco:Stanza a owl:Class ;
     rdfs:label "stanza"@en ;
     rdfs:comment "A unit within a larger poem. A stanza consists of a grouping of lines, set off by a vertical space from other stanzas, that usually has a set pattern of meter and rhyme."@en ;
     rdfs:subClassOf [ a owl:Class ;
             owl:intersectionOf ( [ a owl:Class ;
                         owl:intersectionOf ( deo:DiscourseElement pattern:Container ) ] [ a owl:Restriction ;
-                        owl:allValuesFrom :Line ;
+                        owl:allValuesFrom doco:Line ;
                         owl:onProperty pattern:contains ] ) ] .
 
-:TableLabel a owl:Class ;
+doco:TableLabel a owl:Class ;
     rdfs:label "table label"@en ;
     rdfs:comment "A block containing a label for the table box, that may include the table number."@en ;
     rdfs:subClassOf [ a owl:Class ;
-            owl:intersectionOf ( :Label [ a owl:Restriction ;
+            owl:intersectionOf ( doco:Label [ a owl:Restriction ;
                         owl:onProperty terms:isPartOf ;
-                        owl:someValuesFrom :TableBox ] ) ] .
+                        owl:someValuesFrom doco:TableBox ] ) ] .
 
-:TextBox a owl:Class ;
+doco:TextBox a owl:Class ;
     rdfs:label "text box"@en ;
     rdfs:comment "A space within a document that contains textual content relating to, quoting from or expanding upon the main text. Usually a textbox is delimited by a border or use of a background colour distinct from that of the main text."@en ;
     rdfs:subClassOf deo:DiscourseElement,
@@ -126,107 +127,107 @@ deo:Caption a owl:Class .
 
 deo:Reference a owl:Class .
 
-:Abstract a owl:Class ;
+doco:Abstract a owl:Class ;
     rdfs:label "abstract" ;
     rdfs:comment "A brief summary of a book, a research article, thesis, review, conference proceeding or any in-depth analysis of a particular subject or discipline, the purpose of which is to help the reader quickly ascertain the publication's purpose." ;
     rdfs:subClassOf [ a owl:Class ;
             owl:intersectionOf ( [ a owl:Class ;
-                        owl:unionOf ( :Chapter :Section ) ] [ a owl:Restriction ;
+                        owl:unionOf ( doco:Chapter doco:Section ) ] [ a owl:Restriction ;
                         owl:onProperty terms:isPartOf ;
                         owl:someValuesFrom [ a owl:Class ;
-                                owl:unionOf ( :BodyMatter :FrontMatter ) ] ] ) ] ;
+                                owl:unionOf ( doco:BodyMatter doco:FrontMatter ) ] ] ) ] ;
     owl:equivalentClass sro:Abstract .
 
-:Afterword a owl:Class ;
+doco:Afterword a owl:Class ;
     rdfs:label "afterword"@en ;
     rdfs:comment "A literary device that is often found at the end of a piece of literature. It generally covers the story of how the book came into being, or how the idea for the book was developed. Alternatively, it may be written by someone other than the author of the book, and may discuss the work's historical or cultural context, if the work is being reissued many years after its original publication."@en ;
     rdfs:subClassOf [ a owl:Class ;
-            owl:intersectionOf ( :Section [ a owl:Restriction ;
+            owl:intersectionOf ( doco:Section [ a owl:Restriction ;
                         owl:onProperty terms:isPartOf ;
-                        owl:someValuesFrom :BackMatter ] ) ] .
+                        owl:someValuesFrom doco:BackMatter ] ) ] .
 
-:Appendix a owl:Class ;
+doco:Appendix a owl:Class ;
     rdfs:label "appendix"@en ;
     rdfs:comment "A supplemental addition to the main work. It may contain data, more detailed information about methods and materials, or provide additional detail concerning the information found in the main work."@en ;
     rdfs:subClassOf [ a owl:Class ;
             owl:intersectionOf ( [ a owl:Class ;
-                        owl:intersectionOf ( :Section pattern:HeadedContainer ) ] [ a owl:Restriction ;
+                        owl:intersectionOf ( doco:Section pattern:HeadedContainer ) ] [ a owl:Restriction ;
                         owl:onProperty terms:isPartOf ;
-                        owl:someValuesFrom :BackMatter ] ) ] .
+                        owl:someValuesFrom doco:BackMatter ] ) ] .
 
-:Colophon a owl:Class ;
+doco:Colophon a owl:Class ;
     rdfs:label "colophon"@en ;
     rdfs:comment "A brief description of publication or production notes relevant to the document."@en ;
     rdfs:subClassOf [ a owl:Class ;
-            owl:intersectionOf ( :Section [ a owl:Restriction ;
+            owl:intersectionOf ( doco:Section [ a owl:Restriction ;
                         owl:onProperty terms:isPartOf ;
                         owl:someValuesFrom [ a owl:Class ;
-                                owl:unionOf ( :BackMatter :FrontMatter ) ] ] ) ] .
+                                owl:unionOf ( doco:BackMatter doco:FrontMatter ) ] ] ) ] .
 
-:ComplexRunInQuotation a owl:Class ;
+doco:ComplexRunInQuotation a owl:Class ;
     rdfs:label "complex run-in quotation"@en ;
     rdfs:comment "A quotation with a complex structure, that is included inline and is usually enclosed within quotation marks."@en ;
     rdfs:subClassOf deo:DiscourseElement,
         pattern:Popup .
 
-:Figure a owl:Class ;
+doco:Figure a owl:Class ;
     rdfs:label "figure"@en ;
     rdfs:comment "A communication object comprising one or more graphics, drawings, images, or other visual representations.."@en ;
     rdfs:subClassOf [ a owl:Class ;
             owl:unionOf ( pattern:Meta pattern:Milestone ) ],
         deo:DiscourseElement .
 
-:Footnote a owl:Class ;
+doco:Footnote a owl:Class ;
     rdfs:label "footnote"@en ;
     rdfs:comment "A structure within a sentence that permits the author to make a comment or to cite another publication in support of the text, or both. A footnote is normally flagged by a superscript number immediately following that portion of the text to which it relates. For convenience of reading, the text of the footnote is usually printed at the bottom of the page or at the end of a text."@en ;
     rdfs:subClassOf [ a owl:Class ;
             owl:unionOf ( pattern:Container pattern:Popup ) ],
         deo:DiscourseElement .
 
-:Foreword a owl:Class ;
+doco:Foreword a owl:Class ;
     rdfs:label "foreword"@en ;
     rdfs:comment "A section in a book or report, usually written by someone other than the author, that introduces or commends the document to the reader. It may include description of the interaction between the writer of the foreword and the author."@en ;
     rdfs:subClassOf [ a owl:Class ;
-            owl:intersectionOf ( :Section [ a owl:Restriction ;
+            owl:intersectionOf ( doco:Section [ a owl:Restriction ;
                         owl:onProperty terms:isPartOf ;
-                        owl:someValuesFrom :FrontMatter ] ) ] .
+                        owl:someValuesFrom doco:FrontMatter ] ) ] .
 
-:FormulaBox a owl:Class ;
+doco:FormulaBox a owl:Class ;
     rdfs:label "formula box"@en ;
     rdfs:comment "A space within a document that contains one or more formulae."@en ;
     rdfs:subClassOf [ a owl:Class ;
             owl:intersectionOf ( [ a owl:Class ;
                         owl:intersectionOf ( deo:DiscourseElement pattern:Container ) ] [ a owl:Restriction ;
                         owl:onProperty terms:hasPart ;
-                        owl:someValuesFrom :Formula ] ) ] .
+                        owl:someValuesFrom doco:Formula ] ) ] .
 
-:Glossary a owl:Class ;
+doco:Glossary a owl:Class ;
     rdfs:label "glossary"@en ;
     rdfs:comment "A set of definitions of words or phrases of importance to the work, normally alphabetized. In longer works of fiction, the entries may contains places and characters."@en ;
     rdfs:subClassOf [ a owl:Class ;
-            owl:intersectionOf ( :Section [ a owl:Restriction ;
+            owl:intersectionOf ( doco:Section [ a owl:Restriction ;
                         owl:onProperty terms:isPartOf ;
                         owl:someValuesFrom [ a owl:Class ;
-                                owl:unionOf ( :BackMatter :FrontMatter ) ] ] ) ] .
+                                owl:unionOf ( doco:BackMatter doco:FrontMatter ) ] ] ) ] .
 
-:Index a owl:Class ;
+doco:Index a owl:Class ;
     rdfs:label "index"@en ;
     rdfs:comment "A section containing a list of references to information on the named topic of importance to the content of the document. The references may be to page numbers, paragraph numbers, section numbers or chapter numbers within the document."@en ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:onProperty terms:hasPart ;
             owl:someValuesFrom [ a owl:Class ;
-                    owl:intersectionOf ( :ListOfReferences [ a owl:Restriction ;
+                    owl:intersectionOf ( doco:ListOfReferences [ a owl:Restriction ;
                                 owl:allValuesFrom [ a owl:Restriction ;
                                         owl:onProperty terms:relation ;
-                                        owl:someValuesFrom :TextChunk ] ;
+                                        owl:someValuesFrom doco:TextChunk ] ;
                                 owl:onProperty pattern:contains ] ) ] ],
         [ a owl:Class ;
             owl:intersectionOf ( [ a owl:Class ;
-                        owl:intersectionOf ( :Section pattern:HeadedContainer ) ] [ a owl:Restriction ;
+                        owl:intersectionOf ( doco:Section pattern:HeadedContainer ) ] [ a owl:Restriction ;
                         owl:onProperty terms:isPartOf ;
-                        owl:someValuesFrom :BackMatter ] ) ] .
+                        owl:someValuesFrom doco:BackMatter ] ) ] .
 
-:Line a owl:Class ;
+doco:Line a owl:Class ;
     rdfs:label "line"@en ;
     rdfs:comment """A line in poetry is a unit of language into which a poem is divided which operates on principles which are distinct from and not necessarily coincident with grammatical structures, such as the sentence or clauses in sentences.
 
@@ -234,116 +235,116 @@ A distinct numbered group of lines in verse is normally called a stanza."""@en ;
     rdfs:subClassOf deo:DiscourseElement,
         pattern:Block .
 
-:ListOfAuthors a owl:Class ;
+doco:ListOfAuthors a owl:Class ;
     rdfs:label "list of authors"@en ;
     rdfs:comment "A list of items each denoting an author of a particular publication."@en ;
-    rdfs:subClassOf :ListOfAgents .
+    rdfs:subClassOf doco:ListOfAgents .
 
-:ListOfContributors a owl:Class ;
+doco:ListOfContributors a owl:Class ;
     rdfs:label "list of contributors"@en ;
     rdfs:comment "A list of items, each denoting a contributor to a publication such as an encyclopedia or a text book, where such contributions are insufficient to warrant classification as author."@en ;
-    rdfs:subClassOf :ListOfAgents .
+    rdfs:subClassOf doco:ListOfAgents .
 
-:ListOfFigures a owl:Class ;
+doco:ListOfFigures a owl:Class ;
     rdfs:label "list of figures"@en ;
     rdfs:comment "A section of the document listing all the figures, identified by their titles and referenced to their locations in the document. May also be referred to as 'List of illustrations'."@en ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:onProperty terms:hasPart ;
             owl:someValuesFrom [ a owl:Class ;
-                    owl:intersectionOf ( :ListOfReferences [ a owl:Restriction ;
+                    owl:intersectionOf ( doco:ListOfReferences [ a owl:Restriction ;
                                 owl:allValuesFrom [ a owl:Restriction ;
                                         owl:onProperty terms:relation ;
-                                        owl:someValuesFrom :FigureBox ] ;
+                                        owl:someValuesFrom doco:FigureBox ] ;
                                 owl:onProperty pattern:contains ] ) ] ],
         [ a owl:Class ;
             owl:intersectionOf ( [ a owl:Class ;
-                        owl:intersectionOf ( :Section pattern:HeadedContainer ) ] [ a owl:Restriction ;
+                        owl:intersectionOf ( doco:Section pattern:HeadedContainer ) ] [ a owl:Restriction ;
                         owl:onProperty terms:isPartOf ;
                         owl:someValuesFrom [ a owl:Class ;
-                                owl:unionOf ( :BackMatter :FrontMatter ) ] ] ) ] .
+                                owl:unionOf ( doco:BackMatter doco:FrontMatter ) ] ] ) ] .
 
-:ListOfOrganizations a owl:Class ;
+doco:ListOfOrganizations a owl:Class ;
     rdfs:label "list of organizations"@en ;
     rdfs:comment "A list of items, each denoting an organization or institution related to the publication, for example the authors' affiliations, or the suppliers of information, software, equipment or consumables used in the work described in the publication."@en ;
-    rdfs:subClassOf :ListOfAgents .
+    rdfs:subClassOf doco:ListOfAgents .
 
-:ListOfTables a owl:Class ;
+doco:ListOfTables a owl:Class ;
     rdfs:label "list of tables"@en ;
     rdfs:comment "A section of the document listing all the tables, identified by their titles and referenced to their locations in the document."@en ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:onProperty terms:hasPart ;
             owl:someValuesFrom [ a owl:Class ;
-                    owl:intersectionOf ( :ListOfReferences [ a owl:Restriction ;
+                    owl:intersectionOf ( doco:ListOfReferences [ a owl:Restriction ;
                                 owl:allValuesFrom [ a owl:Restriction ;
                                         owl:onProperty terms:relation ;
-                                        owl:someValuesFrom :TableBox ] ;
+                                        owl:someValuesFrom doco:TableBox ] ;
                                 owl:onProperty pattern:contains ] ) ] ],
         [ a owl:Class ;
             owl:intersectionOf ( [ a owl:Class ;
-                        owl:intersectionOf ( :Section pattern:HeadedContainer ) ] [ a owl:Restriction ;
+                        owl:intersectionOf ( doco:Section pattern:HeadedContainer ) ] [ a owl:Restriction ;
                         owl:onProperty terms:isPartOf ;
                         owl:someValuesFrom [ a owl:Class ;
-                                owl:unionOf ( :BackMatter :FrontMatter ) ] ] ) ] .
+                                owl:unionOf ( doco:BackMatter doco:FrontMatter ) ] ] ) ] .
 
-:Part a owl:Class ;
+doco:Part a owl:Class ;
     rdfs:label "part"@en ;
     rdfs:comment "A container of a semantic subdivision of a document. For example, chapters of a novel may be grouped into distinct parts that may be named 'Part 1', 'Part 2', etc., 'Book 1', 'Book 2', etc., or 'Genesis', 'Exodus', etc."@en ;
     rdfs:subClassOf [ a owl:Class ;
             owl:intersectionOf ( deo:DiscourseElement pattern:Container ) ] .
 
-:Preface a owl:Class ;
+doco:Preface a owl:Class ;
     rdfs:label "preface"@en ;
     rdfs:comment "A section describing how the document came into being, or how the idea for it was developed. The preface may contains acknowledgements. The preface to a later edition of the work often explains in what respect that edition differs from previous ones."@en ;
     rdfs:subClassOf [ a owl:Class ;
-            owl:intersectionOf ( :Section [ a owl:Restriction ;
+            owl:intersectionOf ( doco:Section [ a owl:Restriction ;
                         owl:onProperty terms:isPartOf ;
-                        owl:someValuesFrom :FrontMatter ] ) ] .
+                        owl:someValuesFrom doco:FrontMatter ] ) ] .
 
-:SectionLabel a owl:Class ;
+doco:SectionLabel a owl:Class ;
     rdfs:label "section label"@en ;
     rdfs:comment "A block containing a label for the section, that may include the section number."@en ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:onProperty terms:isPartOf ;
-            owl:someValuesFrom :Section ],
-        :Label .
+            owl:someValuesFrom doco:Section ],
+        doco:Label .
 
-:SectionSubtitle a owl:Class ;
+doco:SectionSubtitle a owl:Class ;
     rdfs:label "section subtitle"@en ;
     rdfs:comment "The subtitle of a section."@en ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:onProperty terms:isPartOf ;
-            owl:someValuesFrom :Section ],
-        :Subtitle .
+            owl:someValuesFrom doco:Section ],
+        doco:Subtitle .
 
-:SectionTitle a owl:Class ;
+doco:SectionTitle a owl:Class ;
     rdfs:label "section title"@en ;
     rdfs:comment "The title of a section."@en ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:onProperty pattern:isContainedByAsHeader ;
-            owl:someValuesFrom :Section ],
-        :Title .
+            owl:someValuesFrom doco:Section ],
+        doco:Title .
 
-:SimpleRunInQuotation a owl:Class ;
+doco:SimpleRunInQuotation a owl:Class ;
     rdfs:label "simple run-in quotation"@en ;
     rdfs:comment "A textual quotation that is included inline and is usually enclosed within quotation marks."@en ;
     rdfs:subClassOf pattern:Inline .
 
-:TableOfContents a owl:Class ;
+doco:TableOfContents a owl:Class ;
     rdfs:label "table of contents"@en ;
     rdfs:comment "A section of the document listing all the chapters and sections, identified by their titles and referenced to their locations in the document. The table of contents may include a list of the front-matter and back-matter items, in addition to the body-matter items.  Where the document is a journal or magazine issue, the table of content lists the constituent items contained in that issue, typically by title, authors and first page number."@en ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:onProperty terms:hasPart ;
             owl:someValuesFrom [ a owl:Class ;
-                    owl:intersectionOf ( :ListOfReferences [ a owl:Restriction ;
+                    owl:intersectionOf ( doco:ListOfReferences [ a owl:Restriction ;
                                 owl:allValuesFrom [ a owl:Restriction ;
                                         owl:onProperty terms:relation ;
-                                        owl:someValuesFrom :Section ] ;
+                                        owl:someValuesFrom doco:Section ] ;
                                 owl:onProperty pattern:contains ] ) ] ],
         [ a owl:Class ;
-            owl:intersectionOf ( :Section [ a owl:Restriction ;
+            owl:intersectionOf ( doco:Section [ a owl:Restriction ;
                         owl:onProperty terms:isPartOf ;
                         owl:someValuesFrom [ a owl:Class ;
-                                owl:unionOf ( :BackMatter :FrontMatter ) ] ] ) ] .
+                                owl:unionOf ( doco:BackMatter doco:FrontMatter ) ] ] ) ] .
 
 sro:Abstract a owl:Class .
 
@@ -355,28 +356,28 @@ pattern:Pattern a owl:Class .
 
 deo:BibliographicReference a owl:Class .
 
-:FigureBox a owl:Class ;
+doco:FigureBox a owl:Class ;
     rdfs:label "figure box"@en ;
     rdfs:comment "A space within a document that contains a figure and its caption."@en ;
     rdfs:subClassOf [ a owl:Class ;
-            owl:intersectionOf ( :CaptionedBox [ a owl:Restriction ;
+            owl:intersectionOf ( doco:CaptionedBox [ a owl:Restriction ;
                         owl:onProperty terms:hasPart ;
-                        owl:someValuesFrom :Figure ] ) ] ;
-    owl:disjointWith :TableBox .
+                        owl:someValuesFrom doco:Figure ] ) ] ;
+    owl:disjointWith doco:TableBox .
 
-:Formula a owl:Class ;
+doco:Formula a owl:Class ;
     rdfs:label "formula"@en ;
     rdfs:comment "A unit of information expressed in mathematical, chemical or logical symbols and language."@en ;
     rdfs:subClassOf deo:DiscourseElement,
         pattern:Popup .
 
-:Sentence a owl:Class ;
+doco:Sentence a owl:Class ;
     rdfs:label "sentence"@en ;
     rdfs:comment "An expression in natural language forming a single grammatical unit. A sentence minimally consists of a subject and an intransitive verb, or a subject, a transitive verb and an object, and may include additional dependent clauses. In written text, a sentence is always terminated by a full stop. A sentence can include words grouped meaningfully to express a statement, a question, an exclamation, a request or a command."@en ;
     rdfs:subClassOf deo:DiscourseElement,
         pattern:Inline .
 
-:Table a owl:Class ;
+doco:Table a owl:Class ;
     rdfs:label "table"@en ;
     rdfs:comment "A set of data arranged in cells within rows and columns."@en ;
     rdfs:subClassOf [ a owl:Restriction ;
@@ -385,14 +386,14 @@ deo:BibliographicReference a owl:Class .
         deo:DiscourseElement,
         pattern:Table .
 
-:TextChunk a owl:Class ;
+doco:TextChunk a owl:Class ;
     rdfs:label "text chunk"@en ;
     rdfs:comment "A piece of text defined by a start point and an end point."@en ;
     rdfs:subClassOf pattern:Inline .
 
 pattern:Field a owl:Class .
 
-:CaptionedBox a owl:Class ;
+doco:CaptionedBox a owl:Class ;
     rdfs:label "captioned box"@en ;
     rdfs:comment "A rectangle space within a page that contains an object and its related caption."@en ;
     rdfs:subClassOf [ a owl:Class ;
@@ -401,7 +402,7 @@ pattern:Field a owl:Class .
                         owl:onProperty terms:hasPart ;
                         owl:someValuesFrom deo:Caption ] ) ] .
 
-:List a owl:Class ;
+doco:List a owl:Class ;
     rdfs:label "list"@en ;
     rdfs:comment "An enumeration of items."@en ;
     rdfs:subClassOf [ a owl:Class ;
@@ -417,36 +418,36 @@ pattern:Field a owl:Class .
             owl:onProperty pattern:contains ],
         deo:DiscourseElement .
 
-:ListOfAgents a owl:Class ;
+doco:ListOfAgents a owl:Class ;
     rdfs:label "list of agents"@en ;
     rdfs:comment "A list of items each denoting an agent, such as an author, a contributor or an organization, related to a particular publication."@en ;
-    rdfs:subClassOf :List ;
-    owl:disjointWith :ListOfReferences .
+    rdfs:subClassOf doco:List ;
+    owl:disjointWith doco:ListOfReferences .
 
-:Paragraph a owl:Class ;
+doco:Paragraph a owl:Class ;
     rdfs:label "paragraph"@en ;
     rdfs:comment "A self-contained unit of discourse that deals with a particular point or idea. Paragraphs contains one or more sentences. The start of a paragraph is indicated by beginning on a new line, which may be indented or separated by a small vertical space by the preceding paragraph. "@en ;
     rdfs:subClassOf [ a owl:Class ;
             owl:intersectionOf ( [ a owl:Class ;
                         owl:intersectionOf ( deo:DiscourseElement pattern:Block ) ] [ a owl:Restriction ;
                         owl:onProperty pattern:contains ;
-                        owl:someValuesFrom :Sentence ] ) ] .
+                        owl:someValuesFrom doco:Sentence ] ) ] .
 
-:Subtitle a owl:Class ;
+doco:Subtitle a owl:Class ;
     rdfs:label "subtitle"@en ;
     rdfs:comment "An explanatory or alternative title of a publication. For example, Mary Shelley uses the alternative title 'The Modern Prometheus' to hint at the theme of her most famous novel 'Frankenstein'; Nick Efford uses the subtitle 'a practical introduction using Java' to qualify the title of his book 'Digital Image Processing'."@en ;
     rdfs:subClassOf deo:DiscourseElement,
         pattern:Block .
 
-:TableBox a owl:Class ;
+doco:TableBox a owl:Class ;
     rdfs:label "table box"@en ;
     rdfs:comment "A space within a document that contains a table and its caption."@en ;
     rdfs:subClassOf [ a owl:Class ;
-            owl:intersectionOf ( :CaptionedBox [ a owl:Restriction ;
+            owl:intersectionOf ( doco:CaptionedBox [ a owl:Restriction ;
                         owl:onProperty terms:hasPart ;
-                        owl:someValuesFrom :Table ] ) ] .
+                        owl:someValuesFrom doco:Table ] ) ] .
 
-:Title a owl:Class ;
+doco:Title a owl:Class ;
     rdfs:label "title"@en ;
     rdfs:comment "A word, phrase or sentence that precedes and indicates the subject of a document or a document component - e.g., a book, a report, a news article, a chapter, a section or a table."@en ;
     rdfs:subClassOf [ a owl:Restriction ;
@@ -469,7 +470,7 @@ terms:relation a owl:ObjectProperty .
 pattern:isContainedBy a owl:ObjectProperty ;
     rdfs:subPropertyOf terms:isPartOf .
 
-:BodyMatter a owl:Class ;
+doco:BodyMatter a owl:Class ;
     rdfs:label "body matter"@en ;
     rdfs:comment "The central principle part of a document, that contains the real content. It may be subdivided hierarchically by the use of chapters and sections."@en ;
     rdfs:subClassOf [ a owl:Class ;
@@ -477,10 +478,10 @@ pattern:isContainedBy a owl:ObjectProperty ;
         [ a owl:Restriction ;
             owl:allValuesFrom [ a owl:Class ;
                     owl:complementOf [ a owl:Class ;
-                            owl:unionOf ( :BackMatter :BodyMatter :FrontMatter ) ] ] ;
+                            owl:unionOf ( doco:BackMatter doco:BodyMatter doco:FrontMatter ) ] ] ;
             owl:onProperty pattern:isContainedBy ] .
 
-:Label a owl:Class ;
+doco:Label a owl:Class ;
     rdfs:label "label"@en ;
     rdfs:comment "A block containing text, that may include a number (e.g., \"Chapter Three\", \"3.2\", \"Figure 1\", \"Table\"), used to identify an item within the document, for example a chapter, a figure, a section or a table."@en ;
     rdfs:subClassOf [ a owl:Restriction ;
@@ -489,35 +490,35 @@ pattern:isContainedBy a owl:ObjectProperty ;
                     owl:unionOf ( pattern:Block pattern:Container ) ] ],
         deo:DiscourseElement .
 
-:ListOfReferences a owl:Class ;
+doco:ListOfReferences a owl:Class ;
     rdfs:label "list of references"@en ;
     rdfs:comment "A list of items each representing a reference to a specific part of the same document, or to another publication."@en ;
     rdfs:subClassOf [ a owl:Class ;
-            owl:intersectionOf ( :List [ a owl:Restriction ;
+            owl:intersectionOf ( doco:List [ a owl:Restriction ;
                         owl:allValuesFrom deo:Reference ;
                         owl:onProperty pattern:contains ] ) ] .
 
 pattern:Block a owl:Class .
 
-:Chapter a owl:Class ;
+doco:Chapter a owl:Class ;
     rdfs:label "chapter"@en ;
     rdfs:comment "A principle division of the body matter of a large document, such as a book, a report or a legislative document."@en ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:onProperty pattern:contains ;
             owl:someValuesFrom [ a owl:Class ;
-                    owl:unionOf ( :Paragraph :Section ) ] ],
+                    owl:unionOf ( doco:Paragraph doco:Section ) ] ],
         [ a owl:Class ;
             owl:intersectionOf ( deo:DiscourseElement pattern:HeadedContainer ) ],
         [ a owl:Restriction ;
             owl:onProperty pattern:contains ;
             owl:someValuesFrom [ a owl:Class ;
-                    owl:complementOf :Chapter ] ] .
+                    owl:complementOf doco:Chapter ] ] .
 
 pattern:HeadedContainer a owl:Class .
 
 terms:hasPart a owl:ObjectProperty .
 
-:BackMatter a owl:Class ;
+doco:BackMatter a owl:Class ;
     rdfs:label "back matter"@en ;
     rdfs:comment "The final principle part of a document, in which is usually found the bibliography, index, appendixes, etc."@en ;
     rdfs:subClassOf [ a owl:Class ;
@@ -525,16 +526,16 @@ terms:hasPart a owl:ObjectProperty .
         [ a owl:Restriction ;
             owl:allValuesFrom [ a owl:Class ;
                     owl:complementOf [ a owl:Class ;
-                            owl:unionOf ( :BackMatter :BodyMatter :FrontMatter ) ] ] ;
+                            owl:unionOf ( doco:BackMatter doco:BodyMatter doco:FrontMatter ) ] ] ;
             owl:onProperty pattern:isContainedBy ] .
 
-:FrontMatter a owl:Class ;
+doco:FrontMatter a owl:Class ;
     rdfs:label "front matter"@en ;
     rdfs:comment "The initial principle part of a document, usually containing self-referential metadata. In a book, this typically includes its title, authors, publisher, publication date, ISBN and copyright declaration, together with the preface, foreword, table of content, etc. In a journal article, the front matter is normally restricted to the title, authors and the authors' affiliation details, although the latter may alternatively be included in a footnote or the back matter. In books, the front matter pages may be numbered in lowercase Roman numerals."@en ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:allValuesFrom [ a owl:Class ;
                     owl:complementOf [ a owl:Class ;
-                            owl:unionOf ( :BackMatter :BodyMatter :FrontMatter ) ] ] ;
+                            owl:unionOf ( doco:BackMatter doco:BodyMatter doco:FrontMatter ) ] ] ;
             owl:onProperty pattern:isContainedBy ],
         [ a owl:Class ;
             owl:intersectionOf ( deo:DiscourseElement pattern:Container ) ] ;
@@ -547,34 +548,34 @@ pattern:contains a owl:ObjectProperty ;
 
 terms:isPartOf a owl:ObjectProperty .
 
-:Section a owl:Class ;
+doco:Section a owl:Class ;
     rdfs:label "section"@en ;
     rdfs:comment "A logical division of the text, usually numbered and/or titled, which may contain subsections."@en ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:onProperty pattern:contains ;
             owl:someValuesFrom [ a owl:Class ;
-                    owl:complementOf :Chapter ] ],
+                    owl:complementOf doco:Chapter ] ],
         [ a owl:Restriction ;
             owl:onProperty pattern:contains ;
             owl:someValuesFrom [ a owl:Class ;
-                    owl:unionOf ( :Paragraph :Section ) ] ],
+                    owl:unionOf ( doco:Paragraph doco:Section ) ] ],
         [ a owl:Class ;
             owl:intersectionOf ( deo:DiscourseElement pattern:HeadedContainer ) ] .
 
 deo:DiscourseElement a owl:Class .
 
 [] a owl:AllDisjointClasses ;
-    owl:members ( :Sentence :SimpleRunInQuotation :TextChunk ) .
+    owl:members ( doco:Sentence doco:SimpleRunInQuotation doco:TextChunk ) .
 
 [] a owl:AllDisjointClasses ;
-    owl:members ( :ListOfAuthors :ListOfContributors :ListOfOrganizations ) .
+    owl:members ( doco:ListOfAuthors doco:ListOfContributors doco:ListOfOrganizations ) .
 
 [] a owl:AllDisjointClasses ;
-    owl:members ( :Abstract :Afterword :Appendix :Colophon :Foreword :Glossary :Index :ListOfFigures :ListOfTables :Preface :TableOfContents ) .
+    owl:members ( doco:Abstract doco:Afterword doco:Appendix doco:Colophon doco:Foreword doco:Glossary doco:Index doco:ListOfFigures doco:ListOfTables doco:Preface doco:TableOfContents ) .
 
 [] a owl:AllDisjointClasses ;
-    owl:members ( :Label :Paragraph :Subtitle :Title ) .
+    owl:members ( doco:Label doco:Paragraph doco:Subtitle doco:Title ) .
 
 [] a owl:AllDisjointClasses ;
-    owl:members ( :BackMatter :BodyMatter :CaptionedBox :Chapter :ComplexRunInQuotation :Footnote :Formula :FormulaBox :FrontMatter :List :Part :Section :Table ) .
+    owl:members ( doco:BackMatter doco:BodyMatter doco:CaptionedBox doco:Chapter doco:ComplexRunInQuotation doco:Footnote doco:Formula doco:FormulaBox doco:FrontMatter doco:List doco:Part doco:Section doco:Table ) .
 
