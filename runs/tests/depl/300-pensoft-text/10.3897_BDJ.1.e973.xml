@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//TaxonX//DTD Taxonomic Treatment Publishing DTD v0 20100105//EN" "../../nlm/tax-treatment-NS0.dtd">
+<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tp="http://www.plazi.org/taxpub" article-type="research-article" obkms_id="5b629e22-049f-47fb-bbcf-b2853ad03170">
+  <front obkms_id="0ba8500c-a589-4872-9871-b66cccfcf9a5">
+    <journal-meta>
+      <journal-id journal-id-type="pmc">Biodiversity Data Journal</journal-id>
+      <journal-id journal-id-type="publisher-id">Biodiversity Data Journal</journal-id>
+      <journal-title-group>
+        <journal-title xml:lang="en">Biodiversity Data Journal</journal-title>
+        <abbrev-journal-title xml:lang="en">BDJ</abbrev-journal-title>
+      </journal-title-group>
+      <issn pub-type="ppub">1314-2836</issn>
+      <issn pub-type="epub">1314-2828</issn>
+      <publisher>
+        <publisher-name>Pensoft Publishers</publisher-name>
+      </publisher>
+    </journal-meta>
+    <article-meta>
+      <article-id pub-id-type="publisher-id">Biodiversity Data Journal</article-id>
+      <article-id pub-id-type="doi">10.3897/BDJ.1.e973</article-id>
+      <article-id pub-id-type="other">2067</article-id>
+      <article-categories>
+        <subj-group subj-group-type="heading">
+          <subject>Software description</subject>
+        </subj-group>
+        
+        <subj-group subj-group-type="Subject classification" obkms_id="6768b004-079b-4398-a645-770d64de61b8">
+          <subject>Data Management</subject>
+        </subj-group>
+      </article-categories>
+      <title-group>
+        <article-title obkms_id="d3081d90-e6de-4232-b23f-cb212d6ab1ed">EXIF Custom: Automatic image metadata extraction for Scratchpads and Drupal</article-title>
+      </title-group>
+      <contrib-group content-type="authors">
+        <contrib contrib-type="author" corresp="yes" obkms_id="840f4b08-c456-4ead-b28a-4ea8856a4cd1">
+          <name name-style="western">
+            <surname>Baker</surname>
+            <given-names>Ed</given-names>
+          </name>
+          <email xlink:type="simple">edwbaker@gmail.com</email>
+          <xref ref-type="aff" rid="A1">1</xref>
+        </contrib>
+      </contrib-group>
+      <aff id="A1">
+        <label>1</label>
+        <addr-line>The Natural History Museum, London, United Kingdom</addr-line>
+      </aff>
+      <author-notes>
+        <fn fn-type="corresp">
+          <p>Corresponding author: Ed Baker (<email xlink:type="simple">edwbaker@gmail.com</email>).</p>
+        </fn>
+        <fn fn-type="edited-by">
+          <p>Academic editor: Jörg Holetschek</p>
+        </fn>
+      </author-notes>
+      <pub-date pub-type="collection">
+        <year>2013</year>
+      </pub-date>
+      <pub-date pub-type="epub">
+        <day>16</day>
+        <month>09</month>
+        <year>2013</year>
+      </pub-date>
+      <issue>1</issue>
+      <elocation-id>e973</elocation-id>
+      <history>
+        <date date-type="received">
+          <day>01</day>
+          <month>08</month>
+          <year>2013</year>
+        </date>
+        <date date-type="accepted">
+          <day>11</day>
+          <month>09</month>
+          <year>2013</year>
+        </date>
+      </history>
+      <permissions>
+        <copyright-statement>Ed Baker</copyright-statement>
+        <license license-type="creative-commons-attribution" xlink:href="http://creativecommons.org/licenses/by/4.0" xlink:type="simple">
+          <license-p>This is an open access article distributed under the terms of the Creative Commons Attribution License 4.0 (CC-BY), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.</license-p>
+        </license>
+      </permissions>
+      <abstract obkms_id="c7f2b3a6-13a8-4a78-943e-01088a55bf46">
+        <label>Abstract</label>
+        <p>Many institutions and individuals use embedded metadata to aid in the management of their image collections. Many deskop image management solutions such as Adobe Bridge and online tools such as Flickr also make use of embedded metadata to describe, categorise and license images. Until now Scratchpads (a data management system and virtual research environment for biodiversity)  have not made use of these metadata, and users have had to manually re-enter this information if they have wanted to display it on their Scratchpad site. The Drupal  described here allows users to map metadata embedded in their images to the associated field in the Scratchpads image form using one or more customised mappings. The module works seamlessly with the bulk image uploader used on Scratchpads and it is therefore possible to upload hundreds of images easily with automatic metadata (EXIF, XMP and IPTC) extraction and mapping.</p>
+      </abstract>
+      <kwd-group>
+        <label>Keywords</label>
+        <kwd>Scratchpads</kwd>
+        <kwd>image metadata</kwd>
+        <kwd>Drupal</kwd>
+        <kwd>EXIF</kwd>
+        <kwd>XMP</kwd>
+        <kwd>IPTC</kwd>
+      </kwd-group>
+      <funding-group>
+        <funding-statement>This project uses infrastructure developed by the European Union funded ViBRANT project (Contract no. RI-261532) and the Natural Environment Research Council funded eMonocot project (Grant numbers 279981, 279984 &amp;amp; 27997), although it will work just fine on a standard Drupal site too.</funding-statement>
+      </funding-group>
+      
+      <counts>
+        <fig-count count="2"/>
+        <table-count count="0"/>
+        <ref-count count="6"/>
+      </counts>
+    </article-meta>
+  </front>
+  <body>
+    <sec sec-type="Introduction">
+      <title>Introduction</title>
+      <p>The use of embedded image metadata is becoming widespread in the biodiversity informatics community (e.g. <xref ref-type="bibr" rid="B114247">Stafford et al. 2010</xref> &amp; <xref ref-type="bibr" rid="B114264">Tulig et al. 2012</xref>), and is frequently used to describe the subject and licencing of images as well as for recording the 'tombstone metadata' (e.g. <ext-link ext-link-type="uri" xlink:href="http://nsdl.niscair.res.in/bitstream/123456789/954/1/Introduction+to+Metadata.pdf">Introduction to Metadata</ext-link>) - when the image was created, last edited, who created it, and where and how it was created.</p>
+      <p>The eMonocot project (<ext-link ext-link-type="uri" xlink:href="http://about.e-monocot.org">http://about.e-monocot.org</ext-link>) makes use of the Scratchpads (<xref ref-type="bibr" rid="B114278">Smith et al. 2011</xref>) infrastructure as a tool for collecting, curating, and creating content to be harvested by the eMonocot portal (<ext-link ext-link-type="uri" xlink:href="http://e-monocot.org">http://e-monocot.org</ext-link>). As part of this project hundreds of images with embedded metadata are being uploaded to a number of different Scratchpads, combined with images directly uploaded by partner communities, and exported en mass to the portal. For this to be technically feasible at scale images from varied, disparate sources need to have their metadata standardised as part of the bulk upload process.</p>
+      <p>There are three widespread image metadata formats that can be handled by this module. A subset of the EXIF standard (<xref ref-type="bibr" rid="B186144">Camera and Imaging Products Association Standardization Committee 2010</xref>) specifies a method for tagging of images with metadata. This is widely used by device manufacturers to record both the make and model of the image capture device and also the device's settings when the image was captured (e.g. focal length, flash duration). The eXtensible Metadata Platform (XMP) was originally developed by Adobe Systems Incorporated and later adopted by the International Standards Organisation as ISO 16684-1:2012. It uses a data model defined in <xref ref-type="bibr" rid="B186135">Adobe 2012</xref> which is serialised in XML when embedded into files. The International Press Telecommunications Council defines the IPTC Core and Extension metadata standards (<xref ref-type="bibr" rid="B114237">IPTC 2010</xref>).</p>
+      <p>An existing Drupal module, Exif (<ext-link ext-link-type="uri" xlink:href="https://drupal.org/project/exif">https://drupal.org/project/exif</ext-link>), provides a mechanism for displaying embedded image metadata on Drupal nodes, but does not provide a mechanism for mapping the metadata into fields. The import of embedded metadata into Scratchpads/Drupal fields is a requirement of the eMonocot project and is useful for the wider Scratchpads community as it allows for these data to be easily used by other Drupal modules (e.g. Views - <ext-link ext-link-type="uri" xlink:href="https://drupal.org/project/views">https://drupal.org/project/views</ext-link>) and in other Scratchpads-specific functions such as our on-going work on implementing the ability to export data via DarwinCore Archives (<ext-link ext-link-type="uri" xlink:href="http://www.gbif.org/informatics/standards-and-tools/publishing-data/data-standards/darwin-core-archives/">GBIF DarwinCore Archives</ext-link>). There is a comparison of these two modules (and potentially other similar Drupal modules) at <ext-link ext-link-type="uri" xlink:href="https://drupal.org/node/1842686">https://drupal.org/node/1842686</ext-link>.</p>
+    </sec>
+    <sec sec-type="Web location (URIs)">
+      <title>Web location (URIs)</title>
+      <p>Homepage: <ext-link ext-link-type="uri" xlink:href="https://drupal.org/project/exif_custom">https://drupal.org/project/exif_custom</ext-link></p>
+      <p>Download page: <ext-link ext-link-type="uri" xlink:href="https://drupal.org/node/1826526/release">https://drupal.org/node/1826526/release</ext-link></p>
+      <p>Bug database: <ext-link ext-link-type="uri" xlink:href="https://drupal.org/project/issues/exif_custom">https://drupal.org/project/issues/exif_custom</ext-link></p>
+    </sec>
+    <sec sec-type="Technical specification">
+      <title>Technical specification</title>
+      <p>Platform: Scratchpads/Drupal</p>
+      <p>Programming language: PHP</p>
+      <p>Interface language: English</p>
+    </sec>
+    <sec sec-type="Repository">
+      <title>Repository</title>
+      <p>Type: Git</p>
+      <p>Browse URI: <ext-link ext-link-type="uri" xlink:href="http://drupalcode.org/project/exif_custom.git">http://drupalcode.org/project/exif_custom.git</ext-link></p>
+    </sec>
+    <sec sec-type="Usage rights">
+      <title>Usage rights</title>
+      <sec sec-type="Use license">
+        <title>Use license</title>
+        <p>Other</p>
+      </sec>
+      <sec sec-type="IP rights notes">
+        <title>IP rights notes</title>
+        <p>The source code of this module is hosted on <ext-link ext-link-type="uri" xlink:href="https://drupal.org">https://drupal.org</ext-link>. All content on the <ext-link ext-link-type="uri" xlink:href="https://drupal.org">Drupal.org</ext-link> itself is copyrighted by its original contributors, and is licensed under the <ext-link ext-link-type="uri" xlink:href="http://creativecommons.org/licenses/by-sa/2.0/">Creative Commons Attribution-ShareAlike license 2.0</ext-link> and is also available under the GPL version 2 or later.</p>
+      </sec>
+    </sec>
+    <sec sec-type="Implementation">
+      <title>Implementation</title>
+      <sec sec-type="Implements specification">
+        <title>Implements specification</title>
+        <p>EXIF, XMP and IPTC are the three image metadata standards in widespread use and the eMonocot project (<ext-link ext-link-type="uri" xlink:href="http://e-monocot.org">http://e-monocot.org</ext-link>) (which uses Scratchpads) makes use of all three systems. Due to the flexibility of these systems, particularly of XMP, it is possible that the same field can be defined in more than one of these standards and there is no guarantee that all Scratchpads users will use the same image metadata field for the same data. Scratchpads as a system (and also Drupal on which Scratchpads are built) are highly customisable, and users may create their own custom fields to add metadata to image files. Due to this multiplicity of possible input formats it is not desirable for the module described here to define a mapping of embedded image metadata fields to Scratchpads/Drupal fields (adding fields to images in Drupal requires the File Entity module - <ext-link ext-link-type="uri" xlink:href="https://drupal.org/project/file_entity">https://drupal.org/project/file_entity</ext-link>). Users may also want to upload images from a number of different sources that make use of different subsets of the three image metadata standards supported. For these reasons this module allows users to define any number of named mappings between embedded image metadata and the Scratchpads/Drupal image fields. It is possible for those with the necessary privileges on the system to define the default mapping used by the site, and for individual users to override this with their own choice of User Default mapping (Fig. <xref ref-type="fig" rid="F288330">1</xref>).</p>
+        <p>The configuration pages for this module can be found under 'Custom Exif Mappings' in the standard Scratchpads/Drupal administration interface. The 'Settings' tab allows those with the required privileges to set the site's default mapping, and to turn on or off the automatic saving of embedded image metadata to the image fields of the site when an image is uploaded. The 'User Settings' tab provides an interface for individual users to override the site's default mapping with a mapping of their choice. New mappings can be created through the 'New Exif Mapping' tab. The first step in this process is to name the new mapping and upload a sample image that contains all of the metadata fields that you want to map to Drupal/Scratchpads image fields. The module extracts all of the embedded metadata fields that have values assigned, and provides a form that displays the name of the embedded metadata field, an example value from the sample image, and a drop-down list of Scratchpads/Drupal fields that can be mapped to (Fig. <xref ref-type="fig" rid="F288332">2</xref>).</p>
+        <p>Once one or more mappings have been created, and the Site Default and/or User Default mapping has been set, the Scratchpads/Drupal fields will automatically be populated from the embedded image metadata when a new file entity is created - either through individual entity creation or through batch entity creation (using a module such as Plupload - <ext-link ext-link-type="uri" xlink:href="https://drupal.org/project/plupload">https://drupal.org/project/plupload</ext-link>) to upload multiple images at once.</p>
+      </sec>
+      <sec sec-type="Audience">
+        <title>Audience</title>
+        <p>This module can be enabled on Scratchpads sites via the Tools page in Admin &gt; Structure. It can also be downloaded by maintainers of other Drupal sites from <ext-link ext-link-type="uri" xlink:href="https://drupal.org">Drupal.org</ext-link> and enabled in the same way as any other module.</p>
+        <p>The module is potentially useful for anybody who wants to extract embedded metadata from uploaded images and use it in fields on a Drupal site. By making metadata available in fields, the metadata can be exposed to other third-party modules such as Views (<ext-link ext-link-type="uri" xlink:href="https://drupal.org/project/views">https://drupal.org/project/views</ext-link>), allowing for many display options and filtering opportunities.</p>
+        <p>The eMonocot content team based at the Royal Botanic Gardens Kew make use of this module on the eMonocot Scratchpads to bulk upload images which have had their metadata curated using Adobe Bridge. The module extracts the metadata embedded within the image into Drupal fields which allows for both display of this data on the Scratchpad and also in the DarwinCore Archive file that is used to contribute Scratchpad data to the eMonocot portal and also the Encyclopedia of Life. This workflow prevents images being separated from their accompanying metadata (through metadata embedding) and also saves time and effort - previously in Drupal performing the task of importing metadata would have required either copying and pasting data or spreadsheet manipulation using a number of different import tools.</p>
+      </sec>
+    </sec>
+    <sec sec-type="Additional information">
+      <title>Additional information</title>
+      <sec sec-type="Dependencies">
+        <title>Dependencies</title>
+        <p>This module requires the Drupal File Entity (<ext-link ext-link-type="uri" xlink:href="https://drupal.org/project/file_entity">https://drupal.org/project/file_entity</ext-link>) module.</p>
+      </sec>
+      <sec sec-type="Integration">
+        <title>Integration</title>
+        <p>The module will work with any fields associated with image file entities in Drupal. The Scratchpads Audubon Core module (<ext-link ext-link-type="uri" xlink:href="https://git.scratchpads.eu/v/scratchpads-2.0.git/tree/HEAD:/sites/all/modules/custom/scratchpads/scratchpads_audubon_core">https://git.scratchpads.eu/v/scratchpads-2.0.git/tree/HEAD:/sites/all/modules/custom/scratchpads/scratchpads_audubon_core</ext-link>) creates a set of fields that are compliant with the current version of Audubon Core (a standard metadata schema for images of biological specimens and observations). With the EXIF Custom module it is possible to map embedded image metadata directly to these fields when the images are uploaded. The use of standard Drupal fields means that it is also possible to expose embedded metadata to external services, notably via DarwinCore Archives using the Scratchpads DarwinCore Archive Export module (<ext-link ext-link-type="uri" xlink:href="https://git.scratchpads.eu/v/scratchpads-2.0.git/tree/HEAD:/sites/all/modules/custom/dwca_export">https://git.scratchpads.eu/v/scratchpads-2.0.git/tree/HEAD:/sites/all/modules/custom/dwca_export</ext-link>).</p>
+      </sec>
+    </sec>
+  </body>
+  <back>
+    <ack>
+      <title>Acknowledgements</title>
+      <p>Thanks to Simon Rycroft and Alice Heaton of the Scratchpads team at the Natural History Museum, London for their time and assistance and to the eMonocot Content Team at the Royal Botanic Gardens Kew for their work finding bugs and suggesting improvements to early versions of this module.</p>
+    </ack>
+    <ref-list>
+      <title>References</title>
+      <ref id="B186135">
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Adobe</surname>
+            </name>
+          </person-group>
+          <year>2012</year>
+          <source>XMP SPECIFICATION PART 1 DATA MODEL, SERIALIZATION, AND CORE PROPERTIES</source>
+          <publisher-name>Adobe Systems Incorporated</publisher-name>
+          <size units="page">52</size>
+          <comment content-type="language">English</comment>
+          <uri>http://www.adobe.com/content/dam/Adobe/en/devnet/xmp/pdfs/XMPSpecificationPart1.pdf</uri>
+        </element-citation>
+      </ref>
+      <ref id="B186144">
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Committee</surname>
+              <given-names>Camera and Imaging Products Association Standardization</given-names>
+            </name>
+          </person-group>
+          <year>2010</year>
+          <source>Exchangeable image file format for digital still cameras: Exif Version 2.3</source>
+          <publisher-name>Camera &amp; Imaging Products Association</publisher-name>
+          <size units="page">190</size>
+          <comment content-type="language">English</comment>
+          <uri>http://www.cipa.jp/english/hyoujunka/kikaku/pdf/DC-008-2010_E.pdf</uri>
+        </element-citation>
+      </ref>
+      <ref id="B114237">
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>IPTC</surname>
+            </name>
+          </person-group>
+          <year>2010</year>
+          <source>IPTC Standard Photo Metadata</source>
+          <publisher-name>Internation Press Telecommunications Council</publisher-name>
+          <size units="page">55</size>
+          <uri>http://www.iptc.org/std/photometadata/specification/IPTC-PhotoMetadata-201007.pdf</uri>
+        </element-citation>
+      </ref>
+      <ref id="B114278">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Smith</surname>
+              <given-names>Vincent</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Rycroft</surname>
+              <given-names>Simon</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Brake</surname>
+              <given-names>Irina</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Scott</surname>
+              <given-names>Ben</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Baker</surname>
+              <given-names>Ed</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Livermore</surname>
+              <given-names>Laurence</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Blagoderov</surname>
+              <given-names>Vladimir</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Roberts</surname>
+              <given-names>David</given-names>
+            </name>
+          </person-group>
+          <year>2011</year>
+          <article-title>Scratchpads 2.0: a Virtual Research Environment supporting scholarly collaboration, communication and data publication in biodiversity science</article-title>
+          <source>ZooKeys</source>
+          <volume>150</volume>
+          <fpage>53</fpage>
+          <uri>http://www.pensoft.net/journals/zookeys/article/2193/abstract/scratchpads-20-a-virtual-research-environment-supporting-scholarly-collaboration-communication-and-data-publication-in-b</uri>
+          <pub-id pub-id-type="doi">10.3897/zookeys.150.2193</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B114247">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Stafford</surname>
+              <given-names>Richard</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Hart</surname>
+              <given-names>Adam G.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Collins</surname>
+              <given-names>Laura</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Kirkhope</surname>
+              <given-names>Claire L.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Williams</surname>
+              <given-names>Rachel L.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Rees</surname>
+              <given-names>Samuel G.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Lloyd</surname>
+              <given-names>Jane R.</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Goodenough</surname>
+              <given-names>Anne E.</given-names>
+            </name>
+          </person-group>
+          <year>2010</year>
+          <article-title>Eu-Social Science: The Role of Internet Social Networks in the Collection of Bee Biodiversity Data</article-title>
+          <source>PLoS ONE</source>
+          <volume>5</volume>
+          <issue>12</issue>
+          <fpage>e14381</fpage>
+          <uri>http://dx.plos.org/10.1371/journal.pone.0014381</uri>
+          <pub-id pub-id-type="doi">10.1371/journal.pone.0014381</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B114264">
+        <element-citation publication-type="article">
+          <person-group person-group-type="author">
+            <name name-style="western">
+              <surname>Tulig</surname>
+              <given-names>Melissa</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Tarnowsky</surname>
+              <given-names>Nicole</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Bevans</surname>
+              <given-names>Michael</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Kirchgessner</surname>
+              <given-names>Anthony</given-names>
+            </name>
+            <name name-style="western">
+              <surname>Thiers</surname>
+              <given-names>Barbara</given-names>
+            </name>
+          </person-group>
+          <year>2012</year>
+          <article-title>Increasing the efficiency of digitization workflows for herbarium specimens</article-title>
+          <source>ZooKeys</source>
+          <volume>209</volume>
+          <fpage>103</fpage>
+          <lpage>113</lpage>
+          <uri>http://www.pensoft.net/journals/zookeys/article/3125/abstract/increasing-the-efficiency-of-digitization-workflows-for</uri>
+          <pub-id pub-id-type="doi">10.3897/zookeys.209.3125</pub-id>
+        </element-citation>
+      </ref>
+    </ref-list>
+  </back>
+  <floats-group>
+    <fig id="F288330" position="float" orientation="portrait">
+      <object-id>10.3897/BDJ.1.e973.figure1</object-id>
+      <label>Figure 1.</label>
+      <caption>
+        <p>Multiple image mappings, showing which are set at the Site Default and User Default - and which will be used for the currently logged-in user in bold.</p>
+      </caption>
+      <graphic xlink:href="bdj-01-e973-g001.png" position="float" id="oo_2123.png" orientation="portrait" xlink:type="simple"/>
+    </fig>
+    <fig id="F288332" position="float" orientation="portrait">
+      <object-id>10.3897/BDJ.1.e973.figure2</object-id>
+      <label>Figure 2.</label>
+      <caption>
+        <p>Mapping embedded image metadata fields to Scratchpads/Drupal image fields. The image uploaded is a standard testing image from the EXIF Toolkit available from <ext-link ext-link-type="uri" xlink:href="http://iptc.org">http://iptc.org</ext-link>. The Scratchpads project recommends the use of Creative Commons open licences.</p>
+      </caption>
+      <graphic xlink:href="bdj-01-e973-g002.png" position="float" id="oo_2122.png" orientation="portrait" xlink:type="simple"/>
+    </fig>
+  </floats-group>
+</article>
