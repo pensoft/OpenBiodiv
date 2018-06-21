@@ -5,7 +5,7 @@
 #  ruleset OWL2-RL
 #
 
-configuration = yaml::yaml.load_file("../openbiodiv/etc/deployment.yml")
+configuration = yaml::yaml.load_file("..local/deployment.yml")
 
 # Connect to OBKMS
 library(rdf4r)
