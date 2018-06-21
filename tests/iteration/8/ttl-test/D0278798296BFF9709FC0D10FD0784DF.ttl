@@ -1,0 +1,60 @@
+@prefix openbiodiv: <http://openbiodiv.net/> .
+ @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+ @prefix fabio: <http://purl.org/spar/fabio/> .
+ @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+ @prefix frbr: <http://purl.org/vocab/frbr/core#> .
+ @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+ @prefix dc: <http://purl.org/dc/elements/1.1/> .
+ @prefix prism: <http://prismstandard.org/namespaces/basic/2.0/> .
+ @prefix dcterms: <http://purl.org/dc/terms/> .
+ @prefix foaf: <http://xmlns.com/foaf/0.1/> .
+ @prefix po: <http://www.essepuntato.it/2008/12/pattern#> .
+ @prefix c4o: <http://purl.org/spar/c4o/> .
+ @prefix pkm: <http://proton.semanticweb.org/protonkm#> .
+ @prefix dwc: <http://rs.tdwg.org/dwc/terms/> .
+ @prefix dwciri: <http://rs.tdwg.org/dwc/iri/> .
+ openbiodiv:b265f28a-65db-4344-b739-f78530c23dba {
+ openbiodiv:3e6588f7-4b91-4a14-95a2-bb237ab54e4b   rdf:type   fabio:Journal ;
+	 skos:prefLabel   "Zootaxa" ;
+	 fabio:issn   "1175-5326" ;
+	 frbr:part   openbiodiv:b265f28a-65db-4344-b739-f78530c23dba . 
+ openbiodiv:b265f28a-65db-4344-b739-f78530c23dba   rdf:type   fabio:JournalArticle ;
+	 rdfs:label   "An annotated checklist of fruit flies (Diptera: Tephritidae) of Iran" ;
+	 dc:title   "An annotated checklist of fruit flies (Diptera: Tephritidae) of Iran" ;
+	 prism:doi   "https://doi.org/10.11646/zootaxa.4369.3.5" ;
+	 prism:publicationDate   "2018"^^xsd:date ,  "--"^^xsd:date ;
+	 frbr:realizationOf   openbiodiv:ad82de34-9150-442d-8194-428df14e92df ;
+	 prism:number   "3"^^xsd:integer . 
+ openbiodiv:ad82de34-9150-442d-8194-428df14e92df   rdf:type   fabio:ResearchPaper ;
+	 dcterms:creator   openbiodiv:3f1b058c-87e0-45b6-b27a-0ef3797450a6 ,  openbiodiv:7df20fa4-2f34-4a9c-a934-590dade138bb . 
+ openbiodiv:3f1b058c-87e0-45b6-b27a-0ef3797450a6   rdf:type   foaf:Person ;
+	 rdfs:label   "Namin, Saeed Mohamadzade" . 
+ openbiodiv:7df20fa4-2f34-4a9c-a934-590dade138bb   rdf:type   foaf:Person ;
+	 rdfs:label   "Korneyev, Valery A." . 
+ openbiodiv:D0278798296BFF9709FC0D10FD0784DF   rdf:type   openbiodiv:Treatment ;
+	 po:isContainedBy   openbiodiv:b265f28a-65db-4344-b739-f78530c23dba ;
+	 c4o:hasContent   "AnimaliaInsectaDipteraTephritidaeTephritisadmissaspeciesHering, 1961Tephritis admissa Hering, 1961Distribution inIran: Maz.References. Mohamadzade Namin, 2011a." . 
+ openbiodiv:f98aff1f-988c-4992-9e52-40ff4ed253e7   rdf:type   openbiodiv:TaxonomicConcept ;
+	 frbr:realization   openbiodiv:D0278798296BFF9709FC0D10FD0784DF . 
+ openbiodiv:a26ee3d1-5379-46d0-84d6-80f73f44ad8e   rdf:type   openbiodiv:NomenclatureSection ;
+	 po:isContainedBy   openbiodiv:D0278798296BFF9709FC0D10FD0784DF ;
+	 c4o:hasContent   "AnimaliaInsectaDipteraTephritidaeTephritisadmissaspeciesHering, 1961Tephritis admissa Hering, 1961" . 
+ openbiodiv:d670ada2-cb4d-47c9-96c0-ed1d1dbe29d6   rdf:type   openbiodiv:DistributionSection ;
+	 po:isContainedBy   openbiodiv:D0278798296BFF9709FC0D10FD0784DF ;
+	 c4o:hasContent   "Distribution inIran: Maz." . 
+ openbiodiv:17255905-a770-4a8f-bb2d-a11ff9a42421   rdf:type   openbiodiv:TaxonomicNameUsage ;
+	 pkm:mentions   openbiodiv:301cd17a-4124-4bb7-9435-6ff64935890c ;
+	 po:isContainedBy   openbiodiv:a26ee3d1-5379-46d0-84d6-80f73f44ad8e ;
+	 prism:publicationDate   "2018"^^xsd:date . 
+ openbiodiv:301cd17a-4124-4bb7-9435-6ff64935890c   rdf:type   openbiodiv:ScientificName ;
+	 rdfs:label   "Tephritis admissa Hering, 1961" ;
+	 dwc:scientificName   "Tephritis admissa Hering, 1961" ;
+	 dwc:kingdom   "Animalia" ;
+	 dwc:class   "Insecta" ;
+	 dwc:order   "Diptera" ;
+	 dwc:family   "Tephritidae" ;
+	 dwc:genus   "Tephritis" ;
+	 dwc:specificEpithet   "admissa" ;
+	 dwc:verbatimTaxonRank   "species" ;
+	 dwciri:taxonRank   openbiodiv:Species ;
+	 dwc:scientificNameAuthorship   "Hering, 1961" . }
