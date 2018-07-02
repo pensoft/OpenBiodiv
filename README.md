@@ -1,7 +1,7 @@
 # Open Biodiversity Knowledge Management System
 
 Hi! Welcome to the Open Biodiversity Knowledge Management System: a PhD
-project project by [Viktor Senderov](#viktor-senderov).
+project project by [Viktor Senderov](https://github.com/vsenderov/).
 
 The system is called *OpenBiodiv* or *OBKMS*. OBKMS is the older name, but we
 prefer to call it OpenBiodiv recently.
