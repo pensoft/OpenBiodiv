@@ -21,6 +21,17 @@ More information on what OpenBiodiv is can be found in the draft text of a chapt
 
 ## Papers that have been published on OpenBiodiv
 
+- Senderov, Viktor, Kiril Simov, Nico Franz, Pavel Stoev, Terry Catapano, Donat Agosti, Guido Sautter, Robert A. Morris, and Lyubomir Penev. “OpenBiodiv-O: Ontology of the OpenBiodiv Knowledge Management System.” Journal of Biomedical Semantics 9, no. 1 (January 2018). https://doi.org/10.1186/s13326-017-0174-5.
+- Senderov, Viktor, and Lyubomir Penev. “The Open Biodiversity Knowledge Management System in Scholarly Publishing.” Research Ideas and Outcomes 2 (January 11, 2016): e7757. https://doi.org/10.3897/rio.2.e7757.
+- Senderov, Viktor, Teodor Georgiev, and Lyubomir Penev. “Online Direct Import of Specimen Records into Manuscripts and Automatic Creation of Data Papers from Biological Databases.” Research Ideas and Outcomes 2 (September 23, 2016): e10617. https://doi.org/10.3897/rio.2.e10617.
+- Cardoso, Pedro, Pavel Stoev, Teodor Georgiev, Viktor Senderov, and Lyubomir Penev. “Species Conservation Profiles Compliant with the IUCN Red List of Threatened Species.” Biodiversity Data Journal 4 (September 1, 2016): e10356. https://doi.org/10.3897/BDJ.4.e10356.
+- Arriaga-Varela, Emmanuel, Matthias Seidel, Albert Deler-Hernández, Viktor Senderov, and Martin Fikácek. “A Review of the Cercyon Leach (Coleoptera, Hydrophilidae, Sphaeridiinae) of the Greater Antilles.” ZooKeys 681 (June 21, 2017): 39–93. https://doi.org/10.3897/zookeys.681.12522.
+- Penev, Lyubomir, Teodor Georgiev, Peter Geshev, Seyhan Demirov, Viktor Senderov, Iliyana Kuzmova, Iva Kostadinova, Slavena Peneva, and Pavel Stoev. “ARPHA-BioDiv: A Toolbox for Scholarly Publication and Dissemination of Biodiversity Data Based on the ARPHA Publishing Platform.” Research Ideas and Outcomes 3 (April 5, 2017): e13088. https://doi.org/10.3897/rio.3.e13088.
+- Penev, Lyubomir, Daniel Mietchen, Vishwas Chavan, Gregor Hagedorn, Vincent Smith, David Shotton, Éamonn Ó Tuama, et al. “Strategies and Guidelines for Scholarly Publishing of Biodiversity Data.” Research Ideas and Outcomes 3 (February 28, 2017): e12431. https://doi.org/10.3897/rio.3.e12431.
+
+## Presentations
+
+All presentations given are stored
 
 
 The system is called *OpenBiodiv* or *OBKMS*. OBKMS is the older name, but we
