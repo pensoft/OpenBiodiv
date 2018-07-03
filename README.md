@@ -2,13 +2,16 @@
 
 Hi! Welcome to the OpenBiodiv PhD project by [Viktor Senderov](https://github.com/vsenderov/) at [Pensoft](http://pensoft.net) as part of the Marie-Curie training network for genomics, bioinformatics, and systematics of the [BIG 4](http://big4-project.eu) insect groups.
 
-OpenBiodiv is a [semantic database](https://ontotext.com/products/graphdb/) of biodiversity data from three sources:
+OpenBiodiv is a knowledge management system of biodiversity data. Its components are 
 
-- [Pensoft's journals](https://pensoft.net/browse_journals)
-- [Plazi's Treatment Bank](http://plazi.org/resources/treatmentbank/)
-- [GBIF Taxonomic Backbone](https://www.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36c)
+- the ontology [OpenBiodiv-O](https://github.com/vsenderov/openbiodiv-o)
+- a [semantic graph database/ linked open dataset](http://graph.openbiodiv.net) populated with informationfrom three sources:
 
+  - [Pensoft's journals](https://pensoft.net/browse_journals)
+  - [Plazi's Treatment Bank](http://plazi.org/resources/treatmentbank/)
+  - [GBIF Taxonomic Backbone](https://www.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36c)
 
+More information can be found in this draft text of a chapter of my PhD.
 
 The system is called *OpenBiodiv* or *OBKMS*. OBKMS is the older name, but we
 prefer to call it OpenBiodiv recently.
