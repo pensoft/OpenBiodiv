@@ -63,7 +63,14 @@ INSERT DATA {
     }
   ],
   "types": [
-    "http://www.w3.org/2002/07/owl#Thing"
+    # owl:Thing not supported by RDFS-Plus Optimized Scheme.
+    # Need to list all indexed types.
+    "http://purl.org/spar/fabio/Database",
+    "http://openbiodiv.net/ScientificName",
+    "http://purl.org/spar/fabio/JournalArticle",
+    "http://openbiodiv.net/Publisher",
+    "http://purl.org/spar/fabio/Journal",
+    "http://xmlns.com/foaf/0.1/Person"
   ],
   "stripMarkup": false,
   "analyzer": "org.apache.lucene.analysis.core.KeywordAnalyzer"

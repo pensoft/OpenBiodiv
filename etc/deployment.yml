@@ -9,26 +9,34 @@ repository:
 user:
   - admin
 
+# Ontology
 ontology_imports:
-  - ~/Work/PhD/openbiodiv/ontology/imports
+  - /home/backend/OpenBiodiv/ontology/imports
 
+# Lucene conncector
 connectors:
-  - /home/viktor2/Work/PhD/openbiodiv/lucene
+  - /home/backend/OpenBiodiv/lucene
 
+# Pensoft XML files
 pjsupload:
-  - /media/obkms/pjsupload
+  - /opt/data/obkms/pjsupload
   
 plazi_download:
-  - /media/obkms/plazi-corpus-xml
+  - /opt/data/obkms/plazi-corpus-xml
 
+# Directory where RDF files are dumped
 serialization_dir:
-  - /media/obkms/RDF
+  - /opt/data/obkms/serializations
 
+# Reprocessing on XML node basis even if XML node has been processed
 reprocess:
   - TRUE
-
+  
+# If TRUE, database is not changed
 dry_run:
-  - TRUE
+  - FALSE
 
+# Status of RDF-ization per input file
 log:
-  - /media/obkms/log
+  - /opt/data/obkms/log
+
