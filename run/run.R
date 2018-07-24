@@ -23,5 +23,5 @@ pensoft_files = list.files(
 pensoft_processing_results = sapply(pensoft_files, xml2rdf, xml_schema = taxpub, access_options = obkms, serialization_dir = configuration$serialization_dir, reproces = configuration$reprocess, dry = configuration$dry_run)
 
 # fails
-writeLines(paste(names(pensoft_processing_results), pensoft_processing_results), con = paste0(configuration$log, "/status.log"))
+writeLines(paste(names(pensoft_processing_results), pensoft_processing_results), con = paste0(configuration$log, "/", Sys.Date(), "-pensoft-status.log"))
 
