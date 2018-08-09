@@ -17,7 +17,7 @@ obkms$prefix = c(openbiodiv = "http://openbiodiv.net/")
 todays_plazi_feed = plazi_feed()
 plazi_info = as.data.frame(todays_plazi_feed)
 aria_file_contents = generate_aria2c_input(plazi_info$id, corpus_dir = configuration$plazi_download)
-aria_filename = paste0("/tmp/", uuid::UUIDgenerate(), ".aria2c")
+aria_filename = paste0("/tmp/", "plazi-download-missing-xml", ".aria2c")
 writeLines(text = aria_file_contents, con = aria_filename)
 
 aria_cmd = paste0("aria2c --input-file=", aria_filename)

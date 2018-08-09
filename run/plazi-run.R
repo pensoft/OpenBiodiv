@@ -20,7 +20,7 @@ plazi_files = list.files(
   pattern = "*\\.xml"
 )
 
-plazi_processing_results = sapply(plazi_files, xml2rdf, xml_schema = taxonx, access_options = obkms, serialization_dir = configuration$serialization_dir, reproces = configuration$reprocess, dry = configuration$dry_run)
+plazi_processing_results = sapply(plazi_files, xml2rdf, xml_schema = taxonx, access_options = obkms, serialization_dir = configuration$plazi_serialization_dir, reproces = configuration$reprocess, dry = configuration$dry_run)
 
 # fails
 writeLines(paste(names(plazi_processing_results), plazi_processing_results), con = paste0(configuration$log, "/", Sys.Date(), "-plazi-status.log"))
