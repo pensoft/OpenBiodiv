@@ -1,3 +1,4 @@
+
 # Repository Initialization
 
 # Manual Step:
@@ -7,9 +8,20 @@
 
 configuration = yaml::yaml.load_file("local/deployment.yml")
 
+spec = matrix(c(
+  'reprocess', 'r', 2, "logical"),
+  byrow=TRUE, ncol=4);
+
+
 # Connect to OBKMS
 library(rdf4r)
+library(getopt)
 
+opt=getopt(spec)
+
+if ( is.null(opt$reprocess) ){ opt$reprocess = FALSE }
+
+print(opt)
 
 obkms = basic_triplestore_access(
   server_url = configuration$server_url,

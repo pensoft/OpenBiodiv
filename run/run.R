@@ -2,7 +2,23 @@
 library(rdf4r)
 library(ropenbio)
 
+
+spec = matrix(c(
+  'reprocess', 'r', 2, "logical"),
+  byrow=TRUE, ncol=4);
+
+
+# Connect to OBKMS
+library(rdf4r)
+library(getopt)
+
+opt=getopt(spec)
+
+if ( is.null(opt$reprocess) ){ opt$reprocess = FALSE }
+
+
 configuration = yaml::yaml.load_file("local/deployment.yml")
+
 
 obkms = basic_triplestore_access(
   server_url = configuration$server_url,
@@ -20,7 +36,7 @@ pensoft_files = list.files(
   pattern = "*.xml"
 )
 
-pensoft_processing_results = sapply(pensoft_files, xml2rdf, xml_schema = taxpub, access_options = obkms, serialization_dir = configuration$serialization_dir, reproces = configuration$reprocess, dry = configuration$dry_run)
+pensoft_processing_results = sapply(pensoft_files, xml2rdf, xml_schema = taxpub, access_options = obkms, serialization_dir = configuration$serialization_dir, reproces = opt$reprocess, dry = configuration$dry_run)
 
 # fails
 writeLines(paste(names(pensoft_processing_results), pensoft_processing_results), con = paste0(configuration$log, "/", Sys.Date(), "-pensoft-status.log"))
