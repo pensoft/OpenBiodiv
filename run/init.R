@@ -2,8 +2,8 @@
 
 # Manual Step:
 # 1. Create new repository
-#  ruleset OWL2-RL
-#
+# 2. Ruleset RDFS-Optimized
+# If needed consult the technical documentation on how to create
 
 configuration = yaml::yaml.load_file("local/deployment.yml")
 
@@ -26,7 +26,7 @@ ontologies = lapply(
   readLines
 )
 
-sapply(ontologies, add_data, access_options = obkms)
+#sapply(ontologies, add_data, access_options = obkms)
 
 # Import Lucene Connectors
 connectors = lapply(
