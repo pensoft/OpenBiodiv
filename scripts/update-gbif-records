@@ -1,0 +1,35 @@
+#js in mongo shell for updating the gbif records
+#ids become capitalised, #scname becomes -scName and #label becomes -label
+
+
+db.gbifChecklist.find().forEach(function(myDoc) {
+  
+ key = myDoc.key;
+ #we don't remove the hyphens now
+ #newKey = key.replace(/-/g,"");
+
+ leadingBracket = "<";
+ endingBracket = ">";
+ newKey = key.replace(leadingBracket,"");
+ newKey = newKey.replace(endingBracket,"");
+ base = "http://openbiodiv.net/";
+ newKeyUUID = newKey.replace(base,"");
+ newKeyUUID = newKeyUUID.toUpperCase();
+ newKey = base.concat(newKeyUUID);
+ newKey= newKey.replace("#SCNAME", "-scName");
+ newKey= newKey.replace("#LABEL", "-label");
+
+ newKey = leadingBracket.concat(newKey).concat(endingBracket);
+ 
+ tc = myDoc.tcId;
+ #newTc = tc.replace(/-/g,"");
+ newTc = newTc.replace(leadingBracket,"");
+ newTc = newTc.replace(endingBracket,"");
+ tcUUID = newTc.replace(base,"");
+ tcUUID = tcUUID.toUpperCase();
+ newTc = base.concat(tcUUID)
+ newTc = leadingBracket.concat(newTc).concat(endingBracket);
+ 
+ db.gbifChecklist.update({_id: myDoc._id},{$set:{"key": newKey, "tcId": newTc}});
+ 
+ })
