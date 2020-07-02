@@ -193,18 +193,21 @@ ontology for us, we use the `skos` prefix as they use it.
 @prefix dbo: <http://dbpedia.org/ontology/> .
 @prefix vs: <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
 @prefix dwcattributesns: <http://rs.tdwg.org/dwc/terms/attributes/> .
+@prefix datacite: <http://purl.org/spar/datacite/> .
+
 ```
 
 ##### Metadata
 
 ```{r Ontology Metadata}
-:openbiodiv-ontology rdf:type owl:Ontology ;
+: rdf:type owl:Ontology ;
   owl:versionInfo "1.0.1" ;
   rdfs:comment "You are free to create derivative work as long as you cite the original authors." ;
   dcelements:title "The Open Biodiversity Knowledge Management System Ontology" ;
   dcelements:subject "Biodiversity Informatics" ;
   rdfs:label "OpenBiodiv Ontology" ;
   dcelements:creator "Viktor Senderov, Kiril Simov" ;
+  dcelements:contributor "Mariya Dimitrova" ;
   dcelements:license "CC-BY license version 4.0" ;
   owl:imports <http://purl.org/spar/fabio/> .
 ```
@@ -1062,13 +1065,572 @@ statuses.
   rdfs:subClassOf [ rdf:type owl:Restriction ;
                     owl:onProperty <http://www.w3.org/2004/02/skos/core#inScheme> ;
                     owl:someValuesFrom :TaxonomicStatusDictionary ] ;
-  rdfs:label "Taxonomic Status Term"@en ;
-  rdfs:comment "The status following a taxonomic name usage in a taxonomic
-                manuscript, i.e. 'n. sp.',
-                'comb. new',
-                'sec. Franz (2017)', etc"@en .
+  rdfs:label "Taxonomic Status Term"@en .
 ```
 
 ## Additions to the ontology (November 2019)
+Since the beginning of 2019, the OpenBiodiv information extraction workflow had undergone changes to allow extraction of more types of entities. These changes necessitated modifying the ontology to model the newly extracted entities. New OpenBiodiv classes and properties were created and some were contributed from other ontologies (DarwinCore, DataCite). The newly adopted semantic terms are listed below:
+
+
+##### Contributed Classes: *Occurrence*, *Identification*, *Event* 
+
+```{r http://rs.tdwg.org/dwc/terms/Occurrence}
+:Occurrence rdfs:isDefinedBy <http://rs.tdwg.org/dwc/terms/>;
+     dcterms:isPartOf <http://rs.tdwg.org/dwc/terms/>;
+     dcterms:created "2009-04-29"^^xsd:date;
+     dcterms:modified "2014-10-23"^^xsd:date;
+     dcterms:replaces <http://rs.tdwg.org/dwc/terms/Sample>;
+     rdfs:label "Occurrence"@en;
+     skos:prefLabel "Occurrence"@en;
+     rdfs:comment "An existence of an Organism (sensu http://rs.tdwg.org/dwc/terms/Organism) at a particular place at a particular time."@en;
+     skos:definition "An existence of an Organism (sensu http://rs.tdwg.org/dwc/terms/Organism) at a particular place at a particular time."@en;
+     dcterms:description "Examples: A wolf pack on the shore of Kluane Lake in 1988. A virus in a plant leaf in a the New York Botanical Garden at 15:29 on 2014-10-23. A fungus in Central Park in the summer of 1929."@en;
+     rdf:type rdfs:Class.
+
+```
+
+
+```{r http://rs.tdwg.org/dwc/terms/Identification}
+:Identification rdfs:isDefinedBy <http://rs.tdwg.org/dwc/terms/>;
+     dcterms:isPartOf <http://rs.tdwg.org/dwc/terms/>;
+     dcterms:created "2008-11-19"^^xsd:date;
+     dcterms:modified "2014-10-23"^^xsd:date;
+     rdfs:label "Identification"@en;
+     skos:prefLabel "Identification"@en;
+     rdfs:comment "A taxonomic determination (e.g., the assignment to a taxon)."@en;
+     skos:definition "A taxonomic determination (e.g., the assignment to a taxon)."@en;
+     dcterms:description "Example: A subspecies determination of an organism."@en;
+     rdf:type rdfs:Class.
+```
+
+```{r http://rs.tdwg.org/dwc/terms/Event}
+:Event rdfs:isDefinedBy <http://rs.tdwg.org/dwc/terms/>;
+     dcterms:isPartOf <http://rs.tdwg.org/dwc/terms/>;
+     dcterms:created "2009-04-29"^^xsd:date;
+     dcterms:modified "2014-10-23"^^xsd:date;
+     dcterms:replaces <http://rs.tdwg.org/dwc/terms/SamplingEvent>;
+     rdfs:label "Event"@en;
+     skos:prefLabel "Event"@en;
+     rdfs:comment "An action that occurs at some location during some time."@en;
+     skos:definition "An action that occurs at some location during some time."@en;
+     dcterms:description "Examples: A specimen collection process. A machine observation."@en;
+     rdf:type rdfs:Class.
+```
+
+##### Contributed Classes:  *PersonalIdentifier*, *ResourceIdentifier*, *ResourceIdentifierScheme*, *PersonalIdentifierScheme*
+
+```{r http://purl.org/spar/datacite/PersonalIdentifier}
+datacite:PersonalIdentifier a owl:Class ;
+    rdfs:label "personal identifier"@en ;
+    rdfs:comment "An identifier that uniquely identities an individual person, belonging to a particular identifier scheme such as ORCID specified by an individual within the class datacite:PersonalIdentifierScheme."@en .
+```
+
+```{r http://purl.org/spar/datacite/ResourceIdentifier}
+datacite:ResourceIdentifier a owl:Class ;
+    rdfs:label "resource identifier"@en ;
+    rdfs:comment "An identifier that is used to uniquely identifies a resource."@en .
+```
+
+```{r http://purl.org/spar/datacite/ResourceIdentifierScheme}
+datacite:ResourceIdentifierScheme a owl:Class ;
+    rdfs:label "resource identifier scheme"@en ;
+    rdfs:comment "The identifier scheme used to identify a resource.  Individual schemes are defines as members of this class.  For DataCite, the only permitted identifier scheme for the primary resource identifier is the Digital Object Identifier."@en .
+```
+
+```{r http://purl.org/spar/datacite/PersonalIdentifierScheme}
+datacite:PersonalIdentifierScheme a owl:Class ;
+    rdfs:label "personal identifier scheme"@en ;
+    rdfs:comment "The identifier scheme used to identify a person.  Individual schemes are defines as members of this class."@en .
+```
+
+##### New Classes Modelled Using DataCite:  *boldsystems*, *zenodo*, *zoobank*, *genbank*, *orcid*
+
+```{r http://purl.org/spar/datacite/boldsystems}
+datacite:boldsystems rdf:type datacite:ResourceIdentifierScheme ;
+    rdfs:label "an identifier scheme"@en ;
+    rdfs:comment "boldsystems resource identifier scheme."@en .
+```
+
+
+```{r http://purl.org/spar/datacite/zenodo}
+datacite:zenodo rdf:type datacite:ResourceIdentifierScheme ;
+    rdfs:label "an identifier scheme"@en ;
+    rdfs:comment "zenodo resource identifier scheme."@en .
+```
+
+```{r http://purl.org/spar/datacite/zoobank}
+datacite:zoobank rdf:type datacite:ResourceIdentifierScheme ;
+    rdfs:label "an identifier scheme"@en ;
+    rdfs:comment "zoobank resource identifier scheme."@en .
+```
+
+```{r http://purl.org/spar/datacite/genbank}
+datacite:genbank rdf:type datacite:ResourceIdentifierScheme ;
+    rdfs:label "an identifier scheme"@en ;
+    rdfs:comment "genbank resource identifier scheme."@en .
+```
+
+```{r http://purl.org/spar/datacite/orcid}
+datacite:orcid rdf:type datacite:PersonalIdentifierScheme,
+        owl:NamedIndividual ;
+    rdfs:label "orcid"@en ;
+    fabio:hasURL "http://orcid.org/"^^xsd:anyURI ;
+    rdfs:comment "Open Researcher and Contributor Identifier."@en .
+```
+
+
+##### New Classes For Genomic Identifiers: *GenBankAccession*, *BOLDRecord*, *BOLDBin*
+
+```{r http://openbiodiv.net/GenBankAccession}
+:GenBankAccession rdf:type owl:Class ;
+  rdfs:label "GenBankAccession"@en ;
+  rdfs:comment "A GenBankAccession."@en ;
+```
+
+```{r http://openbiodiv.net/BOLDRecord}
+:BOLDRecord rdf:type owl:Class ;
+  rdfs:label "BOLDRecord"@en ;
+  rdfs:comment "A BOLDRecord"@en ;
+```
+
+```{r http://openbiodiv.net/BOLDBin}
+:BOLDBin rdf:type owl:Class ;
+  rdfs:label "BOLDBin"@en ;
+  rdfs:comment "A BOLDBin"@en ;
+```
+
+
+
+
+
+##### Class: *LitCitation*
+
+```{r http://openbiodiv.net/LitCitation}
+:LitCitation rdf:type owl:Class ;
+  rdfs:label "LitCitation"@en ;
+  rdfs:comment "Inside class"@en ;
+```
+
+
+##### Class: *Checklist*
+
+```{r http://openbiodiv.net/Checklist}
+:Checklist rdf:type owl:Class ;
+  rdfs:label "Checklist"@en ;
+  rdfs:comment "A checklist, usually contained in the treatment section "@en ;
+```
+
+##### Class: *NomenclatureCitation*
+
+```{r http://openbiodiv.net/NomenclatureCitation}
+:NomenclatureCitation rdf:type owl:Class ;
+  rdfs:label "NomenclatureCitation"@en ;
+  rdfs:comment "A nomenclature citation; contained in the nomenclature citation list section "@en ;
+```
+
+##### Class: *Institution*
+
+```{r http://openbiodiv.net/Institution}
+:Institution rdf:type owl:Class ;
+  rdfs:label "Institution"@en ;
+  rdfs:comment "An institution; usually holds type material "@en ;
+```
+
+##### Class: *TaxonomicDiscovery*
+
+```{r http://openbiodiv.net/TaxonomicDiscovery}
+:TaxonomicDiscovery rdf:type owl:Class ;
+  rdfs:label "TaxonomicDiscovery"@en ;
+  rdfs:comment "A taxonomic discovery defined by the mentioning of a holotype in the treatment section "@en ;
+```
+
+##### Class: *HolotypeDescription*
+
+```{r http://openbiodiv.net/HolotypeDescription}
+:HolotypeDescription rdf:type owl:Class ;
+  rdfs:label "HolotypeDescription"@en ;
+  rdfs:comment "Description of a holotype in a treatment"@en ;
+```
+
+
+##### Contributed Property: *institutionCode*
+
+```{r http://rs.tdwg.org/dwc/terms/institutionCode}
+:institutionCode rdfs:isDefinedBy <http://rs.tdwg.org/dwc/terms/>;
+     dcterms:isPartOf <http://rs.tdwg.org/dwc/terms/>;
+     dcterms:created "2009-04-24"^^xsd:date;
+     dcterms:modified "2009-09-11"^^xsd:date;
+     dcterms:replaces <http://rs.tdwg.org/dwc/dwcore/InstitutionCode>;
+     rdfs:label "Institution Code"@en;
+     skos:prefLabel "Institution Code"@en;
+     rdfs:comment "The name (or acronym) in use by the institution having custody of the object(s) or information referred to in the record."@en;
+     skos:definition "The name (or acronym) in use by the institution having custody of the object(s) or information referred to in the record."@en;
+     dcterms:description "Examples: \"MVZ\", \"FMNH\", \"AKN-CLO\", \"University of California Museum of Paleontology (UCMP)\""@en;
+     rdf:type <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>.
+```
+
+##### Contributed Property: *typeStatus*
+
+```{r http://rs.tdwg.org/dwc/terms/typeStatus}
+:typeStatus rdfs:isDefinedBy <http://rs.tdwg.org/dwc/terms/>;
+     dcterms:isPartOf <http://rs.tdwg.org/dwc/terms/>;
+     dcterms:created "2009-04-24"^^xsd:date;
+     dcterms:modified "2014-10-23"^^xsd:date;
+     dcterms:replaces <http://rs.tdwg.org/dwc/curatorial/TypeStatus>;
+     rdfs:label "Type Status"@en;
+     skos:prefLabel "Type Status"@en;
+     rdfs:comment "A list (concatenated and separated) of nomenclatural types (type status, typified scientific name, publication) applied to the subject."@en;
+     skos:definition "A list (concatenated and separated) of nomenclatural types (type status, typified scientific name, publication) applied to the subject."@en;
+     dcterms:description "The recommended best practice is to separate the values with a vertical bar (' | '). Examples: \"holotype of Ctenomys sociabilis. Pearson O. P., and M. I. Christie. 1985. Historia Natural, 5(37):388\", \"holotype of Pinus abies | holotype of Picea abies\"."@en;
+     rdf:type <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>.
+```
+
+##### Contributed Property: *verbatimCoordinates*
+
+```{r http://rs.tdwg.org/dwc/terms/verbatimCoordinates}
+:verbatimCoordinates rdfns:type owl:Property ;
+            dctermsns:description "Examples: h41 05 54S 121 05 34W, 17T 630000 4833400"@en ;
+            rdfsns:comment "The verbatim original spatial coordinates of the Location. The coordinate ellipsoid, geodeticDatum, or full Spatial Reference System (SRS) for these coordinates should be stored in verbatimSRS and the coordinate system should be stored in verbatimCoordinateSystem."@en ;
+            rdfsns:isDefinedBy <http://rs.tdwg.org/dwc/terms/> ;
+            rdfsns:label "verbatimCoordinates"@en .
+```
+
+##### Contributed Property: *recordNumber*
+
+```{r http://rs.tdwg.org/dwc/terms/recordNumber}
+:recordNumber rdfns:type owl:Property ;
+            dctermsns:description "	An identifier given to the Occurrence at the time it was recorded. Often serves as a link between field notes and an Occurrence record, such as a specimen collector's number."@en ;
+            rdfsns:comment "The subject is a dwc:Occurrence and the object is a (possibly IRI-identified) resource that is the field notes."@en ;
+            rdfsns:isDefinedBy <http://rs.tdwg.org/dwc/terms/> ;
+            rdfsns:label "recordNumber"@en .
+```
+
+
+##### Contributed Property: *recordedBy*
+
+```{r http://rs.tdwg.org/dwc/terms/recordedBy}
+:recordedBy rdfns:type owl:Property ;
+            dctermsns:description "A list (concatenated and separated) of names of people, groups, or organizations responsible for recording the original Occurrence. The primary collector or observer, especially one who applies a personal identifier (recordNumber), should be listed first."@en ;
+            rdfsns:comment "Recommended best practice is to separate the values in a list with space vertical bar space ( | )."@en ;
+            rdfsns:isDefinedBy <http://rs.tdwg.org/dwc/terms/> ;
+            rdfsns:label "recordedBy"@en .
+```
+
+##### Contributed Property: *country*
+
+```{r http://rs.tdwg.org/dwc/terms/country}
+:country rdfns:type owl:Property ;
+            dctermsns:description "The name of the country or major administrative unit in which the Location occurs."@en ;
+            rdfsns:comment "Recommended best practice is to use a controlled vocabulary such as the Getty Thesaurus of Geographic Names."@en ;
+            rdfsns:isDefinedBy <http://rs.tdwg.org/dwc/terms/> ;
+            rdfsns:label "country"@en .
+```
+
+
+##### Contributed Property: *stateProvince*
+
+```{r http://rs.tdwg.org/dwc/terms/stateProvince}
+:stateProvince rdfns:type owl:Property ;
+            dctermsns:description "The name of the next smaller administrative region than country (state, province, canton, department, region, etc.) in which the Location occurs."@en ;
+            rdfsns:comment "Recommended best practice is to use a controlled vocabulary such as the Getty Thesaurus of Geographic Names."@en ;
+            rdfsns:isDefinedBy <http://rs.tdwg.org/dwc/terms/> ;
+            rdfsns:label "stateProvince"@en .
+```
+
+
+##### Contributed Property: *locality*
+
+```{r http://rs.tdwg.org/dwc/terms/locality}
+:locality rdfns:type owl:Property ;
+            dctermsns:description "The specific description of the place. Less specific geographic information can be provided in other geographic terms (higherGeography, continent, country, stateProvince, county, municipality, waterBody, island, islandGroup). This term may contain information modified from the original to correct perceived errors or standardize the description."@en ;
+            rdfsns:isDefinedBy <http://rs.tdwg.org/dwc/terms/> ;
+            rdfsns:label "locality"@en .
+```
+
+##### Contributed Property: *eventDate*
+
+```{r http://rs.tdwg.org/dwc/terms/eventDate}
+:eventDate rdfns:type owl:Property ;
+            dctermsns:description "The date-time or interval during which an Event occurred. For occurrences, this is the date-time when the event was recorded. Not suitable for a time in a geological context."@en ;
+            rdfsns:comment "Recommended best practice is to use a date that conforms to ISO 8601:2004(E)."@en ;
+            rdfsns:isDefinedBy <http://rs.tdwg.org/dwc/terms/> ;
+            rdfsns:label "eventDate"@en .
+```
+
+
+##### Contributed Property: *occurrenceID*
+
+```{r http://rs.tdwg.org/dwc/terms/occurrenceID}
+:occurrenceID rdfns:type owl:Property ;
+            dctermsns:description "An identifier for the Occurrence (as opposed to a particular digital record of the occurrence). In the absence of a persistent global unique identifier, construct one from a combination of identifiers in the record that will most closely make the occurrenceID globally unique."@en ;
+            rdfsns:comment "Recommended best practice is to use a persistent, globally unique identifier."@en ;
+            rdfsns:isDefinedBy <http://rs.tdwg.org/dwc/terms/> ;
+            rdfsns:label "occurrenceID"@en .
+```
+
+
+##### Contributed Property: *eventID*
+
+```{r http://rs.tdwg.org/dwc/terms/eventID}
+:eventID rdfns:type owl:Property ;
+            dctermsns:description "An identifier for the set of information associated with an Event (something that occurs at a place and time). May be a global unique identifier or an identifier specific to the data set."@en ;
+            rdfsns:isDefinedBy <http://rs.tdwg.org/dwc/terms/> ;
+            rdfsns:label "eventID"@en .
+```
+
+##### Contributed Property: *identificationID*
+
+```{r http://rs.tdwg.org/dwc/terms/identificationID}
+:identificationID rdfns:type owl:Property ;
+            dctermsns:description "An identifier for the Identification (the body of information associated with the assignment of a scientific name). May be a global unique identifier or an identifier specific to the data set."@en ;
+            rdfsns:isDefinedBy <http://rs.tdwg.org/dwc/terms/> ;
+            rdfsns:label "identificationID"@en .
+```
+
+##### Contributed Property: *locationID*
+
+```{r http://rs.tdwg.org/dwc/terms/locationID}
+:locationID rdfns:type owl:Property ;
+            dctermsns:description "An identifier for the set of location information (data associated with dcterms:Location). May be a global unique identifier or an identifier specific to the data set."@en ;
+            rdfsns:isDefinedBy <http://rs.tdwg.org/dwc/terms/> ;
+            rdfsns:label "locationID"@en .
+```
+
+##### Contributed Property: *catalogNumber*
+
+```{r http://rs.tdwg.org/dwc/terms/catalogNumber}
+:catalogNumber rdfns:type owl:Property ;
+            dctermsns:description "An identifier (preferably unique) for the record within the data set or collection."@en ;
+            rdfsns:isDefinedBy <http://rs.tdwg.org/dwc/terms/> ;
+            rdfsns:label "catalogNumber"@en .
+```
+
+##### Contributed Property: *otherCatalogNumbers*
+
+```{r http://rs.tdwg.org/dwc/terms/otherCatalogNumbers}
+:otherCatalogNumbers rdfns:type owl:Property ;
+            dctermsns:description "A list (concatenated and separated) of previous or alternate fully qualified catalog numbers or other human-used identifiers for the same Occurrence, whether in the current or any other data set or collection."@en ;
+            rdfsns:isDefinedBy <http://rs.tdwg.org/dwc/terms/> ;
+            rdfsns:label "otherCatalogNumbers"@en .
+```
+
+
+##### Contributed Property: *individualCount*
+
+```{r http://rs.tdwg.org/dwc/terms/individualCount}
+:individualCount rdfns:type owl:Property ;
+            dctermsns:description "The number of individuals represented present at the time of the Occurrence."@en ;
+            rdfsns:isDefinedBy <http://rs.tdwg.org/dwc/terms/> ;
+            rdfsns:label "individualCount"@en .
+```
+
+##### Contributed Property: *sex*
+
+```{r http://rs.tdwg.org/dwc/terms/sex}
+:sex rdfns:type owl:Property ;
+            dctermsns:description "The sex of the biological individual(s) represented in the Occurrence."@en ;
+            rdfsns:isDefinedBy <http://rs.tdwg.org/dwc/terms/> ;
+            rdfsns:label "sex"@en .
+```
+
+
+##### Contributed Property: *lifeStage*
+
+```{r http://rs.tdwg.org/dwc/terms/lifeStage}
+:lifeStage rdfns:type owl:Property ;
+            dctermsns:description "The age class or life stage of the biological individual(s) at the time the Occurrence was recorded."@en ;
+            rdfsns:isDefinedBy <http://rs.tdwg.org/dwc/terms/> ;
+            rdfsns:label "lifeStage"@en .
+```
+
+##### Contributed Property: *verbatimLatitude*
+
+```{r http://rs.tdwg.org/dwc/terms/verbatimLatitude}
+:verbatimLatitude rdfns:type owl:Property ;
+            rdfsns:isDefinedBy <http://rs.tdwg.org/dwc/terms/> ;
+            rdfsns:label "verbatimLatitude"@en .
+```
+
+##### Contributed Property: *verbatimLongitude*
+
+```{r http://rs.tdwg.org/dwc/terms/verbatimLongitude}
+:verbatimLongitude rdfns:type owl:Property ;
+            rdfsns:isDefinedBy <http://rs.tdwg.org/dwc/terms/> ;
+            rdfsns:label "verbatimLongitude"@en .
+```
+
+##### Contributed Property: *decimalLongitude*
+
+```{r http://rs.tdwg.org/dwc/terms/decimalLongitude}
+:decimalLongitude rdfns:type owl:Property ;
+            rdfsns:isDefinedBy <http://rs.tdwg.org/dwc/terms/> ;
+            rdfsns:label "decimalLongitude"@en .
+```
+
+##### Contributed Property: *decimalLatitude*
+
+```{r http://rs.tdwg.org/dwc/terms/decimalLatitude}
+:decimalLatitude rdfns:type owl:Property ;
+            rdfsns:isDefinedBy <http://rs.tdwg.org/dwc/terms/> ;
+            rdfsns:label "decimalLatitude"@en .
+```
+
+##### Contributed Property: *elevation*
+
+```{r http://rs.tdwg.org/dwc/terms/elevation}
+:elevation rdfns:type owl:Property ;
+            rdfsns:isDefinedBy <http://rs.tdwg.org/dwc/terms/> ;
+            rdfsns:label "elevation"@en .
+```
+
+##### Contributed Property: *depth*
+
+```{r http://rs.tdwg.org/dwc/terms/depth}
+:depth rdfns:type owl:Property ;
+            rdfsns:isDefinedBy <http://rs.tdwg.org/dwc/terms/> ;
+            rdfsns:label "depth"@en .
+```
+
+##### Contributed Property: *identifiedBy*
+
+```{r http://rs.tdwg.org/dwc/terms/identifiedBy}
+:identifiedBy rdfns:type owl:Property ;
+            rdfsns:isDefinedBy <http://rs.tdwg.org/dwc/terms/> ;
+            rdfsns:label "identifiedBy"@en .
+```
+
+##### Contributed Property: *waterBody*
+
+```{r http://rs.tdwg.org/dwc/terms/waterBody}
+:waterBody rdfns:type owl:Property ;
+            rdfsns:isDefinedBy <http://rs.tdwg.org/dwc/terms/> ;
+            rdfsns:label "waterBody"@en .
+```
+
+
+##### Contributed Property: *collectionYear*
+
+```{r http://rs.tdwg.org/dwc/terms/collectionYear}
+:collectionYear rdfns:type owl:Property ;
+            rdfsns:isDefinedBy <http://rs.tdwg.org/dwc/terms/> ;
+            rdfsns:label "collectionYear"@en .
+```
+
+##### Contributed Property: *collectionMonth*
+
+```{r http://rs.tdwg.org/dwc/terms/collectionMonth}
+:collectionMonth rdfns:type owl:Property ;
+            rdfsns:isDefinedBy <http://rs.tdwg.org/dwc/terms/> ;
+            rdfsns:label "collectionMonth"@en .
+```
+
+
+##### Contributed Property: *collectionDay*
+
+```{r http://rs.tdwg.org/dwc/terms/collectionDay}
+:collectionDay rdfns:type owl:Property ;
+            rdfsns:isDefinedBy <http://rs.tdwg.org/dwc/terms/> ;
+            rdfsns:label "collectionDay"@en .
+```
+
+##### Contributed Property: *samplingProtocol*
+
+```{r http://rs.tdwg.org/dwc/terms/samplingProtocol}
+:samplingProtocol rdfns:type owl:Property ;
+            rdfsns:isDefinedBy <http://rs.tdwg.org/dwc/terms/> ;
+            rdfsns:label "samplingProtocol"@en .
+```
+
+##### Contributed Property: *habitat*
+
+```{r http://rs.tdwg.org/dwc/terms/habitat}
+:habitat rdfns:type owl:Property ;
+            rdfsns:isDefinedBy <http://rs.tdwg.org/dwc/terms/> ;
+            rdfsns:label "habitat"@en .
+```
+
+
+##### Contributed Property: *institutionID*
+
+```{r http://rs.tdwg.org/dwc/terms/institutionID}
+:institutionID rdfns:type owl:Property ;
+            rdfsns:isDefinedBy <http://rs.tdwg.org/dwc/terms/> ;
+            rdfsns:label "institutionID"@en .
+```
+
+
+
+##### Contributed Property: *hasIdentifier*
+
+```{r http://rs.tdwg.org/dwc/terms/hasIdentifier}
+:hasIdentifier a  owl:ObjectProperty ;
+    rdfs:label "has identifier"@en ;
+    rdfs:comment "An object property specifying a datacite:Identifier that provides a unique identifer for the entity (either a funder, a person or a resource)."@en .
+```
+
+##### Property: *mentionsIdentifier*
+
+```{r http://openbiodiv.net/mentionsIdentifier}
+:mentionsIdentifier rdfs:type rdf:Property ;
+            rdfs:label "mentionsIdentifier"@en .
+```
+
+
+##### Property: *institutionName*
+
+```{r http://openbiodiv.net/institutionName}
+:institutionName rdfs:type rdf:Property ;
+            rdfs:label "institutionName"@en .
+```
+
+
+
+##### Contributed Property: *usesIdentifierScheme*
+
+```{r http://purl.org/spar/datacite/usesIdentifierScheme}
+:usesIdentifierScheme a owl:ObjectProperty ;
+    rdfs:label "uses identifier scheme"@en ;
+    rdfs:comment "An object property permitting specification of the identifier scheme used to provide the identifier for an entity – either a funder, a person or a resource – defined as an individual of the class datacite:IdentifierScheme."@en .
+
+```
+
+##### Property: *hasGbifTaxon*
+
+```{r http://openbiodiv.net/hasGbifTaxon}
+:hasGbifTaxon rdfs:type rdf:Property ;
+            rdfs:label "hasGbifTaxon"@en .
+```
+
+
+##### Property: *hasDownloadLink*
+
+```{r http://openbiodiv.net/hasDownloadLink}
+:hasDownloadLink rdfs:type rdf:Property ;
+            rdfs:label "hasDownloadLink"@en .
+```
+
+
+##### Property: *hasBibReferenceID*
+
+```{r http://openbiodiv.net/hasBibReferenceID}
+:hasBibReferenceID rdfs:type rdf:Property ;
+            rdfs:label "hasBibReferenceID"@en .
+```
+
+
+##### Property: *verbatimAuthor*
+
+```{r http://openbiodiv.net/verbatimAuthor}
+:verbatimAuthor rdfs:type rdf:Property ;
+            rdfs:label "verbatimAuthor"@en .
+```
+
+##### Property: *verbatimYear*
+
+```{r http://openbiodiv.net/verbatimYear}
+:verbatimYear rdfs:type rdf:Property ;
+            rdfs:label "verbatimYear"@en .
+```
+
 
 

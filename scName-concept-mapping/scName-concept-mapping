@@ -1,0 +1,12 @@
+#maps concepts to scnames from gbif (after gbif checklist generation)
+
+
+
+PREFIX openbiodiv: <http://openbiodiv.net/>
+INSERT {
+ ?gbifConcept openbiodiv:scientificName ?scName.   
+} where { 
+	?gbifConcept a openbiodiv:TaxonomicConcept.
+    BIND (str(?gbifConcept) as ?concept_uri).
+    BIND (URI(CONCAT(STR(?concept_uri), "-scName")) as ?scName).
+}
