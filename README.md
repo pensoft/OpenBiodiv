@@ -35,6 +35,9 @@ Please use 2 for citing.
 
 Select presentations given as part of the OpenBiodiv project are to be found in the [presentations directory](presentations).
 
+## Visualisation OpenBiodiv Ontology
+[here](https://service.tib.eu/webvowl/#iri=https://raw.githubusercontent.com/pensoft/OpenBiodiv/master/ontology/openbiodiv-ontology-latest.ttl)
+
 ## Social Media
 
 - [OBKMS Blog](http://openbkms.blogspot.com/)
